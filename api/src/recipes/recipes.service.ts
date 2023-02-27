@@ -1,10 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Ingredient } from 'src/ingredients/entities/ingredient.entity';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { Step } from 'src/steps/entities/step.entity';
 import { StepsService } from 'src/steps/steps.service';
-import { Repository } from 'typeorm';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { Recipe } from './entities/recipe.entity';
@@ -12,34 +11,44 @@ import { Recipe } from './entities/recipe.entity';
 @Injectable()
 export class RecipesService {
     constructor(
-        @InjectRepository(Recipe)
-        private recipeRepository: Repository<Recipe>,
         private stepsService: StepsService,
         private ingredientsService: IngredientsService,
-    ) {}
+        private prismaService: PrismaService
+    ) { }
 
     async create(createRecipeDto: CreateRecipeDto) {
-        const ingredientsPromises: Promise<Ingredient>[] = createRecipeDto.ingredients.map((ingredient) => {
-            return this.ingredientsService.findOne(ingredient);
-        });
-        const stepsPromises: Promise<Step>[] = createRecipeDto.steps.map((step) => this.stepsService.findOne(step));
-        const ingredients = await Promise.all([...ingredientsPromises]);
-        const steps = await Promise.all([...stepsPromises]);
-        const recipeObj = new Recipe();
-        recipeObj.name = createRecipeDto.name;
-        recipeObj.steps = steps;
-        recipeObj.ingredients = ingredients;
+        //Get the ingredients
+        const ingredientNames = createRecipeDto.ingredients;
+        const ingredientsIds: {id:number}[]= [];
+        ingredientNames.forEach(async item => {
+            const ingredient = await this.prismaService.ingredient.findUnique({
+                where: {
+                    name: item
+                }
+            })
+            ingredientsIds.push({id:ingredient.id});
+        })
 
-        const recipe = await this.recipeRepository.create(recipeObj);
-        this.recipeRepository.save(recipe);
+        //Create the recipe with the steps!
+        const recipe = this.prismaService.recipe.create({
+            data: {
+                name: createRecipeDto.name,
+                cookingTime: createRecipeDto.cookingTime,
+                preparingTime: createRecipeDto.preparingTime,
+                steps: {
+                    create: [...createRecipeDto.steps]
+                },
+                ingredients: {connect:[...ingredientsIds]}
+            }
+        })
         return recipe;
     }
 
     findAll() {
-        return this.recipeRepository.find();
+        return this.prismaService.recipe.findMany();
     }
 
-    async findById(id: number) {
+    /* async findById(id: number) {
         const recipe = await this.recipeRepository.findOneBy({ id: id });
         // const recipe = this.recipeRepository.findOne(id);
         if (recipe) {
@@ -72,5 +81,5 @@ export class RecipesService {
         if (!deleteResponse.affected) {
             throw new HttpException(`Recipe with id ${id} not found`, HttpStatus.NOT_FOUND);
         }
-    }
+    } */
 }
