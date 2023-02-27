@@ -11,16 +11,18 @@ datasource db {
 }
 
 model Ingredient {
-    id        Int      @id @default(autoincrement())
-    name      String   @unique
-    fat       Int
-    carbs     Int
-    protein   Int
-    calories  Int
-    calcium   Int
-    iron      Int
-    magnesium Int
-    recipes   Recipe[]
+    id            Int      @id @default(autoincrement())
+    name          String   @unique
+    categories    String
+    subcategories String
+    fat           Int
+    carbs         Int
+    protein       Int
+    calories      Int
+    calcium       Int
+    iron          Int
+    magnesium     Int
+    recipes       Recipe[]
 }
 
 model Recipe {
