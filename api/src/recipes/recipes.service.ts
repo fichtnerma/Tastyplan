@@ -10,24 +10,20 @@ import { Recipe } from './entities/recipe.entity';
 
 @Injectable()
 export class RecipesService {
-    constructor(
-        private stepsService: StepsService,
-        private ingredientsService: IngredientsService,
-        private prismaService: PrismaService
-    ) { }
+    constructor(private stepsService: StepsService, private ingredientsService: IngredientsService, private prismaService: PrismaService) {}
 
     async create(createRecipeDto: CreateRecipeDto) {
         //Get the ingredients
         const ingredientNames = createRecipeDto.ingredients;
-        const ingredientsIds: {id:number}[]= [];
-        ingredientNames.forEach(async item => {
+        const ingredientsIds: { id: number }[] = [];
+        ingredientNames.forEach(async (item) => {
             const ingredient = await this.prismaService.ingredient.findUnique({
                 where: {
-                    name: item
-                }
-            })
-            ingredientsIds.push({id:ingredient.id});
-        })
+                    name: item,
+                },
+            });
+            ingredientsIds.push({ id: ingredient.id });
+        });
 
         //Create the recipe with the steps!
         const recipe = this.prismaService.recipe.create({
@@ -36,11 +32,11 @@ export class RecipesService {
                 cookingTime: createRecipeDto.cookingTime,
                 preparingTime: createRecipeDto.preparingTime,
                 steps: {
-                    create: [...createRecipeDto.steps]
+                    create: [...createRecipeDto.steps],
                 },
-                ingredients: {connect:[...ingredientsIds]}
-            }
-        })
+                ingredients: { connect: [...ingredientsIds] },
+            },
+        });
         return recipe;
     }
 
