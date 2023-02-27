@@ -1,0 +1,73 @@
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+      # Only will build development stage from our dockerfile
+    # Run in dev Mode: npm run start:dev
+    command: npm run start:watch
+    env_file:
+        - .env
+    environment:
+        - NODE_ENV=development
+        - DATABASE_URL=${DATABASE_URL}
+    ports:
+      - 3000:3000
+    volumes:
+      - /app/node_modules
+      - ./api/src:/app/src
+    depends_on:
+      - redis
+      - postgres
+  redis: # Name of container
+    image: redis
+    ports:
+      - 6379:6379
+    volumes: 
+      - redis:/data
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports: 
+      - '6543:5432'
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: unless-stopped
+    ports:
+      - "5050:80"
+    env_file: .env
+    links:
+      - postgres:postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/client
+      - /client/node_modules
+      - /client/.next
+    depends_on:
+      - api
+
+volumes:
+  postgresdata:
+  pgadmin-data:
+  redis:
+    driver: local
