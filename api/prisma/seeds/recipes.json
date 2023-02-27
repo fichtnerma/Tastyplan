@@ -1,0 +1,116 @@
+[
+    {
+        "name": "Nudeln mit Pesto",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Nudeln",
+                "amount": "125g"
+            }, 
+            {
+                "name": "Pesto",
+                "amount": "100g"
+            }, 
+            {
+                "name": "Cocktailtomaten",
+                "amount": "250g"
+            },
+            {
+                "name": "Feta",
+                "amount": "90g"
+            },
+            {
+                "name": "Sonnenblumenkerne",
+                "amount": "20g"
+            },
+            {
+                "name": "Salz",
+                "amount": "1 Prise"
+            },
+            {
+                "name": "Pfeffer",
+                "amount": "1 Prise"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Zuerst die Nudeln in einem Topf mit Salzwasser nach Packungsanleitung  kochen. Anschließend in einem Sieb gut abtropfen lassen."
+            }, 
+            {
+                "stepCount": "2",
+                "description": "In der Zwischenzeit die Tomaten und Feta schneiden und die Sonnenblumenkerne in der Pfanne auf niedriger Hitze anrösten, bis sie goldbraun sind."
+            },
+            {
+                "stepCount": "3",
+                "description": "Sobald die Nudeln fertig sind, das Pesto unter die Nudeln rühren.  Die Nudeln mit den Tomaten, dem Feta und den Sonnenblumenkernen vermengen und mit Salz und Pfeffer abschmecken."
+            }
+        ],
+        "difficulty": "easy",
+        "prepareTime": "15min",
+        "cookingTime": "",
+        "kitchenware": ["Topf", "Pfanne"],
+        "type": "vegetarian"
+    },
+    {
+        "name": "Erbsensuppe",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Zwiebel",
+                "amount": "0.5"
+            }, 
+            {
+                "name": "Butter",
+                "amount": "7g"
+            }, 
+            {
+                "name": "Erbsen",
+                "amount": "100g"
+            },
+            {
+                "name": "Knoblauch",
+                "amount": "1"
+            },
+            {
+                "name": "Gemüsebrühe",
+                "amount": "200ml"
+            },
+            {
+                "name": "Sahne",
+                "amount": "50ml"
+            },
+            {
+                "name": "Muskatnuss",
+                "amount": "1 Prise"
+            },
+            {
+                "name": "Salz",
+                "amount": "1 Prise"
+            },
+            {
+                "name": "Pfeffer",
+                "amount": "1 Prise"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Die Zwiebel schälen und in feine Würfel schneiden. Die Butter in einen Topf geben und bei mittlerer Hitze schmelzen. Die Zwiebeln hineingeben und unter gelegentlichem Rühren für etwa 3 Minuten anschwitzen."
+            }, 
+            {
+                "stepCount": "2",
+                "description": "Mit Gemüsebrühe ablöschen und aufkochen. Die Erbsen hineingeben und aufkochen lassen. Die Erbsen mit einem Pürierstab zu einer feinen Suppe pürieren. Dabei nach und nach die Sahne unterrühren."
+            },
+            {
+                "stepCount": "3",
+                "description": "Die Suppe mit Salz und Pfeffer sowie etwas Muskatnuss abschmecken."
+            }
+        ],
+        "difficulty": "easy",
+        "prepareTime": "25min",
+        "cookingTime": "",
+        "kitchenware": ["Topf", "Pürierstab"],
+        "type": "vegetarian"
+    }
+]

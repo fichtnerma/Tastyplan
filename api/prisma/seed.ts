@@ -4,25 +4,60 @@ import { PrismaClient } from '@prisma/client';
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
+const fs = require('fs');
+const parse = require('csv-parser');
 
 async function main() {
-    // create two dummy articles
-    const ingredient = await prisma.ingredient.upsert({
-        where: { name: 'Reis' },
-        update: {},
-        create: {
-            name: 'Reis',
-            calories: 100,
-            protein: 10,
-            fat: 10,
-            carbs: 10,
-            calcium: 10,
-            iron: 10,
-            magnesium: 10,
-        },
-    });
+    initIngredients();
+    await initRecipes();
+}
 
-    console.log({ ingredient });
+function initIngredients() {
+    const ingredients: any[] = [];
+    try {
+        fs.createReadStream('../seeds/ingredients.csv')
+            .pipe(parse({ delimiter: ';', from_line: 2 }))
+            .on('data', function (row: any) {
+                const ingredient = {
+                    name: row['Name'],
+                    calories: row['Energie, Kalorien (kcal)'],
+                    protein: row['Protein (g)'],
+                    fat: row['Fett, total (g)'],
+                    carbs: row['Kohlenhydrate, verfügbar (g)'],
+                    calcium: row['Calcium (Ca) (mg)'],
+                    iron: row['Eisen (Fe) (mg)'],
+                    magnesium: row['Magnesium (Mg) (mg)'],
+                };
+                ingredients.push(ingredient);
+            })
+            .on('end', async function () {
+                const ingredientPromises = ingredients.map((ingredient) => {
+                    prisma.ingredient.upsert({
+                        where: { name: ingredient.name },
+                        update: {},
+                        create: {
+                            ...ingredient,
+                        },
+                    });
+                });
+                await Promise.all(ingredientPromises);
+                console.log('Ingredients added');
+            });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function initRecipes() {
+    const recipes: any[] = require('../seeds/recipes.json');
+    const recipePromises = recipes.map((recipe) => {
+        prisma.recipe.create({
+            data: {
+                ...recipe,
+            },
+        });
+    });
+    await Promise.all(recipePromises);
 }
 
 // execute the main function
