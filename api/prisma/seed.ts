@@ -9,14 +9,14 @@ const parse = require('csv-parser');
 
 async function main() {
     initIngredients();
-    await initRecipes();
+    // await initRecipes();
 }
 
 function initIngredients() {
     const ingredients: any[] = [];
     try {
-        fs.createReadStream('../seeds/ingredients.csv')
-            .pipe(parse({ delimiter: ';', from_line: 2 }))
+        fs.createReadStream('./prisma/seeds/ingredients.csv')
+            .pipe(parse({ separator: ';' }))
             .on('data', function (row: any) {
                 const ingredient = {
                     name: row['Name'],
@@ -31,7 +31,9 @@ function initIngredients() {
                 ingredients.push(ingredient);
             })
             .on('end', async function () {
-                const ingredientPromises = ingredients.map((ingredient) => {
+                console.log(ingredients.slice(0, 10));
+
+                const ingredientPromises = ingredients.slice(0, 10).map((ingredient) => {
                     prisma.ingredient.upsert({
                         where: { name: ingredient.name },
                         update: {},
@@ -40,7 +42,9 @@ function initIngredients() {
                         },
                     });
                 });
-                await Promise.all(ingredientPromises);
+                const ing = await Promise.all(ingredientPromises);
+                console.log(ing);
+
                 console.log('Ingredients added');
             });
     } catch (error) {
