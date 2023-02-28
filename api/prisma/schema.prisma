@@ -48,3 +48,10 @@ model User {
     password String
     name     String?
 }
+
+model Preferences {
+    id Int @id @default(autoincrement())
+    foodType String
+    allergics String[]
+    foodDislikes Int[]
+}

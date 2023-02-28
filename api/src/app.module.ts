@@ -7,6 +7,8 @@ import { RecipesModule } from './recipes/recipes.module';
 import { StepsModule } from './steps/steps.module';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
+import { PreferencesController } from './preferences/preferences.controller';
+import { PreferencesModule } from './preferences/preferences.module';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -28,7 +30,8 @@ import * as Joi from '@hapi/joi';
     //     DatabaseModule,
     //     UsersModule,
     // ],
-    controllers: [AppController],
+    controllers: [AppController, PreferencesController],
     providers: [AppService],
+    imports: [PreferencesModule],
 })
 export class AppModule {}

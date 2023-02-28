@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, Repository } from 'typeorm';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
 import { UpdateIngredientDto } from './dto/update-ingredient.dto';
 import { Ingredient } from './entities/ingredient.entity';
 
 @Injectable()
 export class IngredientsService {
-    constructor(
+    /* constructor(
         @InjectRepository(Ingredient)
         private readonly ingredientRepository: Repository<Ingredient>,
     ) {}
@@ -39,5 +37,5 @@ export class IngredientsService {
 
     remove(id: number) {
         return `This action removes a #${id} ingredient`;
-    }
+    } */
 }
