@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { CreateStepDto } from './dto/create-step.dto';
 import { UpdateStepDto } from './dto/update-step.dto';
 import { Step } from './entities/step.entity';
 
 @Injectable()
 export class StepsService {
-    constructor(
+    /* constructor(
         @InjectRepository(Step)
         private stepRepository: Repository<Step>,
     ) {}
@@ -34,5 +32,5 @@ export class StepsService {
 
     remove(id: number) {
         return `This action removes a #${id} step`;
-    }
+    } */
 }
