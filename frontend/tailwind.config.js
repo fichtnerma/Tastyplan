@@ -18,6 +18,9 @@ module.exports = {
                     custom4: '#3a3a3a',
                 },
             },
+            height: {
+                '90v': '90vh',
+            },
         },
     },
     plugins: [],

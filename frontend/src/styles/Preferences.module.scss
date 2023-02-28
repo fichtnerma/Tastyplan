@@ -2,24 +2,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 25px 0 0 0;
-    padding: 0;
 
     .choiceWrapper {
         display: block;
-        margin-bottom: 1rem;
-        width: 300px;
+        margin-bottom: 1.5rem;
+        width: 80%;
         height: 60px;
         position: relative;
 
         &:last-child {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
     }
 
     label,
     input {
-        display: block;
         position: absolute;
         top: 0;
         left: 0;
@@ -37,14 +34,19 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid #ccc;
+        border: 2px solid var(--c-gray-4);
         border-radius: 50px;
         z-index: 90;
+        font-weight: 500;
+        font-size: 1.125rem; /* 18px */
+        line-height: 1.75rem; /* 28px */
+        color: var(--c-gray-4);
     }
 
     input[type='radio']:checked + label,
     .Checked + label {
         background: var(--c-green-1);
         color: var(--c-white);
+        border: none;
     }
 }
