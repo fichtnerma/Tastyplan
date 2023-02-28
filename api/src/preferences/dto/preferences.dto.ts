@@ -1,6 +1,6 @@
 import { IsArray, IsNotEmpty, IsString } from "class-validator";
 
-export class PreferencesDto {
+export class CreatePreferencesDto {
 
     @IsString()
     @IsNotEmpty()
@@ -8,7 +8,7 @@ export class PreferencesDto {
 
     @IsArray()
     @IsString({each: true})
-    allergens: string[]
+    allergenes: string[]
 
     @IsArray()
     @IsString({each: true})

@@ -11,8 +11,8 @@ datasource db {
 }
 
 model Ingredient {
-    id            Int      @id @default(autoincrement())
-    name          String   @unique
+    id            Int           @id @default(autoincrement())
+    name          String        @unique
     categories    String
     subcategories String
     fat           Int
@@ -23,6 +23,7 @@ model Ingredient {
     iron          Int
     magnesium     Int
     recipes       Recipe[]
+    foodDislikes  Preferences[]
 }
 
 model Recipe {
@@ -50,8 +51,8 @@ model User {
 }
 
 model Preferences {
-    id Int @id @default(autoincrement())
-    foodType String
-    allergics String[]
-    foodDislikes Int[]
+    id           Int          @id @default(autoincrement())
+    foodType     String
+    allergenes   String[]
+    foodDislikes Ingredient[]
 }
