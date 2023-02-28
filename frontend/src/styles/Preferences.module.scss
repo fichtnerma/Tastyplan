@@ -1,0 +1,42 @@
+.preferencesWrapper {
+    margin: 25px 0 0 0;
+    padding: 0;
+
+    .choiceWrapper {
+        float: left;
+        margin: 0 5px 0 0;
+        width: 100px;
+        height: 40px;
+        position: relative;
+    }
+
+    label,
+    input {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    input[type='radio'] {
+        opacity: 0.01;
+        z-index: 100;
+    }
+
+    label {
+        padding: 5px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        z-index: 90;
+    }
+
+    label:hover {
+        background: #ddd;
+    }
+
+    input[type='radio']:checked + label,
+    .Checked + label {
+        background: yellow;
+    }
+}
