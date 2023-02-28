@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { PreferencesService } from './preferences.service';
-import { CreatePreferencesDto } from './dto/preferences.dto';
+import { CreatePreferencesDto } from './dto/createPreferences.dto';
 
 @Controller('preferences')
 export class PreferencesController {
@@ -8,7 +8,6 @@ export class PreferencesController {
 
     @Post()
     preferences(@Body() dto: CreatePreferencesDto) {
-         this.preferencesService.preferences(dto)
-         return '';
+        return this.preferencesService.preferences(dto)
     }
 }
