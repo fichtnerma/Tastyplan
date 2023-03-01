@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from '../../styles/StartPage.module.scss';
 import logo from '../../../public/logo.svg';
 
@@ -12,7 +13,9 @@ export default function index() {
                 <h2 className={styles.startText}>Los gehts!</h2>
                 <div className={styles.startButton}>
                     <button className={styles.buttonContent} onClick={() => console.log('Button clicked!')}>
-                        <h4 className={styles.startButtonText}>Start</h4>
+                        <Link href="/preferences">
+                            <h4 className={styles.startButtonText}>Start</h4>
+                        </Link>
                     </button>
                 </div>
             </div>
