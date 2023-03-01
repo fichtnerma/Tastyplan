@@ -4,8 +4,8 @@ import logo from '../../../public/logo.svg';
 
 export default function index() {
     return (
-        <div className={styles.greenShadow}>
-            <div className={styles.main}>
+        <div className={styles.main}>
+            <div className={styles.greenShadow}>
                 <div className={styles.logo}>
                     <Image src={logo} alt="logo" width={400} height={239} priority />
                 </div>
