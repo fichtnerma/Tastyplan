@@ -3,16 +3,56 @@
 @tailwind utilities;
 
 :root {
-    --green-1: #009245;
-    --green-2: #006837;
+    --green-light: #009245;
+    --green-dark: #006837;
 
     --red: #d54444;
 
-    --gray-1: #f2f5f4;
-    --gray-2: #d6d6d6;
-    --gray-3: #707070;
-    --gray-4: #3a3a3a;
+    --gray-light: #f2f5f4;
+    // --c-gray-2: #d6d6d6;
+    // --c-gray-3: #707070;
+    --gray-dark: #3a3a3a;
 
     --black: #000000;
     --white: #ffffff;
+}
+
+h1 {
+    font-family: 'degular', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 80px;
+    color: var(--gray-light);
+}
+
+h2 {
+    font-family: 'degular', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
+    color: var(--gray-light);
+}
+
+h3 {
+    font-family: 'degular', sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 35px;
+    color: var(--gray-dark);
+}
+
+h4 {
+    font-family: 'degular', sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 25px;
+    color: var(--gray-dark);
+}
+
+p {
+    font-family: 'degular', sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 20px;
+    color: var(--gray-dark);
 }
