@@ -34,19 +34,19 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border: 2px solid var(--gray-4);
+        border: 2px solid var(--gray-dark);
         border-radius: 50px;
         z-index: 90;
         font-weight: 500;
         font-size: 1.125rem; /* 18px */
         line-height: 1.75rem; /* 28px */
         text-transform: capitalize;
-        color: var(--gray-4);
+        color: var(--gray-dark);
     }
 
     input[type='radio']:checked + label,
     .Checked + label {
-        background: var(--green-1);
+        background: var(--green-light);
         color: var(--white);
         border: none;
     }
