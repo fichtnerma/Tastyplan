@@ -15,7 +15,9 @@ export default function IntolerancesPage() {
 
     const [selection, setSelection] = useState([]);
 
-    const onAddChoice = (e: React.ChangeEvent<HTMLInputElement>) => {};
+    const onAddChoice = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSelection([...e.target.value]);
+    };
 
     return (
         <div className="flex justify-center items-center h-90v bg-green-custom2">
@@ -25,7 +27,13 @@ export default function IntolerancesPage() {
                     <div className="flex flex-col items-center">
                         {intolerances.map((intolerance, i) => (
                             <div key={i} className={styles.choiceWrapper}>
-                                <input type="checkbox" name="intolerances" value={intolerance} onChange={onAddChoice} />
+                                <input
+                                    type="checkbox"
+                                    name="intolerances"
+                                    value={intolerance}
+                                    checked={selection.includes(intolerance)}
+                                    onChange={onAddChoice}
+                                />
                                 <label htmlFor={intolerance}>{intolerance}</label>
                             </div>
                         ))}
