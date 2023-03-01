@@ -11,28 +11,41 @@ datasource db {
 }
 
 model Ingredient {
-    id            Int           @id @default(autoincrement())
-    name          String        @unique
-    categories    String
-    subcategories String
-    fat           Int
-    carbs         Int
-    protein       Int
-    calories      Int
-    calcium       Int
-    iron          Int
-    magnesium     Int
-    recipes       Recipe[]
-    foodDislikes  Preferences[]
+    id                   Int                    @id @default(autoincrement())
+    name                 String
+    categories           String
+    subcategories        String?
+    fat                  Float?
+    carbs                Float?
+    protein              Float?
+    calories             Float?
+    calcium              Float?
+    iron                 Float?
+    magnesium            Float?
+    foodDislikes         Preferences[]
+    IngredientWithAmount IngredientWithAmount[]
 }
 
 model Recipe {
-    id            Int          @id @default(autoincrement())
+    id            Int                    @id @default(autoincrement())
     name          String
-    cookingTime   Int
+    img           String?
+    difficulty    String
+    kitchenware   String[]
+    cookingTime   Int?
     preparingTime Int
-    ingredients   Ingredient[]
+    type          String
+    ingredients   IngredientWithAmount[]
     steps         Step[]
+}
+
+model IngredientWithAmount {
+    id           Int         @id @default(autoincrement())
+    amount       String?
+    ingredientId Int?
+    ingredient   Ingredient? @relation(fields: [ingredientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    recipeId     Int?
+    recipe       Recipe?     @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Step {
