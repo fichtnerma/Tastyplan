@@ -25,7 +25,6 @@ export default function IntolerancesPage() {
             currentSelection.push(e.target.value);
             setChoices([...currentSelection]);
         }
-        console.log(choices);
     };
 
     return (
@@ -33,7 +32,7 @@ export default function IntolerancesPage() {
             <form className="flex justify-center py-8 px-12 w-[36rem] bg-white rounded-[42px]">
                 <fieldset className="flex flex-col">
                     <h2 className="text-5xl font-semibold text-gray-custom4 mb-14">Unverträglichkeiten</h2>
-                    <div className="">
+                    <div className="grid grid-cols-3 gap-3">
                         {intolerances.map((intolerance, i) => (
                             <div key={i} className={styles.intoleranceWrapper}>
                                 <input
