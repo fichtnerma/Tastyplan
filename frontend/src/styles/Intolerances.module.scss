@@ -1,2 +1,48 @@
-.intolerancesWrapper {
+.intoleranceWrapper {
+    display: block;
+    margin-bottom: 1.5rem;
+    width: 50px;
+    height: 50px;
+    position: relative;
+
+    .hidden {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    label,
+    input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        cursor: pointer;
+        z-index: 1;
+    }
+    input[type='checkbox'] {
+        opacity: 0.01;
+        z-index: 100;
+    }
+
+    label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid var(--gray-4);
+        border-radius: 15px;
+        z-index: 90;
+        font-weight: 500;
+        font-size: 1.125rem; /* 18px */
+        line-height: 1.75rem; /* 28px */
+        color: var(--gray-4);
+    }
+
+    input[type='checkbox']:checked + label,
+    .Checked + label {
+        background: var(--green-1);
+        color: var(--white);
+        border: none;
+    }
 }
