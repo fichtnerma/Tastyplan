@@ -1,14 +1,13 @@
-import Footer from '@components/Footer/Footer'
-import Header from '@components/Header/Header'
-import React from 'react'
-
+import Footer from '@components/Footer/Footer';
+import Header from '@components/Header/Header';
+import React from 'react';
 
 export default function Layout({ children }: React.PropsWithChildren) {
-  return (
-    <>
-      <Header />
-      <main>{children}</main>
-      <Footer />
-    </>
-  )
+    return (
+        <>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+        </>
+    );
 }
