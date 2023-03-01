@@ -6,8 +6,9 @@ import { CreatePreferencesDto } from './dto/createPreferences.dto';
 export class PreferencesController {
     constructor(private preferencesService: PreferencesService) { }
 
+
     @Post()
-    preferences(@Body() dto: CreatePreferencesDto) {
-        return this.preferencesService.preferences(dto)
+    preferences(@Body() dtoCreatePreferencesDto: CreatePreferencesDto) { 
+        return this.preferencesService.preferences(dtoCreatePreferencesDto)
     }
 }

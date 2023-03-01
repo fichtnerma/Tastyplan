@@ -53,19 +53,23 @@ model User {
 
 model Preferences {
     id           Int          @id @default(autoincrement())
-    foodType     String
+    formOfDiet     String
     allergenes   String[]
     foodDislikes Ingredient[]
 }
 
 model Weekplan {
     id            Int             @id @default(autoincrement())
+    startDate     DateTime        @default(now()) @db.Date
+    endDate       DateTime        @default(dbgenerated("DATEADD(day,7, GETDATE())")) @db.Date
     weekplanEntry WeekplanEntry[]
 }
 
 model WeekplanEntry {
-    id       Int        @id @default(autoincrement())
-    weekday  String
-    weekplan Weekplan[]
-    recipe   Recipe[]
+    id         Int      @id @default(autoincrement())
+    date       DateTime @db.Date
+    weekplanId Int
+    weekplan   Weekplan @relation(fields: [weekplanId], references: [id])
+    recipeId   Int    
+    recipe     Recipe @relation(fields: [recipeId], references: [id])
 }

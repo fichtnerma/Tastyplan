@@ -1,0 +1,139 @@
+openapi: 3.0.3
+info:
+  title: TastyPlan
+  description: |
+    The best cooking App on planet earth
+  version: 1.0.0
+paths:
+  /preferences:
+    post:
+      tags:
+        - postPreferences
+      summary: Endpoint receives all user preferences and response with simple validation message
+      description: Getting the information from frontend and processing it in the backend 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+             $ref: "#/components/schemas/preferences"
+            examples:
+              UserPreferencesWithAllergenesAndDislikes:
+                summary: A user has some Allergenes and dislikes
+                value:
+                  {
+                    "formOfDiet": "vegan",
+                    "allergenes": ["gluten","sellerie"],
+                    "dislikes": ["paprika","tomate","reis"]
+                  }
+      responses: 
+        "200":
+          description: "User preferences has been send successfully."
+          content:
+            applictaion/json:
+              schema:
+                $ref: "#/components/schemas/userPreferencesConfirmation"
+              example: "The prefernces were sent successfully."
+  
+  /weekplan/{user}:
+    parameters: 
+    -   name: user
+        description: Identifier of an app user
+        in: path
+        required: true
+        schema: 
+          $ref: "#/components/schemas/identifier"
+    get: 
+      tags: 
+        - getWeekplan
+      summary: Returns a weekplan consisting of a defined amount of receipes (reduced amount of information for preview)
+      description: Endpoint response with a weekplan containing information about single recipes (reduced information) for each day
+      responses: 
+        "200":
+          description: Weekplan for the specific user
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/weekplan"
+              examples: 
+                WeekplanWithTwoWeekdays:
+                  summary: A Weekplan with recipe information for two days
+                  value:
+                    {
+                      weekplanEntries:
+                      [
+                        {
+                          "weekday": "monday",
+                          "receipeInformation":{
+                            "id": 1,
+                            "imageRef": "https://fresh-vegetab?sHr_ZIdoynViJ8kW0E=",
+                            "title": "Chicken Bowl",
+                            "preparingTime": 20,
+                            "cookingTime": 50
+                          }
+                        },
+                        {
+                          "weekday": "tuesday",
+                          "receipeInformation":{
+                            "id": 2,
+                            "imageRef": "https://fresh-vegetab?sHr_ZIdoynViJ8kW0E=",
+                            "title": "Pizza",
+                            "preparingTime": 20,
+                            "cookingTime": 50
+                          }
+                        }
+                      ]
+                    }
+
+components:
+  schemas:
+    preferences:
+      type: object
+      properties: 
+        formOfDiet: 
+          type: string
+        allergenes:
+          type: array
+          items:
+            type: string
+        foodDislikes:
+          type: array
+          items: 
+            type: string
+    weekplan:
+      type: array
+      items: 
+        $ref: "#/components/schemas/weekplanEntry"
+    weekplanEntry:
+      type: object
+      properties:
+        weekday:
+          type: string
+        receipeInformation:
+          type: object
+          properties: 
+            id: 
+              type: integer
+            imageRef:
+              type: string
+            title:
+              type: string
+            preparingTime:
+              type: integer
+            cookingTime:
+              type: integer  
+    identifier:
+      type: integer
+      minimum: 1
+      example: 0
+
+    userPreferencesConfirmation:
+      type: string
+
+    
+
+
+      
+      
+        
+

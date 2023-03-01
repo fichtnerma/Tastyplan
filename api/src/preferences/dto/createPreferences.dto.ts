@@ -4,7 +4,7 @@ export class CreatePreferencesDto {
 
     @IsString()
     @IsNotEmpty()
-    foodType: string
+    formOfDiet: string
 
     @IsArray()
     @IsString({each: true})
