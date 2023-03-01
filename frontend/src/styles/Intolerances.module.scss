@@ -1,15 +1,8 @@
 .intoleranceWrapper {
     display: block;
-    margin-bottom: 1.5rem;
     width: 150px;
     height: 150px;
     position: relative;
-
-    .hidden {
-        position: absolute;
-        visibility: hidden;
-        opacity: 0;
-    }
 
     label,
     input {
@@ -21,6 +14,7 @@
         cursor: pointer;
         z-index: 1;
     }
+
     input[type='checkbox'] {
         opacity: 0.01;
         z-index: 100;

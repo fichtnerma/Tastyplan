@@ -4,14 +4,11 @@ import { useState } from 'react';
 export default function IntolerancesPage() {
     const intolerances = [
         'Laktoseintoleranz',
-        'Fruktoseintoleranz',
         'Zöliakie',
-        'Glutenunverträglichkeit',
         'Histaminintoleranz',
         'Sorbitintoleranz',
         'Sacharoseintoleranz',
         'Alkoholintoleranz',
-        'Weizensensitivität',
     ];
 
     const [choices, setChoices] = useState<string[]>([]);
@@ -32,7 +29,7 @@ export default function IntolerancesPage() {
             <form className="flex justify-center py-8 px-12 w-[36rem] bg-white rounded-[42px]">
                 <fieldset className="flex flex-col">
                     <h2 className="text-5xl font-semibold text-gray-custom4 mb-14">Unverträglichkeiten</h2>
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-3 mb-6">
                         {intolerances.map((intolerance, i) => (
                             <div key={i} className={styles.intoleranceWrapper}>
                                 <input
