@@ -5,12 +5,13 @@ import styles from '../styles/App.module.scss';
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <Layout>
-            <div className={styles.background}>
-                <div className={styles.greenShadow}>
-                    <Component {...pageProps} />
-                </div>
+        <div className={styles.background}>
+            <div className={styles.greenShadow}>
+                <Layout>
+                    {' '}
+                    <Component {...pageProps} />{' '}
+                </Layout>
             </div>
-        </Layout>
+        </div>
     );
 }

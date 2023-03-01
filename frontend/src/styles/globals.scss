@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "@styles/variables.scss";
+@import '@styles/variables.scss';
 
 :root {
     --green-light: #009245;
-    --green-dark: #006837;
+    --green-dark: 0, 104, 55;
 
     --red: #d54444;
 
@@ -17,13 +17,11 @@
 
     --black: #000000;
     --white: #ffffff;
-
 }
 
 body {
     width: 100vw;
     height: 100vh;
-    padding-top: 50px;
 }
 
 h1 {
