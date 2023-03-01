@@ -13,10 +13,17 @@ export default function IntolerancesPage() {
         'Alkoholintoleranz',
     ];
 
-    const [selection, setSelection] = useState([]);
+    const [selection, setSelection] = useState<string[]>([]);
 
     const onAddChoice = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSelection([...e.target.value]);
+        const currentSelection = [...selection];
+        if (currentSelection.includes(e.target.value)) {
+            const cleanSelection = currentSelection.filter((el) => el !== e.target.value);
+            setSelection([...cleanSelection]);
+        } else {
+            currentSelection.push(e.target.value);
+            setSelection([...currentSelection]);
+        }
     };
 
     return (
