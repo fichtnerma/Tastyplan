@@ -46,7 +46,7 @@
 
     input[type='radio']:checked + label,
     .Checked + label {
-        background: var(--green-light);
+        background-color: var(--green-light);
         color: var(--white);
         border: none;
     }
