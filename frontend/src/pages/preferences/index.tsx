@@ -2,6 +2,8 @@ import styles from '@styles/Preferences.module.scss';
 import React, { useState } from 'react';
 
 const PreferencesPage = () => {
+    const preferences = ['omnivor', 'flexitarian', 'pescetarian', 'vegetarian', 'vegan'];
+
     const [selection, setSelection] = useState('omnivor');
 
     const onChoiceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,56 +16,18 @@ const PreferencesPage = () => {
                 <fieldset className="flex flex-col">
                     <h2 className="text-5xl font-semibold text-gray-custom4 mb-14">Set Preferences</h2>
                     <div className={styles.preferencesWrapper}>
-                        <div className={styles.choiceWrapper}>
-                            <input
-                                type="radio"
-                                name="preferences"
-                                value="omnivor"
-                                checked={selection === 'omnivor'}
-                                onChange={onChoiceChange}
-                            />
-                            <label htmlFor="omnivor">Omnivor</label>
-                        </div>
-                        <div className={styles.choiceWrapper}>
-                            <input
-                                type="radio"
-                                name="preferences"
-                                value="flexitarian"
-                                checked={selection === 'flexitarian'}
-                                onChange={onChoiceChange}
-                            />
-                            <label htmlFor="flexitarian">Flexetarian</label>
-                        </div>
-                        <div className={styles.choiceWrapper}>
-                            <input
-                                type="radio"
-                                name="preferences"
-                                value="pescetarian"
-                                checked={selection === 'pescetarian'}
-                                onChange={onChoiceChange}
-                            />
-                            <label htmlFor="pescetarian">Pescetarian</label>
-                        </div>
-                        <div className={styles.choiceWrapper}>
-                            <input
-                                type="radio"
-                                name="preferences"
-                                value="vegetarian"
-                                checked={selection === 'vegetarian'}
-                                onChange={onChoiceChange}
-                            />
-                            <label htmlFor="vegetarian">Vegetarian</label>
-                        </div>
-                        <div className={styles.choiceWrapper}>
-                            <input
-                                type="radio"
-                                name="preferences"
-                                value="vegan"
-                                checked={selection === 'vegan'}
-                                onChange={onChoiceChange}
-                            />
-                            <label htmlFor="vegan">Vegan</label>
-                        </div>
+                        {preferences.map((preference, i) => (
+                            <div key={i} className={styles.choiceWrapper}>
+                                <input
+                                    type="radio"
+                                    name="preferences"
+                                    value={preference}
+                                    checked={selection === preference}
+                                    onChange={onChoiceChange}
+                                />
+                                <label htmlFor="omnivor">{preference}</label>
+                            </div>
+                        ))}
                     </div>
                     <div className="flex justify-center relative">
                         <button type="submit" className="font-medium text-gray-custom4">
