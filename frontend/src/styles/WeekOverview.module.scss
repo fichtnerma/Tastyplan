@@ -1,0 +1,49 @@
+@import "@styles/variables.scss";
+
+
+.container {
+    width: 80%;
+    margin-inline: auto;
+}
+
+.weekplanBox {
+    background-color: var(--gray-light);
+    width: 100%;
+    height: 300px;
+    box-shadow: $box-shadow;
+    border-radius: $boder-radius;
+    padding: 20px;
+    margin-inline: auto;
+    margin-top: 10px;
+}
+
+.foodBox {
+    width: 150px;
+    height: 150px;
+    box-shadow: $box-shadow;
+    border-radius: $boder-radius;
+    margin-top: 10px;
+
+    &:hover .foodImg {
+        opacity: 0.2;
+    }
+
+    &:hover .discriptionFood {
+        opacity: 1;
+    }
+}
+
+.foodImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: $boder-radius;
+}
+
+.discriptionFood {
+    opacity: 0;
+    transition: .2s ease;
+    position: absolute;
+    margin-top: -140px;
+    padding: 5px;
+}
