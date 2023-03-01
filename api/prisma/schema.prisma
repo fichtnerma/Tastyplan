@@ -27,16 +27,17 @@ model Ingredient {
 }
 
 model Recipe {
-    id            Int                    @id @default(autoincrement())
-    name          String
-    img           String?
-    difficulty    String
-    kitchenware   String[]
-    cookingTime   Int?
-    preparingTime Int
-    type          String
-    ingredients   IngredientWithAmount[]
-    steps         Step[]
+    id                  Int                    @id @default(autoincrement())
+    name                String
+    img                 String?
+    difficulty          String
+    kitchenware         String[]
+    cookingTime         Int?
+    preparingTime       Int
+    type                String
+    ingredients         IngredientWithAmount[]
+    steps               Step[]
+    weekplanEntryRecipe WeekplanEntry[]
 }
 
 model IngredientWithAmount {
@@ -68,4 +69,16 @@ model Preferences {
     foodType     String
     allergenes   String[]
     foodDislikes Ingredient[]
+}
+
+model Weekplan {
+    id            Int             @id @default(autoincrement())
+    weekplanEntry WeekplanEntry[]
+}
+
+model WeekplanEntry {
+    id       Int        @id @default(autoincrement())
+    weekday  String
+    weekplan Weekplan[]
+    recipe   Recipe[]
 }
