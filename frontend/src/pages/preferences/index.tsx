@@ -25,7 +25,7 @@ const PreferencesPage = () => {
                                     checked={selection === preference}
                                     onChange={onChoiceChange}
                                 />
-                                <label htmlFor="omnivor">{preference}</label>
+                                <label htmlFor={preference}>{preference}</label>
                             </div>
                         ))}
                     </div>
