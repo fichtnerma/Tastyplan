@@ -1,0 +1,53 @@
+.preferencesWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .choiceWrapper {
+        display: block;
+        margin-bottom: 1.5rem;
+        width: 80%;
+        height: 60px;
+        position: relative;
+
+        &:last-child {
+            margin-bottom: 1.8rem;
+        }
+    }
+
+    label,
+    input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        cursor: pointer;
+        z-index: 1;
+    }
+    input[type='radio'] {
+        opacity: 0.01;
+        z-index: 100;
+    }
+
+    label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid var(--gray-dark);
+        border-radius: 50px;
+        z-index: 90;
+        font-weight: 500;
+        font-size: 1.125rem; /* 18px */
+        line-height: 1.75rem; /* 28px */
+        text-transform: capitalize;
+        color: var(--gray-dark);
+    }
+
+    input[type='radio']:checked + label,
+    .Checked + label {
+        background: var(--green-light);
+        color: var(--white);
+        border: none;
+    }
+}

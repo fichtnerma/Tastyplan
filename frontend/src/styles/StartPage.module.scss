@@ -1,0 +1,37 @@
+.main {
+    // background-color: var(--green-dark);
+    height: 100vh;
+    width: 100vw;
+    // // background-image: url('../../public/startBackground.jpg');
+}
+
+.startButton {
+    display: flex;
+    justify-content: center;
+}
+
+.buttonContent {
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 2px solid var(--gray-light);
+    border-radius: 50px;
+}
+
+.logo {
+    padding-top: 120px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+}
+
+.startText {
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.startButtonText {
+    color: var(--gray-light);
+}
