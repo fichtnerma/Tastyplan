@@ -2,7 +2,7 @@
     // background-color: var(--green-dark);
     height: 100vh;
     width: 100vw;
-    background-image: url('../../public/startBackground.jpg');
+    // background-image: url('../../public/startBackground.jpg');
 }
 
 .startButton {
@@ -37,5 +37,9 @@
 }
 
 .greenShadow {
-    background-color: rgba(00, 68, 37, 0.4);
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--green-dark);
+    opacity: 0.9;
+    position: fixed;
 }
