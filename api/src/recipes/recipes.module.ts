@@ -6,6 +6,7 @@ import { IngredientsModule } from 'src/ingredients/ingredients.module';
 
 @Module({
     imports: [StepsModule, IngredientsModule],
+    exports: [RecipesService],
     controllers: [RecipesController],
     providers: [RecipesService],
 })

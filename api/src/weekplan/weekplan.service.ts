@@ -20,12 +20,24 @@ export class WeekplanService {
                 id: 1,
             },
         });
+        console.log(preferences);
         const preferencesFiltered: Preferences = {
-            formOfDiet: preferences.formOfDiet,
-            allergenes: null,
-            foodDislikes: null,
+            formOfDiet: preferences.formOfDiet || 'omnivore',
+            allergenes: [],
+            foodDislikes: [],
         };
-        this.recipeService.findWithPreferences(preferencesFiltered);
+        let recommendedMeals = await this.recipeService.findWithPreferences(preferencesFiltered);
+        if (recommendedMeals.length < 7) {
+            recommendedMeals = [
+                ...recommendedMeals,
+                ...recommendedMeals,
+                ...recommendedMeals,
+                ...recommendedMeals,
+                ...recommendedMeals,
+                ...recommendedMeals,
+                ...recommendedMeals,
+            ];
+        }
         await this.prismaService.weekplan.create({
             data: {
                 id: 1,
@@ -35,7 +47,7 @@ export class WeekplanService {
                     createMany: {
                         data: week.map((dayEntry) => ({
                             date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
-                            recipeId: 1,
+                            recipeId: recommendedMeals[dayEntry].id,
                         })),
                     },
                 },
@@ -63,9 +75,29 @@ export class WeekplanService {
                 id,
             },
             include: {
-                weekplanEntry: true,
+                weekplanEntry: {
+                    include: {
+                        recipe: true,
+                    },
+                },
             },
         });
-        return weekPlan;
+        const formattedWeekPlan = {
+            startDate: weekPlan.startDate,
+            endDate: weekPlan.endDate,
+            weekplanEntry: weekPlan.weekplanEntry.map((entry) => ({
+                date: entry.date,
+                recipe: {
+                    id: entry.recipe.id,
+                    name: entry.recipe.name,
+                    img: entry.recipe.img,
+                    difficulty: entry.recipe.difficulty,
+                    preparingTime: entry.recipe.preparingTime,
+                    cookingTime: entry.recipe.cookingTime,
+                    formOfDiet: entry.recipe.formOfDiet,
+                },
+            })),
+        };
+        return formattedWeekPlan;
     }
 }
