@@ -1,6 +1,6 @@
 import styles from '../../styles/WeekOverview.module.scss';
 import Image from 'next/image';
-import testImg from '../../../public/TestBild.jpg';
+import testImg from '../../../public/EssenBild.jpg';
 import timeIcon from '../../../public/Icons/time.svg';
 import Link from 'next/link';
 
