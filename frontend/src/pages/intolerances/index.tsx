@@ -25,7 +25,7 @@ export default function IntolerancesPage() {
     };
 
     return (
-        <div className="flex justify-center items-center h-90v bg-green-custom2">
+        <div className="flex justify-center items-center h-90v">
             <form className="flex justify-center py-8 px-12 w-[36rem] bg-white rounded-[42px]">
                 <fieldset className="flex flex-col">
                     <h2 className="text-5xl font-semibold text-gray-custom4 mb-14">Unverträglichkeiten</h2>
