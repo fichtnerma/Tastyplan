@@ -7,7 +7,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
     const { asPath } = useRouter();
     return (
         <>
-            {asPath !== '/startPage' && asPath !== '/preferences' && <Header />}
+            {asPath !== '/startPage' && asPath !== '/preferences' && !asPath.includes('/intolerances') && <Header />}
             <main>{children}</main>
             <Footer />
         </>
