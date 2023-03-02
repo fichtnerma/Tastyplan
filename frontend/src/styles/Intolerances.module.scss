@@ -13,6 +13,7 @@
         bottom: 0;
         cursor: pointer;
         z-index: 1;
+        background-color: var(--white);
     }
 
     input[type='checkbox'] {
@@ -35,7 +36,7 @@
 
     input[type='checkbox']:checked + label,
     .Checked + label {
-        background: var(--green-1);
+        background-color: var(--green-light);
         color: var(--white);
         border: none;
     }
