@@ -8,7 +8,7 @@ import { UpdateRecipeDto } from './dto/update-recipe.dto';
 
 @Injectable()
 export class RecipesService {
-    constructor(private stepsService: StepsService, private ingredientsService: IngredientsService, private prismaService: PrismaService) {}
+    constructor(private stepsService: StepsService, private ingredientsService: IngredientsService, private prismaService: PrismaService) { }
 
     async create(createRecipeDto: CreateRecipeDto) {
         //Get the ingredients
@@ -89,6 +89,9 @@ export class RecipesService {
         const recipes = this.prismaService.recipe.findMany({
             where: {
                 formOfDiet: preferencesDto.formOfDiet,
+            },
+            select: {
+                id: true,
             },
         });
         return recipes;
