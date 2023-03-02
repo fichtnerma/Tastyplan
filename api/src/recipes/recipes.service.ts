@@ -11,30 +11,35 @@ export class RecipesService {
 
     async create(createRecipeDto: CreateRecipeDto) {
         //Get the ingredients
-        const ingredientNames = createRecipeDto.ingredients;
-        const ingredientsIds: { id: number }[] = [];
-        ingredientNames.forEach(async (item) => {
-            const ingredient = await this.prismaService.ingredient.findUnique({
-                where: {
-                    name: item,
-                },
-            });
-            ingredientsIds.push({ id: ingredient.id });
-        });
+        // const ingredientNames = createRecipeDto.ingredients;
+        // const ingredientsIds: { id: number }[] = [];
+        // ingredientNames.forEach(async (item) => {
+        //     const ingredient = await this.prismaService.ingredient.findUnique({
+        //         where: {
+        //             name: item,
+        //         },
+        //     });
+        //     ingredientsIds.push({ id: ingredient.id });
+        // });
 
-        //Create the recipe with the steps!
-        const recipe = this.prismaService.recipe.create({
-            data: {
-                name: createRecipeDto.name,
-                cookingTime: createRecipeDto.cookingTime,
-                preparingTime: createRecipeDto.preparingTime,
-                steps: {
-                    create: [...createRecipeDto.steps],
-                },
-                ingredients: { connect: [...ingredientsIds] },
-            },
-        });
-        return recipe;
+        // //Create the recipe with the steps!
+        // const recipe = this.prismaService.recipe.create({
+        //     data: {
+        //         name: createRecipeDto.name,
+        //         cookingTime: createRecipeDto.cookingTime,
+        //         difficulty: createRecipeDto.difficulty,
+        //         img: createRecipeDto.img,
+        //         type: createRecipeDto.type,
+        //         kitchenware: createRecipeDto.kitchenware,
+        //         preparingTime: createRecipeDto.preparingTime,
+        //         steps: {
+        //             create: [...createRecipeDto.steps],
+        //         },
+        //         ingredients: { connect: [...ingredientsIds] },
+        //     },
+        // });
+        // return recipe;
+        return 'This action adds a new recipe';
     }
 
     findAll() {
@@ -42,7 +47,41 @@ export class RecipesService {
     }
 
     async findById(id: number) {
-        return 'This action finds a Recipe';
+        const recipe = await this.prismaService.recipe.findUnique({
+            where: {
+                id: id,
+            },
+            include: {
+                ingredients: {
+                    include: {
+                        ingredient: true,
+                    },
+                },
+                steps: true,
+            },
+        });
+        const formattedRecipe = {
+            id: recipe.id,
+            name: recipe.name,
+            img: recipe.img,
+            type: recipe.type,
+            difficulty: recipe.difficulty,
+            preparingTime: recipe.preparingTime,
+            cookingTime: recipe.cookingTime,
+            ingredients: recipe.ingredients.map((item) => {
+                return {
+                    amount: item.amount,
+                    ingredient: item.ingredient.name,
+                };
+            }),
+            steps: recipe.steps.map((item) => {
+                return {
+                    stepCount: item.stepCount,
+                    description: item.description,
+                };
+            }),
+        };
+        return formattedRecipe;
     }
 
     async update(id: number, updateRecipeDto: UpdateRecipeDto) {
