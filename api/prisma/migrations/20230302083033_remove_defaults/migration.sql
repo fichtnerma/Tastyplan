@@ -1,8 +1,19 @@
+/*
+  Warnings:
+
+  - You are about to drop the column `foodType` on the `Preferences` table. All the data in the column will be lost.
+  - Added the required column `formOfDiet` to the `Preferences` table without a default value. This is not possible if the table is not empty.
+
+*/
+-- AlterTable
+ALTER TABLE "Preferences" DROP COLUMN "foodType",
+ADD COLUMN     "formOfDiet" TEXT NOT NULL;
+
 -- CreateTable
 CREATE TABLE "Weekplan" (
     "id" SERIAL NOT NULL,
-    "startDate" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "endDate" DATE NOT NULL DEFAULT DATEADD(day,7, GETDATE()),
+    "startDate" TIMESTAMP(3) NOT NULL,
+    "endDate" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Weekplan_pkey" PRIMARY KEY ("id")
 );

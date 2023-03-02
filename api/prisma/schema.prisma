@@ -60,8 +60,8 @@ model Preferences {
 
 model Weekplan {
     id            Int             @id @default(autoincrement())
-    startDate     DateTime        @default(now()) @db.Date
-    endDate       DateTime        @default(dbgenerated("DATEADD(day,7, GETDATE())")) @db.Date
+    startDate     DateTime        
+    endDate       DateTime        
     weekplanEntry WeekplanEntry[]
 }
 
