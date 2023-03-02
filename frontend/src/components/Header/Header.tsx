@@ -23,14 +23,13 @@ export default function Header() {
                     <h2 className={styles.secondTitle}>Willkommen bei Tasty Plan</h2>
                 </div>
                 <div>
-                    <button onClick={() => toggleMenu()}>
-                        <div className={styles.navIcon}>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        {/* <Image src={burgerMenu} alt="Burger Menu" width={50} height={50} priority /> */}
+                    <button
+                        className={menuOpen ? `${styles.navIcon} ${styles.open}` : styles.navIcon}
+                        onClick={() => toggleMenu()}
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </button>
                 </div>
             </div>
