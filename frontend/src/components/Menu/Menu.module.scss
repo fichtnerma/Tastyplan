@@ -2,6 +2,11 @@
     height: 100vh;
     width: 100vw;
     background-image: url('../../../public/startBackground.jpg');
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 1000;
 }
 .greenShadow {
     height: 100vh;
