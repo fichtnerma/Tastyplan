@@ -1,11 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
 import { UpdateIngredientDto } from './dto/update-ingredient.dto';
 
 @Injectable()
 export class IngredientsService {
-    create(createIngredientDto: CreateIngredientDto) {
-        return 'This action adds a new ingredient';
+    constructor(private prismaService: PrismaService) {}
+
+    async create(createIngredientDto: CreateIngredientDto) {
+        const { name } = createIngredientDto;
+        await this.prismaService.ingredient.create({
+            data: {
+                name: name,
+                calories: 1,
+                protein: 1,
+                fat: 1,
+                carbs: 1,
+                calcium: 1,
+                iron: 1,
+                magnesium: 1,
+                categories: 'test',
+                subcategories: 'test',
+            },
+        });
+
+        return 'This action adds a new ingredient' + name;
     }
 
     findAll() {
