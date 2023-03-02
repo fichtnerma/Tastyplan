@@ -84,7 +84,26 @@ paths:
                         }
                       ]
                     }
-
+  /recipes/{recipeId}:
+    parameters:
+    - name: recipeId 
+      description: Specific recipe identifier
+      in: path 
+      required: true 
+      schema: 
+        $ref: "#/components/schemas/identifier"
+    get:
+      tags:
+        - getRecipeById
+      summary: Returns the specific recipe with the ingredients
+      description: All information needed about a recipe is returned
+      responses:
+        "200":
+          description: Specific Recipe
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/recipe"
 components:
   schemas:
     preferences:
@@ -121,7 +140,9 @@ components:
             preparingTime:
               type: integer
             cookingTime:
-              type: integer  
+              type: integer
+    recipe:
+      type: object
     identifier:
       type: integer
       minimum: 1
