@@ -65,7 +65,7 @@ export class RecipesService {
             id: recipe.id,
             name: recipe.name,
             img: recipe.img,
-            type: recipe.type,
+            formOfDiet: recipe.formOfDiet,
             difficulty: recipe.difficulty,
             preparingTime: recipe.preparingTime,
             cookingTime: recipe.cookingTime,

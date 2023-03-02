@@ -108,7 +108,7 @@ async function initRecipes() {
                 kitchenware: recipe.kitchenware,
                 cookingTime: parseInt(recipe.cookingTime, 10) || null,
                 preparingTime: parseInt(recipe.prepareTime, 10) || null,
-                type: recipe.type,
+                formOfDiet: recipe.type,
                 ingredients: {
                     createMany: {
                         data: [...ingredientEntities],
