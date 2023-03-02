@@ -6,9 +6,7 @@
 .greenShadow {
     height: 100vh;
     width: 100vw;
-    background-color: rgba(var(--green-dark), 0.9);
-    // background-color: var(--green-dark);
-    // opacity: 0.9;
+    background-color: var(--green-dark-background);
     position: fixed;
     padding-top: 50px;
 }
