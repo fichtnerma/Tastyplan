@@ -6,4 +6,4 @@ import { WeekplanService } from './weekplan.service';
   controllers: [WeekplanController],
   providers: [WeekplanService]
 })
-export class WeekplanModule {}
+export class WeekplanModule { }

@@ -7,30 +7,33 @@ export class PreferencesService {
     constructor(private prismaService: PrismaService) { }
 
     preferences(createPreferencesDto: CreatePreferencesDto) {
-        
+
         const ingredientNames = createPreferencesDto.foodDislikes;
         const ingredientsIds: { id: number }[] = [];
-    
-            ingredientNames.forEach(async (item) => {
-                const ingredient = await this.prismaService.ingredient.findUnique({
-                    where: {
-                        name: item,
-                    },
-                });
-                ingredientsIds.push({ id: ingredient.id });
+
+/*         ingredientNames.forEach(async (item) => {
+            const ingredient = await this.prismaService.ingredient.findUnique({
+                where: {
+                    name: item,
+                },
             });
+            ingredientsIds.push({ id: ingredient.id });
+        });
 
         try {
             const preferences = this.prismaService.preferences.create({
                 data: {
-                    foodType: createPreferencesDto.foodType,
+    
+                    formOfDiet: createPreferencesDto.formOfDiet,
                     allergenes: [...createPreferencesDto.allergenes],
                     foodDislikes: { connect: [...ingredientsIds] },
                 },
             });
-            return preferences;
+            return preferences || "worked";
         } catch (error) {
             throw error;
-        }
+        } */
+
+        return "This worked!"
     }
 }
