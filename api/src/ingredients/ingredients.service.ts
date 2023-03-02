@@ -1,19 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, Repository } from 'typeorm';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
 import { UpdateIngredientDto } from './dto/update-ingredient.dto';
-import { Ingredient } from './entities/ingredient.entity';
 
 @Injectable()
 export class IngredientsService {
-    constructor(
-        @InjectRepository(Ingredient)
-        private readonly ingredientRepository: Repository<Ingredient>,
-    ) {}
+    constructor(private prismaService: PrismaService) {}
 
-    create(createIngredientDto: CreateIngredientDto) {
-        return 'This action adds a new ingredient';
+    async create(createIngredientDto: CreateIngredientDto) {
+        const { name } = createIngredientDto;
+        await this.prismaService.ingredient.create({
+            data: {
+                name: name,
+                calories: 1,
+                protein: 1,
+                fat: 1,
+                carbs: 1,
+                calcium: 1,
+                iron: 1,
+                magnesium: 1,
+                categories: 'test',
+                subcategories: 'test',
+            },
+        });
+
+        return 'This action adds a new ingredient' + name;
     }
 
     findAll() {
@@ -21,16 +32,11 @@ export class IngredientsService {
     }
 
     async findOne(id: number) {
-        const ingredient = await this.ingredientRepository.findOneBy({ id: id });
-        if (ingredient) {
-            return ingredient;
-        }
-        return null;
+        return 'This action finds a ingredient';
     }
 
     async findSimilarIngredients(name: string) {
-        const similarIngredients = await this.ingredientRepository.findBy({ name: ILike(`%${name}%`) });
-        return similarIngredients;
+        return 'This action finds an ingredient with similar name';
     }
 
     update(id: number, updateIngredientDto: UpdateIngredientDto) {

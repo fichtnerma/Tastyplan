@@ -1,17 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { CreateStepDto } from './dto/create-step.dto';
 import { UpdateStepDto } from './dto/update-step.dto';
-import { Step } from './entities/step.entity';
 
 @Injectable()
 export class StepsService {
-    constructor(
-        @InjectRepository(Step)
-        private stepRepository: Repository<Step>,
-    ) {}
-
     create(createStepDto: CreateStepDto) {
         return 'This action adds a new step';
     }
@@ -21,11 +13,7 @@ export class StepsService {
     }
 
     async findOne(id: number) {
-        const step = await this.stepRepository.findOneBy({ id: id });
-        if (step) {
-            return step;
-        }
-        return null;
+        return 'This action finds a step';
     }
 
     update(id: number, updateStepDto: UpdateStepDto) {

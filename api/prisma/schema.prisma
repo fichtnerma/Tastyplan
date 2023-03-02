@@ -11,30 +11,50 @@ datasource db {
 }
 
 model Ingredient {
-    id        Int      @id @default(autoincrement())
-    name      String   @unique
-    fat       Int
-    carbs     Int
-    protein   Int
-    calories  Int
-    calcium   Int
-    iron      Int
-    magnesium Int
-    recipes   Recipe[]
+    id                   Int                    @id @default(autoincrement())
+    name                 String
+    categories           String
+    subcategories        String?
+    fat                  Float?
+    carbs                Float?
+    protein              Float?
+    calories             Float?
+    calcium              Float?
+    iron                 Float?
+    magnesium            Float?
+    foodDislikes         Preferences[]
+    IngredientWithAmount IngredientWithAmount[]
 }
 
 model Recipe {
-    id          Int          @id @default(autoincrement())
-    name        String
-    ingredients Ingredient[]
-    steps       Step[]
+    id                  Int                    @id @default(autoincrement())
+    name                String
+    img                 String?
+    difficulty          String
+    kitchenware         String[]
+    cookingTime         Int?
+    preparingTime       Int
+    formOfDiet          String
+    ingredients         IngredientWithAmount[]
+    steps               Step[]
+    weekplanEntryRecipe WeekplanEntry[]
+}
+
+model IngredientWithAmount {
+    id           Int         @id @default(autoincrement())
+    amount       String?
+    ingredientId Int?
+    ingredient   Ingredient? @relation(fields: [ingredientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    recipeId     Int?
+    recipe       Recipe?     @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Step {
-    id       Int    @id @default(autoincrement())
-    name     String
-    recipeId Int
-    recipe   Recipe @relation(fields: [recipeId], references: [id])
+    id          Int    @id @default(autoincrement())
+    description String
+    stepCount   Int
+    recipeId    Int
+    recipe      Recipe @relation(fields: [recipeId], references: [id])
 }
 
 model User {
@@ -42,4 +62,27 @@ model User {
     email    String  @unique
     password String
     name     String?
+}
+
+model Preferences {
+    id           Int          @id @default(autoincrement())
+    formOfDiet   String
+    allergenes   String[]
+    foodDislikes Ingredient[]
+}
+
+model Weekplan {
+    id            Int             @id @default(autoincrement())
+    startDate     DateTime
+    endDate       DateTime
+    weekplanEntry WeekplanEntry[]
+}
+
+model WeekplanEntry {
+    id         Int      @id @default(autoincrement())
+    date       DateTime @db.Date
+    weekplanId Int
+    weekplan   Weekplan @relation(fields: [weekplanId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    recipeId   Int
+    recipe     Recipe   @relation(fields: [recipeId], references: [id])
 }
