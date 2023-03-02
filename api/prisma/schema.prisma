@@ -34,7 +34,7 @@ model Recipe {
     kitchenware         String[]
     cookingTime         Int?
     preparingTime       Int
-    type                String
+    formOfDiet          String
     ingredients         IngredientWithAmount[]
     steps               Step[]
     weekplanEntryRecipe WeekplanEntry[]

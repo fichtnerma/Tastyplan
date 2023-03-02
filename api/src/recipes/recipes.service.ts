@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
+import { PreferencesDto } from 'src/preferences/dto/createPreferences.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { StepsService } from 'src/steps/steps.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
@@ -82,6 +83,15 @@ export class RecipesService {
             }),
         };
         return formattedRecipe;
+    }
+
+    findWithPreferences(preferencesDto: PreferencesDto) {
+        const recipes = this.prismaService.recipe.findMany({
+            where: {
+                formOfDiet: preferencesDto.formOfDiet,
+            },
+        });
+        return recipes;
     }
 
     async update(id: number, updateRecipeDto: UpdateRecipeDto) {
