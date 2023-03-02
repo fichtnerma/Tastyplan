@@ -24,7 +24,7 @@ CREATE TABLE "Recipe" (
     "kitchenware" TEXT[],
     "cookingTime" INTEGER,
     "preparingTime" INTEGER NOT NULL,
-    "type" TEXT NOT NULL,
+    "formOfDiet" TEXT NOT NULL,
 
     CONSTRAINT "Recipe_pkey" PRIMARY KEY ("id")
 );

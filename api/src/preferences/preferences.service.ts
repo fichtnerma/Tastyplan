@@ -1,39 +1,39 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePreferencesDto } from './dto/createPreferences.dto'
+import { PreferencesDto } from './dto/createPreferences.dto'
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class PreferencesService {
     constructor(private prismaService: PrismaService) { }
 
-    preferences(createPreferencesDto: CreatePreferencesDto) {
+    preferences(createPreferencesDto: PreferencesDto) {
 
         const ingredientNames = createPreferencesDto.foodDislikes;
-        const ingredientsIds: { id: number }[] = [];
 
-/*         ingredientNames.forEach(async (item) => {
-            const ingredient = await this.prismaService.ingredient.findUnique({
-                where: {
-                    name: item,
-                },
-            });
-            ingredientsIds.push({ id: ingredient.id });
-        });
+        //For the MVP we are only working with the formOfDiet
+        // const ingredientsIds: { id: number }[] = [];
+        // ingredientNames.forEach(async (item) => {
+        //     const ingredient = await this.prismaService.ingredient.findUnique({
+        //         where: {
+        //             name: item,
+        //         },
+        //     });
+        //     ingredientsIds.push({ id: ingredient.id });
+        // });
 
         try {
+            //store the prefernces in the DB
             const preferences = this.prismaService.preferences.create({
                 data: {
-    
                     formOfDiet: createPreferencesDto.formOfDiet,
-                    allergenes: [...createPreferencesDto.allergenes],
-                    foodDislikes: { connect: [...ingredientsIds] },
+                    // allergenes: [...createPreferencesDto.allergenes],
+                    // foodDislikes: { connect: [...ingredientsIds] },
                 },
             });
-            return preferences || "worked";
+
+            return "Preferences has been send successfully";
         } catch (error) {
             throw error;
-        } */
-
-        return "This worked!"
+        }
     }
 }

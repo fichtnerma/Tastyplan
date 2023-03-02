@@ -1,6 +1,6 @@
 import { IsArray, IsNotEmpty, IsString } from "class-validator";
 
-export class CreatePreferencesDto {
+export class PreferencesDto {
 
     @IsString()
     @IsNotEmpty()
