@@ -1,4 +1,6 @@
 import styles from '@styles/Intolerances.module.scss';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 export default function IntolerancesPage() {
@@ -12,6 +14,7 @@ export default function IntolerancesPage() {
     ];
 
     const [choices, setChoices] = useState<string[]>([]);
+    const router = useRouter();
 
     const onAddChoice = (e: React.ChangeEvent<HTMLInputElement>) => {
         const currentSelection = [...choices];
@@ -24,9 +27,28 @@ export default function IntolerancesPage() {
         }
     };
 
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        const { formOfDiet } = router?.query;
+        const currentIntolerances = e.currentTarget.getAttribute('data-btn') === 'skip' ? [] : choices;
+        const data = {
+            formOfDiet: formOfDiet,
+            intolerances: [...currentIntolerances],
+        };
+
+        // fetch('dummyURL', {
+        //     method: 'POST',
+        //     body: JSON.stringify(data)
+        // })
+        console.log(data);
+        router.push({
+            pathname: '/weekOverview',
+        });
+    };
+
     return (
-        <div className="flex justify-center items-center h-90v">
-            <form className="flex justify-center py-8 px-12 w-[36rem] bg-white rounded-[42px]">
+        <div className="flex justify-center items-center">
+            <form className="flex justify-center py-8 px-12 w-[36rem] bg-white rounded-[20px]">
                 <fieldset className="flex flex-col">
                     <h2 className="text-5xl font-semibold text-gray-custom4 mb-14">Unverträglichkeiten</h2>
                     <div className="grid grid-cols-3 gap-3 mb-6">
@@ -44,11 +66,23 @@ export default function IntolerancesPage() {
                         ))}
                     </div>
                     <div className="flex justify-between relative">
-                        <button className="font-medium text-gray-custom4">Go Back</button>
-                        <button type="submit" className="font-medium text-gray-custom4">
+                        <Link className="font-medium text-gray-custom4" href={'/preferences'}>
+                            Go Back
+                        </Link>
+                        <button
+                            type="submit"
+                            className="font-medium text-gray-custom4"
+                            data-btn="skip"
+                            onClick={handleClick}
+                        >
                             Skip Question
                         </button>
-                        <button type="submit" className="font-medium text-gray-custom4">
+                        <button
+                            type="submit"
+                            className="font-medium text-gray-custom4"
+                            data-btn="next"
+                            onClick={handleClick}
+                        >
                             Next Step
                         </button>
                     </div>
