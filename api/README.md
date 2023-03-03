@@ -44,6 +44,13 @@ $ yarn run start:dev
 # production mode
 $ yarn run start:prod
 ```
+## Running the seed file
+
+<p align="center">Run the migrations</p>
+$ npm run migrate
+
+<p align="center">Execute seed file</p>
+$ npx prisma db seed
 
 ## Test
 
