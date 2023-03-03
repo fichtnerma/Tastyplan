@@ -3,7 +3,6 @@ import Menu from '@components/Menu/Menu';
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../../../public/logo.svg';
-import burgerMenu from '../../../public/Icons/burger-menu.svg';
 import styles from '../Header/Header.module.scss';
 
 export default function Header() {
