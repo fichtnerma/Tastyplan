@@ -33,17 +33,26 @@ export default function IntolerancesPage() {
         const currentIntolerances = e.currentTarget.getAttribute('data-btn') === 'skip' ? [] : choices;
         const data = {
             formOfDiet: formOfDiet,
-            intolerances: [...currentIntolerances],
+            allergenes: [],
+            foodDislikes: [],
         };
 
-        // fetch('dummyURL', {
-        //     method: 'POST',
-        //     body: JSON.stringify(data)
-        // })
-        console.log(data);
-        router.push({
-            pathname: '/weekOverview',
-        });
+        fetch('http://localhost:3000/preferences', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                if (response.ok)
+                    router.push({
+                        pathname: '/weekOverview',
+                    });
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     };
 
     return (
