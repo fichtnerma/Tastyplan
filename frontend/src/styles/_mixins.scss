@@ -1,5 +1,4 @@
 @mixin test {
-    width: 100vw;
     height: 10vh;
-    background-color: aqua;
+    background-color: var(--c-red);
 }

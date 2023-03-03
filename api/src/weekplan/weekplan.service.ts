@@ -10,7 +10,7 @@ type Preferences = {
 };
 @Injectable()
 export class WeekplanService {
-    constructor(private prismaService: PrismaService, private recipeService: RecipesService) {}
+    constructor(private prismaService: PrismaService, private recipeService: RecipesService) { }
 
     async create() {
         const week = [0, 1, 2, 3, 4, 5, 6];

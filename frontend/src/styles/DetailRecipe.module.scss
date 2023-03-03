@@ -1,0 +1,77 @@
+@import "@styles/variables.scss";
+
+
+.container {
+    width: 80%;
+    margin-inline: auto;
+}
+
+.recipeBox {
+    background-color: var(--gray-light);
+    width: 100%;
+    box-shadow: $box-shadow;
+    border-radius: $boder-radius;
+    padding: 0px;
+    margin-inline: auto;
+    margin-top: 10px;
+}
+
+.titleRecipe {
+    margin-top: 0px;
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.foodImg {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: $boder-radius $boder-radius 0 0;
+}
+
+.checkbox {
+    margin-right: 10px;
+
+    &+label {
+        font-size: 20px;
+    }
+
+    // Hover
+    &+label:hover {
+        color: rgb(var(--green-dark));
+    }
+
+    // Checked
+    &:checked {
+        &+label {
+            &:before {
+                background: red;
+                box-shadow: none;
+            }
+
+            &:after {
+                border-color: white;
+            }
+        }
+    }
+}
+
+.numberFrame {
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    border: 2px solid var(--gray-dark);
+    border-radius: $small-boder-radius;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.recipeText {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
