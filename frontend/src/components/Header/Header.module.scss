@@ -49,41 +49,39 @@
     span {
         &:nth-child(1) {
             top: 0px;
+            -webkit-transform-origin: left center;
+            -moz-transform-origin: left center;
+            -o-transform-origin: left center;
+            transform-origin: left center;
         }
         &:nth-child(2) {
             top: 18px;
         }
         &:nth-child(3) {
-            top: 18px;
-        }
-        &:nth-child(4) {
             top: 36px;
+            -webkit-transform-origin: left center;
+            -moz-transform-origin: left center;
+            -o-transform-origin: left center;
+            transform-origin: left center;
         }
     }
 }
-.navIcon.open {
+
+.open {
     span {
         &:nth-child(1) {
-            top: 18px;
-            width: 0%;
-            left: 50%;
+            transform: rotate(45deg);
+            top: -3px;
+            left: 8px;
         }
         &:nth-child(2) {
-            -webkit-transform: rotate(45deg);
-            -moz-transform: rotate(45deg);
-            -o-transform: rotate(45deg);
-            transform: rotate(45deg);
+            width: 0%;
+            opacity: 0;
         }
         &:nth-child(3) {
-            -webkit-transform: rotate(-45deg);
-            -moz-transform: rotate(-45deg);
-            -o-transform: rotate(-45deg);
             transform: rotate(-45deg);
-        }
-        &:nth-child(4) {
-            top: 18px;
-            width: 0%;
-            left: 50%;
+            top: 39px;
+            left: 8px;
         }
     }
 }
