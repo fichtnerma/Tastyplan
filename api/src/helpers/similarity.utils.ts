@@ -1,4 +1,4 @@
-function similarity2(s1: string, s2: string) {
+export function similarity2(s1: string, s2: string) {
     const split1 = s1.toLowerCase().split(' ');
     const split2 = s2.toLowerCase().split(' ');
     let sum = 0;
@@ -18,7 +18,7 @@ function similarity2(s1: string, s2: string) {
     return sum;
 }
 
-function similarity(s1: string, s2: string) {
+export function similarity(s1: string, s2: string) {
     let longer = s1;
     let shorter = s2;
     if (s1.length < s2.length) {
@@ -32,7 +32,7 @@ function similarity(s1: string, s2: string) {
     return (longerLength - editDistance(longer, shorter)) / longerLength;
 }
 
-function editDistance(s1: string, s2: string) {
+export function editDistance(s1: string, s2: string) {
     s1 = s1.toLowerCase();
     s2 = s2.toLowerCase();
 
