@@ -1,8 +1,16 @@
 .intoleranceWrapper {
     display: block;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     position: relative;
+
+    &:hover {
+        label {
+            background-color: var(--green-light);
+            color: var(--gray-light);
+            border: none;
+        }
+    }
 
     label,
     input {
@@ -29,14 +37,16 @@
         border-radius: 15px;
         z-index: 90;
         font-weight: 500;
-        font-size: 0.875rem; /* 14px */
-        line-height: 1.25rem; /* 20px */
+        font-size: 0.875rem;
+        /* 14px */
+        line-height: 1.25rem;
+        /* 20px */
         color: var(--gray-dark);
     }
 
-    input[type='checkbox']:checked + label,
-    .Checked + label {
-        background-color: var(--green-light);
+    input[type='checkbox']:checked+label,
+    .Checked+label {
+        background-color: var(--green-dark);
         color: var(--white);
         border: none;
     }

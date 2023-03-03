@@ -1,11 +1,14 @@
 import styles from '../../styles/WeekOverview.module.scss';
-import Image from 'next/image';
+
 import testImg from '../../../public/EssenBild.jpg';
 import timeIcon from '../../../public/Icons/time.svg';
 import kochIcon from '../../../public/Icons/kochmutze.png';
 import potIcon from '../../../public/Icons/topf.png';
 import vegetarianIcon from '../../../public/Icons/vegetarian.png';
+
+import Image from 'next/image';
 import Link from 'next/link';
+
 import { useEffect, useState } from 'react';
 
 export default function WeekOverview() {

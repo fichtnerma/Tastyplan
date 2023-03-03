@@ -1,12 +1,16 @@
 import styles from '@styles/Preferences.module.scss';
-import Link from 'next/link';
+
+import logo from '../../../public/logo.svg';
+
+import Image from 'next/image';
+
 import Router from 'next/router';
 import React, { useState } from 'react';
 
 const PreferencesPage = () => {
-    const preferences = ['omnivor', 'flexitarian', 'pescetarian', 'vegetarian', 'vegan'];
+    const preferences = ['omnivore', 'flexitarier', 'pescetarier', 'vegetarisch', 'vegan'];
 
-    const [selection, setSelection] = useState('omnivor');
+    const [selection, setSelection] = useState('omnivore');
 
     const onChoiceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelection(e.target.value);
@@ -15,7 +19,7 @@ const PreferencesPage = () => {
     const onSubmitSelection = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         const clickedAnchor = e.currentTarget.getAttribute('data-anchor');
-        const currentSelection = clickedAnchor === 'skip' ? 'omnivor' : selection;
+        const currentSelection = clickedAnchor === 'skip' ? 'omnivore' : selection;
 
         Router.push({
             pathname: '/intolerances',
@@ -26,44 +30,50 @@ const PreferencesPage = () => {
     };
 
     return (
-        <div className="flex justify-center items-center">
-            <form className="flex justify-center py-8 px-12 w-[36rem] bg-white rounded-[20px]">
-                <fieldset className="flex flex-col">
-                    <h2 className="text-5xl font-semibold text-gray-custom4 mb-14">Set Preferences</h2>
-                    <div className={styles.preferencesWrapper}>
-                        {preferences.map((preference, i) => (
-                            <div key={i} className={styles.choiceWrapper}>
-                                <input
-                                    type="radio"
-                                    name="preferences"
-                                    value={preference}
-                                    checked={selection === preference}
-                                    onChange={onChoiceChange}
-                                />
-                                <label htmlFor={preference}>{preference}</label>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="flex justify-center relative">
-                        <a
-                            className="font-medium text-gray-custom4"
-                            href="/preferences"
-                            onClick={onSubmitSelection}
-                            data-anchor="skip"
-                        >
-                            Skip Question
-                        </a>
-                        <a
-                            className="absolute top-0 right-0 font-medium text-gray-custom4"
-                            href="/preferences"
-                            onClick={onSubmitSelection}
-                            data-anchor="next"
-                        >
-                            Next Step
-                        </a>
-                    </div>
-                </fieldset>
-            </form>
+        <div>
+            <div className={styles.logo}>
+                <Image src={logo} className='ml-24 fixed' alt="logo" width={200} priority />
+            </div>
+            <div className="flex justify-center items-center">
+
+                <form className="flex justify-center py-8 px-12 w-[36rem] bg-white rounded-[20px]">
+                    <fieldset className="flex flex-col">
+                        <h2 className="text-3xl font-semibold text-gray-custom4 mb-8">Welcher Ernährungstyp bist du?</h2>
+                        <div className={styles.preferencesWrapper}>
+                            {preferences.map((preference, i) => (
+                                <div key={i} className={styles.choiceWrapper}>
+                                    <input
+                                        type="radio"
+                                        name="preferences"
+                                        value={preference}
+                                        checked={selection === preference}
+                                        onChange={onChoiceChange}
+                                    />
+                                    <label htmlFor={preference}>{preference}</label>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="flex justify-center relative">
+                            <a
+                                className="font-medium text-gray-custom4"
+                                href="/preferences"
+                                onClick={onSubmitSelection}
+                                data-anchor="skip"
+                            >
+                                Überspringen
+                            </a>
+                            <a
+                                className="absolute top-0 right-0 font-medium text-gray-custom4"
+                                href="/preferences"
+                                onClick={onSubmitSelection}
+                                data-anchor="next"
+                            >
+                                Weiter
+                            </a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
         </div>
     );
 };

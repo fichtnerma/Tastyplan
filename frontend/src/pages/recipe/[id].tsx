@@ -1,10 +1,13 @@
 import styles from '../../styles/DetailRecipe.module.scss';
-import Image from 'next/image';
+
 import pancakes from '../../../public/pancakes.jpg';
 import timeIcon from '../../../public/Icons/time.svg';
 import kochIcon from '../../../public/Icons/kochmutze.png';
 import potIcon from '../../../public/Icons/topf.png';
 import vegetarianIcon from '../../../public/Icons/vegetarian.png';
+
+import Image from 'next/image';
+
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 

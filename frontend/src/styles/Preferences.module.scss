@@ -13,6 +13,15 @@
         &:last-child {
             margin-bottom: 1.8rem;
         }
+
+        &:hover {
+
+            label {
+                background-color: var(--green-light);
+                color: var(--gray-light);
+                border: none;
+            }
+        }
     }
 
     label,
@@ -24,10 +33,15 @@
         bottom: 0;
         cursor: pointer;
         z-index: 1;
+
+
+
     }
+
     input[type='radio'] {
         opacity: 0.01;
         z-index: 100;
+
     }
 
     label {
@@ -38,16 +52,21 @@
         border-radius: 50px;
         z-index: 90;
         font-weight: 500;
-        font-size: 1.125rem; /* 18px */
-        line-height: 1.75rem; /* 28px */
+        font-size: 1.125rem;
+        /* 18px */
+        line-height: 1.75rem;
+        /* 28px */
         text-transform: capitalize;
         color: var(--gray-dark);
+
     }
 
-    input[type='radio']:checked + label,
-    .Checked + label {
-        background-color: var(--green-light);
+    input[type='radio']:checked+label,
+    .Checked+label {
+        background-color: var(--green-dark);
         color: var(--white);
         border: none;
+
+
     }
 }
