@@ -1,0 +1,100 @@
+.checkboxWrapper {
+    display: block;
+    width: 100px;
+    height: 100px;
+    position: relative;
+
+    &:hover {
+        label {
+            background-color: var(--green-light);
+            color: var(--gray-light);
+            border: none;
+        }
+    }
+
+    label,
+    input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        cursor: pointer;
+        z-index: 1;
+        background-color: var(--white);
+    }
+
+    input[type='checkbox'] {
+        opacity: 0.01;
+        z-index: 100;
+    }
+
+    label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid var(--gray-dark);
+        border-radius: 15px;
+        z-index: 90;
+        font-weight: 500;
+        font-size: 0.875rem;
+        /* 14px */
+        line-height: 1.25rem;
+        /* 20px */
+        color: var(--gray-dark);
+    }
+
+    input[type='checkbox']:checked + label,
+    .Checked + label {
+        background-color: var(--green-dark);
+        color: var(--white);
+        border: none;
+    }
+}
+
+.radioWrapper {
+    display: block;
+    margin-bottom: 1.5rem;
+    width: 80%;
+    height: 60px;
+    position: relative;
+
+    label,
+    input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    input[type='radio'] {
+        opacity: 0.01;
+        z-index: 100;
+    }
+
+    label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid var(--gray-dark);
+        border-radius: 50px;
+        z-index: 90;
+        font-weight: 500;
+        font-size: 1.125rem;
+        /* 18px */
+        line-height: 1.75rem;
+        /* 28px */
+        text-transform: capitalize;
+        color: var(--gray-dark);
+    }
+
+    input[type='radio']:checked + label,
+    .Checked + label {
+        background-color: var(--green-dark);
+        color: var(--white);
+        border: none;
+    }
+}

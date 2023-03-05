@@ -6,11 +6,39 @@ import Image from 'next/image';
 
 import Router from 'next/router';
 import React, { useState } from 'react';
+import EatingHabits from '@components/EatingHabits/EatingHabits';
+import { Step } from 'src/types/types';
+
+const steps: Step[] = [
+    {
+        title: 'Ernährungsform',
+        choices: ['Omnivor', 'Flexitarisch', 'Pescetarisch', 'Vegetarisch', 'Vegan'],
+        isMultiSelection: false,
+    },
+    {
+        title: 'Unverträglichkeiten',
+        choices: [
+            'Erdnuss',
+            'Haselnus',
+            'Walnuss',
+            'Schalenfrucht',
+            'Soja',
+            'Gluten',
+            'Fruktose',
+            'Ei',
+            'Laktose',
+            'Schalentiere',
+            'Fisch',
+            'Alkohol',
+        ],
+        isMultiSelection: true,
+    },
+];
 
 const PreferencesPage = () => {
-    const preferences = ['omnivore', 'flexitarier', 'pescetarier', 'vegetarisch', 'vegan'];
+    const preferences = ['omnivor', 'flexitarier', 'pescetarier', 'vegetarisch', 'vegan'];
 
-    const [selection, setSelection] = useState('omnivore');
+    const [selection, setSelection] = useState('omnivor');
 
     const onChoiceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelection(e.target.value);
@@ -19,7 +47,7 @@ const PreferencesPage = () => {
     const onSubmitSelection = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         const clickedAnchor = e.currentTarget.getAttribute('data-anchor');
-        const currentSelection = clickedAnchor === 'skip' ? 'omnivore' : selection;
+        const currentSelection = clickedAnchor === 'skip' ? 'omnivor' : selection;
 
         Router.push({
             pathname: '/intolerances',
@@ -31,14 +59,13 @@ const PreferencesPage = () => {
 
     return (
         <div>
-            <div className={styles.logo}>
-                <Image src={logo} className='ml-24 fixed' alt="logo" width={200} priority />
-            </div>
-            <div className="flex justify-center items-center">
-
+            <EatingHabits steps={steps} />
+            {/* <div className="flex justify-center items-center">
                 <form className="flex justify-center py-8 px-12 w-[36rem] bg-white rounded-[20px]">
                     <fieldset className="flex flex-col">
-                        <h2 className="text-3xl font-semibold text-gray-custom4 mb-8">Welcher Ernährungstyp bist du?</h2>
+                        <h2 className="text-3xl font-semibold text-gray-custom4 mb-8">
+                            Welcher Ernährungstyp bist du?
+                        </h2>
                         <div className={styles.preferencesWrapper}>
                             {preferences.map((preference, i) => (
                                 <div key={i} className={styles.choiceWrapper}>
@@ -73,7 +100,7 @@ const PreferencesPage = () => {
                         </div>
                     </fieldset>
                 </form>
-            </div>
+            </div> */}
         </div>
     );
 };
