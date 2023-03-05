@@ -59,6 +59,14 @@
     height: 60px;
     position: relative;
 
+    &:hover {
+        label {
+            background-color: var(--green-light);
+            color: var(--gray-light);
+            border: none;
+        }
+    }
+
     label,
     input {
         position: absolute;

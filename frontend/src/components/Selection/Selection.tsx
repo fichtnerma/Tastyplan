@@ -9,9 +9,9 @@ export default function Selection({
 }: {
     choices: FormOfDiet[] | Intolerance[];
     isMultiselection: boolean;
-    setChoices: (choice: FormOfDiet | Intolerance[]) => void;
+    setChoices: (diet: Diet) => void;
 }) {
-    const [selection, setSelection] = useState<FormOfDiet | Intolerance[]>([]);
+    const [selection, setSelection] = useState<Diet>({ formOfDiet: 'Omnivor', intolerances: [] });
     if (!isMultiselection) {
         const onSelectionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             if (!isFormOfDiet(e.target.value)) {
@@ -20,8 +20,8 @@ export default function Selection({
 
             const selectedFormOfDiet = e.target.value;
 
-            setSelection(selectedFormOfDiet);
-            setChoices(selectedFormOfDiet);
+            setSelection({ formOfDiet: selectedFormOfDiet, intolerances: [...selection.intolerances] });
+            setChoices({ formOfDiet: selectedFormOfDiet, intolerances: [...selection.intolerances] });
         };
         return (
             <>
@@ -31,7 +31,7 @@ export default function Selection({
                             type={'radio'}
                             name={choice}
                             value={choice}
-                            checked={selection === choice}
+                            checked={selection.formOfDiet === choice}
                             onChange={onSelectionChange}
                         />
                         <label htmlFor={choice}>{choice}</label>
@@ -45,15 +45,15 @@ export default function Selection({
                 return;
             }
 
-            const currentSelection: Intolerance[] = [...selection];
+            const currentSelection: Intolerance[] = [...selection.intolerances];
             if (currentSelection.includes(e.target.value)) {
                 const cleanSelection = currentSelection.filter((el) => el !== e.target.value);
-                setSelection([...cleanSelection]);
-                setChoices([...cleanSelection]);
+                setSelection({ formOfDiet: selection.formOfDiet, intolerances: [...cleanSelection] });
+                setChoices({ formOfDiet: selection.formOfDiet, intolerances: [...cleanSelection] });
             } else {
                 currentSelection.push(e.target.value);
-                setSelection([...currentSelection]);
-                setChoices([...currentSelection]);
+                setSelection({ formOfDiet: selection.formOfDiet, intolerances: [...currentSelection] });
+                setChoices({ formOfDiet: selection.formOfDiet, intolerances: [...currentSelection] });
             }
         };
 
@@ -65,7 +65,7 @@ export default function Selection({
                             type={'checkbox'}
                             name={choice}
                             value={choice}
-                            checked={selection.includes(choice)}
+                            checked={selection.intolerances.includes(choice as Intolerance)}
                             onChange={onSelectionChange}
                         />
                         <label htmlFor={choice}>{choice}</label>

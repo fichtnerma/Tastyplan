@@ -8,7 +8,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
     return (
         <>
             {asPath !== '/startPage' && asPath !== '/preferences' && !asPath.includes('/intolerances') && <Header />}
-            <main>{children}</main>
+            <main className="h-full flex justify-center items-center">{children}</main>
             <Footer />
         </>
     );
