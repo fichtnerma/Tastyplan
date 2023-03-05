@@ -7,7 +7,9 @@ export default function Layout({ children }: React.PropsWithChildren) {
     const { asPath } = useRouter();
     return (
         <>
-            {asPath !== '/startPage' && asPath !== '/preferences' && !asPath.includes('/intolerances') && <Header />}
+            {asPath !== '/startPage' && !asPath.includes('/preferences') && !asPath.includes('/intolerances') && (
+                <Header />
+            )}
             <main className="h-full flex justify-center items-center">{children}</main>
             <Footer />
         </>

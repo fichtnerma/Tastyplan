@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Diet, FormOfDiet, Intolerance, isFormOfDiet, isIntolerance } from 'src/types/types';
+import { DietDTO, FormOfDiet, Intolerance, isFormOfDiet, isIntolerance } from 'src/types/types';
 import styles from '../../styles/Selection.module.scss';
 
 export default function Selection({
@@ -9,9 +9,9 @@ export default function Selection({
 }: {
     choices: FormOfDiet[] | Intolerance[];
     isMultiselection: boolean;
-    setChoices: (diet: Diet) => void;
+    setChoices: (diet: DietDTO) => void;
 }) {
-    const [selection, setSelection] = useState<Diet>({ formOfDiet: 'Omnivor', intolerances: [] });
+    const [selection, setSelection] = useState<DietDTO>({ formOfDiet: 'Omnivor', intolerances: [] });
     if (!isMultiselection) {
         const onSelectionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             if (!isFormOfDiet(e.target.value)) {

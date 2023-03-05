@@ -1,4 +1,4 @@
-import { Diet, Step } from 'src/types/types';
+import { DietDTO, Step } from 'src/types/types';
 import { useCallback, useEffect, useState } from 'react';
 import Selection from '@components/Selection/Selection';
 import { useRouter } from 'next/router';
@@ -8,11 +8,12 @@ export default function EatingHabits({ steps }: { steps: Step[] }) {
     const router = useRouter();
 
     const [currentStep, setCurrentStep] = useState(0);
-    const [diet, setDiet] = useState<Diet>({ formOfDiet: 'Omnivor', intolerances: [] });
+    const [diet, setDiet] = useState<DietDTO>({ formOfDiet: 'Omnivor', intolerances: [] });
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
         setProgress((100 / steps.length) * currentStep);
+        router.push('', `/preferences/${steps[currentStep].slug}`);
     }, [currentStep]);
 
     const onNext = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -31,13 +32,13 @@ export default function EatingHabits({ steps }: { steps: Step[] }) {
     };
 
     const addChoice = useCallback(
-        (currentDiet: Diet) => {
+        (currentDiet: DietDTO) => {
             setDiet(currentDiet);
         },
         [diet],
     );
 
-    const submitDiet = (dietData: Diet) => {
+    const submitDiet = (dietData: DietDTO) => {
         fetch('http://localhost:3000/preferences', {
             method: 'POST',
             body: JSON.stringify({
@@ -72,14 +73,14 @@ export default function EatingHabits({ steps }: { steps: Step[] }) {
         <>
             <div className="flex flex-col justify-center items-center">
                 <ProgressBar bgColor={getProgressColor(progress)} progress={progress} />
-                <form className="flex justify-center py-8 px-12 w-[36rem] bg-white rounded-[20px]">
-                    <fieldset className="flex flex-col">
+                <form className="flex justify-center flex-col py-8 px-12 w-[36rem] bg-white rounded-[20px]">
+                    <fieldset className="flex flex-col items-stretch w-full">
                         <h2 className="text-3xl font-semibold text-gray-custom4 mb-8">{steps[currentStep].title}</h2>
                         <div
                             className={
                                 steps[currentStep].isMultiSelection
-                                    ? 'grid grid-cols-4 gap-4 mb-6'
-                                    : 'flex flex-col items-center'
+                                    ? 'grid grid-cols-4 gap-[27px] mb-4'
+                                    : 'flex flex-col items-center mb-4'
                             }
                         >
                             <Selection
@@ -88,17 +89,25 @@ export default function EatingHabits({ steps }: { steps: Step[] }) {
                                 setChoices={addChoice}
                             />
                         </div>
-                        <div className={currentStep > 0 ? 'flex justify-between' : 'flex justify-center'}>
-                            {currentStep > 0 && (
-                                <button className="font-medium text-gray-custom4" data-anchor="back" onClick={onBack}>
-                                    Zurück
-                                </button>
-                            )}
-                            <button className="font-medium text-gray-custom4" data-anchor="next" onClick={onNext}>
-                                Weiter
-                            </button>
-                        </div>
                     </fieldset>
+                    <div className="flex justify-between w-full">
+                        {currentStep > 0 && (
+                            <button className="font-medium text-gray-custom4" data-anchor="back" onClick={onBack}>
+                                Zurück
+                            </button>
+                        )}
+                        <button
+                            className={
+                                currentStep > 0
+                                    ? 'font-medium text-gray-custom4'
+                                    : 'font-medium text-gray-custom4 ml-auto'
+                            }
+                            data-anchor="next"
+                            onClick={onNext}
+                        >
+                            Weiter
+                        </button>
+                    </div>
                 </form>
             </div>
         </>

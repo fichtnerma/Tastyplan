@@ -10,6 +10,7 @@ const steps: Step[] = [
         title: 'Ernährungsform',
         choices: ['Omnivor', 'Flexitarisch', 'Pescetarisch', 'Vegetarisch', 'Vegan'],
         isMultiSelection: false,
+        slug: 'form-of-diet',
     },
     {
         title: 'Unverträglichkeiten',
@@ -28,6 +29,7 @@ const steps: Step[] = [
             'Alkohol',
         ],
         isMultiSelection: true,
+        slug: 'intolerances',
     },
 ];
 

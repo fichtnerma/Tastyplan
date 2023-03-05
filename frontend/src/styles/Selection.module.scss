@@ -59,6 +59,10 @@
     height: 60px;
     position: relative;
 
+    &:last-child {
+        margin-bottom: 0rem;
+    }
+
     &:hover {
         label {
             background-color: var(--green-light);

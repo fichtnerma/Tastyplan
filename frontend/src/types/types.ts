@@ -1,15 +1,4 @@
 export type FormOfDiet = 'Omnivor' | 'Flexitarisch' | 'Pescetarisch' | 'Vegetarisch' | 'Vegan';
-
-export const isFormOfDiet = (str: string): str is FormOfDiet => {
-    return (
-        str === 'Omnivor' ||
-        str === 'Flexitarisch' ||
-        str === 'Pescetarisch' ||
-        str === 'Vegetarisch' ||
-        str === 'Vegan'
-    );
-};
-
 export type Intolerance =
     | 'Erdnuss'
     | 'Haselnus'
@@ -23,6 +12,16 @@ export type Intolerance =
     | 'Schalentiere'
     | 'Fisch'
     | 'Alkohol';
+
+export const isFormOfDiet = (str: string): str is FormOfDiet => {
+    return (
+        str === 'Omnivor' ||
+        str === 'Flexitarisch' ||
+        str === 'Pescetarisch' ||
+        str === 'Vegetarisch' ||
+        str === 'Vegan'
+    );
+};
 
 export const isIntolerance = (str: string): str is Intolerance => {
     return (
@@ -45,9 +44,10 @@ export type Step = {
     title: string;
     choices: FormOfDiet[] | Intolerance[];
     isMultiSelection: boolean;
+    slug: string;
 };
 
-export type Diet = {
+export type DietDTO = {
     formOfDiet: FormOfDiet;
     intolerances: Intolerance[];
 };
