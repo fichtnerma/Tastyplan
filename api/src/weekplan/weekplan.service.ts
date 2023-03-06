@@ -20,15 +20,19 @@ export class WeekplanService {
                 id: 1,
             },
         });
-        console.log(preferences);
+        
         const preferencesFiltered: Preferences = {
             formOfDiet: preferences.formOfDiet.charAt(0).toUpperCase() + preferences.formOfDiet.slice(1) || 'Omnivor',
             allergenes: [],
             foodDislikes: [],
         };
+        
         let recommendedMeals = await this.recipeService.findWithPreferences(preferencesFiltered);
+        console.log("These are the recommended meals");
         console.log(recommendedMeals);
-
+        
+        
+        
         if (recommendedMeals.length < 7) {
             recommendedMeals = [
                 ...recommendedMeals,
@@ -60,7 +64,12 @@ export class WeekplanService {
     }
 
     async delete(id = 1) {
-        try {
+        const weekplan = await this.prismaService.weekplan.findUnique({
+            where: {
+                id: 1
+            }
+        })
+        if (weekplan) {
             await this.prismaService.weekplan.delete({
                 where: {
                     id: 1,
@@ -69,14 +78,10 @@ export class WeekplanService {
                     weekplanEntry: true,
                 },
             });
-        } catch (error) {
-            console.log("Couldn't delete weekplan");
         }
     }
 
-    async findById(id: number) {
-        console.log('find by id', id);
-
+    async findById(id: number) {        
         await this.create();
         const weekPlan = await this.prismaService.weekplan.findUnique({
             where: {
