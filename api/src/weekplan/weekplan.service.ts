@@ -20,18 +20,14 @@ export class WeekplanService {
                 id: 1,
             },
         });
-        
+          
         const preferencesFiltered: Preferences = {
             formOfDiet: preferences.formOfDiet || 'omnivore',
             allergenes: [],
             foodDislikes: [],
         };
         
-        let recommendedMeals = await this.recipeService.findWithPreferences(preferencesFiltered);
-        console.log("These are the recommended meals");
-        console.log(recommendedMeals);
-        
-        
+        let recommendedMeals = await this.recipeService.findWithPreferences(preferencesFiltered);  
         
         if (recommendedMeals.length < 7) {
             recommendedMeals = [
