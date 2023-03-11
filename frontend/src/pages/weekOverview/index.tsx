@@ -38,7 +38,7 @@ export default function WeekOverview() {
                     <h3>Meine Woche</h3>
                     <div className='flex flex-row justify-between'>
                         {weekplan?.weekplanEntry?.map((day: any) => (
-                            <div>
+                            <div key={day.date}>
                                 <p>{week[new Date(day.date).getDay()]}</p>
                                 <div className={styles.foodBox}>
                                     <Link href={`/recipe/${day.recipe.id}`}>

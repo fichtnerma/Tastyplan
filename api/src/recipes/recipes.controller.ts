@@ -21,6 +21,8 @@ export class RecipesController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
+        console.log(id);
+
         return this.recipesService.findById(+id);
     }
 }

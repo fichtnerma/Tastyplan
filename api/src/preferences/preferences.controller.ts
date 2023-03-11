@@ -4,11 +4,12 @@ import { PreferencesDto } from './dto/createPreferences.dto';
 
 @Controller('preferences')
 export class PreferencesController {
-    constructor(private preferencesService: PreferencesService) { }
-
+    constructor(private preferencesService: PreferencesService) {}
 
     @Post()
-    preferences(@Body() preferencesDto: PreferencesDto) { 
-        return this.preferencesService.preferences(preferencesDto)
+    async preferences(@Body() preferencesDto: PreferencesDto) {
+        console.log(preferencesDto);
+
+        return await this.preferencesService.preferences(preferencesDto);
     }
 }

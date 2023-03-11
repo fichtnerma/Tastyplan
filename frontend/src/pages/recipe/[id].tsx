@@ -11,7 +11,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-export default function detailRecipe() {
+export default function DetailRecipe() {
     const router = useRouter();
 
     const [loading, setLoading] = useState(true)
@@ -67,7 +67,7 @@ export default function detailRecipe() {
                                             {ingredientsSplited?.firstHalf.map((ingredient) => (
                                                 <div className='flex'>
                                                     <input type='checkbox' className={styles.checkbox}></input>
-                                                    <label>{`${ingredient.amount} ${ingredient.ingredient}`}</label>
+                                                    <label>{`${ingredient.amount || ""} ${ingredient.ingredient}`}</label>
                                                 </div>
                                             ))}
                                         </div>

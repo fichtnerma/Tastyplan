@@ -8,9 +8,9 @@ import Router from 'next/router';
 import React, { useState } from 'react';
 
 const PreferencesPage = () => {
-    const preferences = ['omnivore', 'flexitarier', 'pescetarier', 'vegetarisch', 'vegan'];
+    const preferences = ['omnivor', 'flexitarier', 'pescetarier', 'vegetarisch', 'vegan'];
 
-    const [selection, setSelection] = useState('omnivore');
+    const [selection, setSelection] = useState('omnivor');
 
     const onChoiceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelection(e.target.value);

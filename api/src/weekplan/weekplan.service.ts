@@ -10,7 +10,7 @@ type Preferences = {
 };
 @Injectable()
 export class WeekplanService {
-    constructor(private prismaService: PrismaService, private recipeService: RecipesService) { }
+    constructor(private prismaService: PrismaService, private recipeService: RecipesService) {}
 
     async create() {
         const week = [0, 1, 2, 3, 4, 5, 6];
@@ -22,11 +22,13 @@ export class WeekplanService {
         });
         console.log(preferences);
         const preferencesFiltered: Preferences = {
-            formOfDiet: preferences.formOfDiet || 'omnivore',
+            formOfDiet: preferences.formOfDiet.charAt(0).toUpperCase() + preferences.formOfDiet.slice(1) || 'Omnivor',
             allergenes: [],
             foodDislikes: [],
         };
         let recommendedMeals = await this.recipeService.findWithPreferences(preferencesFiltered);
+        console.log(recommendedMeals);
+
         if (recommendedMeals.length < 7) {
             recommendedMeals = [
                 ...recommendedMeals,
@@ -58,21 +60,27 @@ export class WeekplanService {
     }
 
     async delete(id = 1) {
-        await this.prismaService.weekplan.delete({
-            where: {
-                id: 1,
-            },
-            include: {
-                weekplanEntry: true,
-            },
-        });
+        try {
+            await this.prismaService.weekplan.delete({
+                where: {
+                    id: 1,
+                },
+                include: {
+                    weekplanEntry: true,
+                },
+            });
+        } catch (error) {
+            console.log("Couldn't delete weekplan");
+        }
     }
 
     async findById(id: number) {
+        console.log('find by id', id);
+
         await this.create();
         const weekPlan = await this.prismaService.weekplan.findUnique({
             where: {
-                id,
+                id: 1,
             },
             include: {
                 weekplanEntry: {
