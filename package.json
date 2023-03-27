@@ -5,7 +5,8 @@
   },
   "scripts": {
     "containers:dev": "docker-compose up --build -d",
-    "db:seed": "cd api && run npx prisma db seed",
+    "db:seed": "cd api && npx prisma db seed",
+    "setup:dev": "npm run containers:dev && npm run db:seed",
     "test:api": "cd api && jest"
   },
   "devDependencies": {
