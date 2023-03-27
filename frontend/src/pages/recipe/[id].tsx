@@ -30,52 +30,51 @@ export default function DetailRecipe() {
     }, [loading])
 
     const ingredientsSplited = spiltSteps(recipe?.ingredients, 5);
-    const recipes = spiltSteps(recipe?.steps, 3);
     return (
         <>{!loading ? (
             <div className={styles.container} >
                 <div className={styles.recipeBox}>
                     <Image src={pancakes} alt={'Pancakes Bild'} className={styles.foodImg}></Image>
                     <div className='ml-5'>
-                        <h3 className={styles.titleRecipe}>{recipe.name}</h3>
+                        <h1 className={styles.titleRecipe}>{recipe.name}</h1>
                         <div className='grid grid-cols-2'>
                             <div>
                                 <div className='flex'>
                                     <div className='flex flex-col m-6'>
-                                        <Image src={kochIcon} className='self-center mb-2' alt="Time Icon" width={40} height={40} priority />
-                                        <p className='text-base text-center'>{recipe.difficulty}</p>
+                                        <Image src={kochIcon} className='self-center mb-2' alt="Time Icon" width={60} height={60} priority />
+                                        <h5 className='text-center'>{recipe.difficulty}</h5>
                                     </div>
                                     <div className='flex flex-col m-6'>
-                                        <Image src={vegetarianIcon} className='self-center mb-2' alt="Time Icon" width={40} height={40} priority />
-                                        <p className='text-base text-center'>{recipe.formOfDiet}</p>
+                                        <Image src={vegetarianIcon} className='self-center mb-2' alt="Time Icon" width={60} height={60} priority />
+                                        <h5 className='text-center'>{recipe.formOfDiet}</h5>
                                     </div>
                                     <div className='flex flex-col m-6'>
-                                        <Image src={timeIcon} className='self-center mb-2' alt="Time Icon" width={40} height={40} priority />
-                                        <p className='text-base text-center'>{recipe.preparingTime} min</p>
+                                        <Image src={timeIcon} className='self-center mb-2' alt="Time Icon" width={60} height={60} priority />
+                                        <h5 className='text-center'>{recipe.preparingTime} min</h5>
                                     </div>
                                     <div className='flex flex-col m-6'>
-                                        <Image src={potIcon} className='self-center mb-2' alt="Time Icon" width={40} height={40} priority />
-                                        <p className='text-base text-center'>{recipe.cookingTime} min</p>
+                                        <Image src={potIcon} className='self-center mb-2' alt="Time Icon" width={60} height={60} priority />
+                                        <h5 className='text-center'>{recipe.cookingTime} min</h5>
                                     </div>
                                 </div>
                             </div>
                             <div>
                                 <div>
-                                    <h4>Zutaten:</h4>
+                                    <h4>Ingridients:</h4>
                                     <div className='grid grid-cols-2'>
                                         <div>
                                             {ingredientsSplited?.firstHalf.map((ingredient) => (
-                                                <div className='flex'>
-                                                    <input type='checkbox' className={styles.checkbox}></input>
-                                                    <label>{`${ingredient.amount || ""} ${ingredient.ingredient}`}</label>
+                                                <div className='grid grid-cols-3 gap-5'>
+                                                    <p className='text-right '>{ingredient.amount}</p>
+                                                    <p className='text-left col-span2'>{ingredient.ingredient}</p>
                                                 </div>
                                             ))}
                                         </div>
                                         <div>
                                             {ingredientsSplited?.secondHalf.map((ingredient) => (
-                                                <div className='flex'>
-                                                    <input type='checkbox' className={styles.checkbox} />
-                                                    <label>{`${ingredient.amount} ${ingredient.ingredient}`}</label>
+                                                <div className='grid grid-cols-3 gap-5'>
+                                                    <p className='text-right '>{ingredient.amount}</p>
+                                                    <p className='text-left col-span2'>{ingredient.ingredient}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -92,32 +91,22 @@ export default function DetailRecipe() {
                             </div> */}
                             </div>
                         </div>
-                        <div>
-                            <h3>Das Rezept</h3>
-                            <div className='grid grid-cols-2'>
-                                <div>
-                                    {recipes?.firstHalf.map((step) => (
-                                        <div className='flex gap-x-4 m-5'>
-                                            <div className={styles.numberFrame}>
-                                                <p className='text-4xl'>{step.stepCount}</p>
-                                            </div>
-                                            <p className={styles.recipeText}>{step.description}</p>
-                                        </div>
+                        <div className='mt-10'>
+                            <h3>The Recipe</h3>
+                            <div>
+                                {recipe?.steps?.map((step: any) => (
+                                    <div className='m-10'>
+                                        <h4>Step {step.stepCount}:</h4>
+                                        <Image src={pancakes} alt={'Pancakes Bild'} className={styles.stepImg}></Image>
+                                        <p className={styles.recipeText}>{step.description}</p>
+                                    </div>
 
-                                    ))}
-                                </div>
-                                <div>
-                                    {recipes?.secondHalf.map((step, index) => (
-                                        <div className='flex gap-x-4 m-5'>
-                                            <div className={styles.numberFrame}>
-                                                <p className='text-4xl'>{step.stepCount}</p>
-                                            </div>
-                                            <p className={styles.recipeText}>{step.description}</p>
-                                        </div>
-
-                                    ))}
-                                </div>
+                                ))}
                             </div>
+                        </div>
+                        <div className='mt-40 pb-40'>
+                            <h3 className='text-center text-green-custom2'>Well done!</h3>
+                            <p className='text-center'>How do you rate the recipe?</p>
                         </div>
                     </div>
                 </div>
