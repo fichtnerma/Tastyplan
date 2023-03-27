@@ -31,14 +31,13 @@ const PreferencesPage = () => {
 
     return (
         <div>
-            <div className={styles.logo}>
-                <Image src={logo} className='ml-24 fixed' alt="logo" width={200} priority />
-            </div>
+            <Image src={logo} className="ml-24 mb-8" alt="logo" width={200} priority />
             <div className="flex justify-center items-center">
-
-                <form className="flex justify-center py-8 px-12 w-[36rem] bg-white rounded-[20px]">
+                <form className="flex justify-center py-8 px-12 w-screen bg-white rounded-[20px]">
                     <fieldset className="flex flex-col">
-                        <h2 className="text-3xl font-semibold text-gray-custom4 mb-8">Welcher Ernährungstyp bist du?</h2>
+                        <h2 className="text-3xl font-semibold text-gray-custom4 mb-8">
+                            Welcher Ernährungstyp bist du?
+                        </h2>
                         <div className={styles.preferencesWrapper}>
                             {preferences.map((preference, i) => (
                                 <div key={i} className={styles.choiceWrapper}>
