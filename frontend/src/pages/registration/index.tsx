@@ -13,7 +13,7 @@ function RegistrationPage() {
 
         let areInputsValid = true;
 
-        if (!isMailValid()) {
+        if (!isMailValid() && mailAdress) {
             toast('Please enter a valid Mail', {
                 hideProgressBar: true,
                 autoClose: 3000,
