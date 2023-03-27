@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
+import { CreateGuestDto, CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
 import { FormatLogin, UsersService } from 'src/users/users.service';
 import { JwtPayload } from './jwt.strategy';
 
@@ -14,6 +14,18 @@ export class AuthService {
         private readonly usersService: UsersService,
     ) {}
 
+    registerGuest(createGuestDto: CreateGuestDto) {
+        try {
+            const user = this.usersService.createGuest(createGuestDto);
+            const cookie = this.createAuthCookie(createGuestDto);
+            return { cookie, data: user };
+        } catch (error) {
+            return {
+                success: false,
+                message: error,
+            };
+        }
+    }
     async register(userDto: CreateUserDto): Promise<RegistrationStatus> {
         let status: RegistrationStatus = {
             success: true,
@@ -56,6 +68,11 @@ export class AuthService {
     private createAuthCookie({ userId }: FormatLogin) {
         const { expiresIn, Authorization } = this._createToken({ userId });
         return `Authentication=${Authorization}; HttpOnly; Path=/; Max-Age=${expiresIn}`;
+    }
+
+    private createTemporayAuthCookie({ userId }: FormatLogin) {
+        const { Authorization } = this._createToken({ userId });
+        return `Authentication=${Authorization}; HttpOnly; Path=/; expires=0`;
     }
 
     public getCookieForLogOut() {

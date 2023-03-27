@@ -1,7 +1,7 @@
 import { Body, Controller, HttpException, HttpStatus, Post, Res } from '@nestjs/common';
 import { AuthService, RegistrationStatus } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
+import { CreateGuestDto, CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
 import { Response } from 'express';
 
 @ApiTags('auth')
@@ -23,6 +23,13 @@ export class AuthController {
     @Post('login')
     public async login(@Body() loginUserDto: LoginUserDto, @Res() response: Response): Promise<any> {
         const { cookie, data } = await this.authService.login(loginUserDto);
+        response.setHeader('Set-Cookie', cookie);
+        return response.send(data);
+    }
+
+    @Post('guest')
+    public async registerGuest(@Body() createGuestDto: CreateGuestDto, @Res() response: Response): Promise<any> {
+        const { cookie, data } = await this.authService.registerGuest(createGuestDto);
         response.setHeader('Set-Cookie', cookie);
         return response.send(data);
     }

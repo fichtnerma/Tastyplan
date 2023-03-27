@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateUserDto, LoginUserDto, Role, UpdatePasswordDto } from './dto/create-user.dto';
+import { CreateGuestDto, CreateUserDto, LoginUserDto, Role, UpdatePasswordDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 export interface FormatLogin extends Partial<User> {
@@ -36,6 +36,16 @@ export class UsersService {
         });
         console.log('user', user);
 
+        return user;
+    }
+
+    async createGuest(createGuestDto: CreateGuestDto): Promise<User> {
+        const user = await this.prismaService.user.create({
+            data: {
+                ...createGuestDto,
+                role: Role.GUEST,
+            },
+        });
         return user;
     }
 

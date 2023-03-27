@@ -36,7 +36,7 @@ export class CreateUserDto {
     role: Role;
 }
 
-export class createGuestDto {
+export class CreateGuestDto {
     @ApiProperty()
     @IsString()
     @IsNotEmpty()

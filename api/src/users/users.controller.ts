@@ -28,7 +28,7 @@ export class UsersController {
     @ApiSecurity('access-key')
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('test')
-    public test() {
-        return 'Authentication worked';
+    public test(@Request() request: any) {
+        return { msg: 'Authentication worked', data: request.cookies, user: request.user };
     }
 }
