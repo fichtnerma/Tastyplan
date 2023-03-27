@@ -52,6 +52,8 @@ export class RecipesService {
     }
 
     findWithPreferences(preferencesDto: PreferencesDto) {
+        console.log(preferencesDto);
+
         const recipes = this.prismaService.recipe.findMany({
             where: {
                 formOfDiet: preferencesDto.formOfDiet,

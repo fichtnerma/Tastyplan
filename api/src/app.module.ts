@@ -8,9 +8,11 @@ import { PreferencesModule } from './preferences/preferences.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { WeekplanModule } from './weekplan/weekplan.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-    imports: [ConfigModule.forRoot({ isGlobal: true }), IngredientsModule, RecipesModule, PreferencesModule, PrismaModule, WeekplanModule],
+    imports: [ConfigModule.forRoot({ isGlobal: true }), IngredientsModule, RecipesModule, PreferencesModule, PrismaModule, WeekplanModule, UsersModule, AuthModule],
     controllers: [AppController, PreferencesController],
     providers: [AppService],
 })
