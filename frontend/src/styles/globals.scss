@@ -5,19 +5,23 @@
 @import '@styles/variables.scss';
 
 :root {
-    --green-light: #009245;
-    --green-dark: rgb(0, 104, 55);
-    --green-dark-background: rgba(0, 104, 55, 0.9);
+    --green-light-rgb: rgb(214, 229, 227);
+    --green-light: #D6E5E3;
+    --green-dark-rgb: rgb(0, 115, 112);
+    --green-dark: #007370;
+
+
+    --black: #000000;
+    --white: #fffffa;
 
     --red: #d54444;
 
+    //old dont use
     --gray-light: #f2f5f4;
     --gray-2: #d6d6d6;
     --gray-3: #707070;
     --gray-dark: rgb(58, 58, 58);
 
-    --black: #000000;
-    --white: #ffffff;
 }
 
 body {
@@ -26,41 +30,36 @@ body {
 }
 
 h1 {
-    font-family: $font-family;
-    font-weight: 600;
+    font-family: $font-family-headline;
     font-style: normal;
-    font-size: 80px;
-    color: var(--gray-light);
+    font-size: 100px;
+    color: var(--black);
 }
 
 h2 {
-    font-family: $font-family;
-    font-weight: 400;
+    font-family: $font-family-headline;
     font-style: normal;
-    font-size: 40px;
-    color: var(--gray-light);
+    font-size: 80px;
+    color: var(--black);
 }
 
 h3 {
-    font-family: $font-family;
-    font-weight: 100;
+    font-family: $font-family-headline;
     font-style: normal;
-    font-size: 35px;
-    color: var(--gray-dark);
+    font-size: 50px;
+    color: var(--black);
 }
 
 h4 {
-    font-family: $font-family;
-    font-weight: 100;
+    font-family: $font-family-headline;
     font-style: normal;
-    font-size: 25px;
-    color: var(--gray-dark);
+    font-size: 40px;
+    color: var(--black);
 }
 
 p {
-    font-family: $font-family;
-    font-weight: 100;
+    font-family: $font-family-text;
     font-style: normal;
-    font-size: 20px;
-    color: var(--gray-dark);
+    font-size: 25px;
+    color: var(--black);
 }

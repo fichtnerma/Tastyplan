@@ -7,7 +7,7 @@
 }
 
 .recipeBox {
-    background-color: var(--gray-light);
+    background-color: var(--white);
     width: 100%;
     box-shadow: $box-shadow;
     border-radius: $boder-radius;
@@ -38,7 +38,7 @@
 
     // Hover
     &+label:hover {
-        color: rgb(var(--green-dark));
+        color: var(--green-dark-rgb);
     }
 
     // Checked
