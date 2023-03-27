@@ -8,8 +8,6 @@ export class PreferencesController {
 
     @Post()
     async preferences(@Body() preferencesDto: PreferencesDto) {
-        console.log(preferencesDto);
-
         return await this.preferencesService.preferences(preferencesDto);
     }
 }

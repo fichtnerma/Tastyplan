@@ -50,7 +50,7 @@ export class RecipesService {
         };
         return formattedRecipe;
     }
-
+    //Condition: wehere non of the ingreedients has one of the given allergenes
     findWithPreferences(preferencesDto: PreferencesDto) {
         console.log(preferencesDto);
 

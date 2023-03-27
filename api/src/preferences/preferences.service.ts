@@ -29,6 +29,7 @@ export class PreferencesService {
                 },
                 data: {
                     formOfDiet: createPreferencesDto.formOfDiet,
+                    allergenes: createPreferencesDto.allergenes
                 },
             });
             // const preferences = this.prismaService.preferences.create({
