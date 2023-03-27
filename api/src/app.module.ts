@@ -10,9 +10,20 @@ import { ConfigModule } from '@nestjs/config';
 import { WeekplanModule } from './weekplan/weekplan.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
-    imports: [ConfigModule.forRoot({ isGlobal: true }), IngredientsModule, RecipesModule, PreferencesModule, PrismaModule, WeekplanModule, UsersModule, AuthModule],
+    imports: [
+        ConfigModule.forRoot({ isGlobal: true }),
+        IngredientsModule,
+        RecipesModule,
+        PreferencesModule,
+        PrismaModule,
+        WeekplanModule,
+        UsersModule,
+        AuthModule,
+        SearchModule,
+    ],
     controllers: [AppController, PreferencesController],
     providers: [AppService],
 })

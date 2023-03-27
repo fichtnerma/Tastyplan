@@ -1,7 +1,7 @@
 // prisma/seed.ts
 
 import { PrismaClient } from '@prisma/client';
-import { similarity2 } from '../src/helpers/similarity.utils';
+import { gestaltSimilarity, levenshteinMultiWordSimilarity } from '../src/helpers/similarity.utils';
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
@@ -96,8 +96,6 @@ async function initRecipes() {
             };
             ingredientEntities.push(ingredientEntity);
         }
-        console.log(ingredientEntities);
-
         await prisma.recipe.upsert({
             where: { id: index + 1 },
             update: {},
@@ -117,7 +115,10 @@ async function initRecipes() {
                 },
                 steps: {
                     createMany: {
-                        data: recipe.steps.map((step: any) => ({ stepCount: +step.stepCount, description: step.description })),
+                        data: recipe.steps.map((step: any) => ({
+                            stepCount: +step.stepCount,
+                            description: step.description,
+                        })),
                     },
                 },
             },
@@ -126,34 +127,49 @@ async function initRecipes() {
 }
 
 async function findSimilarIngredients(ingredient: any) {
-    const ingredients = await prisma.ingredient.findMany({
-        where: {
-            name: {
-                startsWith: ingredient.substring(0, 3),
+    const ingredientSubStrings = ingredient.split(' ');
+
+    let ingredients: any[] = [];
+    for (let index = 0; index < ingredientSubStrings.length; index++) {
+        if (index > 1) break;
+        const matchingIngredients = await prisma.ingredient.findMany({
+            where: {
+                name: {
+                    startsWith: ingredientSubStrings[index].substring(0, 3),
+                },
             },
-        },
-    });
+        });
+        ingredients.push(...matchingIngredients);
+    }
+
+    ingredients = ingredients.filter((value, index, self) => index === self.findIndex((t) => t.id === value.id));
     const similarIngredients = ingredients.map((ing) => {
         return {
             id: ing.id,
             name: ing.name,
-            similarity: similarity2(ing.name, ingredient),
+            levenshtein: levenshteinMultiWordSimilarity(ing.name, ingredient),
+            gestalt: gestaltSimilarity(ing.name, ingredient),
+            similarity: levenshteinMultiWordSimilarity(ing.name, ingredient) + gestaltSimilarity(ing.name, ingredient),
         };
     });
     const ing = similarIngredients.sort((a, b) => b.similarity - a.similarity)[0];
-    console.log('Ingredient: ' + ingredient + ' -> ' + ing?.name);
-
-    if (!ing) {
-        return (
-            await prisma.ingredient.findFirst({
-                where: {
-                    name: {
-                        contains: 'Unbekannt',
-                    },
-                },
-            })
-        ).id;
+    if (ing?.similarity < 1.2 || ing == undefined) {
+        console.log(
+            'Ingredient: ' +
+                ingredient +
+                ' -> ' +
+                ing?.name +
+                ' with similarity of: (' +
+                ing?.similarity +
+                ')' +
+                ' (' +
+                ing?.levenshtein +
+                ' + ' +
+                ing?.gestalt +
+                ')',
+        );
     }
+
     return ing?.id;
 }
 
@@ -167,60 +183,3 @@ main()
         // close Prisma Client at the end
         await prisma.$disconnect();
     });
-
-// function similarity2(s1: string, s2: string) {
-//     const split1 = s1.toLowerCase().split(' ');
-//     const split2 = s2.toLowerCase().split(' ');
-//     let sum = 0;
-//     let max = 0;
-//     let temp = 0;
-//     if (split2.length === 1 && split2[0] === split1[0]) {
-//         return 1;
-//     }
-//     for (let i = 0; i < split1.length; i++) {
-//         max = 0;
-//         for (let j = 0; j < split2.length; j++) {
-//             temp = similarity(split1[i], split2[j]);
-//             if (max < temp) max = temp;
-//         }
-//         sum += max / split1.length;
-//     }
-//     return sum;
-// }
-
-// function similarity(s1: string, s2: string) {
-//     let longer = s1;
-//     let shorter = s2;
-//     if (s1.length < s2.length) {
-//         longer = s2;
-//         shorter = s1;
-//     }
-//     const longerLength = longer.length;
-//     if (longerLength == 0) {
-//         return 1.0;
-//     }
-//     return (longerLength - editDistance(longer, shorter)) / longerLength;
-// }
-
-// function editDistance(s1: string, s2: string) {
-//     s1 = s1.toLowerCase();
-//     s2 = s2.toLowerCase();
-
-//     const costs = [];
-//     for (let i = 0; i <= s1.length; i++) {
-//         let lastValue = i;
-//         for (let j = 0; j <= s2.length; j++) {
-//             if (i == 0) costs[j] = j;
-//             else {
-//                 if (j > 0) {
-//                     let newValue = costs[j - 1];
-//                     if (s1.charAt(i - 1) != s2.charAt(j - 1)) newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-//                     costs[j - 1] = lastValue;
-//                     lastValue = newValue;
-//                 }
-//             }
-//         }
-//         if (i > 0) costs[s2.length] = lastValue;
-//     }
-//     return costs[s2.length];
-// }
