@@ -103,20 +103,20 @@ function RegistrationPage() {
     return (
         <div className="flex justify-center">
             <div className="flex bg-white rounded-[30px] p-5">
-                <div className="flex flex-col rounded-[20px] p-6">
-                    <h2>Welcome to Tastyplan</h2>
-                    <p>Already have an Account?</p>
+                <div className="flex flex-col basis-2/5 rounded-[20px] p-6 bg-green-custom2">
+                    <h2 className="h2-white">Welcome to Tastyplan</h2>
+                    <p className="text-white">Already have an Account?</p>
                 </div>
-                <form className="w-[36rem] bg-white px-4" onSubmit={handleSubmit}>
+                <form className="basis-3/5 bg-white px-4" onSubmit={handleSubmit}>
                     <fieldset className="pl-12 pr-4">
-                        <legend className="h2-black">Register</legend>
+                        <legend className="h2 leading-[68px] mb-1">Register</legend>
                         <p className="text-xs mb-10">
                             Already have an account? Log in <a href="/">here!</a>
                         </p>
                         <div className="flex flex-col">
                             <div className="text-input-wrapper mb-6">
                                 <label htmlFor="email">
-                                    E-Mail Adress <span className="text-red-600 font-lg font-bold">*</span>{' '}
+                                    E-Mail <span className="text-red-600 font-lg font-bold">*</span>{' '}
                                 </label>
                                 <input
                                     type="text"
@@ -147,7 +147,7 @@ function RegistrationPage() {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <div className="text-input-wrapper mb-8">
+                            <div className="text-input-wrapper mb-10">
                                 <label htmlFor="passwordConfirmation">
                                     Confirm Password <span className="text-red-600 font-lg font-bold">*</span>{' '}
                                 </label>
