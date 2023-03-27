@@ -1,4 +1,15 @@
-$font-family: "degular", sans-serif;
+@font-face {
+    font-family: "BebasNeue";
+    src: url("../../public/fonts/BebasNeue-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Inter-Regular";
+    src: url("../../public/fonts/Inter-Regular.ttf");
+}
+
+$font-family-headline: "BebasNeue";
+$font-family-text: "Inter-Regular";
 
 $box-shadow: 5px 5px 5px 5px rgba(58, 58, 58, 0.1);
 $boder-radius: 20px;
