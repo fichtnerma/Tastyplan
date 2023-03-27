@@ -40,7 +40,7 @@ const PreferencesPage = () => {
             <Image src={logo} className="ml-24 mb-8" alt="logo" width={200} priority />
             <div className="flex justify-center items-center ml-50">
                 <form className="flex justify-center py-8 px-12 w-5/6 h-full bg-white rounded-[20px]">
-                    <fieldset className="flex flex-col mt-20">
+                    <fieldset className="flex flex-col w-4/5 mt-20">
                         <h4 className="mb-8">Welcher Ernährungstyp bist du?</h4>
                         <div className={styles.preferencesWrapper}>
                             {preferences.map((preference, i) => (
@@ -60,14 +60,6 @@ const PreferencesPage = () => {
                             ))}
                         </div>
                         <div className="flex justify-center relative">
-                            <a
-                                className="font-medium text-gray-custom4"
-                                href="/preferences"
-                                onClick={onSubmitSelection}
-                                data-anchor="skip"
-                            >
-                                Überspringen
-                            </a>
                             <a
                                 className="absolute top-0 right-0 font-medium text-gray-custom4"
                                 href="/preferences"
