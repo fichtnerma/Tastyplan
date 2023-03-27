@@ -6,12 +6,10 @@ import styles from '../styles/App.module.scss';
 export default function App({ Component, pageProps }: AppProps) {
     return (
         <div className={styles.background}>
-            <div className={styles.greenShadow}>
-                <Layout>
-                    {' '}
-                    <Component {...pageProps} />{' '}
-                </Layout>
-            </div>
+            <Layout>
+                {' '}
+                <Component {...pageProps} />{' '}
+            </Layout>
         </div>
     );
 }
