@@ -6,10 +6,9 @@
 
 :root {
     --green-light-rgb: rgb(214, 229, 227);
-    --green-light: #D6E5E3;
+    --green-light: #d6e5e3;
     --green-dark-rgb: rgb(0, 115, 112);
     --green-dark: #007370;
-
 
     --black: #000000;
     --white: #fffffa;
@@ -21,7 +20,6 @@
     --gray-2: #d6d6d6;
     --gray-3: #707070;
     --gray-dark: rgb(58, 58, 58);
-
 }
 
 body {
@@ -36,11 +34,21 @@ h1 {
     color: var(--black);
 }
 
-h2 {
+.h2 {
     font-family: $font-family-headline;
+    font-weight: 400;
     font-style: normal;
     font-size: 80px;
     color: var(--black);
+}
+
+.h2-black {
+    @extend .h2;
+    color: var(--black);
+}
+
+h2 {
+    @extend .h2;
 }
 
 h3 {
@@ -62,4 +70,32 @@ p {
     font-style: normal;
     font-size: 25px;
     color: var(--black);
+}
+
+.text-input-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        margin-bottom: 0.25rem;
+    }
+
+    input {
+        border: 2px solid #007370;
+        border-radius: 15px;
+        padding: 0rem 0.75rem;
+        height: 50px;
+
+        &:focus {
+            outline: unset;
+        }
+    }
+}
+
+.btn-submit {
+    background-color: var(--green-light);
+    border-radius: 60px;
+    padding: 0.5rem 1.5rem;
+    width: fit-content;
+    color: var(--white);
 }
