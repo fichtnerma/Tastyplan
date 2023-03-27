@@ -10,18 +10,22 @@ import { useState } from 'react';
 
 export default function IntolerancesPage() {
     const intolerances = [
-        'Erdnuss',
-        'Haselnus',
-        'Walnuss',
-        'Schalenfrucht',
-        'Soja',
-        'Gluten',
-        'Fruktose',
-        'Ei',
-        'Laktose',
-        'Schalentiere',
-        'Fisch',
-        'Alkohol'
+        'peanut',
+        'hazelnut',
+        'walnut',
+        'milk',
+        'gluten',
+        'egg',
+        'crustacaen',
+        'fish',
+        'soy',
+        'shellFruit',
+        'celery',
+        'mustard',
+        'sesame',
+        'sulfur',
+        'lupine',
+        'mollusk',
     ];
 
     const [choices, setChoices] = useState<string[]>([]);
@@ -68,13 +72,11 @@ export default function IntolerancesPage() {
 
     return (
         <div>
-            <div className={styles.logo}>
-                <Image src={logo} className='ml-24 fixed' alt="logo" width={200} priority />
-            </div>
-            <div className="flex justify-center items-center">
-                <form className="flex justify-center py-8 px-12 w-[36rem] bg-white rounded-[20px]">
-                    <fieldset className="flex flex-col">
-                        <h2 className="text-3xl font-semibold text-gray-custom4 mb-8">Was sind deine Unverträglichkeiten?</h2>
+            <Image src={logo} className="ml-24 mb-8" alt="logo" width={200} priority />
+            <div className="flex justify-center items-center ml-50">
+                <form className="flex justify-center py-8 px-12 h-70v w-5/6 bg-white rounded-[20px]">
+                    <fieldset className="flex flex-col w-4/5 mt-24">
+                        <h4 className="mb-8">What are your intolerances?</h4>
                         <div className="grid grid-cols-4 gap-4 mb-6">
                             {intolerances.map((intolerance, i) => (
                                 <div key={i} className={styles.intoleranceWrapper}>
@@ -85,7 +87,9 @@ export default function IntolerancesPage() {
                                         checked={choices.includes(intolerance)}
                                         onChange={onAddChoice}
                                     />
-                                    <label htmlFor={intolerance}>{intolerance}</label>
+                                    <label htmlFor={intolerance}>
+                                        <p>{intolerance}</p>
+                                    </label>
                                 </div>
                             ))}
                         </div>

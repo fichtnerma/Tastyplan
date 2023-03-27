@@ -1,8 +1,9 @@
 .intoleranceWrapper {
     display: block;
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 70px;
     position: relative;
+    border-radius: 50px;
 
     &:hover {
         label {
@@ -44,8 +45,8 @@
         color: var(--gray-dark);
     }
 
-    input[type='checkbox']:checked+label,
-    .Checked+label {
+    input[type='checkbox']:checked + label,
+    .Checked + label {
         background-color: var(--green-dark);
         color: var(--white);
         border: none;
