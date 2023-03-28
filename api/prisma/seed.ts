@@ -58,16 +58,16 @@ function readCSVIngredients() {
                 .pipe(parse({ separator: ';' }))
                 .on('data', function (row: any) {
                     const ingredient = {
-                        name: row['Name'],
-                        categories: row['Kategorie'],
-                        subcategories: row['Subkategorie'],
-                        calories: row['Energie, Kalorien (kcal)'],
-                        protein: row['Protein (g)'],
-                        fat: row['Fett, total (g)'],
-                        carbs: row['Kohlenhydrate, verfügbar (g)'],
-                        calcium: row['Calcium (Ca) (mg)'],
-                        iron: row['Eisen (Fe) (mg)'],
-                        magnesium: row['Magnesium (Mg) (mg)'],
+                        name: row['name'],
+                        categories: row['categories'],
+                        subcategories: row['subcategories'],
+                        calories: row['calories'],
+                        protein: row['protein'],
+                        fat: row['fat'],
+                        carbs: row['carbs'],
+                        calcium: row['calcium'],
+                        iron: row['iron'],
+                        magnesium: row['magnesium'],
                     };
                     ingredients.push(ingredient);
                 })
