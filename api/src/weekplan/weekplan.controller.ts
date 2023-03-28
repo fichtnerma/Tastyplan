@@ -7,6 +7,6 @@ export class WeekplanController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.weekplanService.findById(1);
+        return this.weekplanService.findForUser(1);
     }
 }
