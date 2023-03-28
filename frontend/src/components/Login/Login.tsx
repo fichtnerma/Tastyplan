@@ -6,7 +6,30 @@ function Login() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        sendData();
         console.log('handle submit');
+    };
+
+    const sendData = async () => {
+        const data = {
+            userId: username,
+            password: password,
+        };
+
+        const response = await fetch('http://localhost:3000/auth/login', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            redirect: 'follow',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        response.headers;
+
+        const responseData = await response.json();
+
+        console.log(responseData);
     };
 
     return (

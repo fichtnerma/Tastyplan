@@ -21,9 +21,9 @@ export default class IngredientsSearchService {
         });
     }
     async createIndex(ingredients: Ingredient[]) {
-        if (await this.elasticsearchService.indices.exists({ index: this.index })) {
-            await this.elasticsearchService.indices.delete({ index: this.index });
-        }
+        // if (await this.elasticsearchService.indices.exists({ index: this.index })) {
+        //     await this.elasticsearchService.indices.delete({ index: this.index });
+        // }
         await this.elasticsearchService.indices.create({ index: this.index });
         const body = ingredients.flatMap((ingredient) => [
             { index: { _index: this.index } },
