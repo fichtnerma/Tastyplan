@@ -6,3 +6,12 @@ export type APIRegistrationResponse = {
     message: string;
     name: string;
 };
+
+export type UserCredentials = {
+    userId: string;
+    password: string;
+    redirect?: boolean;
+    callbackURL?: string;
+    csrfToken?: string;
+    json: boolean;
+};
