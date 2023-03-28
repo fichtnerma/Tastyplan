@@ -71,10 +71,19 @@ h5 {
     color: var(--black);
 }
 
-p {
+.p {
     font-family: $font-family-text;
     font-style: normal;
     font-size: 25px;
+}
+.p-white {
+    @extend .p;
+    font-size: 16px;
+    color: var(--white);
+}
+
+p {
+    @extend .p;
     color: var(--black);
 }
 
@@ -98,10 +107,24 @@ p {
     }
 }
 
-.btn-submit {
-    background-color: var(--green-dark);
+.btn {
     border-radius: 60px;
     padding: 0.5rem 1.5rem;
     width: fit-content;
+}
+
+.btn-primary {
+    @extend .btn;
     color: var(--white);
+    background-color: var(--green-dark);
+}
+
+.btn-secondary {
+    @extend .btn;
+    color: var(--white);
+    border: 1px solid var(--white);
+    background-color: inherit;
+}
+
+.btn-submit {
 }
