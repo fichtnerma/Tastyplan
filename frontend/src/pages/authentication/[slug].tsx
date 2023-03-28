@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import styles from '@styles/Authentication.module.scss';
-
 import Login from '@components/Login/Login';
 import Register from '@components/Register/Register';
 
@@ -32,12 +30,11 @@ function AuthenticationPage() {
     };
 
     return (
-        <div className={styles.authenticationWrapper}>
+        <div className="flex justify-center min-h-[600px]">
             {pageState === 'login' ? (
                 <>
                     <Login onSubmit={handleLoginSubmit} />
-                    {styles.logo}
-                    <div className={styles.authenticationGreetingWrapper}>
+                    <div className="flex flex-col items-center justify-center basis-1/4 px-12 bg-green-custom2">
                         <h2 className="h2-white text-center">Hello, Friend!</h2>
                         <p className="p-white text-sm mb-8">
                             Enter your personal details and start your journey with us
@@ -49,14 +46,14 @@ function AuthenticationPage() {
                 </>
             ) : (
                 <>
-                    <Register onSignIn={handleSignIn} />
-                    <div className={styles.authenticationGreetingWrapper}>
+                    <div className="flex flex-col items-center justify-center basis-1/4 p-12 bg-green-custom2">
                         <h2 className="h2-white text-center">Welcome to Tastyplan</h2>
                         <p className="p-white mb-8">Already have an Account?</p>
                         <button className="btn-secondary" onClick={handleSignIn}>
                             Sign in
                         </button>
                     </div>
+                    <Register onSignIn={handleSignIn} />
                 </>
             )}
         </div>

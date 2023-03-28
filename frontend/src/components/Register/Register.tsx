@@ -101,7 +101,7 @@ function Register({ onSignIn }: { onSignIn: () => void }) {
     };
 
     return (
-        <div className="basis-1/4 auth-form-container sign-up-container">
+        <div className="basis-1/4 form-container sign-up-container">
             <form className="bg-white px-4" onSubmit={handleSubmit}>
                 <fieldset className="pl-12 pr-4">
                     <legend className="h2 leading-[68px] mb-1">Register</legend>
