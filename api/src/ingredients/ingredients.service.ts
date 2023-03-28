@@ -2,10 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
 import { UpdateIngredientDto } from './dto/update-ingredient.dto';
+import IngredientsSearchService from './ingredientsSearch.service';
 
 @Injectable()
 export class IngredientsService {
-    constructor(private prismaService: PrismaService) {}
+    constructor(private prismaService: PrismaService, private ingredientSearchService: IngredientsSearchService) {
+        this.createIndex();
+    }
 
     async create(createIngredientDto: CreateIngredientDto) {
         const { name } = createIngredientDto;
@@ -25,6 +28,19 @@ export class IngredientsService {
         });
 
         return 'This action adds a new ingredient' + name;
+    }
+
+    async createIndex() {
+        const ingredients: any = await this.prismaService.ingredient.findMany();
+        await this.ingredientSearchService.createIndex(ingredients);
+    }
+
+    async searchForIngredients(name: string) {
+        const results = await this.ingredientSearchService.search(name);
+        if (!results.length) {
+            return [];
+        }
+        return results;
     }
 
     findAll() {

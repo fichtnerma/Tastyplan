@@ -3,6 +3,12 @@
     "next": "^13.2.1",
     "react": "^18.2.0"
   },
+  "scripts": {
+    "containers:dev": "docker-compose up --build -d",
+    "db:seed": "cd api && npx prisma db seed",
+    "setup:dev": "npm run containers:dev && npm run db:seed",
+    "test:api": "cd api && jest"
+  },
   "devDependencies": {
     "tailwindcss": "^3.2.7"
   }

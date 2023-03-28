@@ -9,3 +9,17 @@ export interface Ingredient {
     sugar: number;
     salt: number;
 }
+
+export interface IngredientSearchResult {
+    hits: {
+        total: number;
+        hits: Array<{
+            _source: IngredientSearchBody;
+        }>;
+    };
+}
+
+export interface IngredientSearchBody {
+    id: number;
+    name: string;
+}
