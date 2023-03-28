@@ -14,16 +14,18 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-    imports: [ConfigModule.forRoot({ isGlobal: true }), 
-        IngredientsModule, 
-        RecipesModule, 
-        PreferencesModule, 
-        PrismaModule, 
+    imports: [
+        ConfigModule.forRoot({ isGlobal: true }),
+        IngredientsModule,
+        RecipesModule,
+        PreferencesModule,
+        PrismaModule,
         WeekplanModule,
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', 'images'),
             serveRoot: '/images',
-          }),],
+        }),
+    ],
     controllers: [AppController, PreferencesController],
     providers: [AppService],
 })
