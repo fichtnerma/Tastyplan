@@ -42,9 +42,9 @@ h1 {
     color: var(--black);
 }
 
-.h2-black {
+.h2-white {
     @extend .h2;
-    color: var(--black);
+    color: var(--white);
 }
 
 h2 {
@@ -88,7 +88,7 @@ p {
     }
 
     input {
-        border: 2px solid var(--green-dark);
+        border: 3px solid var(--green-dark);
         border-radius: 15px;
         padding: 0rem 0.75rem;
         height: 50px;

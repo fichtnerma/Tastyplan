@@ -6,39 +6,36 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class PreferencesService {
     constructor(private prismaService: PrismaService) {}
 
-    async preferences(createPreferencesDto: PreferencesDto) {
+    async setPreferences(createPreferencesDto: PreferencesDto, user: any) {
         const ingredientNames = createPreferencesDto.foodDislikes;
 
-        //For the MVP we are only working with the formOfDiet
-        // const ingredientsIds: { id: number }[] = [];
-        // ingredientNames.forEach(async (item) => {
-        //     const ingredient = await this.prismaService.ingredient.findUnique({
-        //         where: {
-        //             name: item,
-        //         },
-        //     });
-        //     ingredientsIds.push({ id: ingredient.id });
-        // });
-
-        try {
-            //store the prefernces in the DB
-            console.log(createPreferencesDto);
-            await this.prismaService.preferences.update({
+        const ingredientsIds: { id: number }[] = [];
+        ingredientNames.forEach(async (item) => {
+            const ingredient = await this.prismaService.ingredient.findUnique({
                 where: {
-                    id: 1,
-                },
-                data: {
-                    formOfDiet: createPreferencesDto.formOfDiet,
-                    allergenes: createPreferencesDto.allergenes
+                    id: item.id,
                 },
             });
-            // const preferences = this.prismaService.preferences.create({
-            //     data: {
-            //         formOfDiet: createPreferencesDto.formOfDiet,
-            //         // allergenes: [...createPreferencesDto.allergenes],
-            //         // foodDislikes: { connect: [...ingredientsIds] },
-            //     },
-            // });
+            ingredientsIds.push({ id: ingredient.id });
+        });
+
+        try {
+            console.log(createPreferencesDto);
+            await this.prismaService.preferences.upsert({
+                where: {
+                    id: user.id,
+                },
+                update: {
+                    formOfDiet: createPreferencesDto.formOfDiet,
+                    allergenes: [...createPreferencesDto.allergenes],
+                    foodDislikes: { connect: [...ingredientsIds] },
+                },
+                create: {
+                    formOfDiet: createPreferencesDto.formOfDiet,
+                    allergenes: [...createPreferencesDto.allergenes],
+                    foodDislikes: { connect: [...ingredientsIds] },
+                },
+            });
 
             return 'Preferences has been send successfully';
         } catch (error) {
