@@ -30,52 +30,54 @@ export default function WeekOverview() {
             })
     }, [loading])
 
-    const week = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+    const week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     return (
         <>{!loading ? (
             <div className={styles.container}>
-                <div className={styles.weekplanBox}>
-                    <h3>Meine Woche</h3>
-                    <div className='flex flex-row justify-between'>
-                        {weekplan?.weekplanEntry?.map((day: any) => (
-                            <div key={day.date}>
-                                <p>{week[new Date(day.date).getDay()]}</p>
-                                <div className={styles.foodBox}>
-                                    <Link href={`/recipe/${day.recipe.id}`}>
+                <h3>Your Weekplan</h3>
+                <div className='flex flex-row justify-between'>
+                    {weekplan?.weekplanEntry?.map((day: any) => (
+                        <div key={day.date}>
+                            <h4>{week[new Date(day.date).getDay()]}</h4>
+                            <Link href={`/recipe/${day.recipe.id}`}>
+                                <div className={styles.weekplanBox}>
+                                    <div className={styles.foodBox}>
                                         <Image src={testImg} alt="Food Img" className={styles.foodImg} priority />
                                         <div className={styles.discriptionFood}>
-                                            <p className='text-lg text-ellipsis overflow-hidden w-36'>{day.recipe.name}</p>
-                                            {day.recipe.difficulty != null &&
-                                                <div className='flex flex-row gap-x-2'>
-                                                    <Image src={kochIcon} alt="Time Icon" width={15} height={15} priority />
-                                                    <p className='text-sm'>{day.recipe.difficulty}</p>
-                                                </div>
-                                            }
-                                            {day.recipe.formOfDiet != null &&
-                                                <div className='flex flex-row gap-x-2'>
-                                                    <Image src={vegetarianIcon} alt="Time Icon" width={15} height={15} priority />
-                                                    <p className='text-sm'>{day.recipe.formOfDiet}</p>
-                                                </div>
-                                            }
+                                            <p className='text-xxl truncate overflow-hidden w-56'>{day.recipe.name}</p>
                                             {day.recipe.preparingTime != null &&
                                                 <div className='flex flex-row gap-x-2'>
-                                                    <Image src={timeIcon} alt="Time Icon" width={15} height={15} priority />
-                                                    <p className='text-sm'>{day.recipe.preparingTime} min</p>
+                                                    <Image src={timeIcon} alt="Time Icon" width={20} height={20} priority />
+                                                    <p className='text-base'>{day.recipe.preparingTime} min</p>
                                                 </div>
                                             }
-                                            {day.recipe.cookingTime != null &&
-                                                <div className='flex flex-row gap-x-2'>
-                                                    <Image src={potIcon} alt="Time Icon" width={15} height={15} priority />
-                                                    <p className='text-sm'>{
-                                                        day.recipe.cookingTime} min</p>
-                                                </div>
-                                            }
+                                            <div className={styles.discriptionHover}>
+                                                {day.recipe.difficulty != null &&
+                                                    <div className='flex flex-row gap-x-2'>
+                                                        <Image src={kochIcon} alt="Time Icon" width={20} height={20} priority />
+                                                        <p className='text-base'>{day.recipe.difficulty}</p>
+                                                    </div>
+                                                }
+                                                {day.recipe.formOfDiet != null &&
+                                                    <div className='flex flex-row gap-x-2'>
+                                                        <Image src={vegetarianIcon} alt="Time Icon" width={20} height={20} priority />
+                                                        <p className='text-base'>{day.recipe.formOfDiet}</p>
+                                                    </div>
+                                                }
+                                                {day.recipe.cookingTime != null &&
+                                                    <div className='flex flex-row gap-x-2'>
+                                                        <Image src={potIcon} alt="Time Icon" width={20} height={20} priority />
+                                                        <p className='text-base'>{
+                                                            day.recipe.cookingTime} min</p>
+                                                    </div>
+                                                }
+                                            </div>
                                         </div>
-                                    </Link>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            </Link>
+                        </div>
+                    ))}
                 </div>
             </div >
         )
