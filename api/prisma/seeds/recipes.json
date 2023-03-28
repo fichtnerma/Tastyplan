@@ -4,7 +4,7 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Nudeln",
+                "name": "Noodles",
                 "amount": "150 g"
             },
             {
@@ -12,7 +12,7 @@
                 "amount": "100 g"
             },
             {
-                "name": "Cocktailtomaten",
+                "name": "Cocktail tomatoes",
                 "amount": "250 g"
             },
             {
@@ -20,14 +20,14 @@
                 "amount": "90 g"
             },
             {
-                "name": "Sonnenblumenkerne",
+                "name": "Sunflower seeds",
                 "amount": "20 g"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             }
         ],
         "steps": [
@@ -57,7 +57,7 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Zwiebel",
+                "name": "Onion",
                 "amount": "0.5"
             },
             {
@@ -65,30 +65,30 @@
                 "amount": "1 EL"
             },
             {
-                "name": "Erbsen",
+                "name": "Peas",
                 "amount": "100 g"
             },
             {
-                "name": "Knoblauchzehe",
+                "name": "Garlic clove",
                 "amount": "1"
             },
             {
-                "name": "Gemüsebrühe",
+                "name": "Vegetable broth",
                 "amount": "200 ml"
             },
             {
-                "name": "Sahne",
+                "name": "Cream",
                 "amount": "50 ml"
             },
             {
-                "name": "Muskatnuss",
+                "name": "Nutmeg",
                 "amount": "1 Prise"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             }
         ],
         "steps": [
@@ -118,7 +118,7 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Zwiebel",
+                "name": "Onion",
                 "amount": "1"
             },
             {
@@ -126,35 +126,35 @@
                 "amount": "0.5"
             },
             {
-                "name": "Olivenöl",
+                "name": "Olive oil",
                 "amount": "1 EL"
             },
             {
-                "name": "Kreuzkümmel",
+                "name": "Cumin",
                 "amount": "0.5 TL"
             },
             {
-                "name": "Zimtpulver",
+                "name": "Cinnamon powder",
                 "amount": "1 Prise"
             },
             {
-                "name": "Paprikapulver rosenscharf",
+                "name": "Paprika powder rose hot",
                 "amount": "1 TL"
             },
             {
-                "name": "Stückige Tomaten aus der Dose",
+                "name": "Canned chunky tomatoes",
                 "amount": "200 g"
             },
             {
-                "name": "Eier",
+                "name": "Eggs",
                 "amount": "2"
             },
             {
-                "name": "Wasser",
+                "name": "Water",
                 "amount": "100 ml"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             }
         ],
         "steps": [
@@ -188,48 +188,48 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Sojagranulat",
+                "name": "Soy granules",
                 "amount": "75 g"
             },
             {
-                "name": "Reis",
+                "name": "Rice",
                 "amount": "60 g"
             },
             {
-                "name": "Passierte Tomaten",
+                "name": "Strained tomatoes",
                 "amount": "250 ml"
             },
             {
-                "name": "Tomatenmark",
+                "name": "Tomato paste",
                 "amount": "2 EL"
             },
             {
-                "name": "Kidney Bohnen",
+                "name": "Kidney beans",
                 "amount": "200 g"
             },
             {
-                "name": "Mais",
+                "name": "Maize",
                 "amount": "150 g"
             },
             {
-                "name": "Gemüsebrühe",
+                "name": "Vegetable broth",
                 "amount": "100 ml"
             },
             {
-                "name": "Kakao",
+                "name": "Cocoa",
                 "amount": "1 TL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             },
             {
-                "name": "Knoblauchpulver"
+                "name": "Garlic powder"
             },
             {
-                "name": "Paprikapulver"
+                "name": "Paprika powder"
             }
         ],
         "steps": [
@@ -271,50 +271,50 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Champignons",
+                "name": "Mushrooms",
                 "amount": "150 g"
             },
             {
-                "name": "Zwiebel",
+                "name": "Onion",
                 "amount": "0.5"
             },
             {
-                "name": "Knoblauchzehe",
+                "name": "Garlic clove",
                 "amount": "1"
             },
             {
-                "name": "Schweineschnitzel",
+                "name": "Pork cutlet",
                 "amount": "150 g"
             },
             {
-                "name": "Öl",
+                "name": "Oil",
                 "amount": "1 EL"
             },
             {
-                "name": "Spätzle",
+                "name": "Spaetzle",
                 "amount": "150 g"
             },
             {
-                "name": "Mehl",
+                "name": "Flour",
                 "amount": "1 TL"
             },
             {
-                "name": "Balsamico",
+                "name": "Balsamic vinegar",
                 "amount": "1 EL"
             },
             {
-                "name": "Rinderbrühe",
+                "name": "Beef broth",
                 "amount": "100 ml"
             },
             {
-                "name": "Schmand",
+                "name": "Sour cream",
                 "amount": "50 g"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             }
         ],
         "steps": [
@@ -349,54 +349,54 @@
                 "amount": "80 g"
             },
             {
-                "name": "Wasser",
+                "name": "Water",
                 "amount": "160 ml"
             },
             {
-                "name": "Feldsalat",
+                "name": "Lamb's lettuce",
                 "amount": "200 g"
             },
             {
-                "name": "Süßkartoffel",
+                "name": "Sweet potato",
                 "amount": "1 kleine"
             },
             {
-                "name": "Olivenöl",
+                "name": "Olive oil",
                 "amount": "1 EL"
             },
             {
-                "name": "Zwiebel",
+                "name": "Onion",
                 "amount": "1"
             },
             {
-                "name": "Cherrytomaten",
+                "name": "Cherry tomatoes",
                 "amount": "10"
             },
             {
-                "name": "Joghurt",
+                "name": "Yoghurt",
                 "amount": "75 g"
             },
             {
-                "name": "Knoblauchpulver",
+                "name": "Garlic powder",
                 "amount": "1"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             },
             {
-                "name": "Knoblauchpulver"
+                "name": "Garlic powder"
             },
             {
-                "name": "Paprikapulver"
+                "name": "Paprika powder"
             },
             {
-                "name": "Currypulver"
+                "name": "Curry powder"
             },
             {
-                "name": "Koriander"
+                "name": "Coriander"
             }
         ],
         "steps": [
@@ -434,11 +434,11 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Nudeln",
+                "name": "Noodles",
                 "amount": "150 g"
             },
             {
-                "name": "Ei",
+                "name": "Egg",
                 "amount": "1"
             },
             {
@@ -446,21 +446,21 @@
                 "amount": "30 g"
             },
             {
-                "name": "Speckwürfel",
+                "name": "Bacon cubes",
                 "amount": "50 g"
             },
             {
-                "name": "Petersilie",
+                "name": "Parsley",
                 "amount": "1 EL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             },
             {
-                "name": "Knoblauchpulver"
+                "name": "Garlic powder"
             }
         ],
         "steps": [
@@ -502,46 +502,46 @@
                 "amount": "60 g"
             },
             {
-                "name": "Tomaten",
+                "name": "Tomatoes",
                 "amount": "125 g"
             },
             {
-                "name": "Salatgurke",
+                "name": "Cucumber",
                 "amount": "0.5"
             },
             {
-                "name": "Frühlingszwiebeln",
+                "name": "Spring onions",
                 "amount": "1"
             },
             {
-                "name": "Petersilie",
+                "name": "Parsley",
                 "amount": "2 EL"
             },
             {
-                "name": "Zitronensaft",
+                "name": "Lemon juice",
                 "amount": "1 TL"
             },
             {
-                "name": "Olivenöl",
+                "name": "Olive oil",
                 "amount": "1 EL"
             },
             {
-                "name": "Paprikapulver",
+                "name": "Paprika powder",
                 "amount": "0.5 TL"
             },
             {
-                "name": "Joghurt",
+                "name": "Yoghurt",
                 "amount": "150 g"
             },
             {
-                "name": "Wasser",
+                "name": "Water",
                 "amount": "120 ml"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             }
         ],
         "steps": [
@@ -571,7 +571,7 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Sushi Reis",
+                "name": "Sushi rice",
                 "amount": "60 g"
             },
             {
@@ -583,19 +583,19 @@
                 "amount": "0.5"
             },
             {
-                "name": "Räucherlachs",
+                "name": "Smoked salmon",
                 "amount": "0.5"
             },
             {
-                "name": "Reisessig",
+                "name": "Rice vinegar",
                 "amount": "1 EL"
             },
             {
-                "name": "Zucker",
+                "name": "Sugar",
                 "amount": "0.5 TL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             }
         ],
         "steps": [
@@ -628,31 +628,31 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Haferflocken",
+                "name": "Oatmeal",
                 "amount": "60 g"
             },
             {
-                "name": "Tiefkühlbeeren",
+                "name": "Frozen berries",
                 "amount": "70 g"
             },
             {
-                "name": "Banane",
+                "name": "Banana",
                 "amount": "1"
             },
             {
-                "name": "Zimtpulver",
+                "name": "Cinnamon powder",
                 "amount": "1 Prise"
             },
             {
-                "name": "Proteinpulver",
+                "name": "Protein powder",
                 "amount": "30 g"
             },
             {
-                "name": "Wasser",
+                "name": "Water",
                 "amount": "200 ml"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             }
         ],
         "steps": [
@@ -690,15 +690,15 @@
                 "amount": "60 g"
             },
             {
-                "name": "Brokkoli",
+                "name": "Broccoli",
                 "amount": "200 g"
             },
             {
-                "name": "Hähnchen",
+                "name": "Chicken",
                 "amount": "200 g"
             },
             {
-                "name": "Semmelbrösel",
+                "name": "Breadcrumbs",
                 "amount": "3 EL"
             },
             {
@@ -706,20 +706,20 @@
                 "amount": "2 EL"
             },
             {
-                "name": "Öl",
+                "name": "Oil",
                 "amount": "2 EL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             },
             {
-                "name": "Knoblauchpulver"
+                "name": "Garlic powder"
             },
             {
-                "name": "Paprikapulver"
+                "name": "Paprika powder"
             }
         ],
         "steps": [
@@ -759,7 +759,7 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Gnocchis",
+                "name": "Gnocchi",
                 "amount": "250 g"
             },
             {
@@ -767,29 +767,29 @@
                 "amount": "0.5"
             },
             {
-                "name": "Cherrytomaten",
+                "name": "Cherry tomatoes",
                 "amount": "10"
             },
             {
-                "name": "passierte Tomaten",
+                "name": "strained tomatoes",
                 "amount": "150 ml"
             },
             {
-                "name": "Knoblauchzehe",
+                "name": "Garlic clove",
                 "amount": "1"
             },
             {
-                "name": "Balsamico Essig",
+                "name": "Balsamic vinegar",
                 "amount": "1 EL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             },
             {
-                "name": "Italienische Kräuter"
+                "name": "Italian herbs"
             }
         ],
         "steps": [
@@ -815,42 +815,42 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Rote Linsen",
+                "name": "Red lentils",
                 "amount": "150 g"
             },
             {
-                "name": "Karotten",
+                "name": "Carrots",
                 "amount": "3"
             },
             {
-                "name": "Ingwer",
+                "name": "Ginger",
                 "amount": "5 g"
             },
             {
-                "name": "Wasser",
+                "name": "Water",
                 "amount": "500 ml"
             },
             {
-                "name": "Knoblauchzehe",
+                "name": "Garlic clove",
                 "amount": "1"
             },
             {
-                "name": "Kokosmilch",
+                "name": "Coconut milk",
                 "amount": "400 ml"
             },
             {
-                "name": "Currypulver",
+                "name": "Curry powder",
                 "amount": "2 EL"
             },
             {
-                "name": "Zwiebelpulver",
+                "name": "Onion powder",
                 "amount": "1 TL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             }
         ],
         "steps": [
@@ -885,7 +885,7 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Kartoffeln",
+                "name": "Potatoes",
                 "amount": "3 große"
             },
             {
@@ -893,28 +893,28 @@
                 "amount": "1"
             },
             {
-                "name": "Cherrytomaten",
+                "name": "Cherry tomatoes",
                 "amount": "10"
             },
             {
-                "name": "Grünes Pesto",
+                "name": "Green pesto",
                 "amount": "2 EL"
             },
             {
-                "name": "Olivenöl",
+                "name": "Olive oil",
                 "amount": "1 EL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             },
             {
-                "name": "Knoblauchpulver"
+                "name": "Garlic powder"
             },
             {
-                "name": "Paprikapulver"
+                "name": "Paprika powder"
             }
         ],
         "steps": [
@@ -952,19 +952,19 @@
                 "amount": "2"
             },
             {
-                "name": "Falafelmischung",
+                "name": "Falafel mix",
                 "amount": "45 g"
             },
             {
-                "name": "Salat",
+                "name": "Salad",
                 "amount": "1 Handvoll"
             },
             {
-                "name": "Cherrytomaten",
+                "name": "Cherry tomatoes",
                 "amount": "8"
             },
             {
-                "name": "Mais",
+                "name": "Maize",
                 "amount": "0.25 kleine Dose"
             },
             {
@@ -972,30 +972,30 @@
                 "amount": "6"
             },
             {
-                "name": "Joghurt",
+                "name": "Yoghurt",
                 "amount": "75 g"
             },
             {
-                "name": "Knoblauchpulver",
+                "name": "Garlic powder",
                 "amount": "1"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             },
             {
-                "name": "Knoblauchpulver"
+                "name": "Garlic powder"
             },
             {
-                "name": "Paprikapulver"
+                "name": "Paprika powder"
             },
             {
-                "name": "Currypulver"
+                "name": "Curry powder"
             },
             {
-                "name": "Koriander"
+                "name": "Coriander"
             }
         ],
         "steps": [
@@ -1032,46 +1032,46 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Reis",
+                "name": "Rice",
                 "amount": "60 g"
             },
             {
-                "name": "Hähnchenfleisch",
+                "name": "Chicken",
                 "amount": "150 g"
             },
             {
-                "name": "Tiefkühlgemüse",
+                "name": "Frozen vegetables",
                 "amount": "250 g"
             },
             {
-                "name": "Kokosmilch",
+                "name": "Coconut milk",
                 "amount": "400 ml"
             },
             {
-                "name": "Knoblauchzehe",
+                "name": "Garlic clove",
                 "amount": "1"
             },
             {
-                "name": "Ingwer",
+                "name": "Ginger",
                 "amount": "5 g"
             },
             {
-                "name": "Zitronensaft",
+                "name": "Lemon juice",
                 "amount": "1 TL"
             },
             {
-                "name": "Öl",
+                "name": "Oil",
                 "amount": "1 EL"
             },
             {
-                "name": "Currypulver",
+                "name": "Curry powder",
                 "amount": "1 EL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             }
         ],
         "steps": [
@@ -1106,30 +1106,30 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Rote Linsen",
+                "name": "Red lentils",
                 "amount": "150 g"
             },
             {
-                "name": "Wasser",
+                "name": "Water",
                 "amount": "300 ml"
             },
             {
-                "name": "Tomatenmark",
+                "name": "Tomato paste",
                 "amount": "1 TL"
             },
             {
-                "name": "Kreuzkümmel",
+                "name": "Cumin",
                 "amount": "1 TL"
             },
             {
-                "name": "Koriander",
+                "name": "Coriander",
                 "amount": "1 TL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             }
         ],
         "steps": [
@@ -1155,47 +1155,47 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Lachsfilet",
+                "name": "Salmon fillet",
                 "amount": "125 g"
             },
             {
-                "name": "Nudeln",
+                "name": "Noodles",
                 "amount": "150 g"
             },
             {
-                "name": "Kochsahne",
+                "name": "Cooking cream",
                 "amount": "60 ml"
             },
             {
-                "name": "Tomatenmark",
+                "name": "Tomato paste",
                 "amount": "1 EL"
             },
             {
-                "name": "Getrocknete Tomaten",
+                "name": "Dried tomatoes",
                 "amount": "1 EL"
             },
             {
-                "name": "Spinat",
+                "name": "Spinach",
                 "amount": "75 g"
             },
             {
-                "name": "Gemüsebrühe",
+                "name": "Vegetable broth",
                 "amount": "0.5 TL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             },
             {
-                "name": "Knoblauchpulver"
+                "name": "Garlic powder"
             },
             {
-                "name": "Currypulver"
+                "name": "Curry powder"
             },
             {
-                "name": "Paprikapulver"
+                "name": "Paprika powder"
             }
         ],
         "steps": [
@@ -1229,38 +1229,38 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Körniger Frischkäse",
+                "name": "Grainy cream cheese",
                 "amount": "250 g"
             },
             {
-                "name": "Wasser",
+                "name": "Water",
                 "amount": "300 ml"
             },
             {
-                "name": "Brokkoli",
+                "name": "Broccoli",
                 "amount": "300 g"
             },
             {
-                "name": "Knoblauchzehe",
+                "name": "Garlic clove",
                 "amount": "1"
             },
             {
-                "name": "Zitronensaft",
+                "name": "Lemon juice",
                 "amount": "1 EL"
             },
             {
-                "name": "Olivenöl",
+                "name": "Olive oil",
                 "amount": "1 TL"
             },
             {
-                "name": "Getrocknete Kräuter",
+                "name": "Dried herbs",
                 "amount": "1 TL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             }
         ],
         "steps": [
@@ -1286,50 +1286,50 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Tofu Natur",
+                "name": "Tofu nature",
                 "amount": "200 g"
             },
             {
-                "name": "Gurke",
+                "name": "Cucumber",
                 "amount": "125 g"
             },
             {
-                "name": "Wasser",
+                "name": "Water",
                 "amount": "1 Liter"
             },
             {
-                "name": "Apfelessig",
+                "name": "Apple cider vinegar",
                 "amount": "0.5 EL"
             },
             {
-                "name": "Reisnudeln",
+                "name": "Rice noodles",
                 "amount": "50 g"
             },
             {
-                "name": "Frühlingszwiebeln",
+                "name": "Spring onions",
                 "amount": "2 EL"
             },
             {
-                "name": "Knoblauchzehe",
+                "name": "Garlic clove",
                 "amount": "1"
             },
             {
-                "name": "Olivenöl",
+                "name": "Olive oil",
                 "amount": "2 EL"
             },
             {
-                "name": "Sojasoße",
+                "name": "Soy sauce",
                 "amount": "3 EL"
             },
             {
-                "name": "Speisestärke",
+                "name": "Cornflour",
                 "amount": "2 EL"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             }
         ],
         "steps": [
@@ -1370,53 +1370,53 @@
         "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
         "ingredients": [
             {
-                "name": "Kichererbsen aus Dose",
+                "name": "Canned chickpeas",
                 "amount": "200 g"
             },
             {
-                "name": "Champignons",
+                "name": "Mushrooms",
                 "amount": "125 g"
             },
             {
-                "name": "Lauchzwiebel",
+                "name": "Spring onion",
                 "amount": "1"
             },
             {
-                "name": "Knoblauchpulver"
+                "name": "Garlic powder"
             },
             {
-                "name": "Rote Chillischote",
+                "name": "Red chilli pepper",
                 "amount": "1"
             },
             {
-                "name": "Nudeln",
+                "name": "Noodles",
                 "amount": "100 g"
             },
             {
-                "name": "Tomatenmark",
+                "name": "Tomato paste",
                 "amount": "1 EL"
             },
             {
-                "name": "Olivenöl",
+                "name": "Olive oil",
                 "amount": "1 EL"
             },
             {
-                "name": "Paprikapulver",
+                "name": "Paprika powder",
                 "amount": "1 TL"
             },
             {
-                "name": "Stückige Tomaten aus der Dose",
+                "name": "Tinned chunky tomatoes",
                 "amount": "200 g"
             },
             {
-                "name": "Honig",
+                "name": "Honey",
                 "amount": "1 TL"
             },
             {
-                "name": "Salz"
+                "name": "Salt"
             },
             {
-                "name": "Pfeffer"
+                "name": "Pepper"
             }
         ],
         "steps": [
