@@ -36,9 +36,7 @@ function AuthenticationPage() {
                     <Login onSubmit={handleLoginSubmit} />
                     <div className="flex flex-col items-center justify-center basis-1/4 px-12 bg-green-custom2">
                         <h2 className="h2-white text-center">Hello, Friend!</h2>
-                        <p className="p-white text-sm mb-8">
-                            Enter your personal details and start your journey with us
-                        </p>
+                        <p className="p-white text-sm mb-8">Note registered yet?</p>
                         <button className="btn-secondary block my-0 mx-auto" onClick={handleSignUp}>
                             Sign up
                         </button>
@@ -47,7 +45,7 @@ function AuthenticationPage() {
             ) : (
                 <>
                     <div className="flex flex-col items-center justify-center basis-1/4 p-12 bg-green-custom2">
-                        <h2 className="h2-white text-center">Welcome to Tastyplan</h2>
+                        <h2 className="h2-white text-center">Welcome, Friend</h2>
                         <p className="p-white mb-8">Already have an Account?</p>
                         <button className="btn-secondary" onClick={handleSignIn}>
                             Sign in
