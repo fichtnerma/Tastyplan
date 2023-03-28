@@ -15,10 +15,6 @@ function AuthenticationPage() {
         else if (slug === 'registration') setPageState('registration');
     }, [router]);
 
-    const handleLoginSubmit = () => {
-        console.log('login button clicked');
-    };
-
     const handleSignUp = () => {
         router.push(`${router.basePath}/authentication/registration`, undefined, undefined);
         setPageState('registration');
@@ -33,7 +29,7 @@ function AuthenticationPage() {
         <div className="flex justify-center min-h-[600px]">
             {pageState === 'login' ? (
                 <>
-                    <Login onSubmit={handleLoginSubmit} />
+                    <Login />
                     <div className="flex flex-col items-center justify-center basis-1/4 px-12 bg-green-custom2">
                         <h2 className="h2-white text-center">Hello, Friend!</h2>
                         <p className="p-white text-sm mb-8">Note registered yet?</p>
@@ -51,7 +47,7 @@ function AuthenticationPage() {
                             Sign in
                         </button>
                     </div>
-                    <Register onSignIn={handleSignIn} />
+                    <Register />
                 </>
             )}
         </div>
