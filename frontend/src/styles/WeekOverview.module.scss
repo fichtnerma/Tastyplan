@@ -6,6 +6,12 @@
     margin-inline: auto;
 }
 
+
+
+.weekContainer {
+    height: 500px;
+}
+
 .weekplanBox {
     background-color: var(--green-light);
     width: 250px;
@@ -20,6 +26,7 @@
 
     &:hover .discriptionHover {
         opacity: 1;
+        cursor: pointer;
     }
 
     &:hover .discriptionFood {
@@ -43,16 +50,24 @@
 
 .discriptionFood {
     padding: 10px;
-    transition: margin-top 0.2s;
+    transition: margin-top 0.1s;
 }
 
 .discriptionHover {
     opacity: 0;
-    transition: opacity 0.2s;
+    // display: none;
+    pointer-events: none;
+    transition: opacity 0.08s;
     position: absolute;
     margin-top: 0px;
 }
 
-.today {
+.swiper-container .swiper-button-prev {
+    color: var(--green-dark);
+
+}
+
+.swiper-container .swiper-button-next {
     background-color: var(--green-dark);
+
 }
