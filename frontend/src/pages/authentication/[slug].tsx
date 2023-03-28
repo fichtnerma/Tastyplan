@@ -15,10 +15,6 @@ function AuthenticationPage() {
         else if (slug === 'registration') setPageState('registration');
     }, [router]);
 
-    // useEffect(() => {
-    //     router.push(`${router.basePath}/authentication/${pageState}`, undefined, undefined);
-    // }, [pageState]);
-
     const handleLoginSubmit = () => {
         console.log('login button clicked');
     };
@@ -34,22 +30,31 @@ function AuthenticationPage() {
     };
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center min-h-[600px]">
             {pageState === 'login' ? (
                 <>
-                    <Login onSubmit={handleLoginSubmit} />{' '}
-                    <div className="flex flex-col items-center justify-center bg-green-custom2 px-12">
-                        <h2 className="h2-white">Hello, Friend!</h2>
+                    <Login onSubmit={handleLoginSubmit} />
+                    <div className="flex flex-col items-center justify-center basis-1/4 px-12 bg-green-custom2">
+                        <h2 className="h2-white text-center">Hello, Friend!</h2>
                         <p className="p-white text-sm mb-8">
                             Enter your personal details and start your journey with us
                         </p>
                         <button className="btn-secondary block my-0 mx-auto" onClick={handleSignUp}>
                             Sign up
                         </button>
-                    </div>{' '}
+                    </div>
                 </>
             ) : (
-                <Register onSignIn={handleSignIn} />
+                <>
+                    <div className="flex flex-col items-center justify-center basis-1/4 p-12 bg-green-custom2">
+                        <h2 className="h2-white text-center">Welcome to Tastyplan</h2>
+                        <p className="p-white mb-8">Already have an Account?</p>
+                        <button className="btn-secondary" onClick={handleSignIn}>
+                            Sign in
+                        </button>
+                    </div>
+                    <Register onSignIn={handleSignIn} />
+                </>
             )}
         </div>
     );
