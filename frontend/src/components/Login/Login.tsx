@@ -5,7 +5,7 @@ function Login({ onSubmit }: { onSubmit: () => void }) {
     const [password, setPassword] = useState('');
 
     return (
-        <div className="basis-1/4 form-container sign-in-container">
+        <div className="basis-1/4 auth-form-container sign-in-container">
             <form action="#" className="flex flex-col items-center w-full px-12">
                 <h1>Sign in</h1>
                 <div className="w-full text-input-wrapper mb-6">
