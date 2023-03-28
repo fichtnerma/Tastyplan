@@ -10,9 +10,9 @@ export default function index() {
             </div>
             <h2 className="text-center my-20">Los gehts!</h2>
             <div className="flex justify-center">
-                <Link href="/preferences">
-                    <button className="px-[60px] py-[10px] border-2 border-solid border-gray-custom1 rounded-full hover:bg-green-custom1">
-                        <h4 className="text-gray-custom1">Start Planning</h4>
+                <Link href="/registration">
+                    <button className="btn-submit w-1/2  border-2 border-solid border-gray-custom1 rounded-full">
+                        <h4 className="text-gray-custom1 px-[30px]">Start Planning</h4>
                     </button>
                 </Link>
             </div>
