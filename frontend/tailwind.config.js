@@ -5,8 +5,8 @@ module.exports = {
         extend: {
             colors: {
                 green: {
-                    custom1: '#009245',
-                    custom2: '#006837',
+                    custom1: '#d6e5e3',
+                    custom2: '#007370',
                 },
                 red: {
                     custom: '#d54444',
@@ -20,6 +20,9 @@ module.exports = {
             },
             height: {
                 '90v': '90vh',
+            },
+            boxShadow: {
+                custom: '0px 2px 15px 3px rgba(0,0,0,0.4)',
             },
         },
     },

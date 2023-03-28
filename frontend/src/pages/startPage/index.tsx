@@ -11,7 +11,7 @@ export default function index() {
             <h2 className="text-center my-20">Los gehts!</h2>
             <div className="flex justify-center">
                 <Link href="/preferences">
-                    <button className="px-[100px] py-[10px] border-2 border-solid border-gray-custom1 rounded-full hover:bg-green-custom1">
+                    <button className="px-[100px] py-[10px] border-2 border-solid border-gray-custom1 rounded-full hover:bg-green-light">
                         <h4 className="text-gray-custom1">Start</h4>
                     </button>
                 </Link>

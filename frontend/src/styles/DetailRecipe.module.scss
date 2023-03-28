@@ -4,27 +4,25 @@
 .container {
     width: 80%;
     margin-inline: auto;
+    padding-bottom: 200px;
 }
 
 .recipeBox {
-    background-color: var(--white);
+    background-color: var(--green-light);
     width: 100%;
-    box-shadow: $box-shadow;
-    border-radius: $boder-radius;
+    border-radius: $boder-radius-m;
     padding: 0px;
     margin-inline: auto;
     margin-top: 10px;
 }
 
 .titleRecipe {
-    margin-top: 0px;
-    font-size: 50px;
-    font-weight: 700;
+    color: var(--green-dark);
 }
 
 .foodImg {
     width: 100%;
-    height: 400px;
+    height: 600px;
     object-fit: cover;
     border-radius: $boder-radius $boder-radius 0 0;
 }
@@ -56,22 +54,18 @@
     }
 }
 
-.numberFrame {
-    min-width: 50px;
-    min-height: 50px;
-    max-width: 50px;
-    max-height: 50px;
-    border: 2px solid var(--gray-dark);
-    border-radius: $small-boder-radius;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
+
+
+.stepImg {
+    height: 260px;
+    width: 600px;
+    margin-bottom: 20px;
+    border-radius: $boder-radius-m;
+    object-fit: cover;
 }
 
 .recipeText {
     display: flex;
-    justify-content: center;
-    align-content: center;
+    width: 80%;
     flex-wrap: wrap;
 }
