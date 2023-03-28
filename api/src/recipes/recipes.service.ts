@@ -1,10 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
 import { PreferencesDto } from 'src/preferences/dto/createPreferences.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
-import { UpdateRecipeDto } from './dto/update-recipe.dto';
-
 @Injectable()
 export class RecipesService {
     constructor(private ingredientsService: IngredientsService, private prismaService: PrismaService) {}
@@ -27,6 +25,7 @@ export class RecipesService {
                 steps: true,
             },
         });
+
         const formattedRecipe = {
             id: recipe.id,
             name: recipe.name,
@@ -37,8 +36,8 @@ export class RecipesService {
             cookingTime: recipe.cookingTime,
             ingredients: recipe.ingredients.map((item) => {
                 return {
-                    amount: item.amount,
-                    ingredient: item.ingredient.name,
+                    amount: item?.amount,
+                    ingredient: item?.ingredient?.name,
                 };
             }),
             steps: recipe.steps.map((item) => {
@@ -48,6 +47,8 @@ export class RecipesService {
                 };
             }),
         };
+        console.log(formattedRecipe);
+
         return formattedRecipe;
     }
     //Condition: wehere non of the ingreedients has one of the given allergenes
@@ -55,9 +56,6 @@ export class RecipesService {
         console.log(preferencesDto);
 
         const recipes = this.prismaService.recipe.findMany({
-            where: {
-                formOfDiet: preferencesDto.formOfDiet,
-            },
             select: {
                 id: true,
             },

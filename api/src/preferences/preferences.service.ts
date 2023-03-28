@@ -6,7 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class PreferencesService {
     constructor(private prismaService: PrismaService) {}
 
-    async setPreferences(createPreferencesDto: PreferencesDto, user: any) {
+    async setPreferences(createPreferencesDto: PreferencesDto) {
         const ingredientNames = createPreferencesDto.foodDislikes;
 
         const ingredientsIds: { id: number }[] = [];
@@ -23,7 +23,7 @@ export class PreferencesService {
             console.log(createPreferencesDto);
             await this.prismaService.preferences.upsert({
                 where: {
-                    id: user.id,
+                    id: 1,
                 },
                 update: {
                     formOfDiet: createPreferencesDto.formOfDiet,
