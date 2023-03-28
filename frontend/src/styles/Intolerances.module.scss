@@ -1,6 +1,6 @@
-.intoleranceWrapper {
+.intoleranceWrapper .containerField {
     display: block;
-    width: 100%;
+    width: 200px;
     height: 70px;
     position: relative;
     border-radius: 50px;
@@ -21,7 +21,7 @@
         right: 0;
         bottom: 0;
         cursor: pointer;
-        z-index: 1;
+        // z-index: 1;
         background-color: var(--white);
     }
 
@@ -35,7 +35,7 @@
 
     label {
         display: flex;
-        justify-content: center;
+        justify-content: left;
         align-items: center;
         border: 2px solid var(--gray-dark);
         border-radius: 15px;
@@ -47,6 +47,7 @@
         /* 20px */
         color: var(--gray-dark);
         border-radius: 50px;
+        padding-left: 67px;
     }
 
     input[type='checkbox']:checked + label,

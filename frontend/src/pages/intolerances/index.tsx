@@ -1,6 +1,8 @@
 import styles from '@styles/Intolerances.module.scss';
 
 import logo from '../../../public/logo.svg';
+import peanut from '../../../public/Icons/Erdnuss_Icon.svg';
+import hazelnut from '../../../public/Icons/Haselnuss_Icon.svg';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,22 +12,22 @@ import { useEffect, useState } from 'react';
 
 export default function IntolerancesPage() {
     const intolerances = [
-        { ui: 'Peanuts', code: 'peanut' },
-        { ui: 'Hazelnuts', code: 'hazelnut' },
-        { ui: 'Walnuts', code: 'walnut' },
-        { ui: 'Other Nuts', code: 'shellFruit' },
-        { ui: 'Lactose', code: 'milk' },
-        { ui: 'Gluten', code: 'gluten' },
-        { ui: 'Eggs', code: 'egg' },
-        { ui: 'Shellfish', code: 'crustacaen' },
-        { ui: 'Fish', code: 'fish' },
-        { ui: 'Soy', code: 'soy' },
-        { ui: 'Celery', code: 'celery' },
-        { ui: 'Mustard', code: 'mustard' },
-        { ui: 'Sesame', code: 'sesame' },
-        { ui: 'Sulfur Dioxide', code: 'sulfur' },
-        { ui: 'Lupine', code: 'lupine' },
-        { ui: 'Mollusk', code: 'mollusk' },
+        { ui: 'Peanuts', code: 'peanut', icon: peanut },
+        { ui: 'Hazelnuts', code: 'hazelnut', icon: hazelnut },
+        { ui: 'Walnuts', code: 'walnut', icon: peanut },
+        { ui: 'Other Nuts', code: 'shellFruit', icon: peanut },
+        { ui: 'Lactose', code: 'milk', icon: hazelnut },
+        { ui: 'Gluten', code: 'gluten', icon: peanut },
+        { ui: 'Eggs', code: 'egg', icon: hazelnut },
+        { ui: 'Shellfish', code: 'crustacaen', icon: peanut },
+        { ui: 'Fish', code: 'fish', icon: hazelnut },
+        { ui: 'Soy', code: 'soy', icon: hazelnut },
+        { ui: 'Celery', code: 'celery', icon: peanut },
+        { ui: 'Mustard', code: 'mustard', icon: peanut },
+        { ui: 'Sesame', code: 'sesame', icon: peanut },
+        { ui: 'Sulfur Dioxide', code: 'sulfur', icon: hazelnut },
+        { ui: 'Lupine', code: 'lupine', icon: peanut },
+        { ui: 'Mollusk', code: 'mollusk', icon: hazelnut },
     ];
 
     const [choices, setChoices] = useState<string[]>([]);
@@ -87,16 +89,26 @@ export default function IntolerancesPage() {
                             <div className="grid grid-cols-4 gap-4 mb-4">
                                 {intolerances.map((intolerance, i) => (
                                     <div key={i} className={styles.intoleranceWrapper}>
-                                        <input
-                                            type="checkbox"
-                                            name="intolerances"
-                                            value={intolerance.code}
-                                            checked={choices.includes(intolerance.code)}
-                                            onChange={onAddChoice}
-                                        />
-                                        <label htmlFor={intolerance.ui}>
-                                            <p>{intolerance.ui}</p>
-                                        </label>
+                                        <div className={styles.containerField}>
+                                            <input
+                                                type="checkbox"
+                                                name="intolerances"
+                                                value={intolerance.code}
+                                                checked={choices.includes(intolerance.code)}
+                                                onChange={onAddChoice}
+                                            />
+
+                                            <label htmlFor={intolerance.ui}>
+                                                <p>{intolerance.ui}</p>
+                                            </label>
+                                            <Image
+                                                src={intolerance.icon}
+                                                className="absolute z-[91]"
+                                                alt="icon"
+                                                width={70}
+                                                priority
+                                            />
+                                        </div>
                                     </div>
                                 ))}
                             </div>
