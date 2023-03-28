@@ -101,62 +101,60 @@ function Register({ onSignIn }: { onSignIn: () => void }) {
     };
 
     return (
-        <div className="basis-1/4 form-container sign-up-container">
-            <form className="bg-white px-4" onSubmit={handleSubmit}>
-                <fieldset className="pl-12 pr-4">
+        <div className="basis-1/4">
+            <form className="h-full bg-white px-12" onSubmit={handleSubmit}>
+                <fieldset className="flex flex-col items-center h-full">
                     <legend className="h2 leading-[68px] mb-1">Register</legend>
                     <p className="text-xs mb-10">
                         Already have an account? Log in <a href="/">here!</a>
                     </p>
-                    <div className="flex flex-col">
-                        <div className="text-input-wrapper mb-6">
-                            <label htmlFor="email">
-                                E-Mail <span className="text-red-600 font-lg font-bold">*</span>{' '}
-                            </label>
-                            <input
-                                type="text"
-                                name="email"
-                                value={mailAdress}
-                                onChange={(e) => setMailAdress(e.target.value)}
-                            />
-                        </div>
-                        <div className="text-input-wrapper mb-6">
-                            <label htmlFor="nickname">
-                                Nickname <span className="text-red-600 font-lg font-bold">*</span>{' '}
-                            </label>
-                            <input
-                                type="text"
-                                name="nickname"
-                                value={nickname}
-                                onChange={(e) => setNickname(e.target.value)}
-                            />
-                        </div>
-                        <div className="text-input-wrapper mb-6">
-                            <label htmlFor="password">
-                                Password <span className="text-red-600 font-lg font-bold">*</span>{' '}
-                            </label>
-                            <input
-                                type="password"
-                                name="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
-                        <div className="text-input-wrapper mb-10">
-                            <label htmlFor="passwordConfirmation">
-                                Confirm Password <span className="text-red-600 font-lg font-bold">*</span>{' '}
-                            </label>
-                            <input
-                                type="password"
-                                name="passwordConfirmation"
-                                value={passwordConf}
-                                onChange={(e) => setPasswordConf(e.target.value)}
-                            />
-                        </div>
-                        <button className="btn-primary ml-auto mr-0" type="submit">
-                            Sign up
-                        </button>
+                    <div className="text-input-wrapper mb-6">
+                        <label htmlFor="email">
+                            E-Mail <span className="text-red-600 font-lg font-bold">*</span>{' '}
+                        </label>
+                        <input
+                            type="text"
+                            name="email"
+                            value={mailAdress}
+                            onChange={(e) => setMailAdress(e.target.value)}
+                        />
                     </div>
+                    <div className="text-input-wrapper mb-6">
+                        <label htmlFor="nickname">
+                            Nickname <span className="text-red-600 font-lg font-bold">*</span>{' '}
+                        </label>
+                        <input
+                            type="text"
+                            name="nickname"
+                            value={nickname}
+                            onChange={(e) => setNickname(e.target.value)}
+                        />
+                    </div>
+                    <div className="text-input-wrapper mb-6">
+                        <label htmlFor="password">
+                            Password <span className="text-red-600 font-lg font-bold">*</span>{' '}
+                        </label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className="text-input-wrapper">
+                        <label htmlFor="passwordConfirmation">
+                            Confirm Password <span className="text-red-600 font-lg font-bold">*</span>{' '}
+                        </label>
+                        <input
+                            type="password"
+                            name="passwordConfirmation"
+                            value={passwordConf}
+                            onChange={(e) => setPasswordConf(e.target.value)}
+                        />
+                    </div>
+                    <button className="btn-primary mt-auto mx-auto" type="submit">
+                        Sign up
+                    </button>
                 </fieldset>
             </form>
         </div>
