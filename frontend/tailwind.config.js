@@ -20,6 +20,7 @@ module.exports = {
             },
             height: {
                 '90v': '90vh',
+                '70v': '70vh',
             },
             boxShadow: {
                 custom: '0px 2px 15px 3px rgba(0,0,0,0.4)',

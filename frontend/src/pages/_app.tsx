@@ -12,12 +12,10 @@ import { ToastContainer } from 'react-toastify';
 export default function App({ Component, pageProps }: AppProps) {
     return (
         <div className={styles.background}>
-            <div className={styles.greenShadow}>
-                <Layout>
-                    {' '}
-                    <Component {...pageProps} /> <ToastContainer />
-                </Layout>
-            </div>
+            <Layout>
+                {' '}
+                <Component {...pageProps} />{' '}
+            </Layout>
         </div>
     );
 }
