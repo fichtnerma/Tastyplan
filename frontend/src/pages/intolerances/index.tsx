@@ -10,22 +10,22 @@ import { useEffect, useState } from 'react';
 
 export default function IntolerancesPage() {
     const intolerances = [
-        'peanut',
-        'hazelnut',
-        'walnut',
-        'milk',
-        'gluten',
-        'egg',
-        'crustacaen',
-        'fish',
-        'soy',
-        'shellFruit',
-        'celery',
-        'mustard',
-        'sesame',
-        'sulfur',
-        'lupine',
-        'mollusk',
+        { ui: 'Peanuts', code: 'peanut' },
+        { ui: 'Hazelnuts', code: 'hazelnut' },
+        { ui: 'Walnuts', code: 'walnut' },
+        { ui: 'Other Nuts', code: 'shellFruit' },
+        { ui: 'Lactose', code: 'milk' },
+        { ui: 'Gluten', code: 'gluten' },
+        { ui: 'Eggs', code: 'egg' },
+        { ui: 'Shellfish', code: 'crustacaen' },
+        { ui: 'Fish', code: 'fish' },
+        { ui: 'Soy', code: 'soy' },
+        { ui: 'Celery', code: 'celery' },
+        { ui: 'Mustard', code: 'mustard' },
+        { ui: 'Sesame', code: 'sesame' },
+        { ui: 'Sulfur Dioxide', code: 'sulfur' },
+        { ui: 'Lupine', code: 'lupine' },
+        { ui: 'Mollusk', code: 'mollusk' },
     ];
 
     const [choices, setChoices] = useState<string[]>([]);
@@ -90,12 +90,12 @@ export default function IntolerancesPage() {
                                         <input
                                             type="checkbox"
                                             name="intolerances"
-                                            value={intolerance}
-                                            checked={choices.includes(intolerance)}
+                                            value={intolerance.code}
+                                            checked={choices.includes(intolerance.code)}
                                             onChange={onAddChoice}
                                         />
-                                        <label htmlFor={intolerance}>
-                                            <p>{intolerance}</p>
+                                        <label htmlFor={intolerance.ui}>
+                                            <p>{intolerance.ui}</p>
                                         </label>
                                     </div>
                                 ))}
