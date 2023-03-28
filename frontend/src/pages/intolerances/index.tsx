@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function IntolerancesPage() {
     const intolerances = [
@@ -31,6 +31,12 @@ export default function IntolerancesPage() {
     const [choices, setChoices] = useState<string[]>([]);
     const router = useRouter();
 
+    // Similar to componentDidMount and componentDidUpdate:
+    useEffect(() => {
+        // Update the document title using the browser API
+        console.log(choices);
+    }, [choices]);
+
     const onAddChoice = (e: React.ChangeEvent<HTMLInputElement>) => {
         const currentSelection = [...choices];
         if (currentSelection.includes(e.target.value)) {
@@ -45,7 +51,7 @@ export default function IntolerancesPage() {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const { formOfDiet } = router?.query;
-        const currentIntolerances = e.currentTarget.getAttribute('data-btn') === 'skip' ? [] : choices;
+        // const currentIntolerances = e.currentTarget.getAttribute('data-btn') === 'skip' ? [] : choices;
         const data = {
             formOfDiet: formOfDiet,
             allergenes: [],
@@ -77,41 +83,30 @@ export default function IntolerancesPage() {
                 <form className="flex justify-center py-8 px-12 h-70v w-5/6 bg-white rounded-[20px]">
                     <fieldset className="flex flex-col w-4/5 mt-24">
                         <h4 className="mb-8">What are your intolerances?</h4>
-                        <div className="grid grid-cols-4 gap-4 mb-6">
-                            {intolerances.map((intolerance, i) => (
-                                <div key={i} className={styles.intoleranceWrapper}>
-                                    <input
-                                        type="checkbox"
-                                        name="intolerances"
-                                        value={intolerance}
-                                        checked={choices.includes(intolerance)}
-                                        onChange={onAddChoice}
-                                    />
-                                    <label htmlFor={intolerance}>
-                                        <p>{intolerance}</p>
-                                    </label>
-                                </div>
-                            ))}
+                        <div className="overflow-y-auto">
+                            <div className="grid grid-cols-4 gap-4 mb-4">
+                                {intolerances.map((intolerance, i) => (
+                                    <div key={i} className={styles.intoleranceWrapper}>
+                                        <input
+                                            type="checkbox"
+                                            name="intolerances"
+                                            value={intolerance}
+                                            checked={choices.includes(intolerance)}
+                                            onChange={onAddChoice}
+                                        />
+                                        <label htmlFor={intolerance}>
+                                            <p>{intolerance}</p>
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                         <div className="flex justify-between relative">
-                            <Link className="font-medium text-gray-custom4" href={'/preferences'}>
-                                Zurück
+                            <Link className="btn-submit mt-4" href={'/preferences'}>
+                                Back
                             </Link>
-                            <button
-                                type="submit"
-                                className="font-medium text-gray-custom4"
-                                data-btn="skip"
-                                onClick={handleClick}
-                            >
-                                Überspringen
-                            </button>
-                            <button
-                                type="submit"
-                                className="font-medium text-gray-custom4"
-                                data-btn="next"
-                                onClick={handleClick}
-                            >
-                                Weiter
+                            <button type="submit" className="btn-submit mt-4" data-btn="next" onClick={handleClick}>
+                                Next
                             </button>
                         </div>
                     </fieldset>
