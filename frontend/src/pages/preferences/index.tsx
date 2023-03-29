@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Router from 'next/router';
 import React, { useState } from 'react';
 import { getSession, useSession } from 'next-auth/react';
-import { GetServerSideProps } from 'next';
 
 const PreferencesPage = () => {
     const preferences = [
@@ -85,12 +84,3 @@ const PreferencesPage = () => {
 };
 
 export default PreferencesPage;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const session = await getSession(context);
-    return {
-        props: {
-            data: session ? 'valid session' : 'invalid session',
-        },
-    };
-};

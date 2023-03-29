@@ -10,8 +10,4 @@ export type APIRegistrationResponse = {
 export type UserCredentials = {
     userId: string;
     password: string;
-    redirect?: boolean;
-    callbackURL?: string;
-    csrfToken?: string;
-    json: boolean;
 };

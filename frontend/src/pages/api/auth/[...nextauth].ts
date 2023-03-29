@@ -1,10 +1,10 @@
 import NextAuth from 'next-auth';
 
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { NextResponse } from 'next/server';
 import { UserCredentials } from 'src/types/types';
 
 export default NextAuth({
+    secret: process.env.SECRETKEY,
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -14,8 +14,6 @@ export default NextAuth({
             },
             async authorize(credentials, req) {
                 const { userId, password } = credentials as unknown as UserCredentials;
-
-                console.log('from authorize: ', userId, password);
 
                 const res = await fetch('http://api:3000/auth/login', {
                     method: 'POST',
@@ -28,11 +26,8 @@ export default NextAuth({
                     }),
                 });
 
-                console.log(res);
-
                 const user = await res.json();
-
-                console.log(user);
+                const cookies = res.headers.get('set-cookie');
 
                 if (res.ok && user) {
                     return user;
@@ -42,8 +37,13 @@ export default NextAuth({
     ],
 
     callbacks: {
-        async signIn({ user, account, profile, email, credentials }) {
-            return true;
+        async jwt({ token, user }) {
+            return { ...token, ...user };
+        },
+
+        async session({ session, token, user }) {
+            session.user = token;
+            return session;
         },
     },
 
