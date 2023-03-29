@@ -21,16 +21,13 @@ export default class IngredientsSearchService {
         });
     }
     async createIndex(ingredients: Ingredient[]) {
-        // try {
+        try {
 
-        //     if (await this.elasticsearchService.indices.exists({ index: this.index })) {
-        //         await this.elasticsearchService.indices.delete({ index: this.index });
-        //     }
-        // } catch (error) {
-        //     console.log("no index found");
+            await this.elasticsearchService.indices.create({ index: this.index });
+        } catch (error) {
+            console.log("no index found");
 
-        // }
-        await this.elasticsearchService.indices.create({ index: this.index });
+        }
         const body = ingredients.flatMap((ingredient) => [
             { index: { _index: this.index } },
             { id: ingredient.id, name: ingredient.name },
