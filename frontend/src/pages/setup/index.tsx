@@ -10,9 +10,7 @@ const SetupParentPage = () => {
 
     const [preferences, setPreferences] = useState({ formOfDiet: '', allergenes: [], foodDislikes: [] });
 
-    // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
-        // Update the document title using the browser API
         console.log(preferences);
     }, [preferences]);
 
@@ -33,8 +31,21 @@ const SetupParentPage = () => {
             <div className="flex justify-center items-center ml-50">
                 <form className="flex justify-center py-8 px-12 h-70v w-5/6 bg-white rounded-[20px]">
                     <fieldset className="flex flex-col w-4/5 mt-24 ">
-                        {currentStep === 1 && <FoodLifestyle onNext={handleNextStep} onChoice={handleFoodLifestyle} />}
-                        {currentStep === 2 && <Intolerances onNext={handleNextStep} onBack={handleBackStep} />}
+                        {currentStep === 1 && (
+                            <FoodLifestyle
+                                onNext={handleNextStep}
+                                onChoice={handleFoodLifestyle}
+                                formOfDiet={preferences.formOfDiet}
+                            />
+                        )}
+                        {currentStep === 2 && (
+                            <Intolerances
+                                onNext={handleNextStep}
+                                onBack={handleBackStep}
+                                onChoice={handleFoodLifestyle}
+                                allergenes={preferences.allergenes}
+                            />
+                        )}
                         {/* {currentStep === 2 && <StepTwo onNext={handleNextStep} />}
             {currentStep === 3 && <StepThree />} */}
                     </fieldset>

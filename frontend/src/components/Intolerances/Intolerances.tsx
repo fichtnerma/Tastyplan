@@ -11,12 +11,16 @@ import { useEffect, useState } from 'react';
 
 type OnNextFunction = () => void;
 type OnBackFunction = () => void;
+type OnChoiceFunction = (choice: any) => any;
+
 interface IntolerancesProps {
     onNext: OnNextFunction;
     onBack: OnBackFunction;
+    onChoice: OnChoiceFunction;
+    allergenes: string[];
 }
 
-export default function Intolerances({ onNext, onBack }: IntolerancesProps) {
+export default function Intolerances({ onNext, onBack, onChoice, allergenes }: IntolerancesProps) {
     const intolerances = [
         { ui: 'Peanuts', code: 'peanut', icon: peanut },
         { ui: 'Hazelnuts', code: 'hazelnut', icon: hazelnut },
@@ -36,12 +40,10 @@ export default function Intolerances({ onNext, onBack }: IntolerancesProps) {
         { ui: 'Mollusk', code: 'mollusk', icon: hazelnut },
     ];
 
-    const [choices, setChoices] = useState<string[]>([]);
+    const [choices, setChoices] = useState(allergenes);
     const router = useRouter();
 
-    // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
-        // Update the document title using the browser API
         console.log(choices);
     }, [choices]);
 
@@ -58,31 +60,37 @@ export default function Intolerances({ onNext, onBack }: IntolerancesProps) {
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const { formOfDiet } = router?.query;
-        // const currentIntolerances = e.currentTarget.getAttribute('data-btn') === 'skip' ? [] : choices;
-        const data = {
-            formOfDiet: formOfDiet,
-            allergenes: [],
-            foodDislikes: [],
-        };
+        // const { formOfDiet } = router?.query;
+        // // const currentIntolerances = e.currentTarget.getAttribute('data-btn') === 'skip' ? [] : choices;
+        // const data = {
+        //     formOfDiet: formOfDiet,
+        //     allergenes: [],
+        //     foodDislikes: [],
+        // };
 
-        fetch('http://localhost:3000/preferences', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((response) => {
-                if (response.ok)
-                    router.push({
-                        pathname: '/weekOverview',
-                    });
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
-        onNext();
+        // fetch('http://localhost:3000/preferences', {
+        //     method: 'POST',
+        //     body: JSON.stringify(data),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        // })
+        //     .then((response) => {
+        //         if (response.ok)
+        //             router.push({
+        //                 pathname: '/weekOverview',
+        //             });
+        //     })
+        //     .catch((err) => {
+        //         console.log(err.message);
+        //     });
+        if (e.currentTarget.getAttribute('data-anchor') == 'next') {
+            onNext();
+        } else {
+            onBack();
+        }
+
+        onChoice((preferences: any) => ({ ...preferences, allergenes: choices }));
     };
 
     return (
@@ -117,7 +125,7 @@ export default function Intolerances({ onNext, onBack }: IntolerancesProps) {
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="submit" className="btn-primary mt-10" data-btn="back" onClick={onBack}>
+                <button type="submit" className="btn-primary mt-10" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
                 {/* <Link className="btn-primary mt-10" href={'/preferences'}>

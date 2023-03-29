@@ -8,8 +8,9 @@ type OnChoiceFunction = (choice: any) => any;
 interface FoodLifestyleProps {
     onNext: OnNextFunction;
     onChoice: OnChoiceFunction;
+    formOfDiet: string;
 }
-export default function FoodLifestyle({ onNext, onChoice }: FoodLifestyleProps) {
+export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLifestyleProps) {
     const preferences = [
         { food: 'omnivore', description: 'You eat all animal products' },
         { food: 'flexitarian', description: 'You rarely eat all animal products' },
@@ -18,7 +19,7 @@ export default function FoodLifestyle({ onNext, onChoice }: FoodLifestyleProps) 
         { food: 'vegan', description: 'You dont eat any kind of animal products' },
     ];
 
-    const [selection, setSelection] = useState('');
+    const [selection, setSelection] = useState(formOfDiet);
 
     useEffect(() => {
         console.log(selection);
@@ -59,16 +60,6 @@ export default function FoodLifestyle({ onNext, onChoice }: FoodLifestyleProps) 
                     ))}
                 </div>
             </div>
-            {/* <div className="flex justify-center relative my-8">
-                <a
-                    className="btn-primary absolute top-0 right-0 font-medium text-gray-custom4"
-                    href="/preferences"
-                    onClick={onSubmitSelection}
-                    data-anchor="next"
-                >
-                    Next
-                </a>
-            </div> */}
             <div className="flex justify-end relative">
                 <button
                     type="submit"
