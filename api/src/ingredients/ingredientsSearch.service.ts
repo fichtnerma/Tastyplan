@@ -9,7 +9,7 @@ export default class IngredientsSearchService {
     constructor(
         @Inject(forwardRef(() => ElasticsearchService))
         private readonly elasticsearchService: ElasticsearchService,
-    ) {}
+    ) { }
 
     async indexIngredient(ingredient: Ingredient) {
         return this.elasticsearchService.index({
@@ -21,10 +21,13 @@ export default class IngredientsSearchService {
         });
     }
     async createIndex(ingredients: Ingredient[]) {
-        // if (await this.elasticsearchService.indices.exists({ index: this.index })) {
-        //     await this.elasticsearchService.indices.delete({ index: this.index });
-        // }
-        await this.elasticsearchService.indices.create({ index: this.index });
+        try {
+
+            await this.elasticsearchService.indices.create({ index: this.index });
+        } catch (error) {
+            console.log("no index found");
+
+        }
         const body = ingredients.flatMap((ingredient) => [
             { index: { _index: this.index } },
             { id: ingredient.id, name: ingredient.name },
