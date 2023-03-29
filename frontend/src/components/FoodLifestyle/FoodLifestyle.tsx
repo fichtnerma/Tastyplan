@@ -1,13 +1,15 @@
-import styles from '@styles/Preferences.module.scss';
-
-import logo from '../../../public/logo.svg';
-
-import Image from 'next/image';
+import styles from '../FoodLifestyle/FoodLifestyle.module.scss';
 
 import Router from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-export default function FoodLifestyle() {
+type OnNextFunction = () => void;
+type OnChoiceFunction = (choice: any) => any;
+interface FoodLifestyleProps {
+    onNext: OnNextFunction;
+    onChoice: OnChoiceFunction;
+}
+export default function FoodLifestyle({ onNext, onChoice }: FoodLifestyleProps) {
     const preferences = [
         { food: 'omnivore', description: 'You eat all animal products' },
         { food: 'flexitarian', description: 'You rarely eat all animal products' },
@@ -16,7 +18,11 @@ export default function FoodLifestyle() {
         { food: 'vegan', description: 'You dont eat any kind of animal products' },
     ];
 
-    const [selection, setSelection] = useState('omnivore');
+    const [selection, setSelection] = useState('');
+
+    useEffect(() => {
+        console.log(selection);
+    }, [selection]);
 
     const onChoiceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelection(e.target.value);
@@ -24,55 +30,55 @@ export default function FoodLifestyle() {
 
     const onSubmitSelection = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        const clickedAnchor = e.currentTarget.getAttribute('data-anchor');
-        const currentSelection = clickedAnchor === 'skip' ? 'omnivore' : selection;
 
-        Router.push({
-            pathname: '/intolerances',
-            query: {
-                formOfDiet: currentSelection,
-            },
-        });
+        const currentSelection = selection;
+
+        onNext();
+        onChoice((preferences: any) => ({ ...preferences, formOfDiet: currentSelection }));
     };
 
     return (
         <div>
-            <Image src={logo} className="ml-24 mb-8" alt="logo" width={200} priority />
-            <div className="flex justify-center items-center ml-50">
-                <form className="flex justify-center py-8 px-12 h-70v w-5/6 bg-white rounded-[20px]">
-                    <fieldset className="flex flex-col w-4/5 mt-24 ">
-                        <h4 className="mb-8">What is your food lifestyle?</h4>
-                        <div className={styles.scrolling}>
-                            <div className={styles.preferencesWrapper}>
-                                {preferences.map((preference, i) => (
-                                    <div key={i} className={styles.choiceWrapper}>
-                                        <input
-                                            type="radio"
-                                            name="preferences"
-                                            value={preference.food}
-                                            checked={selection === preference.food}
-                                            onChange={onChoiceChange}
-                                        />
-                                        <label htmlFor={preference.food}>
-                                            <p className="absolute min-w-full pb-4 pl-6">{preference.food}</p>
-                                            <p className="text-xs min-w-full pt-8">{preference.description}</p>
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
+            <h4 className="mb-8">What is your food lifestyle?</h4>
+            <div className={styles.scrolling}>
+                <div className={styles.preferencesWrapper}>
+                    {preferences.map((preference, i) => (
+                        <div key={i} className={styles.choiceWrapper}>
+                            <input
+                                type="radio"
+                                name="preferences"
+                                value={preference.food}
+                                checked={selection === preference.food}
+                                onChange={onChoiceChange}
+                            />
+                            <label htmlFor={preference.food}>
+                                <p className="absolute min-w-full pb-4 pl-6">{preference.food}</p>
+                                <p className="text-xs min-w-full pt-8">{preference.description}</p>
+                            </label>
                         </div>
-                        <div className="flex justify-center relative my-8">
-                            <a
-                                className="btn-primary absolute top-0 right-0 font-medium text-gray-custom4"
-                                href="/preferences"
-                                onClick={onSubmitSelection}
-                                data-anchor="next"
-                            >
-                                Next
-                            </a>
-                        </div>
-                    </fieldset>
-                </form>
+                    ))}
+                </div>
+            </div>
+            {/* <div className="flex justify-center relative my-8">
+                <a
+                    className="btn-primary absolute top-0 right-0 font-medium text-gray-custom4"
+                    href="/preferences"
+                    onClick={onSubmitSelection}
+                    data-anchor="next"
+                >
+                    Next
+                </a>
+            </div> */}
+            <div className="flex justify-end relative">
+                <button
+                    type="submit"
+                    className="btn-primary mt-10"
+                    data-btn="next"
+                    onClick={onSubmitSelection}
+                    data-anchor="next"
+                >
+                    Next
+                </button>
             </div>
         </div>
     );
