@@ -27,7 +27,6 @@ export default NextAuth({
                 });
 
                 const user = await res.json();
-                const cookies = res.headers.get('set-cookie');
 
                 if (res.ok && user) {
                     return user;
@@ -44,6 +43,10 @@ export default NextAuth({
         async session({ session, token, user }) {
             session.user = token;
             return session;
+        },
+
+        async redirect({ url, baseUrl }) {
+            return url;
         },
     },
 

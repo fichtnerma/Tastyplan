@@ -8,7 +8,6 @@ function Login() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         sendData();
-        console.log('handle submit');
     };
 
     const sendData = async () => {
@@ -17,13 +16,11 @@ function Login() {
             password: password,
         };
 
-        const result = await signIn('credentials', {
+        signIn('credentials', {
             ...data,
             redirect: true,
-            callbackUrl: '/',
+            callbackUrl: 'http://localhost:8080/preferences',
         });
-
-        console.log(result);
     };
 
     return (
