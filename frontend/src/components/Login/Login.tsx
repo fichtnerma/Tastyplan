@@ -1,3 +1,4 @@
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 
 function Login() {
@@ -16,20 +17,13 @@ function Login() {
             password: password,
         };
 
-        const response = await fetch('http://localhost:3000/auth/login', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            redirect: 'follow',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        const result = await signIn('credentials', {
+            ...data,
+            redirect: true,
+            callbackUrl: '/',
         });
 
-        response.headers;
-
-        const responseData = await response.json();
-
-        console.log(responseData);
+        console.log(result);
     };
 
     return (
