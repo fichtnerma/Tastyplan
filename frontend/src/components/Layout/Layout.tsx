@@ -9,7 +9,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
         <>
             {asPath !== '/startPage' &&
                 asPath !== '/authentication/registration' &&
-                asPath !== 'authentication/login' &&
+                asPath !== '/authentication/login' &&
                 asPath !== '/preferences' &&
                 !asPath.includes('/intolerances') && <Header />}
             <main>{children}</main>
