@@ -102,10 +102,10 @@ export default function IntolerancesPage() {
                             </div>
                         </div>
                         <div className="flex justify-between relative">
-                            <Link className="btn-submit mt-4" href={'/preferences'}>
+                            <Link className="btn-primary mt-4" href={'/preferences'}>
                                 Back
                             </Link>
-                            <button type="submit" className="btn-submit mt-4" data-btn="next" onClick={handleClick}>
+                            <button type="submit" className="btn-primary mt-4" data-btn="next" onClick={handleClick}>
                                 Next
                             </button>
                         </div>

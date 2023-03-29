@@ -63,7 +63,7 @@ const PreferencesPage = () => {
                         </div>
                         <div className="flex justify-center relative my-8">
                             <a
-                                className="btn-submit absolute top-0 right-0 font-medium text-gray-custom4"
+                                className="btn-primary absolute top-0 right-0 font-medium text-gray-custom4"
                                 href="/preferences"
                                 onClick={onSubmitSelection}
                                 data-anchor="next"
