@@ -35,7 +35,7 @@ export default NextAuth({
                 console.log(user);
 
                 if (res.ok && user) {
-                    return NextResponse.redirect('/preferences');
+                    return user;
                 } else return null;
             },
         }),
