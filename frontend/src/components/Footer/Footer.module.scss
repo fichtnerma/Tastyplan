@@ -1,8 +1,13 @@
 @import "@styles/variables.scss";
 
+.container {
+    margin-top: -60px;
+}
+
 .footerContainer {
     background-color: var(--green-light);
     margin-top: -1px;
+    padding: 60px;
 
 
     h3 {
