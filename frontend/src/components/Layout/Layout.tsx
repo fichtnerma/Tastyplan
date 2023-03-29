@@ -8,8 +8,8 @@ export default function Layout({ children }: React.PropsWithChildren) {
     return (
         <>
             {asPath !== '/startPage' &&
-                asPath !== '/registration' &&
-                asPath !== '/login' &&
+                asPath !== '/authentication/registration' &&
+                asPath !== 'authentication/login' &&
                 asPath !== '/preferences' &&
                 !asPath.includes('/intolerances') && <Header />}
             <main>{children}</main>
