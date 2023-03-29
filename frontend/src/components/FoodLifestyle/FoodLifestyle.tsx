@@ -29,7 +29,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
         setSelection(e.target.value);
     };
 
-    const onSubmitSelection = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const onSubmitSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         const currentSelection = selection;
