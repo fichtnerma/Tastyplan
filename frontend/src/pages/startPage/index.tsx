@@ -4,7 +4,7 @@ import logo from '../../../public/logo.svg';
 
 export default function index() {
     return (
-        <div className="h-screen w-screen fixed">
+        <div className="h-screen w-screen">
             <div className="flex justify-center pt-[120px] h-[400px]">
                 <Image src={logo} alt="logo" width={400} height={239} priority />
             </div>
