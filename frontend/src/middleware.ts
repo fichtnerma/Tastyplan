@@ -11,7 +11,6 @@ export async function middleware(req: NextRequest) {
 
     if (isPathProtected) {
         const token = await getToken({ req, secret });
-        console.log('token:', token);
         if (!token) {
             const url = new URL(`http://localhost:8080/authentication/login`, req.url);
             return NextResponse.redirect(url);

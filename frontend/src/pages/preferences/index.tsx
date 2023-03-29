@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import Router from 'next/router';
 import React, { useState } from 'react';
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
 const PreferencesPage = () => {
     const preferences = [
@@ -19,7 +19,7 @@ const PreferencesPage = () => {
 
     const { data: session, status } = useSession();
 
-    console.log(session);
+    console.log(session?.user);
 
     const [selection, setSelection] = useState('omnivore');
 

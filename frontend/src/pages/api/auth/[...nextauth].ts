@@ -38,11 +38,13 @@ export default NextAuth({
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
+                console.log('user', user);
+
                 token.role = user.role;
                 token.email = user.email;
                 token.firstName = user.firstName;
                 token.lastName = user.lastName;
-                token.user = user.userId;
+                token.userId = user.userId;
             }
 
             return token;
