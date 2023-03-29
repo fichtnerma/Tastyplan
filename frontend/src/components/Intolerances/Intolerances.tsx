@@ -84,8 +84,9 @@ export default function Intolerances({ onNext, onBack, onChoice, allergenes }: I
         //     .catch((err) => {
         //         console.log(err.message);
         //     });
-        if (e.currentTarget.getAttribute('data-anchor') == 'next') {
+        if (e.currentTarget.getAttribute('data-btn') == 'next') {
             onNext();
+            console.log('Next pressed');
         } else {
             onBack();
         }

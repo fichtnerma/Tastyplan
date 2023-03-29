@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Intolerances from '@components/Intolerances/Intolerances';
+import Dislikes from '@components/Dislikes/Dislikes';
 
 import logo from '../../../public/logo.svg';
 import Image from 'next/image';
@@ -46,8 +47,7 @@ const SetupParentPage = () => {
                                 allergenes={preferences.allergenes}
                             />
                         )}
-                        {/* {currentStep === 2 && <StepTwo onNext={handleNextStep} />}
-            {currentStep === 3 && <StepThree />} */}
+                        {currentStep === 3 && <Dislikes onBack={handleBackStep} />}
                     </fieldset>
                 </form>
             </div>
