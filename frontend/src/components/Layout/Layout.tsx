@@ -7,7 +7,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
     const { asPath } = useRouter();
     return (
         <>
-            {asPath !== '/startPage' &&
+            {asPath !== '/' &&
                 asPath !== '/registration' &&
                 asPath !== '/login' &&
                 asPath !== '/preferences' &&
