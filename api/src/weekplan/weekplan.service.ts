@@ -10,7 +10,7 @@ type Preferences = {
 };
 @Injectable()
 export class WeekplanService {
-    constructor(private prismaService: PrismaService, private recipeService: RecipesService) {}
+    constructor(private prismaService: PrismaService, private recipeService: RecipesService) { }
 
     async createOrGet() {
         const week = [0, 1, 2, 3, 4, 5, 6];
@@ -52,7 +52,7 @@ export class WeekplanService {
                     createMany: {
                         data: week.map((dayEntry) => ({
                             date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
-                            recipeId: recommendedMeals[dayEntry]?.id,
+                            recipeId: recommendedMeals[dayEntry]?.id || 1,
                         })),
                     },
                 },
@@ -65,7 +65,7 @@ export class WeekplanService {
                     createMany: {
                         data: week.map((dayEntry) => ({
                             date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
-                            recipeId: recommendedMeals[dayEntry].id,
+                            recipeId: recommendedMeals[dayEntry]?.id || 1,
                         })),
                     },
                 },

@@ -11,7 +11,7 @@ import { ToastContainer } from 'react-toastify';
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <div className={styles.background}>
+        <div>
             <Layout>
                 {' '}
                 <Component {...pageProps} />{' '}
