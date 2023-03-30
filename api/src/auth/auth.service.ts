@@ -14,9 +14,9 @@ export class AuthService {
         private readonly usersService: UsersService,
     ) {}
 
-    registerGuest(createGuestDto: CreateGuestDto) {
+    async registerGuest(createGuestDto: CreateGuestDto) {
         try {
-            const user = this.usersService.createGuest(createGuestDto);
+            const user = await this.usersService.createGuest(createGuestDto);
             const cookie = this.createAuthCookie(createGuestDto);
             return { cookie, data: user };
         } catch (error) {

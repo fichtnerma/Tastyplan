@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { IngredientsService } from 'src/ingredients/ingredients.service';
-import { PreferencesDto } from 'src/preferences/dto/createPreferences.dto';
+import { Preferences, User } from '@prisma/client';
+import { PreferencesService } from 'src/preferences/preferences.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 @Injectable()
 export class RecipesService {
-    constructor(private ingredientsService: IngredientsService, private prismaService: PrismaService) {}
+    constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) {}
 
     async create(createRecipeDto: CreateRecipeDto) {
         return 'This action adds a new recipe';
@@ -53,15 +53,42 @@ export class RecipesService {
 
         return formattedRecipe;
     }
-    //Condition: wehere non of the ingreedients has one of the given allergenes
-    findWithPreferences(preferencesDto: PreferencesDto) {
-        console.log(preferencesDto);
 
-        const recipes = this.prismaService.recipe.findMany({
+    async filterByPreferences(user: User) {
+        const preferences = await this.preferencesService.getPreferences(user);
+        console.log({ preferences });
+
+        const dislikedIngredients = preferences.foodDislikes.map((item: any) => item.id);
+        const allowedFormsOfDiet: any = {
+            vegan: ['vegan'],
+            vegetarian: ['vegan', 'vegetarian'],
+            omnivore: ['vegan', 'vegetarian', 'omnivore'],
+        };
+        const recipes = await this.prismaService.recipe.findMany({
+            where: {
+                // OR: [
+                //     ...allowedFormsOfDiet[preferences.formOfDiet].map((item: any) => {
+                //         return {
+                //             formOfDiet: item,
+                //         };
+                //     }),
+                // ],
+                ingredients: {
+                    every: {
+                        ingredient: {
+                            id: {
+                                notIn: dislikedIngredients,
+                            },
+                        },
+                    },
+                },
+            },
             select: {
                 id: true,
             },
         });
+        console.log({ recipes });
+
         return recipes;
     }
 }
