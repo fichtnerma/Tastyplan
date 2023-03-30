@@ -3,6 +3,8 @@ import styles from '../Dislikes/Dislikes.module.scss';
 import cross from '../../../public/Icons/kreuz.png';
 import Image from 'next/image';
 import Link from 'next/link';
+import { APISearchResponse } from 'src/types/types';
+import SearchResultlist from '@components/SearchResultList/SearchResultList';
 
 type OnBackFunction = () => void;
 type OnChoiceFunction = (choice: any) => any;
@@ -20,6 +22,13 @@ export default function Dislikes({ onBack, onChoice, foodDislikes }: DislikesPro
     useEffect(() => {
         console.log(allDislikes);
     }, [allDislikes]);
+    // const [allDislikes, setDislike] = useState<string[]>([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
+
+    useEffect(() => {
+        console.log(searchResult);
+    }, [searchResult]);
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -33,6 +42,19 @@ export default function Dislikes({ onBack, onChoice, foodDislikes }: DislikesPro
         setDislike(allDislikes.filter((dislikes) => dislikes !== clickedDislike));
         onChoice((preferences: any) => ({ ...preferences, foodDislikes: allDislikes }));
     };
+
+    const handleSearch = async () => {
+        console.log('Search');
+        const res = await fetch(`http://localhost:3000/ingredients?search=${searchTerm}`);
+        if (!res.ok) {
+            console.log('failed to fetch');
+            return;
+        }
+        const data = (await res.json()) as unknown as APISearchResponse[];
+        setSearchResult([...data]);
+        console.log(data);
+    };
+
     return (
         <div>
             <h4 className="mb-8">What food do you dislike?</h4>
@@ -42,11 +64,12 @@ export default function Dislikes({ onBack, onChoice, foodDislikes }: DislikesPro
                         <input
                             type="text"
                             name="search"
-                            // value={allDislikes}
-                            // onChange={(e) => setDislike(e.target.value)}
+                            placeholder="Tomatoes"
+                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
-                    <button type="submit" className="btn-primary">
+                    {searchResult.length !== 0 && <SearchResultlist searchResults={[...searchResult]} />}
+                    <button className="btn-primary" type="button" onClick={handleSearch}>
                         Go
                     </button>
                 </div>

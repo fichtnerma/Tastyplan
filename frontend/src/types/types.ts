@@ -6,3 +6,8 @@ export type APIRegistrationResponse = {
     message: string;
     name: string;
 };
+
+export type APISearchResponse = {
+    id: number;
+    name: string;
+};
