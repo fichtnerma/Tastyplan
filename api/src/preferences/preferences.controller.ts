@@ -14,7 +14,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('preferences')
 export class PreferencesController {
-    constructor(private preferencesService: PreferencesService) { }
+    constructor(private preferencesService: PreferencesService) {}
 
     // @UseGuards(JwtAuthGuard)
     // @ApiSecurity('access-key')
@@ -24,6 +24,5 @@ export class PreferencesController {
         console.log(preferencesDto);
         // const user = req.user;
         return await this.preferencesService.setPreferences(preferencesDto);
-
     }
 }

@@ -12,7 +12,7 @@ import { Mousewheel, Navigation, Scrollbar } from "swiper";
 
 import styles from '../../styles/WeekOverview.module.scss';
 
-import testImg from '../../../public/EssenBild.jpg';
+import testImg from 'http://api:3000/images/erbsensuppe.png';
 import timeIcon from '../../../public/Icons/time.svg';
 import kochIcon from '../../../public/Icons/kochmutze.png';
 import potIcon from '../../../public/Icons/topf.png';
@@ -80,7 +80,7 @@ export default function WeekOverview() {
                                         className={styles.weekplanBox}
                                         style={{ backgroundColor: (today == new Date(day.date).getDay()) ? 'var(--green-dark)' : 'var(--green-light)' }}>
                                         <div className={styles.foodBox}>
-                                            <Image src={testImg} alt="Food Img" className={styles.foodImg} priority />
+                                            <img src={`http://localhost:3000/images/${day.recipe.img || "erbsensuppe.png"}`} width={100} height={100} alt="Food Img" className={styles.foodImg} priority />
                                             <div className={styles.discriptionFood}>
                                                 <p className='text-xxl truncate overflow-hidden w-56'
                                                     style={{ color: (today == new Date(day.date).getDay()) ? 'var(--white)' : 'var(--black)' }}
