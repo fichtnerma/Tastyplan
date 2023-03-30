@@ -86,7 +86,7 @@ export class WeekplanService {
                     createMany: {
                         data: week.map((dayEntry) => ({
                             date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
-                            recipeId: recommendedMeals[dayEntry].id,
+                            recipeId: recommendedMeals[dayEntry]?.id || 1,
                         })),
                     },
                 },

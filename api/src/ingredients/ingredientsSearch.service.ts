@@ -23,14 +23,14 @@ export default class IngredientsSearchService {
     async createIndex(ingredients: Ingredient[]) {
         try {
             await this.elasticsearchService.indices.create({ index: this.index });
+            const body = ingredients.flatMap((ingredient) => [
+                { index: { _index: this.index } },
+                { id: ingredient.id, name: ingredient.name },
+            ]);
+            return await this.elasticsearchService.bulk({ refresh: true, body });
         } catch (error) {
             console.log('no index found');
         }
-        const body = ingredients.flatMap((ingredient) => [
-            { index: { _index: this.index } },
-            { id: ingredient.id, name: ingredient.name },
-        ]);
-        return await this.elasticsearchService.bulk({ refresh: true, body });
     }
 
     async search(text: string) {

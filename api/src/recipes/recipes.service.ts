@@ -29,14 +29,16 @@ export class RecipesService {
         const formattedRecipe = {
             id: recipe.id,
             name: recipe.name,
+            description: recipe.description,
             img: recipe.img,
             formOfDiet: recipe.formOfDiet,
-            difficulty: recipe.difficulty,
             preparingTime: recipe.preparingTime,
             cookingTime: recipe.cookingTime,
+            totalTime: recipe.totalTime,
             ingredients: recipe.ingredients.map((item) => {
                 return {
-                    amount: item?.amount,
+                    quantity: item?.quantity,
+                    unit: item?.unit,
                     ingredient: item?.ingredient?.name,
                 };
             }),
