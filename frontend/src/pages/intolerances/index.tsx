@@ -56,7 +56,7 @@ export default function IntolerancesPage() {
         // const currentIntolerances = e.currentTarget.getAttribute('data-btn') === 'skip' ? [] : choices;
         const data = {
             formOfDiet: formOfDiet,
-            allergenes: [],
+            allergens: [],
             foodDislikes: [],
         };
 

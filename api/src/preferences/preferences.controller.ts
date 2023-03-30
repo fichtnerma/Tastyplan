@@ -22,6 +22,8 @@ export class PreferencesController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/')
     async setPreferences(@Request() req: any, @Body() preferencesDto: PreferencesDto) {
+        console.log('preferencesDto');
+
         console.log(preferencesDto);
         const user = req.user;
         return await this.preferencesService.setPreferences(preferencesDto, user);

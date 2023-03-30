@@ -45,6 +45,7 @@ async function initIngredients() {
                 calcium: parseFloat(ingredient.calcium) || null,
                 iron: parseFloat(ingredient.iron) || null,
                 magnesium: parseFloat(ingredient.magnesium) || null,
+                allergens: ingredient.allergens || [],
             },
         });
     }
@@ -69,6 +70,7 @@ function readCSVIngredients() {
                         calcium: row['calcium'],
                         iron: row['iron'],
                         magnesium: row['magnesium'],
+                        allergens: row['allergens'],
                     };
                     ingredients.push(ingredient);
                 })

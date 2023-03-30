@@ -7,6 +7,7 @@ CREATE TABLE "Ingredient" (
     "name" TEXT NOT NULL,
     "categories" TEXT NOT NULL,
     "subcategories" TEXT,
+    "allergens" TEXT[],
     "fat" DOUBLE PRECISION,
     "carbs" DOUBLE PRECISION,
     "protein" DOUBLE PRECISION,
@@ -23,10 +24,12 @@ CREATE TABLE "Recipe" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "img" TEXT,
-    "difficulty" TEXT NOT NULL,
-    "kitchenware" TEXT[],
+    "description" TEXT,
     "cookingTime" INTEGER,
     "preparingTime" INTEGER NOT NULL,
+    "totalTime" INTEGER NOT NULL,
+    "servings" INTEGER NOT NULL,
+    "tags" TEXT[],
     "formOfDiet" TEXT NOT NULL,
 
     CONSTRAINT "Recipe_pkey" PRIMARY KEY ("id")
@@ -35,7 +38,8 @@ CREATE TABLE "Recipe" (
 -- CreateTable
 CREATE TABLE "IngredientWithAmount" (
     "id" SERIAL NOT NULL,
-    "amount" TEXT,
+    "unit" TEXT,
+    "quantity" DOUBLE PRECISION,
     "ingredientId" INTEGER,
     "recipeId" INTEGER,
 
@@ -54,7 +58,7 @@ CREATE TABLE "Step" (
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "email" TEXT,
     "password" TEXT,
@@ -72,7 +76,7 @@ CREATE TABLE "Preferences" (
     "id" SERIAL NOT NULL,
     "userId" TEXT NOT NULL,
     "formOfDiet" TEXT NOT NULL,
-    "allergenes" TEXT[],
+    "allergens" TEXT[],
 
     CONSTRAINT "Preferences_pkey" PRIMARY KEY ("id")
 );
@@ -108,6 +112,9 @@ CREATE UNIQUE INDEX "User_userId_key" ON "User"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Preferences_userId_key" ON "Preferences"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_IngredientToPreferences_AB_unique" ON "_IngredientToPreferences"("A", "B");

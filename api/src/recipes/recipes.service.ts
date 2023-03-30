@@ -5,7 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 @Injectable()
 export class RecipesService {
-    constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) { }
+    constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) {}
 
     async create(createRecipeDto: CreateRecipeDto) {
         return 'This action adds a new recipe';
@@ -58,51 +58,49 @@ export class RecipesService {
         const preferences = await this.preferencesService.getPreferences(user);
 
         const formOfDiet = preferences.formOfDiet;
-        const allergenes = preferences.allergenes;
+        const allergens = preferences.allergens;
         const formOfDiets = [];
 
         switch (formOfDiet) {
             case 'omnivore':
-                formOfDiets.push('vegan', 'vegetarian', 'omnivore')
+                formOfDiets.push('vegan', 'vegetarian', 'omnivore');
                 break;
             case 'flexeterian':
-                formOfDiets.push('vegan', 'vegetarian', 'omnivore')
+                formOfDiets.push('vegan', 'vegetarian', 'omnivore');
                 break;
             case 'pescetarian':
-                formOfDiets.push('vegan', 'vegetarian')
+                formOfDiets.push('vegan', 'vegetarian');
                 break;
             case 'vegetarian':
-                formOfDiets.push('vegan', 'vegetarian')
+                formOfDiets.push('vegan', 'vegetarian');
                 break;
             case 'vegan':
-                formOfDiets.push('vegan')
+                formOfDiets.push('vegan');
                 break;
         }
 
         const dislikedIngredients = preferences.foodDislikes.map((item: any) => item.id);
+        console.log({ formOfDiets, allergens, dislikedIngredients });
 
         const recipes = await this.prismaService.recipe.findMany({
             where: {
-                AND: [{
-                    formOfDiet: {
-                        in: formOfDiets
-                    }
+                formOfDiet: {
+                    in: formOfDiets,
                 },
-                {
-                    ingredients: {
-                        every: {
-                            ingredient: {
-                                id: {
-                                    notIn: dislikedIngredients,
+                ingredients: {
+                    every: {
+                        ingredient: {
+                            id: {
+                                notIn: dislikedIngredients,
+                            },
+                            NOT: {
+                                allergens: {
+                                    hasSome: allergens,
                                 },
-                                allergenes: {
-                                    notIn: allergenes
-                                }
                             },
                         },
                     },
-                }]
-
+                },
             },
             select: {
                 id: true,
