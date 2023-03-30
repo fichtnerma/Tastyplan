@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../Dislikes/Dislikes.module.scss';
 
 type OnBackFunction = () => void;
@@ -9,7 +9,13 @@ interface DislikesProps {
 export default function Dislikes({ onBack }: DislikesProps) {
     const dislikes = ['Potato', 'Salmon', 'Zucchini', 'Carrot', 'Peas', 'Chicken', 'Spinach', 'Cauliflower', 'Cream'];
 
-    const [allDislikes, setDislike] = useState('Search');
+    const [allDislikes, setDislike] = useState<string[]>([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResult, setSearchResult] = useState<string[]>([]);
+
+    useEffect(() => {
+        console.log(searchResult);
+    }, [searchResult]);
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -19,6 +25,19 @@ export default function Dislikes({ onBack }: DislikesProps) {
     const onDeleteChoice = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log('Deleted', e.target.value);
     };
+
+    const handleSearch = async () => {
+        console.log('Search');
+        const res = await fetch(`http://localhost:3000/ingredients?search=${searchTerm}`);
+        if (!res.ok) {
+            console.log('failed to fetch');
+            return;
+        }
+        const data = (await res.json()) as unknown as string[];
+        setSearchResult([...data]);
+        console.log(data);
+    };
+
     return (
         <div>
             <h4 className="mb-8">What food do you dislike?</h4>
@@ -28,14 +47,14 @@ export default function Dislikes({ onBack }: DislikesProps) {
                         <input
                             type="text"
                             name="search"
-                            value={allDislikes}
-                            onChange={(e) => setDislike(e.target.value)}
+                            placeholder="Tomatoes"
+                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
-                    <button type="submit" className="btn-primary">
+                    <button className="btn-primary" type="button" onClick={handleSearch}>
                         Go
                     </button>
-                </div>{' '}
+                </div>
                 <div className="grid grid-cols-4 gap-4 my-4 overflow-y-auto">
                     {dislikes.map((dislike, i) => (
                         <div key={i} className={styles.dislikeWrapper}>
