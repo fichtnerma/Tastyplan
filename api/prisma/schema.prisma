@@ -47,6 +47,7 @@ model IngredientWithAmount {
     unit         String?
     quantity     Float?
     ingredientId Int?
+    allergenes   String[]
     ingredient   Ingredient? @relation(fields: [ingredientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     recipeId     Int?
     recipe       Recipe?     @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
