@@ -20,6 +20,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
     ];
 
     const [selection, setSelection] = useState(formOfDiet);
+    const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
         console.log(selection);
@@ -27,6 +28,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
 
     const onChoiceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelection(e.target.value);
+        setDisabled(false);
     };
 
     const onSubmitSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -63,10 +65,11 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
             <div className="flex justify-end relative">
                 <button
                     type="submit"
-                    className="btn-primary mt-10"
+                    className="btn-primary mt-10 disabled:bg-gray-custom2"
                     data-btn="next"
                     onClick={onSubmitSelection}
                     data-anchor="next"
+                    disabled={!selection}
                 >
                     Next
                 </button>

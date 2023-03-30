@@ -13,14 +13,20 @@ export default function Layout({ children }: React.PropsWithChildren) {
                 !asPath.includes('/preferences') &&
                 !asPath.includes('/setup') &&
                 !asPath.includes('/intolerances') && <Header />}
-            <main className={styles.mainContainer}
+            <main
+                className={styles.mainContainer}
                 style={{
-                    backgroundColor: (asPath == '/' ||
+                    backgroundColor:
+                        asPath == '/' ||
                         asPath == '/authentication/registration' ||
                         asPath == '/authentication/login' ||
                         asPath == '/preferences' ||
-                        asPath.includes('/intolerances')) ? 'var(--green-light)' : 'var(--white)'
-                }}>
+                        asPath.includes('/intolerances') ||
+                        asPath.includes('/setup')
+                            ? 'var(--green-light)'
+                            : 'var(--white)',
+                }}
+            >
                 {children}
             </main>
             <Footer />
