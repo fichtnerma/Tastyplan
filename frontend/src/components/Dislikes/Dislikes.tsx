@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from '../Dislikes/Dislikes.module.scss';
+import { APISearchResponse } from 'src/types/types';
+import SearchResultlist from '@components/SearchResultList/SearchResultList';
 
 type OnBackFunction = () => void;
 interface DislikesProps {
@@ -11,7 +13,7 @@ export default function Dislikes({ onBack }: DislikesProps) {
 
     const [allDislikes, setDislike] = useState<string[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [searchResult, setSearchResult] = useState<string[]>([]);
+    const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
 
     useEffect(() => {
         console.log(searchResult);
@@ -33,7 +35,7 @@ export default function Dislikes({ onBack }: DislikesProps) {
             console.log('failed to fetch');
             return;
         }
-        const data = (await res.json()) as unknown as string[];
+        const data = (await res.json()) as unknown as APISearchResponse[];
         setSearchResult([...data]);
         console.log(data);
     };
@@ -51,6 +53,7 @@ export default function Dislikes({ onBack }: DislikesProps) {
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
+                    {searchResult.length !== 0 && <SearchResultlist searchResults={[...searchResult]} />}
                     <button className="btn-primary" type="button" onClick={handleSearch}>
                         Go
                     </button>
