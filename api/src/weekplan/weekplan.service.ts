@@ -10,7 +10,7 @@ type Preferences = {
 };
 @Injectable()
 export class WeekplanService {
-    constructor(private prismaService: PrismaService, private recipeService: RecipesService) { }
+    constructor(private prismaService: PrismaService, private recipeService: RecipesService) {}
 
     async createOrGet() {
         const week = [0, 1, 2, 3, 4, 5, 6];
@@ -94,7 +94,9 @@ export class WeekplanService {
                     id: entry.recipe.id,
                     name: entry.recipe.name,
                     img: entry.recipe.img,
-                    difficulty: entry.recipe.difficulty,
+                    totalTime: entry.recipe.totalTime,
+                    description: entry.recipe.description,
+                    tags: entry.recipe.tags,
                     preparingTime: entry.recipe.preparingTime,
                     cookingTime: entry.recipe.cookingTime,
                     formOfDiet: entry.recipe.formOfDiet,
