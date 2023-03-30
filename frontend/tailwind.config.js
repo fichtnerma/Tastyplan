@@ -16,6 +16,7 @@ module.exports = {
                     custom2: '#d6d6d6',
                     custom3: '#707070',
                     custom4: '#3a3a3a',
+                    custom5: '#C5C5C5',
                 },
                 white: {
                     custom: '#fffffa',

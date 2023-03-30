@@ -70,7 +70,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergenes }: I
     };
 
     return (
-        <div>
+        <>
             <h4 className="mb-8">What are your intolerances?</h4>
             <div className="h-[300px] overflow-y-auto">
                 <div className="grid grid-cols-4 gap-4 mb-4">
@@ -113,6 +113,6 @@ export default function Intolerances({ onNext, onBack, onChoice, allergenes }: I
                     Next
                 </button>
             </div>
-        </div>
+        </>
     );
 }
