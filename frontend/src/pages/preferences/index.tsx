@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 import Router from 'next/router';
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 const PreferencesPage = () => {
     const preferences = [
@@ -15,6 +16,10 @@ const PreferencesPage = () => {
         { food: 'vegetarian', description: 'You dont eat any meat and fish' },
         { food: 'vegan', description: 'You dont eat any kind of animal products' },
     ];
+
+    const { data: session, status } = useSession();
+
+    console.log(session?.user);
 
     const [selection, setSelection] = useState('omnivore');
 

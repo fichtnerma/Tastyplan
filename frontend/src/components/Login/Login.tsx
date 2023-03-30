@@ -1,3 +1,4 @@
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 
 function Login() {
@@ -7,7 +8,6 @@ function Login() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         sendData();
-        console.log('handle submit');
     };
 
     const sendData = async () => {
@@ -16,20 +16,11 @@ function Login() {
             password: password,
         };
 
-        const response = await fetch('http://localhost:3000/auth/login', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            redirect: 'follow',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        signIn('credentials', {
+            ...data,
+            redirect: true,
+            callbackUrl: 'http://localhost:8080/preferences',
         });
-
-        response.headers;
-
-        const responseData = await response.json();
-
-        console.log(responseData);
     };
 
     return (

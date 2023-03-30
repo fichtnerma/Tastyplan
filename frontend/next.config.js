@@ -10,6 +10,14 @@ module.exports = {
         };
         return config;
     },
+    images: {
+        remotePatterns: [
+            {
+                protocol: '**',
+                hostname: '**',
+            },
+        ],
+    },
     reactStrictMode: true,
     async redirects() {
         return [
