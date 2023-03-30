@@ -3,16 +3,24 @@ import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Intolerances from '@components/Intolerances/Intolerances';
 import Dislikes from '@components/Dislikes/Dislikes';
 
+interface SetupParentPageProps {}
+interface Preferences {
+    formOfDiet: string;
+    allergenes: string[];
+    foodDislikes: APISearchResponse[];
+}
+
 import logo from '../../../public/logo.svg';
 import Image from 'next/image';
+import { APISearchResponse } from 'src/types/types';
 
 const SetupParentPage = () => {
     const [currentStep, setCurrentStep] = useState(1);
 
-    const [preferences, setPreferences] = useState({
+    const [preferences, setPreferences] = useState<Preferences>({
         formOfDiet: '',
         allergenes: [],
-        foodDislikes: ['Potato', 'Salmon', 'Zucchini', 'Carrot', 'Peas', 'Chicken', 'Spinach', 'Cauliflower', 'Cream'],
+        foodDislikes: [],
     });
 
     useEffect(() => {

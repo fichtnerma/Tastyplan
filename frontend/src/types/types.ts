@@ -10,6 +10,7 @@ export type APIRegistrationResponse = {
 
 export type APISearchResponse = {
     id: number;
+    name: string;
 };
 
 export type UserCredentials = {
