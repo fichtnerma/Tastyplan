@@ -41,7 +41,6 @@ export default function Intolerances({ onNext, onBack, onChoice, allergenes }: I
     ];
 
     const [choices, setChoices] = useState(allergenes);
-    const router = useRouter();
 
     useEffect(() => {
         console.log(choices);
@@ -60,30 +59,6 @@ export default function Intolerances({ onNext, onBack, onChoice, allergenes }: I
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        // const { formOfDiet } = router?.query;
-        // // const currentIntolerances = e.currentTarget.getAttribute('data-btn') === 'skip' ? [] : choices;
-        // const data = {
-        //     formOfDiet: formOfDiet,
-        //     allergenes: [],
-        //     foodDislikes: [],
-        // };
-
-        // fetch('http://localhost:3000/preferences', {
-        //     method: 'POST',
-        //     body: JSON.stringify(data),
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        // })
-        //     .then((response) => {
-        //         if (response.ok)
-        //             router.push({
-        //                 pathname: '/weekOverview',
-        //             });
-        //     })
-        //     .catch((err) => {
-        //         console.log(err.message);
-        //     });
         if (e.currentTarget.getAttribute('data-btn') == 'next') {
             onNext();
             console.log('Next pressed');

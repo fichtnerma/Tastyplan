@@ -1,60 +1,13 @@
-.dislikeWrapper .containerField {
-    display: block;
-    width: 200px;
-    height: 70px;
-    position: relative;
-    border-radius: 50px;
-
-    &:hover {
-        label {
-            background-color: var(--green-light);
-            color: var(--white);
-            border: none;
-        }
-    }
-
-    label,
-    input {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        cursor: pointer;
-        // z-index: 1;
-        // background-color: var(--white);
-    }
-
-    input[type='button'] {
-        opacity: 0.01;
-        z-index: 100;
-        width: 100%;
-        height: 100%;
-        border-radius: 50px;
-        background-color: var(--green-light);
-    }
-
-    label {
+.dislikeWrapper {
+    span {
         display: flex;
-        justify-content: left;
+        justify-content: space-around;
         align-items: center;
-        border: 2px solid var(--gray-dark);
-        border-radius: 15px;
-        z-index: 90;
-        font-weight: 500;
-        font-size: 0.875rem;
-        /* 14px */
-        line-height: 1.25rem;
-        /* 20px */
-        color: var(--gray-dark);
+        width: 200px;
+        height: 70px;
+        border: solid;
         border-radius: 50px;
-        padding-left: 67px;
-    }
-
-    input[type='button']:checked + label,
-    .Checked + label {
-        background-color: var(--green-dark);
-        color: var(--white);
-        border: none;
+        border: 2px solid var(--green-dark);
+        background-color: var(--green-light);
     }
 }

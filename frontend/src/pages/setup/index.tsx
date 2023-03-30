@@ -9,7 +9,11 @@ import Image from 'next/image';
 const SetupParentPage = () => {
     const [currentStep, setCurrentStep] = useState(1);
 
-    const [preferences, setPreferences] = useState({ formOfDiet: '', allergenes: [], foodDislikes: [] });
+    const [preferences, setPreferences] = useState({
+        formOfDiet: '',
+        allergenes: [],
+        foodDislikes: ['Potato', 'Salmon', 'Zucchini', 'Carrot', 'Peas', 'Chicken', 'Spinach', 'Cauliflower', 'Cream'],
+    });
 
     useEffect(() => {
         console.log(preferences);
@@ -23,6 +27,10 @@ const SetupParentPage = () => {
     };
 
     const handleFoodLifestyle = (choice: any) => {
+        setPreferences(choice);
+    };
+
+    const handleDislikes = (choice: any) => {
         setPreferences(choice);
     };
 
@@ -47,7 +55,13 @@ const SetupParentPage = () => {
                                 allergenes={preferences.allergenes}
                             />
                         )}
-                        {currentStep === 3 && <Dislikes onBack={handleBackStep} />}
+                        {currentStep === 3 && (
+                            <Dislikes
+                                onChoice={handleDislikes}
+                                onBack={handleBackStep}
+                                foodDislikes={preferences.foodDislikes}
+                            />
+                        )}
                     </fieldset>
                 </form>
             </div>

@@ -1,23 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../Dislikes/Dislikes.module.scss';
+import cross from '../../../public/Icons/kreuz.png';
+import Image from 'next/image';
+import Link from 'next/link';
 
 type OnBackFunction = () => void;
+type OnChoiceFunction = (choice: any) => any;
 interface DislikesProps {
     onBack: OnBackFunction;
+    onChoice: OnChoiceFunction;
+    foodDislikes: string[];
 }
 
-export default function Dislikes({ onBack }: DislikesProps) {
-    const dislikes = ['Potato', 'Salmon', 'Zucchini', 'Carrot', 'Peas', 'Chicken', 'Spinach', 'Cauliflower', 'Cream'];
+export default function Dislikes({ onBack, onChoice, foodDislikes }: DislikesProps) {
+    // const dislikes = ['Potato', 'Salmon', 'Zucchini', 'Carrot', 'Peas', 'Chicken', 'Spinach', 'Cauliflower', 'Cream'];
 
-    const [allDislikes, setDislike] = useState('Search');
+    const [allDislikes, setDislike] = useState(foodDislikes);
+
+    useEffect(() => {
+        console.log(allDislikes);
+    }, [allDislikes]);
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         onBack();
+        onChoice((preferences: any) => ({ ...preferences, foodDislikes: allDislikes }));
     };
 
-    const onDeleteChoice = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('Deleted', e.target.value);
+    const onDeleteChoice = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        const clickedDislike = e.currentTarget.getAttribute('data-anchor');
+        if (!clickedDislike) return;
+        setDislike(allDislikes.filter((dislikes) => dislikes !== clickedDislike));
+        onChoice((preferences: any) => ({ ...preferences, foodDislikes: allDislikes }));
     };
     return (
         <div>
@@ -28,30 +42,25 @@ export default function Dislikes({ onBack }: DislikesProps) {
                         <input
                             type="text"
                             name="search"
-                            value={allDislikes}
-                            onChange={(e) => setDislike(e.target.value)}
+                            // value={allDislikes}
+                            // onChange={(e) => setDislike(e.target.value)}
                         />
                     </div>
                     <button type="submit" className="btn-primary">
                         Go
                     </button>
-                </div>{' '}
+                </div>
                 <div className="grid grid-cols-4 gap-4 my-4 overflow-y-auto">
-                    {dislikes.map((dislike, i) => (
+                    {allDislikes.map((dislike, i) => (
                         <div key={i} className={styles.dislikeWrapper}>
-                            <div className={styles.containerField}>
-                                <input
-                                    type="button"
-                                    name="dislikes"
-                                    value={dislike}
-                                    checked={allDislikes.includes(dislike)}
-                                    onChange={onDeleteChoice}
-                                />
-
+                            <span>
                                 <label htmlFor={dislike}>
                                     <p>{dislike}</p>
                                 </label>
-                            </div>
+                                <a className="cursor-pointer" onClick={onDeleteChoice} data-anchor={dislike}>
+                                    <Image src={cross} className="" alt="cross" width={25} priority />
+                                </a>
+                            </span>
                         </div>
                     ))}
                 </div>
@@ -60,9 +69,9 @@ export default function Dislikes({ onBack }: DislikesProps) {
                 <button type="submit" className="btn-primary mt-10" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
-                <button type="submit" className="btn-primary mt-10" data-btn="next" onClick={handleClick}>
-                    Next
-                </button>
+                <Link className="btn-primary mt-10" href={'/weekOverview'}>
+                    Create Weekplan
+                </Link>
             </div>
         </div>
     );
