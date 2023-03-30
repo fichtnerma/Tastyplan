@@ -26,6 +26,7 @@ body {
     position: relative;
 }
 
+
 h1 {
     font-family: $font-family-headline;
     font-style: normal;
@@ -74,7 +75,7 @@ h5 {
 .p {
     font-family: $font-family-text;
     font-style: normal;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .p-white {
@@ -126,4 +127,48 @@ p {
     color: var(--white);
     border: 1px solid var(--white);
     background-color: inherit;
+}
+
+.swiper {
+    padding-bottom: 35px !important;
+
+    .swiper-button-next {
+        color: var(--green-dark) !important;
+
+        &::after {
+            font-size: 50px !important;
+            font-weight: 900;
+        }
+    }
+
+    .swiper-button-prev {
+        color: var(--green-dark) !important;
+
+        &::after {
+            font-size: 50px !important;
+            font-weight: 900;
+        }
+    }
+
+    .swiper-button-disabled {
+        color: var(--green-light) !important;
+
+        &::after {
+            font-size: 50px !important;
+            font-weight: 900;
+        }
+    }
+
+    .swiper-horizontal>.swiper-scrollbar,
+    .swiper-scrollbar.swiper-scrollbar-horizontal {
+        bottom: var(--swiper-scrollbar-bottom, 0px) !important;
+        background-color: var(--green-light) !important;
+        width: 50% !important;
+        left: 25%;
+        height: 7px;
+    }
+
+    .swiper-scrollbar-drag {
+        background-color: var(--green-dark) !important;
+    }
 }

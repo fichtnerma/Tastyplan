@@ -19,28 +19,28 @@ export default function Header() {
                     </div>
                 </Link>
 
-                <div className="flex gap-10 mr-8 mt-5 ">
+                <div className="flex gap-10 mr-8 mt-6">
                     <Link href="/weekOverview" className=''>
-                        <div className='flex gap-4'>
-                            <Image src={calendar} alt="Calendar Img" width={25} height={25} priority />
+                        <div className='flex gap-2 items-center'>
+                            <Image src={calendar} alt="Calendar Img" width={15} height={15} priority />
                             <p>Weekplan</p>
                         </div>
                     </Link>
                     <Link href="/weekOverview" className=''>
-                        <div className='flex gap-4'>
-                            <Image src={list} alt="Calendar Img" width={25} height={25} priority />
+                        <div className='flex gap-2 items-center'>
+                            <Image src={list} alt="List Img" width={15} height={15} priority />
                             <p>Shopping List</p>
                         </div>
                     </Link>
                     <Link href="/weekOverview" className=''>
-                        <div className='flex gap-4'>
-                            <Image src={setting} alt="Calendar Img" width={30} height={25} priority />
+                        <div className='flex gap-2 items-center'>
+                            <Image src={setting} alt="Setting Img" width={15} height={15} priority />
                             <p>Settings</p>
                         </div>
                     </Link>
-                    <Link href="/weekOverview" className=''>
-                        <div className='flex gap-4'>
-                            <Image src={user} alt="Calendar Img" width={25} height={25} priority />
+                    <Link href="/weekOverview" className='mt-1'>
+                        <div className='flex gap-2 items-center'>
+                            <Image src={user} alt="User Img" width={15} height={15} priority />
                         </div>
                     </Link>
                 </div>

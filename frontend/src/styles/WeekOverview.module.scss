@@ -3,21 +3,26 @@
 
 .container {
     margin-inline: auto;
+
+    h2 {
+        color: var(--green-light);
+        writing-mode: vertical-lr;
+        text-align: center;
+        line-height: 40px;
+        padding-right: 40px;
+    }
+
+    h3 {
+        color: var(--green-dark);
+    }
+
+    p {
+        font-family: $font-family-text-bold;
+    }
+
 }
 
-
-
-.weekContainer {
-    height: 500px;
-}
-
-.weekplanBox {
-    background-color: var(--green-light);
-    width: 250px;
-    height: 350px;
-    border-radius: $boder-radius;
-    margin-inline: auto;
-    margin-top: 10px;
+.wrapperContainer {
 
     &:hover .foodImg {
         opacity: 0.1;
@@ -29,44 +34,70 @@
     }
 
     &:hover .discriptionFood {
-        margin-top: -230px;
+        top: 40px;
+    }
+
+    &:hover .twoLinesName {
+        top: 70px;
+    }
+
+    &:hover .weekplanBoxToday {
+        background-color: var(--green-dark);
     }
 }
 
+.weekContainer {
+    height: 500px;
+}
+
+.weekplanBox {
+    background: linear-gradient(rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
+    width: 250px;
+    height: 350px;
+    border-radius: $boder-radius;
+    margin-inline: auto;
+    margin-top: 10px;
+    z-index: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.weekplanBoxToday {
+    transition: background-color 0.8s;
+    background: linear-gradient(rgba(255, 255, 255, 0) 60%, var(--green-dark) 90%);
+}
+
+
 .foodBox {
     width: 250px;
-    height: 250px;
+    height: 350px;
     border-radius: $boder-radius;
-    margin-top: 10px;
+    position: absolute;
 }
 
 .foodImg {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: $boder-radius $boder-radius 0 0;
+    border-radius: $boder-radius;
+    z-index: -5px;
+    transition: opacity 0.8s ease-in-out;
 }
 
 .discriptionFood {
     padding: 10px;
-    transition: margin-top 0.1s;
+    transition: top 0.8s ease-in-out;
+    // bottom: 10px;
+    top: calc(100% - 30px);
+    position: absolute;
 }
 
 .discriptionHover {
     opacity: 0;
     // display: none;
     pointer-events: none;
-    transition: opacity 0.08s;
+    transition: opacity 0.6s ease-in-out;
     position: absolute;
     margin-top: 0px;
-}
-
-.swiper-container .swiper-button-prev {
-    color: var(--green-dark);
-
-}
-
-.swiper-container .swiper-button-next {
-    background-color: var(--green-dark);
-
+    width: 240px;
 }
