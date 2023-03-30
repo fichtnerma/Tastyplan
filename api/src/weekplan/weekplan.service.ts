@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { type } from 'os';
+import { User, WeekplanEntry } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 
@@ -12,21 +12,58 @@ type Preferences = {
 export class WeekplanService {
     constructor(private prismaService: PrismaService, private recipeService: RecipesService) {}
 
-    async createOrGet() {
-        const week = [0, 1, 2, 3, 4, 5, 6];
-        const preferences = await this.prismaService.preferences.findUnique({
-            where: {
-                id: 1,
-            },
-        });
+    async get(user: User) {
+        try {
+            const weekplans = await this.prismaService.weekplan.findMany({
+                where: {
+                    userId: user.userId,
+                },
+                include: {
+                    weekplanEntry: {
+                        include: {
+                            recipe: true,
+                        },
+                    },
+                },
+            });
+            const filteredWeekplans = weekplans.sort((a, b) => {
+                return (
+                    new Date(b.startDate).getTime() -
+                    new Date().getTime() -
+                    (new Date(a.startDate).getTime() - new Date().getTime())
+                );
+            });
+            return this.formatWeekPlan(filteredWeekplans[0]);
+        } catch (error) {
+            return { error: 'No weekplan found' };
+        }
+    }
 
-        const preferencesFiltered: Preferences = {
-            formOfDiet: preferences.formOfDiet.charAt(0).toUpperCase() + preferences.formOfDiet.slice(1) || 'Omnivor',
-            allergenes: [],
-            foodDislikes: [],
+    private formatWeekPlan(weekplan: any) {
+        const formattedWeekPlan = {
+            startDate: weekplan.startDate,
+            endDate: weekplan.endDate,
+            weekplanEntry: weekplan.weekplanEntry.map((entry: any) => ({
+                date: entry.date,
+                recipe: {
+                    id: entry.recipe.id,
+                    name: entry.recipe.name,
+                    img: entry.recipe.img,
+                    difficulty: entry.recipe.difficulty,
+                    preparingTime: entry.recipe.preparingTime,
+                    cookingTime: entry.recipe.cookingTime,
+                    formOfDiet: entry.recipe.formOfDiet,
+                },
+            })),
         };
 
-        let recommendedMeals = await this.recipeService.findWithPreferences(preferencesFiltered);
+        return formattedWeekPlan;
+    }
+
+    async create(user: User) {
+        const week = [0, 1, 2, 3, 4, 5, 6];
+
+        let recommendedMeals = await this.recipeService.filterByPreferences(user);
 
         if (recommendedMeals.length < 7) {
             recommendedMeals = [
@@ -39,26 +76,10 @@ export class WeekplanService {
                 ...recommendedMeals,
             ];
         }
-        console.log(recommendedMeals);
-
-        const weekplan = await this.prismaService.weekplan.upsert({
-            where: {
-                id: 1,
-            },
-            update: {
-                startDate: new Date(),
-                endDate: new Date(new Date().setDate(new Date().getDate() + 6)),
-                weekplanEntry: {
-                    createMany: {
-                        data: week.map((dayEntry) => ({
-                            date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
-                            recipeId: recommendedMeals[dayEntry]?.id,
-                        })),
-                    },
-                },
-            },
-            create: {
-                id: 1,
+        console.log('recommended meals', recommendedMeals);
+        const weekPlan = await this.prismaService.weekplan.create({
+            data: {
+                userId: user.userId,
                 startDate: new Date(),
                 endDate: new Date(new Date().setDate(new Date().getDate() + 6)),
                 weekplanEntry: {
@@ -78,29 +99,6 @@ export class WeekplanService {
                 },
             },
         });
-
-        return weekplan;
-    }
-
-    async findForUser(id: number) {
-        const weekPlan = await this.createOrGet();
-
-        const formattedWeekPlan = {
-            startDate: weekPlan.startDate,
-            endDate: weekPlan.endDate,
-            weekplanEntry: weekPlan.weekplanEntry.map((entry) => ({
-                date: entry.date,
-                recipe: {
-                    id: entry.recipe.id,
-                    name: entry.recipe.name,
-                    img: entry.recipe.img,
-                    difficulty: entry.recipe.difficulty,
-                    preparingTime: entry.recipe.preparingTime,
-                    cookingTime: entry.recipe.cookingTime,
-                    formOfDiet: entry.recipe.formOfDiet,
-                },
-            })),
-        };
-        return formattedWeekPlan;
+        return this.formatWeekPlan(weekPlan);
     }
 }

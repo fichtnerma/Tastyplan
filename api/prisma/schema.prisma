@@ -58,7 +58,7 @@ model Step {
 }
 
 model User {
-    id        Int     @id @default(autoincrement())
+    id        String  @id @default(uuid())
     userId    String  @unique
     email     String? @unique
     password  String?
@@ -66,12 +66,16 @@ model User {
     firstName String?
     lastName  String?
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
+    createdAt   DateTime      @default(now())
+    updatedAt   DateTime      @default(now()) @updatedAt
+    Weekplan    Weekplan[]
+    Preferences Preferences[]
 }
 
 model Preferences {
     id           Int          @id @default(autoincrement())
+    userId       String       @unique
+    user         User         @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
     formOfDiet   String
     allergenes   String[]
     foodDislikes Ingredient[]
@@ -79,6 +83,8 @@ model Preferences {
 
 model Weekplan {
     id            Int             @id @default(autoincrement())
+    userId        String
+    user          User            @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
     startDate     DateTime
     endDate       DateTime
     weekplanEntry WeekplanEntry[]

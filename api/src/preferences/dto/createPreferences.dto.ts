@@ -10,6 +10,5 @@ export class PreferencesDto {
     allergenes: string[];
 
     @IsArray()
-    @IsString({ each: true })
     foodDislikes: { id: number; name: string }[];
 }

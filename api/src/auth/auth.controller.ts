@@ -30,6 +30,9 @@ export class AuthController {
     @Post('guest')
     public async registerGuest(@Body() createGuestDto: CreateGuestDto, @Res() response: Response): Promise<any> {
         const { cookie, data } = await this.authService.registerGuest(createGuestDto);
+        console.log('cookie', cookie);
+        console.log('data', data);
+
         response.setHeader('Set-Cookie', cookie);
         return response.send(data);
     }

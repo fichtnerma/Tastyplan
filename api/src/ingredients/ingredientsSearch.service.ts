@@ -9,7 +9,7 @@ export default class IngredientsSearchService {
     constructor(
         @Inject(forwardRef(() => ElasticsearchService))
         private readonly elasticsearchService: ElasticsearchService,
-    ) { }
+    ) {}
 
     async indexIngredient(ingredient: Ingredient) {
         return this.elasticsearchService.index({
@@ -22,11 +22,9 @@ export default class IngredientsSearchService {
     }
     async createIndex(ingredients: Ingredient[]) {
         try {
-
             await this.elasticsearchService.indices.create({ index: this.index });
         } catch (error) {
-            console.log("no index found");
-
+            console.log('no index found');
         }
         const body = ingredients.flatMap((ingredient) => [
             { index: { _index: this.index } },
