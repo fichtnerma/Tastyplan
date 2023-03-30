@@ -1,15 +1,20 @@
 import styles from '../../styles/DetailRecipe.module.scss';
 
-import pancakes from '../../../public/pancakes.jpg';
+import pancakes from '../../../public/Icons/carbonara.png';
 import timeIcon from '../../../public/Icons/time.svg';
 import kochIcon from '../../../public/Icons/kochmutze.png';
 import potIcon from '../../../public/Icons/topf.png';
-import vegetarianIcon from '../../../public/Icons/vegetarian.png';
+import star from '../../../public/Icons/star.svg';
+import veganIcon from '../../../public/Icons/vegetarian.png';
+import omnivorIcon from '../../../public/Icons/Steak_V2_Icon.svg';
+import pescetarianIcon from '../../../public/Icons/Fisch_Icon-11.svg';
+import vegetarianIcon from '../../../public/Icons/Soja_Icon.svg';
 
 import Image from 'next/image';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Star from '@components/Star/Star';
 
 export default function DetailRecipe() {
     const router = useRouter();
@@ -29,6 +34,19 @@ export default function DetailRecipe() {
             })
     }, [loading])
 
+    function getFormOfDietIcon() {
+        console.log(recipe.formOfDiet);
+        if (recipe.formOfDiet == "Vegetarisch") {
+            return vegetarianIcon;
+        } else if (recipe.formOfDiet == "Vegan") {
+            return veganIcon;
+        } else if (recipe.formOfDiet == "Pescetarian") {
+            return pescetarianIcon;
+        } else {
+            return omnivorIcon;
+        }
+    }
+
     const ingredientsSplited = spiltSteps(recipe?.ingredients, 5);
     return (
         <>{!loading ? (
@@ -41,19 +59,19 @@ export default function DetailRecipe() {
                             <div>
                                 <div className='flex'>
                                     <div className='flex flex-col m-6'>
-                                        <Image src={kochIcon} className='self-center mb-2' alt="Time Icon" width={60} height={60} priority />
+                                        <Image src={kochIcon} className='self-center mb-2' alt="Time Icon" width={40} height={40} priority />
                                         <h5 className='text-center'>{recipe.difficulty}</h5>
                                     </div>
                                     <div className='flex flex-col m-6'>
-                                        <Image src={vegetarianIcon} className='self-center mb-2' alt="Time Icon" width={60} height={60} priority />
+                                        <Image src={getFormOfDietIcon()} className='self-center mb-2' alt="Time Icon" width={40} height={40} priority />
                                         <h5 className='text-center'>{recipe.formOfDiet}</h5>
                                     </div>
                                     <div className='flex flex-col m-6'>
-                                        <Image src={timeIcon} className='self-center mb-2' alt="Time Icon" width={60} height={60} priority />
+                                        <Image src={timeIcon} className='self-center mb-2' alt="Time Icon" width={40} height={40} priority />
                                         <h5 className='text-center'>{recipe.preparingTime} min</h5>
                                     </div>
                                     <div className='flex flex-col m-6'>
-                                        <Image src={potIcon} className='self-center mb-2' alt="Time Icon" width={60} height={60} priority />
+                                        <Image src={potIcon} className='self-center mb-2' alt="Time Icon" width={40} height={40} priority />
                                         <h5 className='text-center'>{recipe.cookingTime} min</h5>
                                     </div>
                                 </div>
@@ -66,7 +84,7 @@ export default function DetailRecipe() {
                                             {ingredientsSplited?.firstHalf.map((ingredient) => (
                                                 <div className='grid grid-cols-3 gap-5'>
                                                     <p className='text-right '>{ingredient.amount}</p>
-                                                    <p className='text-left col-span2'>{ingredient.ingredient}</p>
+                                                    <p className='text-left w-44'>{ingredient.ingredient}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -74,7 +92,7 @@ export default function DetailRecipe() {
                                             {ingredientsSplited?.secondHalf.map((ingredient) => (
                                                 <div className='grid grid-cols-3 gap-5'>
                                                     <p className='text-right '>{ingredient.amount}</p>
-                                                    <p className='text-left col-span2'>{ingredient.ingredient}</p>
+                                                    <p className='text-left w-44'>{ingredient.ingredient}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -92,14 +110,24 @@ export default function DetailRecipe() {
                             </div>
                         </div>
                         <div className='mt-10'>
-                            <h3>The Recipe</h3>
+                            <h3 className='text-green-custom2'>The Recipe</h3>
                             <div>
                                 {recipe?.steps?.map((step: any) => (
-                                    <div className='m-10'>
-                                        <h4>Step {step.stepCount}:</h4>
-                                        <Image src={pancakes} alt={'Pancakes Bild'} className={styles.stepImg}></Image>
-                                        <p className={styles.recipeText}>{step.description}</p>
-                                    </div>
+                                    ((step.stepCount % 2) == 0) ? (
+                                        <div className='my-10'>
+                                            <h4>Step {step.stepCount}:</h4>
+                                            <div className='flex gap-20'>
+                                                <p className={` ${styles.recipeText}`}>{step.description}</p>
+                                                <Image src={pancakes} alt={'Pancakes Bild'} className={styles.stepImg}></Image>
+                                            </div>
+                                        </div>) :
+                                        (<div className='my-10'>
+                                            <h4>Step {step.stepCount}:</h4>
+                                            <div className='flex gap-20'>
+                                                <Image src={pancakes} alt={'Pancakes Bild'} className={styles.stepImg}></Image>
+                                                <p className={styles.recipeText}>{step.description}</p>
+                                            </div>
+                                        </div>)
 
                                 ))}
                             </div>
@@ -107,6 +135,11 @@ export default function DetailRecipe() {
                         <div className='mt-40 pb-40'>
                             <h3 className='text-center text-green-custom2'>Well done!</h3>
                             <p className='text-center'>How do you rate the recipe?</p>
+                            <div className='flex justify-center mt-5'>
+                                {Array.from(Array(5), () =>
+                                    <Star />
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

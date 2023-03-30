@@ -6,14 +6,15 @@
     margin-inline: auto;
     display: flex;
     justify-content: space-between;
-    margin: 3.5rem;
+    margin: 1.5rem;
+    margin-top: 3.5rem;
     margin-bottom: 0;
     background-color: var(--green-light);
     height: 75px;
     border-radius: $border-radius-full;
 
     p {
-        font-size: 20px;
+        font-size: 15px;
     }
 
 
