@@ -46,7 +46,7 @@ const SetupParentPage = () => {
         <div>
             <Image src={logo} className="ml-24 mb-8" alt="logo" width={200} priority />
             <div className="flex justify-center items-center ml-50">
-                <form className="flex justify-center py-8 px-12 h-70v w-5/6 bg-white rounded-[20px]">
+                <form className="flex justify-center py-8 px-12 h-70v w-5/6 bg-white-custom  rounded-[20px]">
                     <fieldset className="flex flex-col w-4/5 mt-24 ">
                         {currentStep === 1 && (
                             <FoodLifestyle

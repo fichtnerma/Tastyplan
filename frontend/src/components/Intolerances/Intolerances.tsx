@@ -77,24 +77,26 @@ export default function Intolerances({ onNext, onBack, onChoice, allergenes }: I
                     {intolerances.map((intolerance, i) => (
                         <div key={i} className={styles.intoleranceWrapper}>
                             <div className={styles.containerField}>
-                                <input
-                                    type="checkbox"
-                                    name="intolerances"
-                                    value={intolerance.code}
-                                    checked={choices.includes(intolerance.code)}
-                                    onChange={onAddChoice}
-                                />
+                                <span className="flex justify-between">
+                                    <input
+                                        type="checkbox"
+                                        name="intolerances"
+                                        value={intolerance.code}
+                                        checked={choices.includes(intolerance.code)}
+                                        onChange={onAddChoice}
+                                    />
 
-                                <label htmlFor={intolerance.ui}>
-                                    <p>{intolerance.ui}</p>
-                                </label>
-                                <Image
-                                    src={intolerance.icon}
-                                    className="absolute z-[91]"
-                                    alt="icon"
-                                    width={70}
-                                    priority
-                                />
+                                    <label htmlFor={intolerance.ui}>
+                                        <p className="text-base">{intolerance.ui}</p>
+                                    </label>
+                                    <Image
+                                        src={intolerance.icon}
+                                        className="absolute z-[91] top-1"
+                                        alt="icon"
+                                        width={60}
+                                        priority
+                                    />
+                                </span>
                             </div>
                         </div>
                     ))}

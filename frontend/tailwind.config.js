@@ -17,6 +17,9 @@ module.exports = {
                     custom3: '#707070',
                     custom4: '#3a3a3a',
                 },
+                white: {
+                    custom: '#fffffa',
+                },
             },
             height: {
                 '90v': '90vh',
