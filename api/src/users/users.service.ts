@@ -40,16 +40,20 @@ export class UsersService {
     }
 
     async createGuest(createGuestDto: CreateGuestDto): Promise<User> {
+        console.log('createGuestDto', createGuestDto);
+
         const user = await this.prismaService.user.create({
             data: {
                 ...createGuestDto,
                 role: Role.GUEST,
             },
         });
+        console.log('user', user);
+
         return user;
     }
 
-    async updatePassword(payload: UpdatePasswordDto, id: number): Promise<User> {
+    async updatePassword(payload: UpdatePasswordDto, id: string): Promise<User> {
         const user = await this.prismaService.user.findUnique({
             where: { id },
         });

@@ -1,0 +1,13 @@
+.dislikeWrapper {
+    span {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 200px;
+        height: 70px;
+        border: solid;
+        border-radius: 50px;
+        border: 2px solid var(--green-dark);
+        background-color: var(--green-light);
+    }
+}

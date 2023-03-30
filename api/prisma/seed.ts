@@ -1,6 +1,7 @@
 // prisma/seed.ts
 
 import { PrismaClient } from '@prisma/client';
+import { convertToTime } from '../src/helpers/converter.utils';
 import { gestaltSimilarity, levenshteinMultiWordSimilarity } from '../src/helpers/similarity.utils';
 
 // initialize Prisma Client
@@ -34,7 +35,7 @@ async function initIngredients() {
             update: {},
             create: {
                 id: index,
-                name: ingredient.name,
+                name: ingredient.name.toLowerCase(),
                 categories: ingredient.categories,
                 subcategories: ingredient.subcategories,
                 calories: parseFloat(ingredient.calories) || null,
@@ -82,7 +83,8 @@ function readCSVIngredients() {
 }
 
 async function initRecipes() {
-    const rawdata = fs.readFileSync('./prisma/seeds/recipes.json');
+    // const rawdata = fs.readFileSync('./prisma/seeds/recipes.json');
+    const rawdata = fs.readFileSync('./prisma/seeds/recipe_dump.json');
     const recipes = JSON.parse(rawdata);
 
     for (let index = 0; index < recipes.length; index++) {
@@ -91,7 +93,8 @@ async function initRecipes() {
         for (let index = 0; index < recipe.ingredients.length; index++) {
             const ingredient = recipe.ingredients[index];
             const ingredientEntity = {
-                amount: ingredient.amount,
+                quantity: parseFloat(ingredient.quantity) || 1,
+                unit: ingredient.unit,
                 ingredientId: await findSimilarIngredients(ingredient.name),
             };
             ingredientEntities.push(ingredientEntity);
@@ -102,17 +105,19 @@ async function initRecipes() {
             create: {
                 id: index + 1,
                 name: recipe.name,
-                img: recipe.img,
-                difficulty: recipe.difficulty,
-                kitchenware: recipe.kitchenware,
-                cookingTime: parseInt(recipe.cookingTime, 10) || null,
-                preparingTime: parseInt(recipe.prepareTime, 10) || null,
-                formOfDiet: recipe.type,
+                img: recipe.img || null,
+                servings: +recipe.servings || 4,
+                description: recipe.description,
+                cookingTime: convertToTime(recipe.cookingTime) || 0,
+                preparingTime: convertToTime(recipe.prepareTime) || 0,
+                totalTime: convertToTime(recipe.totalTime) || 0,
+                formOfDiet: recipe.formOfDiet || 'omnivore',
                 ingredients: {
                     createMany: {
                         data: [...ingredientEntities],
                     },
                 },
+                tags: recipe.tags,
                 steps: {
                     createMany: {
                         data: recipe.steps.map((step: any) => ({
@@ -121,7 +126,7 @@ async function initRecipes() {
                         })),
                     },
                 },
-            },
+            } as any,
         });
     }
 }

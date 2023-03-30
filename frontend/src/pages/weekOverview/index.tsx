@@ -122,7 +122,7 @@ export default function WeekOverview() {
                                     <Link href={`/recipe/${day.recipe.id}`}>
                                         <div className={styles.wrapperContainer}>
                                             <div className={styles.foodBox}>
-                                                <Image src={testImg} alt="Food Img" className={styles.foodImg} priority />
+                                                <img src={`http://localhost:3000/images/${day.recipe.img || "erbsensuppe.png"}`} alt="Food Img" className={styles.foodImg} priority />
                                             </div>
                                             <div
                                                 className={(today === new Date(day.date).getDay()) ? `${styles.weekplanBox} ${styles.weekplanBoxToday}` : styles.weekplanBox}
