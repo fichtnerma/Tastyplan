@@ -24,11 +24,11 @@ function Login() {
     };
 
     return (
-        <div className="basis-1/4">
+        <div className="basis-1/2">
             <form action="#" className="w-full h-full px-12" onSubmit={handleSubmit}>
                 <fieldset className="flex flex-col h-full">
-                    <legend className="h2 leading-[68px] mb-10">Sign in</legend>
-                    <div className="text-input-wrapper mb-6 w-full">
+                    <legend className="h2 leading-[68px] mb-6">Sign in</legend>
+                    <div className="text-input-wrapper mb-4 w-full">
                         <label htmlFor="accountName">E-Mail Adress or User Name</label>
                         <input
                             type="text"

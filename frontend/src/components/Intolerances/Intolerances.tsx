@@ -1,7 +1,14 @@
 import styles from '../Intolerances/Intolerances.module.scss';
 
-import peanut from '../../../public/Icons/Erdnuss_Icon.svg';
-import hazelnut from '../../../public/Icons/Haselnuss_Icon.svg';
+import peanut from '../../../public/Icons/Erdnuss.svg';
+import egg from '../../../public/Icons/Ei.svg';
+import fish from '../../../public/Icons/Fisch.svg';
+import laktose from '../../../public/Icons/Milch_Käse.svg';
+import shellfish from '../../../public/Icons/Shrimp.svg';
+import soy from '../../../public/Icons/Soja.svg';
+import walnut from '../../../public/Icons/Wallnuss.svg';
+import gluten from '../../../public/Icons/Weizen.svg';
+import hazelnut from '../../../public/Icons/Haselnuss.svg';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -24,19 +31,19 @@ export default function Intolerances({ onNext, onBack, onChoice, allergenes }: I
     const intolerances = [
         { ui: 'Peanuts', code: 'peanut', icon: peanut },
         { ui: 'Hazelnuts', code: 'hazelnut', icon: hazelnut },
-        { ui: 'Walnuts', code: 'walnut', icon: peanut },
-        { ui: 'Other Nuts', code: 'shellFruit', icon: peanut },
-        { ui: 'Lactose', code: 'milk', icon: hazelnut },
-        { ui: 'Gluten', code: 'gluten', icon: peanut },
-        { ui: 'Eggs', code: 'egg', icon: hazelnut },
-        { ui: 'Shellfish', code: 'crustacaen', icon: peanut },
-        { ui: 'Fish', code: 'fish', icon: hazelnut },
-        { ui: 'Soy', code: 'soy', icon: hazelnut },
-        { ui: 'Celery', code: 'celery', icon: peanut },
-        { ui: 'Mustard', code: 'mustard', icon: peanut },
-        { ui: 'Sesame', code: 'sesame', icon: peanut },
+        { ui: 'Walnuts', code: 'walnut', icon: walnut },
+        { ui: 'Other Nuts', code: 'shellFruit', icon: hazelnut },
+        { ui: 'Lactose', code: 'milk', icon: laktose },
+        { ui: 'Gluten', code: 'gluten', icon: gluten },
+        { ui: 'Eggs', code: 'egg', icon: egg },
+        { ui: 'Shellfish', code: 'crustacaen', icon: shellfish },
+        { ui: 'Fish', code: 'fish', icon: fish },
+        { ui: 'Soy', code: 'soy', icon: soy },
+        { ui: 'Celery', code: 'celery', icon: hazelnut },
+        { ui: 'Mustard', code: 'mustard', icon: hazelnut },
+        { ui: 'Sesame', code: 'sesame', icon: hazelnut },
         { ui: 'Sulfur Dioxide', code: 'sulfur', icon: hazelnut },
-        { ui: 'Lupine', code: 'lupine', icon: peanut },
+        { ui: 'Lupine', code: 'lupine', icon: hazelnut },
         { ui: 'Mollusk', code: 'mollusk', icon: hazelnut },
     ];
 
@@ -70,7 +77,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergenes }: I
         <>
             <h4 className="mb-8">What are your intolerances?</h4>
             <div className="h-[300px] overflow-y-auto">
-                <div className="grid grid-cols-4 gap-4 mb-4">
+                <div className="grid grid-cols-5 gap-4 mb-4">
                     {intolerances.map((intolerance, i) => (
                         <div key={i} className={styles.intoleranceWrapper}>
                             <div className={styles.containerField}>
