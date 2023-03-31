@@ -28,7 +28,7 @@
             label {
                 background-color: var(--green-light);
                 color: var(--white);
-                border: none;
+                border-color: var(--green-light);
             }
         }
     }
@@ -73,6 +73,6 @@
     .Checked + label {
         background-color: var(--green-dark);
         color: var(--white);
-        border: none;
+        border-color: var(--green-dark);
     }
 }
