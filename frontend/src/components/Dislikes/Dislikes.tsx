@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
-import styles from '../Dislikes/Dislikes.module.scss';
-import cross from '../../../public/Icons/kreuz.png';
-import Image from 'next/image';
+
 import Link from 'next/link';
-import { APISearchResponse } from 'src/types/types';
+import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
+
+import { APISearchResponse } from 'src/types/types';
+
 import { debounce } from '@helpers/utils';
+
+import styles from '../Dislikes/Dislikes.module.scss';
+
+import cross from '../../../public/Icons/kreuz.png';
 
 type OnBackFunction = () => void;
 type OnChoiceFunction = (choice: any) => any;
@@ -14,11 +20,10 @@ interface DislikesProps {
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
     foodDislikes: APISearchResponse[];
-    handlePreferences: (evt: any) => void;
+    handlePreferences: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 export default function Dislikes({ onBack, onChoice, foodDislikes, handlePreferences }: DislikesProps) {
-
     const [allDislikes, setDislike] = useState(foodDislikes);
 
     const { data: session, status } = useSession();
