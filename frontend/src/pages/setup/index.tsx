@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
@@ -20,24 +21,31 @@ interface Preferences {
 
 const SetupParentPage = () => {
     const [currentStep, setCurrentStep] = useState(1);
-
     const [preferences, setPreferences] = useState<Preferences>({
         formOfDiet: '',
         allergens: [],
         foodDislikes: [],
     });
+
+    const router = useRouter();
+
+    useEffect(() => {
+        console.log(preferences);
+    }, [preferences]);
+
     const { data: session } = useSession();
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
     };
+
     const handleBackStep = () => {
         setCurrentStep(currentStep - 1);
     };
-    console.log(session);
 
     const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
         evt.preventDefault();
+        console.log(preferences);
         await fetch('http://localhost:3000/preferences/', {
             method: 'POST',
             headers: {
@@ -46,13 +54,16 @@ const SetupParentPage = () => {
             },
             body: JSON.stringify(preferences),
         });
-        await fetch('http://localhost:3000/weekplan/create', {
+        const weekplanRes = await fetch('http://localhost:3000/weekplan/create', {
             method: 'POST',
             headers: {
                 user: session?.user.userId ? session.user.userId : '',
             },
         });
-        window.location.href = '/weekOverview';
+
+        if (weekplanRes.ok) {
+            router.push(`${router.basePath}/weekOverview`, undefined, undefined);
+        }
     };
 
     return (
@@ -65,7 +76,13 @@ const SetupParentPage = () => {
                         {currentStep === 1 && (
                             <FoodLifestyle
                                 onNext={handleNextStep}
-                                onChoice={setPreferences}
+                                onChoice={(foodLiveStyle: string) => {
+                                    setPreferences({
+                                        formOfDiet: foodLiveStyle,
+                                        allergens: preferences.allergens,
+                                        foodDislikes: preferences.foodDislikes,
+                                    });
+                                }}
                                 formOfDiet={preferences.formOfDiet}
                             />
                         )}
@@ -73,13 +90,25 @@ const SetupParentPage = () => {
                             <Intolerances
                                 onNext={handleNextStep}
                                 onBack={handleBackStep}
-                                onChoice={setPreferences}
+                                onChoice={(allergens: string[]) => {
+                                    setPreferences({
+                                        formOfDiet: preferences.formOfDiet,
+                                        allergens: allergens,
+                                        foodDislikes: preferences.foodDislikes,
+                                    });
+                                }}
                                 allergens={preferences.allergens}
                             />
                         )}
                         {currentStep === 3 && (
                             <Dislikes
-                                onChoice={setPreferences}
+                                onChoice={(foodDislikes: APISearchResponse[]) => {
+                                    setPreferences({
+                                        formOfDiet: preferences.formOfDiet,
+                                        allergens: preferences.allergens,
+                                        foodDislikes: foodDislikes,
+                                    });
+                                }}
                                 onBack={handleBackStep}
                                 foodDislikes={preferences.foodDislikes}
                                 handlePreferences={handlePreferences}

@@ -1,5 +1,6 @@
-import { signIn } from 'next-auth/react';
 import { useState } from 'react';
+
+import { signIn } from 'next-auth/react';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -7,7 +8,7 @@ function Login() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        sendData();      
+        sendData();
     };
 
     const sendData = async () => {

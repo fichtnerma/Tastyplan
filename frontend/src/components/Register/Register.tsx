@@ -1,7 +1,10 @@
-import { toast } from 'react-toastify';
 import { useState } from 'react';
-import { APIRegistrationResponse, mailRegEx } from 'src/types/types';
+
 import { useRouter } from 'next/router';
+
+import { APIRegistrationResponse, mailRegEx } from 'src/types/types';
+
+import { toast } from 'react-toastify';
 
 function Register() {
     const [mailAdress, setMailAdress] = useState('');

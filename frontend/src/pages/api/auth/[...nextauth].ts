@@ -1,6 +1,6 @@
+import CredentialsProvider from 'next-auth/providers/credentials';
 import NextAuth from 'next-auth';
 
-import CredentialsProvider from 'next-auth/providers/credentials';
 import { UserCredentials } from 'src/types/types';
 
 export default NextAuth({
@@ -12,7 +12,7 @@ export default NextAuth({
                 username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
                 password: { label: 'Password', type: 'password' },
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
                 const { userId, password } = credentials as unknown as UserCredentials;
 
                 const res = await fetch('http://api:3000/auth/login', {
@@ -48,7 +48,7 @@ export default NextAuth({
             return token;
         },
 
-        async session({ session, token, user }) {
+        async session({ session, token }) {
             if (token && session.user) {
                 session.user.role = token.role;
                 session.user.email = token.email;
@@ -60,7 +60,7 @@ export default NextAuth({
             return session;
         },
 
-        async redirect({ url, baseUrl }) {
+        async redirect({ url }) {
             return url;
         },
     },

@@ -1,9 +1,10 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import logo from '../../public/logo.svg';
-import startImg from '../../public/startpageImg.svg';
-import user from '../../public/Icons/Header/user.png';
+import Image from 'next/image';
+
 import whatIsTasytPlanImg from '../../public/whatIsTastyPlan.svg';
+import startImg from '../../public/startpageImg.svg';
+import logo from '../../public/logo.svg';
+import user from '../../public/Icons/Header/user.png';
 import testImg from '../../public/anleitung.svg';
 
 export default function index() {

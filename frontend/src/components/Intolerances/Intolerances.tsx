@@ -1,24 +1,22 @@
-import styles from '../Intolerances/Intolerances.module.scss';
-
-import peanut from '../../../public/Icons/Erdnuss.svg';
-import egg from '../../../public/Icons/Ei.svg';
-import fish from '../../../public/Icons/Fisch.svg';
-import laktose from '../../../public/Icons/Milch_Käse.svg';
-import shellfish from '../../../public/Icons/Shrimp.svg';
-import soy from '../../../public/Icons/Soja.svg';
-import walnut from '../../../public/Icons/Wallnuss.svg';
-import gluten from '../../../public/Icons/Weizen.svg';
-import hazelnut from '../../../public/Icons/Haselnuss.svg';
+import { useState } from 'react';
 
 import Image from 'next/image';
-import Link from 'next/link';
 
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import styles from '../Intolerances/Intolerances.module.scss';
+
+import gluten from '../../../public/Icons/Weizen.svg';
+import walnut from '../../../public/Icons/Wallnuss.svg';
+import soy from '../../../public/Icons/Soja.svg';
+import shellfish from '../../../public/Icons/Shrimp.svg';
+import laktose from '../../../public/Icons/Milch_Käse.svg';
+import hazelnut from '../../../public/Icons/Haselnuss.svg';
+import fish from '../../../public/Icons/Fisch.svg';
+import peanut from '../../../public/Icons/Erdnuss.svg';
+import egg from '../../../public/Icons/Ei.svg';
 
 type OnNextFunction = () => void;
 type OnBackFunction = () => void;
-type OnChoiceFunction = (choice: any) => any;
+type OnChoiceFunction = (choices: string[]) => void;
 
 interface IntolerancesProps {
     onNext: OnNextFunction;
@@ -47,30 +45,30 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
         { ui: 'Mollusk', code: 'mollusk', icon: hazelnut },
     ];
 
-    const [choices, setChoices] = useState(allergens);
-
-    useEffect(() => {}, [choices]);
+    const [allergeneChoices, setAllergeneChoices] = useState(allergens);
 
     const onAddChoice = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const currentSelection = [...choices];
-        if (currentSelection.includes(e.target.value)) {
+        const currentSelection = allergeneChoices.length > 0 ? [...allergeneChoices] : [];
+
+        if (currentSelection?.includes(e.target.value)) {
             const cleanSelection = currentSelection.filter((el) => el !== e.target.value);
-            setChoices([...cleanSelection]);
+            setAllergeneChoices([...cleanSelection]);
         } else {
             currentSelection.push(e.target.value);
-            setChoices([...currentSelection]);
+            setAllergeneChoices([...currentSelection]);
         }
     };
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+
         if (e.currentTarget.getAttribute('data-btn') == 'next') {
             onNext();
         } else {
             onBack();
         }
 
-        onChoice((preferences: any) => ({ ...preferences, allergens: choices }));
+        onChoice(allergeneChoices);
     };
 
     return (
@@ -86,7 +84,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                                         type="checkbox"
                                         name="intolerances"
                                         value={intolerance.code}
-                                        checked={choices.includes(intolerance.code)}
+                                        checked={allergeneChoices.includes(intolerance.code)}
                                         onChange={onAddChoice}
                                     />
 
@@ -110,9 +108,6 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                 <button type="submit" className="btn-primary mt-10" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
-                {/* <Link className="btn-primary mt-10" href={'/preferences'}>
-                    Back
-                </Link> */}
                 <button type="submit" className="btn-primary mt-10" data-btn="next" onClick={handleClick}>
                     Next
                 </button>

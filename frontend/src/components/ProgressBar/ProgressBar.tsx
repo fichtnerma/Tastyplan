@@ -1,6 +1,6 @@
-import styles from '../ProgressBar/ProgressBar.module.scss';
-
 import { useEffect, useState } from 'react';
+
+import styles from '../ProgressBar/ProgressBar.module.scss';
 
 type ProgressBarProps = {
     stepsCount: number;
