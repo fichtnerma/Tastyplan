@@ -103,14 +103,14 @@ function Register() {
     };
 
     return (
-        <div className="basis-1/4">
+        <div className="w-full">
             <form className="w-full h-full px-12" onSubmit={handleSubmit}>
                 <fieldset className="flex flex-col h-full">
                     <legend className="h2 leading-[68px] mb-1">Register</legend>
-                    <p className="text-xs mb-10">
+                    <p className="text-xs mb-6">
                         Already have an account? Log in <a href="/">here!</a>
                     </p>
-                    <div className="text-input-wrapper mb-6 w-full">
+                    <div className="text-input-wrapper mb-4 w-full">
                         <label htmlFor="email">
                             E-Mail <span className="text-red-600 font-lg font-bold">*</span>{' '}
                         </label>
@@ -121,7 +121,7 @@ function Register() {
                             onChange={(e) => setMailAdress(e.target.value)}
                         />
                     </div>
-                    <div className="text-input-wrapper mb-6 w-full">
+                    <div className="text-input-wrapper mb-4 w-full">
                         <label htmlFor="nickname">
                             Nickname <span className="text-red-600 font-lg font-bold">*</span>{' '}
                         </label>
@@ -132,7 +132,7 @@ function Register() {
                             onChange={(e) => setNickname(e.target.value)}
                         />
                     </div>
-                    <div className="text-input-wrapper mb-6 w-full">
+                    <div className="text-input-wrapper mb-4 w-full">
                         <label htmlFor="password">
                             Password <span className="text-red-600 font-lg font-bold">*</span>{' '}
                         </label>

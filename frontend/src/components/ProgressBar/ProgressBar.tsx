@@ -15,13 +15,11 @@ function ProgressBar({ stepsCount, activeStep }: ProgressBarProps) {
         if (stepsCount / activeStep === stepsCount / 2) return 50;
         return (activeStep / stepsCount) * 100;
     };
-    console.log(getGradient(stepsCount, activeStep));
 
     useEffect(() => {
         const numbersAsArr = Array.from(Array(stepsCount + 1).keys());
         numbersAsArr.shift();
         setNumbersArr([...numbersAsArr]);
-        console.log(activeStep);
     }, [activeStep]);
 
     return (

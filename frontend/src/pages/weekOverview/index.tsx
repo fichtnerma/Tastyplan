@@ -139,7 +139,6 @@ export default function WeekOverview() {
                                                         }`}
                                                         alt="Food Img"
                                                         className={styles.foodImg}
-                                                        priority
                                                     />
                                                 </div>
                                                 <div

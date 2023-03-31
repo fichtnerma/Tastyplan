@@ -7,15 +7,15 @@ import calendar from '../../../public/Icons/Header/calendar.png'
 import list from '../../../public/Icons/Header/list.png'
 import setting from '../../../public/Icons/Header/setting.png'
 import user from '../../../public/Icons/Header/user.png'
+import logo from '../../../public/logo.svg';
 
 export default function Header() {
     return (
         <>
             <div className={styles.container}>
                 <Link href="/weekOverview">
-                    <div className='ml-8 mt-6'>
-                        <h4>Tasty</h4>
-                        <h4>Plan</h4>
+                    <div className='ml-6 mt-3'>
+                        <Image src={logo} alt="Calendar Img" width={90} height={90} priority />
                     </div>
                 </Link>
 
