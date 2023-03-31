@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import styles from '../Dislikes/Dislikes.module.scss';
 import cross from '../../../public/Icons/kreuz.png';
 import Image from 'next/image';
@@ -17,6 +18,8 @@ interface DislikesProps {
 
 export default function Dislikes({ onBack, onChoice, foodDislikes }: DislikesProps) {
     const [allDislikes, setDislike] = useState(foodDislikes);
+
+    const { data: session, status } = useSession();
 
     useEffect(() => {}, [allDislikes]);
     // const [allDislikes, setDislike] = useState<string[]>([]);
@@ -50,7 +53,11 @@ export default function Dislikes({ onBack, onChoice, foodDislikes }: DislikesPro
 
     const handleSearch = async (searchTerm: string) => {
         console.log('Search');
-        const res = await fetch(`http://localhost:3000/ingredients?search=${searchTerm}`);
+        const res = await fetch(`http://localhost:3000/ingredients?search=${searchTerm}`, {
+            headers: {
+                user: session?.user.userId ? session.user.userId : '',
+            },
+        });
         if (!res.ok) {
             console.log('failed to fetch');
             return;

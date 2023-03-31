@@ -9,6 +9,7 @@ import Link from 'next/link';
 
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 export default function IntolerancesPage() {
     const intolerances = [
@@ -32,6 +33,8 @@ export default function IntolerancesPage() {
 
     const [choices, setChoices] = useState<string[]>([]);
     const router = useRouter();
+
+    const { data: session, status } = useSession();
 
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
@@ -65,6 +68,7 @@ export default function IntolerancesPage() {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
+                user: session?.user.userId ? session.user.userId : '',
             },
         })
             .then((response) => {
