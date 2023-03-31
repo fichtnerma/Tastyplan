@@ -13,6 +13,8 @@ export class WeekplanController {
     // @UseInterceptors(ClassSerializerInterceptor)
     @Get('/current')
     findOne(@Request() req: any) {
+        console.log('get weekplan');
+
         const user = { userId: req.headers.user } as User;
         console.log(user);
 
@@ -24,6 +26,8 @@ export class WeekplanController {
     // @UseInterceptors(ClassSerializerInterceptor)
     @Post('/create')
     create(@Request() req: any) {
+        console.log('create weekplan');
+
         const user = { userId: req.headers.user } as User;
         return this.weekplanService.create(user);
     }

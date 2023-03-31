@@ -14,7 +14,7 @@ interface DislikesProps {
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
     foodDislikes: APISearchResponse[];
-    handlePreferences: () => void;
+    handlePreferences: (evt: any) => void;
 }
 
 export default function Dislikes({ onBack, onChoice, foodDislikes, handlePreferences }: DislikesProps) {

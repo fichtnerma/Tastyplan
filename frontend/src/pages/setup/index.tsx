@@ -14,6 +14,7 @@ import logo from '../../../public/logo.svg';
 import Image from 'next/image';
 import { APISearchResponse } from 'src/types/types';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
+import { useSession } from 'next-auth/react';
 
 const SetupParentPage = () => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -23,6 +24,7 @@ const SetupParentPage = () => {
         allergens: [],
         foodDislikes: [],
     });
+    const { data: session, status } = useSession();
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
@@ -30,15 +32,25 @@ const SetupParentPage = () => {
     const handleBackStep = () => {
         setCurrentStep(currentStep - 1);
     };
-    const handlePreferences = (evt: any) => {
+    console.log(session);
+    
+    const handlePreferences = async (evt: any) => {
         evt.preventDefault();
-        fetch('http://localhost:3000/preferences/', {
+        await fetch('http://localhost:3000/preferences/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                "user": session?.user.userId ? session.user.userId : '',
             },
             body: JSON.stringify(preferences),
         })
+        await fetch('http://localhost:3000/weekplan/create', {   
+            method: 'POST',
+            headers: {
+                "user": session?.user.userId ? session.user.userId : '',
+            },
+        })
+        window.location.href = '/weekOverview';
     };
 
     return (

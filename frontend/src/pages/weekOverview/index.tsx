@@ -26,19 +26,21 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 
 export default function WeekOverview() {
+    const { data: session, status } = useSession();
     const [weekplan, setWeekplan] = useState<any>({});
     const [loading, setLoading] = useState(true);
 
-    const { data: session, status } = useSession();
 
     const today = new Date().getDay();
     const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     useEffect(() => {
-
+        console.log('useEffect', session);
+        if(!session) return;
         fetch(`http://localhost:3000/weekplan/current`, {
+            method: 'GET',
             headers: {
-                user: session?.user.userId ? session.user.userId : '',
+                "user": session?.user.userId ? session.user.userId : '',
             },
         })
             .then((response) => {
@@ -47,12 +49,12 @@ export default function WeekOverview() {
                 }
             })
             .then((data) => {
-                const tempData = { ...data, weekplanEntry: data.weekplanEntry.slice(0, 7) };
-                console.log(tempData);
-                setWeekplan({ ...tempData });
+                console.log(data);
+                
+                setWeekplan({ ...data });
                 setLoading(false);
             });
-    }, [loading]);
+    }, [loading, session]);
 
     function getFormOfDietIcon(recipe: { formOfDiet: string }) {
         if (recipe.formOfDiet == 'Vegetarisch') {

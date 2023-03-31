@@ -27,6 +27,8 @@ export class PreferencesController {
 
         console.log(preferencesDto);
         const user = { userId: req.headers.user } as User;
+        console.log(user);
+
         return await this.preferencesService.setPreferences(preferencesDto, user);
     }
 
