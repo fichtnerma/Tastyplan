@@ -1,6 +1,5 @@
 import styles from '../FoodLifestyle/FoodLifestyle.module.scss';
 
-import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 type OnNextFunction = () => void;

@@ -46,7 +46,7 @@ function Register() {
     };
 
     const checkEmptyInputs = (): boolean => {
-        let toastMessages: string[] = [];
+        const toastMessages: string[] = [];
         let isAnyInputEmpty = false;
 
         if (!mailAdress || !nickname || !password || !passwordConf) isAnyInputEmpty = true;
