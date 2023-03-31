@@ -161,7 +161,7 @@ p {
         }
     }
 
-    .swiper-horizontal > .swiper-scrollbar,
+    .swiper-horizontal>.swiper-scrollbar,
     .swiper-scrollbar.swiper-scrollbar-horizontal {
         bottom: var(--swiper-scrollbar-bottom, 0px) !important;
         background-color: var(--green-light) !important;
