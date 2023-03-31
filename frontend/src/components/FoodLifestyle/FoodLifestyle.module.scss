@@ -74,5 +74,8 @@
         background-color: var(--green-dark);
         color: var(--white);
         border: none;
+        p {
+            color: var(--white);
+        }
     }
 }
