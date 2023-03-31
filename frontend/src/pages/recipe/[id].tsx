@@ -52,7 +52,8 @@ export default function DetailRecipe() {
             {!loading ? (
                 <div className={styles.container}>
                     <div className={styles.recipeBox}>
-                        <Image src={pancakes} alt={'Pancakes Bild'} className={styles.foodImg}></Image>
+                        <img src={`http://localhost:3000/images/${recipe.img || 'erbsensuppe.png'
+                            }`} alt={'Pancakes Bild'} className={styles.foodImg}></img>
                         <div className="ml-5">
                             <h1 className={styles.titleRecipe}>{recipe.name}</h1>
                             <div className="grid grid-cols-2">
@@ -100,7 +101,7 @@ export default function DetailRecipe() {
                                             <div>
                                                 {ingredientsSplited?.firstHalf.map((ingredient) => (
                                                     <div className="grid grid-cols-3 gap-5">
-                                                        <p className="text-right ">{ingredient.amount}</p>
+                                                        <p className="text-right ">{ingredient.quantity} {ingredient.unit}</p>
                                                         <p className="text-left w-44">{ingredient.ingredient}</p>
                                                     </div>
                                                 ))}
@@ -108,7 +109,7 @@ export default function DetailRecipe() {
                                             <div>
                                                 {ingredientsSplited?.secondHalf.map((ingredient) => (
                                                     <div className="grid grid-cols-3 gap-5">
-                                                        <p className="text-right ">{ingredient.amount}</p>
+                                                        <p className="text-right ">{ingredient.quantity} {ingredient.unit}</p>
                                                         <p className="text-left w-44">{ingredient.ingredient}</p>
                                                     </div>
                                                 ))}
