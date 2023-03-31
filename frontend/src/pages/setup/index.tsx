@@ -24,9 +24,7 @@ const SetupParentPage = () => {
         foodDislikes: [],
     });
 
-    useEffect(() => {
-        console.log(preferences);
-    }, [preferences]);
+    useEffect(() => {}, [preferences]);
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
