@@ -56,28 +56,47 @@ export class RecipesService {
 
     async filterByPreferences(user: User) {
         const preferences = await this.preferencesService.getPreferences(user);
-        console.log({ preferences });
+
+        const formOfDiet = preferences.formOfDiet;
+        const allergens = preferences.allergens;
+        const formOfDiets = [];
+
+        switch (formOfDiet) {
+            case 'omnivore':
+                formOfDiets.push('vegan', 'vegetarian', 'omnivore');
+                break;
+            case 'flexeterian':
+                formOfDiets.push('vegan', 'vegetarian', 'omnivore');
+                break;
+            case 'pescetarian':
+                formOfDiets.push('vegan', 'vegetarian');
+                break;
+            case 'vegetarian':
+                formOfDiets.push('vegan', 'vegetarian');
+                break;
+            case 'vegan':
+                formOfDiets.push('vegan');
+                break;
+        }
 
         const dislikedIngredients = preferences.foodDislikes.map((item: any) => item.id);
-        const allowedFormsOfDiet: any = {
-            vegan: ['vegan'],
-            vegetarian: ['vegan', 'vegetarian'],
-            omnivore: ['vegan', 'vegetarian', 'omnivore'],
-        };
+        console.log({ formOfDiets, allergens, dislikedIngredients });
+
         const recipes = await this.prismaService.recipe.findMany({
             where: {
-                // OR: [
-                //     ...allowedFormsOfDiet[preferences.formOfDiet].map((item: any) => {
-                //         return {
-                //             formOfDiet: item,
-                //         };
-                //     }),
-                // ],
+                formOfDiet: {
+                    in: formOfDiets,
+                },
                 ingredients: {
                     every: {
                         ingredient: {
                             id: {
                                 notIn: dislikedIngredients,
+                            },
+                            NOT: {
+                                allergens: {
+                                    hasSome: allergens,
+                                },
                             },
                         },
                     },

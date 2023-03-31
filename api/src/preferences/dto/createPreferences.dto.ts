@@ -7,7 +7,7 @@ export class PreferencesDto {
 
     @IsArray()
     @IsString({ each: true })
-    allergenes: string[];
+    allergens: string[];
 
     @IsArray()
     foodDislikes: { id: number; name: string }[];

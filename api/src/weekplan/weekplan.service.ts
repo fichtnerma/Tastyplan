@@ -5,7 +5,7 @@ import { RecipesService } from 'src/recipes/recipes.service';
 
 type Preferences = {
     formOfDiet: string;
-    allergenes: string[] | null;
+    allergens: string[] | null;
     foodDislikes: { id: number; name: string }[] | null;
 };
 @Injectable()

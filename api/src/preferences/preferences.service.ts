@@ -33,13 +33,13 @@ export class PreferencesService {
                 },
                 update: {
                     formOfDiet: createPreferencesDto.formOfDiet,
-                    allergenes: [...createPreferencesDto.allergenes],
+                    allergens: [...createPreferencesDto.allergens],
                     foodDislikes: { connect: [...ingredientsIds] },
                 },
                 create: {
                     userId: user.userId,
                     formOfDiet: createPreferencesDto.formOfDiet,
-                    allergenes: [...createPreferencesDto.allergenes],
+                    allergens: [...createPreferencesDto.allergens],
                     foodDislikes: { connect: [...ingredientsIds] },
                 },
             });
@@ -57,7 +57,7 @@ export class PreferencesService {
             },
             select: {
                 formOfDiet: true,
-                allergenes: true,
+                allergens: true,
                 foodDislikes: {
                     select: {
                         id: true,
