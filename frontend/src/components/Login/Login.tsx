@@ -24,7 +24,7 @@ function Login() {
     };
 
     return (
-        <div className="basis-1/2">
+        <div className="w-full">
             <form action="#" className="w-full h-full px-12" onSubmit={handleSubmit}>
                 <fieldset className="flex flex-col h-full">
                     <legend className="h2 leading-[68px] mb-6">Sign in</legend>
