@@ -103,7 +103,7 @@ function Register() {
     };
 
     return (
-        <div className="w-full">
+        <div className="w-full p-8">
             <form className="w-full h-full px-12" onSubmit={handleSubmit}>
                 <fieldset className="flex flex-col h-full">
                     <legend className="h2 leading-[68px] mb-1">Register</legend>
