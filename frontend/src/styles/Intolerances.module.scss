@@ -9,7 +9,7 @@
         label {
             background-color: var(--green-light);
             color: var(--white);
-            border: none;
+            border-color: var(--green-light);
         }
     }
 
@@ -21,7 +21,6 @@
         right: 0;
         bottom: 0;
         cursor: pointer;
-        // z-index: 1;
         background-color: var(--white);
     }
 
@@ -54,6 +53,6 @@
     .Checked + label {
         background-color: var(--green-dark);
         color: var(--white);
-        border: none;
+        border-color: var(--green-dark);
     }
 }

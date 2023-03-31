@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import styles from '../Dislikes/Dislikes.module.scss';
 import cross from '../../../public/Icons/kreuz.png';
 import Image from 'next/image';
@@ -20,16 +21,14 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
 
     const [allDislikes, setDislike] = useState(foodDislikes);
 
-    useEffect(() => {
-        console.log(allDislikes);
-    }, [allDislikes]);
+    const { data: session, status } = useSession();
+
+    useEffect(() => {}, [allDislikes]);
     // const [allDislikes, setDislike] = useState<string[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
 
-    useEffect(() => {
-        console.log(searchResult);
-    }, [searchResult]);
+    useEffect(() => {}, [searchResult]);
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         onBack();
@@ -37,12 +36,12 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
     };
 
     const handleAddChoice = (e: React.MouseEvent) => {
-        console.log('Add',e.target);
+        console.log('Add', e.target);
         const target = e.target as HTMLButtonElement;
         const id = target.getAttribute('data-dislike-id');
         const name = target.getAttribute('data-dislike-name');
         if (!id || !name) return;
-        const clickedDislike = { id: +id, name} as APISearchResponse;
+        const clickedDislike = { id: +id, name } as APISearchResponse;
         setDislike([...allDislikes, clickedDislike]);
         onChoice((preferences: any) => ({ ...preferences, foodDislikes: allDislikes }));
     };
@@ -56,7 +55,11 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
 
     const handleSearch = async (searchTerm: string) => {
         console.log('Search');
-        const res = await fetch(`http://localhost:3000/ingredients?search=${searchTerm}`);
+        const res = await fetch(`http://localhost:3000/ingredients?search=${searchTerm}`, {
+            headers: {
+                user: session?.user.userId ? session.user.userId : '',
+            },
+        });
         if (!res.ok) {
             console.log('failed to fetch');
             return;
@@ -71,24 +74,26 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
             <h4 className="mb-8">What food do you dislike?</h4>
             <div className="h-[300px]">
                 <div className="flex flex-col">
-                    <div className='w-full flex'>
+                    <div className="w-full flex">
                         <div className="text-input-wrapper w-1/2 mr-16">
                             <input
                                 type="text"
                                 name="search"
                                 placeholder="Tomatoes"
                                 onChange={(e) => {
-                                    setSearchTerm(() => e.target.value)
+                                    setSearchTerm(() => e.target.value);
                                     const debouncedHandler = debounce(() => handleSearch(e.target.value), 250);
                                     debouncedHandler();
                                 }}
                             />
                         </div>
-                        <button className="btn-primary" type="button" onClick={()=>{}}>
+                        <button className="btn-primary" type="button" onClick={() => {}}>
                             Go
                         </button>
                     </div>
-                    {searchResult.length !== 0 && <SearchResultlist searchResults={[...searchResult]} clickHandler={handleAddChoice} />}
+                    {searchResult.length !== 0 && (
+                        <SearchResultlist searchResults={[...searchResult]} clickHandler={handleAddChoice} />
+                    )}
                 </div>
                 <div className="grid grid-cols-4 gap-4 my-4 overflow-y-auto">
                     {allDislikes.map((dislike, i) => (

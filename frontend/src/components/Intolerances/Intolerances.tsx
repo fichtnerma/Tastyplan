@@ -42,9 +42,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
 
     const [choices, setChoices] = useState(allergens);
 
-    useEffect(() => {
-        console.log(choices);
-    }, [choices]);
+    useEffect(() => {}, [choices]);
 
     const onAddChoice = (e: React.ChangeEvent<HTMLInputElement>) => {
         const currentSelection = [...choices];
@@ -61,7 +59,6 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
         e.preventDefault();
         if (e.currentTarget.getAttribute('data-btn') == 'next') {
             onNext();
-            console.log('Next pressed');
         } else {
             onBack();
         }
