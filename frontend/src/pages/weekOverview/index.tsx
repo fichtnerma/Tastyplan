@@ -18,32 +18,43 @@ import kochIcon from '../../../public/Icons/kochmutze.png';
 import potIcon from '../../../public/Icons/topf.png';
 import veganIcon from '../../../public/Icons/vegetarian.png';
 import omnivorIcon from '../../../public/Icons/Steak_V2_Icon.svg';
-import pescetarianIcon from '../../../public/Icons/Fisch.svg';
-import vegetarianIcon from '../../../public/Icons/Soja.svg';
+import pescetarianIcon from '../../../public/Icons/Fisch_Icon-11.svg';
+import vegetarianIcon from '../../../public/Icons/Soja_Icon.svg';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 export default function WeekOverview() {
+    const { data: session, status } = useSession();
     const [weekplan, setWeekplan] = useState<any>({});
     const [loading, setLoading] = useState(true);
+
+
     const today = new Date().getDay();
     const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     useEffect(() => {
-        fetch(`http://localhost:3000/weekplan/1`)
+        console.log('useEffect', session);
+        if(!session) return;
+        fetch(`http://localhost:3000/weekplan/current`, {
+            method: 'GET',
+            headers: {
+                "user": session?.user.userId ? session.user.userId : '',
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
                 }
             })
             .then((data) => {
-                const tempData = { ...data, weekplanEntry: data.weekplanEntry.slice(0, 7) };
-                console.log(tempData);
-                setWeekplan({ ...tempData });
+                console.log(data);
+                
+                setWeekplan({ ...data });
                 setLoading(false);
             });
-    }, [loading]);
+    }, [loading, session]);
 
     function getFormOfDietIcon(recipe: { formOfDiet: string }) {
         if (recipe.formOfDiet == 'Vegetarisch') {

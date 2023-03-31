@@ -67,7 +67,7 @@ export class AuthService {
 
     private createAuthCookie({ userId }: FormatLogin) {
         const { expiresIn, Authorization } = this._createToken({ userId });
-        return `Authentication=${Authorization}; HttpOnly; Path=/; Max-Age=${expiresIn}`;
+        return `Authentication=${Authorization}; HttpOnly; Path=localhost:3000/; Max-Age=${expiresIn}`;
     }
 
     private createTemporayAuthCookie({ userId }: FormatLogin) {
@@ -76,7 +76,7 @@ export class AuthService {
     }
 
     public getCookieForLogOut() {
-        return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
+        return `Authentication=; Max-Age=0`;
     }
 
     async validateUser(payload: JwtPayload): Promise<any> {

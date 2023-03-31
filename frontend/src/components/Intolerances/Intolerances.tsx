@@ -24,10 +24,10 @@ interface IntolerancesProps {
     onNext: OnNextFunction;
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
-    allergenes: string[];
+    allergens: string[];
 }
 
-export default function Intolerances({ onNext, onBack, onChoice, allergenes }: IntolerancesProps) {
+export default function Intolerances({ onNext, onBack, onChoice, allergens }: IntolerancesProps) {
     const intolerances = [
         { ui: 'Peanuts', code: 'peanut', icon: peanut },
         { ui: 'Hazelnuts', code: 'hazelnut', icon: hazelnut },
@@ -47,7 +47,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergenes }: I
         { ui: 'Mollusk', code: 'mollusk', icon: hazelnut },
     ];
 
-    const [choices, setChoices] = useState(allergenes);
+    const [choices, setChoices] = useState(allergens);
 
     useEffect(() => {}, [choices]);
 
@@ -70,7 +70,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergenes }: I
             onBack();
         }
 
-        onChoice((preferences: any) => ({ ...preferences, allergenes: choices }));
+        onChoice((preferences: any) => ({ ...preferences, allergens: choices }));
     };
 
     return (

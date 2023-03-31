@@ -5,9 +5,9 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        sendData();
+        sendData();      
     };
 
     const sendData = async () => {
@@ -15,11 +15,10 @@ function Login() {
             userId: username,
             password: password,
         };
-
         signIn('credentials', {
             ...data,
             redirect: true,
-            callbackUrl: 'http://localhost:8080/preferences',
+            callbackUrl: '/setup',
         });
     };
 
