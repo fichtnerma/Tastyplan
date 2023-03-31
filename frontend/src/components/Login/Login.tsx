@@ -5,9 +5,9 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        sendData();
+        sendData();      
     };
 
     const sendData = async () => {
@@ -15,11 +15,10 @@ function Login() {
             userId: username,
             password: password,
         };
-
         signIn('credentials', {
             ...data,
             redirect: true,
-            callbackUrl: 'http://localhost:8080/preferences',
+            callbackUrl: '/setup',
         });
     };
 
@@ -29,7 +28,7 @@ function Login() {
                 <fieldset className="flex flex-col h-full">
                     <legend className="h2 leading-[68px] mb-10">Sign in</legend>
                     <div className="text-input-wrapper mb-6 w-full">
-                        <label htmlFor="accountName">E-Mail Adress or User Name</label>
+                        <label htmlFor="accountName">E-Mail Address or User Name</label>
                         <input
                             type="text"
                             name="accountName"

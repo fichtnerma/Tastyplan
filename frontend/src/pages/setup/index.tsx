@@ -6,7 +6,7 @@ import Dislikes from '@components/Dislikes/Dislikes';
 interface SetupParentPageProps {}
 interface Preferences {
     formOfDiet: string;
-    allergenes: string[];
+    allergens: string[];
     foodDislikes: APISearchResponse[];
 }
 
@@ -20,13 +20,9 @@ const SetupParentPage = () => {
 
     const [preferences, setPreferences] = useState<Preferences>({
         formOfDiet: '',
-        allergenes: [],
+        allergens: [],
         foodDislikes: [],
     });
-
-    useEffect(() => {
-        console.log(preferences);
-    }, [preferences]);
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
@@ -34,13 +30,15 @@ const SetupParentPage = () => {
     const handleBackStep = () => {
         setCurrentStep(currentStep - 1);
     };
-
-    const handleFoodLifestyle = (choice: any) => {
-        setPreferences(choice);
-    };
-
-    const handleDislikes = (choice: any) => {
-        setPreferences(choice);
+    const handlePreferences = (evt: any) => {
+        evt.preventDefault();
+        fetch('http://localhost:3000/preferences/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(preferences),
+        })
     };
 
     return (
@@ -53,7 +51,7 @@ const SetupParentPage = () => {
                         {currentStep === 1 && (
                             <FoodLifestyle
                                 onNext={handleNextStep}
-                                onChoice={handleFoodLifestyle}
+                                onChoice={setPreferences}
                                 formOfDiet={preferences.formOfDiet}
                             />
                         )}
@@ -61,15 +59,16 @@ const SetupParentPage = () => {
                             <Intolerances
                                 onNext={handleNextStep}
                                 onBack={handleBackStep}
-                                onChoice={handleFoodLifestyle}
-                                allergenes={preferences.allergenes}
+                                onChoice={setPreferences}
+                                allergens={preferences.allergens}
                             />
                         )}
                         {currentStep === 3 && (
                             <Dislikes
-                                onChoice={handleDislikes}
+                                onChoice={setPreferences}
                                 onBack={handleBackStep}
                                 foodDislikes={preferences.foodDislikes}
+                                handlePreferences={handlePreferences}
                             />
                         )}
                     </fieldset>

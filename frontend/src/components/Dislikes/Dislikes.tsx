@@ -13,9 +13,10 @@ interface DislikesProps {
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
     foodDislikes: APISearchResponse[];
+    handlePreferences: () => void;
 }
 
-export default function Dislikes({ onBack, onChoice, foodDislikes }: DislikesProps) {
+export default function Dislikes({ onBack, onChoice, foodDislikes, handlePreferences }: DislikesProps) {
 
     const [allDislikes, setDislike] = useState(foodDislikes);
 
@@ -108,7 +109,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes }: DislikesPro
                 <button type="button" className="btn-primary mt-10" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
-                <Link className="btn-primary mt-10" href={'/weekOverview'}>
+                <Link className="btn-primary mt-10" onClick={handlePreferences} href={'/weekOverview'}>
                     Create Weekplan
                 </Link>
             </div>

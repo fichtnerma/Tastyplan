@@ -41,7 +41,7 @@ export default function WeekOverview() {
 
     useEffect(() => {
 
-        fetch(`http://localhost:3000/weekplan/1`)
+        fetch(`http://localhost:3000/weekplan/current`)
             .then((response) => {
                 if (response.ok) {
                     return response.json()
