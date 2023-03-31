@@ -60,17 +60,6 @@ export default function DetailRecipe() {
                                     <div className="flex">
                                         <div className="flex flex-col m-6">
                                             <Image
-                                                src={kochIcon}
-                                                className="self-center mb-2"
-                                                alt="Time Icon"
-                                                width={40}
-                                                height={40}
-                                                priority
-                                            />
-                                            <h5 className="text-center">{recipe.difficulty}</h5>
-                                        </div>
-                                        <div className="flex flex-col m-6">
-                                            <Image
                                                 src={getFormOfDietIcon()}
                                                 className="self-center mb-2"
                                                 alt="Time Icon"

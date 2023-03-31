@@ -18,8 +18,8 @@ import kochIcon from '../../../public/Icons/kochmutze.png';
 import potIcon from '../../../public/Icons/topf.png';
 import veganIcon from '../../../public/Icons/vegetarian.png';
 import omnivorIcon from '../../../public/Icons/Steak_V2_Icon.svg';
-import pescetarianIcon from '../../../public/Icons/Fisch_Icon-11.svg';
-import vegetarianIcon from '../../../public/Icons/Soja_Icon.svg';
+import pescetarianIcon from '../../../public/Icons/Fisch.svg';
+import vegetarianIcon from '../../../public/Icons/Soja.svg';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -36,7 +36,7 @@ export default function WeekOverview() {
 
     useEffect(() => {
         console.log('useEffect', session);
-        if(!session) return;
+        if (!session) return;
         fetch(`http://localhost:3000/weekplan/current`, {
             method: 'GET',
             headers: {
@@ -50,7 +50,7 @@ export default function WeekOverview() {
             })
             .then((data) => {
                 console.log(data);
-                
+
                 setWeekplan({ ...data });
                 setLoading(false);
             });
@@ -134,9 +134,8 @@ export default function WeekOverview() {
                                             <div className={styles.wrapperContainer}>
                                                 <div className={styles.foodBox}>
                                                     <img
-                                                        src={`http://localhost:3000/images/${
-                                                            day.recipe.img || 'erbsensuppe.png'
-                                                        }`}
+                                                        src={`http://localhost:3000/images/${day.recipe.img || 'erbsensuppe.png'
+                                                            }`}
                                                         alt="Food Img"
                                                         className={styles.foodImg}
                                                     />
@@ -189,29 +188,6 @@ export default function WeekOverview() {
                                                                         }}
                                                                     >
                                                                         {day.recipe.preparingTime} min
-                                                                    </p>
-                                                                </div>
-                                                            )}
-                                                            {day.recipe.difficulty !== null && (
-                                                                <div className="flex flex-row gap-x-2">
-                                                                    <Image
-                                                                        src={kochIcon}
-                                                                        alt="Time Icon"
-                                                                        className="mb-4"
-                                                                        width={20}
-                                                                        height={20}
-                                                                        priority
-                                                                    />
-                                                                    <p
-                                                                        className="text-base mb-4"
-                                                                        style={{
-                                                                            color:
-                                                                                today == new Date(day.date).getDay()
-                                                                                    ? 'var(--white)'
-                                                                                    : 'var(--black)',
-                                                                        }}
-                                                                    >
-                                                                        {day.recipe.difficulty}
                                                                     </p>
                                                                 </div>
                                                             )}

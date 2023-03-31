@@ -16,7 +16,7 @@ export default function index() {
                     </div>
                     <Link href="/authentication/login">
                         <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full mt-5">
-                            <Image src={user} alt="logo" height={30} width={30} priority className='h-fit pt-[20%]' />
+                            <Image src={user} alt="logo" height={30} width={30} priority className='h-fit pt-[20%] invert' />
                         </div>
                     </Link>
                 </div>
