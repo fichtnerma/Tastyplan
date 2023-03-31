@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import { APIRegistrationResponse, mailRegEx } from 'src/types/types';
 
@@ -120,6 +121,7 @@ function Register() {
                     <p className="text-xs mb-6">
                         Already have an account? Log in <a href="/">here!</a>
                     </p>
+                    <Link href={'/'}></Link>
                     <div className="text-input-wrapper mb-4 w-full">
                         <label htmlFor="email">
                             E-Mail <span className="text-red-600 font-lg font-bold">*</span>{' '}

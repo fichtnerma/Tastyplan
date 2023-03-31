@@ -20,7 +20,7 @@ function ProgressBar({ stepsCount, activeStep }: ProgressBarProps) {
         const numbersAsArr = Array.from(Array(stepsCount + 1).keys());
         numbersAsArr.shift();
         setNumbersArr([...numbersAsArr]);
-    }, [activeStep]);
+    }, [activeStep, stepsCount]);
 
     return (
         <div className="flex justify-between items-center relative w-full">
