@@ -1,12 +1,15 @@
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { APIRegistrationResponse, mailRegEx } from 'src/types/types';
+import { useRouter } from 'next/router';
 
 function Register() {
     const [mailAdress, setMailAdress] = useState('');
     const [nickname, setNickname] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConf, setPasswordConf] = useState('');
+
+    const router = useRouter();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -99,6 +102,10 @@ function Register() {
                 theme: 'colored',
                 type: 'error',
             });
+        }
+
+        if (response.ok) {
+            router.push(`${router.basePath}/authentication/login`, undefined, undefined);
         }
     };
 
