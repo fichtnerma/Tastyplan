@@ -9,7 +9,7 @@
         label {
             background-color: var(--green-light);
             color: var(--white);
-            border: none;
+            border-color: var(--green-light);
         }
     }
 
@@ -53,45 +53,8 @@
     input[type='checkbox']:checked + label,
     .Checked + label {
         background-color: var(--green-dark);
-
-        border: none;
         p {
             color: var(--white);
         }
     }
 }
-
-// .intoleranceWrapper {
-//     span {
-//         display: flex;
-//         justify-content: space-around;
-//         align-items: center;
-//         width: 150px;
-//         height: fit-content;
-//         border: solid;
-//         border-radius: 50px;
-//         border: 2px solid var(--gray-dark);
-//         background-color: var(--white);
-
-//         &:hover {
-//             background-color: var(--green-light);
-//             color: var(--white);
-//             border: none;
-//         }
-
-//         input {
-//             position: absolute;
-//             cursor: pointer;
-//             width: inherit;
-//             height: inherit;
-//             cursor: pointer;
-//             background-color: var(--white);
-//         }
-//         input:checked + span,
-//         .Checked + span {
-//             background-color: var(--green-dark);
-//             color: var(--white);
-//             border: none;
-//         }
-//     }
-// }
