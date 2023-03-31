@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import styles from '../Dislikes/Dislikes.module.scss';
 import cross from '../../../public/Icons/kreuz.png';
 import Image from 'next/image';
@@ -13,10 +14,14 @@ interface DislikesProps {
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
     foodDislikes: APISearchResponse[];
+    handlePreferences: (evt: any) => void;
 }
 
-export default function Dislikes({ onBack, onChoice, foodDislikes }: DislikesProps) {
+export default function Dislikes({ onBack, onChoice, foodDislikes, handlePreferences }: DislikesProps) {
+
     const [allDislikes, setDislike] = useState(foodDislikes);
+
+    const { data: session, status } = useSession();
 
     useEffect(() => {}, [allDislikes]);
     // const [allDislikes, setDislike] = useState<string[]>([]);
@@ -50,7 +55,11 @@ export default function Dislikes({ onBack, onChoice, foodDislikes }: DislikesPro
 
     const handleSearch = async (searchTerm: string) => {
         console.log('Search');
-        const res = await fetch(`http://localhost:3000/ingredients?search=${searchTerm}`);
+        const res = await fetch(`http://localhost:3000/ingredients?search=${searchTerm}`, {
+            headers: {
+                user: session?.user.userId ? session.user.userId : '',
+            },
+        });
         if (!res.ok) {
             console.log('failed to fetch');
             return;
@@ -105,7 +114,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes }: DislikesPro
                 <button type="button" className="btn-primary mt-10" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
-                <Link className="btn-primary mt-10" href={'/weekOverview'}>
+                <Link className="btn-primary mt-10" onClick={handlePreferences} href={'/weekOverview'}>
                     Create Weekplan
                 </Link>
             </div>
