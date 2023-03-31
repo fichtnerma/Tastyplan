@@ -8,7 +8,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
     const { asPath } = useRouter();
     return (
         <>
-            {asPath !== '/startPage' &&
+            {asPath !== '/' &&
                 !asPath.includes('/authentication') &&
                 !asPath.includes('/preferences') &&
                 !asPath.includes('/setup') &&
@@ -18,11 +18,11 @@ export default function Layout({ children }: React.PropsWithChildren) {
                 style={{
                     backgroundColor:
                         asPath == '/' ||
-                        asPath == '/authentication/registration' ||
-                        asPath == '/authentication/login' ||
-                        asPath == '/preferences' ||
-                        asPath.includes('/intolerances') ||
-                        asPath.includes('/setup')
+                            asPath == '/authentication/registration' ||
+                            asPath == '/authentication/login' ||
+                            asPath == '/preferences' ||
+                            asPath.includes('/intolerances') ||
+                            asPath.includes('/setup')
                             ? 'var(--green-light)'
                             : 'var(--white)',
                 }}
