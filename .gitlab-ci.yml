@@ -1,0 +1,14 @@
+cache:
+  paths:
+    - /frontend/node_modules
+
+stages:
+  - frontend lint
+
+frontend lint:
+  stage: frontend lint
+  image: "node:latest"
+  script:
+    - cd frontend/
+    - npm install
+    - npm run lint
