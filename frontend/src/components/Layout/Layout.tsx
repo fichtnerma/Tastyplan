@@ -6,8 +6,8 @@ import styles from './Layout.module.scss';
 
 import { Inter, Bebas_Neue } from '@next/font/google';
 
-const inter = Inter({ subsets: ['latin'], style: ['normal'], weight: ['200', '400', '700'] });
-const bebasNeue = Bebas_Neue({ subsets: ['latin'], style: 'normal', weight: '400' });
+const inter = Inter({ subsets: ['latin'], style: ['normal'], weight: ['200', '400', '700'], variable: '--font-inter' });
+const bebasNeue = Bebas_Neue({ subsets: ['latin'], style: 'normal', weight: '400', variable: '--font-bebas' });
 
 console.log(inter, bebasNeue);
 
@@ -22,7 +22,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
                 !asPath.includes('/setup') &&
                 !asPath.includes('/intolerances') && <Header />}
             <main
-                className={styles.mainContainer}
+                className={`${styles.mainContainer} ${inter.variable} ${bebasNeue.variable}`}
                 style={{
                     backgroundColor:
                         asPath == '/' ||
