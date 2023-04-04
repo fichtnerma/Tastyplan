@@ -1,20 +1,19 @@
-import styles from '../../styles/DetailRecipe.module.scss';
+import { useEffect, useState } from 'react';
 
-import pancakes from '../../../public/Icons/carbonara.png';
-import timeIcon from '../../../public/Icons/time.svg';
-import kochIcon from '../../../public/Icons/kochmutze.png';
-import potIcon from '../../../public/Icons/topf.png';
-import star from '../../../public/Icons/star.svg';
-import veganIcon from '../../../public/Icons/vegetarian.png';
-import omnivorIcon from '../../../public/Icons/Steak_V2_Icon.svg';
-import pescetarianIcon from '../../../public/Icons/Fisch.svg';
-import vegetarianIcon from '../../../public/Icons/Soja.svg';
-
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Star from '@components/Star/Star';
+
+import styles from '../../styles/DetailRecipe.module.scss';
+
+import veganIcon from '../../../public/Icons/vegetarian.png';
+import potIcon from '../../../public/Icons/topf.png';
+import timeIcon from '../../../public/Icons/time.svg';
+import omnivorIcon from '../../../public/Icons/Steak_V2_Icon.svg';
+import vegetarianIcon from '../../../public/Icons/Soja.svg';
+import pescetarianIcon from '../../../public/Icons/Fisch.svg';
+import pancakes from '../../../public/Icons/carbonara.png';
 
 export default function DetailRecipe() {
     const router = useRouter();
@@ -52,8 +51,11 @@ export default function DetailRecipe() {
             {!loading ? (
                 <div className={styles.container}>
                     <div className={styles.recipeBox}>
-                        <img src={`http://localhost:3000/images/${recipe.img || 'erbsensuppe.png'
-                            }`} alt={'Pancakes Bild'} className={styles.foodImg}></img>
+                        <img
+                            src={`http://localhost:3000/images/${recipe.img || 'erbsensuppe.png'}`}
+                            alt={'Pancakes Bild'}
+                            className={styles.foodImg}
+                        ></img>
                         <div className="ml-5">
                             <h1 className={styles.titleRecipe}>{recipe.name}</h1>
                             <div className="grid grid-cols-2">
@@ -101,7 +103,9 @@ export default function DetailRecipe() {
                                             <div>
                                                 {ingredientsSplited?.firstHalf.map((ingredient) => (
                                                     <div className="grid grid-cols-3 gap-5">
-                                                        <p className="text-right ">{ingredient.quantity} {ingredient.unit}</p>
+                                                        <p className="text-right ">
+                                                            {ingredient.quantity} {ingredient.unit}
+                                                        </p>
                                                         <p className="text-left w-44">{ingredient.ingredient}</p>
                                                     </div>
                                                 ))}
@@ -109,22 +113,15 @@ export default function DetailRecipe() {
                                             <div>
                                                 {ingredientsSplited?.secondHalf.map((ingredient) => (
                                                     <div className="grid grid-cols-3 gap-5">
-                                                        <p className="text-right ">{ingredient.quantity} {ingredient.unit}</p>
+                                                        <p className="text-right ">
+                                                            {ingredient.quantity} {ingredient.unit}
+                                                        </p>
                                                         <p className="text-left w-44">{ingredient.ingredient}</p>
                                                     </div>
                                                 ))}
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <div>
-                                <p>Gewürze:</p>
-                                {spieces.map((spiece) => (
-                                    <div className='flex'>
-                                        <input type='checkbox' className='mr-2' />
-                                        <p>{spiece}</p>
-                                    </div>
-                                ))}
-                            </div> */}
                                 </div>
                             </div>
                             <div className="mt-10">

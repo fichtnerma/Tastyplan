@@ -1,56 +1,69 @@
 import React, { useEffect, useState } from 'react';
-import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
+
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+
+import ProgressBar from '@components/ProgressBar/ProgressBar';
 import Intolerances from '@components/Intolerances/Intolerances';
+import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';
 
-interface SetupParentPageProps {}
+import { APISearchResponse } from 'src/types/types';
+
+import logo from '../../../public/logo.svg';
+
 interface Preferences {
     formOfDiet: string;
     allergens: string[];
     foodDislikes: APISearchResponse[];
 }
 
-import logo from '../../../public/logo.svg';
-import Image from 'next/image';
-import { APISearchResponse } from 'src/types/types';
-import ProgressBar from '@components/ProgressBar/ProgressBar';
-import { useSession } from 'next-auth/react';
-
 const SetupParentPage = () => {
     const [currentStep, setCurrentStep] = useState(1);
-
     const [preferences, setPreferences] = useState<Preferences>({
         formOfDiet: '',
         allergens: [],
         foodDislikes: [],
     });
-    const { data: session, status } = useSession();
+
+    const router = useRouter();
+
+    useEffect(() => {
+        console.log(preferences);
+    }, [preferences]);
+
+    const { data: session } = useSession();
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
     };
+
     const handleBackStep = () => {
         setCurrentStep(currentStep - 1);
     };
-    console.log(session);
-    
-    const handlePreferences = async (evt: any) => {
+
+    const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
         evt.preventDefault();
+        console.log(preferences);
         await fetch('http://localhost:3000/preferences/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                "user": session?.user.userId ? session.user.userId : '',
+                user: session?.user.userId ? session.user.userId : '',
             },
             body: JSON.stringify(preferences),
-        })
-        await fetch('http://localhost:3000/weekplan/create', {   
+        });
+        const weekplanRes = await fetch('http://localhost:3000/weekplan/create', {
             method: 'POST',
             headers: {
-                "user": session?.user.userId ? session.user.userId : '',
+                user: session?.user.userId ? session.user.userId : '',
             },
-        })
-        window.location.href = '/weekOverview';
+        });
+
+        if (weekplanRes.ok) {
+            router.push(`${router.basePath}/weekOverview`, undefined, undefined);
+        }
     };
 
     return (
@@ -63,7 +76,13 @@ const SetupParentPage = () => {
                         {currentStep === 1 && (
                             <FoodLifestyle
                                 onNext={handleNextStep}
-                                onChoice={setPreferences}
+                                onChoice={(foodLiveStyle: string) => {
+                                    setPreferences({
+                                        formOfDiet: foodLiveStyle,
+                                        allergens: preferences.allergens,
+                                        foodDislikes: preferences.foodDislikes,
+                                    });
+                                }}
                                 formOfDiet={preferences.formOfDiet}
                             />
                         )}
@@ -71,13 +90,25 @@ const SetupParentPage = () => {
                             <Intolerances
                                 onNext={handleNextStep}
                                 onBack={handleBackStep}
-                                onChoice={setPreferences}
+                                onChoice={(allergens: string[]) => {
+                                    setPreferences({
+                                        formOfDiet: preferences.formOfDiet,
+                                        allergens: allergens,
+                                        foodDislikes: preferences.foodDislikes,
+                                    });
+                                }}
                                 allergens={preferences.allergens}
                             />
                         )}
                         {currentStep === 3 && (
                             <Dislikes
-                                onChoice={setPreferences}
+                                onChoice={(foodDislikes: APISearchResponse[]) => {
+                                    setPreferences({
+                                        formOfDiet: preferences.formOfDiet,
+                                        allergens: preferences.allergens,
+                                        foodDislikes: foodDislikes,
+                                    });
+                                }}
                                 onBack={handleBackStep}
                                 foodDislikes={preferences.foodDislikes}
                                 handlePreferences={handlePreferences}

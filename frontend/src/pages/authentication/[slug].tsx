@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import Login from '@components/Login/Login';
 import Register from '@components/Register/Register';
+import Login from '@components/Login/Login';
 
 import logo from '../../../public/logo.svg';
 
@@ -16,7 +17,7 @@ function AuthenticationPage() {
     useEffect(() => {
         if (slug === 'login') setPageState('login');
         else if (slug === 'registration') setPageState('registration');
-    }, [router]);
+    }, [router, slug]);
 
     const handleSignUp = () => {
         router.push(`${router.basePath}/authentication/registration`, undefined, undefined);

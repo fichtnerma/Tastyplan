@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -30,7 +31,6 @@ export default function WeekOverview() {
     const [weekplan, setWeekplan] = useState<any>({});
     const [loading, setLoading] = useState(true);
 
-
     const today = new Date().getDay();
     const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -40,7 +40,7 @@ export default function WeekOverview() {
         fetch(`http://localhost:3000/weekplan/current`, {
             method: 'GET',
             headers: {
-                "user": session?.user.userId ? session.user.userId : '',
+                user: session?.user.userId ? session.user.userId : '',
             },
         })
             .then((response) => {
@@ -134,8 +134,9 @@ export default function WeekOverview() {
                                             <div className={styles.wrapperContainer}>
                                                 <div className={styles.foodBox}>
                                                     <img
-                                                        src={`http://localhost:3000/images/${day.recipe.img || 'erbsensuppe.png'
-                                                            }`}
+                                                        src={`http://localhost:3000/images/${
+                                                            day.recipe.img || 'erbsensuppe.png'
+                                                        }`}
                                                         alt="Food Img"
                                                         className={styles.foodImg}
                                                     />
