@@ -29,16 +29,13 @@ body {
 }
 
 h1 {
-    font-family: $font-family-headline;
-    font-style: normal;
+    font-family: var(--font-bebas);
     font-size: 100px;
     color: var(--black);
 }
 
 .h2 {
-    font-family: $font-family-headline;
-    font-weight: 400;
-    font-style: normal;
+    font-family: var(--font-bebas);
     font-size: 80px;
     color: var(--black);
 }
@@ -53,29 +50,25 @@ h2 {
 }
 
 h3 {
-    font-family: $font-family-headline;
-    font-style: normal;
+    font-family: var(--font-bebas);
     font-size: 50px;
     color: var(--black);
 }
 
 h4 {
-    font-family: $font-family-headline;
-    font-style: normal;
+    font-family: var(--font-bebas);
     font-size: 40px;
     color: var(--black);
 }
 
 h5 {
-    font-family: $font-family-headline;
-    font-style: normal;
+    font-family: var(--font-bebas);
     font-size: 25px;
     color: var(--black);
 }
 
 .p {
-    font-family: $font-family-text;
-    font-style: normal;
+    font-family: var(--font-inter);
     font-size: 20px;
 }
 
@@ -161,7 +154,7 @@ p {
         }
     }
 
-    .swiper-horizontal>.swiper-scrollbar,
+    .swiper-horizontal > .swiper-scrollbar,
     .swiper-scrollbar.swiper-scrollbar-horizontal {
         bottom: var(--swiper-scrollbar-bottom, 0px) !important;
         background-color: var(--green-light) !important;

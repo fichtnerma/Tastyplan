@@ -1,5 +1,4 @@
-@import "@styles/variables.scss";
-
+@import '@styles/variables.scss';
 
 .container {
     margin-inline: auto;
@@ -17,13 +16,12 @@
     }
 
     p {
-        font-family: $font-family-text-bold;
+        font-family: var(--font-inter);
+        font-weight: 700;
     }
-
 }
 
 .wrapperContainer {
-
     &:hover .foodImg {
         opacity: 0.1;
     }
@@ -66,7 +64,6 @@
     transition: background-color 0.8s;
     background: linear-gradient(rgba(255, 255, 255, 0) 60%, var(--green-dark) 90%);
 }
-
 
 .foodBox {
     width: 250px;
