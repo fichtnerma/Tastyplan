@@ -1,17 +1,21 @@
-.done {
+.step {
     display: block;
     width: 1rem;
     height: 1rem;
     border-radius: 1rem;
     z-index: 2;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.done {
+    @extend .step;
     background-color: var(--green-dark);
 }
 
 .notDone {
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 1rem;
-    z-index: 2;
+    @extend .step;
     background-color: var(--gray-5);
 }

@@ -49,10 +49,12 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
 
         if (currentSelection?.includes(e.target.value)) {
             const cleanSelection = currentSelection.filter((el) => el !== e.target.value);
-            setAllergeneChoices([...cleanSelection]);
+            setAllergeneChoices(cleanSelection);
+            onChoice(cleanSelection);
         } else {
             currentSelection.push(e.target.value);
-            setAllergeneChoices([...currentSelection]);
+            setAllergeneChoices(currentSelection);
+            onChoice(currentSelection);
         }
     };
 
@@ -64,8 +66,6 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
         } else {
             onBack();
         }
-
-        onChoice(allergeneChoices);
     };
 
     return (

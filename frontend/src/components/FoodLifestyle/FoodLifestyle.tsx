@@ -21,12 +21,14 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
     const [disabled, setDisabled] = useState(selection ? false : true);
 
     const onChoiceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSelection(e.target.value);
+        const targetValue = e.target.value;
+
+        setSelection(targetValue);
+        onChoice(targetValue);
         setDisabled(false);
     };
 
     const onSubmitSelection = () => {
-        onChoice(selection);
         onNext();
     };
 

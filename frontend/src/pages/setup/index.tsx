@@ -15,6 +15,8 @@ interface Preferences {
     foodDislikes: APISearchResponse[];
 }
 
+const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes'];
+
 const SetupParentPage = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [preferences, setPreferences] = useState<Preferences>({
@@ -33,6 +35,10 @@ const SetupParentPage = () => {
 
     const handleBackStep = () => {
         setCurrentStep(currentStep - 1);
+    };
+
+    const handleProgBarClick = (elementName: string) => {
+        setCurrentStep(stepNames.findIndex((el) => el === elementName) + 1);
     };
 
     const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
@@ -62,14 +68,14 @@ const SetupParentPage = () => {
             <Image src={logo} className="" alt="logo" width={200} priority />
             <div className="flex justify-center items-center ml-50">
                 <form className="flex flex-col justify-center py-8 px-12 h-70v w-2/3 bg-white-custom rounded-[20px]">
-                    <ProgressBar stepsCount={3} activeStep={currentStep} />
+                    <ProgressBar stepNames={stepNames} activeStep={currentStep} onClick={handleProgBarClick} />
                     <fieldset className="flex flex-col mt-10">
                         {currentStep === 1 && (
                             <FoodLifestyle
                                 onNext={handleNextStep}
-                                onChoice={(foodLiveStyle: string) => {
+                                onChoice={(foodLifeStyle: string) => {
                                     setPreferences({
-                                        formOfDiet: foodLiveStyle,
+                                        formOfDiet: foodLifeStyle,
                                         allergens: preferences.allergens,
                                         foodDislikes: preferences.foodDislikes,
                                     });
