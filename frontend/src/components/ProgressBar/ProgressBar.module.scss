@@ -1,12 +1,35 @@
 .step {
-    display: block;
+    display: inline-block;
     width: 1rem;
     height: 1rem;
     border-radius: 1rem;
     z-index: 2;
+    transition: transform 0.1s ease-in-out;
+    position: relative;
 
     &:hover {
+        transform: scale(2);
         cursor: pointer;
+
+        &::before {
+            display: block;
+        }
+    }
+
+    &::before {
+        content: attr(data-step-name);
+        position: absolute;
+        bottom: 50%;
+        right: 50%;
+        transform: translate(50%, -50%);
+        width: 70px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: var(--green-light);
+        color: var(--black);
+        text-align: center;
+
+        display: none; /* hide by default */
     }
 }
 
@@ -18,4 +41,12 @@
 .notDone {
     @extend .step;
     background-color: var(--gray-5);
+
+    &:hover {
+        background-color: var(--green-dark);
+    }
 }
+
+// .tooltip {
+//     position: relative;
+// }

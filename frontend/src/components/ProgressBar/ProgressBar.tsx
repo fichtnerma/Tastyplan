@@ -45,8 +45,12 @@ function ProgressBar({ stepNames, activeStep, onClick }: Props) {
                 <span
                     key={el}
                     data-step-name={stepNames[i]}
-                    className={el <= activeStep ? `step ${styles.done}` : `step ${styles.notDone}`}
-                    style={{ transform: el === activeStep ? 'scale(2)' : 'scale(1)' }}
+                    className={
+                        el <= activeStep
+                            ? `step ${styles.done} ${styles.tooltip}`
+                            : `step ${styles.notDone} ${styles.tooltip}`
+                    }
+                    style={{ transform: el === activeStep ? 'scale(2)' : '' }}
                 ></span>
             ))}
         </div>
