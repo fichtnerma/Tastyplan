@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { JwtToken } from 'src/types/types';
 import { CreateGuestDto, CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
 import { FormatLogin, UsersService } from 'src/users/users.service';
 import { JwtPayload } from './jwt.strategy';
@@ -56,7 +57,7 @@ export class AuthService {
         return { cookie, data: user };
     }
 
-    private _createToken({ userId }: FormatLogin): any {
+    private _createToken({ userId }: FormatLogin): JwtToken {
         const user: JwtPayload = { userId };
         const Authorization = this.jwtService.sign(user);
         return {

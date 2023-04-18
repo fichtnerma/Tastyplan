@@ -1,9 +1,10 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import Module from 'module';
 import { AppModule } from './app.module';
 
-declare const module: any;
+declare const module: Module & { hot?: { accept: () => void; dispose: (callback: () => void) => void } };
 
 const cookieParser = require('cookie-parser');
 

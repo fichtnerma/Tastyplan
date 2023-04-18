@@ -1,0 +1,32 @@
+{
+    "theme_color": "#3579f6",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "TastyPlan",
+    "short_name": "TastyPlan",
+    "description": "A Demo for TastyPlan",
+    "icons": [
+        {
+            "src": "/logo.svg",
+            "sizes": "192x192",
+            "type": "image/svg"
+        },
+        {
+            "src": "/logo.svg",
+            "sizes": "256x256",
+            "type": "image/svg"
+        },
+        {
+            "src": "/logo.svg",
+            "sizes": "384x384",
+            "type": "image/svg"
+        },
+        {
+            "src": "/logo.svg",
+            "sizes": "512x512",
+            "type": "image/svg"
+        }
+    ]
+}

@@ -14,7 +14,7 @@ import Image from 'next/image';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Star from '@components/Star/Star';
+import Icon from '@components/Icon/Icon';
 
 export default function DetailRecipe() {
     const router = useRouter();
@@ -31,7 +31,7 @@ export default function DetailRecipe() {
                 setRecipe(data);
                 setLoading(false);
             });
-    }, [loading]);
+    }, [loading, id]);
 
     function getFormOfDietIcon() {
         console.log(recipe.formOfDiet);
@@ -52,8 +52,11 @@ export default function DetailRecipe() {
             {!loading ? (
                 <div className={styles.container}>
                     <div className={styles.recipeBox}>
-                        <img src={`http://localhost:3000/images/${recipe.img || 'erbsensuppe.png'
-                            }`} alt={'Pancakes Bild'} className={styles.foodImg}></img>
+                        <img
+                            src={`http://localhost:3000/images/${recipe.img || 'erbsensuppe.png'}`}
+                            alt={'Pancakes Bild'}
+                            className={styles.foodImg}
+                        ></img>
                         <div className="ml-5">
                             <h1 className={styles.titleRecipe}>{recipe.name}</h1>
                             <div className="grid grid-cols-2">
@@ -100,16 +103,20 @@ export default function DetailRecipe() {
                                         <div className="grid grid-cols-2">
                                             <div>
                                                 {ingredientsSplited?.firstHalf.map((ingredient) => (
-                                                    <div className="grid grid-cols-3 gap-5">
-                                                        <p className="text-right ">{ingredient.quantity} {ingredient.unit}</p>
+                                                    <div key={ingredient.id} className="grid grid-cols-3 gap-5">
+                                                        <p className="text-right ">
+                                                            {ingredient.quantity} {ingredient.unit}
+                                                        </p>
                                                         <p className="text-left w-44">{ingredient.ingredient}</p>
                                                     </div>
                                                 ))}
                                             </div>
                                             <div>
                                                 {ingredientsSplited?.secondHalf.map((ingredient) => (
-                                                    <div className="grid grid-cols-3 gap-5">
-                                                        <p className="text-right ">{ingredient.quantity} {ingredient.unit}</p>
+                                                    <div key={ingredient.id} className="grid grid-cols-3 gap-5">
+                                                        <p className="text-right ">
+                                                            {ingredient.quantity} {ingredient.unit}
+                                                        </p>
                                                         <p className="text-left w-44">{ingredient.ingredient}</p>
                                                     </div>
                                                 ))}
@@ -132,7 +139,7 @@ export default function DetailRecipe() {
                                 <div>
                                     {recipe?.steps?.map((step: any) =>
                                         step.stepCount % 2 == 0 ? (
-                                            <div className="my-10">
+                                            <div key={step.stepCount} className="my-10">
                                                 <h4>Step {step.stepCount}:</h4>
                                                 <div className="flex gap-20">
                                                     <p className={` ${styles.recipeText}`}>{step.description}</p>
@@ -144,7 +151,7 @@ export default function DetailRecipe() {
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="my-10">
+                                            <div key={step.stepCount} className="my-10">
                                                 <h4>Step {step.stepCount}:</h4>
                                                 <div className="flex gap-20">
                                                     <Image
@@ -163,8 +170,8 @@ export default function DetailRecipe() {
                                 <h3 className="text-center text-green-custom2">Well done!</h3>
                                 <p className="text-center">How do you rate the recipe?</p>
                                 <div className="flex justify-center mt-5">
-                                    {Array.from(Array(5), () => (
-                                        <Star />
+                                    {Array.from(Array(5), (index) => (
+                                        <Icon key={index} size={24} icon={star} />
                                     ))}
                                 </div>
                             </div>
