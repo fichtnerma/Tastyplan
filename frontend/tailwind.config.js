@@ -1,8 +1,14 @@
+const { fontFamily } = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: ['./src/**/*.{js,ts,jsx,tsx}'],
     theme: {
         extend: {
+            fontFamily: {
+                inter: ['var(--font-inter)', ...fontFamily.sans],
+                bebas: ['var(--font-bebas)', ...fontFamily.sans],
+            },
             colors: {
                 green: {
                     custom1: '#d6e5e3',

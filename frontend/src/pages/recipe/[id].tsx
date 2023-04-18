@@ -1,20 +1,15 @@
-import styles from '../../styles/DetailRecipe.module.scss';
-
-import pancakes from '../../../public/Icons/carbonara.png';
-import timeIcon from '../../../public/Icons/time.svg';
-import kochIcon from '../../../public/Icons/kochmutze.png';
-import potIcon from '../../../public/Icons/topf.png';
-import star from '../../../public/Icons/star.svg';
-import veganIcon from '../../../public/Icons/vegetarian.png';
-import omnivorIcon from '../../../public/Icons/Steak_V2_Icon.svg';
-import pescetarianIcon from '../../../public/Icons/Fisch.svg';
-import vegetarianIcon from '../../../public/Icons/Soja.svg';
-
-import Image from 'next/image';
-
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import styles from '../../styles/DetailRecipe.module.scss';
+import veganIcon from '../../../public/Icons/vegetarian.png';
+import potIcon from '../../../public/Icons/topf.png';
+import timeIcon from '../../../public/Icons/time.svg';
+import omnivorIcon from '../../../public/Icons/Steak_V2_Icon.svg';
+import vegetarianIcon from '../../../public/Icons/Soja.svg';
 import Icon from '@components/Icon/Icon';
+import pescetarianIcon from '../../../public/Icons/Fisch.svg';
+import pancakes from '../../../public/Icons/carbonara.png';
 
 export default function DetailRecipe() {
     const router = useRouter();
@@ -123,15 +118,6 @@ export default function DetailRecipe() {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <div>
-                                <p>Gewürze:</p>
-                                {spieces.map((spiece) => (
-                                    <div className='flex'>
-                                        <input type='checkbox' className='mr-2' />
-                                        <p>{spiece}</p>
-                                    </div>
-                                ))}
-                            </div> */}
                                 </div>
                             </div>
                             <div className="mt-10">
@@ -171,7 +157,7 @@ export default function DetailRecipe() {
                                 <p className="text-center">How do you rate the recipe?</p>
                                 <div className="flex justify-center mt-5">
                                     {Array.from(Array(5), (index) => (
-                                        <Icon key={index} size={24} icon={star} />
+                                        <Icon key={index} size={24} icon="star" />
                                     ))}
                                 </div>
                             </div>

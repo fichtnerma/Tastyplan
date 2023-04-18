@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
@@ -14,7 +15,7 @@ function AuthenticationPage() {
     useEffect(() => {
         if (slug === 'login') setPageState('login');
         else if (slug === 'registration') setPageState('registration');
-    }, [slug]);
+    }, [router, slug]);
 
     const handleSignUp = () => {
         router.push(`${router.basePath}/authentication/registration`, undefined, undefined);

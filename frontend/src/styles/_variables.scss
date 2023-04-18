@@ -1,22 +1,3 @@
-@font-face {
-    font-family: "BebasNeue";
-    src: url("../../public/fonts/BebasNeue-Regular.ttf");
-}
-
-@font-face {
-    font-family: "Inter-Regular";
-    src: url("../../public/fonts/Inter-Regular.ttf");
-}
-
-@font-face {
-    font-family: "Inter-Bold";
-    src: url("../../public/fonts/Inter-Bold.ttf");
-}
-
-$font-family-headline: "BebasNeue";
-$font-family-text: "Inter-Regular";
-$font-family-text-bold: "Inter-Bold";
-
 $box-shadow: 5px 5px 5px 5px rgba(58, 58, 58, 0.1);
 $boder-radius-xs: 10px;
 $boder-radius: 20px;
