@@ -3,6 +3,7 @@ import Icon from '@components/Icon/Icon';
 import React, { useState } from 'react';
 import styles from './Register.module.scss';
 import { isEmailValidator, isPasswordValidator } from '@helpers/validations';
+import { APIRegistrationResponse } from 'src/types/types';
 
 interface RegisterProps {
     visible: boolean;
@@ -14,9 +15,39 @@ export default function Register({ visible }: RegisterProps) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConf, setPasswordConf] = useState('');
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+
+        const data = {
+            userId: username,
+            password: password,
+            email: mail,
+            role: 'user',
+        };
+
+        console.log(data);
+
+        const response = await fetch('http://localhost:3000/auth/register', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            redirect: 'follow',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const responseData = (await response.json()) as APIRegistrationResponse;
+
+        // if (response.ok) {
+        //     router.push(`${router.basePath}/authentication/login`, undefined, undefined);
+        // }
+    };
+
     return (
         <div className={`${styles.registerContainer} ${visible && styles.active}`}>
-            <form className='px-10 flex flex-col gap-4' action="#">
+            <form className='px-10 flex flex-col gap-4' action="#" onSubmit={handleSubmit}>
                 <h2>Register</h2>
                 <TextInput
                     value={username}
@@ -45,7 +76,7 @@ export default function Register({ visible }: RegisterProps) {
                     label="Repeat Password"
                     
                 />
-                <button className='btn-primary float-right'>Sign Up</button>
+                <input type='submit' className='btn-primary float-right'>Sign Up</input>
             </form>
         </div>
     );
