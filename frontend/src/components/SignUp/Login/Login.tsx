@@ -47,7 +47,7 @@ export default function Login({ visible }: LoginProps) {
                     label="Password"
                 />
                 <a href="#">Forgot your password?</a>
-                <button className='btn-primary'>Sign In</button>
+                <input type='submit' className='btn-primary'>Sign In</input>
             </form>
         </div>
     );
