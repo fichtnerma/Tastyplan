@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
-
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-
-import Star from '@components/Star/Star';
-
 import styles from '../../styles/DetailRecipe.module.scss';
-
 import veganIcon from '../../../public/Icons/vegetarian.png';
 import potIcon from '../../../public/Icons/topf.png';
 import timeIcon from '../../../public/Icons/time.svg';
 import omnivorIcon from '../../../public/Icons/Steak_V2_Icon.svg';
 import vegetarianIcon from '../../../public/Icons/Soja.svg';
+import Icon from '@components/Icon/Icon';
 import pescetarianIcon from '../../../public/Icons/Fisch.svg';
 import pancakes from '../../../public/Icons/carbonara.png';
 
@@ -30,7 +26,7 @@ export default function DetailRecipe() {
                 setRecipe(data);
                 setLoading(false);
             });
-    }, [loading]);
+    }, [loading, id]);
 
     function getFormOfDietIcon() {
         console.log(recipe.formOfDiet);
@@ -102,7 +98,7 @@ export default function DetailRecipe() {
                                         <div className="grid grid-cols-2">
                                             <div>
                                                 {ingredientsSplited?.firstHalf.map((ingredient) => (
-                                                    <div className="grid grid-cols-3 gap-5">
+                                                    <div key={ingredient.id} className="grid grid-cols-3 gap-5">
                                                         <p className="text-right ">
                                                             {ingredient.quantity} {ingredient.unit}
                                                         </p>
@@ -112,7 +108,7 @@ export default function DetailRecipe() {
                                             </div>
                                             <div>
                                                 {ingredientsSplited?.secondHalf.map((ingredient) => (
-                                                    <div className="grid grid-cols-3 gap-5">
+                                                    <div key={ingredient.id} className="grid grid-cols-3 gap-5">
                                                         <p className="text-right ">
                                                             {ingredient.quantity} {ingredient.unit}
                                                         </p>
@@ -129,7 +125,7 @@ export default function DetailRecipe() {
                                 <div>
                                     {recipe?.steps?.map((step: any) =>
                                         step.stepCount % 2 == 0 ? (
-                                            <div className="my-10">
+                                            <div key={step.stepCount} className="my-10">
                                                 <h4>Step {step.stepCount}:</h4>
                                                 <div className="flex gap-20">
                                                     <p className={` ${styles.recipeText}`}>{step.description}</p>
@@ -141,7 +137,7 @@ export default function DetailRecipe() {
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="my-10">
+                                            <div key={step.stepCount} className="my-10">
                                                 <h4>Step {step.stepCount}:</h4>
                                                 <div className="flex gap-20">
                                                     <Image
@@ -160,8 +156,8 @@ export default function DetailRecipe() {
                                 <h3 className="text-center text-green-custom2">Well done!</h3>
                                 <p className="text-center">How do you rate the recipe?</p>
                                 <div className="flex justify-center mt-5">
-                                    {Array.from(Array(5), () => (
-                                        <Star />
+                                    {Array.from(Array(5), (index) => (
+                                        <Icon key={index} size={24} icon="star" />
                                     ))}
                                 </div>
                             </div>
