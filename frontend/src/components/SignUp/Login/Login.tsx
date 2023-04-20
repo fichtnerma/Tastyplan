@@ -1,7 +1,6 @@
-import TextInput from '@components/FormInputs/TextInput';
-import Icon from '@components/Icon/Icon';
-import { signIn } from 'next-auth/react';
 import React, { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import TextInput from '@components/FormInputs/TextInput';
 import styles from './Login.module.scss';
 
 interface LoginProps {
@@ -31,23 +30,14 @@ export default function Login({ visible }: LoginProps) {
 
     return (
         <div className={`${styles.loginContainer} ${visible && styles.active}`}>
-            <form className='px-10 flex flex-col gap-4' action="#" onSubmit={handleSubmit}>
+            <form className="px-10 flex flex-col gap-4" action="#" onSubmit={handleSubmit}>
                 <h2>Sign in</h2>
-                <TextInput
-                    value={username}
-                    required
-                    onChange={setUsername}
-                    label="Username"
-                />
-                <TextInput
-                    value={password}
-                    type="password"
-                    required
-                    onChange={setPassword}
-                    label="Password"
-                />
+                <TextInput value={username} required onChange={setUsername} label="Username" />
+                <TextInput value={password} type="password" required onChange={setPassword} label="Password" />
                 <a href="#">Forgot your password?</a>
-                <input type='submit' className='btn-primary'>Sign In</input>
+                <input type="submit" className="btn-primary">
+                    Sign In
+                </input>
             </form>
         </div>
     );

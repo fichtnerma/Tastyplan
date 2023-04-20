@@ -1,9 +1,7 @@
-import TextInput from '@components/FormInputs/TextInput';
-import Icon from '@components/Icon/Icon';
 import React, { useState } from 'react';
-import styles from './Register.module.scss';
+import TextInput from '@components/FormInputs/TextInput';
 import { isEmailValidator, isPasswordValidator } from '@helpers/validations';
-import { APIRegistrationResponse } from 'src/types/types';
+import styles from './Register.module.scss';
 
 interface RegisterProps {
     visible: boolean;
@@ -18,7 +16,6 @@ export default function Register({ visible }: RegisterProps) {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
 
         const data = {
             userId: username,
@@ -38,24 +35,18 @@ export default function Register({ visible }: RegisterProps) {
             },
         });
 
-        const responseData = (await response.json()) as APIRegistrationResponse;
+        // const responseData = (await response.json()) as APIRegistrationResponse;
 
-        // if (response.ok) {
-        //     router.push(`${router.basePath}/authentication/login`, undefined, undefined);
-        // }
+        if (response.ok) {
+            // router.push(`${router.basePath}/authentication/login`, undefined, undefined);
+        }
     };
 
     return (
         <div className={`${styles.registerContainer} ${visible && styles.active}`}>
-            <form className='px-10 flex flex-col gap-4' action="#" onSubmit={handleSubmit}>
+            <form className="px-10 flex flex-col gap-4" action="#" onSubmit={handleSubmit}>
                 <h2>Register</h2>
-                <TextInput
-                    value={username}
-                    required
-                    onChange={setUsername}
-                    label="Username"
-                    
-                />
+                <TextInput value={username} required onChange={setUsername} label="Username" />
 
                 <TextInput value={mail} validate={isEmailValidator} required onChange={setMail} label="E-Mail" />
                 <TextInput
@@ -65,7 +56,6 @@ export default function Register({ visible }: RegisterProps) {
                     validate={isPasswordValidator}
                     onChange={setPassword}
                     label="Password"
-                    
                 />
                 <TextInput
                     value={passwordConf}
@@ -74,9 +64,10 @@ export default function Register({ visible }: RegisterProps) {
                     validate={isPasswordValidator}
                     onChange={setPasswordConf}
                     label="Repeat Password"
-                    
                 />
-                <input type='submit' className='btn-primary float-right'>Sign Up</input>
+                <input type="submit" className="btn-primary float-right">
+                    Sign Up
+                </input>
             </form>
         </div>
     );

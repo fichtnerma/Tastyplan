@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "willstakayama.vscode-nextjs-snippets",
+        "esbenp.prettier-vscode",
+        "prisma.prisma",
+        "bradlc.vscode-tailwindcss",
+        "redhat.vscode-yaml",
+        "formulahendry.auto-rename-tag",
+        "formulahendry.auto-complete-tag",
+        "formulahendry.auto-close-tag"
+    ]
+}

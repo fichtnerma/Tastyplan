@@ -1,30 +1,20 @@
 import React, { useEffect, useState } from 'react';
-
-// Import Swiper React components
+import Link from 'next/link';
+import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import 'swiper/swiper-bundle.css';
-
 import { Mousewheel, Navigation, Scrollbar } from 'swiper';
-
 import styles from '../../styles/WeekOverview.module.scss';
-
-import testImg from '../../../public/Icons/carbonara.png';
-import timeIcon from '../../../public/Icons/time.svg';
-import kochIcon from '../../../public/Icons/kochmutze.png';
-import potIcon from '../../../public/Icons/topf.png';
 import veganIcon from '../../../public/Icons/vegetarian.png';
+import potIcon from '../../../public/Icons/topf.png';
+import timeIcon from '../../../public/Icons/time.svg';
 import omnivorIcon from '../../../public/Icons/Steak_V2_Icon.svg';
-import pescetarianIcon from '../../../public/Icons/Fisch.svg';
 import vegetarianIcon from '../../../public/Icons/Soja.svg';
-
-import Image from 'next/image';
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import pescetarianIcon from '../../../public/Icons/Fisch.svg';
 
 export default function WeekOverview() {
     const { data: session, status } = useSession();

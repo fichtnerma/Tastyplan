@@ -1,9 +1,9 @@
+import React from 'react';
+import { CSSTransition } from 'react-transition-group';
 import Icon from '@components/Icon/Icon';
-import React, { useState } from 'react';
-import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import Login from './Login/Login';
-import Overlay from './Overlay/Overlay';
 import Register from './Register/Register';
+import Overlay from './Overlay/Overlay';
+import Login from './Login/Login';
 
 interface SignUpProps {
     currentForm: string;
@@ -12,16 +12,13 @@ interface SignUpProps {
 
 export default function SignUp({ currentForm, setRoute }: SignUpProps) {
     const isLogin = currentForm === 'login' ? true : false;
-    const isRegistration = currentForm === 'registration' ? true : false;
     const nodeRef = React.useRef(null);
     const nodeRef2 = React.useRef(null);
     const toggleForm = (activeForm: string) => {
-        console.log(activeForm);
-        // setIsLogin(!isLogin);
         setRoute(activeForm);
     };
 
-    const skipRegistration = (evt: MouseEvent) => {
+    const skipRegistration = (evt: React.MouseEvent) => {
         evt.preventDefault();
         fetch('/api/auth/skip-registration', {
             method: 'POST',
@@ -39,28 +36,18 @@ export default function SignUp({ currentForm, setRoute }: SignUpProps) {
                     isLogin ? 'text-white-custom' : 'text-black'
                 }`}
             >
-                <a href="#">
+                <a href="#" onClick={skipRegistration}>
                     <Icon size={20} icon="close" />
                 </a>
             </div>
             {isLogin ? (
-                <CSSTransition
-                    in={isLogin}
-                    timeout={600}
-                    nodeRef={nodeRef}
-                    classNames="fade-left"
-                >
+                <CSSTransition in={isLogin} timeout={600} nodeRef={nodeRef} classNames="fade-left">
                     <div ref={nodeRef}>
                         <Login visible={isLogin} />
                     </div>
                 </CSSTransition>
             ) : (
-                <CSSTransition
-                    in={isLogin}
-                    timeout={600}
-                    nodeRef={nodeRef2}
-                    classNames="fade-right"
-                >
+                <CSSTransition in={isLogin} timeout={600} nodeRef={nodeRef2} classNames="fade-right">
                     <div ref={nodeRef2}>
                         <Register visible={!isLogin} toggle={toggleForm} />
                     </div>

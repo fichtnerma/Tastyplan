@@ -1,21 +1,30 @@
 {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "tsconfig.json",
+        "sourceType": "module"
+    },
     "plugins": ["@typescript-eslint", "eslint-plugin-import-helpers"],
     "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "prettier"],
     "rules": {
         "@typescript-eslint/no-unused-vars": "error",
         "@typescript-eslint/no-explicit-any": "error",
+        "no-console": "warn",
         "import-helpers/order-imports": [
-            "warn",
+            "error",
             {
-                "newlinesBetween": "always", // new line between groups
+                "newlinesBetween": "never",
                 "groups": [
                     "/^react$/",
                     "/next/",
+                    "module",
                     "/@components/",
-                    "/types/",
                     "/@helpers/",
+                    "/@hooks/",
+                    "/types/",
                     "/module.scss/",
-                    "/public/"
+                    "/public/",
+                    ["parent", "sibling", "index"]
                 ],
                 "alphabetize": { "order": "desc", "ignoreCase": true }
             }
