@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Icon from '@components/Icon/Icon';
 import styles from '../../styles/DetailRecipe.module.scss';
 import veganIcon from '../../../public/Icons/vegetarian.png';
 import potIcon from '../../../public/Icons/topf.png';
 import timeIcon from '../../../public/Icons/time.svg';
 import omnivorIcon from '../../../public/Icons/Steak_V2_Icon.svg';
 import vegetarianIcon from '../../../public/Icons/Soja.svg';
-import Icon from '@components/Icon/Icon';
 import pescetarianIcon from '../../../public/Icons/Fisch.svg';
 import pancakes from '../../../public/Icons/carbonara.png';
 
