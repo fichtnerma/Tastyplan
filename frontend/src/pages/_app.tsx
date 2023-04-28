@@ -4,7 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { Inter, Bebas_Neue } from '@next/font/google';
-
 import Layout from '@components/Layout/Layout';
 
 const inter = Inter({ subsets: ['latin'], style: ['normal'], weight: ['200', '400', '700'], variable: '--font-inter' });

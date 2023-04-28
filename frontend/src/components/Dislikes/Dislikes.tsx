@@ -1,17 +1,11 @@
 import { useState } from 'react';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
-
-import { APISearchResponse } from 'src/types/types';
-
 import { debounce } from '@helpers/utils';
-
+import { APISearchResponse } from 'src/types/types';
 import styles from '../Dislikes/Dislikes.module.scss';
-
 import cross from '../../../public/Icons/kreuz.png';
 
 type OnBackFunction = () => void;

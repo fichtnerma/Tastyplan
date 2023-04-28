@@ -1,5 +1,5 @@
-import { isRequiredValidator } from '@helpers/validations';
 import React, { useState } from 'react';
+import { isRequiredValidator } from '@helpers/validations';
 
 interface TextInputProps {
     label: string;
@@ -9,7 +9,7 @@ interface TextInputProps {
     validate?: (value: string) => string | undefined;
     decoration?: React.ReactNode;
     decorationPosition?: 'start' | 'end';
-    onChange?: (value: any) => void;
+    onChange?: (value: string) => void;
 }
 
 export default function TextInput({
@@ -36,8 +36,8 @@ export default function TextInput({
         if (required) {
             const error = isRequiredValidator(value);
             setErrorMessage(error);
-            if(error) {
-                return
+            if (error) {
+                return;
             }
         }
         if (validate) {
@@ -51,7 +51,10 @@ export default function TextInput({
                 {decoration ? (
                     <div className={`absolute bottom-2 ${isAtStart ? 'left-2' : 'right-2'}`}>{decoration}</div>
                 ) : null}
-                <label htmlFor="text-input">{label}{required ? " *" : ""}</label>
+                <label htmlFor="text-input">
+                    {label}
+                    {required ? ' *' : ''}
+                </label>
                 <input
                     className={`border-2 ${isAtStart ? 'pl-9' : 'pl-4'} ${
                         isAtEnd ? 'pr-9' : 'pr-4'

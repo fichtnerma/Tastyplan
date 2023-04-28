@@ -1,7 +1,5 @@
 import React from 'react';
-
 import Link from 'next/link';
-
 import styles from '../Menu/Menu.module.scss';
 type MenuProps = {
     toggleMenu: () => void;

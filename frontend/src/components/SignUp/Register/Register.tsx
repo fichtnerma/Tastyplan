@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import router from 'next/router';
 import TextInput from '@components/FormInputs/TextInput';
 import { isEmailValidator, isPasswordValidator } from '@helpers/validations';
-import { APIRegistrationResponse } from 'src/types/types';
+// import { APIRegistrationResponse } from 'src/types/types';
 import styles from './Register.module.scss';
 
 interface RegisterProps {
@@ -37,7 +37,7 @@ export default function Register({ visible }: RegisterProps) {
             },
         });
 
-        const responseData = (await response.json()) as APIRegistrationResponse;
+        // const responseData = (await response.json()) as APIRegistrationResponse;
 
         if (response.ok) {
             router.push(`${router.basePath}/authentication/login`, undefined, undefined);

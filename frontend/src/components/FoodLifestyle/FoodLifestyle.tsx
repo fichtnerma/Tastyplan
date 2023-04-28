@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import styles from '../FoodLifestyle/FoodLifestyle.module.scss';
 
 type OnNextFunction = () => void;

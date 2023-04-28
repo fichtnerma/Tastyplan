@@ -1,21 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import IngredientList from '@components/IngredientList/IngredientList';
 import Icon from '@components/Icon/Icon';
+import { getFormOfDietIcon } from '@helpers/utils';
+import { Recipe, Step } from 'src/types/types';
 import styles from '../../styles/DetailRecipe.module.scss';
-import veganIcon from '../../../public/Icons/vegetarian.png';
-import potIcon from '../../../public/Icons/topf.png';
-import timeIcon from '../../../public/Icons/time.svg';
-import omnivorIcon from '../../../public/Icons/Steak_V2_Icon.svg';
-import vegetarianIcon from '../../../public/Icons/Soja.svg';
-import pescetarianIcon from '../../../public/Icons/Fisch.svg';
-import pancakes from '../../../public/Icons/carbonara.png';
 
 export default function DetailRecipe() {
     const router = useRouter();
 
     const [loading, setLoading] = useState(true);
-    const [recipe, setRecipe] = useState<any>({});
+    const [recipe, setRecipe] = useState<Recipe>();
 
     const id = router.query.id;
 
@@ -28,110 +24,72 @@ export default function DetailRecipe() {
             });
     }, [loading, id]);
 
-    function getFormOfDietIcon() {
-        console.log(recipe.formOfDiet);
-        if (recipe.formOfDiet == 'Vegetarisch') {
-            return vegetarianIcon;
-        } else if (recipe.formOfDiet == 'Vegan') {
-            return veganIcon;
-        } else if (recipe.formOfDiet == 'Pescetarian') {
-            return pescetarianIcon;
-        } else {
-            return omnivorIcon;
-        }
-    }
-
-    const ingredientsSplited = spiltSteps(recipe?.ingredients, 5);
     return (
         <>
             {!loading ? (
                 <div className={styles.container}>
                     <div className={styles.recipeBox}>
                         <img
-                            src={`http://localhost:3000/images/${recipe.img || 'erbsensuppe.png'}`}
+                            src={`http://localhost:3000/images/${recipe?.img || 'erbsensuppe.png'}`}
                             alt={'Pancakes Bild'}
                             className={styles.foodImg}
-                        ></img>
+                        />
                         <div className="ml-5">
-                            <h1 className={styles.titleRecipe}>{recipe.name}</h1>
+                            <h1 className={styles.titleRecipe}>{recipe?.name}</h1>
                             <div className="grid grid-cols-2">
                                 <div>
                                     <div className="flex">
                                         <div className="flex flex-col m-6">
                                             <Image
-                                                src={getFormOfDietIcon()}
+                                                src={getFormOfDietIcon(recipe?.formOfDiet)}
                                                 className="self-center mb-2"
                                                 alt="Time Icon"
                                                 width={40}
                                                 height={40}
                                                 priority
                                             />
-                                            <h5 className="text-center">{recipe.formOfDiet}</h5>
+                                            <h5 className="text-center">{recipe?.formOfDiet}</h5>
                                         </div>
                                         <div className="flex flex-col m-6">
                                             <Image
-                                                src={timeIcon}
+                                                src={'/Icons/time.svg'}
                                                 className="self-center mb-2"
                                                 alt="Time Icon"
                                                 width={40}
                                                 height={40}
                                                 priority
                                             />
-                                            <h5 className="text-center">{recipe.preparingTime} min</h5>
+                                            <h5 className="text-center">{recipe?.preparingTime} min</h5>
                                         </div>
                                         <div className="flex flex-col m-6">
                                             <Image
-                                                src={potIcon}
+                                                src={'/Icons/topf.png'}
                                                 className="self-center mb-2"
                                                 alt="Time Icon"
                                                 width={40}
                                                 height={40}
                                                 priority
                                             />
-                                            <h5 className="text-center">{recipe.cookingTime} min</h5>
+                                            <h5 className="text-center">{recipe?.cookingTime} min</h5>
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div>
-                                        <h4>Ingridients:</h4>
-                                        <div className="grid grid-cols-2">
-                                            <div>
-                                                {ingredientsSplited?.firstHalf.map((ingredient) => (
-                                                    <div key={ingredient.id} className="grid grid-cols-3 gap-5">
-                                                        <p className="text-right ">
-                                                            {ingredient.quantity} {ingredient.unit}
-                                                        </p>
-                                                        <p className="text-left w-44">{ingredient.ingredient}</p>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                            <div>
-                                                {ingredientsSplited?.secondHalf.map((ingredient) => (
-                                                    <div key={ingredient.id} className="grid grid-cols-3 gap-5">
-                                                        <p className="text-right ">
-                                                            {ingredient.quantity} {ingredient.unit}
-                                                        </p>
-                                                        <p className="text-left w-44">{ingredient.ingredient}</p>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <IngredientList ingredients={recipe?.ingredients} />
                             </div>
                             <div className="mt-10">
                                 <h3 className="text-green-custom2">The Recipe</h3>
                                 <div>
-                                    {recipe?.steps?.map((step: any) =>
+                                    {recipe?.steps?.map((step: Step) =>
                                         step.stepCount % 2 == 0 ? (
                                             <div key={step.stepCount} className="my-10">
                                                 <h4>Step {step.stepCount}:</h4>
                                                 <div className="flex gap-20">
                                                     <p className={` ${styles.recipeText}`}>{step.description}</p>
                                                     <Image
-                                                        src={pancakes}
+                                                        src={'/Icons/carbonara.png'}
                                                         alt={'Pancakes Bild'}
+                                                        width={400}
+                                                        height={300}
                                                         className={styles.stepImg}
                                                     ></Image>
                                                 </div>
@@ -141,8 +99,10 @@ export default function DetailRecipe() {
                                                 <h4>Step {step.stepCount}:</h4>
                                                 <div className="flex gap-20">
                                                     <Image
-                                                        src={pancakes}
+                                                        src={'/Icons/carbonara.png'}
                                                         alt={'Pancakes Bild'}
+                                                        width={400}
+                                                        height={300}
                                                         className={styles.stepImg}
                                                     ></Image>
                                                     <p className={styles.recipeText}>{step.description}</p>
@@ -169,23 +129,4 @@ export default function DetailRecipe() {
             )}
         </>
     );
-}
-
-function spiltSteps(list: any[] | null, cut: number) {
-    if (!list) {
-        return;
-    }
-    let firstHalf = [];
-    let secondHalf: any[] = [];
-    if (list.length > cut) {
-        const half = Math.ceil(list.length / 2);
-
-        firstHalf = list.slice(0, half);
-        secondHalf = list.slice(half);
-        return { firstHalf, secondHalf };
-    }
-
-    firstHalf = list;
-    console.log(firstHalf);
-    return { firstHalf, secondHalf };
 }
