@@ -18,3 +18,38 @@ export type UserCredentials = {
     password: string;
 
 };
+
+export type Recipe = {
+    cookingTime: number;
+    description: string;
+    formOfDiet: string;
+    id: number;
+    img: string;
+    ingredients: Array<Ingredient>;
+    name: string;
+    preparingTime:number; 
+    steps: Array<Step>;
+    totalTime: number;
+}
+
+export type Ingredient = {
+    ingredient: {name: string};
+    quantity: number;
+    unit: string;
+}
+
+export type Step = {
+    description: string;
+    stepCount: number;
+}
+
+export type Weekplan = {
+    endDate: string;
+    startDate: string;
+    weekplanEntry: Array<WeekplanEntry>;
+}
+
+export type WeekplanEntry = {
+    date: string;
+    recipe: Recipe;
+}

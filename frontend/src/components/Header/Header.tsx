@@ -1,15 +1,7 @@
 import React from 'react';
-
 import Link from 'next/link';
 import Image from 'next/image';
-
 import styles from '../Header/Header.module.scss';
-
-import logo from '../../../public/logo.svg';
-import user from '../../../public/Icons/Header/user.png';
-import setting from '../../../public/Icons/Header/setting.png';
-import list from '../../../public/Icons/Header/list.png';
-import calendar from '../../../public/Icons/Header/calendar.png';
 
 export default function Header() {
     return (
@@ -17,32 +9,44 @@ export default function Header() {
             <div className={styles.container}>
                 <Link href="/weekOverview">
                     <div className="ml-6 mt-3">
-                        <Image src={logo} alt="Calendar Img" width={90} height={90} priority />
+                        <Image src={'/logo.svg'} alt="Calendar Img" width={90} height={90} priority />
                     </div>
                 </Link>
 
                 <div className="flex gap-10 mr-8 mt-6">
                     <Link href="/weekOverview" className="">
                         <div className="flex gap-2 items-center">
-                            <Image src={calendar} alt="Calendar Img" width={15} height={15} priority />
+                            <Image
+                                src={'/Icons/Header/calendar.png'}
+                                alt="Calendar Img"
+                                width={15}
+                                height={15}
+                                priority
+                            />
                             <p>Weekplan</p>
                         </div>
                     </Link>
                     <Link href="/weekOverview" className="">
                         <div className="flex gap-2 items-center">
-                            <Image src={list} alt="List Img" width={15} height={15} priority />
+                            <Image src={'/Icons/Header/list.png'} alt="List Img" width={15} height={15} priority />
                             <p>Shopping List</p>
                         </div>
                     </Link>
                     <Link href="/weekOverview" className="">
                         <div className="flex gap-2 items-center">
-                            <Image src={setting} alt="Setting Img" width={15} height={15} priority />
+                            <Image
+                                src={'/Icons/Header/setting.png'}
+                                alt="Setting Img"
+                                width={15}
+                                height={15}
+                                priority
+                            />
                             <p>Settings</p>
                         </div>
                     </Link>
                     <Link href="/weekOverview" className="mt-1">
                         <div className="flex gap-2 items-center">
-                            <Image src={user} alt="User Img" width={15} height={15} priority />
+                            <Image src={'/Icons/Header/user.png'} alt="User Img" width={15} height={15} priority />
                         </div>
                     </Link>
                 </div>
