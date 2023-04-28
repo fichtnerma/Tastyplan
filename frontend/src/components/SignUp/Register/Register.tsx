@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import router from 'next/router';
 import TextInput from '@components/FormInputs/TextInput';
 import { isEmailValidator, isPasswordValidator } from '@helpers/validations';
+import { APIRegistrationResponse } from 'src/types/types';
 import styles from './Register.module.scss';
 
 interface RegisterProps {
@@ -22,9 +24,9 @@ export default function Register({ visible }: RegisterProps) {
             password: password,
             email: mail,
             role: 'user',
+            firstName: 'Max',
+            lastName: 'Mustermann',
         };
-
-        console.log(data);
 
         const response = await fetch('http://localhost:3000/auth/register', {
             method: 'POST',
@@ -35,10 +37,10 @@ export default function Register({ visible }: RegisterProps) {
             },
         });
 
-        // const responseData = (await response.json()) as APIRegistrationResponse;
+        const responseData = (await response.json()) as APIRegistrationResponse;
 
         if (response.ok) {
-            // router.push(`${router.basePath}/authentication/login`, undefined, undefined);
+            router.push(`${router.basePath}/authentication/login`, undefined, undefined);
         }
     };
 
@@ -65,9 +67,7 @@ export default function Register({ visible }: RegisterProps) {
                     onChange={setPasswordConf}
                     label="Repeat Password"
                 />
-                <input type="submit" className="btn-primary float-right">
-                    Sign Up
-                </input>
+                <input type="submit" className="btn-primary float-right" value="Register" />
             </form>
         </div>
     );

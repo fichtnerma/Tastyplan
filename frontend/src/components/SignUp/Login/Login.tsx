@@ -35,9 +35,7 @@ export default function Login({ visible }: LoginProps) {
                 <TextInput value={username} required onChange={setUsername} label="Username" />
                 <TextInput value={password} type="password" required onChange={setPassword} label="Password" />
                 <a href="#">Forgot your password?</a>
-                <input type="submit" className="btn-primary">
-                    Sign In
-                </input>
+                <input type="submit" className="btn-primary" value="Sign in" />
             </form>
         </div>
     );
