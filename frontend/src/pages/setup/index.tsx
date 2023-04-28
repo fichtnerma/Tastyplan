@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-
 import ProgressBar from '@components/ProgressBar/ProgressBar';
 import Intolerances from '@components/Intolerances/Intolerances';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';
-
 import { APISearchResponse } from 'src/types/types';
-
 import logo from '../../../public/logo.svg';
 
 interface Preferences {
@@ -29,10 +25,6 @@ const SetupParentPage = () => {
 
     const router = useRouter();
 
-    useEffect(() => {
-        console.log(preferences);
-    }, [preferences]);
-
     const { data: session } = useSession();
 
     const handleNextStep = () => {
@@ -45,7 +37,6 @@ const SetupParentPage = () => {
 
     const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
         evt.preventDefault();
-        console.log(preferences);
         await fetch('http://localhost:3000/preferences/', {
             method: 'POST',
             headers: {

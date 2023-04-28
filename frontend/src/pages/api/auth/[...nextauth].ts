@@ -1,6 +1,5 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import NextAuth from 'next-auth';
-
 import { UserCredentials } from 'src/types/types';
 
 export default NextAuth({

@@ -1,9 +1,6 @@
 import { useState } from 'react';
-
 import Image from 'next/image';
-
 import styles from '../Intolerances/Intolerances.module.scss';
-
 import gluten from '../../../public/Icons/Weizen.svg';
 import walnut from '../../../public/Icons/Wallnuss.svg';
 import soy from '../../../public/Icons/Soja.svg';

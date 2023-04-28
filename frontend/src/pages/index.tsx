@@ -1,24 +1,18 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import whatIsTasytPlanImg from '../../public/whatIsTastyPlan.svg';
-import startImg from '../../public/startpageImg.svg';
-import logo from '../../public/logo.svg';
-import user from '../../public/Icons/Header/user.png';
-import testImg from '../../public/anleitung.svg';
-
 export default function index() {
     return (
         <div className="w-full mt-[-20px]">
             <div className="h-screen">
                 <div className="flex justify-between">
                     <div className="flex h-[150px]">
-                        <Image src={logo} alt="logo" width={200} height={139} priority />
+                        <Image src={'/logo.svg'} alt="logo" width={200} height={139} priority />
                     </div>
                     <Link href="/authentication/login">
                         <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full mt-5">
                             <Image
-                                src={user}
+                                src={'/Icons/Header/user.png'}
                                 alt="logo"
                                 height={30}
                                 width={30}
@@ -31,7 +25,7 @@ export default function index() {
                 <div className="flex items-center justify-center h-3/5">
                     <div>
                         <div className="flex justify-center h-[350px] mt-[-100px]">
-                            <Image src={startImg} alt="img" width={600} height={800} priority />
+                            <Image src={'/startpageImg.svg'} alt="img" width={600} height={800} priority />
                         </div>
                         <p className="text-center">Tastyplan's AI will delight your taste buds -</p>
                         <p className="text-center mb-20">create your personalized meal plan!</p>
@@ -47,7 +41,7 @@ export default function index() {
             </div>
             <div className="mb-40 mt-10 flex">
                 <div className="flex justify-center h-[400px]">
-                    <Image src={whatIsTasytPlanImg} alt="img" width={1000} height={1200} priority />
+                    <Image src={'/whatIsTastyPlan.svg'} alt="img" width={1000} height={1200} priority />
                 </div>
                 <div className="w-4/5">
                     <h2>What is Tasty Plan?</h2>
@@ -83,7 +77,7 @@ export default function index() {
                     </p>
                 </div>
                 <div className="flex justify-center h-[600px]">
-                    <Image src={testImg} alt="img" width={900} height={1200} priority />
+                    <Image src={'/anleitung.svg'} alt="img" width={900} height={1200} priority />
                 </div>
             </div>
         </div>
