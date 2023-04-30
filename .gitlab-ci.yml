@@ -9,6 +9,16 @@ variables:
 services:
   - docker:20.10-dind
 
+.build-rules:
+  image: docker:20.10-dind
+  stage: build
+  rules:
+    - if: $CI_COMMIT_BRANCH == master
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      when: never
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 .base-rules:
   image: node:18-alpine
@@ -55,22 +65,16 @@ lint_client:
     - npm run lint
 
 build-api-image:
-  extends: .base-rules
-  image: docker:20.10-dind
-  stage: build
+  extends: .build-rules
   script:
     - cd api
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $CI_REGISTRY_IMAGE/api:latest .
     - docker push $CI_REGISTRY_IMAGE/api:latest
 
 build-client-image:
-  extends: .base-rules
-  image: docker:20.10-dind
-  stage: build
+  extends: .build-rules
   script:
     - cd api
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $CI_REGISTRY_IMAGE/client:latest .
     - docker push $CI_REGISTRY_IMAGE/client:latest
 
