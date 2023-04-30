@@ -32,6 +32,8 @@ export default function DetailRecipe() {
                         <Image
                             src={`/service/images/${recipe?.img}`}
                             alt={'Pancakes Bild'}
+                            width={400}
+                            height={400}
                             className={styles.foodImg}
                         />
                         <div className="ml-5">
