@@ -1,9 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
-import { compare, hash } from 'bcrypt';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateGuestDto, CreateUserDto, LoginUserDto, Role, UpdatePasswordDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateGuestDto, CreateUserDto, LoginUserDto, Role, UpdatePasswordDto } from './dto/create-user.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { compare, hash } from 'bcrypt';
+import { User } from '@prisma/client';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 export interface FormatLogin extends Partial<User> {
     userId: string;
@@ -21,11 +21,6 @@ export class UsersService {
         if (userInDb) {
             throw new HttpException('user_already_exist', HttpStatus.CONFLICT);
         }
-        console.log('parsed userDto', {
-            ...userDto,
-            role: Role.USER,
-            password: await hash(userDto.password, 10),
-        });
 
         const user = await this.prismaService.user.create({
             data: {
@@ -34,21 +29,17 @@ export class UsersService {
                 password: await hash(userDto.password, 10),
             },
         });
-        console.log('user', user);
 
         return user;
     }
 
     async createGuest(createGuestDto: CreateGuestDto): Promise<User> {
-        console.log('createGuestDto', createGuestDto);
-
         const user = await this.prismaService.user.create({
             data: {
                 ...createGuestDto,
                 role: Role.GUEST,
             },
         });
-        console.log('user', user);
 
         return user;
     }
@@ -87,12 +78,13 @@ export class UsersService {
             throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password: p, ...rest } = user;
         return rest;
     }
 
     //use by auth module to get user in database
-    async findByPayload({ userId }: any): Promise<any> {
+    async findByPayload({ userId }: { userId: string }): Promise<User> {
         return await this.prismaService.user.findFirst({
             where: { userId },
         });
@@ -107,7 +99,7 @@ export class UsersService {
     }
 
     update(id: number, updateUserDto: UpdateUserDto) {
-        return `This action updates a #${id} user`;
+        return `This action updates a #${id} user` + updateUserDto;
     }
 
     remove(id: number) {

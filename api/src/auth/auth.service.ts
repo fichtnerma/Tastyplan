@@ -1,11 +1,16 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { User } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtToken } from 'src/types/types';
-import { CreateGuestDto, CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
-import { FormatLogin, UsersService } from 'src/users/users.service';
 import { JwtPayload } from './jwt.strategy';
+import { FormatLogin, UsersService } from 'src/users/users.service';
+import { CreateGuestDto, CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from '@prisma/client';
+import { JwtService } from '@nestjs/jwt';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+
+type LoginReturnType = {
+    cookie: string;
+    data: FormatLogin;
+};
 
 @Injectable()
 export class AuthService {
@@ -32,11 +37,9 @@ export class AuthService {
             success: true,
             message: 'ACCOUNT_CREATE_SUCCESS',
         };
-        console.log('userDto', userDto);
 
         try {
             status.data = await this.usersService.create(userDto);
-            console.log('status.data', status.data);
         } catch (err) {
             status = {
                 success: false,
@@ -46,7 +49,7 @@ export class AuthService {
         return status;
     }
 
-    async login(loginUserDto: LoginUserDto): Promise<any> {
+    async login(loginUserDto: LoginUserDto): Promise<LoginReturnType> {
         // find user in db
         const user = await this.usersService.findByLogin(loginUserDto);
 
@@ -80,7 +83,7 @@ export class AuthService {
         return `Authentication=; Max-Age=0`;
     }
 
-    async validateUser(payload: JwtPayload): Promise<any> {
+    async validateUser(payload: JwtPayload): Promise<User> {
         const user = await this.usersService.findByPayload(payload);
         if (!user) {
             throw new HttpException('INVALID_TOKEN', HttpStatus.UNAUTHORIZED);

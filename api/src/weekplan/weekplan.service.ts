@@ -1,13 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { User, WeekplanEntry } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { IWeekplan, IWeekplanEntry } from './weekplan.interface';
 import { RecipesService } from 'src/recipes/recipes.service';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
 
-type Preferences = {
-    formOfDiet: string;
-    allergens: string[] | null;
-    foodDislikes: { id: number; name: string }[] | null;
-};
 @Injectable()
 export class WeekplanService {
     constructor(private prismaService: PrismaService, private recipeService: RecipesService) {}
@@ -39,17 +35,16 @@ export class WeekplanService {
         }
     }
 
-    private formatWeekPlan(weekplan: any) {
+    private formatWeekPlan(weekplan: IWeekplan) {
         const formattedWeekPlan = {
             startDate: weekplan.startDate,
             endDate: weekplan.endDate,
-            weekplanEntry: weekplan.weekplanEntry.map((entry: any) => ({
+            weekplanEntry: weekplan.weekplanEntry.map((entry: IWeekplanEntry) => ({
                 date: entry.date,
                 recipe: {
                     id: entry.recipe.id,
                     name: entry.recipe.name,
                     img: entry.recipe.img,
-                    difficulty: entry.recipe.difficulty,
                     preparingTime: entry.recipe.preparingTime,
                     cookingTime: entry.recipe.cookingTime,
                     formOfDiet: entry.recipe.formOfDiet,
@@ -76,7 +71,6 @@ export class WeekplanService {
                 ...recommendedMeals,
             ];
         }
-        console.log('recommended meals', recommendedMeals);
         const weekPlan = await this.prismaService.weekplan.create({
             data: {
                 userId: user.userId,
