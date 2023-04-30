@@ -55,11 +55,7 @@ lint_client:
     - npm run lint
 
 build-api-image:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: always
-    - if: '$CI_PIPELINE_SOURCE == "push"'
-      when: never
+  extends: .base-rules
   image: docker:20.10-dind
   stage: build
   script:
@@ -69,11 +65,7 @@ build-api-image:
     - docker push api:latest
 
 build-client-image:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: always
-    - if: '$CI_PIPELINE_SOURCE == "push"'
-      when: never
+  extends: .base-rules
   image: docker:20.10-dind
   stage: build
   script:
