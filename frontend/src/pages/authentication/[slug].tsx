@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-
 import SignUp from '@components/SignUp';
 import Modal from '@components/Layout/Modal';
 
@@ -17,19 +15,7 @@ function AuthenticationPage() {
         else if (slug === 'registration') setPageState('registration');
     }, [router, slug]);
 
-    const handleSignUp = () => {
-        router.push(`${router.basePath}/authentication/registration`, undefined, undefined);
-        setPageState('registration');
-    };
-
-    const handleSignIn = () => {
-        router.push(`${router.basePath}/authentication/login`, undefined, undefined);
-        setPageState('login');
-    };
-
     const handleModal = (pageState: string) => {
-        console.log(pageState);
-
         if (pageState === 'login') {
             router.push(`${router.basePath}/authentication/login`, undefined, undefined);
             setPageState('login');
