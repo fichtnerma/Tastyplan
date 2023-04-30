@@ -1,14 +1,62 @@
-cache:
-  paths:
-    - /frontend/node_modules
-
 stages:
-  - frontend lint
+  - test
+  - build
 
-frontend lint:
-  stage: frontend lint
-  image: "node:latest"
+variables:
+  RULES_CHANGES_PATH: "**/*"
+
+.base-rules:
+  image: node:18-alpine
+  interruptible: true
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - $RULES_CHANGES_PATH
+    - when: manual
+      allow_failure: true
+
+.backend:
+  extends: .base-rules
+  before_script:
+    - cd api
+    - npm ci
+  variables:
+    RULES_CHANGES_PATH: "api/**/*"
+  
+.frontend:
+  extends: .base-rules
+  before_script:
+    - cd frontend
+    - npm ci
+  variables:
+    RULES_CHANGES_PATH: "frontend/**/*"
+
+lint_api:
+  stage: test
+  extends: .backend
   script:
-    - cd frontend/
-    - npm install
     - npm run lint
+
+lint_client:
+  stage: test
+  extends: .frontend
+  script:
+    - npm run lint
+
+build-image:
+  extends: .base-rules
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: build
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
