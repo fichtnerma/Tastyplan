@@ -16,7 +16,7 @@ export default function DetailRecipe() {
     const id = router.query.id;
 
     useEffect(() => {
-        fetch(`http://localhost:3000/recipes/${id}`)
+        fetch(`/service/recipes/${id}`)
             .then((data) => data.json())
             .then((data) => {
                 setRecipe(data);
@@ -30,7 +30,7 @@ export default function DetailRecipe() {
                 <div className={styles.container}>
                     <div className={styles.recipeBox}>
                         <Image
-                            src={`http://localhost:3000/images/${recipe?.img}`}
+                            src={`/service/images/${recipe?.img}`}
                             alt={'Pancakes Bild'}
                             className={styles.foodImg}
                         />

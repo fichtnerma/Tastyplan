@@ -20,7 +20,7 @@ export default function WeekOverview() {
 
     useEffect(() => {
         if (!session) return;
-        fetch(`http://localhost:3000/weekplan/current`, {
+        fetch(`/service/weekplan/current`, {
             method: 'GET',
             headers: {
                 user: session?.user.userId ? session.user.userId : '',

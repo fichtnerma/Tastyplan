@@ -37,7 +37,7 @@ const SetupParentPage = () => {
 
     const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
         evt.preventDefault();
-        await fetch('http://localhost:3000/preferences/', {
+        await fetch('/service/preferences/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ const SetupParentPage = () => {
             },
             body: JSON.stringify(preferences),
         });
-        const weekplanRes = await fetch('http://localhost:3000/weekplan/create', {
+        const weekplanRes = await fetch('/service/weekplan/create', {
             method: 'POST',
             headers: {
                 user: session?.user.userId ? session.user.userId : '',

@@ -16,7 +16,7 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
             <div className={styles.wrapperContainer}>
                 <div className={styles.foodBox}>
                     <Image
-                        src={`http://localhost:3000/images/${recipe.img}`}
+                        src={`/service/images/${recipe.img}`}
                         width={200}
                         height={200}
                         alt="Food Img"

@@ -30,4 +30,12 @@ module.exports = {
             },
         ];
     },
+    async rewrites() {
+        return [
+            {
+                source: '/service/:path*',
+                destination: 'http://api:3000/:path*',
+            },
+        ];
+    },
 };
