@@ -1,8 +1,9 @@
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import Module from 'module';
+/* eslint-disable import-helpers/order-imports */
 import { AppModule } from './app.module';
+import Module from 'module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 
 declare const module: Module & { hot?: { accept: () => void; dispose: (callback: () => void) => void } };
 

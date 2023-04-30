@@ -1,5 +1,5 @@
-import { Controller, Get, Query } from '@nestjs/common';
 import { IngredientsService } from './ingredients.service';
+import { Controller, Get, Query } from '@nestjs/common';
 
 @Controller('ingredients')
 export class IngredientsController {
@@ -7,8 +7,6 @@ export class IngredientsController {
 
     @Get('')
     async getIngredients(@Query('search') search: string) {
-        console.log('search', search);
-
         if (search) {
             return this.ingredientsService.searchForIngredients(search);
         }

@@ -1,8 +1,9 @@
-import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
 import { AuthService } from './auth.service';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
+import { User } from '@prisma/client';
+import { PassportStrategy } from '@nestjs/passport';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -19,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
 
-    async validate(payload: JwtPayload): Promise<any> {
+    async validate(payload: JwtPayload): Promise<User> {
         const user = await this.authService.validateUser(payload);
         if (!user) {
             throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);

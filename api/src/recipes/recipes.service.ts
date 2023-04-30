@@ -1,15 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { Ingredient, User } from '@prisma/client';
-import { PreferencesService } from 'src/preferences/preferences.service';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { PreferencesService } from 'src/preferences/preferences.service';
+import { Ingredient, User } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class RecipesService {
     constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) {}
 
     async create(createRecipeDto: CreateRecipeDto) {
-        return 'This action adds a new recipe';
+        return 'This action adds a new recipe' + createRecipeDto.name;
     }
 
     async findById(id: number) {

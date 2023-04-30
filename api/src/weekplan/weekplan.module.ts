@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { RecipesModule } from 'src/recipes/recipes.module';
-import { WeekplanController } from './weekplan.controller';
 import { WeekplanService } from './weekplan.service';
+import { WeekplanController } from './weekplan.controller';
+import { RecipesModule } from 'src/recipes/recipes.module';
+import { Module } from '@nestjs/common';
 
 @Module({
     imports: [RecipesModule],

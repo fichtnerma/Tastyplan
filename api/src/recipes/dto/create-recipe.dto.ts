@@ -1,5 +1,5 @@
-import { IngredientWithAmount } from '@prisma/client';
 import { Steps } from '../../types/types';
+import { IngredientWithAmount } from '@prisma/client';
 
 export class CreateRecipeDto {
     name: string;

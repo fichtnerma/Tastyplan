@@ -1,6 +1,7 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { IngredientSearchResult } from './ingredient.interface';
+import { Ingredient } from '@prisma/client';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
-import { Ingredient, IngredientSearchResult } from './ingredient.interface';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
 export default class IngredientsSearchService {
@@ -28,13 +29,11 @@ export default class IngredientsSearchService {
                 { id: ingredient.id, name: ingredient.name },
             ]);
             return await this.elasticsearchService.bulk({ refresh: true, body });
-        } catch (error) {
-            console.log('no index found');
-        }
+        } catch (error) {}
     }
 
     async search(text: string) {
-        const { body }: any = await this.elasticsearchService.search<IngredientSearchResult>({
+        const { body } = await this.elasticsearchService.search<IngredientSearchResult>({
             index: this.index,
             body: {
                 query: {
@@ -47,6 +46,6 @@ export default class IngredientsSearchService {
             },
         });
         const hits = body.hits.hits;
-        return hits.map((item: any) => item._source);
+        return hits.map((item) => item._source);
     }
 }

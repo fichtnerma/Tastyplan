@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
 import { RecipesService } from './recipes.service';
 import { RecipesController } from './recipes.controller';
-import { IngredientsModule } from 'src/ingredients/ingredients.module';
 import { PreferencesModule } from 'src/preferences/preferences.module';
+import { IngredientsModule } from 'src/ingredients/ingredients.module';
+import { Module } from '@nestjs/common';
 
 @Module({
     imports: [IngredientsModule, PreferencesModule],

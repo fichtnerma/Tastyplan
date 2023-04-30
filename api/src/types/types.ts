@@ -1,4 +1,4 @@
-export interface Steps {
+export interface ISteps {
     stepCount: number;
     description: string;
 }
