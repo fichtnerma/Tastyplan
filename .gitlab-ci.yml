@@ -16,7 +16,7 @@ services:
     - if: $CI_COMMIT_BRANCH == "master"
       when: always
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
+      when: always
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
