@@ -54,7 +54,7 @@ lint_client:
 
 build-image:
   extends: .base-rules
-  image: docker:20.10
+  image: docker:20.10-dind
   stage: build
   script:
     - cd api
