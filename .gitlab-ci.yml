@@ -4,6 +4,8 @@ stages:
 
 variables:
   RULES_CHANGES_PATH: "**/*"
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
 services:
   - docker:20.10-dind
 
