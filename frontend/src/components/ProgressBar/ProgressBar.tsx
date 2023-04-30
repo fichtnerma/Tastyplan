@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import styles from '../ProgressBar/ProgressBar.module.scss';
 
 type Props = {
@@ -9,7 +8,6 @@ type Props = {
 };
 
 function ProgressBar({ stepNames, activeStep, onClick }: Props) {
-    // const [currentStep, setCurrentStep] = useState(stepNames[0]);
     const [numbersArr, setNumbersArr] = useState<number[]>([]);
 
     const getGradient = (stepsCount: number, activeStep: number) => {
@@ -42,16 +40,14 @@ function ProgressBar({ stepNames, activeStep, onClick }: Props) {
                 }}
             ></div>
             {numbersArr.map((el, i) => (
-                <span
-                    key={el}
-                    data-step-name={stepNames[i]}
-                    className={
-                        el <= activeStep
-                            ? `step ${styles.done} ${styles.tooltip}`
-                            : `step ${styles.notDone} ${styles.tooltip}`
-                    }
-                    style={{ transform: el === activeStep ? 'scale(2)' : '' }}
-                ></span>
+                <div key={el} className="relative flex items-center">
+                    <span
+                        data-step-name={stepNames[i]}
+                        className={el <= activeStep ? styles.stepDone : styles.stepNotDone}
+                        style={{ transform: el === activeStep ? 'scale(2)' : '' }}
+                    ></span>
+                    <p className={el <= activeStep ? styles.activeLabel : styles.label}>{stepNames[i]}</p>
+                </div>
             ))}
         </div>
     );

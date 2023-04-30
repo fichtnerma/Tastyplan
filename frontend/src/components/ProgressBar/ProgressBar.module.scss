@@ -15,30 +15,14 @@
             display: block;
         }
     }
-
-    &::before {
-        content: attr(data-step-name);
-        position: absolute;
-        bottom: 50%;
-        right: 50%;
-        transform: translate(50%, -50%);
-        width: 70px;
-        padding: 10px;
-        border-radius: 10px;
-        background-color: var(--green-light);
-        color: var(--black);
-        text-align: center;
-
-        display: none; /* hide by default */
-    }
 }
 
-.done {
+.stepDone {
     @extend .step;
     background-color: var(--green-dark);
 }
 
-.notDone {
+.stepNotDone {
     @extend .step;
     background-color: var(--gray-5);
 
@@ -47,6 +31,18 @@
     }
 }
 
-// .tooltip {
-//     position: relative;
-// }
+.label {
+    position: absolute;
+    top: 1.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.25rem; /* 20px */
+    white-space: nowrap;
+    color: var(--gray-5);
+}
+
+.activeLabel {
+    @extend .label;
+    color: var(--green-dark);
+}
