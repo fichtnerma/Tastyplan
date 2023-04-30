@@ -29,8 +29,8 @@ export default function DetailRecipe() {
             {!loading ? (
                 <div className={styles.container}>
                     <div className={styles.recipeBox}>
-                        <img
-                            src={`http://localhost:3000/images/${recipe?.img || 'erbsensuppe.png'}`}
+                        <Image
+                            src={`http://localhost:3000/images/${recipe?.img}`}
                             alt={'Pancakes Bild'}
                             className={styles.foodImg}
                         />
@@ -104,7 +104,7 @@ export default function DetailRecipe() {
                                                         width={400}
                                                         height={300}
                                                         className={styles.stepImg}
-                                                    ></Image>
+                                                    />
                                                     <p className={styles.recipeText}>{step.description}</p>
                                                 </div>
                                             </div>

@@ -17,6 +17,8 @@ module.exports = {
                 hostname: '**',
             },
         ],
+        domains: ['localhost'],
+        unoptimized: true,
     },
     reactStrictMode: true,
     async redirects() {
