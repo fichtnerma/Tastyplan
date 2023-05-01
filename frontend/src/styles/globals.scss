@@ -52,9 +52,10 @@ h1 {
     color: var(--black);
 }
 
-.h2-zeyada {
+.h2-zeyada-green {
     @extend .h2;
     font-family: var(--font-zeyada);
+    color: var(--green-dark);
 }
 
 .h2-white {
@@ -66,22 +67,49 @@ h2 {
     @extend .h2;
 }
 
-h3 {
+.h3 {
     font-family: var(--font-bebas);
     font-size: 50px;
     color: var(--black);
 }
 
-h4 {
+.h3-green-dark {
+    @extend .h3;
+    color: var(--green-dark);
+}
+
+h3 {
+    @extend .h3;
+}
+
+.h4 {
     font-family: var(--font-bebas);
     font-size: 40px;
     color: var(--black);
 }
 
-h5 {
+.h4-green-dark {
+    @extend .h4;
+    color: var(--green-dark);
+}
+
+h4 {
+    @extend .h4;
+}
+
+.h5 {
     font-family: var(--font-bebas);
     font-size: 28px;
     color: var(--black);
+}
+
+.h5-green-dark {
+    @extend .h5;
+    color: var(--green-dark);
+}
+
+h5 {
+    @extend .h5;
 }
 
 .p {
