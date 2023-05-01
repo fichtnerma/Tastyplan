@@ -11,6 +11,12 @@
         cursor: pointer;
     }
 
+    &:hover .heartIcon {
+        opacity: 1;
+        cursor: pointer;
+        top: 0px;
+    }
+
     &:hover .discriptionFood {
         top: 40px;
     }
@@ -21,6 +27,10 @@
 
     &:hover .threeLinesName {
         top: 100px;
+    }
+
+    &:hover .fourLinesName {
+        top: 130px;
     }
 
     &:hover .weekplanBoxToday {
@@ -72,10 +82,21 @@
 
 .discriptionHover {
     opacity: 0;
-    // display: none;
     pointer-events: none;
     transition: opacity 0.6s ease-in-out;
     position: absolute;
     margin-top: 25px;
     width: 240px;
+}
+
+.heartIcon {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease-in-out;
+    position: absolute;
+    transition: top 0.8s ease-in-out;
+    top: calc(100% - 10px);
+    width: 100%;
+    fill: none;
+    
 }

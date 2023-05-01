@@ -7,8 +7,15 @@ import 'swiper/css/scrollbar';
 import 'swiper/swiper-bundle.css';
 import { Mousewheel, Navigation, Scrollbar } from 'swiper';
 import RecipeCard from '@components/RecipeCard/RecipeCard';
+import Icon from '@components/Icon/Icon';
 import { Weekplan, WeekplanEntry } from 'src/types/types';
 import styles from '../../styles/WeekOverview.module.scss';
+
+type DateFormatOptions = {
+    year: '2-digit' | 'numeric';
+    month: '2-digit' | 'numeric' | 'narrow' | 'short' | 'long';
+    day: '2-digit' | 'numeric';
+};
 
 export default function WeekOverview() {
     const { data: session } = useSession();
@@ -18,7 +25,9 @@ export default function WeekOverview() {
 
     const today = new Date().getDay();
     const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+    const options: DateFormatOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
+
     useEffect(() => {
         if (!session) return;
         fetch(`/service/weekplan/current`, {
@@ -110,6 +119,17 @@ export default function WeekOverview() {
                                             >
                                                 {new Date(day.date).toLocaleDateString('de-DE', options)}
                                             </h5>
+                                        </div>
+                                        <div
+                                            className="flex justify-end w-[260px] h-2"
+                                            style={{
+                                                color:
+                                                    today == new Date(day.date).getDay()
+                                                        ? 'var(--green-dark)'
+                                                        : 'var(--black)',
+                                            }}
+                                        >
+                                            <Icon size={40} icon="threeDots"></Icon>
                                         </div>
                                         <RecipeCard
                                             recipe={day.recipe}

@@ -12,29 +12,8 @@ type RecipeCardProps = {
 };
 
 function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
-    const pTags = document.querySelectorAll('.recipeName');
-    const numLinesArray: { name: string | undefined; numLines: number }[] = [];
+    const className = getNumberOfLines(recipe);
 
-    if (pTags) {
-        pTags.forEach((pTag) => {
-            const lineHeight = parseInt(window.getComputedStyle(pTag).getPropertyValue('line-height'));
-            const numLines = Math.round(pTag.clientHeight / lineHeight);
-            const recipeName = pTag.textContent?.trim();
-            numLinesArray.push({ name: recipeName, numLines: numLines });
-        });
-    }
-    const matchingEntry = numLinesArray.find((entry) => entry.name === recipe.name);
-    const numLines = matchingEntry ? matchingEntry.numLines : null;
-    let className = styles.discriptionFood;
-
-    if (numLines) {
-        className =
-            numLines >= 3
-                ? `${styles.discriptionFood} ${styles.threeLinesName}`
-                : numLines == 2
-                ? `${styles.discriptionFood} ${styles.twoLinesName}`
-                : styles.discriptionFood;
-    }
     return (
         <Link href={`/recipe/${recipe.id}`}>
             <div className={styles.wrapperContainer}>
@@ -48,10 +27,18 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                     />
                 </div>
                 <div className={highlighted ? `${styles.weekplanBox} ${styles.weekplanBoxToday}` : styles.weekplanBox}>
+                    <div
+                        className={`justify-end flex relative p-2 ${styles.heartIcon}`}
+                        style={{
+                            color: highlighted ? 'var(--white)' : 'var(--black)',
+                        }}
+                    >
+                        <Icon size={30} icon="heart"></Icon>
+                    </div>
                     <div className={className}>
                         <div className="h-16 absolute bottom-0">
                             <p
-                                className="text-2xl w-56 absolute bottom-0 recipeName"
+                                className="text-2xl w-[200px] absolute bottom-0 recipeName"
                                 style={{
                                     color: highlighted ? 'var(--white)' : 'var(--black)',
                                 }}
@@ -110,6 +97,35 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
             </div>
         </Link>
     );
+}
+
+function getNumberOfLines(recipe: Recipe) {
+    const pTags = document.querySelectorAll('.recipeName');
+    const numLinesArray: { name: string | undefined; numLines: number }[] = [];
+    if (pTags) {
+        pTags.forEach((pTag) => {
+            const lineHeight = parseInt(window.getComputedStyle(pTag).getPropertyValue('line-height'));
+            const numLines = Math.round(pTag.clientHeight / lineHeight);
+            const recipeName = pTag.textContent?.trim();
+            numLinesArray.push({ name: recipeName, numLines: numLines });
+        });
+    }
+    const matchingEntry = numLinesArray.find((entry) => entry.name === recipe.name);
+    const numLines = matchingEntry ? matchingEntry.numLines : null;
+    let className = styles.discriptionFood;
+
+    if (numLines) {
+        className =
+            numLines >= 4
+                ? `${styles.discriptionFood} ${styles.fourLinesName}`
+                : numLines == 3
+                ? `${styles.discriptionFood} ${styles.threeLinesName}`
+                : numLines == 2
+                ? `${styles.discriptionFood} ${styles.twoLinesName}`
+                : styles.discriptionFood;
+    }
+
+    return className;
 }
 
 export default RecipeCard;

@@ -1,0 +1,7 @@
+<svg id="heart" viewBox="0 0 60 60"
+    xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+    <path id="Vector" fill-rule="evenodd" clip-rule="evenodd"
+        d="M41.2028 10C36.9458 10 32.4646 11.9716 29.7759 16.3531C27.3113 12.1907 22.8302 10 18.5731 10C12.2995 10 6.25 14.1624 6.25 22.049C6.25 31.0309 17.2288 40.232 30 52.5C42.7712 40.232 53.75 31.0309 53.75 22.049C53.5259 14.1624 47.4764 10 41.2028 10Z"
+        stroke-width="2.5" stroke-miterlimit="10" stroke-linecap="round" />
+
+</svg>
