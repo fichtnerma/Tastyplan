@@ -262,10 +262,10 @@ Hirsotto, cooked;Cereal products, pulses and potatoes;Other cereal products;144.
 Hollandaise sauce;Miscellaneous;Sauces;212.0;3.0;18.0;9.3;41.0;0.7;6.0;
 Elderberry, black, raw;Fruits;Fruits fresh;63.0;2.5;1.7;7.4;37.0;1.6;30.0;
 Honey;Sweets;Jams and sweet spreads;306.0;0.4;0.0;76.0;5.0;0.5;3.0;
-Hen's egg, whole, hard-boiled;Eggs;;156.0;14.0;10.9;0.3;46.0;1.7;12.0;egg
-Hen's egg, whole, raw;Eggs;;140.0;12.6;9.8;0.3;48.0;1.8;12.0;egg
-Chicken egg yolk, raw;Eggs;;349.0;16.4;31.3;0.3;140.0;5.5;12.0;egg
-Chicken egg white, raw;Eggs;;45.0;10.8;0.0;0.4;5.1;0.0;11.0;egg
+egg, hard-boiled;Eggs;;156.0;14.0;10.9;0.3;46.0;1.7;12.0;egg
+egg, raw;Eggs;;140.0;12.6;9.8;0.3;48.0;1.8;12.0;egg
+egg yolk, raw;Eggs;;349.0;16.4;31.3;0.3;140.0;5.5;12.0;egg
+egg white, raw;Eggs;;45.0;10.8;0.0;0.4;5.1;0.0;11.0;egg
 Legumes , cooked;Cereal products, pulses and potatoes;Legumes;127.0;9.6;1.9;14.7;36.0;2.0;44.0;
 Pulses , dried;Cereal products, pulses and potatoes;Legumes;336.0;25.1;4.9;39.7;96.0;6.0;130.0;
 Hummus;Miscellaneous;Sauces;204.0;7.3;14.0;9.4;170.0;2.1;75.0;
@@ -526,9 +526,9 @@ French fries , unsalted;Cereal products, pulses and potatoes;Potatoes;232.0;3.3;
 French fries , unsalted;Cereal products, pulses and potatoes;Potatoes;286.0;3.2;15.4;32.4;9.4;0.6;26.0;
 Popcorn;Salty snacks;Other salty snacks;367.0;12.0;4.2;62.9;10.0;2.7;110.0;
 Port wine, 18.5 vol%;Alcoholic drinks;Wine;152.0;0.2;0.0;12.0;7.0;0.4;9.0;
-Chicken, breast, with skin, raw;Meat and offal;Poultry;152.0;23.3;6.5;0.0;3.9;0.3;26.0;
-Chicken, breast, without skin, raw;Meat and offal;Poultry;107.0;24.6;1.0;0.0;3.3;0.3;27.0;
-Chicken, breast, escalope or cutlet, roasted;Meat and offal;Poultry;128.0;30.1;0.8;0.0;4.1;0.4;27.0;
+Chicken breast, with skin, raw;Meat and offal;Poultry;152.0;23.3;6.5;0.0;3.9;0.3;26.0;
+Chicken breast, without skin, raw;Meat and offal;Poultry;107.0;24.6;1.0;0.0;3.3;0.3;27.0;
+Chicken breast, escalope or cutlet, roasted;Meat and offal;Poultry;128.0;30.1;0.8;0.0;4.1;0.4;27.0;
 Chicken, whole, with skin, roasted;Meat and offal;Poultry;193.0;25.1;10.3;0.0;15.0;0.9;21.0;
 Chicken, whole, with skin, raw;Meat and offal;Poultry;168.0;18.8;10.3;0.0;12.0;0.7;20.0;
 Chicken, thigh, with skin, roasted;Meat and offal;Poultry;187.0;23.9;10.2;0.0;7.2;0.6;21.0;

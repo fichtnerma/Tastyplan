@@ -1,8 +1,13 @@
-// prisma/seed.ts
-
-import { PrismaClient } from '@prisma/client';
+/* eslint-disable import-helpers/order-imports */
+import {
+    gestaltSimilarity,
+    jaroWinklerSimilarity,
+    levenshteinMultiWordSimilarity,
+    smithWatermanSimilarity,
+} from '../src/helpers/similarity.utils';
+import Prep from '../src/helpers/MatchingPrep';
 import { convertToTime } from '../src/helpers/converter.utils';
-import { gestaltSimilarity, levenshteinMultiWordSimilarity } from '../src/helpers/similarity.utils';
+import { PrismaClient } from '@prisma/client';
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
@@ -24,10 +29,11 @@ type Ingredient = {
     calcium: string;
     iron: string;
     magnesium: string;
+    allergens: string[];
 };
 
 async function initIngredients() {
-    const ingredients: any = await readCSVIngredients();
+    const ingredients: Ingredient[] = await readCSVIngredients();
     for (let index = 1; index < ingredients.length + 1; index++) {
         const ingredient = ingredients[index - 1];
         await prisma.ingredient.upsert({
@@ -49,16 +55,15 @@ async function initIngredients() {
             },
         });
     }
-    console.log('Ingredients added');
 }
 
-function readCSVIngredients() {
+function readCSVIngredients(): Promise<Ingredient[]> {
     return new Promise((resolve, reject) => {
         const ingredients: Ingredient[] = [];
         try {
             fs.createReadStream('./prisma/seeds/ingredients.csv')
                 .pipe(parse({ separator: ';' }))
-                .on('data', function (row: any) {
+                .on('data', function (row: Ingredient) {
                     const ingredient = {
                         name: row['name'],
                         categories: row['categories'],
@@ -78,20 +83,18 @@ function readCSVIngredients() {
                     resolve(ingredients);
                 });
         } catch (error) {
-            console.error(error);
             reject(error);
         }
     });
 }
 
 async function initRecipes() {
-    // const rawdata = fs.readFileSync('./prisma/seeds/recipes.json');
     const rawdata = fs.readFileSync('./prisma/seeds/recipe_dump.json');
     const recipes = JSON.parse(rawdata);
 
     for (let index = 0; index < recipes.length; index++) {
         const recipe = recipes[index];
-        const ingredientEntities: any[] = [];
+        const ingredientEntities: { quantity: number; unit: string; ingredientId: number }[] = [];
         for (let index = 0; index < recipe.ingredients.length; index++) {
             const ingredient = recipe.ingredients[index];
             const ingredientEntity = {
@@ -122,62 +125,48 @@ async function initRecipes() {
                 tags: recipe.tags,
                 steps: {
                     createMany: {
-                        data: recipe.steps.map((step: any) => ({
+                        data: recipe.steps.map((step: { stepCount: number; description: string }) => ({
                             stepCount: +step.stepCount,
                             description: step.description,
                         })),
                     },
                 },
-            } as any,
+            },
         });
     }
 }
 
-async function findSimilarIngredients(ingredient: any) {
-    const ingredientSubStrings = ingredient.split(' ');
+async function findSimilarIngredients(ingredient: string) {
+    const preparedIngredient = Prep.prepForMatching(ingredient);
 
-    let ingredients: any[] = [];
-    for (let index = 0; index < ingredientSubStrings.length; index++) {
-        if (index > 1) break;
-        const matchingIngredients = await prisma.ingredient.findMany({
-            where: {
-                name: {
-                    startsWith: ingredientSubStrings[index].substring(0, 3),
-                },
-            },
-        });
-        ingredients.push(...matchingIngredients);
-    }
+    let ingredients = await prisma.ingredient.findMany();
 
     ingredients = ingredients.filter((value, index, self) => index === self.findIndex((t) => t.id === value.id));
     const similarIngredients = ingredients.map((ing) => {
         return {
             id: ing.id,
             name: ing.name,
-            levenshtein: levenshteinMultiWordSimilarity(ing.name, ingredient),
-            gestalt: gestaltSimilarity(ing.name, ingredient),
-            similarity: levenshteinMultiWordSimilarity(ing.name, ingredient) + gestaltSimilarity(ing.name, ingredient),
+            levenshtein: levenshteinMultiWordSimilarity(ing.name, preparedIngredient),
+            gestalt: gestaltSimilarity(ing.name, preparedIngredient),
+            smithWaterman: smithWatermanSimilarity(ing.name, preparedIngredient),
+            jaroWinkler: jaroWinklerSimilarity(ing.name, preparedIngredient),
+            similarity:
+                (levenshteinMultiWordSimilarity(ing.name, preparedIngredient) +
+                    gestaltSimilarity(ing.name, preparedIngredient) +
+                    jaroWinklerSimilarity(ing.name, preparedIngredient)) /
+                3,
         };
     });
-    const ing = similarIngredients.sort((a, b) => b.similarity - a.similarity)[0];
-    if (ing?.similarity < 1.2 || ing == undefined) {
-        console.log(
-            'Ingredient: ' +
-                ingredient +
-                ' -> ' +
-                ing?.name +
-                ' with similarity of: (' +
-                ing?.similarity +
-                ')' +
-                ' (' +
-                ing?.levenshtein +
-                ' + ' +
-                ing?.gestalt +
-                ')',
-        );
-    }
+    const ing = similarIngredients.sort((a, b) => b.similarity - a.similarity);
 
-    return ing?.id;
+    // if (ing[0]?.similarity < 0.6 || ing[0] == undefined) {
+    //     console.log('Bad match found for: ', preparedIngredient);
+    //     for (let index = 0; index < 3; index++) {
+    //         console.log('Similarities: ', ing[index]);
+    //     }
+    // }
+
+    return ing[0]?.id;
 }
 
 // execute the main function
