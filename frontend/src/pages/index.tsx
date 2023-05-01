@@ -84,6 +84,14 @@ export default function index() {
                     <Image src={'/anleitung.svg'} alt="img" width={900} height={1200} priority />
                 </div>
             </div>
+            <div className="flex flex-col items-center mb-48">
+                <h2 className="font-zeyada text-9xl text-green-custom2">Convinced?</h2>
+                <Link href="/authentication/registration">
+                    <button className="btn-primary w-1/2  border-2 border-solid border-gray-custom1 rounded-full">
+                        <h4 className="text-gray-custom1 px-[30px]">Start Planning</h4>
+                    </button>
+                </Link>
+            </div>
         </div>
     );
 }

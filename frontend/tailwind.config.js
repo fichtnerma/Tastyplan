@@ -8,6 +8,7 @@ module.exports = {
             fontFamily: {
                 inter: ['var(--font-inter)', ...fontFamily.sans],
                 bebas: ['var(--font-bebas)', ...fontFamily.sans],
+                zeyada: ['var(--font-zeyada)', ...fontFamily.sans],
             },
             colors: {
                 green: {
