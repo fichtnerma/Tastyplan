@@ -8,12 +8,12 @@ export const debounce = (fn: (...params: unknown[]) => unknown, ms = 300) => {
 
   export function getFormOfDietIcon(formOfDiet: string | undefined) {
     if (formOfDiet == 'vegetarisch') {
-        return '/Icons/Soja.svg';
+        return 'vegetarian';
     } else if (formOfDiet == 'vegan') {
-        return '/Icons/vegetarian.png';
+        return 'vegan';
     } else if (formOfDiet == 'pescetarian') {
-        return '/Icons/Fisch.svg';
+        return 'pescetarian';
     } else {
-        return '/Icons/Steak_V2_Icon.svg';
+        return 'omnivor';
     }
 }

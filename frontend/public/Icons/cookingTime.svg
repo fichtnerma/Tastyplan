@@ -1,0 +1,26 @@
+<svg id="cookingTime" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43.56 47.07"
+  stroke="currentColor">
+  <path
+    d="m33.82,14.44h3.49v25.4c0,3.44-2.79,6.23-6.23,6.23H12.48c-3.44,0-6.23-2.79-6.23-6.23V14.44h17.49"
+    style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
+  <path d="m41,20.75h-3.69v-3.51h3.69c.86,0,1.56.7,1.56,1.56v.39c0,.86-.7,1.56-1.56,1.56Z"
+    style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
+  <g>
+    <path
+      d="m33.91,9.84l3.25-.47c-.5-3.47-7.79-5.28-16.28-4.06-8.49,1.23-14.96,5.04-14.46,8.5l18.32-2.85"
+      style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
+    <path
+      d="m24.82,3.28l.21,1.43-8.3,1.2-.21-1.43c-.21-1.45.8-2.8,2.25-3.01l3.05-.44c1.45-.21,2.8.8,3.01,2.25h0Z"
+      style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
+  </g>
+  <circle cx="31.38" cy="10.29" r="2.77"
+    style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
+  <circle cx="26.11" cy="13.13" r="2.56"
+    style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
+  <circle cx="31.7" cy="15.65" r="2.26"
+    style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
+  <circle cx="35.94" cy="11.85" r="2.05"
+    style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
+  <path d="m2.56,17.24h3.69v3.51h-3.69c-.86,0-1.56-.7-1.56-1.56v-.39c0-.86.7-1.56,1.56-1.56Z"
+    style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
+</svg>

@@ -42,37 +42,20 @@ export default function DetailRecipe() {
                                 <div>
                                     <div className="flex">
                                         <div className="flex flex-col m-6">
-                                            <Image
-                                                src={getFormOfDietIcon(recipe?.formOfDiet)}
-                                                className="self-center mb-2"
-                                                alt="Time Icon"
-                                                width={40}
-                                                height={40}
-                                                priority
-                                            />
+                                            <Icon size={40} icon={getFormOfDietIcon(recipe?.formOfDiet)}></Icon>
                                             <h5 className="text-center">{recipe?.formOfDiet}</h5>
                                         </div>
                                         <div className="flex flex-col m-6">
-                                            <Image
-                                                src={'/Icons/time.svg'}
-                                                className="self-center mb-2"
-                                                alt="Time Icon"
-                                                width={40}
-                                                height={40}
-                                                priority
-                                            />
-                                            <h5 className="text-center">{recipe?.preparingTime} min</h5>
+                                            <Icon size={40} icon="totaltime"></Icon>
+                                            <h5 className="text-center">{recipe?.totalTime} min</h5>
                                         </div>
                                         <div className="flex flex-col m-6">
-                                            <Image
-                                                src={'/Icons/topf.png'}
-                                                className="self-center mb-2"
-                                                alt="Time Icon"
-                                                width={40}
-                                                height={40}
-                                                priority
-                                            />
+                                            <Icon size={40} icon="cookingTime"></Icon>
                                             <h5 className="text-center">{recipe?.cookingTime} min</h5>
+                                        </div>
+                                        <div className="flex flex-col m-6">
+                                            <Icon size={40} icon="preparingTime"></Icon>
+                                            <h5 className="text-center">{recipe?.preparingTime} min</h5>
                                         </div>
                                     </div>
                                 </div>
