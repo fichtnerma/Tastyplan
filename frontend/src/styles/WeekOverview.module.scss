@@ -2,18 +2,24 @@
 
 .container {
     margin-inline: auto;
+    h1 {
+        color: var(--green-dark);
+    }
 
     h2 {
         color: var(--green-light);
         writing-mode: vertical-lr;
         text-align: center;
-        line-height: 40px;
-        padding-right: 40px;
+        font-size: 100px;
+        line-height: 100px;
+        padding-right: 0px;
+        transform: rotate(180deg);
     }
 
-    h3 {
-        color: var(--green-dark);
+    h4 {
+        margin-bottom: -15px;
     }
+
 
     p {
         font-family: var(--font-inter);

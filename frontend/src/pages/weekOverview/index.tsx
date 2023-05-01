@@ -14,16 +14,17 @@ export default function WeekOverview() {
     const { data: session } = useSession();
     const [weekplan, setWeekplan] = useState<Weekplan>();
     const [loading, setLoading] = useState(true);
+    const nickname = session?.user.userId;
 
     const today = new Date().getDay();
     const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
     useEffect(() => {
         if (!session) return;
         fetch(`/service/weekplan/current`, {
             method: 'GET',
             headers: {
-                user: session?.user.userId ? session.user.userId : '',
+                user: nickname ? nickname : '',
             },
         })
             .then((response) => {
@@ -41,7 +42,7 @@ export default function WeekOverview() {
         <>
             {!loading ? (
                 <div className={styles.container}>
-                    <h3>Your Weekplan</h3>
+                    <h1>{nickname ? nickname + "'s" : 'Your'} Weekplan</h1>
                     <div className="flex mt-10">
                         <h2>Lunch</h2>
                         <Swiper
@@ -88,16 +89,28 @@ export default function WeekOverview() {
                             {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
                                 <SwiperSlide key={day.date}>
                                     <div className="mr-12">
-                                        <h4
-                                            style={{
-                                                color:
-                                                    today == new Date(day.date).getDay()
-                                                        ? 'var(--green-dark)'
-                                                        : 'var(--black)',
-                                            }}
-                                        >
-                                            {week[new Date(day.date).getDay()]}
-                                        </h4>
+                                        <div className="mb-5">
+                                            <h4
+                                                style={{
+                                                    color:
+                                                        today == new Date(day.date).getDay()
+                                                            ? 'var(--green-dark)'
+                                                            : 'var(--black)',
+                                                }}
+                                            >
+                                                {week[new Date(day.date).getDay()]}
+                                            </h4>
+                                            <h5
+                                                style={{
+                                                    color:
+                                                        today == new Date(day.date).getDay()
+                                                            ? 'var(--green-dark)'
+                                                            : 'var(--gray-3)',
+                                                }}
+                                            >
+                                                {new Date(day.date).toLocaleDateString('de-DE', options)}
+                                            </h5>
+                                        </div>
                                         <RecipeCard
                                             recipe={day.recipe}
                                             highlighted={today == new Date(day.date).getDay()}

@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Icon from '@components/Icon/Icon';
 import styles from '../Header/Header.module.scss';
 
 export default function Header() {
@@ -16,37 +17,25 @@ export default function Header() {
                 <div className="flex gap-10 mr-8 mt-6">
                     <Link href="/weekOverview" className="">
                         <div className="flex gap-2 items-center">
-                            <Image
-                                src={'/Icons/Header/calendar.png'}
-                                alt="Calendar Img"
-                                width={15}
-                                height={15}
-                                priority
-                            />
+                            <Icon size={30} icon="calender"></Icon>
                             <p>Weekplan</p>
                         </div>
                     </Link>
                     <Link href="/weekOverview" className="">
                         <div className="flex gap-2 items-center">
-                            <Image src={'/Icons/Header/list.png'} alt="List Img" width={15} height={15} priority />
+                            <Icon size={30} icon="shoppinglist"></Icon>
                             <p>Shopping List</p>
                         </div>
                     </Link>
                     <Link href="/weekOverview" className="">
                         <div className="flex gap-2 items-center">
-                            <Image
-                                src={'/Icons/Header/setting.png'}
-                                alt="Setting Img"
-                                width={15}
-                                height={15}
-                                priority
-                            />
+                            <Icon size={30} icon="settings"></Icon>
                             <p>Settings</p>
                         </div>
                     </Link>
                     <Link href="/weekOverview" className="mt-1">
                         <div className="flex gap-2 items-center">
-                            <Image src={'/Icons/Header/user.png'} alt="User Img" width={15} height={15} priority />
+                            <Icon size={30} icon="user"></Icon>
                         </div>
                     </Link>
                 </div>
