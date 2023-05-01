@@ -1,7 +1,7 @@
 .step {
     display: inline-block;
-    width: 1rem;
-    height: 1rem;
+    width: 1.1rem;
+    height: 1.1rem;
     border-radius: 1rem;
     z-index: 2;
     transition: transform 0.1s ease-in-out;
@@ -10,10 +10,16 @@
     &:hover {
         transform: scale(2);
         cursor: pointer;
+    }
+}
 
-        &::before {
-            display: block;
-        }
+.stepDisabled {
+    @extend .step;
+
+    &:hover {
+        transform: unset;
+        background-color: var(--gray-5) !important;
+        cursor: not-allowed;
     }
 }
 

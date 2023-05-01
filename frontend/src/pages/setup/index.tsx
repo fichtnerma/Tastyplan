@@ -19,6 +19,7 @@ const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes'];
 
 const SetupParentPage = () => {
     const [currentStep, setCurrentStep] = useState(1);
+    const [foodLifeStyleSelected, setFoodLifeStyleSelected] = useState(false);
     const [preferences, setPreferences] = useState<Preferences>({
         formOfDiet: '',
         allergens: [],
@@ -68,12 +69,18 @@ const SetupParentPage = () => {
             <Image src={logo} className="" alt="logo" width={200} priority />
             <div className="flex justify-center items-center ml-50">
                 <form className="flex flex-col justify-center py-8 px-48 h-70v w-2/3 bg-white-custom rounded-[20px]">
-                    <ProgressBar stepNames={stepNames} activeStep={currentStep} onClick={handleProgBarClick} />
-                    <fieldset className="flex flex-col mt-10">
+                    <ProgressBar
+                        stepNames={stepNames}
+                        activeStep={currentStep}
+                        foodLifeStyleSelected={foodLifeStyleSelected}
+                        onClick={handleProgBarClick}
+                    />
+                    <fieldset className="flex flex-col mt-14">
                         {currentStep === 1 && (
                             <FoodLifestyle
                                 onNext={handleNextStep}
                                 onChoice={(foodLifeStyle: string) => {
+                                    setFoodLifeStyleSelected(true);
                                     setPreferences({
                                         formOfDiet: foodLifeStyle,
                                         allergens: preferences.allergens,
