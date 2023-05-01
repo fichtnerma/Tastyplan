@@ -13,8 +13,8 @@ services:
   image: docker:20.10-dind
   stage: build
   rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: always
+    - if: $CI_COMMIT_BRANCH != "master"
+      when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: always
   before_script:
