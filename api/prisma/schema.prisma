@@ -11,35 +11,100 @@ datasource db {
 }
 
 model Ingredient {
-    id        Int      @id @default(autoincrement())
-    name      String   @unique
-    fat       Int
-    carbs     Int
-    protein   Int
-    calories  Int
-    calcium   Int
-    iron      Int
-    magnesium Int
-    recipes   Recipe[]
+    id                   Int                    @id @default(autoincrement())
+    name                 String
+    categories           String
+    subcategories        String?
+    allergens            String[]
+    fat                  Float?
+    carbs                Float?
+    protein              Float?
+    calories             Float?
+    calcium              Float?
+    iron                 Float?
+    magnesium            Float?
+    foodDislikes         Preferences[]
+    IngredientWithAmount IngredientWithAmount[]
 }
 
 model Recipe {
-    id          Int          @id @default(autoincrement())
-    name        String
-    ingredients Ingredient[]
-    steps       Step[]
+    id                  Int                    @id @default(autoincrement())
+    name                String
+    img                 String?
+    description         String?
+    cookingTime         Int?
+    preparingTime       Int
+    totalTime           Int
+    servings            Int
+    tags                String[]
+    formOfDiet          String
+    ingredients         IngredientWithAmount[]
+    steps               Step[]
+    weekplanEntryRecipe WeekplanEntry[]
+}
+
+model IngredientWithAmount {
+    id           Int         @id @default(autoincrement())
+    unit         String?
+    quantity     Float?
+    ingredientId Int?
+    ingredient   Ingredient? @relation(fields: [ingredientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    recipeId     Int?
+    recipe       Recipe?     @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Step {
-    id       Int    @id @default(autoincrement())
-    name     String
-    recipeId Int
-    recipe   Recipe @relation(fields: [recipeId], references: [id])
+    id          Int    @id @default(autoincrement())
+    description String
+    stepCount   Int
+    recipeId    Int
+    recipe      Recipe @relation(fields: [recipeId], references: [id])
 }
 
 model User {
-    id       Int     @id @default(autoincrement())
-    email    String  @unique
-    password String
-    name     String?
+    id        String  @id @default(uuid())
+    userId    String  @unique
+    email     String? @unique
+    password  String?
+    role      String  @default("USER")
+    firstName String?
+    lastName  String?
+
+    createdAt   DateTime      @default(now())
+    updatedAt   DateTime      @default(now()) @updatedAt
+    Weekplan    Weekplan[]
+    Preferences Preferences[]
+}
+
+model Preferences {
+    id           Int          @id @default(autoincrement())
+    userId       String       @unique
+    user         User         @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+    formOfDiet   String
+    allergens    String[]
+    foodDislikes Ingredient[]
+}
+
+model Weekplan {
+    id            Int             @id @default(autoincrement())
+    userId        String
+    user          User            @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+    startDate     DateTime
+    endDate       DateTime
+    weekplanEntry WeekplanEntry[]
+}
+
+model WeekplanEntry {
+    id         Int      @id @default(autoincrement())
+    date       DateTime @db.Date
+    weekplanId Int
+    weekplan   Weekplan @relation(fields: [weekplanId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    recipeId   Int
+    recipe     Recipe   @relation(fields: [recipeId], references: [id])
+}
+
+enum Role {
+    ADMIN
+    USER
+    GUEST
 }

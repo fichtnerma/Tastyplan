@@ -1,76 +1,91 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Ingredient } from 'src/ingredients/entities/ingredient.entity';
-import { IngredientsService } from 'src/ingredients/ingredients.service';
-import { Step } from 'src/steps/entities/step.entity';
-import { StepsService } from 'src/steps/steps.service';
-import { Repository } from 'typeorm';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
-import { UpdateRecipeDto } from './dto/update-recipe.dto';
-import { Recipe } from './entities/recipe.entity';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { PreferencesService } from 'src/preferences/preferences.service';
+import { Ingredient, User } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class RecipesService {
-    constructor(
-        @InjectRepository(Recipe)
-        private recipeRepository: Repository<Recipe>,
-        private stepsService: StepsService,
-        private ingredientsService: IngredientsService,
-    ) {}
+    constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) {}
 
     async create(createRecipeDto: CreateRecipeDto) {
-        const ingredientsPromises: Promise<Ingredient>[] = createRecipeDto.ingredients.map((ingredient) => {
-            return this.ingredientsService.findOne(ingredient);
-        });
-        const stepsPromises: Promise<Step>[] = createRecipeDto.steps.map((step) => this.stepsService.findOne(step));
-        const ingredients = await Promise.all([...ingredientsPromises]);
-        const steps = await Promise.all([...stepsPromises]);
-        const recipeObj = new Recipe();
-        recipeObj.name = createRecipeDto.name;
-        recipeObj.steps = steps;
-        recipeObj.ingredients = ingredients;
-
-        const recipe = await this.recipeRepository.create(recipeObj);
-        this.recipeRepository.save(recipe);
-        return recipe;
-    }
-
-    findAll() {
-        return this.recipeRepository.find();
+        return 'This action adds a new recipe' + createRecipeDto.name;
     }
 
     async findById(id: number) {
-        const recipe = await this.recipeRepository.findOneBy({ id: id });
-        // const recipe = this.recipeRepository.findOne(id);
-        if (recipe) {
-            return recipe;
-        }
-        throw new HttpException(`Recipe with id ${id} not found`, HttpStatus.NOT_FOUND);
+        const recipe = await this.prismaService.recipe.findUnique({
+            where: {
+                id: id,
+            },
+            select: {
+                id: true,
+                name: true,
+                description: true,
+                img: true,
+                formOfDiet: true,
+                preparingTime: true,
+                cookingTime: true,
+                totalTime: true,
+                ingredients: {
+                    select: {
+                        quantity: true,
+                        unit: true,
+                        ingredient: {
+                            select: {
+                                name: true,
+                            },
+                        },
+                    },
+                },
+                steps: {
+                    select: {
+                        stepCount: true,
+                        description: true,
+                    },
+                },
+            },
+        });
+
+        return recipe;
     }
 
-    async update(id: number, updateRecipeDto: UpdateRecipeDto) {
-        // const ingredientsPromises: Promise<Ingredient>[] = updateRecipeDto.ingredients.map((ingredient) => {
-        //     return this.ingredientsService.findOne(ingredient);
-        // });
-        const stepsPromises: Promise<Step>[] = updateRecipeDto.steps.map((step) => this.stepsService.findOne(step));
-        // const ingredients = await Promise.all([...ingredientsPromises]);
-        const steps = await Promise.all([...stepsPromises]);
-        const recipeObj = new Recipe();
-        recipeObj.name = updateRecipeDto.name;
-        recipeObj.steps = steps;
-        // recipeObj.ingredients = ingredients;
-        await this.recipeRepository.update(id, recipeObj);
-        const updateRecipe = await this.recipeRepository.findOneBy({ id: id });
-        if (updateRecipe) {
-            return updateRecipe;
-        }
-        throw new HttpException(`Recipe with id ${id} not found`, HttpStatus.NOT_FOUND);
-    }
+    async filterByPreferences(user: User) {
+        const possibleDietsMap = new Map([
+            ['vegan', ['vegan']],
+            ['vegetarian', ['vegan', 'vegetarian']],
+            ['pescetarian', ['vegan', 'vegetarian', 'pescetarian']],
+            ['flexitarian', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
+            ['omnivore', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
+        ]);
+        const preferences = await this.preferencesService.getPreferences(user);
+        const { formOfDiet, allergens } = preferences;
+        const dislikedIngredients = preferences.foodDislikes.map((item: Ingredient) => item.id);
 
-    async remove(id: number) {
-        const deleteResponse = await this.recipeRepository.delete(id);
-        if (!deleteResponse.affected) {
-            throw new HttpException(`Recipe with id ${id} not found`, HttpStatus.NOT_FOUND);
-        }
+        const recipes = await this.prismaService.recipe.findMany({
+            where: {
+                formOfDiet: {
+                    in: possibleDietsMap.get(formOfDiet),
+                },
+                ingredients: {
+                    every: {
+                        ingredient: {
+                            id: {
+                                notIn: dislikedIngredients,
+                            },
+                            NOT: {
+                                allergens: {
+                                    hasSome: allergens,
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+            select: {
+                id: true,
+            },
+        });
+
+        return recipes;
     }
 }

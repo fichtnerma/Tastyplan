@@ -1,0 +1,1444 @@
+[
+    {
+        "name": "Nudeln mit Pesto",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Noodles",
+                "amount": "150 g"
+            },
+            {
+                "name": "Pesto",
+                "amount": "100 g"
+            },
+            {
+                "name": "Cocktail tomatoes",
+                "amount": "250 g"
+            },
+            {
+                "name": "Feta",
+                "amount": "90 g"
+            },
+            {
+                "name": "Sunflower seeds",
+                "amount": "20 g"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Zuerst die Nudeln in einem Topf mit Salzwasser nach Packungsanleitung kochen. Anschließend in einem Sieb gut abtropfen lassen."
+            },
+            {
+                "stepCount": "2",
+                "description": "In der Zwischenzeit Tomaten und Feta schneiden und die Sonnenblumenkerne in der Pfanne auf niedriger Hitze anrösten, bis sie goldbraun sind."
+            },
+            {
+                "stepCount": "3",
+                "description": "Sobald die Nudeln fertig sind, das Pesto unter die Nudeln rühren. Die Nudeln mit den Tomaten, dem Feta und den Sonnenblumenkernen vermengen und mit Salz und Pfeffer abschmecken."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "15 min",
+        "kitchenware": [
+            "Topf",
+            "Pfanne"
+        ],
+        "type": "Vegetarisch"
+    },
+    {
+        "name": "Erbsensuppe",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Onion",
+                "amount": "0.5"
+            },
+            {
+                "name": "Butter",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Peas",
+                "amount": "100 g"
+            },
+            {
+                "name": "Garlic clove",
+                "amount": "1"
+            },
+            {
+                "name": "Vegetable broth",
+                "amount": "200 ml"
+            },
+            {
+                "name": "Cream",
+                "amount": "50 ml"
+            },
+            {
+                "name": "Nutmeg",
+                "amount": "1 Prise"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Zuerst Zwiebel schälen und in feine Würfel schneiden. Die Butter in einen Topf geben und bei mittlerer Hitze schmelzen. Die Zwiebeln hineingeben und unter gelegentlichem Rühren für etwa 3 Minuten anschwitzen."
+            },
+            {
+                "stepCount": "2",
+                "description": "Mit Gemüsebrühe ablöschen und aufkochen. Die Erbsen hineingeben und aufkochen lassen. Die Erbsen mit einem Pürierstab zu einer feinen Suppe pürieren. Dabei nach und nach die Sahne unterrühren."
+            },
+            {
+                "stepCount": "3",
+                "description": "Die Suppe mit Salz und Pfeffer sowie etwas Muskatnuss abschmecken."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "25 min",
+        "kitchenware": [
+            "Topf",
+            "Pürierstab"
+        ],
+        "type": "Vegetarisch"
+    },
+    {
+        "name": "Shakshuka",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Onion",
+                "amount": "1"
+            },
+            {
+                "name": "Paprika",
+                "amount": "0.5"
+            },
+            {
+                "name": "Olive oil",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Cumin",
+                "amount": "0.5 TL"
+            },
+            {
+                "name": "Cinnamon powder",
+                "amount": "1 Prise"
+            },
+            {
+                "name": "Paprika powder rose hot",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Canned chunky tomatoes",
+                "amount": "200 g"
+            },
+            {
+                "name": "Eggs",
+                "amount": "2"
+            },
+            {
+                "name": "Water",
+                "amount": "100 ml"
+            },
+            {
+                "name": "Salt"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Zwiebel und Knoblauch schälen und würfeln, Paprika waschen und würfeln."
+            },
+            {
+                "stepCount": "2",
+                "description": "Das Öl in einem Topf erhitzen und Zwiebel, Knoblauch und Paprika darin bei großer Hitze unter Rühren scharf anbraten. Die Hitze auf mittlere Temperatur reduzieren, die Gewürze hinzufügen und 5 min kochen lassen."
+            },
+            {
+                "stepCount": "3",
+                "description": "Die Tomaten dazugeben und 100ml Wasser über das Gemüse gießen. Alles offen noch 10 min köcheln lassen, bis die Sauce leicht andickt, dabei gelegentlich umrühren."
+            },
+            {
+                "stepCount": "4",
+                "description": "Mit einem großen Löffel zwei Mulden für die Eier in die Sauce drücken und die Eier aufschlagen und jeweils hineingeben. Den Topf mit Deckel weitere 3-5 min weitergaren, bis das Eiweiß gestockt und das Eigelb noch flüssig ist."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "10 min",
+        "cookingTime": "20 min",
+        "kitchenware": [
+            "Topf"
+        ],
+        "type": "Vegetarisch"
+    },
+    {
+        "name": "Chilli sin Carne",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Soy granules",
+                "amount": "75 g"
+            },
+            {
+                "name": "Rice",
+                "amount": "60 g"
+            },
+            {
+                "name": "Strained tomatoes",
+                "amount": "250 ml"
+            },
+            {
+                "name": "Tomato paste",
+                "amount": "2 EL"
+            },
+            {
+                "name": "Kidney beans",
+                "amount": "200 g"
+            },
+            {
+                "name": "Maize",
+                "amount": "150 g"
+            },
+            {
+                "name": "Vegetable broth",
+                "amount": "100 ml"
+            },
+            {
+                "name": "Cocoa",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            },
+            {
+                "name": "Garlic powder"
+            },
+            {
+                "name": "Paprika powder"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Sojaschnetzel nach Packungsanleitung vorbereiten und anbraten."
+            },
+            {
+                "stepCount": "2",
+                "description": "Reis mit doppelter Menge Salzwasser kochen."
+            },
+            {
+                "stepCount": "3",
+                "description": "Tomatenmark zum Sojageschnetzeltem hinzugeben und kurz anbraten."
+            },
+            {
+                "stepCount": "4",
+                "description": "Passierte Tomaten und Gemüsebrühe zugeben und für 15 min köcheln lassen."
+            },
+            {
+                "stepCount": "5",
+                "description": "Mais und Kidneybohnen absieben und hinzugeben."
+            },
+            {
+                "stepCount": "6",
+                "description": "Mit Kakao und Gewürzen abschmecken."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "10 min",
+        "cookingTime": "15 min",
+        "kitchenware": [
+            "Topf"
+        ],
+        "type": "Vegan"
+    },
+    {
+        "name": "Geschnetzeltes mit Spätzle",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Mushrooms",
+                "amount": "150 g"
+            },
+            {
+                "name": "Onion",
+                "amount": "0.5"
+            },
+            {
+                "name": "Garlic clove",
+                "amount": "1"
+            },
+            {
+                "name": "Pork cutlet",
+                "amount": "150 g"
+            },
+            {
+                "name": "Oil",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Spaetzle",
+                "amount": "150 g"
+            },
+            {
+                "name": "Flour",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Balsamic vinegar",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Beef broth",
+                "amount": "100 ml"
+            },
+            {
+                "name": "Sour cream",
+                "amount": "50 g"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Champignons putzen und in Scheiben schneiden. Zwiebel schälen und würfeln. Schnitzel trocken tupfen und quer zur Faser in mundgerechte Streifen schneiden. Die Hälfte vom Öl in der Pfanne erhitzen und die Streifen 3 min kräftig darin anbraten. Mit Pfeffer und Salz abschmecken, dann aus der Pfanne nehmen."
+            },
+            {
+                "stepCount": "2",
+                "description": "Ca. 1 Liter Wasser im Wasserkocher aufkochen, in einem Topf umfüllen, salzen und erneut aufkochen. Spätzle nach Packungsanweisung garen. Pfanne mit Küchenpapier auswischen, Champignons und Zwiebel darin im übrigen Öl goldbraun braten, salzen und pfeffern. Mehl darüber streuen, Essig und Brühe zugießen und aufkochen lassen. Schmand unterrühren, Fleisch zugeben, erhitzen und mit Salz und Pfeffer abschmecken."
+            },
+            {
+                "stepCount": "3",
+                "description": "Spätzle in ein Sieb abgießen, abtropfen lassen und mit dem Geschnetzelten anrichten."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "25 min",
+        "kitchenware": [
+            "Topf",
+            "Wasserkocher",
+            "Pfanne"
+        ],
+        "type": "Omnivor"
+    },
+    {
+        "name": "Feldsalat Bowl",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Couscous",
+                "amount": "80 g"
+            },
+            {
+                "name": "Water",
+                "amount": "160 ml"
+            },
+            {
+                "name": "Lamb's lettuce",
+                "amount": "200 g"
+            },
+            {
+                "name": "Sweet potato",
+                "amount": "1 kleine"
+            },
+            {
+                "name": "Olive oil",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Onion",
+                "amount": "1"
+            },
+            {
+                "name": "Cherry tomatoes",
+                "amount": "10"
+            },
+            {
+                "name": "Yoghurt",
+                "amount": "75 g"
+            },
+            {
+                "name": "Garlic powder",
+                "amount": "1"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            },
+            {
+                "name": "Garlic powder"
+            },
+            {
+                "name": "Paprika powder"
+            },
+            {
+                "name": "Curry powder"
+            },
+            {
+                "name": "Coriander"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Backofen auf 200 Grad Umluft vorheizen. Süßkartoffel klein schneiden und mit Öl und den Gewürzen marinieren. Anschließend auf einem Backblech in den Ofen für ca. 30 min backen."
+            },
+            {
+                "stepCount": "2",
+                "description": "Wasser im Wasserkocher zum Kochen bringen. Währenddessen den Couscous in eine Schüssel mit den Gewürzen geben. Anschließend mit dem kochenden Wasser übergießen und ziehen lassen."
+            },
+            {
+                "stepCount": "3",
+                "description": "Für den Joghurt Dip Knoblauch in den Joghurt mit einer Knoblauchpresse pressen (oder klein schneiden) und die restlichen Gewürze hinzugeben."
+            },
+            {
+                "stepCount": "4",
+                "description": "Tomaten und Zwiebeln schneiden, sowie Feldsalat waschen."
+            },
+            {
+                "stepCount": "5",
+                "description": "Sobald die Süßkartoffeln fertig sind, alle Zutaten in die Schüssel mit Couscous geben."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "30 min",
+        "kitchenware": [
+            "Ofen",
+            "Wasserkocher"
+        ],
+        "type": "Vegetarisch"
+    },
+    {
+        "name": "Carbonara",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Noodles",
+                "amount": "150 g"
+            },
+            {
+                "name": "Egg",
+                "amount": "1"
+            },
+            {
+                "name": "Parmesan",
+                "amount": "30 g"
+            },
+            {
+                "name": "Bacon cubes",
+                "amount": "50 g"
+            },
+            {
+                "name": "Parsley",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            },
+            {
+                "name": "Garlic powder"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Nudeln nach Packungsanleitung kochen."
+            },
+            {
+                "stepCount": "2",
+                "description": "Ei, Parmesan, Petersilie und Gewürze zusammenrühren. Etwas Nudelwasser hinzugeben."
+            },
+            {
+                "stepCount": "3",
+                "description": "Speck in einer Pfanne anbraten."
+            },
+            {
+                "stepCount": "4",
+                "description": "Nudeln in die Pfanne geben und Parmesan-Ei Mischung darüber verteilen."
+            },
+            {
+                "stepCount": "5",
+                "description": "Alles durchmischen bis das Ei fest wird."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "30 min",
+        "kitchenware": [
+            "Pfanne",
+            "Topf"
+        ],
+        "type": "Omnivor"
+    },
+    {
+        "name": "Couscous Salat mit Joghurt Dip",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Couscous",
+                "amount": "60 g"
+            },
+            {
+                "name": "Tomatoes",
+                "amount": "125 g"
+            },
+            {
+                "name": "Cucumber",
+                "amount": "0.5"
+            },
+            {
+                "name": "Spring onions",
+                "amount": "1"
+            },
+            {
+                "name": "Parsley",
+                "amount": "2 EL"
+            },
+            {
+                "name": "Lemon juice",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Olive oil",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Paprika powder",
+                "amount": "0.5 TL"
+            },
+            {
+                "name": "Yoghurt",
+                "amount": "150 g"
+            },
+            {
+                "name": "Water",
+                "amount": "120 ml"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Wasser kochen und mit Couscous in einer Schüssel vermengen und 10 min quellen lassen."
+            },
+            {
+                "stepCount": "2",
+                "description": "In der Zwischenzeit Tomaten, Gurke und Frühlingszwiebeln waschen und klein schneiden. Petersilie waschen und fein hacken."
+            },
+            {
+                "stepCount": "3",
+                "description": "Couscous, Kräuter und Gemüse in der Schüssel vermengen. Zitronensaft, Öl, Paprikapulver, Pfeffer und Salz zu einer Marinade verrühren und unter den Salat mischen."
+            },
+            {
+                "stepCount": "4",
+                "description": "Joghurt mit etwas Salz und Pfeffer würzen und als Topping zum Salat geben."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "15 min",
+        "type": "Vegetarisch"
+    },
+    {
+        "name": "Sushi Bowl",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Sushi rice",
+                "amount": "60 g"
+            },
+            {
+                "name": "Mango",
+                "amount": "0.5"
+            },
+            {
+                "name": "Avocado",
+                "amount": "0.5"
+            },
+            {
+                "name": "Smoked salmon",
+                "amount": "0.5"
+            },
+            {
+                "name": "Rice vinegar",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Sugar",
+                "amount": "0.5 TL"
+            },
+            {
+                "name": "Salt"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Sushi Reis waschen und mit 1.5 facher Menge Wasser zum Kochen bringen. Anschließend für 20 min bei niedriger Temperatur weiter kochen."
+            },
+            {
+                "stepCount": "2",
+                "description": "Mango, Räucherlachs und Avocado klein schneiden."
+            },
+            {
+                "stepCount": "3",
+                "description": "Reisessig mit Zucker und Salz vermischen und dem Reis untermischen."
+            },
+            {
+                "stepCount": "4",
+                "description": "Alle Zutaten zusammenmischen."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "30 min",
+        "kitchenware": [
+            "Topf"
+        ],
+        "type": "Pescetarisch"
+    },
+    {
+        "name": "Mikrowellen Porridge",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Oatmeal",
+                "amount": "60 g"
+            },
+            {
+                "name": "Frozen berries",
+                "amount": "70 g"
+            },
+            {
+                "name": "Banana",
+                "amount": "1"
+            },
+            {
+                "name": "Cinnamon powder",
+                "amount": "1 Prise"
+            },
+            {
+                "name": "Protein powder",
+                "amount": "30 g"
+            },
+            {
+                "name": "Water",
+                "amount": "200 ml"
+            },
+            {
+                "name": "Salt"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Beeren auftauen und in einer Schüssel mit einer Gabel zerkleinern."
+            },
+            {
+                "stepCount": "2",
+                "description": "Beerenmasse mit Haferflocken und Wasser für 2 min in der Mikrowelle (600W) ziehen lassen."
+            },
+            {
+                "stepCount": "3",
+                "description": "Währenddessen Banane mit einer Gabel zerdrücken."
+            },
+            {
+                "stepCount": "4",
+                "description": "Zimtpulver, Salz, Whey und Banane zu den Haferflocken geben und gut verrühren."
+            },
+            {
+                "stepCount": "5",
+                "description": "Je nach Konsistenz Wasser nachgeben."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "10 min",
+        "type": "Vegan"
+    },
+    {
+        "name": "Quinoa-Hähnchen Bowl",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Quinoa",
+                "amount": "60 g"
+            },
+            {
+                "name": "Broccoli",
+                "amount": "200 g"
+            },
+            {
+                "name": "Chicken",
+                "amount": "200 g"
+            },
+            {
+                "name": "Breadcrumbs",
+                "amount": "3 EL"
+            },
+            {
+                "name": "Parmesan",
+                "amount": "2 EL"
+            },
+            {
+                "name": "Oil",
+                "amount": "2 EL"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            },
+            {
+                "name": "Garlic powder"
+            },
+            {
+                "name": "Paprika powder"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Ofen auf 180 Grad Umluft vorheizen. Hähnchen klein schneiden und mit Salz, Pfeffer, Knoblauch, Paprikapulver und Öl marinieren und beiseite stellen."
+            },
+            {
+                "stepCount": "2",
+                "description": "Quinoa waschen und mit der doppelten Menge gesalzenem Wasser für 20 min köcheln lassen."
+            },
+            {
+                "stepCount": "3",
+                "description": "Brokkoli mit Parmesan, Semmelbrösel, Gewürzen und etwas Öl vermischen und für ca 30 min backen."
+            },
+            {
+                "stepCount": "4",
+                "description": "Hähnchen in einer Pfanne anbraten."
+            },
+            {
+                "stepCount": "4",
+                "description": "Hähnchen, Quinoa und Brokkoli zusammengeben."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "20 min",
+        "cookingTime": "20 min",
+        "kitchenware": [
+            "Topf",
+            "Ofen",
+            "Pfanne"
+        ],
+        "type": "Omnivor"
+    },
+    {
+        "name": "Gnocchis im Ofen",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Gnocchi",
+                "amount": "250 g"
+            },
+            {
+                "name": "Mozzarella",
+                "amount": "0.5"
+            },
+            {
+                "name": "Cherry tomatoes",
+                "amount": "10"
+            },
+            {
+                "name": "strained tomatoes",
+                "amount": "150 ml"
+            },
+            {
+                "name": "Garlic clove",
+                "amount": "1"
+            },
+            {
+                "name": "Balsamic vinegar",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            },
+            {
+                "name": "Italian herbs"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Den Backofen auf 180 Grad Umluft vorheizen. Mozzarella, Knoblauch und Tomaten kleinschneiden."
+            },
+            {
+                "stepCount": "2",
+                "description": "Alle Zutaten in eine Auflaufform geben und umrühren und für ca 30 min in den Ofen geben."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "5 min",
+        "cookingTime": "30 min",
+        "kitchenware": [
+            "Ofen"
+        ],
+        "type": "Vegetarisch"
+    },
+    {
+        "name": "Karotten-Ingwer Suppe",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Red lentils",
+                "amount": "150 g"
+            },
+            {
+                "name": "Carrots",
+                "amount": "3"
+            },
+            {
+                "name": "Ginger",
+                "amount": "5 g"
+            },
+            {
+                "name": "Water",
+                "amount": "500 ml"
+            },
+            {
+                "name": "Garlic clove",
+                "amount": "1"
+            },
+            {
+                "name": "Coconut milk",
+                "amount": "400 ml"
+            },
+            {
+                "name": "Curry powder",
+                "amount": "2 EL"
+            },
+            {
+                "name": "Onion powder",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Karotten und Ingwer stückeln und in einem Topf mit etwas Öl für 10 min ziehen lassen."
+            },
+            {
+                "stepCount": "2",
+                "description": "Anschließend Linsen hinzugeben und mit Wasser ablöschen und für 15 min köcheln lassen."
+            },
+            {
+                "stepCount": "3",
+                "description": "Mit einem Stabpürierer purieren und Kokosmilch und Gewürze hinzugeben."
+            },
+            {
+                "stepCount": "4",
+                "description": "Anschließend so lange einkochen bis es die gewünschte Konsistenz hat."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "15 min",
+        "cookingTime": "15 min",
+        "kitchenware": [
+            "Topf",
+            "Pürierstab"
+        ],
+        "type": "Vegan"
+    },
+    {
+        "name": "Kartoffel Bowl",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Potatoes",
+                "amount": "3 große"
+            },
+            {
+                "name": "Mozzarella",
+                "amount": "1"
+            },
+            {
+                "name": "Cherry tomatoes",
+                "amount": "10"
+            },
+            {
+                "name": "Green pesto",
+                "amount": "2 EL"
+            },
+            {
+                "name": "Olive oil",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            },
+            {
+                "name": "Garlic powder"
+            },
+            {
+                "name": "Paprika powder"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Den Backofen auf 200 Grad Umluft vorheizen. Die Kartoffeln in Würfel schneiden und mit Öl und Gewürze marinieren."
+            },
+            {
+                "stepCount": "2",
+                "description": "Kartoffeln in den Ofen für ca 30 min geben."
+            },
+            {
+                "stepCount": "3",
+                "description": "Tomaten sowie Mozzarella klein schneiden und mit Pesto in eine Schüssel geben."
+            },
+            {
+                "stepCount": "4",
+                "description": "Wenn die Kartoffeln gar sind in die Schüssel geben und gut vermischen."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "10 min",
+        "cookingTime": "30 min",
+        "kitchenware": [
+            "Ofen"
+        ],
+        "type": "Vegetarisch"
+    },
+    {
+        "name": "Wraps mit Falafel",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Tortilla Wraps",
+                "amount": "2"
+            },
+            {
+                "name": "Falafel mix",
+                "amount": "45 g"
+            },
+            {
+                "name": "Salad",
+                "amount": "1 Handvoll"
+            },
+            {
+                "name": "Cherry tomatoes",
+                "amount": "8"
+            },
+            {
+                "name": "Maize",
+                "amount": "0.25 kleine Dose"
+            },
+            {
+                "name": "Tortilla Chips",
+                "amount": "6"
+            },
+            {
+                "name": "Yoghurt",
+                "amount": "75 g"
+            },
+            {
+                "name": "Garlic powder",
+                "amount": "1"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            },
+            {
+                "name": "Garlic powder"
+            },
+            {
+                "name": "Paprika powder"
+            },
+            {
+                "name": "Curry powder"
+            },
+            {
+                "name": "Coriander"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Falafel nach Packungsanleitung zubereiten."
+            },
+            {
+                "stepCount": "2",
+                "description": "Salat und Tomaten klein schneiden."
+            },
+            {
+                "stepCount": "3",
+                "description": "Falafel in einer Pfanne anbraten."
+            },
+            {
+                "stepCount": "4",
+                "description": "Für den Joghurtdip Knoblauch in den Joghurt mit einer Knoblauchpresse pressen (oder klein schneiden) und die restlichen Gewürze hinzugeben."
+            },
+            {
+                "stepCount": "5",
+                "description": "Die Wraps mit allen Zutaten belegen und zusammenrollen."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "30 min",
+        "kitchenware": [
+            "Pfanne"
+        ],
+        "type": "Vegetarisch"
+    },
+    {
+        "name": "Curry mit Hähnchcen und Reis",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Rice",
+                "amount": "60 g"
+            },
+            {
+                "name": "Chicken",
+                "amount": "150 g"
+            },
+            {
+                "name": "Frozen vegetables",
+                "amount": "250 g"
+            },
+            {
+                "name": "Coconut milk",
+                "amount": "400 ml"
+            },
+            {
+                "name": "Garlic clove",
+                "amount": "1"
+            },
+            {
+                "name": "Ginger",
+                "amount": "5 g"
+            },
+            {
+                "name": "Lemon juice",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Oil",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Curry powder",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Den Reis in einem Topf mit doppelter Menge gesalzenem Wasser kochen (alternativ im Reiskocher), dabei immer wieder umrühren."
+            },
+            {
+                "stepCount": "2",
+                "description": "In der Zwischenzeit Gemüse in einem separaten Topf mit etwas wasser auftauen bis die Flüssigkeit verdampft ist."
+            },
+            {
+                "stepCount": "3",
+                "description": "Das Fleisch in mundgerechte Stücke schneiden und in einer Pfanne anbraten, anschliessend mit der Kokosmilch übergiessen, Knoblauch und Ingwer hinzugeben und ca. 15 min bei mittlerer Hitze bis zur gewünschten Konsistenz köcheln."
+            },
+            {
+                "stepCount": "4",
+                "description": "Alles Würzen und mit Gemüse und Reis servieren."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "10 min",
+        "cookingTime": "15 min",
+        "kitchenware": [
+            "Topf",
+            "Pfanne"
+        ],
+        "type": "Omnivor"
+    },
+    {
+        "name": "Linsensuppe",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Red lentils",
+                "amount": "150 g"
+            },
+            {
+                "name": "Water",
+                "amount": "300 ml"
+            },
+            {
+                "name": "Tomato paste",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Cumin",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Coriander",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Die Linsen mit Wasser für ca. 15 min in einem Topf köcheln lassen."
+            },
+            {
+                "stepCount": "2",
+                "description": "Anschließend mit Gewürzen und Tomatenmark abschmecken und servieren."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "5 min",
+        "cookingTime": "15 min",
+        "kitchenware": [
+            "Topf"
+        ],
+        "type": "Vegan"
+    },
+    {
+        "name": "Lachsnudeln",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Salmon fillet",
+                "amount": "125 g"
+            },
+            {
+                "name": "Noodles",
+                "amount": "150 g"
+            },
+            {
+                "name": "Cooking cream",
+                "amount": "60 ml"
+            },
+            {
+                "name": "Tomato paste",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Dried tomatoes",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Spinach",
+                "amount": "75 g"
+            },
+            {
+                "name": "Vegetable broth",
+                "amount": "0.5 TL"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            },
+            {
+                "name": "Garlic powder"
+            },
+            {
+                "name": "Curry powder"
+            },
+            {
+                "name": "Paprika powder"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Zuerst die Nudeln kochen."
+            },
+            {
+                "stepCount": "2",
+                "description": "Als nächstes den Lachs anbraten und klein machen. Währenddessen die getrockneten Tomaten klein schneiden."
+            },
+            {
+                "stepCount": "3",
+                "description": "Tomatenmark, getrocknete Tomaten und Spinat mit in die Pfanne geben. Leicht anbraten und dann die Sahne, Gemüsebrühe und Gewürze hinzugeben."
+            },
+            {
+                "stepCount": "4",
+                "description": "Diefertigen Nudeln in die Pfanne geben und gut unterrühren."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "30 min",
+        "kitchenware": [
+            "Topf",
+            "Pfanne"
+        ],
+        "type": "Pescetarisch"
+    },
+    {
+        "name": "Brokkoli mit Frischkäsedip",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Grainy cream cheese",
+                "amount": "250 g"
+            },
+            {
+                "name": "Water",
+                "amount": "300 ml"
+            },
+            {
+                "name": "Broccoli",
+                "amount": "300 g"
+            },
+            {
+                "name": "Garlic clove",
+                "amount": "1"
+            },
+            {
+                "name": "Lemon juice",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Olive oil",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Dried herbs",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Fülle einen Topf mit etwa fünf Zentimeter Wasser und bring es zum Kochen. Lege die Brokkoliröschen in ein Sieb, der auf den Topfrand gelegt wird und decke den Brokkoli mit einem Deckel für ca 5 min zu."
+            },
+            {
+                "stepCount": "2",
+                "description": "Währenddessen Frischkäse, Gewürze und Zitronensaft vermischen."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "5 min",
+        "cookingTime": "5 min",
+        "kitchenware": [
+            "Topf"
+        ],
+        "type": "Vegetarisch"
+    },
+    {
+        "name": "Reisnudeln mit Tofu",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Tofu nature",
+                "amount": "200 g"
+            },
+            {
+                "name": "Cucumber",
+                "amount": "125 g"
+            },
+            {
+                "name": "Water",
+                "amount": "1 Liter"
+            },
+            {
+                "name": "Apple cider vinegar",
+                "amount": "0.5 EL"
+            },
+            {
+                "name": "Rice noodles",
+                "amount": "50 g"
+            },
+            {
+                "name": "Spring onions",
+                "amount": "2 EL"
+            },
+            {
+                "name": "Garlic clove",
+                "amount": "1"
+            },
+            {
+                "name": "Olive oil",
+                "amount": "2 EL"
+            },
+            {
+                "name": "Soy sauce",
+                "amount": "3 EL"
+            },
+            {
+                "name": "Cornflour",
+                "amount": "2 EL"
+            },
+            {
+                "name": "Pepper"
+            },
+            {
+                "name": "Salt"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": " Den Ofen auf 220° Umluft vorheizen. Tofu in ca. 1 cm große unregelmäßige stücke reißen und in eine Schüssel geben. Für die Marinade den Knoblauch reiben und mit Öl. Sojasauce, Essig und Pfeffer verrühren. Zwei Drittel davon über den Tofu geben und kurz ziehen lassen sodass dieser die Marinade aufnimmt."
+            },
+            {
+                "stepCount": "2",
+                "description": "Stärke in eine Schüssel geben, Tofu hinzufügen und den Tofu dann kräftig in Panade schwenken, sodass er voll umhüllt ist. Ein Backblech mit Backpapier auslegen, den panierten Tofu darauflegen und in etwa 15 Minuten im Ofen knusprig backen."
+            },
+            {
+                "stepCount": "3",
+                "description": "Währenddessen die Gurke halbieren, das weiche Innere samt Kernen mit einem Löffel herausschaben und zusammen mit dem Essig zu dem restlichen Drittel der Marinade geben, pürieren. Das Dressing mit Salz und Pfeffer gut würzig abschmecken."
+            },
+            {
+                "stepCount": "4",
+                "description": "Die Gurken hälften mit einem Sparschäler oder dünnen Hobel in feine Tagliatelle schneiden."
+            },
+            {
+                "stepCount": "5",
+                "description": "Die Reisnudeln mit kochendem Wasser und nach Packungsangaben ca. 2 Minuten ziehen lassen. Die Nudeln abgießen, mit der Gurke in eine Schüssel geben, mit Dressing vermengen und bis zum servieren ziehen lassen."
+            },
+            {
+                "stepCount": "6",
+                "description": "Salat mit dem Tofu und dem Frühlingszwiebeln anrichten und vermengen."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "30 min",
+        "kitchenware": [
+            "Ofen"
+        ],
+        "type": "Vegan"
+    },
+    {
+        "name": "Nudeln mit Kichererbsen",
+        "img": "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
+        "ingredients": [
+            {
+                "name": "Canned chickpeas",
+                "amount": "200 g"
+            },
+            {
+                "name": "Mushrooms",
+                "amount": "125 g"
+            },
+            {
+                "name": "Spring onion",
+                "amount": "1"
+            },
+            {
+                "name": "Garlic powder"
+            },
+            {
+                "name": "Red chilli pepper",
+                "amount": "1"
+            },
+            {
+                "name": "Noodles",
+                "amount": "100 g"
+            },
+            {
+                "name": "Tomato paste",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Olive oil",
+                "amount": "1 EL"
+            },
+            {
+                "name": "Paprika powder",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Tinned chunky tomatoes",
+                "amount": "200 g"
+            },
+            {
+                "name": "Honey",
+                "amount": "1 TL"
+            },
+            {
+                "name": "Salt"
+            },
+            {
+                "name": "Pepper"
+            }
+        ],
+        "steps": [
+            {
+                "stepCount": "1",
+                "description": "Kichererbsen in einem Sieb abspülen, abtropfen lassen, Pilze eventuell säubern, putzen und in kleine Würfel schneiden. Lauchzwiebeln putzen, waschen und in kliene Ringe schneiden. Zwiebelgrün beisetestellen. Knoblauch schälen, fein hacken. Chilli putzen, längs halbieren, eventuell entkernen und fein hacken."
+            },
+            {
+                "stepCount": "2",
+                "description": "Nudeln nach Packungsanweisung in Wasser kochen. Öl in einer großen Pfanne erhitzen. Knoblauch, Zwiebelweiß und Chilli darin anbraten. Pilze dazugeben und kräftg anbraten. Kichererbsen dazugeben, kurz mitgaren. Tomatenmark einrühren, kurz anschwitzen. Alles mit Salz, Pfeffer und Paprikapulver würzen."
+            },
+            {
+                "stepCount": "3",
+                "description": "Alles mit Tomaten ablöschen und mit Honig, Salz und Pfeffer würzen. Die Sauce aufkochen und bei schwacher Hitze ca. 5 Minuten köcheln lassen. Nudeln abgießen, abtropfen lassen und mit in die Pfanne geben. Alles miteinander gut vermengen. Die Nudeln mit Zwiebelgrün anrichten."
+            }
+        ],
+        "difficulty": "leicht",
+        "prepareTime": "35 min",
+        "kitchenware": [
+            "Topf",
+            "Pfanne"
+        ],
+        "type": "Vegetarisch"
+    }
+]

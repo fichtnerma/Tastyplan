@@ -1,5 +1,38 @@
-@import "@styles/mixins";
+@import "@styles/variables.scss";
 
-.test {
-    @include test;
+.container {
+    margin-top: -60px;
+}
+
+.footerContainer {
+    background-color: var(--green-light);
+    margin-top: -1px;
+    padding: 60px;
+
+
+    h3 {
+        margin-top: -38px;
+        text-align: center;
+    }
+}
+
+.shape {
+    // position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.shape svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 45px;
+}
+
+.shape .shapeFill {
+    fill: var(--green-light);
 }

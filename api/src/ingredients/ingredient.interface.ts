@@ -1,4 +1,4 @@
-export interface Ingredient {
+export interface IIngredient {
     id: number;
     name: string;
     kcal: number;
@@ -8,4 +8,18 @@ export interface Ingredient {
     fiber: number;
     sugar: number;
     salt: number;
+}
+
+export interface IngredientSearchResult {
+    hits: {
+        total: number;
+        hits: Array<{
+            _source: IngredientSearchBody;
+        }>;
+    };
+}
+
+export interface IngredientSearchBody {
+    id: number;
+    name: string;
 }

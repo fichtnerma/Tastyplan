@@ -1,10 +1,15 @@
-import { Ingredient } from 'src/ingredients/ingredient.interface';
-import { Step } from 'src/steps/step.interface';
+import { ISteps } from 'src/types/types';
+import { IIngredient } from 'src/ingredients/ingredient.interface';
 
-export interface RecipeInterface {
+export interface IRecipe {
     id: number;
     name: string;
     description: string;
-    ingredients: Ingredient[];
-    steps: Step[];
+    ingredients: IIngredient[];
+    steps: ISteps[];
+    img: string;
+    difficulty: string;
+    preparingTime: number;
+    cookingTime: number;
+    formOfDiet: string;
 }

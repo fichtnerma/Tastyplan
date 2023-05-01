@@ -1,0 +1,60 @@
+.intoleranceWrapper .containerField {
+    display: block;
+    width: 150px;
+    height: 70px;
+    position: relative;
+    border-radius: 50px;
+
+    &:hover {
+        label {
+            background-color: var(--green-light);
+            color: var(--white);
+            border-color: var(--green-light);
+        }
+    }
+
+    label,
+    input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        cursor: pointer;
+        // z-index: 1;
+        background-color: var(--white);
+    }
+
+    input[type='checkbox'] {
+        opacity: 0.01;
+        z-index: 100;
+        width: 100%;
+        height: 100%;
+        border-radius: 50px;
+    }
+
+    label {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        border: 2px solid var(--gray-dark);
+        border-radius: 15px;
+        z-index: 90;
+        font-weight: 500;
+        font-size: 0.875rem;
+        /* 14px */
+        line-height: 1.25rem;
+        /* 20px */
+        color: var(--gray-dark);
+        border-radius: 50px;
+        padding-left: 55px;
+    }
+
+    input[type='checkbox']:checked + label,
+    .Checked + label {
+        background-color: var(--green-dark);
+        p {
+            color: var(--white);
+        }
+    }
+}
