@@ -10,11 +10,12 @@ interface FoodLifestyleProps {
 }
 export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLifestyleProps) {
     const preferences = [
+        { food: 'vegan', description: 'You dont eat any kind of animal products' },
+        { food: 'vegetarian', description: 'You dont eat any meat and fish' },
         { food: 'omnivore', description: 'You eat all animal products' },
         { food: 'flexitarian', description: 'You rarely eat all animal products' },
-        { food: 'pescetarian', description: 'You only eat fish from all animal products' },
-        { food: 'vegetarian', description: 'You dont eat any meat and fish' },
-        { food: 'vegan', description: 'You dont eat any kind of animal products' },
+        { food: 'pescetarian', description: 'You only eat fish from all animal products' }
+
     ];
 
     const [selection, setSelection] = useState(formOfDiet);
