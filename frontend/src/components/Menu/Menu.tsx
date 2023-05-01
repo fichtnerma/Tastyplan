@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import styles from '../Menu/Menu.module.scss';
 type MenuProps = {
-    menuOpen: boolean;
     toggleMenu: () => void;
 };
-export default function Menu({ menuOpen, toggleMenu }: MenuProps) {
+export default function Menu({ toggleMenu }: MenuProps) {
     return (
         <>
             <div className={styles.background}>

@@ -17,6 +17,8 @@ module.exports = {
                 hostname: '**',
             },
         ],
+        domains: ['localhost'],
+        unoptimized: true,
     },
     reactStrictMode: true,
     async redirects() {
@@ -25,6 +27,14 @@ module.exports = {
                 source: '/authentication',
                 destination: '/authentication/login',
                 permanent: true,
+            },
+        ];
+    },
+    async rewrites() {
+        return [
+            {
+                source: '/service/:path*',
+                destination: 'http://api:3000/:path*',
             },
         ];
     },

@@ -1,14 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { Preferences, User } from '@prisma/client';
-import { PreferencesService } from 'src/preferences/preferences.service';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { PreferencesService } from 'src/preferences/preferences.service';
+import { Ingredient, User } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
+
 @Injectable()
 export class RecipesService {
     constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) {}
 
     async create(createRecipeDto: CreateRecipeDto) {
-        return 'This action adds a new recipe';
+        return 'This action adds a new recipe' + createRecipeDto.name;
     }
 
     async findById(id: number) {
@@ -16,76 +17,54 @@ export class RecipesService {
             where: {
                 id: id,
             },
-            include: {
+            select: {
+                id: true,
+                name: true,
+                description: true,
+                img: true,
+                formOfDiet: true,
+                preparingTime: true,
+                cookingTime: true,
+                totalTime: true,
                 ingredients: {
-                    include: {
-                        ingredient: true,
+                    select: {
+                        quantity: true,
+                        unit: true,
+                        ingredient: {
+                            select: {
+                                name: true,
+                            },
+                        },
                     },
                 },
-                steps: true,
+                steps: {
+                    select: {
+                        stepCount: true,
+                        description: true,
+                    },
+                },
             },
         });
 
-        const formattedRecipe = {
-            id: recipe.id,
-            name: recipe.name,
-            description: recipe.description,
-            img: recipe.img,
-            formOfDiet: recipe.formOfDiet,
-            preparingTime: recipe.preparingTime,
-            cookingTime: recipe.cookingTime,
-            totalTime: recipe.totalTime,
-            ingredients: recipe.ingredients.map((item) => {
-                return {
-                    quantity: item?.quantity,
-                    unit: item?.unit,
-                    ingredient: item?.ingredient?.name,
-                };
-            }),
-            steps: recipe.steps.map((item) => {
-                return {
-                    stepCount: item.stepCount,
-                    description: item.description,
-                };
-            }),
-        };
-        console.log(formattedRecipe);
-
-        return formattedRecipe;
+        return recipe;
     }
 
     async filterByPreferences(user: User) {
+        const possibleDietsMap = new Map([
+            ['vegan', ['vegan']],
+            ['vegetarian', ['vegan', 'vegetarian']],
+            ['pescetarian', ['vegan', 'vegetarian', 'pescetarian']],
+            ['flexitarian', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
+            ['omnivore', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
+        ]);
         const preferences = await this.preferencesService.getPreferences(user);
-
-        const formOfDiet = preferences.formOfDiet;
-        const allergens = preferences.allergens;
-        const formOfDiets = [];
-
-        switch (formOfDiet) {
-            case 'omnivore':
-                formOfDiets.push('vegan', 'vegetarian', 'omnivore');
-                break;
-            case 'flexeterian':
-                formOfDiets.push('vegan', 'vegetarian', 'omnivore');
-                break;
-            case 'pescetarian':
-                formOfDiets.push('vegan', 'vegetarian');
-                break;
-            case 'vegetarian':
-                formOfDiets.push('vegan', 'vegetarian');
-                break;
-            case 'vegan':
-                formOfDiets.push('vegan');
-                break;
-        }
-
-        const dislikedIngredients = preferences.foodDislikes.map((item: any) => item.id);
-        console.log({ formOfDiets, allergens, dislikedIngredients });
+        const { formOfDiet, allergens } = preferences;
+        const dislikedIngredients = preferences.foodDislikes.map((item: Ingredient) => item.id);
 
         const recipes = await this.prismaService.recipe.findMany({
             where: {
                 formOfDiet: {
-                    in: formOfDiets,
+                    in: possibleDietsMap.get(formOfDiet),
                 },
                 ingredients: {
                     every: {
@@ -106,7 +85,6 @@ export class RecipesService {
                 id: true,
             },
         });
-        console.log({ recipes });
 
         return recipes;
     }

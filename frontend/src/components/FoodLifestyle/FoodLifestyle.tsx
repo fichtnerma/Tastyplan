@@ -1,10 +1,8 @@
+import React, { useState } from 'react';
 import styles from '../FoodLifestyle/FoodLifestyle.module.scss';
 
-import Router from 'next/router';
-import React, { useEffect, useState } from 'react';
-
 type OnNextFunction = () => void;
-type OnChoiceFunction = (choice: any) => any;
+type OnChoiceFunction = (choice: string) => void;
 interface FoodLifestyleProps {
     onNext: OnNextFunction;
     onChoice: OnChoiceFunction;
@@ -20,22 +18,18 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
     ];
 
     const [selection, setSelection] = useState(formOfDiet);
-    const [disabled, setDisabled] = useState(true);
-
-    useEffect(() => {}, [selection]);
+    const [disabled, setDisabled] = useState(selection ? false : true);
 
     const onChoiceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSelection(e.target.value);
+        const targetValue = e.target.value;
+
+        setSelection(targetValue);
+        onChoice(targetValue);
         setDisabled(false);
     };
 
-    const onSubmitSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
-        const currentSelection = selection;
-
+    const onSubmitSelection = () => {
         onNext();
-        onChoice((preferences: any) => ({ ...preferences, formOfDiet: currentSelection }));
     };
 
     return (
@@ -62,12 +56,11 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
             </div>
             <div className="flex justify-end relative">
                 <button
-                    type="submit"
                     className="btn-primary mt-10 disabled:bg-gray-custom2"
                     data-btn="next"
                     onClick={onSubmitSelection}
                     data-anchor="next"
-                    disabled={!selection}
+                    disabled={disabled}
                 >
                     Next
                 </button>

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import '@styles/variables.scss';
+@import '@styles/transitions.scss';
 
 :root {
     --green-light-rgb: rgb(214, 229, 227);
@@ -29,16 +30,13 @@ body {
 }
 
 h1 {
-    font-family: $font-family-headline;
-    font-style: normal;
+    font-family: var(--font-bebas);
     font-size: 100px;
     color: var(--black);
 }
 
 .h2 {
-    font-family: $font-family-headline;
-    font-weight: 400;
-    font-style: normal;
+    font-family: var(--font-bebas);
     font-size: 80px;
     color: var(--black);
 }
@@ -53,29 +51,25 @@ h2 {
 }
 
 h3 {
-    font-family: $font-family-headline;
-    font-style: normal;
+    font-family: var(--font-bebas);
     font-size: 50px;
     color: var(--black);
 }
 
 h4 {
-    font-family: $font-family-headline;
-    font-style: normal;
+    font-family: var(--font-bebas);
     font-size: 40px;
     color: var(--black);
 }
 
 h5 {
-    font-family: $font-family-headline;
-    font-style: normal;
+    font-family: var(--font-bebas);
     font-size: 25px;
     color: var(--black);
 }
 
 .p {
-    font-family: $font-family-text;
-    font-style: normal;
+    font-family: var(--font-inter);
     font-size: 20px;
 }
 
@@ -102,10 +96,22 @@ p {
         border: 3px solid var(--green-dark);
         border-radius: 15px;
         padding: 0rem 0.75rem;
-        height: 50px;
+        height: 45px;
+        background-color: var(--white);
 
         &:focus {
             outline: unset;
+        }
+    }
+    & ~ .errorMessage {
+        color: var(--red);
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+    }
+
+    &.error {
+        input {
+            border-color: var(--red);
         }
     }
 }

@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateIngredientDto } from './dto/create-ingredient.dto';
-import { UpdateIngredientDto } from './dto/update-ingredient.dto';
 import IngredientsSearchService from './ingredientsSearch.service';
+import { UpdateIngredientDto } from './dto/update-ingredient.dto';
+import { CreateIngredientDto } from './dto/create-ingredient.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class IngredientsService {
@@ -31,7 +31,7 @@ export class IngredientsService {
     }
 
     async createIndex() {
-        const ingredients: any = await this.prismaService.ingredient.findMany();
+        const ingredients = await this.prismaService.ingredient.findMany();
         await this.ingredientSearchService.createIndex(ingredients);
     }
 
@@ -48,15 +48,15 @@ export class IngredientsService {
     }
 
     async findOne(id: number) {
-        return 'This action finds a ingredient';
+        return 'This action finds a ingredient with id: ' + id;
     }
 
     async findSimilarIngredients(name: string) {
-        return 'This action finds an ingredient with similar name';
+        return 'This action finds an ingredient with similar name' + name;
     }
 
     update(id: number, updateIngredientDto: UpdateIngredientDto) {
-        return `This action updates a #${id} ingredient`;
+        return `This action updates a #${id} ingredient` + updateIngredientDto.name;
     }
 
     remove(id: number) {

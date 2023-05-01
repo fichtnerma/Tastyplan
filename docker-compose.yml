@@ -6,6 +6,7 @@ services:
       # Only will build development stage from our dockerfile
     # Run in dev Mode: npm run start:dev
     command: npm run start:watch
+    container_name: api
     env_file:
         - .env
     environment:
@@ -20,12 +21,17 @@ services:
       - redis
       - postgres
       - elasticsearch
+    networks:
+      - private
+      - public
   redis: # Name of container
     image: redis
     ports:
       - 6379:6379
     volumes: 
       - redis:/data
+    networks:
+      - private
   postgres:
     image: postgres
     restart: unless-stopped
@@ -38,6 +44,8 @@ services:
       - '6543:5432'
     volumes:
       - postgresdata:/var/lib/postgresql/data
+    networks:
+      - private
 
   frontend:
     build:
@@ -52,6 +60,8 @@ services:
       - /client/.next
     depends_on:
       - api
+    networks:
+      - public
 
   elasticsearch:
     image: elasticsearch:7.13.0
@@ -65,6 +75,8 @@ services:
       - ELASTIC_USERNAME=${ELASTIC_USERNAME}
       - ELASTIC_NODE=${ELASTIC_NODE}
     restart: unless-stopped
+    networks:
+      - private
     ulimits:
       memlock:
         soft: -1
@@ -73,6 +85,9 @@ services:
       - esdata:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+networks:
+  private:
+  public:
 volumes:
   postgresdata:
   pgadmin-data:
@@ -80,3 +95,4 @@ volumes:
     driver: local
   redis:
     driver: local
+      

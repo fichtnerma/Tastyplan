@@ -73,6 +73,9 @@
     .Checked + label {
         background-color: var(--green-dark);
         color: var(--white);
-        border-color: var(--green-dark);
+        border: none;
+        p {
+            color: var(--white);
+        }
     }
 }

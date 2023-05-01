@@ -1,10 +1,16 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { User } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateGuestDto, CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
-import { FormatLogin, UsersService } from 'src/users/users.service';
+import { JwtToken } from 'src/types/types';
 import { JwtPayload } from './jwt.strategy';
+import { FormatLogin, UsersService } from 'src/users/users.service';
+import { CreateGuestDto, CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from '@prisma/client';
+import { JwtService } from '@nestjs/jwt';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+
+type LoginReturnType = {
+    cookie: string;
+    data: FormatLogin;
+};
 
 @Injectable()
 export class AuthService {
@@ -31,11 +37,9 @@ export class AuthService {
             success: true,
             message: 'ACCOUNT_CREATE_SUCCESS',
         };
-        console.log('userDto', userDto);
 
         try {
             status.data = await this.usersService.create(userDto);
-            console.log('status.data', status.data);
         } catch (err) {
             status = {
                 success: false,
@@ -45,7 +49,7 @@ export class AuthService {
         return status;
     }
 
-    async login(loginUserDto: LoginUserDto): Promise<any> {
+    async login(loginUserDto: LoginUserDto): Promise<LoginReturnType> {
         // find user in db
         const user = await this.usersService.findByLogin(loginUserDto);
 
@@ -56,7 +60,7 @@ export class AuthService {
         return { cookie, data: user };
     }
 
-    private _createToken({ userId }: FormatLogin): any {
+    private _createToken({ userId }: FormatLogin): JwtToken {
         const user: JwtPayload = { userId };
         const Authorization = this.jwtService.sign(user);
         return {
@@ -67,7 +71,7 @@ export class AuthService {
 
     private createAuthCookie({ userId }: FormatLogin) {
         const { expiresIn, Authorization } = this._createToken({ userId });
-        return `Authentication=${Authorization}; HttpOnly; Path=/; Max-Age=${expiresIn}`;
+        return `Authentication=${Authorization}; HttpOnly; Path=localhost:3000/; Max-Age=${expiresIn}`;
     }
 
     private createTemporayAuthCookie({ userId }: FormatLogin) {
@@ -76,10 +80,10 @@ export class AuthService {
     }
 
     public getCookieForLogOut() {
-        return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
+        return `Authentication=; Max-Age=0`;
     }
 
-    async validateUser(payload: JwtPayload): Promise<any> {
+    async validateUser(payload: JwtPayload): Promise<User> {
         const user = await this.usersService.findByPayload(payload);
         if (!user) {
             throw new HttpException('INVALID_TOKEN', HttpStatus.UNAUTHORIZED);

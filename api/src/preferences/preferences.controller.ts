@@ -1,40 +1,29 @@
-import {
-    Body,
-    ClassSerializerInterceptor,
-    Controller,
-    Get,
-    Post,
-    Request,
-    UseGuards,
-    UseInterceptors,
-} from '@nestjs/common';
+import { HeadersWithUser } from 'src/types/types';
 import { PreferencesService } from './preferences.service';
 import { PreferencesDto } from './dto/createPreferences.dto';
-import { ApiSecurity } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { User } from '@prisma/client';
+import { Body, Controller, Headers, Get, Post } from '@nestjs/common';
 
 @Controller('preferences')
 export class PreferencesController {
     constructor(private preferencesService: PreferencesService) {}
 
-    @UseGuards(JwtAuthGuard)
-    @ApiSecurity('access-key')
-    @UseInterceptors(ClassSerializerInterceptor)
+    // @UseGuards(JwtAuthGuard)
+    // @ApiSecurity('access-key')
+    // @UseInterceptors(ClassSerializerInterceptor)
     @Post('/')
-    async setPreferences(@Request() req: any, @Body() preferencesDto: PreferencesDto) {
-        console.log('preferencesDto');
+    async setPreferences(@Headers() headers: HeadersWithUser, @Body() preferencesDto: PreferencesDto) {
+        const user = { userId: headers.user } as User;
 
-        console.log(preferencesDto);
-        const user = req.user;
         return await this.preferencesService.setPreferences(preferencesDto, user);
     }
 
-    @UseGuards(JwtAuthGuard)
-    @ApiSecurity('access-key')
-    @UseInterceptors(ClassSerializerInterceptor)
+    // @UseGuards(JwtAuthGuard)
+    // @ApiSecurity('access-key')
+    // @UseInterceptors(ClassSerializerInterceptor)
     @Get('/')
-    async getPreferences(@Request() req: any) {
-        const user = req.user;
+    async getPreferences(@Headers() headers: HeadersWithUser) {
+        const user = { userId: headers.user } as User;
         return await this.preferencesService.getPreferences(user);
     }
 }

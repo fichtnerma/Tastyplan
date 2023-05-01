@@ -1,5 +1,4 @@
 export function convertToTime(timeString: string) {
-    console.log(timeString);
     if (!timeString) {
         return undefined;
     }

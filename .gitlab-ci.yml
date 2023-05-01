@@ -1,0 +1,80 @@
+stages:
+  - test
+  - build
+
+variables:
+  RULES_CHANGES_PATH: "**/*"
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
+services:
+  - docker:20.10-dind
+
+.build-rules:
+  image: docker:20.10-dind
+  stage: build
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+.base-rules:
+  image: node:18-alpine
+  interruptible: true
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - $RULES_CHANGES_PATH
+    - when: manual
+      allow_failure: true
+
+.backend:
+  extends: .base-rules
+  before_script:
+    - cd api
+    - npm ci
+  variables:
+    RULES_CHANGES_PATH: "api/**/*"
+  
+.frontend:
+  extends: .base-rules
+  before_script:
+    - cd frontend
+    - npm ci
+  variables:
+    RULES_CHANGES_PATH: "frontend/**/*"
+
+lint_api:
+  stage: test
+  extends: .backend
+  script:
+    - npm run lint
+
+lint_client:
+  stage: test
+  extends: .frontend
+  script:
+    - npm run lint
+
+build-api-image:
+  extends: .build-rules
+  script:
+    - cd api
+    - docker build -t $CI_REGISTRY_IMAGE/api:latest .
+    - docker push $CI_REGISTRY_IMAGE/api:latest
+
+build-client-image:
+  extends: .build-rules
+  script:
+    - cd api
+    - docker build -t $CI_REGISTRY_IMAGE/client:latest .
+    - docker push $CI_REGISTRY_IMAGE/client:latest
+

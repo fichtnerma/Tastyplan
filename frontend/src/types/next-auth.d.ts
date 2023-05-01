@@ -1,5 +1,3 @@
-import NextAuth from 'next-auth';
-
 export enum Role {
     user = 'user',
     admin = 'admin',
