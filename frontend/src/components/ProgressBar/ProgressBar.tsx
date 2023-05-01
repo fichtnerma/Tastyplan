@@ -1,13 +1,21 @@
 import { useEffect, useState } from 'react';
 import styles from '../ProgressBar/ProgressBar.module.scss';
 
-type ProgressBarProps = {
-    stepsCount: number;
+type Props = {
+    stepNames: string[];
     activeStep: number;
+    foodLifeStyleSelected: boolean;
+    onClick: (elementName: string) => void;
 };
 
-function ProgressBar({ stepsCount, activeStep }: ProgressBarProps) {
+function ProgressBar({ stepNames, activeStep, foodLifeStyleSelected, onClick }: Props) {
     const [numbersArr, setNumbersArr] = useState<number[]>([]);
+
+    useEffect(() => {
+        const numbersAsArr = Array.from(Array(stepNames.length + 1).keys());
+        numbersAsArr.shift();
+        setNumbersArr([...numbersAsArr]);
+    }, [activeStep, stepNames]);
 
     const getGradient = (stepsCount: number, activeStep: number) => {
         if (activeStep === 1) return 0;
@@ -15,29 +23,41 @@ function ProgressBar({ stepsCount, activeStep }: ProgressBarProps) {
         return (activeStep / stepsCount) * 100;
     };
 
-    useEffect(() => {
-        const numbersAsArr = Array.from(Array(stepsCount + 1).keys());
-        numbersAsArr.shift();
-        setNumbersArr([...numbersAsArr]);
-    }, [activeStep, stepsCount]);
+    const getStepClass = (elNr: number) => {
+        if (elNr <= activeStep) return styles.stepDone;
+
+        if (!foodLifeStyleSelected) return `${styles.stepNotDone} + ${styles.stepDisabled}`;
+        else return styles.stepNotDone;
+    };
+
+    const handleStepClick = (e: React.MouseEvent) => {
+        if (!foodLifeStyleSelected) return;
+
+        const element = e.target as HTMLElement;
+        const elementName = element.getAttribute('data-step-name');
+        if (elementName) onClick(elementName);
+    };
 
     return (
-        <div className="flex justify-between items-center relative w-full">
+        <div className="flex justify-between items-center relative w-full" onClick={handleStepClick}>
             <div
-                className="absolute top-1/2 translate-y-[-50%] w-full h-[2px]"
+                className="absolute top-1/2 translate-y-[-50%] w-full h-[3px]"
                 style={{
                     background: `linear-gradient(to right, var(--green-dark) ${getGradient(
-                        stepsCount,
+                        stepNames.length,
                         activeStep,
-                    )}%, var(--gray-5) ${getGradient(stepsCount, activeStep)}%)`,
+                    )}%, var(--gray-5) ${getGradient(stepNames.length, activeStep)}%)`,
                 }}
             ></div>
-            {numbersArr.map((el) => (
-                <span
-                    key={el}
-                    className={el <= activeStep ? styles.done : styles.notDone}
-                    style={{ transform: el === activeStep ? 'scale(2)' : 'scale(1)' }}
-                ></span>
+            {numbersArr.map((el, i) => (
+                <div key={el} className="relative flex items-center">
+                    <span
+                        data-step-name={stepNames[i]}
+                        className={getStepClass(el)}
+                        style={{ transform: el === activeStep ? 'scale(2)' : '' }}
+                    ></span>
+                    <p className={el <= activeStep ? styles.activeLabel : styles.label}>{stepNames[i]}</p>
+                </div>
             ))}
         </div>
     );
