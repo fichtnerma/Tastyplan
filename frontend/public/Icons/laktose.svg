@@ -1,0 +1,30 @@
+<svg id="laktose" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.79 45.02"
+  stroke="currentColor">
+  <g>
+    <polyline points="13.19 44.02 10.36 44.02 10.36 10.68 29.08 10.68 29.08 21.06"
+      style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+    <rect x="1" y="10.68" width="9.36" height="33.34"
+      style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+    <polyline points="1 10.56 5.68 6 10.36 10.56"
+      style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+    <polyline points="29.01 10.56 24.33 6 5.68 6"
+      style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+    <rect x="5.81" y="1" width="18.22" height="5"
+      style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+  </g>
+  <g>
+    <path d="m15.04,27.24c0-3.02,2.45-5.47,5.47-5.47.55,0,1.07.08,1.57.23"
+      style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+    <line x1="43.79" y1="27.2" x2="21.86" y2="21.93"
+      style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+    <circle cx="20.78" cy="31.86" r="1.54"
+      style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+    <circle cx="30.96" cy="33.72" r="2.75"
+      style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+    <circle cx="38.13" cy="39.42" r="1.56"
+      style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+    <path
+      d="m41.56,32.37c0-1.23,1-2.23,2.23-2.23v-2.94H15.04v14.11c0,1.34,1.08,2.42,2.42,2.42h4.3c0-1.51,1.23-2.74,2.74-2.74s2.74,1.23,2.74,2.74h14.13c1.34,0,2.42-1.08,2.42-2.42v-6.71c-1.23,0-2.23-1-2.23-2.23Z"
+      style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+  </g>
+</svg>
