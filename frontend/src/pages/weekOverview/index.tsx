@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSession } from 'next-auth/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -8,6 +8,7 @@ import 'swiper/swiper-bundle.css';
 import { Mousewheel, Navigation, Scrollbar } from 'swiper';
 import RecipeCard from '@components/RecipeCard/RecipeCard';
 import Icon from '@components/Icon/Icon';
+import { useFetchWithAuth } from '@hooks/useFetchWithAuth';
 import { Weekplan, WeekplanEntry } from 'src/types/types';
 import styles from '../../styles/WeekOverview.module.scss';
 
@@ -19,33 +20,15 @@ type DateFormatOptions = {
 
 export default function WeekOverview() {
     const { data: session } = useSession();
-    const [weekplan, setWeekplan] = useState<Weekplan>();
-    const [loading, setLoading] = useState(true);
+    const [loading, data] = useFetchWithAuth(`/service/weekplan/current`, {
+        method: 'GET',
+    });
+    const weekplan = data as Weekplan;
     const nickname = session?.user.userId;
+    const options: DateFormatOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
 
     const today = new Date().getDay();
     const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-    const options: DateFormatOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
-
-    useEffect(() => {
-        if (!session) return;
-        fetch(`/service/weekplan/current`, {
-            method: 'GET',
-            headers: {
-                user: nickname ? nickname : '',
-            },
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-            })
-            .then((data) => {
-                setWeekplan({ ...data });
-                setLoading(false);
-            });
-    }, [loading, session]);
 
     return (
         <>

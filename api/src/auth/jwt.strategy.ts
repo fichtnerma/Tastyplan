@@ -1,6 +1,5 @@
 import { AuthService } from './auth.service';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { Request } from 'express';
 import { User } from '@prisma/client';
 import { PassportStrategy } from '@nestjs/passport';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
@@ -9,12 +8,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(private readonly authService: AuthService) {
         super({
-            // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            jwtFromRequest: ExtractJwt.fromExtractors([
-                (request: Request) => {
-                    return request?.cookies?.Authentication;
-                },
-            ]),
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: true,
             secretOrKey: process.env.SECRETKEY,
         });

@@ -33,6 +33,24 @@ export class UsersService {
         return user;
     }
 
+    async createFromGuest(guest: User, userDto: CreateUserDto): Promise<User> {
+        const userInDb = await this.prismaService.user.findFirst({
+            where: { id: guest.id },
+        });
+        if (!userInDb) {
+            throw new HttpException('unable to convert guest user', HttpStatus.CONFLICT);
+        }
+        const user = await this.prismaService.user.update({
+            where: { id: userInDb.id },
+            data: {
+                ...userDto,
+                role: Role.USER,
+                password: await hash(userDto.password, 10),
+            },
+        });
+
+        return user;
+    }
     async createGuest(createGuestDto: CreateGuestDto): Promise<User> {
         const user = await this.prismaService.user.create({
             data: {

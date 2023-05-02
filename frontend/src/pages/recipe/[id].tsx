@@ -1,31 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import RecipeSteps from '@components/RecipeSteps/RecipeSteps';
 import IngredientList from '@components/IngredientList/IngredientList';
 import Icon from '@components/Icon/Icon';
 import { getFormOfDietIcon } from '@helpers/utils';
+import { useFetchWithAuth } from '@hooks/useFetchWithAuth';
 import { Recipe } from 'src/types/types';
 import styles from '../../styles/DetailRecipe.module.scss';
 
 export default function DetailRecipe() {
     const router = useRouter();
 
-    const [loading, setLoading] = useState(true);
-    const [recipe, setRecipe] = useState<Recipe>();
     const [rating, setRating] = useState(0);
     const [favorit, setFavorit] = useState(false);
 
     const id = router.query.id;
-
-    useEffect(() => {
-        fetch(`/service/recipes/${id}`)
-            .then((data) => data.json())
-            .then((data) => {
-                setRecipe(data);
-                setLoading(false);
-            });
-    }, [loading, id]);
 
     const rate = (index: number) => {
         setRating(index);
@@ -37,6 +27,9 @@ export default function DetailRecipe() {
         }
         return setFavorit(true);
     };
+
+    const [loading, data] = useFetchWithAuth(`/service/recipes/${id}`, { method: 'GET' });
+    const recipe = data as Recipe;
 
     return (
         <>
