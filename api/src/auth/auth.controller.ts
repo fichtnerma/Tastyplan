@@ -1,8 +1,9 @@
 import { AuthService, RegistrationStatus } from './auth.service';
 import { CreateGuestDto, CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
-import { Response } from 'express';
+import { Request, Response } from 'express';
+import { User } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { Body, Controller, HttpException, HttpStatus, Post, Res } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpStatus, Post, Req, Res } from '@nestjs/common';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -10,33 +11,38 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     @Post('register')
-    public async register(@Body() createUserDto: CreateUserDto): Promise<RegistrationStatus> {
-        const result: RegistrationStatus = await this.authService.register(createUserDto);
+    public async register(@Req() request: Request, @Res() response: Response) {
+        let result: RegistrationStatus;
+        const user = { userId: request.headers.user } as User;
+        const userDto: CreateUserDto = request.body.createUserDto;
+        if (!user) {
+            result = await this.authService.register(userDto);
+        } else {
+            result = await this.authService.convertGuestToUser(user, userDto);
+        }
 
         if (!result.success) {
             throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
         }
-        return result;
+        return response.sendStatus(HttpStatus.CREATED).send(result);
     }
 
     @Post('login')
     public async login(@Body() loginUserDto: LoginUserDto, @Res() response: Response): Promise<Response> {
-        const { cookie, data } = await this.authService.login(loginUserDto);
-        response.setHeader('Set-Cookie', cookie);
-        return response.send(data);
+        const { token, data } = await this.authService.login(loginUserDto);
+        const loginToken = { token, ...data };
+        return response.send(loginToken);
     }
 
     @Post('guest')
-    public async registerGuest(@Body() createGuestDto: CreateGuestDto, @Res() response: Response): Promise<Response> {
-        const { cookie, data } = await this.authService.registerGuest(createGuestDto);
-
-        response.setHeader('Set-Cookie', cookie);
-        return response.send(data);
+    public async continueAsGuest(@Body() createGuestDto: CreateGuestDto, @Res() response: Response): Promise<Response> {
+        const { token, data } = await this.authService.continueAsGuest(createGuestDto);
+        const guestToken = { token, ...data };
+        return response.send(guestToken);
     }
 
     @Post('logout')
     public async logout(@Res() response: Response) {
-        response.setHeader('Set-Cookie', this.authService.getCookieForLogOut());
-        return response.sendStatus(200);
+        return response.sendStatus(HttpStatus.OK);
     }
 }

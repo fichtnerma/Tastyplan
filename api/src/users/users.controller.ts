@@ -5,7 +5,7 @@ import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { Get } from '@nestjs/common/decorators';
 import { Body, ClassSerializerInterceptor, Controller, Put, Request, UseGuards, UseInterceptors } from '@nestjs/common';
 
-type RequestWithUser = Request & { user: { id: string }; cookies: { [key: string]: string } };
+export type RequestWithUser = Request & { user: { id: string }; cookies: { [key: string]: string } };
 
 @ApiTags('user')
 @Controller('user')

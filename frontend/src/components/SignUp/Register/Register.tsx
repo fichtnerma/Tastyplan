@@ -28,7 +28,7 @@ export default function Register({ visible }: RegisterProps) {
             lastName: 'Mustermann',
         };
 
-        const response = await fetch('http://localhost:3000/auth/register', {
+        const response = await fetch('/service/auth/register', {
             method: 'POST',
             body: JSON.stringify(data),
             redirect: 'follow',

@@ -17,13 +17,14 @@ export default function WeekOverview() {
 
     const today = new Date().getDay();
     const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    console.log(session);
 
     useEffect(() => {
         if (!session) return;
         fetch(`/service/weekplan/current`, {
             method: 'GET',
             headers: {
-                user: session?.user.userId ? session.user.userId : '',
+                Authorization: `Bearer ${session?.user.token.Authorization}`,
             },
         })
             .then((response) => {

@@ -48,7 +48,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
     };
 
     const handleSearch = async (searchTerm: string) => {
-        const res = await fetch(`http://localhost:3000/ingredients?search=${searchTerm}`, {
+        const res = await fetch(`/service/ingredients?search=${searchTerm}`, {
             headers: {
                 user: session?.user.userId ? session.user.userId : '',
             },

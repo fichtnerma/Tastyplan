@@ -52,6 +52,7 @@ const SetupParentPage = () => {
             },
             body: JSON.stringify(preferences),
         });
+
         const weekplanRes = await fetch('/service/weekplan/create', {
             method: 'POST',
             headers: {
