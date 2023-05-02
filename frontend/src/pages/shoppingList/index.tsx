@@ -1,4 +1,4 @@
-import IngredientsCheckboxList from '@components/ShoppingList/ShoppingList';
+import ShoppingList from '@components/ShoppingList/ShoppingList';
 import { Ingredient } from 'src/types/types';
 
 const ingredientsDummy: Ingredient[] = [
@@ -34,15 +34,15 @@ const ingredientsDummy: Ingredient[] = [
     },
 ];
 
-function ShoppingList() {
+function ShoppingListPage() {
     return (
         <div>
             <h1 className="h1-green">Your shopping list</h1>
             <h2>Things you need to buy</h2>
-            <IngredientsCheckboxList ingredients={ingredientsDummy} />
+            <ShoppingList ingredients={ingredientsDummy} />
             <h2>Things you already have</h2>
         </div>
     );
 }
 
-export default ShoppingList;
+export default ShoppingListPage;
