@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
@@ -19,9 +18,6 @@ interface DislikesProps {
 
 export default function Dislikes({ onBack, onChoice, foodDislikes, handlePreferences }: DislikesProps) {
     const [allDislikes, setDislike] = useState(foodDislikes);
-
-    const { data: session } = useSession();
-
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
 
@@ -48,11 +44,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
     };
 
     const handleSearch = async (searchTerm: string) => {
-        const res = await fetch(`/service/ingredients?search=${searchTerm}`, {
-            headers: {
-                user: session?.user.userId ? session.user.userId : '',
-            },
-        });
+        const res = await fetch(`/service/ingredients?search=${searchTerm}`);
         if (!res.ok) {
             return;
         }

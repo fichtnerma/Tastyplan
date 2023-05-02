@@ -1,30 +1,31 @@
+import { OptionalAuthGuard } from './jwt-auth.guard';
 import { AuthService, RegistrationStatus } from './auth.service';
 import { CreateGuestDto, CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
 import { Request, Response } from 'express';
 import { User } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { Body, Controller, HttpException, HttpStatus, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
+    @UseGuards(OptionalAuthGuard)
     @Post('register')
     public async register(@Req() request: Request, @Res() response: Response) {
         let result: RegistrationStatus;
-        const user = { userId: request.headers.user } as User;
-        const userDto: CreateUserDto = request.body.createUserDto;
-        if (!user) {
-            result = await this.authService.register(userDto);
-        } else {
+        const user = request.user as User;
+        const userDto: CreateUserDto = request.body;
+        if (user && user.role === 'guest') {
             result = await this.authService.convertGuestToUser(user, userDto);
+        } else {
+            result = await this.authService.register(userDto);
         }
-
         if (!result.success) {
             throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
         }
-        return response.sendStatus(HttpStatus.CREATED).send(result);
+        return response.sendStatus(HttpStatus.CREATED);
     }
 
     @Post('login')

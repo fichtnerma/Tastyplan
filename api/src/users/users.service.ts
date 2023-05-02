@@ -35,7 +35,7 @@ export class UsersService {
 
     async createFromGuest(guest: User, userDto: CreateUserDto): Promise<User> {
         const userInDb = await this.prismaService.user.findFirst({
-            where: { userId: guest.userId },
+            where: { id: guest.id },
         });
         if (!userInDb) {
             throw new HttpException('unable to convert guest user', HttpStatus.CONFLICT);

@@ -6,6 +6,7 @@ import ProgressBar from '@components/ProgressBar/ProgressBar';
 import Intolerances from '@components/Intolerances/Intolerances';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';
+import { fetchWithAuth } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
 import logo from '../../../public/logo.svg';
 
@@ -44,21 +45,22 @@ const SetupParentPage = () => {
 
     const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
         evt.preventDefault();
-        await fetch('/service/preferences/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                user: session?.user.userId ? session.user.userId : '',
+        await fetchWithAuth(
+            '/service/preferences/',
+            {
+                method: 'POST',
+                body: JSON.stringify(preferences),
             },
-            body: JSON.stringify(preferences),
-        });
+            session,
+        );
 
-        const weekplanRes = await fetch('/service/weekplan/create', {
-            method: 'POST',
-            headers: {
-                user: session?.user.userId ? session.user.userId : '',
+        const weekplanRes = await fetchWithAuth(
+            '/service/weekplan/create',
+            {
+                method: 'POST',
             },
-        });
+            session,
+        );
 
         if (weekplanRes.ok) {
             router.push(`${router.basePath}/weekOverview`, undefined, undefined);

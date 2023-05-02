@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import router from 'next/router';
+import { useSession } from 'next-auth/react';
 import TextInput from '@components/FormInputs/TextInput';
 import { isEmailValidator, isPasswordValidator } from '@helpers/validations';
-// import { APIRegistrationResponse } from 'src/types/types';
+import { fetchWithAuth } from '@helpers/utils';
 import styles from './Register.module.scss';
 
 interface RegisterProps {
@@ -15,6 +16,7 @@ export default function Register({ visible }: RegisterProps) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConf, setPasswordConf] = useState('');
+    const { data: session } = useSession();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -28,16 +30,15 @@ export default function Register({ visible }: RegisterProps) {
             lastName: 'Mustermann',
         };
 
-        const response = await fetch('/service/auth/register', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            redirect: 'follow',
-            headers: {
-                'Content-Type': 'application/json',
+        const response = await fetchWithAuth(
+            '/service/auth/register',
+            {
+                method: 'POST',
+                body: JSON.stringify(data),
+                redirect: 'follow',
             },
-        });
-
-        // const responseData = (await response.json()) as APIRegistrationResponse;
+            session,
+        );
 
         if (response.ok) {
             router.push(`${router.basePath}/authentication/login`, undefined, undefined);

@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { Weekplan } from "src/types/types";
+import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 
-const useFetchWithAuth = (url: string, options?: RequestInit) => {
+export const useFetchWithAuth = (url: string, options: RequestInit = { method: 'GET' }): [boolean, unknown] => {
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState<unknown>();
     const { data: session } = useSession();
@@ -20,10 +19,10 @@ const useFetchWithAuth = (url: string, options?: RequestInit) => {
                     return response.json();
                 }
             })
-            .then((data) => {
-                setWeekplan({ ...data });
+            .then((loadedData) => {
                 setIsLoading(false);
+                setData(loadedData);
             });
-    }, [isLoading, session, url]);
-    return { isLoading, data };
+    }, [isLoading, options, session, url]);
+    return [isLoading, data];
 };

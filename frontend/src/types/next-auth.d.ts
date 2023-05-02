@@ -10,7 +10,7 @@ declare module 'next-auth' {
         firstName: string;
         lastName: string;
         userId: string;
-        token: string;
+        token: {expires: string, Authorization: string};
     }
 
     interface Session extends DefaultSession {
@@ -25,6 +25,6 @@ declare module 'next-auth/jwt' {
         firstName: string;
         lastName: string;
         userId: string;
-        token: string;
+        token: {expires: string, Authorization: string};
     }
 }
