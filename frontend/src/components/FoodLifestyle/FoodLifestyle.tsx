@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../FoodLifestyle/FoodLifestyle.module.scss';
+import Icon from '@components/Icon/Icon';
 
 type OnNextFunction = () => void;
 type OnChoiceFunction = (choice: string) => void;
@@ -10,12 +11,11 @@ interface FoodLifestyleProps {
 }
 export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLifestyleProps) {
     const preferences = [
-        { food: 'vegan', description: 'You dont eat any kind of animal products' },
-        { food: 'vegetarian', description: 'You dont eat any meat and fish' },
-        { food: 'omnivore', description: 'You eat all animal products' },
-        { food: 'flexitarian', description: 'You rarely eat all animal products' },
-        { food: 'pescetarian', description: 'You only eat fish from all animal products' }
-
+        { food: 'vegan', description: 'You dont eat any kind of animal products', icon: 'Vegan-color' },
+        { food: 'vegetarian', description: 'You dont eat any meat and fish', icon: 'Vegetarisch-color' },
+        { food: 'omnivore', description: 'You eat all animal products', icon: 'Omnivor-color' },
+        { food: 'flexitarian', description: 'You rarely eat all animal products', icon: 'Flexitarisch-color' },
+        { food: 'pescetarian', description: 'You only eat fish from all animal products', icon: 'Pescetarisch-color' },
     ];
 
     const [selection, setSelection] = useState(formOfDiet);
@@ -48,9 +48,12 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                                 onChange={onChoiceChange}
                             />
                             <label htmlFor={preference.food}>
-                                <p className="absolute min-w-full pb-4 pl-6">{preference.food}</p>
-                                <p className="text-xs min-w-full pt-8">{preference.description}</p>
+                                <p className="absolute pb-4 capitalize">{preference.food}</p>
+                                <p className="text-xs pt-8">{preference.description}</p>
                             </label>
+                            <div className="absolute right-0 pr-8 pt-2 z-[90]">
+                                <Icon size={60} icon={preference.icon}></Icon>
+                            </div>
                         </div>
                     ))}
                 </div>
