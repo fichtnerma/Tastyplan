@@ -1,4 +1,4 @@
-import Checkbox from '@components/Checkbox/Checkbox';
+import CheckBox from '@components/CheckBox/CheckBox';
 import { Ingredient } from 'src/types/types';
 
 type ShoppingListProps = {
@@ -10,7 +10,7 @@ function IngredientsCheckboxList({ ingredients }: ShoppingListProps) {
         <ul>
             {ingredients.map((ingredient) => (
                 <li key={ingredient.ingredient.name}>
-                    <Checkbox label={ingredient.ingredient.name} />
+                    <CheckBox label={ingredient.ingredient.name} />
                 </li>
             ))}
         </ul>

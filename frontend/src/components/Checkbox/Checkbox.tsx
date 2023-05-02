@@ -4,7 +4,7 @@ type CheckBoxProps = {
     label: string;
 };
 
-function Checkbox({ label }: CheckBoxProps) {
+function CheckBox({ label }: CheckBoxProps) {
     return (
         <>
             <label htmlFor={label} className={styles.formControl}>
@@ -15,4 +15,4 @@ function Checkbox({ label }: CheckBoxProps) {
     );
 }
 
-export default Checkbox;
+export default CheckBox;
