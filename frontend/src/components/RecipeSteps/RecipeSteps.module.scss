@@ -1,0 +1,15 @@
+@import "@styles/variables.scss";
+
+.stepImg {
+    height: 300px;
+    width: 400px;
+    margin-bottom: 20px;
+    border-radius: $boder-radius-m;
+    object-fit: cover;
+}
+
+.recipeText {
+    display: flex;
+    width: 55%;
+    flex-wrap: wrap;
+}
