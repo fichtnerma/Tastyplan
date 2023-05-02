@@ -63,15 +63,13 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
         <>
             <h4 className="mb-8">What are your intolerances?</h4>
             <div className="h-[300px] overflow-y-auto">
-                <div className="grid grid-cols-1 gap-y-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                    {/* <div className="grid grid-cols-4 gap-4 mb-4"> */}
+                <div className="grid grid-cols-1 gap-y-1 md:gap-y-2 md:grid-cols-1 lg:gap-y-4 lg:grid-cols-2 xl:gap-y-8 xl:grid-cols-3 2xl:gap-y-8 2xl:grid-cols-4">
                     {intolerances.map((intolerance, i) => (
                         <div
                             key={i}
                             className={`${styles.intoleranceWrapper} lg:w-[220px] xl:w-[190px] 2xl:w-[200px] `}
                         >
                             <div className={styles.containerField}>
-                                {/* <span className="flex justify-around"> */}
                                 <input
                                     type="checkbox"
                                     name="intolerances"
@@ -79,12 +77,11 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                                     checked={allergeneChoices.includes(intolerance.code)}
                                     onChange={onAddChoice}
                                 />
-
                                 <label htmlFor={intolerance.ui}>
                                     <p className="text-base">{intolerance.ui}</p>
                                 </label>
                                 <div
-                                    className="absolute z-[91] top-4 left-2"
+                                    className="absolute z-[1] top-4 left-4"
                                     style={{
                                         color: allergeneChoices.find((entry) => entry == intolerance.code)
                                             ? 'var(--white)'
@@ -93,11 +90,9 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                                 >
                                     <Icon size={40} icon={intolerance.icon}></Icon>
                                 </div>
-                                {/* </span> */}
                             </div>
                         </div>
                     ))}
-                    {/* </div> */}
                 </div>
             </div>
             <div className="flex justify-between relative">
