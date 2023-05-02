@@ -16,6 +16,8 @@ export default function DetailRecipe() {
     const [favorit, setFavorit] = useState(false);
 
     const id = router.query.id;
+    const [loading, data] = useFetchWithAuth(`/service/recipes/${id}`, { method: 'GET' });
+    const recipe = data as Recipe;
 
     const rate = (index: number) => {
         setRating(index);
@@ -27,9 +29,6 @@ export default function DetailRecipe() {
         }
         return setFavorit(true);
     };
-
-    const [loading, data] = useFetchWithAuth(`/service/recipes/${id}`, { method: 'GET' });
-    const recipe = data as Recipe;
 
     return (
         <>
