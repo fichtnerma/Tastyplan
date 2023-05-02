@@ -1,30 +1,18 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import RecipeSteps from '@components/RecipeSteps/RecipeSteps';
 import IngredientList from '@components/IngredientList/IngredientList';
 import Icon from '@components/Icon/Icon';
 import { getFormOfDietIcon } from '@helpers/utils';
+import { useFetchWithAuth } from '@hooks/useFetchWithAuth';
 import { Recipe } from 'src/types/types';
 import styles from '../../styles/DetailRecipe.module.scss';
 
 export default function DetailRecipe() {
     const router = useRouter();
-
-    const [loading, setLoading] = useState(true);
-    const [recipe, setRecipe] = useState<Recipe>();
-
     const id = router.query.id;
-
-    useEffect(() => {
-        fetch(`/service/recipes/${id}`)
-            .then((data) => data.json())
-            .then((data) => {
-                setRecipe(data);
-                setLoading(false);
-            });
-    }, [loading, id]);
-
+    const [loading, data] = useFetchWithAuth(`/service/recipes/${id}`, { method: 'GET' });
+    const recipe = data as Recipe;
     return (
         <>
             {!loading ? (

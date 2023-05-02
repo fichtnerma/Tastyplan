@@ -1,4 +1,5 @@
 import React from 'react';
+import { signIn } from 'next-auth/react';
 import { CSSTransition } from 'react-transition-group';
 import Icon from '@components/Icon/Icon';
 import Register from './Register/Register';
@@ -14,12 +15,17 @@ export default function SignUp({ currentForm, setRoute }: SignUpProps) {
     const isLogin = currentForm === 'login' ? true : false;
     const nodeRef = React.useRef(null);
     const nodeRef2 = React.useRef(null);
+
     const toggleForm = (activeForm: string) => {
         setRoute(activeForm);
     };
 
     const skipRegistration = (evt: React.MouseEvent) => {
         evt.preventDefault();
+        signIn('credentials', {
+            redirect: true,
+            callbackUrl: '/setup',
+        });
         fetch('/api/auth/skip-registration', {
             method: 'POST',
             headers: {
