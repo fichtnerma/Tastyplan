@@ -4,6 +4,7 @@
 .container {
     margin-inline: auto;
     padding-bottom: 200px;
+    width: 100%;
 }
 
 .recipeBox {
@@ -19,10 +20,11 @@
 }
 
 .foodImg {
-    width: 100%;
+    width: 90%;
     height: 550px;
     object-fit: cover;
     border-radius: $boder-radius;
+    position: absolute;
 }
 
 .checkbox {
@@ -52,20 +54,6 @@
     }
 }
 
-.stepImg {
-    height: 300px;
-    width: 400px;
-    margin-bottom: 20px;
-    border-radius: $boder-radius-m;
-    object-fit: cover;
-}
-
-.recipeText {
-    display: flex;
-    width: 55%;
-    flex-wrap: wrap;
-}
-
 .starIcon {
     margin: 5px;
 
@@ -75,4 +63,16 @@
             fill: rebeccapurple;
         }
     }
+}
+
+.gradientBox {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
+    width: 100%;
+    height: 550px;
+    border-radius: $boder-radius;
+    margin-inline: auto;
+    margin-top: 10px;
+    z-index: 5px;
+    position: relative;
+    overflow: hidden;
 }
