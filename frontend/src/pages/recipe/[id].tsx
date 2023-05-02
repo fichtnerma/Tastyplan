@@ -13,6 +13,8 @@ export default function DetailRecipe() {
 
     const [loading, setLoading] = useState(true);
     const [recipe, setRecipe] = useState<Recipe>();
+    const [rating, setRating] = useState(0);
+    const [favorit, setFavorit] = useState(false);
 
     const id = router.query.id;
 
@@ -25,13 +27,30 @@ export default function DetailRecipe() {
             });
     }, [loading, id]);
 
+    const rate = (index: number) => {
+        setRating(index);
+    };
+
+    const isFavorit = () => {
+        if (favorit) {
+            return setFavorit(false);
+        }
+        return setFavorit(true);
+    };
+
     return (
         <>
             {!loading ? (
                 <div className={styles.container}>
                     <div className="flex w-full">
                         <h1 className={styles.titleRecipe}>{recipe?.name}</h1>
-                        <div className="fill-none w-fit right-[6rem] top-[180px] absolute hover:fill-green-custom1 ">
+                        <div
+                            className="w-fit right-[6rem] top-[180px] absolute hover:fill-green-custom1 text-green-custom2 cursor-pointer"
+                            style={{
+                                fill: favorit ? 'var(--green-dark)' : 'none',
+                            }}
+                            onClick={() => isFavorit()}
+                        >
                             <Icon size={50} icon="heart"></Icon>
                         </div>
                     </div>
@@ -90,13 +109,26 @@ export default function DetailRecipe() {
                                 <h3 className="text-center text-green-custom2">Well done!</h3>
                                 <p className="text-center">How do you rate the recipe?</p>
                                 <div className="flex justify-center mt-5">
-                                    {Array.from(Array(5), (index) => (
-                                        <>
-                                            <div className="fill-none hover:fill-green-custom1">
-                                                <Icon key={index} size={24} icon="star" />
-                                            </div>
-                                        </>
-                                    ))}
+                                    {Array.from(Array(5)).map((e, i) => {
+                                        if (i < rating)
+                                            return (
+                                                <button
+                                                    className="fill-green-custom2 text-green-custom2"
+                                                    onClick={() => rate(i + 1)}
+                                                >
+                                                    <Icon key={i} size={50} icon="star" />
+                                                </button>
+                                            );
+                                        else
+                                            return (
+                                                <button
+                                                    className="fill-none hover:fill-green-custom1 text-green-custom2"
+                                                    onClick={() => rate(i + 1)}
+                                                >
+                                                    <Icon key={i} size={50} icon="star" />
+                                                </button>
+                                            );
+                                    })}
                                 </div>
                             </div>
                         </div>
