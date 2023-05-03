@@ -1,3 +1,4 @@
+import RadioButton from '@components/FormInputs/Radiobutton';
 import Checkbox from '@components/FormInputs/Checkbox';
 import { Ingredient } from 'src/types/types';
 
@@ -6,11 +7,15 @@ type ShoppingListProps = {
 };
 
 function ShoppingList({ ingredients }: ShoppingListProps) {
+    const handleClick = (e: React.MouseEvent<HTMLUListElement>) => {
+        console.log(e.target);
+    };
+
     return (
-        <ul>
+        <ul onClick={handleClick}>
             {ingredients.map((ingredient) => (
                 <li key={ingredient.ingredient.name} className="mb-4 last:mb-0">
-                    <Checkbox
+                    <RadioButton
                         label={`${ingredient.quantity !== 0 ? ingredient.quantity : ''} ${ingredient.unit} ${
                             ingredient.ingredient.name
                         }`}
