@@ -58,7 +58,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
             <div className="h-[300px]">
                 <div className="flex flex-col">
                     <div className="w-full flex">
-                        <div className="text-input-wrapper w-1/2 mr-16">
+                        <div className="text-input-wrapper w-1/3 mr-16">
                             <input
                                 type="text"
                                 name="search"
