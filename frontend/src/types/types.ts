@@ -7,7 +7,6 @@ export type APIRegistrationResponse = {
     name: string;
 };
 
-
 export type APISearchResponse = {
     id: number;
     name: string;
@@ -16,7 +15,6 @@ export type APISearchResponse = {
 export type UserCredentials = {
     userId: string;
     password: string;
-
 };
 
 export type Recipe = {
@@ -27,29 +25,35 @@ export type Recipe = {
     img: string;
     ingredients: Array<Ingredient>;
     name: string;
-    preparingTime:number; 
+    preparingTime: number;
     steps: Array<Step>;
     totalTime: number;
-}
+};
 
 export type Ingredient = {
-    ingredient: {name: string};
+    ingredient: { name: string };
     quantity: number;
     unit: string;
-}
+};
 
 export type Step = {
     description: string;
     stepCount: number;
-}
+};
 
 export type Weekplan = {
     endDate: string;
     startDate: string;
     weekplanEntry: Array<WeekplanEntry>;
-}
+};
 
 export type WeekplanEntry = {
     date: string;
     recipe: Recipe;
-}
+};
+
+export type CustomSelectionInput = {
+    id: string;
+    label: string;
+    checked: boolean;
+};
