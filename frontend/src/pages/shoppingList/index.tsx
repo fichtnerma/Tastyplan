@@ -1,4 +1,5 @@
-import RadioGroup from '@components/FormInputs/RadioGroup/RadioGroup';
+import { useState } from 'react';
+import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
 import { CustomSelectionInput, Ingredient } from 'src/types/types';
 
 const ingredientsDummy1: Ingredient[] = [
@@ -34,23 +35,53 @@ const ingredientsDummy1: Ingredient[] = [
     },
 ];
 
-const radioBtns: CustomSelectionInput[] = ingredientsDummy1.map((ingredient, index) => {
-    return {
-        id: index + '',
-        label: `${ingredient.quantity} ${ingredient.unit} ${ingredient.ingredient.name} `,
-        checked: false,
-    };
-});
-
 function ShoppingListPage() {
+    const [presentIngredients, setPresentIngredients] = useState<CustomSelectionInput[]>(
+        ingredientsDummy1.map((ingredient, index) => {
+            return {
+                id: index + '',
+                label: `${ingredient.quantity} ${ingredient.unit} ${ingredient.ingredient.name} `,
+                checked: false,
+            };
+        }),
+    );
+
+    const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInput[]>([]);
+
+    const handleCheckboxSelect = (id: string) => {
+        const filteredPresentIngredients = presentIngredients.filter((ingredient) => ingredient.id !== id);
+        const foundIngredient = presentIngredients.find((ingredient) => ingredient.id === id);
+        if (foundIngredient) {
+            const neededIngredientsCopy = [...neededIngredients];
+            neededIngredientsCopy.push(foundIngredient);
+            setNeededIngredients(neededIngredientsCopy);
+        }
+        setPresentIngredients(filteredPresentIngredients);
+    };
+
     return (
         <div>
-            <h1 className="h1-green">Your shopping list</h1>
-            <div className="flex">
-                <h2>Things you already have</h2>
-                <h2>Things you need to buy</h2>
+            <h1 className="h1-green">Your shopping list:</h1>
+            <div className="flex w-full">
+                <div className="mr-[20rem]">
+                    <h2>Things you need:</h2>
+                    <CheckboxGroup
+                        checkboxes={presentIngredients}
+                        groupName="ingredients2"
+                        onCheckboxSelect={handleCheckboxSelect}
+                        disabled={false}
+                    />
+                </div>
+                <div>
+                    <h2>Things you already have:</h2>
+                    <CheckboxGroup
+                        checkboxes={neededIngredients}
+                        groupName="ingredients2"
+                        onCheckboxSelect={handleCheckboxSelect}
+                        disabled={true}
+                    />
+                </div>
             </div>
-            <RadioGroup radioBtns={[...radioBtns]} groupName="ingredients2" />
         </div>
     );
 }
