@@ -69,8 +69,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                         <div className="text-input-wrapper w-1/3 mr-16">
                             <input
                                 type="text"
-                                name="search"
-                                placeholder="Tomatoes"
+                                placeholder="Search ingredients"
                                 value={searchTerm}
                                 onChange={(e) => {
                                     setSearchTerm(() => e.target.value);
