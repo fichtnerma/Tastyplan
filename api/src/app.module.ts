@@ -13,6 +13,7 @@ import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 @Module({
     imports: [
@@ -29,8 +30,9 @@ import { Module } from '@nestjs/common';
             rootPath: join(__dirname, '..', 'images'),
             serveRoot: '/images',
         }),
+        ShoppingListModule
     ],
     controllers: [AppController, PreferencesController],
     providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
