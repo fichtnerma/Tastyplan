@@ -1,0 +1,252 @@
+@import '@styles/mixins.scss';
+
+$fs-h1: 32px;
+$fs-h2: 28px;
+$fs-h3: 18px;
+$fs-h4: 17px;
+$fs-h5: 16px;
+$fs-p: 16px;
+
+.h1 {
+    font-family: var(--font-bebas);
+    font-size: $fs-h1;
+    color: var(--black);
+
+    @include respond-to('sm') {
+        font-size: 1.5rem;
+        line-height: 1.2;
+    }
+
+    @include respond-to('md') {
+        font-size: 2rem;
+        line-height: 1.3;
+    }
+
+    @include respond-to('lg') {
+        font-size: 3rem;
+        line-height: 1.4;
+    }
+
+    @include respond-to('xl') {
+        font-size: 4rem;
+        line-height: 1.5;
+    }
+
+    @include respond-to('2xl') {
+        font-size: 5rem;
+        line-height: 1.6;
+    }
+}
+
+.h1-green {
+    @extend .h1;
+    color: var(--green-dark);
+}
+
+h1 {
+    @extend .h1;
+}
+
+.h2 {
+    font-family: var(--font-bebas);
+    font-size: $fs-h2;
+    color: var(--black);
+
+    @include respond-to('sm') {
+        font-size: 1.25rem;
+        line-height: 1.2;
+    }
+
+    @include respond-to('md') {
+        font-size: 1.5rem;
+        line-height: 1.3;
+    }
+
+    @include respond-to('lg') {
+        font-size: 2rem;
+        line-height: 1.4;
+    }
+
+    @include respond-to('xl') {
+        font-size: 2.5rem;
+        line-height: 1.5;
+    }
+
+    @include respond-to('2xl') {
+        font-size: 3rem;
+        line-height: 1.6;
+    }
+}
+
+.h2-white {
+    @extend .h2;
+    color: var(--white);
+}
+
+h2 {
+    @extend .h2;
+}
+
+.h3 {
+    font-family: var(--font-bebas);
+    font-size: $fs-h3;
+    line-height: $lh-h3;
+    color: var(--black);
+
+    @include respond-to('sm') {
+        font-size: $fs-h3 * $scale-fs-sm;
+        line-height: $lh-h3 * $scale-lh-sm;
+    }
+
+    @include respond-to('md') {
+        font-size: $fs-h3 * $scale-fs-md;
+        line-height: $lh-h3 * $scale-lh-md;
+    }
+
+    @include respond-to('lg') {
+        font-size: $fs-h3 * $scale-fs-lg;
+        line-height: $lh-h3 * $scale-lh-lg;
+    }
+
+    @include respond-to('xl') {
+        font-size: $fs-h3 * $scale-fs-xl;
+        line-height: $lh-h3 * $scale-lh-xl;
+    }
+
+    @include respond-to('2xl') {
+        font-size: $fs-h3 * $scale-fs-2xl;
+        line-height: $lh-h3 * $scale-lh-2xl;
+    }
+}
+
+.h3-white {
+    @extend .h3;
+    color: var(--white);
+}
+
+h3 {
+    @extend .h3;
+}
+
+.h4 {
+    font-family: var(--font-bebas);
+    font-size: $fs-h4;
+    line-height: $lh-h4;
+    color: var(--black);
+
+    @include respond-to('sm') {
+        font-size: $fs-h4 * $scale-fs-sm;
+        line-height: $lh-h4 * $scale-lh-sm;
+    }
+
+    @include respond-to('md') {
+        font-size: $fs-h4 * $scale-fs-md;
+        line-height: $lh-h4 * $scale-lh-md;
+    }
+
+    @include respond-to('lg') {
+        font-size: $fs-h4 * $scale-fs-lg;
+        line-height: $lh-h4 * $scale-lh-lg;
+    }
+
+    @include respond-to('xl') {
+        font-size: $fs-h4 * $scale-fs-xl;
+        line-height: $lh-h4 * $scale-lh-xl;
+    }
+
+    @include respond-to('2xl') {
+        font-size: $fs-h4 * $scale-fs-2xl;
+        line-height: $lh-h4 * $scale-lh-2xl;
+    }
+}
+
+.h4-white {
+    @extend .h4;
+    color: var(--white);
+}
+
+h4 {
+    @extend .h4;
+}
+
+.h5 {
+    font-family: var(--font-bebas);
+    font-size: $fs-h4;
+    line-height: $lh-h4;
+    color: var(--black);
+
+    @include respond-to('sm') {
+        font-size: $fs-h5 * $scale-fs-sm;
+        line-height: $lh-h5 * $scale-lh-sm;
+    }
+
+    @include respond-to('md') {
+        font-size: $fs-h5 * $scale-fs-md;
+        line-height: $lh-h5 * $scale-lh-md;
+    }
+
+    @include respond-to('lg') {
+        font-size: $fs-h5 * $scale-fs-lg;
+        line-height: $lh-h5 * $scale-lh-lg;
+    }
+
+    @include respond-to('xl') {
+        font-size: $fs-h5 * $scale-fs-xl;
+        line-height: $lh-h5 * $scale-lh-xl;
+    }
+
+    @include respond-to('2xl') {
+        font-size: $fs-h5 * $scale-fs-2xl;
+        line-height: $lh-h5 * $scale-lh-2xl;
+    }
+}
+
+.h4-white {
+    @extend .h4;
+    color: var(--white);
+}
+
+h4 {
+    @extend .h4;
+}
+
+.p {
+    font-family: var(--font-inter);
+    font-size: $fs-p;
+    line-height: $lh-p;
+
+    @include respond-to('sm') {
+        font-size: $fs-p * $scale-fs-sm;
+        line-height: $lh-p * $scale-lh-sm;
+    }
+
+    @include respond-to('md') {
+        font-size: $fs-p * $scale-fs-md;
+        line-height: $lh-p * $scale-lh-md;
+    }
+
+    @include respond-to('lg') {
+        font-size: $fs-p * $scale-fs-lg;
+        line-height: $lh-p * $scale-lh-lg;
+    }
+
+    @include respond-to('xl') {
+        font-size: $fs-p * $scale-fs-xl;
+        line-height: $lh-p * $scale-lh-xl;
+    }
+
+    @include respond-to('2xl') {
+        font-size: $fs-p * $scale-fs-2xl;
+        line-height: $lh-p * $scale-lh-2xl;
+    }
+}
+
+.p-white {
+    @extend .p;
+    color: var(--white);
+}
+
+p {
+    @extend .p;
+    color: var(--black);
+}

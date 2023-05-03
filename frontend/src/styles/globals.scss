@@ -4,6 +4,7 @@
 
 @import '@styles/variables.scss';
 @import '@styles/transitions.scss';
+@import '@styles/font.scss';
 
 :root {
     --green-light-rgb: rgb(214, 229, 227);
@@ -27,70 +28,6 @@
 
 body {
     position: relative;
-}
-
-.h1 {
-    font-family: var(--font-bebas);
-    font-size: 100px;
-    color: var(--black);
-}
-
-.h1-green {
-    @extend .h1;
-    color: var(--green-dark);
-}
-
-h1 {
-    @extend .h1;
-}
-
-.h2 {
-    font-family: var(--font-bebas);
-    font-size: 80px;
-    color: var(--black);
-}
-
-.h2-white {
-    @extend .h2;
-    color: var(--white);
-}
-
-h2 {
-    @extend .h2;
-}
-
-h3 {
-    font-family: var(--font-bebas);
-    font-size: 50px;
-    color: var(--black);
-}
-
-h4 {
-    font-family: var(--font-bebas);
-    font-size: 40px;
-    color: var(--black);
-}
-
-h5 {
-    font-family: var(--font-bebas);
-    font-size: 28px;
-    color: var(--black);
-}
-
-.p {
-    font-family: var(--font-inter);
-    font-size: 20px;
-}
-
-.p-white {
-    @extend .p;
-    font-size: 16px;
-    color: var(--white);
-}
-
-p {
-    @extend .p;
-    color: var(--black);
 }
 
 .text-input-wrapper {
