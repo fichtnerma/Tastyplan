@@ -18,9 +18,9 @@ export class WeekplanController {
         return this.weekplanService.get(user);
     }
 
-    /*     @UseGuards(JwtAuthGuard)
-        @ApiSecurity('access-key')
-        @UseInterceptors(ClassSerializerInterceptor) */
+    @UseGuards(JwtAuthGuard)
+    @ApiSecurity('access-key')
+    @UseInterceptors(ClassSerializerInterceptor)
     @Post('/create')
     create(@Req() request: RequestWithUser) {
         const user = request.user as User;
