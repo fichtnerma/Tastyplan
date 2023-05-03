@@ -3,10 +3,15 @@ import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
+import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 
 @Injectable()
 export class WeekplanService {
-    constructor(private prismaService: PrismaService, private recipeService: RecipesService) {}
+    constructor(
+        private prismaService: PrismaService,
+        private recipeService: RecipesService,
+        private shoppingListService: ShoppingListService
+    ) { }
 
     async get(user: User) {
         try {
@@ -93,6 +98,10 @@ export class WeekplanService {
                 },
             },
         });
+
+        const weekplanRecipeIds = weekPlan.weekplanEntry.map((entry) => entry.recipeId)
+        this.shoppingListService.create(weekplanRecipeIds)
+
         return this.formatWeekPlan(weekPlan);
     }
 }
