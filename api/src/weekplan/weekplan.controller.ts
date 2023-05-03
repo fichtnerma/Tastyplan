@@ -24,17 +24,6 @@ export class WeekplanController {
     @Post('/create')
     create(@Req() request: RequestWithUser) {
         const user = request.user as User;
-        console.log(user)
-        return this.weekplanService.create(
-            {
-                id: "f61d0b1c-77a3-4519-bbdc-3f8d71064643",
-                userId: "gustav",
-                email: "asasas@asas.de",
-                password: "$2b$10$5mgbpyK.od1HPEhJbfd3cO2hMOPYW201iSvWqplKsFVZs/ATs3QHa",
-                role: "user",
-                firstName: "Max",
-                lastName: "Mustermann"
-            }
-        );
+        return this.weekplanService.create(user);
     }
 }

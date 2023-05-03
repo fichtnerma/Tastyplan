@@ -8,7 +8,6 @@ export class ShoppingListController {
 
     @Get(':userId')
     find(@Param('userId') userId: string) {
-
         return this.shoppingListService.findShoppingList(userId)
     }
 }
