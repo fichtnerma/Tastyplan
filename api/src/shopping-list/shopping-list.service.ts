@@ -3,6 +3,7 @@ import { ShoppingListEntry, User, ShoppingList } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { IngredientMap } from 'src/types/types';
+import { UpdateShoppingListDto } from './dto/update-shopping-list.dto';
 
 @Injectable()
 export class ShoppingListService {
@@ -74,6 +75,9 @@ export class ShoppingListService {
         return shoppingListEntriesFormatted;
     }
 
+    upadteShoppingListEntry(userId: string, shoppingListEntry: UpdateShoppingListDto) {
+
+    }
 
     async queryExistingShoppingList(userId: string) {
         const lists = await this.prismaService.shoppingList.findMany({
