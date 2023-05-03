@@ -52,7 +52,7 @@ export type WeekplanEntry = {
     recipe: Recipe;
 };
 
-export type CustomRadioBtn = {
+export type CustomSelectionInput = {
     id: string;
     label: string;
     checked: boolean;

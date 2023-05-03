@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import { CustomRadioBtn } from 'src/types/types';
+import { CustomSelectionInput } from 'src/types/types';
 import RadioButton from '../Radiobutton';
 
 type RadioBtnProps = {
     groupName: string;
-    radioBtns: CustomRadioBtn[];
+    radioBtns: CustomSelectionInput[];
 };
 
 function RadioGroup({ radioBtns, groupName }: RadioBtnProps) {
     const [btnGroup, setButtonGroup] = useState([...radioBtns]);
 
-    const handleGroupChange = (id: string) => {
+    const handleGroupChange = (id: string, checked: boolean) => {
         const btnGroupCache = [...btnGroup];
-        btnGroupCache[+id].checked = true;
-        setButtonGroup([...btnGroupCache]);
+        btnGroupCache[+id].checked = !checked;
+        setButtonGroup(btnGroupCache);
     };
 
     return (
