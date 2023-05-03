@@ -61,6 +61,7 @@ export class WeekplanService {
     }
 
     async create(user: User) {
+        console.log("This is the user", user)
         const week = [0, 1, 2, 3, 4, 5, 6];
 
         let recommendedMeals = await this.recipeService.filterByPreferences(user);
@@ -100,7 +101,7 @@ export class WeekplanService {
         });
 
         const weekplanRecipeIds = weekPlan.weekplanEntry.map((entry) => entry.recipeId)
-        this.shoppingListService.create(weekplanRecipeIds)
+        this.shoppingListService.create(weekplanRecipeIds, user)
 
         return this.formatWeekPlan(weekPlan);
     }

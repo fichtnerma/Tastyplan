@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { ShoppingListEntry, User } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 
 @Injectable()
 export class ShoppingListService {
-    constructor(private recipesService: RecipesService) { }
+    constructor(
+        private recipesService: RecipesService,
+        private prismaService: PrismaService
+    ) { }
 
-    async create(recipeIds: number[]) {
+    async create(recipeIds: number[], user: User) {
         const recipeIngredients = await Promise.all(recipeIds.map(async id => {
             const recipe = await this.recipesService.findById(id)
 
@@ -26,28 +31,22 @@ export class ShoppingListService {
         })
 
         const summurizedIngredients = Object.values(ingredientMap)
-        console.log(summurizedIngredients)
 
-
-        /*         const summedIngredients = []
-                flattenedIngredients.forEach((outerIngredient, i) => {
-                    let summedIngredient = outerIngredient;
-                    flattenedIngredients.splice(i, 1);
-                    flattenedIngredients.forEach((innerIngredient, k) => {
-                        //Right now we expect, that the same ingredient has the same unit
-                        if (summedIngredient.id === innerIngredient.id) {
-                            summedIngredient = {
-                                ...summedIngredient,
-                                quantity: summedIngredient.quantity + innerIngredient.quantity
-                            }
-                            flattenedIngredients.splice(k, 1);
-                        }
-        
-                    })
-                }) */
-        //Take Element
-        //Iterate with it trough the array
-        //If number is same add up + take unit
-        //remove all Elements
+        const shoppingList = await this.prismaService.shoppingList.create({
+            data: {
+                userId: user.userId,
+                shoppingListEntries: {
+                    createMany: {
+                        data: summurizedIngredients.map((entry: ShoppingListEntry) => ({
+                            ingredientId: entry.id,
+                            ingredientName: entry.ingredient.name,
+                            unit: entry.unit,
+                            quantity: entry.quantity,
+                            isChecked: false
+                        }))
+                    }
+                }
+            }
+        })
     }
 }
