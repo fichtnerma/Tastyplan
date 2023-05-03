@@ -75,17 +75,33 @@ export class ShoppingListService {
         return shoppingListEntriesFormatted;
     }
 
-    upadteShoppingListEntry(userId: string, shoppingListEntry: UpdateShoppingListDto) {
+    async upadteShoppingListEntry(userId: string, shoppingListEntryInput: UpdateShoppingListDto) {
+        const shoppingList = await this.queryExistingShoppingList(userId);
 
+        const shoppingListEntry = await this.prismaService.shoppingListEntry.findFirst({
+            where: {
+                AND: [
+                    {
+                        shoppingListId: shoppingList[0].id
+                    },
+
+
+                ]
+
+            }
+        })
+        return shoppingListEntry
     }
 
     async queryExistingShoppingList(userId: string) {
-        const lists = await this.prismaService.shoppingList.findMany({
+        const list = await this.prismaService.shoppingList.findMany({
             where: {
                 userId: userId
             },
             include: { shoppingListEntries: true }
         })
-        return lists;
+        return list;
     }
 }
+
+//TODO: Replace findMany with findFirst

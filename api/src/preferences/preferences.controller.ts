@@ -38,6 +38,4 @@ export class PreferencesController {
         const user = request.user as User;
         return await this.preferencesService.getPreferences(user);
     }
-
-
 }
