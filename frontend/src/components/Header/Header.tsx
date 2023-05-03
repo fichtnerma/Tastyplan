@@ -44,7 +44,7 @@ export default function Header() {
                                 <p>Weekplan</p>
                             </div>
                         </Link>
-                        <Link href="/weekOverview" className="">
+                        <Link href="/shoppingList" className="">
                             <div className="flex gap-2 items-center">
                                 <Icon size={25} icon="shoppinglist"></Icon>
                                 <p>Shopping List</p>
