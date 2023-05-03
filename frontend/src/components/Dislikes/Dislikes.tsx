@@ -83,19 +83,26 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                         <SearchResultlist searchResults={[...searchResult]} clickHandler={handleAddChoice} />
                     )}
                 </div>
-                <div className="grid grid-cols-4 gap-4 my-4 overflow-y-auto">
-                    {allDislikes.map((dislike, i) => (
-                        <div key={i} className={styles.dislikeWrapper}>
-                            <span>
-                                <label htmlFor={dislike.name}>
-                                    <p>{dislike.name}</p>
-                                </label>
-                                <a className="cursor-pointer" onClick={onDeleteChoice} data-anchor={dislike.name}>
-                                    <Image src={cross} className="" alt="cross" width={25} priority />
-                                </a>
-                            </span>
-                        </div>
-                    ))}
+                <div className=" h-[280px] overflow-y-auto">
+                    <div className="flex flex-wrap my-2 gap-x-2">
+                        {allDislikes.map((dislike, i) => (
+                            <div key={i} className={styles.dislikeWrapper}>
+                                <span>
+                                    <label htmlFor={dislike.name}>
+                                        <p className="inline-block text-base pr-2">{dislike.name}</p>
+
+                                        <a
+                                            className="inline-block cursor-pointer"
+                                            onClick={onDeleteChoice}
+                                            data-anchor={dislike.name}
+                                        >
+                                            <Image src={cross} className="" alt="cross" width={20} priority />
+                                        </a>
+                                    </label>
+                                </span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
             <div className="flex justify-between relative">
