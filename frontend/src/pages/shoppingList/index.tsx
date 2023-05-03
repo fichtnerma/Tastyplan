@@ -36,7 +36,7 @@ const ingredientsDummy1: Ingredient[] = [
 ];
 
 function ShoppingListPage() {
-    const [presentIngredients, setPresentIngredients] = useState<CustomSelectionInput[]>(
+    const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInput[]>(
         ingredientsDummy1.map((ingredient, index) => {
             return {
                 id: index + '',
@@ -46,12 +46,27 @@ function ShoppingListPage() {
         }),
     );
 
-    const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInput[]>([]);
+    const [presentIngredients, setPresentIngredients] = useState<CustomSelectionInput[]>([]);
 
-    const handleCheckboxSelect = (id: string) => {
-        const filteredPresentIngredients = presentIngredients.filter((ingredient) => ingredient.id !== id);
-        const foundIngredient = presentIngredients.find((ingredient) => ingredient.id === id);
+    const handleNeededSelect = (id: string) => {
+        const filteredNeededIngredients = neededIngredients.filter((ingredient) => ingredient.id !== id);
+        const foundIngredient = neededIngredients.find((ingredient) => ingredient.id === id);
         if (foundIngredient) {
+            foundIngredient.checked = true;
+            const presentIngredientsCopy = [...presentIngredients];
+            presentIngredientsCopy.push(foundIngredient);
+            setPresentIngredients(presentIngredientsCopy);
+        }
+        setNeededIngredients(filteredNeededIngredients);
+    };
+
+    const handlePresentSelect = (id: string) => {
+        const filteredPresentIngredients = presentIngredients.filter((ingredient) => ingredient.id !== id);
+
+        const foundIngredient = presentIngredients.find((ingredient) => ingredient.id === id);
+
+        if (foundIngredient) {
+            foundIngredient.checked = false;
             const neededIngredientsCopy = [...neededIngredients];
             neededIngredientsCopy.push(foundIngredient);
             setNeededIngredients(neededIngredientsCopy);
@@ -66,19 +81,19 @@ function ShoppingListPage() {
                 <div className="mr-[20rem]">
                     <h2>Things you need:</h2>
                     <CheckboxGroup
-                        checkboxes={presentIngredients}
+                        checkboxes={neededIngredients}
                         groupName="ingredients2"
-                        onCheckboxSelect={handleCheckboxSelect}
+                        onCheckboxSelect={handleNeededSelect}
                         disabled={false}
                     />
                 </div>
                 <div>
                     <h2>Things you already have:</h2>
                     <CheckboxGroup
-                        checkboxes={neededIngredients}
+                        checkboxes={presentIngredients}
                         groupName="ingredients2"
-                        onCheckboxSelect={handleCheckboxSelect}
-                        disabled={true}
+                        onCheckboxSelect={handlePresentSelect}
+                        disabled={false}
                     />
                 </div>
             </div>
