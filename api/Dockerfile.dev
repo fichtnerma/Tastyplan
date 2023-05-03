@@ -1,3 +1,7 @@
+###################
+# BUILD FOR LOCAL DEVELOPMENT
+###################
+
 FROM node:18-alpine
 
 WORKDIR /app
