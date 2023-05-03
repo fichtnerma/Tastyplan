@@ -19,7 +19,7 @@ export class ShoppingListService {
         }))
         const flattenedIngredients = recipeIngredients.flat()
 
-        const ingredientMap: any = {}
+        const ingredientMap: IngredientMap = {}
         flattenedIngredients.forEach(ingredient => {
             if (ingredient.id in ingredientMap) {
                 ingredientMap[ingredient.id].quantity += ingredient.quantity
@@ -42,12 +42,12 @@ export class ShoppingListService {
             })
         }
 
-        const shoppingList = await this.prismaService.shoppingList.create({
+        await this.prismaService.shoppingList.create({
             data: {
                 userId: user.userId,
                 shoppingListEntries: {
                     createMany: {
-                        data: summurizedIngredients.map((entry: ShoppingListEntry) => ({
+                        data: summurizedIngredients.map((entry) => ({
                             ingredientId: entry.id,
                             ingredientName: entry.ingredient.name,
                             unit: entry.unit,

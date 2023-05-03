@@ -16,3 +16,12 @@ export interface JwtToken {
     expiresIn: string;
     Authorization: string;
 }
+
+export interface IngredientMap {
+    [key: string]: {
+        id: number;
+        quantity: number;
+        unit: string;
+        ingredient: { name: string };
+    };
+}
