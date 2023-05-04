@@ -53,10 +53,12 @@ export default function WeekplanConfig({ onBack, onChoice, weekConfig, handlePre
             if (!weekConfig.days.find((day) => day === clickedDay.label)) {
                 weekConfig.days.push(clickedDay.label);
                 setWeekplanChoices(weekConfig);
+                clickedDay.checked = true;
             } else {
                 const newDays = weekConfig.days.filter((day) => day === clickedDay.label);
                 weekConfig.days = newDays;
                 setWeekplanChoices(weekConfig);
+                clickedDay.checked = false;
             }
         }
     };
@@ -67,10 +69,12 @@ export default function WeekplanConfig({ onBack, onChoice, weekConfig, handlePre
             if (!weekConfig.meals.find((meal) => meal === clickedMeal.label)) {
                 weekConfig.meals.push(clickedMeal.label);
                 setWeekplanChoices(weekConfig);
+                clickedMeal.checked = true;
             } else {
                 const newMeals = weekConfig.meals.filter((meal) => meal === clickedMeal.label);
                 weekConfig.meals = newMeals;
                 setWeekplanChoices(weekConfig);
+                clickedMeal.checked = false;
             }
         }
     };
