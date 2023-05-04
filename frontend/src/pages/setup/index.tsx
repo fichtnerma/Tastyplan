@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
+import WeekplanConfig from '@components/WeekplanConfig/WeekplanConfig';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
 import Intolerances from '@components/Intolerances/Intolerances';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
@@ -14,6 +15,13 @@ interface Preferences {
     formOfDiet: string;
     allergens: string[];
     foodDislikes: APISearchResponse[];
+    weekConfig: WeekConfig;
+}
+
+interface WeekConfig {
+    days: string[];
+    meals: string[];
+    servings: number;
 }
 
 const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes'];
@@ -25,6 +33,7 @@ const SetupParentPage = () => {
         formOfDiet: '',
         allergens: [],
         foodDislikes: [],
+        weekConfig: { days: [], meals: [], servings: 1 },
     });
 
     const router = useRouter();
@@ -95,6 +104,7 @@ const SetupParentPage = () => {
                                         formOfDiet: foodLifeStyle,
                                         allergens: preferences.allergens,
                                         foodDislikes: preferences.foodDislikes,
+                                        weekConfig: preferences.weekConfig,
                                     });
                                 }}
                                 formOfDiet={preferences.formOfDiet}
@@ -109,6 +119,7 @@ const SetupParentPage = () => {
                                         formOfDiet: preferences.formOfDiet,
                                         allergens: allergens,
                                         foodDislikes: preferences.foodDislikes,
+                                        weekConfig: preferences.weekConfig,
                                     });
                                 }}
                                 allergens={preferences.allergens}
@@ -121,10 +132,26 @@ const SetupParentPage = () => {
                                         formOfDiet: preferences.formOfDiet,
                                         allergens: preferences.allergens,
                                         foodDislikes: foodDislikes,
+                                        weekConfig: preferences.weekConfig,
                                     });
                                 }}
                                 onBack={handleBackStep}
                                 foodDislikes={preferences.foodDislikes}
+                                onNext={handleNextStep}
+                            />
+                        )}
+                        {currentStep === 4 && (
+                            <WeekplanConfig
+                                onChoice={(weekConfig: WeekConfig) => {
+                                    setPreferences({
+                                        formOfDiet: preferences.formOfDiet,
+                                        allergens: preferences.allergens,
+                                        foodDislikes: preferences.foodDislikes,
+                                        weekConfig: weekConfig,
+                                    });
+                                }}
+                                onBack={handleBackStep}
+                                weekConfig={preferences.weekConfig}
                                 handlePreferences={handlePreferences}
                             />
                         )}
