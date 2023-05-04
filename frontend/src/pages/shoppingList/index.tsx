@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
-import { mapShoppingListToSelection } from '@helpers/utils';
+import { fetchWithAuth, mapShoppingListToSelection } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { CustomSelectionInput, ShoppingListItem } from 'src/types/types';
 
@@ -8,10 +9,33 @@ function ShoppingListPage() {
     const { data, error } = useFetchWithAuth<ShoppingListItem[]>('/service/shopping-list');
     const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInput[]>([]);
     const [presentIngredients, setPresentIngredients] = useState<CustomSelectionInput[]>([]);
+    const { data: session } = useSession();
 
     useEffect(() => {
         if (data) filterIngredients(data);
     }, [data, error]);
+
+    const sendIngredient = async (ingredient: CustomSelectionInput) => {
+        const foundElement = data?.find((el) => el.ingredientId + '' === ingredient.id);
+
+        if (!foundElement) return;
+
+        const dataToSend = {
+            isChecked: ingredient.checked,
+        };
+
+        fetchWithAuth(
+            `/service/shopping-list/update/${foundElement.shoppingListEntryId}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            },
+            session,
+        );
+    };
 
     const filterIngredients = (ingredients: ShoppingListItem[]) => {
         const neededIngredients = ingredients.filter((ingredient) => !ingredient.isChecked);
@@ -29,6 +53,7 @@ function ShoppingListPage() {
             const presentIngredientsCopy = [...presentIngredients];
             presentIngredientsCopy.push(foundIngredient);
             setPresentIngredients(presentIngredientsCopy);
+            sendIngredient(foundIngredient);
         }
         setNeededIngredients(filteredNeededIngredients);
     };
@@ -43,6 +68,7 @@ function ShoppingListPage() {
             const neededIngredientsCopy = [...neededIngredients];
             neededIngredientsCopy.push(foundIngredient);
             setNeededIngredients(neededIngredientsCopy);
+            sendIngredient(foundIngredient);
         }
         setPresentIngredients(filteredPresentIngredients);
     };
@@ -75,21 +101,5 @@ function ShoppingListPage() {
         </div>
     );
 }
-// type Data = { test: 'normal' };
-
-// export const getServerSideProps: GetServerSideProps<{ data: Data }> = async (context) => {
-//     // const session = (await getServerSession(context.req, context.res, authOptions)) as Session;
-//     // // const res = await fetchWithAuth('/service/shopping-list', undefined, session);
-//     // // const res = await fetch('https://.../data');
-//     // // const data: Data = await res.json();
-
-//     // console.log(session.user.firstName);
-
-//     // return {
-//     //     props: {
-//     //         hello: 'hello',
-//     //     },
-//     // };
-// };
 
 export default ShoppingListPage;

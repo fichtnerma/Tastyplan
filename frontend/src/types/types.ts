@@ -59,7 +59,7 @@ export type CustomSelectionInput = {
 };
 
 export type ShoppingListItem = {
-    id: number;
+    shoppingListEntryId: number;
     ingredientId: number;
     ingredientName: string;
     unit: string;
