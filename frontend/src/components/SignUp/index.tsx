@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { CSSTransition } from 'react-transition-group';
 import Icon from '@components/Icon/Icon';
@@ -42,9 +43,9 @@ export default function SignUp({ currentForm, setRoute }: SignUpProps) {
                     isLogin ? 'text-white-custom' : 'text-black'
                 }`}
             >
-                <a href="#" onClick={skipRegistration}>
+                <Link href="/">
                     <Icon size={20} icon="close" />
-                </a>
+                </Link>
             </div>
             {isLogin ? (
                 <CSSTransition in={isLogin} timeout={600} nodeRef={nodeRef} classNames="fade-left">
@@ -56,6 +57,16 @@ export default function SignUp({ currentForm, setRoute }: SignUpProps) {
                 <CSSTransition in={isLogin} timeout={600} nodeRef={nodeRef2} classNames="fade-right">
                     <div ref={nodeRef2}>
                         <Register visible={!isLogin} toggle={toggleForm} />
+                        <div className="absolute w-full bottom-2 z-[6]">
+                            <div className="flex justify-center ml-[50%]">
+                                <p
+                                    className="cursor-pointer text-base text-gray-custom3 hover:text-black"
+                                    onClick={skipRegistration}
+                                >
+                                    Continue as guest
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </CSSTransition>
             )}
