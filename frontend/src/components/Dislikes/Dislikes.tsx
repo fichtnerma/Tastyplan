@@ -32,7 +32,15 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
         const name = target.getAttribute('data-dislike-name');
         if (!id || !name) return;
         const clickedDislike = { id: +id, name } as APISearchResponse;
-        setDislike([...allDislikes, clickedDislike]);
+        if (allDislikes.find((dislike) => dislike.id === clickedDislike.id)) {
+            target.style.backgroundColor = 'var(--gray-2)';
+            //add hover effect to element: backgroundColor = 'var(--gray-5)'
+            setDislike(allDislikes.filter((dislike) => dislike.id !== clickedDislike.id));
+        } else {
+            target.style.backgroundColor = 'var(--gray-5)';
+            setDislike([...allDislikes, clickedDislike]);
+        }
+
         onChoice(allDislikes);
     };
 
@@ -58,11 +66,10 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
             <div className="h-[300px]">
                 <div className="flex flex-col">
                     <div className="w-full flex">
-                        <div className="text-input-wrapper w-1/2 mr-16">
+                        <div className="text-input-wrapper w-1/3 mr-16">
                             <input
                                 type="text"
-                                name="search"
-                                placeholder="Tomatoes"
+                                placeholder="Search ingredients"
                                 value={searchTerm}
                                 onChange={(e) => {
                                     setSearchTerm(() => e.target.value);
@@ -76,19 +83,26 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                         <SearchResultlist searchResults={[...searchResult]} clickHandler={handleAddChoice} />
                     )}
                 </div>
-                <div className="grid grid-cols-4 gap-4 my-4 overflow-y-auto">
-                    {allDislikes.map((dislike, i) => (
-                        <div key={i} className={styles.dislikeWrapper}>
-                            <span>
-                                <label htmlFor={dislike.name}>
-                                    <p>{dislike.name}</p>
-                                </label>
-                                <a className="cursor-pointer" onClick={onDeleteChoice} data-anchor={dislike.name}>
-                                    <Image src={cross} className="" alt="cross" width={25} priority />
-                                </a>
-                            </span>
-                        </div>
-                    ))}
+                <div className=" h-[280px] overflow-y-auto">
+                    <div className="flex flex-wrap my-2 gap-x-2">
+                        {allDislikes.map((dislike, i) => (
+                            <div key={i} className={styles.dislikeWrapper}>
+                                <span>
+                                    <label htmlFor={dislike.name}>
+                                        <p className="inline-block text-base pr-2">{dislike.name}</p>
+
+                                        <a
+                                            className="inline-block cursor-pointer"
+                                            onClick={onDeleteChoice}
+                                            data-anchor={dislike.name}
+                                        >
+                                            <Image src={cross} className="" alt="cross" width={20} priority />
+                                        </a>
+                                    </label>
+                                </span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
             <div className="flex justify-between relative">

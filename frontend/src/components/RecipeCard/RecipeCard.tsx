@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Icon from '@components/Icon/Icon';
@@ -12,90 +12,108 @@ type RecipeCardProps = {
 };
 
 function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
+    const [favorit, setFavorit] = useState(false);
     const className = getNumberOfLines(recipe);
 
+    const isFavorit = () => {
+        console.log(favorit);
+
+        if (favorit) {
+            return setFavorit(false);
+        }
+        return setFavorit(true);
+    };
+
     return (
-        <Link href={`/recipe/${recipe.id}`}>
+        <>
             <div className={styles.wrapperContainer}>
-                <div className={styles.foodBox}>
-                    <Image
-                        src={`/service/images/${recipe.img}`}
-                        width={200}
-                        height={200}
-                        alt="Food Img"
-                        className={styles.foodImg}
-                    />
+                <div
+                    className={`justify-end flex absolute p-2 ${styles.heartIcon}`}
+                    style={{
+                        color: highlighted ? 'var(--white)' : 'var(--green-dark)',
+                        fill: favorit ? (highlighted ? 'var(--white)' : 'var(--green-dark)') : 'none',
+                    }}
+                    onClick={() => isFavorit()}
+                >
+                    <Icon size={30} icon="heart"></Icon>
                 </div>
-                <div className={highlighted ? `${styles.weekplanBox} ${styles.weekplanBoxToday}` : styles.weekplanBox}>
-                    <div
-                        className={`justify-end flex relative p-2 ${styles.heartIcon}`}
-                        style={{
-                            color: highlighted ? 'var(--white)' : 'var(--black)',
-                        }}
-                    >
-                        <Icon size={30} icon="heart"></Icon>
+                <Link href={`/recipe/${recipe.id}`}>
+                    <div className={styles.foodBox}>
+                        <Image
+                            src={`/service/images/${recipe.img}`}
+                            width={200}
+                            height={200}
+                            alt="Food Img"
+                            className={styles.foodImg}
+                        />
                     </div>
-                    <div className={className}>
-                        <div className="h-16 absolute bottom-0">
-                            <p
-                                className="text-2xl w-[200px] absolute bottom-0 recipeName"
+                    <div
+                        className={
+                            highlighted ? `${styles.weekplanBox} ${styles.weekplanBoxToday}` : styles.weekplanBox
+                        }
+                    >
+                        <div className={className}>
+                            <div className="h-16 absolute bottom-0">
+                                <p
+                                    className="text-2xl w-[210px] absolute bottom-0 recipeName"
+                                    style={{
+                                        color: highlighted ? 'var(--white)' : 'var(--black)',
+                                    }}
+                                >
+                                    {recipe.name}
+                                </p>
+                            </div>
+                            <div
+                                className={styles.discriptionHover}
                                 style={{
                                     color: highlighted ? 'var(--white)' : 'var(--black)',
                                 }}
                             >
-                                {recipe.name}
-                            </p>
-                        </div>
-                        <div
-                            className={styles.discriptionHover}
-                            style={{
-                                color: highlighted ? 'var(--white)' : 'var(--black)',
-                            }}
-                        >
-                            {recipe.preparingTime !== (null || 0) && (
-                                <div className="flex flex-row gap-x-4 mt-4">
-                                    <Icon size={40} icon="totaltime"></Icon>
-                                    <p
-                                        className="text-lg mt-1 text-center"
-                                        style={{
-                                            color: highlighted ? 'var(--white)' : 'var(--black)',
-                                        }}
-                                    >
-                                        {recipe.preparingTime} min
-                                    </p>
-                                </div>
-                            )}
-                            {recipe.cookingTime !== (null || 0) && (
-                                <div className="flex flex-row gap-x-4 mt-4">
-                                    <Icon size={40} icon="cookingTime"></Icon>
-                                    <p
-                                        className="text-lg text-center mt-2"
-                                        style={{
-                                            color: highlighted ? 'var(--white)' : 'var(--black)',
-                                        }}
-                                    >
-                                        {recipe.cookingTime} min
-                                    </p>
-                                </div>
-                            )}
-                            {recipe.formOfDiet !== null && (
-                                <div className="flex flex-row gap-x-4 mt-4">
-                                    <Icon size={40} icon={getFormOfDietIcon(recipe?.formOfDiet)}></Icon>
-                                    <p
-                                        className="text-lg text-center mt-1"
-                                        style={{
-                                            color: highlighted ? 'var(--white)' : 'var(--black)',
-                                        }}
-                                    >
-                                        {recipe.formOfDiet}
-                                    </p>
-                                </div>
-                            )}
+                                {recipe.preparingTime !== (null || 0) && (
+                                    <div className="flex flex-row gap-x-4 mt-4">
+                                        <Icon size={40} icon="totaltime"></Icon>
+                                        <p
+                                            className="text-lg mt-1 text-center"
+                                            style={{
+                                                color: highlighted ? 'var(--white)' : 'var(--black)',
+                                            }}
+                                        >
+                                            {recipe.preparingTime} min
+                                        </p>
+                                    </div>
+                                )}
+                                {recipe.cookingTime !== (null || 0) && (
+                                    <div className="flex flex-row gap-x-4 mt-4">
+                                        <Icon size={40} icon="cookingTime"></Icon>
+                                        <p
+                                            className="text-lg text-center mt-2"
+                                            style={{
+                                                color: highlighted ? 'var(--white)' : 'var(--black)',
+                                            }}
+                                        >
+                                            {recipe.cookingTime} min
+                                        </p>
+                                    </div>
+                                )}
+                                {recipe.formOfDiet !== null && (
+                                    <div className="flex flex-row gap-x-4 mt-4">
+                                        <Icon size={40} icon={getFormOfDietIcon(recipe?.formOfDiet)}></Icon>
+                                        <p
+                                            className="text-lg text-center mt-1"
+                                            style={{
+                                                color: highlighted ? 'var(--white)' : 'var(--black)',
+                                            }}
+                                        >
+                                            {recipe.formOfDiet}
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Link>
             </div>
-        </Link>
+        </>
     );
 }
 

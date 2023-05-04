@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import Icon from '@components/Icon/Icon';
 
 export default function index() {
     return (
@@ -10,15 +11,18 @@ export default function index() {
                         <Image src={'/logo.svg'} alt="logo" width={200} height={139} priority />
                     </div>
                     <Link href="/authentication/login">
-                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full mt-5">
-                            <Image
+                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full mt-5 hover:bg-green-custome3">
+                            {/* <Image
                                 src={'/Icons/Header/user.png'}
                                 alt="logo"
                                 height={30}
                                 width={30}
                                 priority
                                 className="h-fit pt-[20%] invert"
-                            />
+                            /> */}
+                            <div className="h-fit pt-[20%] invert">
+                                <Icon size={30} icon="user"></Icon>
+                            </div>
                         </div>
                     </Link>
                 </div>
