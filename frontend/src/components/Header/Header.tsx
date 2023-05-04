@@ -27,6 +27,10 @@ export default function Header() {
         }
     }, [scrollPos]);
 
+    if (typeof window !== 'undefined') {
+        changeActiveTab();
+    }
+
     return (
         <>
             <div className={`${styles.headerContainer}`}>
@@ -38,34 +42,95 @@ export default function Header() {
                     </Link>
 
                     <div className="flex gap-10 mr-8 mt-6">
-                        <Link href="/weekOverview" className="">
-                            <div className="flex gap-2 items-center">
+                        <Link href="/weekOverview" onClick={changeActiveTab} className={`link weekOverview`}>
+                            <div className={`flex gap-2 items-center ${styles.weekplan}`}>
                                 <Icon size={25} icon="calender"></Icon>
                                 <p>Weekplan</p>
                             </div>
                         </Link>
-                        <Link href="/shoppingList" className="">
-                            <div className="flex gap-2 items-center">
+                        <Link href="/shoppingList" onClick={changeActiveTab} className={`link shoppingList`}>
+                            <div className={`flex gap-2 items-center ${styles.shoppingList}`}>
                                 <Icon size={25} icon="shoppinglist"></Icon>
                                 <p>Shopping List</p>
                             </div>
                         </Link>
-                        <Link href="/weekOverview" className="">
-                            <div className="flex gap-2 items-center">
-                                <Icon size={25} icon="settings"></Icon>
-                                <p>Settings</p>
+                        <Link href="/cookbook" onClick={changeActiveTab} className={`link cookbook`}>
+                            <div className={`flex gap-2 items-center fill-none ${styles.cookbook}`}>
+                                <Icon size={25} icon="heart"></Icon>
+                                <p>Cookbook</p>
                             </div>
                         </Link>
-                        <Link href="/weekOverview" className="">
+                        <div className={styles.userIcon}>
                             <div className="flex gap-2 items-center">
                                 <Icon size={25} icon="user"></Icon>
                             </div>
-                        </Link>
+                            <div className={`w-40 pt-8 right-14 absolute ${styles.dropdown}`}>
+                                <div className="rounded-2xl bg-green-custom1 ">
+                                    <Link href="/settings" className="">
+                                        <div
+                                            className={`flex gap-2 text-right pt-5 pb-3 pl-5 settings dropdown${styles.settingsDropdown}`}
+                                        >
+                                            <p>Settings</p>
+                                            <div className="right-0 absolute pr-8">
+                                                <Icon size={25} icon="settings"></Icon>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                    <Link href="/" className="">
+                                        <div
+                                            className={`flex gap-2 items-center pb-5 pl-5 pt-3 user dropdown${styles.userDropdown}`}
+                                        >
+                                            <p>Log out</p>
+                                            <div className="right-0 absolute pr-8">
+                                                <Icon size={25} icon="user"></Icon>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </>
     );
+}
+
+function changeActiveTab() {
+    const currentPath = window.location.pathname;
+    const activeClass = `${styles.active}`;
+    const settingsClass = `${styles.settingsActive}`;
+    // const userClass = `${styles.userActive}`;
+
+    document.querySelectorAll('.link').forEach((el) => {
+        el.classList.remove(activeClass);
+    });
+
+    document.querySelectorAll('.dropdown').forEach((el) => {
+        el.classList.remove(settingsClass);
+        // el.classList.remove(userClass);
+    });
+
+    if (currentPath === '/weekOverview') {
+        const element = document.querySelector('.weekOverview');
+        element?.classList.add(activeClass);
+    } else if (currentPath === '/shoppingList') {
+        const element = document.querySelector('.shoppingList');
+        element?.classList.add(activeClass);
+    } else if (currentPath === '/cookbook') {
+        const element = document.querySelector('.cookbook');
+        element?.classList.add(activeClass);
+    } else if (currentPath === '/settings') {
+        const element = document.querySelector('.settings');
+        element?.classList.add(settingsClass);
+    }
+    // else if (currentPath === '/') {
+    //     const element = document.querySelector('.user');
+    //     element?.classList.add(userClass);
+    // }
+    else {
+        console.log('Header: No Path found');
+    }
 }
 
 // const [menuOpen, setMenuOpen] = useState(false);
