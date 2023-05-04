@@ -12,9 +12,11 @@ services:
 .build-rules:
   image: docker:20.10-dind
   stage: build
-  rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
-      when: never
+  only:
+     - merge_requests
+  except:
+     variables:
+       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
