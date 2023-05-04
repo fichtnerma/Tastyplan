@@ -32,7 +32,7 @@ export function levenshteinSimilarity(s1: string, s2: string) {
     return (longerLength - levenshteinDistance(longer, shorter)) / longerLength;
 }
 
-export function levenshteinDistance(s1: string, s2: string) {
+function levenshteinDistance(s1: string, s2: string) {
     s1 = s1.toLowerCase();
     s2 = s2.toLowerCase();
 
@@ -108,4 +108,115 @@ export function gestaltSimilarity(s1: string, s2: string) {
         }
     }
     return score / (s1.length + s2.length);
+}
+
+export function smithWatermanSimilarity(s1: string, s2: string) {
+    const n = s1.length;
+    const m = s2.length;
+    const matrix = [];
+    for (let i = 0; i <= n; i++) {
+        matrix[i] = [0];
+    }
+    for (let j = 0; j <= m; j++) {
+        matrix[0][j] = 0;
+    }
+    for (let i = 1; i <= n; i++) {
+        for (let j = 1; j <= m; j++) {
+            matrix[i][j] = Math.max(
+                matrix[i - 1][j - 1] + smithWatermanMatch(s1.charAt(i - 1), s2.charAt(j - 1)),
+                matrix[i - 1][j] + smithWatermanGap(),
+                matrix[i][j - 1] + smithWatermanGap(),
+            );
+        }
+    }
+    return matrix[n][m] / Math.max(n, m);
+}
+
+function smithWatermanMatch(c1: string, c2: string) {
+    if (c1 === c2) return 1;
+    return -1;
+}
+
+function smithWatermanGap() {
+    return -1;
+}
+
+export function jaroWinklerSimilarity(s1: string, s2: string) {
+    const jaro_distance = jaroSimilarity(s1, s2);
+    const prefix_length = jaroPrefix(s1, s2);
+    const jaro_winkler_distance = jaro_distance + 0.1 * prefix_length * (1 - jaro_distance);
+    return jaro_winkler_distance;
+}
+
+function jaroSimilarity(s1: string, s2: string) {
+    const m = jaroMatches(s1, s2);
+    if (m === 0) return 0;
+    const t = jaroTranspositions(s1, s2);
+    const jaro_distance = (m / s1.length + m / s2.length + (m - t / 2) / m) / 3;
+    return jaro_distance;
+}
+
+function jaroTranspositions(s1: string, s2: string) {
+    const max_distance = Math.floor(Math.max(s1.length, s2.length) / 2) - 1;
+    const s1_matches = [];
+    const s2_matches = [];
+    let matches = 0;
+    for (let i = 0; i < s1.length; i++) {
+        const start = Math.max(0, i - max_distance);
+        const end = Math.min(i + max_distance + 1, s2.length);
+        for (let j = start; j < end; j++) {
+            if (s1.charAt(i) === s2.charAt(j) && !s2_matches[j]) {
+                s1_matches[i] = true;
+                s2_matches[j] = true;
+                matches++;
+                break;
+            }
+        }
+    }
+    if (matches === 0) return 0;
+    let k = 0;
+    for (let i = 0; i < s1.length; i++) {
+        if (s1_matches[i]) {
+            let j;
+            for (j = k; j < s2.length; j++) {
+                if (s2_matches[j]) {
+                    k = j + 1;
+                    break;
+                }
+            }
+            if (s1.charAt(i) !== s2.charAt(j)) {
+                k++;
+            }
+        }
+    }
+    return Math.floor(matches / 2);
+}
+
+function jaroPrefix(s1: string, s2: string) {
+    let prefix_length = 0;
+    for (let i = 0; i < 4; i++) {
+        if (s1.charAt(i) === s2.charAt(i)) prefix_length++;
+        else break;
+    }
+    return prefix_length;
+}
+
+function jaroMatches(s1: string, s2: string) {
+    const max_distance = Math.floor(Math.max(s1.length, s2.length) / 2) - 1;
+    const s1_matches = [];
+    const s2_matches = [];
+    let matches = 0;
+    for (let i = 0; i < s1.length; i++) {
+        const start = Math.max(0, i - max_distance);
+        const end = Math.min(i + max_distance + 1, s2.length);
+        for (let j = start; j < end; j++) {
+            if (s2_matches[j] !== true && s1.charAt(i) === s2.charAt(j)) {
+                s1_matches[i] = true;
+                s2_matches[j] = true;
+                matches++;
+                break;
+            }
+        }
+    }
+    return matches;
 }
