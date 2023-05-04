@@ -32,7 +32,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
                         asPath == '/preferences' ||
                         asPath.includes('/intolerances') ||
                         asPath.includes('/setup')
-                            ? '3.5rem'
+                            ? '2rem'
                             : '7rem',
                 }}
             >

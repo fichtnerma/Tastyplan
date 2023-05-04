@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Steps from '@components/Startpage/Steps/Steps';
 import Benefits from '@components/Startpage/Benefits/Benefits';
 import Icon from '@components/Icon/Icon';
+import styles from '../styles/Home.module.scss';
 
 export type Benefit = {
     id: number;
@@ -19,6 +20,14 @@ export default function Index() {
         fieldRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
+    function startAnimation() {
+        const animationClass = `${styles.animTypewriter}`;
+
+        const element = document.querySelector('.animation');
+
+        element?.classList.add(animationClass);
+    }
+
     return (
         <div className="">
             <div className="flex flex-col justify-start h-screen">
@@ -27,7 +36,7 @@ export default function Index() {
                         <Image src={'/logo.svg'} alt="logo" width={200} height={139} priority />
                     </div>
                     <Link href="/authentication/login">
-                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full mt-5 hover:bg-green-custome3">
+                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full hover:bg-green-custome3">
                             <div className="h-fit pt-[20%] invert">
                                 <Icon size={30} icon="user"></Icon>
                             </div>
@@ -55,8 +64,8 @@ export default function Index() {
                     <Icon size={40} icon="arrowDownCircle"></Icon>
                 </button>
             </div>
-            <div ref={fieldRef}>
-                <div className="flex mb-16 pt-8">
+            <div ref={fieldRef} onMouseOver={startAnimation}>
+                <div className="flex pt-8">
                     <div className="flex flex-col">
                         <h2>What is Tasty Plan?</h2>
                         <p>
@@ -68,7 +77,7 @@ export default function Index() {
                     </div>
                     <Image src={'/whatIsTastyPlan.svg'} alt="a cookbook" width={800} height={139} priority />
                 </div>
-                <p className="h2-zeyada-green text-center w-[842px] my-0 mx-auto pt-96 leading-[0.8]">
+                <p className={`h2-zeyada-green text-center my-0 mx-auto mt-20 animation ${styles.line}`}>
                     Meal planning has never been easier and more delicious.
                 </p>
             </div>
