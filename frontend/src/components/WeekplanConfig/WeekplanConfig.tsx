@@ -20,7 +20,11 @@ interface WeekConfig {
 }
 
 export default function WeekplanConfig({ onBack, onChoice, weekConfig, handlePreferences }: WeekplanConfigProps) {
-    const [weekplanChoices, setWeekplanChoices] = useState({ ...weekConfig });
+    const [weekplanChoices, setWeekplanChoices] = useState({
+        ...weekConfig,
+        days: [...weekConfig.days],
+        meals: [...weekConfig.meals],
+    });
 
     const days = [
         { id: '0', label: 'Monday', checked: false },
@@ -71,19 +75,16 @@ export default function WeekplanConfig({ onBack, onChoice, weekConfig, handlePre
         }
     };
 
-    const changePortion = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const clickedButton = e.currentTarget.getAttribute('data-anchor');
-        if (clickedButton == '+') {
-            weekConfig.servings = weekConfig.servings + 1;
-            setWeekplanChoices(weekConfig);
-        } else {
-            if (weekConfig.servings > 1) {
-                weekConfig.servings = weekConfig.servings - 1;
+    const increasePortion = () => {
+        const tempServings = weekplanChoices.servings + 1;
+        setWeekplanChoices({ ...weekplanChoices, servings: tempServings });
+    };
 
-                setWeekplanChoices(weekConfig);
-            }
+    const decreasePortion = () => {
+        if (weekplanChoices.servings > 1) {
+            const tempServings = weekplanChoices.servings - 1;
+            setWeekplanChoices({ ...weekplanChoices, servings: tempServings });
         }
-        console.log(weekplanChoices);
     };
 
     return (
@@ -112,8 +113,7 @@ export default function WeekplanConfig({ onBack, onChoice, weekConfig, handlePre
                         <button
                             type="button"
                             className={`btn-primary ${styles.btnPortion} mr-2`}
-                            onClick={changePortion}
-                            data-anchor={'-'}
+                            onClick={decreasePortion}
                         >
                             -
                         </button>
@@ -121,8 +121,7 @@ export default function WeekplanConfig({ onBack, onChoice, weekConfig, handlePre
                         <button
                             type="button"
                             className={`btn-primary ${styles.btnPortion} ml-2 mr-5`}
-                            onClick={changePortion}
-                            data-anchor={'+'}
+                            onClick={increasePortion}
                         >
                             +
                         </button>
