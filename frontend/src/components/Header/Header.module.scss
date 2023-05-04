@@ -39,8 +39,13 @@
         }
     }
     .userIcon {
+
+            &:hover {
+                color: var(--green-dark);
+            }
             &:hover .dropdown {
                 display: block;
+                color: var(--black)
             }
         }
 
@@ -102,6 +107,17 @@
         p {
             color: var(--white);
         }
+    }
+
+    .lineHide {
+        // display: none;
+        width: 0%;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .lineShow {
+        // display: block;
+        width: 100%;
     }
 
 }
