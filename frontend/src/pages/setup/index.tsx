@@ -6,6 +6,7 @@ import ProgressBar from '@components/ProgressBar/ProgressBar';
 import Intolerances from '@components/Intolerances/Intolerances';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';
+import { fetchWithAuth } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
 import logo from '../../../public/logo.svg';
 
@@ -44,20 +45,22 @@ const SetupParentPage = () => {
 
     const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
         evt.preventDefault();
-        await fetch('/service/preferences/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                user: session?.user.userId ? session.user.userId : '',
+        await fetchWithAuth(
+            '/service/preferences/',
+            {
+                method: 'POST',
+                body: JSON.stringify(preferences),
             },
-            body: JSON.stringify(preferences),
-        });
-        const weekplanRes = await fetch('/service/weekplan/create', {
-            method: 'POST',
-            headers: {
-                user: session?.user.userId ? session.user.userId : '',
+            session,
+        );
+
+        const weekplanRes = await fetchWithAuth(
+            '/service/weekplan/create',
+            {
+                method: 'POST',
             },
-        });
+            session,
+        );
 
         if (weekplanRes.ok) {
             router.push(`${router.basePath}/weekOverview`, undefined, undefined);
@@ -68,7 +71,14 @@ const SetupParentPage = () => {
         <div>
             <Image src={logo} className="" alt="logo" width={200} priority />
             <div className="flex justify-center items-center ml-50">
-                <form className="flex flex-col justify-center py-8 px-48 h-70v w-2/3 bg-white-custom rounded-[20px]">
+                <form
+                    className="flex flex-col justify-center py-8 px-24 h-70v w-2/3 bg-white-custom rounded-[20px]"
+                    onKeyDown={(e) => {
+                        if (e.key == 'Enter') {
+                            e.preventDefault();
+                        }
+                    }}
+                >
                     <ProgressBar
                         stepNames={stepNames}
                         activeStep={currentStep}

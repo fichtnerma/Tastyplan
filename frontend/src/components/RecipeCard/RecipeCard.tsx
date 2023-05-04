@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Icon from '@components/Icon/Icon';
 import { getFormOfDietIcon } from '@helpers/utils';
 import { Recipe } from 'src/types/types';
 import styles from './RecipeCard.module.scss';
@@ -11,103 +12,138 @@ type RecipeCardProps = {
 };
 
 function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
+    const [favorit, setFavorit] = useState(false);
+    const className = getNumberOfLines(recipe);
+
+    const isFavorit = () => {
+        console.log(favorit);
+
+        if (favorit) {
+            return setFavorit(false);
+        }
+        return setFavorit(true);
+    };
+
     return (
-        <Link href={`/recipe/${recipe.id}`}>
+        <>
             <div className={styles.wrapperContainer}>
-                <div className={styles.foodBox}>
-                    <Image
-                        src={`/service/images/${recipe.img}`}
-                        width={200}
-                        height={200}
-                        alt="Food Img"
-                        className={styles.foodImg}
-                    />
+                <div
+                    className={`justify-end flex absolute p-2 ${styles.heartIcon}`}
+                    style={{
+                        color: highlighted ? 'var(--white)' : 'var(--green-dark)',
+                        fill: favorit ? (highlighted ? 'var(--white)' : 'var(--green-dark)') : 'none',
+                    }}
+                    onClick={() => isFavorit()}
+                >
+                    <Icon size={30} icon="heart"></Icon>
                 </div>
-                <div className={highlighted ? `${styles.weekplanBox} ${styles.weekplanBoxToday}` : styles.weekplanBox}>
+                <Link href={`/recipe/${recipe.id}`}>
+                    <div className={styles.foodBox}>
+                        <Image
+                            src={`/service/images/${recipe.img}`}
+                            width={200}
+                            height={200}
+                            alt="Food Img"
+                            className={styles.foodImg}
+                        />
+                    </div>
                     <div
                         className={
-                            recipe.name.length >= 20
-                                ? `${styles.discriptionFood} ${styles.twoLinesName}`
-                                : styles.discriptionFood
+                            highlighted ? `${styles.weekplanBox} ${styles.weekplanBoxToday}` : styles.weekplanBox
                         }
                     >
-                        <div className="h-16 absolute bottom-0">
-                            <p
-                                className="text-2xl w-56 absolute bottom-0"
+                        <div className={className}>
+                            <div className="h-16 absolute bottom-0">
+                                <p
+                                    className="text-2xl w-[210px] absolute bottom-0 recipeName"
+                                    style={{
+                                        color: highlighted ? 'var(--white)' : 'var(--black)',
+                                    }}
+                                >
+                                    {recipe.name}
+                                </p>
+                            </div>
+                            <div
+                                className={styles.discriptionHover}
                                 style={{
                                     color: highlighted ? 'var(--white)' : 'var(--black)',
                                 }}
                             >
-                                {recipe.name}
-                            </p>
-                        </div>
-                        <div className={styles.discriptionHover}>
-                            {recipe.preparingTime !== null && (
-                                <div className="flex flex-row gap-x-2">
-                                    <Image
-                                        src={'/Icons/time.svg'}
-                                        alt="Time Icon"
-                                        className="mb-4 mt-4"
-                                        width={20}
-                                        height={20}
-                                        priority
-                                    />
-                                    <p
-                                        className="text-base mb-4 mt-4"
-                                        style={{
-                                            color: highlighted ? 'var(--white)' : 'var(--black)',
-                                        }}
-                                    >
-                                        {recipe.preparingTime} min
-                                    </p>
-                                </div>
-                            )}
-                            {recipe.formOfDiet !== null && (
-                                <div className="flex flex-row gap-x-2">
-                                    <Image
-                                        src={getFormOfDietIcon(recipe.formOfDiet)}
-                                        alt="Time Icon"
-                                        className="mb-4"
-                                        width={20}
-                                        height={20}
-                                        priority
-                                    />
-                                    <p
-                                        className="text-base mb-4"
-                                        style={{
-                                            color: highlighted ? 'var(--white)' : 'var(--black)',
-                                        }}
-                                    >
-                                        {recipe.formOfDiet}
-                                    </p>
-                                </div>
-                            )}
-                            {recipe.cookingTime !== null && (
-                                <div className="flex flex-row gap-x-2">
-                                    <Image
-                                        src={'/Icons/topf.png'}
-                                        alt="Time Icon"
-                                        className="mb-4"
-                                        width={20}
-                                        height={20}
-                                        priority
-                                    />
-                                    <p
-                                        className="text-base mb-4"
-                                        style={{
-                                            color: highlighted ? 'var(--white)' : 'var(--black)',
-                                        }}
-                                    >
-                                        {recipe.cookingTime} min
-                                    </p>
-                                </div>
-                            )}
+                                {recipe.preparingTime !== (null || 0) && (
+                                    <div className="flex flex-row gap-x-4 mt-4">
+                                        <Icon size={40} icon="totaltime"></Icon>
+                                        <p
+                                            className="text-lg mt-1 text-center"
+                                            style={{
+                                                color: highlighted ? 'var(--white)' : 'var(--black)',
+                                            }}
+                                        >
+                                            {recipe.preparingTime} min
+                                        </p>
+                                    </div>
+                                )}
+                                {recipe.cookingTime !== (null || 0) && (
+                                    <div className="flex flex-row gap-x-4 mt-4">
+                                        <Icon size={40} icon="cookingTime"></Icon>
+                                        <p
+                                            className="text-lg text-center mt-2"
+                                            style={{
+                                                color: highlighted ? 'var(--white)' : 'var(--black)',
+                                            }}
+                                        >
+                                            {recipe.cookingTime} min
+                                        </p>
+                                    </div>
+                                )}
+                                {recipe.formOfDiet !== null && (
+                                    <div className="flex flex-row gap-x-4 mt-4">
+                                        <Icon size={40} icon={getFormOfDietIcon(recipe?.formOfDiet)}></Icon>
+                                        <p
+                                            className="text-lg text-center mt-1"
+                                            style={{
+                                                color: highlighted ? 'var(--white)' : 'var(--black)',
+                                            }}
+                                        >
+                                            {recipe.formOfDiet}
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Link>
             </div>
-        </Link>
+        </>
     );
+}
+
+function getNumberOfLines(recipe: Recipe) {
+    const pTags = document.querySelectorAll('.recipeName');
+    const numLinesArray: { name: string | undefined; numLines: number }[] = [];
+    if (pTags) {
+        pTags.forEach((pTag) => {
+            const lineHeight = parseInt(window.getComputedStyle(pTag).getPropertyValue('line-height'));
+            const numLines = Math.round(pTag.clientHeight / lineHeight);
+            const recipeName = pTag.textContent?.trim();
+            numLinesArray.push({ name: recipeName, numLines: numLines });
+        });
+    }
+    const matchingEntry = numLinesArray.find((entry) => entry.name === recipe.name);
+    const numLines = matchingEntry ? matchingEntry.numLines : null;
+    let className = styles.discriptionFood;
+
+    if (numLines) {
+        className =
+            numLines >= 4
+                ? `${styles.discriptionFood} ${styles.fourLinesName}`
+                : numLines == 3
+                ? `${styles.discriptionFood} ${styles.threeLinesName}`
+                : numLines == 2
+                ? `${styles.discriptionFood} ${styles.twoLinesName}`
+                : styles.discriptionFood;
+    }
+
+    return className;
 }
 
 export default RecipeCard;

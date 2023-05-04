@@ -29,10 +29,19 @@ body {
     position: relative;
 }
 
-h1 {
+.h1 {
     font-family: var(--font-bebas);
     font-size: 100px;
     color: var(--black);
+}
+
+.h1-green {
+    @extend .h1;
+    color: var(--green-dark);
+}
+
+h1 {
+    @extend .h1;
 }
 
 .h2 {
@@ -64,7 +73,7 @@ h4 {
 
 h5 {
     font-family: var(--font-bebas);
-    font-size: 25px;
+    font-size: 28px;
     color: var(--black);
 }
 

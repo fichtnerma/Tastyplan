@@ -1,4 +1,4 @@
-import { Steps } from '../../types/types';
+import { ISteps } from '../../types/types';
 import { IngredientWithAmount } from '@prisma/client';
 
 export class CreateRecipeDto {
@@ -8,7 +8,7 @@ export class CreateRecipeDto {
     cookingTime: number;
     preparingTime: number;
     type: string;
-    steps: Steps[];
+    steps: ISteps[];
     difficulty: string;
     img: string;
     kitchenware: string[];

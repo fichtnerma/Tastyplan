@@ -11,12 +11,26 @@
         cursor: pointer;
     }
 
+    &:hover .heartIcon {
+        opacity: 1;
+        cursor: pointer;
+        top: 125px;
+    }
+
     &:hover .discriptionFood {
         top: 40px;
     }
 
     &:hover .twoLinesName {
         top: 70px;
+    }
+
+    &:hover .threeLinesName {
+        top: 100px;
+    }
+
+    &:hover .fourLinesName {
+        top: 130px;
     }
 
     &:hover .weekplanBoxToday {
@@ -61,17 +75,28 @@
 .discriptionFood {
     padding: 10px;
     transition: top 0.8s ease-in-out;
-    // bottom: 10px;
     top: calc(100% - 30px);
     position: absolute;
+    width: 100%;
 }
 
 .discriptionHover {
     opacity: 0;
-    // display: none;
     pointer-events: none;
     transition: opacity 0.6s ease-in-out;
     position: absolute;
-    margin-top: 0px;
+    margin-top: 25px;
     width: 240px;
+}
+
+.heartIcon {
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    position: absolute;
+    transition: top 0.8s ease-in-out;
+    top: calc(100% - 10px);
+    width: 100%;
+    fill: none;
+    z-index: 5;
+    
 }

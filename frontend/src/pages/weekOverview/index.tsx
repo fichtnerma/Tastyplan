@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSession } from 'next-auth/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -7,41 +7,34 @@ import 'swiper/css/scrollbar';
 import 'swiper/swiper-bundle.css';
 import { Mousewheel, Navigation, Scrollbar } from 'swiper';
 import RecipeCard from '@components/RecipeCard/RecipeCard';
+import Icon from '@components/Icon/Icon';
+import { useFetchWithAuth } from '@hooks/useFetchWithAuth';
 import { Weekplan, WeekplanEntry } from 'src/types/types';
 import styles from '../../styles/WeekOverview.module.scss';
 
+type DateFormatOptions = {
+    year: '2-digit' | 'numeric';
+    month: '2-digit' | 'numeric' | 'narrow' | 'short' | 'long';
+    day: '2-digit' | 'numeric';
+};
+
 export default function WeekOverview() {
     const { data: session } = useSession();
-    const [weekplan, setWeekplan] = useState<Weekplan>();
-    const [loading, setLoading] = useState(true);
+    const [loading, data] = useFetchWithAuth(`/service/weekplan/current`, {
+        method: 'GET',
+    });
+    const weekplan = data as Weekplan;
+    const nickname = session?.user.userId;
+    const options: DateFormatOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
 
     const today = new Date().getDay();
     const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-    useEffect(() => {
-        if (!session) return;
-        fetch(`/service/weekplan/current`, {
-            method: 'GET',
-            headers: {
-                user: session?.user.userId ? session.user.userId : '',
-            },
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-            })
-            .then((data) => {
-                setWeekplan({ ...data });
-                setLoading(false);
-            });
-    }, [loading, session]);
 
     return (
         <>
             {!loading ? (
                 <div className={styles.container}>
-                    <h3>Your Weekplan</h3>
+                    <h1>{nickname ? nickname + "'s" : 'Your'} Weekplan</h1>
                     <div className="flex mt-10">
                         <h2>Lunch</h2>
                         <Swiper
@@ -88,7 +81,30 @@ export default function WeekOverview() {
                             {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
                                 <SwiperSlide key={day.date}>
                                     <div className="mr-12">
-                                        <h4
+                                        <div className="mb-5">
+                                            <h4
+                                                style={{
+                                                    color:
+                                                        today == new Date(day.date).getDay()
+                                                            ? 'var(--green-dark)'
+                                                            : 'var(--black)',
+                                                }}
+                                            >
+                                                {week[new Date(day.date).getDay()]}
+                                            </h4>
+                                            <h5
+                                                style={{
+                                                    color:
+                                                        today == new Date(day.date).getDay()
+                                                            ? 'var(--green-dark)'
+                                                            : 'var(--gray-3)',
+                                                }}
+                                            >
+                                                {new Date(day.date).toLocaleDateString('de-DE', options)}
+                                            </h5>
+                                        </div>
+                                        <div
+                                            className="flex justify-end w-[260px] h-2"
                                             style={{
                                                 color:
                                                     today == new Date(day.date).getDay()
@@ -96,8 +112,8 @@ export default function WeekOverview() {
                                                         : 'var(--black)',
                                             }}
                                         >
-                                            {week[new Date(day.date).getDay()]}
-                                        </h4>
+                                            <Icon size={40} icon="threeDots"></Icon>
+                                        </div>
                                         <RecipeCard
                                             recipe={day.recipe}
                                             highlighted={today == new Date(day.date).getDay()}
