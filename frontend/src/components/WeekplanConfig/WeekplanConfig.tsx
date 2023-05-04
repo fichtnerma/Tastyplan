@@ -88,7 +88,7 @@ export default function WeekplanConfig({ onBack, onChoice, weekConfig, handlePre
 
     return (
         <>
-            <h4 className="mb-2 lg:mb-2">Adjust your weekplan</h4>
+            <h4 className="mb-2">Adjust your weekplan</h4>
             <div className="h-[300px] overflow-y-auto grid grid-cols-1 lg:grid-cols-2">
                 <div>
                     <h5>On what days do you want to cook?</h5>
@@ -130,10 +130,10 @@ export default function WeekplanConfig({ onBack, onChoice, weekConfig, handlePre
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="submit" className="btn-primary mt-10" data-btn="back" onClick={handleBack}>
+                <button type="submit" className="btn-primary mt-6" data-btn="back" onClick={handleBack}>
                     Back
                 </button>
-                <Link className="btn-primary mt-10" onClick={handlePreferences} href={'/weekOverview'}>
+                <Link className="btn-primary mt-6" onClick={handlePreferences} href={'/weekOverview'}>
                     Create Weekplan
                 </Link>
             </div>

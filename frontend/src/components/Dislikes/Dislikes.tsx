@@ -67,7 +67,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
 
     return (
         <div>
-            <h4 className="mb-8">What food do you dislike?</h4>
+            <h4 className="mb-2">What food do you dislike?</h4>
             <div className="h-[300px]">
                 <div className="flex flex-col">
                     <div className="w-full flex">
@@ -111,10 +111,10 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="button" className="btn-primary mt-10" data-btn="back" onClick={handleClick}>
+                <button type="button" className="btn-primary mt-6" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
-                <button type="submit" className="btn-primary mt-10" data-btn="next" onClick={handleClick}>
+                <button type="submit" className="btn-primary mt-6" data-btn="next" onClick={handleClick}>
                     Next
                 </button>
             </div>
