@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { ShoppingListEntry, User, ShoppingList } from '@prisma/client';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { IngredientMap } from 'src/types/types';
@@ -30,41 +30,57 @@ export class ShoppingListService {
             }
         })
         const summurizedIngredients = Object.values(ingredientMap)
-        console.log("Summarized: ", summurizedIngredients)
 
         //Deletes existing shoppingList to make sure there is only one per user
-        const existingShoppingList = await this.queryExistingShoppingList(user.userId)
-        if (existingShoppingList[0]) {
-            await this.prismaService.shoppingListEntry.deleteMany({
-                where: { shoppingListId: existingShoppingList[0].id }
-            })
-            await this.prismaService.shoppingList.delete({
-                where: { id: existingShoppingList[0].id }
-            })
+        try {
+            const existingShoppingList = await this.queryExistingShoppingList(user.userId)
+            if (existingShoppingList) {
+                await this.prismaService.shoppingListEntry.deleteMany({
+                    where: { shoppingListId: existingShoppingList.id }
+                })
+                await this.prismaService.shoppingList.delete({
+                    where: { id: existingShoppingList.id }
+                })
+            }
+        }
+        catch (error) {
+            throw new InternalServerErrorException('Error: Failed to cleanup/delete existing shoppinglist for given user')
         }
 
-        await this.prismaService.shoppingList.create({
-            data: {
-                userId: user.userId,
-                shoppingListEntries: {
-                    createMany: {
-                        data: summurizedIngredients.map((entry) => ({
-                            ingredientId: entry.id,
-                            ingredientName: entry.ingredient.name,
-                            unit: entry.unit,
-                            quantity: entry.quantity,
-                            isChecked: false
-                        }))
+        try {
+            await this.prismaService.shoppingList.create({
+                data: {
+                    userId: user.userId,
+                    shoppingListEntries: {
+                        createMany: {
+                            data: summurizedIngredients.map((entry) => ({
+                                ingredientId: entry.id,
+                                ingredientName: entry.ingredient.name,
+                                unit: entry.unit,
+                                quantity: entry.quantity,
+                                isChecked: false
+                            }))
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
+        catch (erro) {
+            throw new InternalServerErrorException('Error: Failed to create new shoppinglist')
+        }
     }
 
     async findShoppingList(userId: string) {
+        try {
+
+        }
+        catch (erro) {
+            throw new InternalServerErrorException('Error: Failed to find specific shoppinglist')
+        }
         const shoppingList = await this.queryExistingShoppingList(userId)
-        const shoppingListEntriesFormatted = shoppingList[0].shoppingListEntries.map((entry) => {
+        const shoppingListEntriesFormatted = shoppingList.shoppingListEntries.map((entry) => {
             return {
+                shoppingListEntryId: entry.id,
                 ingredientId: entry.ingredientId,
                 ingredientName: entry.ingredientName,
                 unit: entry.unit,
@@ -75,26 +91,25 @@ export class ShoppingListService {
         return shoppingListEntriesFormatted;
     }
 
-    async upadteShoppingListEntry(userId: string, shoppingListEntryInput: UpdateShoppingListDto) {
-        const shoppingList = await this.queryExistingShoppingList(userId);
-
-        const shoppingListEntry = await this.prismaService.shoppingListEntry.findFirst({
-            where: {
-                AND: [
-                    {
-                        shoppingListId: shoppingList[0].id
-                    },
-
-
-                ]
-
-            }
-        })
-        return shoppingListEntry
+    async upadteShoppingListEntry(entryId: number, shoppingListEntryInput: UpdateShoppingListDto) {
+        try {
+            const shoppingListEntry = await this.prismaService.shoppingListEntry.update({
+                where: {
+                    id: entryId
+                },
+                data: {
+                    isChecked: shoppingListEntryInput.isChecked,
+                }
+            })
+            return shoppingListEntry
+        }
+        catch (error) {
+            throw new InternalServerErrorException('Error: Failed to update shoppinglist entry')
+        }
     }
 
     async queryExistingShoppingList(userId: string) {
-        const list = await this.prismaService.shoppingList.findMany({
+        const list = await this.prismaService.shoppingList.findFirst({
             where: {
                 userId: userId
             },
@@ -104,4 +119,3 @@ export class ShoppingListService {
     }
 }
 
-//TODO: Replace findMany with findFirst
