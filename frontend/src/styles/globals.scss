@@ -11,6 +11,8 @@
     --green-dark-rgb: rgb(0, 115, 112);
     --green-dark: #007370;
 
+    --green-semi: #00A39E;
+
     --black: #000000;
     --white: #fffffa;
 
@@ -130,12 +132,18 @@ p {
     border-radius: 60px;
     padding: 0.5rem 1.5rem;
     width: fit-content;
+
+    &:hover {
+        background-color: var(--green-semi)
+    }
 }
 
 .btn-primary {
     @extend .btn;
     color: var(--white);
     background-color: var(--green-dark);
+
+    
 }
 
 .btn-secondary {

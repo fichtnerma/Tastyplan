@@ -31,9 +31,9 @@
         .cookbook {
 
             &:hover {
-                color: var(--green-dark);
+                color: var(--green-semi);
                 p {
-                    color: var(--green-dark);
+                    color: var(--green-semi);
                 }
             }
         }
@@ -41,7 +41,7 @@
     .userIcon {
 
             &:hover {
-                color: var(--green-dark);
+                color: var(--green-semi);
             }
             &:hover .dropdown {
                 display: block;
@@ -59,7 +59,7 @@
         .settingsDropdown {
 
             &:hover {
-                background-color: var(--green-dark);
+                background-color: var(--green-semi);
                 border-radius: 1rem 1rem 0 0;
                 color: var(--white);
                 p {
@@ -72,7 +72,7 @@
         .userDropdown {
 
             &:hover {
-                background-color: var(--green-dark);
+                background-color: var(--green-semi);
                 border-radius: 0 0 1rem 1rem;
                 color: var(--white);
                 p {
