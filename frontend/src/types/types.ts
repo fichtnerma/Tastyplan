@@ -66,3 +66,10 @@ export type ShoppingListItem = {
     quantity: number;
     isChecked: boolean;
 };
+
+export type CustomSVG = {
+    class: string;
+    src: string;
+    width: number;
+    height: number;
+};

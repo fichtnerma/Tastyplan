@@ -1,25 +1,42 @@
+import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Steps from '@components/Startpage/Steps/Steps';
+import Benefits from '@components/Startpage/Benefits/Benefits';
 import Icon from '@components/Icon/Icon';
+import styles from '../styles/Home.module.scss';
 
-export default function index() {
+export type Benefit = {
+    id: number;
+    icon: string;
+    heading: string;
+    desc: string;
+};
+
+export default function Index() {
+    const fieldRef = useRef<HTMLInputElement>(null);
+
+    const scrollTo = () => {
+        fieldRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    function startAnimation() {
+        const animationClass = `${styles.animTypewriter}`;
+
+        const element = document.querySelector('.animation');
+
+        element?.classList.add(animationClass);
+    }
+
     return (
-        <div className="w-full mt-[-20px]">
-            <div className="h-screen">
-                <div className="flex justify-between">
-                    <div className="flex h-[150px]">
+        <div className="">
+            <div className="flex flex-col justify-start h-screen">
+                <div className="flex justify-between items-center">
+                    <div className="flex items-center h-[150px]">
                         <Image src={'/logo.svg'} alt="logo" width={200} height={139} priority />
                     </div>
                     <Link href="/authentication/login">
-                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full mt-5 hover:bg-green-custome3">
-                            {/* <Image
-                                src={'/Icons/Header/user.png'}
-                                alt="logo"
-                                height={30}
-                                width={30}
-                                priority
-                                className="h-fit pt-[20%] invert"
-                            /> */}
+                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full hover:bg-green-custome3">
                             <div className="h-fit pt-[20%] invert">
                                 <Icon size={30} icon="user"></Icon>
                             </div>
@@ -32,57 +49,53 @@ export default function index() {
                             <Image src={'/startpageImg.svg'} alt="img" width={600} height={800} priority />
                         </div>
                         <p className="text-center">Tastyplan's AI will delight your taste buds -</p>
-                        <p className="text-center mb-20">create your personalized meal plan!</p>
+                        <p className="text-center mb-10">create your personalized meal plan!</p>
                         <div className="flex justify-center">
                             <Link href="/authentication/registration">
-                                <button className="btn-primary w-1/2  border-2 border-solid border-gray-custom1 rounded-full">
-                                    <h4 className="text-gray-custom1 px-[30px]">Start Planning</h4>
+                                <button className="btn-primary w-1/2 rounded-full">
+                                    <h4 className="text-white-custom px-[30px]">Start Planning</h4>
                                 </button>
                             </Link>
                         </div>
                     </div>
                 </div>
+
+                <button className="flex justify-center hover:text-green-custome3 mt-8" onClick={scrollTo}>
+                    <Icon size={40} icon="arrowDownCircle"></Icon>
+                </button>
             </div>
-            <div className="mb-40 mt-10 flex">
-                <div className="flex justify-center h-[400px]">
-                    <Image src={'/whatIsTastyPlan.svg'} alt="img" width={1000} height={1200} priority />
+            <div ref={fieldRef} onMouseOver={startAnimation}>
+                <div className="flex pt-8">
+                    <div className="flex flex-col">
+                        <h2>What is Tasty Plan?</h2>
+                        <p>
+                            No more worrying about what to eat for the week or spending hours scouring the internet for
+                            recipes. Tastyplan's AI does the work for you, creating a custom meal plan that fits your
+                            lifestyle and satisfies your taste buds. And with a database of thousands of mouth-watering
+                            recipes, you'll never get bored with your meals.
+                        </p>
+                    </div>
+                    <Image src={'/whatIsTastyPlan.svg'} alt="a cookbook" width={800} height={139} priority />
                 </div>
-                <div className="w-4/5">
-                    <h2>What is Tasty Plan?</h2>
-                    <p className="text-justify">
-                        No more worrying about what to eat for the week or spending hours scouring the internet for
-                        recipes. Tastyplan's AI does the work for you, creating a custom meal plan that fits your
-                        lifestyle and satisfies your taste buds. And with a database of thousands of mouth-watering
-                        recipes, you'll never get bored with your meals. With Tastyplan, meal planning has never been
-                        easier or more delicious. Try Tastyplan today and taste the future of meal planning!
-                    </p>
-                </div>
+                <p className={`h2-zeyada-green text-center my-0 mx-auto mt-20 animation ${styles.line}`}>
+                    Meal planning has never been easier and more delicious.
+                </p>
             </div>
-            <div className="mb-40 mt-10 flex">
-                <div className="w-4/5">
-                    <h2>How does it work?</h2>
-                    <p className="text-justify mb-2">1. Sign up for an account.</p>
-                    <p className="text-justify mb-2">
-                        2. Set up your account by entering your dietary preferences, food allergies, and food dislikes.
-                        This will help Tastyplan generate a personalized meal plan for you.
-                    </p>
-                    <p className="text-justify mb-2">
-                        3. Once you've set up your account, Tastyplan will generate a weekly meal plan for you, complete
-                        with recipes and a shopping list.
-                    </p>
-                    <p className="text-justify mb-2">
-                        4. Head to the grocery store to get everything you need for the week.
-                    </p>
-                    <p className="text-justify mb-2">
-                        5. Follow the recipes provided by Tastyplan to prepare your meals for the week.
-                    </p>
-                    <p className="text-justify mb-2">
-                        6. Enjoy delicious and hassle-free meal planning with Tastyplan!
-                    </p>
-                </div>
-                <div className="flex justify-center h-[600px]">
-                    <Image src={'/anleitung.svg'} alt="img" width={900} height={1200} priority />
-                </div>
+            <div className="pt-96">
+                <h2 className="mb-24">But why Meal Planning?</h2>
+                <Benefits />
+            </div>
+            <div className="pt-96 w-full">
+                <h2 className="mb-24">How Does Tastyplan work?</h2>
+                <Steps />
+            </div>
+
+            <div className="my-80 flex justify-center">
+                <Link href="/authentication/registration">
+                    <span className="btn-primary w-1/2 rounded-full">
+                        <h4 className=" text-white-custom px-[30px]">Start Planning</h4>
+                    </span>
+                </Link>
             </div>
         </div>
     );
