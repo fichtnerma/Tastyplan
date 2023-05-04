@@ -34,24 +34,31 @@ export default function Index() {
                         </div>
                     </Link>
                 </div>
-                <div className="flex flex-col items-center mb-6">
-                    <Image src={'/startpageImg.svg'} alt="plate with food" width={1000} height={139} priority />
-                    <p className="mb-4">Personalized meal planning</p>
-                    <p className="mb-20">Tastyplan's Ai will delight your taste buds</p>
-                    <Link href="/authentication/registration">
-                        <span className="btn-primary w-1/2  border-2 border-solid border-gray-custom1 rounded-full">
-                            <p className="h4 text-gray-custom1 px-[30px]">Start Planning</p>
-                        </span>
-                    </Link>
+                <div className="flex items-center justify-center h-3/5">
+                    <div>
+                        <div className="flex justify-center h-[350px] mt-[-100px]">
+                            <Image src={'/startpageImg.svg'} alt="img" width={600} height={800} priority />
+                        </div>
+                        <p className="text-center">Tastyplan's AI will delight your taste buds -</p>
+                        <p className="text-center mb-10">create your personalized meal plan!</p>
+                        <div className="flex justify-center">
+                            <Link href="/authentication/registration">
+                                <button className="btn-primary w-1/2 rounded-full">
+                                    <h4 className="text-white-custom px-[30px]">Start Planning</h4>
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-                <button className="flex justify-center" onClick={scrollTo}>
-                    <Image src={'/arrow_down.png'} alt="arrow down" width={40} height={80} priority />
+
+                <button className="flex justify-center hover:text-green-custome3 mt-8" onClick={scrollTo}>
+                    <Icon size={40} icon="arrowDownCircle"></Icon>
                 </button>
             </div>
             <div ref={fieldRef}>
-                <div className="flex mb-16">
+                <div className="flex mb-16 pt-8">
                     <div className="flex flex-col">
-                        <h2>What is Tasty Plan</h2>
+                        <h2>What is Tasty Plan?</h2>
                         <p>
                             No more worrying about what to eat for the week or spending hours scouring the internet for
                             recipes. Tastyplan's AI does the work for you, creating a custom meal plan that fits your
@@ -59,19 +66,27 @@ export default function Index() {
                             recipes, you'll never get bored with your meals.
                         </p>
                     </div>
-                    <Image src={'/whatIsTastyPlan.svg'} alt="a cookbook" width={1000} height={139} priority />
+                    <Image src={'/whatIsTastyPlan.svg'} alt="a cookbook" width={800} height={139} priority />
                 </div>
-                <p className="h2-zeyada-green text-center w-[842px] my-0 mx-auto">
+                <p className="h2-zeyada-green text-center w-[842px] my-0 mx-auto pt-96 leading-[0.8]">
                     Meal planning has never been easier and more delicious.
                 </p>
             </div>
-            <div className="pt-40">
-                <h2 className="mb-24">But why Meal Planning</h2>
+            <div className="pt-96">
+                <h2 className="mb-24">But why Meal Planning?</h2>
                 <Benefits />
             </div>
-            <div className="pt-40">
-                <h2 className="mb-24">How Does Tastyplan work</h2>
+            <div className="pt-96 w-full">
+                <h2 className="mb-24">How Does Tastyplan work?</h2>
                 <Steps />
+            </div>
+
+            <div className="my-80 flex justify-center">
+                <Link href="/authentication/registration">
+                    <span className="btn-primary w-1/2 rounded-full">
+                        <h4 className=" text-white-custom px-[30px]">Start Planning</h4>
+                    </span>
+                </Link>
             </div>
         </div>
     );
