@@ -9,6 +9,7 @@ import {
     ClassSerializerInterceptor,
     Controller,
     Get,
+    Patch,
     Post,
     Req,
     UseGuards,
@@ -17,7 +18,7 @@ import {
 
 @Controller('preferences')
 export class PreferencesController {
-    constructor(private preferencesService: PreferencesService) {}
+    constructor(private preferencesService: PreferencesService) { }
 
     @UseGuards(JwtAuthGuard)
     @ApiSecurity('access-key')
