@@ -8,7 +8,7 @@ import 'swiper/swiper-bundle.css';
 import { Mousewheel, Navigation, Scrollbar } from 'swiper';
 import RecipeCard from '@components/RecipeCard/RecipeCard';
 import Icon from '@components/Icon/Icon';
-import { useFetchWithAuth } from '@hooks/useFetchWithAuth';
+import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { Weekplan, WeekplanEntry } from 'src/types/types';
 import styles from '../../styles/WeekOverview.module.scss';
 
@@ -20,9 +20,7 @@ type DateFormatOptions = {
 
 export default function WeekOverview() {
     const { data: session } = useSession();
-    const [loading, data] = useFetchWithAuth(`/service/weekplan/current`, {
-        method: 'GET',
-    });
+    const { data, error } = useFetchWithAuth('/service/weekplan/current');
     const weekplan = data as Weekplan;
     const nickname = session?.user.userId;
     const options: DateFormatOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
@@ -32,7 +30,7 @@ export default function WeekOverview() {
 
     return (
         <>
-            {!loading ? (
+            {data && !error ? (
                 <div className={styles.container}>
                     <h1>{nickname ? nickname + "'s" : 'Your'} Weekplan</h1>
                     <div className="flex mt-10">

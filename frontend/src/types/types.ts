@@ -57,3 +57,12 @@ export type CustomSelectionInput = {
     label: string;
     checked: boolean;
 };
+
+export type ShoppingListItem = {
+    id: number;
+    ingredientId: number;
+    ingredientName: string;
+    unit: string;
+    quantity: number;
+    isChecked: boolean;
+};
