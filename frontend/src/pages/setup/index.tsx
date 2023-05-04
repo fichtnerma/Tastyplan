@@ -24,7 +24,7 @@ interface WeekConfig {
     servings: number;
 }
 
-const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes'];
+const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes', 'Weekplan'];
 
 const SetupParentPage = () => {
     const [currentStep, setCurrentStep] = useState(1);
