@@ -14,9 +14,14 @@ const prisma = new PrismaClient();
 const fs = require('fs');
 const parse = require('csv-parser');
 
+let matches = 0;
+let noMatches = 0;
+const THREASHOLD = 0.5;
+
 async function main() {
     await initIngredients();
     await initRecipes();
+    console.log('Matches: ', matches / (matches + noMatches));
 }
 type Ingredient = {
     name: string;
@@ -159,12 +164,15 @@ async function findSimilarIngredients(ingredient: string) {
     });
     const ing = similarIngredients.sort((a, b) => b.similarity - a.similarity);
 
-    // if (ing[0]?.similarity < 0.6 || ing[0] == undefined) {
-    //     console.log('Bad match found for: ', preparedIngredient);
-    //     for (let index = 0; index < 3; index++) {
-    //         console.log('Similarities: ', ing[index]);
-    //     }
-    // }
+    if (ing[0]?.similarity < THREASHOLD) {
+        noMatches++;
+        console.log('Bad match found for: ', preparedIngredient);
+        for (let index = 0; index < 3; index++) {
+            console.log('Similarities: ', ing[index]);
+        }
+    } else {
+        matches++;
+    }
 
     return ing[0]?.id;
 }
