@@ -16,12 +16,14 @@ const parse = require('csv-parser');
 
 let matches = 0;
 let noMatches = 0;
-const THREASHOLD = 0.5;
+const badMatches: any = new Set();
+const THREASHOLD = 0.6;
 
 async function main() {
     await initIngredients();
     await initRecipes();
     console.log('Matches: ', matches / (matches + noMatches));
+    fs.writeFile('./prisma/seeds/badMatches.json', JSON.stringify(Array.from(badMatches)));
 }
 type Ingredient = {
     name: string;
@@ -109,6 +111,86 @@ async function initRecipes() {
             };
             ingredientEntities.push(ingredientEntity);
         }
+        const ing = await prisma.ingredient.findMany({
+            where: {
+                id: {
+                    in: ingredientEntities.map((ing) => ing.ingredientId),
+                },
+            },
+            select: {
+                categories: true,
+                subcategories: true,
+            },
+        });
+        const omnivoreCategories = ['Meat and sausage products', 'Meat and offal'];
+        const pescetaraianCategories = ['Fish'];
+        const vegetarianCategories = ['Milk and dairy products', 'Eggs'];
+
+        const omnivoreSubCategories = [
+            'Boiled sausage products',
+            'Raw sausage products',
+            'Cooked sausages',
+            'Veal,meat and offal',
+            'Wild',
+            'Poultry',
+            'Pork,meat and offal',
+            'Lamb, Sheep',
+            'Poultry,meat and offal',
+            'Beef',
+            'Pig',
+        ];
+        const pescetaraianSubCategories = [
+            'Sea fish',
+            'Freshwater fish',
+            'Freshwater fish,Fish',
+            'Seafood, crustaceans and shellfish',
+            'Fish products',
+        ];
+        const vegetarianSubCategories = [
+            'Gelling and binding agents',
+            'Hard cheese',
+            'Cream cheese and curd',
+            'Soft cheese',
+            'Milk and yoghurt drinks',
+            'Milk and yoghurt drinks,Soft drinks',
+            'Cream,Milk and dairy products',
+            'Milk',
+            'Fats,milk and dairy products',
+            'Yoghurt and sour milk',
+            'Fat',
+            'Cream cheese and curd,milk and dairy products',
+            'Creams and puddings',
+            'Mayonnaises',
+            'Soft cheese,Milk and dairy products',
+            'Cheese products',
+        ];
+        const formOfDiet = ing.reduce(
+            (acc, curr) => {
+                if (
+                    omnivoreCategories.includes(curr.categories) ||
+                    omnivoreSubCategories.includes(curr.subcategories)
+                ) {
+                    acc.splice(acc.indexOf('pescetarian'), 1);
+                    acc.splice(acc.indexOf('vegetarian'), 1);
+                    acc.splice(acc.indexOf('vegan'), 1);
+                }
+                if (
+                    pescetaraianCategories.includes(curr.categories) ||
+                    pescetaraianSubCategories.includes(curr.subcategories)
+                ) {
+                    acc.splice(acc.indexOf('vegetarian'), 1);
+                    acc.splice(acc.indexOf('vegan'), 1);
+                }
+                if (
+                    vegetarianCategories.includes(curr.categories) ||
+                    vegetarianSubCategories.includes(curr.subcategories)
+                ) {
+                    acc.splice(acc.indexOf('vegan'), 1);
+                }
+                return acc;
+            },
+            ['omnivore', 'pescetarian', 'vegetarian', 'vegan'],
+        );
         await prisma.recipe.upsert({
             where: { id: index + 1 },
             update: {},
@@ -121,7 +203,7 @@ async function initRecipes() {
                 cookingTime: convertToTime(recipe.cookingTime) || 0,
                 preparingTime: convertToTime(recipe.prepareTime) || 0,
                 totalTime: convertToTime(recipe.totalTime) || 0,
-                formOfDiet: recipe.formOfDiet || 'omnivore',
+                formOfDiet: formOfDiet.at(-1) || 'omnivore',
                 ingredients: {
                     createMany: {
                         data: [...ingredientEntities],
@@ -166,15 +248,14 @@ async function findSimilarIngredients(ingredient: string) {
 
     if (ing[0]?.similarity < THREASHOLD) {
         noMatches++;
-        console.log('Bad match found for: ', preparedIngredient);
-        for (let index = 0; index < 3; index++) {
-            console.log('Similarities: ', ing[index]);
-        }
+        badMatches.add({ ingredient: preparedIngredient, match: ing[0].name });
     } else {
         matches++;
+        // console.log('Good match found for: ', preparedIngredient);
+        // console.log('Similarities: ', ing[0]);
     }
 
-    return ing[0]?.id;
+    return ing[0].id;
 }
 
 // execute the main function
