@@ -1,15 +1,6 @@
 import { useState } from 'react';
-import Image from 'next/image';
+import Icon from '@components/Icon/Icon';
 import styles from '../Intolerances/Intolerances.module.scss';
-import gluten from '../../../public/Icons/Weizen.svg';
-import walnut from '../../../public/Icons/Wallnuss.svg';
-import soy from '../../../public/Icons/Soja.svg';
-import shellfish from '../../../public/Icons/Shrimp.svg';
-import laktose from '../../../public/Icons/Milch_Käse.svg';
-import hazelnut from '../../../public/Icons/Haselnuss.svg';
-import fish from '../../../public/Icons/Fisch.svg';
-import peanut from '../../../public/Icons/Erdnuss.svg';
-import egg from '../../../public/Icons/Ei.svg';
 
 type OnNextFunction = () => void;
 type OnBackFunction = () => void;
@@ -24,22 +15,22 @@ interface IntolerancesProps {
 
 export default function Intolerances({ onNext, onBack, onChoice, allergens }: IntolerancesProps) {
     const intolerances = [
-        { ui: 'Peanuts', code: 'peanut', icon: peanut },
-        { ui: 'Hazelnuts', code: 'hazelnut', icon: hazelnut },
-        { ui: 'Walnuts', code: 'walnut', icon: walnut },
-        { ui: 'Other Nuts', code: 'shellFruit', icon: hazelnut },
-        { ui: 'Lactose', code: 'milk', icon: laktose },
-        { ui: 'Gluten', code: 'gluten', icon: gluten },
-        { ui: 'Eggs', code: 'egg', icon: egg },
-        { ui: 'Shellfish', code: 'crustacaen', icon: shellfish },
-        { ui: 'Fish', code: 'fish', icon: fish },
-        { ui: 'Soy', code: 'soy', icon: soy },
-        { ui: 'Celery', code: 'celery', icon: hazelnut },
-        { ui: 'Mustard', code: 'mustard', icon: hazelnut },
-        { ui: 'Sesame', code: 'sesame', icon: hazelnut },
-        { ui: 'Sulfur Dioxide', code: 'sulfur', icon: hazelnut },
-        { ui: 'Lupine', code: 'lupine', icon: hazelnut },
-        { ui: 'Mollusk', code: 'mollusk', icon: hazelnut },
+        { ui: 'Peanuts', code: 'peanut', icon: 'Erdnuss' },
+        { ui: 'Hazelnuts', code: 'hazelnut', icon: 'Haselnuss' },
+        { ui: 'Walnuts', code: 'walnut', icon: 'Wallnuss' },
+        { ui: 'Other Nuts', code: 'shellFruit', icon: 'Nüsse' },
+        { ui: 'Lactose', code: 'milk', icon: 'laktose' },
+        { ui: 'Gluten', code: 'gluten', icon: 'Weizen' },
+        { ui: 'Eggs', code: 'egg', icon: 'Ei' },
+        { ui: 'Shellfish', code: 'crustacaen', icon: 'Shrimp' },
+        { ui: 'Fish', code: 'fish', icon: 'fisch' },
+        { ui: 'Soy', code: 'soy', icon: 'Soja' },
+        { ui: 'Celery', code: 'celery', icon: 'Sellerie' },
+        { ui: 'Mustard', code: 'mustard', icon: 'Senfglas' },
+        { ui: 'Sesame', code: 'sesame', icon: 'Sesam' },
+        { ui: 'Sulfur Dioxide', code: 'sulfur', icon: 'Wein' },
+        { ui: 'Lupine', code: 'lupine', icon: 'Lupinen' },
+        { ui: 'Mollusk', code: 'mollusk', icon: 'Weichtiere' },
     ];
 
     const [allergeneChoices, setAllergeneChoices] = useState(allergens);
@@ -72,30 +63,33 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
         <>
             <h4 className="mb-8">What are your intolerances?</h4>
             <div className="h-[300px] overflow-y-auto">
-                <div className="grid grid-cols-5 gap-4 mb-4">
+                <div className="grid grid-cols-1 gap-y-1 md:gap-y-2 md:grid-cols-1 lg:gap-y-4 lg:grid-cols-2 xl:gap-y-8 xl:grid-cols-3 2xl:gap-y-8 2xl:grid-cols-4">
                     {intolerances.map((intolerance, i) => (
-                        <div key={i} className={styles.intoleranceWrapper}>
+                        <div
+                            key={i}
+                            className={`${styles.intoleranceWrapper} lg:w-[220px] xl:w-[190px] 2xl:w-[200px] `}
+                        >
                             <div className={styles.containerField}>
-                                <span className="flex justify-between">
-                                    <input
-                                        type="checkbox"
-                                        name="intolerances"
-                                        value={intolerance.code}
-                                        checked={allergeneChoices.includes(intolerance.code)}
-                                        onChange={onAddChoice}
-                                    />
-
-                                    <label htmlFor={intolerance.ui}>
-                                        <p className="text-base">{intolerance.ui}</p>
-                                    </label>
-                                    <Image
-                                        src={intolerance.icon}
-                                        className="absolute z-[91] top-1"
-                                        alt="icon"
-                                        width={60}
-                                        priority
-                                    />
-                                </span>
+                                <input
+                                    type="checkbox"
+                                    name="intolerances"
+                                    value={intolerance.code}
+                                    checked={allergeneChoices.includes(intolerance.code)}
+                                    onChange={onAddChoice}
+                                />
+                                <label htmlFor={intolerance.ui}>
+                                    <p className="text-base">{intolerance.ui}</p>
+                                </label>
+                                <div
+                                    className="absolute z-[1] top-4 left-4"
+                                    style={{
+                                        color: allergeneChoices.find((entry) => entry == intolerance.code)
+                                            ? 'var(--white)'
+                                            : 'var(--black)',
+                                    }}
+                                >
+                                    <Icon size={40} icon={intolerance.icon}></Icon>
+                                </div>
                             </div>
                         </div>
                     ))}

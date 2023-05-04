@@ -43,8 +43,8 @@ function IngredientList({ ingredients }: IngredientListProps) {
             </div>
             <h4>Ingridients</h4>
             <div className="my-5 mb-10">
-                {ingredients?.map((ingredient) => (
-                    <div key={'test'} className="grid grid-cols-3 gap-5 mb-2">
+                {ingredients?.map((ingredient, index) => (
+                    <div key={index} className="grid grid-cols-3 gap-5 mb-2">
                         <p className="text-right col-span-1 font-semibold">
                             {ingredient.quantity * portion} {ingredient.unit}
                         </p>

@@ -71,7 +71,14 @@ const SetupParentPage = () => {
         <div>
             <Image src={logo} className="" alt="logo" width={200} priority />
             <div className="flex justify-center items-center ml-50">
-                <form className="flex flex-col justify-center py-8 px-48 h-70v w-2/3 bg-white-custom rounded-[20px]">
+                <form
+                    className="flex flex-col justify-center py-8 px-24 h-70v w-2/3 bg-white-custom rounded-[20px]"
+                    onKeyDown={(e) => {
+                        if (e.key == 'Enter') {
+                            e.preventDefault();
+                        }
+                    }}
+                >
                     <ProgressBar
                         stepNames={stepNames}
                         activeStep={currentStep}
