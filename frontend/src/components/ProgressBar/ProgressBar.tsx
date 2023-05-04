@@ -36,7 +36,6 @@ function ProgressBar({ stepNames, activeStep, foodLifeStyleSelected, onClick }: 
         if (!foodLifeStyleSelected) return;
 
         const element = e.target as HTMLElement;
-        console.log(element);
         const elementName = element.getAttribute('data-step-name');
         if (elementName) onClick(elementName);
     };
