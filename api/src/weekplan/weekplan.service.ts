@@ -62,20 +62,20 @@ export class WeekplanService {
 
     async create(user: User) {
         const week = [0, 1, 2, 3, 4, 5, 6];
+        let fetchedMeals = await this.recipeService.filterByPreferences(user);
 
-        let recommendedMeals = await this.recipeService.filterByPreferences(user);
-
-        if (recommendedMeals.length < 7) {
-            recommendedMeals = [
-                ...recommendedMeals,
-                ...recommendedMeals,
-                ...recommendedMeals,
-                ...recommendedMeals,
-                ...recommendedMeals,
-                ...recommendedMeals,
-                ...recommendedMeals,
+        if (fetchedMeals.length < 7) {
+            fetchedMeals = [
+                ...fetchedMeals,
+                ...fetchedMeals,
+                ...fetchedMeals,
+                ...fetchedMeals,
+                ...fetchedMeals,
+                ...fetchedMeals,
+                ...fetchedMeals,
             ];
         }
+        const shuffeledMeals = this.shuffleArray(fetchedMeals)
         const weekPlan = await this.prismaService.weekplan.create({
             data: {
                 userId: user.userId,
@@ -85,7 +85,7 @@ export class WeekplanService {
                     createMany: {
                         data: week.map((dayEntry) => ({
                             date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
-                            recipeId: recommendedMeals[dayEntry]?.id || 1,
+                            recipeId: shuffeledMeals[dayEntry]?.id || 1,
                         })),
                     },
                 },
@@ -104,4 +104,21 @@ export class WeekplanService {
 
         return this.formatWeekPlan(weekPlan);
     }
+
+    shuffleArray(array: { id: number }[]) {
+        let currentIndex = array.length, randomIndex;
+
+        while (currentIndex != 0) {
+
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+        }
+
+        return array;
+    }
+
+
 }
