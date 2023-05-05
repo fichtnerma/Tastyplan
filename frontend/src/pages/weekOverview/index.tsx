@@ -31,7 +31,7 @@ export default function WeekOverview() {
     return (
         <>
             {data && !error ? (
-                <div className={styles.container}>
+                <div className={`w-full ${styles.container}`}>
                     <h1>{nickname ? nickname + "'s" : 'Your'} Weekplan</h1>
                     <div className="flex mt-10">
                         <h2>Lunch</h2>
