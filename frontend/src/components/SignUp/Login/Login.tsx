@@ -40,7 +40,7 @@ export default function Login({ visible }: LoginProps) {
     return (
         <div className={`${styles.loginContainer} ${visible && styles.active}`}>
             <form className="px-10 flex flex-col gap-4" action="#" onSubmit={handleSubmit}>
-                <h2>Sign in</h2>
+                <h3 className="mb-[-1rem]">Sign in</h3>
                 <TextInput value={username} required onChange={setUsername} label="Username" />
                 <TextInput value={password} type="password" required onChange={setPassword} label="Password" />
                 <a href="#">Forgot your password?</a>
