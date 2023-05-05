@@ -6,6 +6,10 @@ export type APIRegistrationResponse = {
     message: string;
     name: string;
 };
+export enum Role {
+    user = 'user',
+    admin = 'admin',
+}
 
 export type APISearchResponse = {
     id: number;

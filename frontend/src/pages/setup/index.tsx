@@ -68,11 +68,13 @@ const SetupParentPage = () => {
     };
 
     return (
-        <div>
-            <Image src={logo} className="" alt="logo" width={200} priority />
-            <div className="flex justify-center items-center ml-50">
+        <div className="relative flex w-full">
+            <div className="absolute top-0 left-0">
+                <Image src={logo} className="" alt="logo" width={200} priority />
+            </div>
+            <div className="flex m-auto items-center h-71v w-2/3 ml-50">
                 <form
-                    className="flex flex-col justify-center py-8 px-24 h-70v w-2/3 bg-white-custom rounded-[20px]"
+                    className="w-full bg-white-custom rounded-[20px] px-16 py-8"
                     onKeyDown={(e) => {
                         if (e.key == 'Enter') {
                             e.preventDefault();

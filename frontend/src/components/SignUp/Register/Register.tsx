@@ -48,9 +48,8 @@ export default function Register({ visible }: RegisterProps) {
     return (
         <div className={`${styles.registerContainer} ${visible && styles.active}`}>
             <form className="px-10 flex flex-col gap-4" action="#" onSubmit={handleSubmit}>
-                <h2>Register</h2>
+                <h3 className="mb-[-1rem]">Register</h3>
                 <TextInput value={username} required onChange={setUsername} label="Username" />
-
                 <TextInput value={mail} validate={isEmailValidator} required onChange={setMail} label="E-Mail" />
                 <TextInput
                     value={password}
