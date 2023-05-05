@@ -68,11 +68,11 @@ const SetupParentPage = () => {
     };
 
     return (
-        <div className="relative w-full">
+        <div className="relative flex w-full">
             <div className="absolute top-0 left-0">
                 <Image src={logo} className="" alt="logo" width={200} priority />
             </div>
-            <div className="flex justify-center items-center h-71v w-2/3 ml-50">
+            <div className="flex m-auto items-center h-71v w-2/3 ml-50">
                 <form
                     className="w-full bg-white-custom rounded-[20px] px-16 py-8"
                     onKeyDown={(e) => {
