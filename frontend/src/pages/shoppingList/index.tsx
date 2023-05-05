@@ -1,52 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
-import { CustomSelectionInput, Ingredient } from 'src/types/types';
-
-const ingredientsDummy1: Ingredient[] = [
-    {
-        ingredient: { name: 'tomatoes' },
-        quantity: 150,
-        unit: 'g',
-    },
-    {
-        ingredient: { name: 'apples' },
-        quantity: 5,
-        unit: '',
-    },
-    {
-        ingredient: { name: 'lemons' },
-        quantity: 3,
-        unit: '',
-    },
-    {
-        ingredient: { name: 'letuce' },
-        quantity: 1,
-        unit: '',
-    },
-    {
-        ingredient: { name: 'butter' },
-        quantity: 300,
-        unit: 'g',
-    },
-    {
-        ingredient: { name: 'flour' },
-        quantity: 0,
-        unit: '',
-    },
-];
+import { fetchWithAuth, mapShoppingListToSelection } from '@helpers/utils';
+import useFetchWithAuth from '@hooks/fetchWithAuth';
+import { CustomSelectionInput, ShoppingListItem } from 'src/types/types';
 
 function ShoppingListPage() {
-    const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInput[]>(
-        ingredientsDummy1.map((ingredient, index) => {
-            return {
-                id: index + '',
-                label: `${ingredient.quantity} ${ingredient.unit} ${ingredient.ingredient.name} `,
-                checked: false,
-            };
-        }),
-    );
-
+    const { data, error } = useFetchWithAuth<ShoppingListItem[]>('/service/shopping-list');
+    const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInput[]>([]);
     const [presentIngredients, setPresentIngredients] = useState<CustomSelectionInput[]>([]);
+    const { data: session } = useSession();
+
+    useEffect(() => {
+        if (data) filterIngredients(data);
+    }, [data, error]);
+
+    const sendIngredient = async (ingredient: CustomSelectionInput) => {
+        const foundElement = data?.find((el) => el.ingredientId + '' === ingredient.id);
+
+        if (!foundElement) return;
+
+        const dataToSend = {
+            isChecked: ingredient.checked,
+        };
+
+        fetchWithAuth(
+            `/service/shopping-list/update/${foundElement.shoppingListEntryId}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            },
+            session,
+        );
+    };
+
+    const filterIngredients = (ingredients: ShoppingListItem[]) => {
+        const neededIngredients = ingredients.filter((ingredient) => !ingredient.isChecked);
+        setNeededIngredients(mapShoppingListToSelection(neededIngredients));
+
+        const presentIngredients = ingredients.filter((ingredient) => ingredient.isChecked);
+        setPresentIngredients(mapShoppingListToSelection(presentIngredients));
+    };
 
     const handleNeededSelect = (id: string) => {
         const filteredNeededIngredients = neededIngredients.filter((ingredient) => ingredient.id !== id);
@@ -56,6 +53,7 @@ function ShoppingListPage() {
             const presentIngredientsCopy = [...presentIngredients];
             presentIngredientsCopy.push(foundIngredient);
             setPresentIngredients(presentIngredientsCopy);
+            sendIngredient(foundIngredient);
         }
         setNeededIngredients(filteredNeededIngredients);
     };
@@ -70,6 +68,7 @@ function ShoppingListPage() {
             const neededIngredientsCopy = [...neededIngredients];
             neededIngredientsCopy.push(foundIngredient);
             setNeededIngredients(neededIngredientsCopy);
+            sendIngredient(foundIngredient);
         }
         setPresentIngredients(filteredPresentIngredients);
     };
@@ -80,12 +79,14 @@ function ShoppingListPage() {
             <div className="flex w-full">
                 <div className="mr-[20rem]">
                     <h2>Things you need:</h2>
-                    <CheckboxGroup
-                        checkboxes={neededIngredients}
-                        groupName="ingredients2"
-                        onCheckboxSelect={handleNeededSelect}
-                        disabled={false}
-                    />
+                    {data && (
+                        <CheckboxGroup
+                            checkboxes={neededIngredients}
+                            groupName="ingredients2"
+                            onCheckboxSelect={handleNeededSelect}
+                            disabled={false}
+                        />
+                    )}
                 </div>
                 <div>
                     <h2>Things you already have:</h2>

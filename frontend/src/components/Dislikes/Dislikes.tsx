@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
 import { debounce } from '@helpers/utils';
@@ -7,23 +6,29 @@ import { APISearchResponse } from 'src/types/types';
 import styles from '../Dislikes/Dislikes.module.scss';
 import cross from '../../../public/Icons/kreuz.png';
 
+type OnNextFunction = () => void;
 type OnBackFunction = () => void;
 type OnChoiceFunction = (choices: APISearchResponse[]) => void;
 interface DislikesProps {
+    onNext: OnNextFunction;
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
     foodDislikes: APISearchResponse[];
-    handlePreferences: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
-export default function Dislikes({ onBack, onChoice, foodDislikes, handlePreferences }: DislikesProps) {
+export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: DislikesProps) {
     const [allDislikes, setDislike] = useState(foodDislikes);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
 
-    const handleBack = () => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         onChoice(allDislikes);
-        onBack();
+        if (e.currentTarget.getAttribute('data-btn') == 'next') {
+            onNext();
+        } else {
+            onBack();
+        }
     };
 
     const handleAddChoice = (e: React.MouseEvent) => {
@@ -62,11 +67,11 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
 
     return (
         <div>
-            <h4 className="mb-8">What food do you dislike?</h4>
-            <div className="h-[300px]">
-                <div className="flex flex-col">
+            <h4 className="mb-2">What food do you dislike?</h4>
+            <div className="flex h-[300px]">
+                <div className="flex w-1/3 flex-col">
                     <div className="w-full flex">
-                        <div className="text-input-wrapper w-1/3 mr-16">
+                        <div className="text-input-wrapper w-full">
                             <input
                                 type="text"
                                 placeholder="Search ingredients"
@@ -83,12 +88,12 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                         <SearchResultlist searchResults={[...searchResult]} clickHandler={handleAddChoice} />
                     )}
                 </div>
-                <div className=" h-[280px] overflow-y-auto">
-                    <div className="flex flex-wrap my-2 gap-x-2">
+                <div className=" h-[280px] overflow-y-auto ml-8 w-2/3">
+                    <div className="flex flex-wrap mb-2 gap-x-2">
                         {allDislikes.map((dislike, i) => (
                             <div key={i} className={styles.dislikeWrapper}>
                                 <span>
-                                    <label htmlFor={dislike.name}>
+                                    <label className="flex" htmlFor={dislike.name}>
                                         <p className="inline-block text-base pr-2">{dislike.name}</p>
 
                                         <a
@@ -106,12 +111,12 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="button" className="btn-primary mt-10" data-btn="back" onClick={handleBack}>
+                <button type="button" className="btn-primary mt-6" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
-                <Link className="btn-primary mt-10" onClick={handlePreferences} href={'/weekOverview'}>
-                    Create Weekplan
-                </Link>
+                <button type="submit" className="btn-primary mt-6" data-btn="next" onClick={handleClick}>
+                    Next
+                </button>
             </div>
         </div>
     );

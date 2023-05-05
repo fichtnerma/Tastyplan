@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
-import { ShoppingListController } from './shopping-list.controller';
 import { ShoppingListService } from './shopping-list.service';
+import { ShoppingListController } from './shopping-list.controller';
 import { RecipesModule } from 'src/recipes/recipes.module';
+import { Module } from '@nestjs/common';
 
 @Module({
-  controllers: [ShoppingListController],
-  providers: [ShoppingListService],
-  exports: [ShoppingListService],
-  imports: [RecipesModule]
+    controllers: [ShoppingListController],
+    providers: [ShoppingListService],
+    exports: [ShoppingListService],
+    imports: [RecipesModule],
 })
-export class ShoppingListModule { }
+export class ShoppingListModule {}

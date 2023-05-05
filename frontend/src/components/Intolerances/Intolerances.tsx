@@ -61,7 +61,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
 
     return (
         <>
-            <h4 className="mb-8">What are your intolerances?</h4>
+            <h4 className="mb-2">What are your intolerances?</h4>
             <div className="h-[300px] overflow-y-auto">
                 <div className="grid grid-cols-1 gap-y-1 md:gap-y-2 md:grid-cols-1 lg:gap-y-4 lg:grid-cols-2 xl:gap-y-8 xl:grid-cols-3 2xl:gap-y-8 2xl:grid-cols-4">
                     {intolerances.map((intolerance, i) => (
@@ -96,10 +96,10 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="submit" className="btn-primary mt-10" data-btn="back" onClick={handleClick}>
+                <button type="submit" className="btn-primary mt-6" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
-                <button type="submit" className="btn-primary mt-10" data-btn="next" onClick={handleClick}>
+                <button type="submit" className="btn-primary mt-6" data-btn="next" onClick={handleClick}>
                     Next
                 </button>
             </div>

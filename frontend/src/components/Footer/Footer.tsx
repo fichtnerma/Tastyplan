@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Footer.module.scss';
 
 export default function Footer() {
@@ -24,13 +25,13 @@ export default function Footer() {
                             >
                                 <path
                                     d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-                                    style={{ fill: asPath !== '/' ? 'var(--green-light)' : 'var(--white)' }}
+                                    style={{ fill: 'var(--green-light)' }}
                                 ></path>
                             </svg>
                         </div>
                         <div
                             className={`flex pb-10 ${styles.footerContainer}`}
-                            style={{ backgroundColor: asPath !== '/' ? 'var(--green-light)' : 'var(--white)' }}
+                            style={{ backgroundColor: 'var(--green-light)' }}
                         >
                             <div className="flex gap-10 pt-5">
                                 <div>
@@ -61,10 +62,9 @@ export default function Footer() {
                                     </Link>
                                 </div>
                             </div>
-                            <div className="right-14 absolute mt-32">
+                            <div className="right-14 absolute mt-16">
                                 <Link href="/weekOverview">
-                                    <h3>Tasty</h3>
-                                    <h3>Plan</h3>
+                                    <Image src={'/logo.svg'} alt="Calendar Img" width={150} height={150} priority />
                                 </Link>
                             </div>
                         </div>

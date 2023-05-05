@@ -6,6 +6,10 @@ export type APIRegistrationResponse = {
     message: string;
     name: string;
 };
+export enum Role {
+    user = 'user',
+    admin = 'admin',
+}
 
 export type APISearchResponse = {
     id: number;
@@ -56,4 +60,20 @@ export type CustomSelectionInput = {
     id: string;
     label: string;
     checked: boolean;
+};
+
+export type ShoppingListItem = {
+    shoppingListEntryId: number;
+    ingredientId: number;
+    ingredientName: string;
+    unit: string;
+    quantity: number;
+    isChecked: boolean;
+};
+
+export type CustomSVG = {
+    class: string;
+    src: string;
+    width: number;
+    height: number;
 };

@@ -6,13 +6,15 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                inter: ['var(--font-inter)', ...fontFamily.sans],
-                bebas: ['var(--font-bebas)', ...fontFamily.sans],
+                inter: ['var(--font-inter)'],
+                bebas: ['var(--font-bebas)'],
+                zeyada: ['var(--font-zeyada)'],
             },
             colors: {
                 green: {
                     custom1: '#d6e5e3',
                     custom2: '#007370',
+                    custome3: '#00A39E',
                 },
                 red: {
                     custom: '#d54444',

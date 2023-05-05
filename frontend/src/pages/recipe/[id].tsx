@@ -5,7 +5,7 @@ import RecipeSteps from '@components/RecipeSteps/RecipeSteps';
 import IngredientList from '@components/IngredientList/IngredientList';
 import Icon from '@components/Icon/Icon';
 import { getFormOfDietIcon } from '@helpers/utils';
-import { useFetchWithAuth } from '@hooks/useFetchWithAuth';
+import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { Recipe } from 'src/types/types';
 import styles from '../../styles/DetailRecipe.module.scss';
 
@@ -16,7 +16,7 @@ export default function DetailRecipe() {
     const [favorit, setFavorit] = useState(false);
 
     const id = router.query.id;
-    const [loading, data] = useFetchWithAuth(`/service/recipes/${id}`, { method: 'GET' });
+    const { data, error } = useFetchWithAuth(`/service/recipes/${id}`, { method: 'GET' });
     const recipe = data as Recipe;
 
     const rate = (index: number) => {
@@ -32,7 +32,7 @@ export default function DetailRecipe() {
 
     return (
         <>
-            {!loading ? (
+            {!error && data ? (
                 <div className={styles.container}>
                     <div className="flex w-full">
                         <h1 className={styles.titleRecipe}>{recipe?.name}</h1>

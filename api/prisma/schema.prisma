@@ -115,7 +115,7 @@ model ShoppingList {
 model ShoppingListEntry {
     id             Int           @id @default(autoincrement())
     ingredientId   Int?
-    ingredient     Ingredient?   @relation(fields: [ingredientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    ingredient     Ingredient?   @relation(fields: [ingredientId], references: [id])
     ingredientName String?
     unit           String?
     quantity       Float?

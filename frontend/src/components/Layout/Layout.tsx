@@ -18,7 +18,6 @@ export default function Layout({ children }: React.PropsWithChildren) {
                 className={styles.mainContainer}
                 style={{
                     backgroundColor:
-                        asPath == '/' ||
                         asPath == '/authentication/registration' ||
                         asPath == '/authentication/login' ||
                         asPath == '/preferences' ||
@@ -26,6 +25,15 @@ export default function Layout({ children }: React.PropsWithChildren) {
                         asPath.includes('/setup')
                             ? 'var(--green-light)'
                             : 'var(--white)',
+                    paddingTop:
+                        asPath == '/' ||
+                        asPath == '/authentication/registration' ||
+                        asPath == '/authentication/login' ||
+                        asPath == '/preferences' ||
+                        asPath.includes('/intolerances') ||
+                        asPath.includes('/setup')
+                            ? '2rem'
+                            : '7rem',
                 }}
             >
                 {children}

@@ -1,5 +1,6 @@
 import { WeekplanModule } from './weekplan/weekplan.module';
 import { UsersModule } from './users/users.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SearchModule } from './search/search.module';
 import { RecipesModule } from './recipes/recipes.module';
 import { PrismaModule } from './prisma/prisma.module';
@@ -13,7 +14,6 @@ import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 @Module({
     imports: [
@@ -30,9 +30,9 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
             rootPath: join(__dirname, '..', 'images'),
             serveRoot: '/images',
         }),
-        ShoppingListModule
+        ShoppingListModule,
     ],
     controllers: [AppController, PreferencesController],
     providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,5 +1,10 @@
 Dockerfile
+Dockerfile.dev
 .dockerignore
+.eslintrc.json
+.gitignore
+README.md
+.prettierrc
 node_modules
 npm-debug.log
 dist

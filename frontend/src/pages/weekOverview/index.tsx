@@ -8,8 +8,8 @@ import 'swiper/swiper-bundle.css';
 import { Mousewheel, Navigation, Scrollbar } from 'swiper';
 import RecipeCard from '@components/RecipeCard/RecipeCard';
 import Icon from '@components/Icon/Icon';
-import { useFetchWithAuth } from '@hooks/useFetchWithAuth';
-import { Weekplan, WeekplanEntry } from 'src/types/types';
+import useFetchWithAuth from '@hooks/fetchWithAuth';
+import { Role, Weekplan, WeekplanEntry } from 'src/types/types';
 import styles from '../../styles/WeekOverview.module.scss';
 
 type DateFormatOptions = {
@@ -18,13 +18,42 @@ type DateFormatOptions = {
     day: '2-digit' | 'numeric';
 };
 
+const swiperBreakpoints = {
+    500: {
+        slidesPerView: 1,
+        spaceBetween: 20,
+    },
+    750: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+    },
+    1000: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+    },
+    1250: {
+        slidesPerView: 4,
+        spaceBetween: 20,
+    },
+    1500: {
+        slidesPerView: 5,
+        spaceBetween: 40,
+    },
+    1750: {
+        slidesPerView: 6,
+        spaceBetween: 50,
+    },
+    2000: {
+        slidesPerView: 7,
+        spaceBetween: 50,
+    },
+};
+
 export default function WeekOverview() {
     const { data: session } = useSession();
-    const [loading, data] = useFetchWithAuth(`/service/weekplan/current`, {
-        method: 'GET',
-    });
+    const { data, error } = useFetchWithAuth('/service/weekplan/current');
     const weekplan = data as Weekplan;
-    const nickname = session?.user.userId;
+    const user = session?.user;
     const options: DateFormatOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
 
     const today = new Date().getDay();
@@ -32,9 +61,9 @@ export default function WeekOverview() {
 
     return (
         <>
-            {!loading ? (
-                <div className={styles.container}>
-                    <h1>{nickname ? nickname + "'s" : 'Your'} Weekplan</h1>
+            {data && !error ? (
+                <div className={`w-full ${styles.container}`}>
+                    <h1>{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Weekplan</h1>
                     <div className="flex mt-10">
                         <h2>Lunch</h2>
                         <Swiper
@@ -45,36 +74,7 @@ export default function WeekOverview() {
                             }}
                             loop={false}
                             mousewheel={true}
-                            breakpoints={{
-                                500: {
-                                    slidesPerView: 1,
-                                    spaceBetween: 20,
-                                },
-                                750: {
-                                    slidesPerView: 2,
-                                    spaceBetween: 20,
-                                },
-                                1000: {
-                                    slidesPerView: 3,
-                                    spaceBetween: 20,
-                                },
-                                1250: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 20,
-                                },
-                                1500: {
-                                    slidesPerView: 5,
-                                    spaceBetween: 40,
-                                },
-                                1750: {
-                                    slidesPerView: 6,
-                                    spaceBetween: 50,
-                                },
-                                2000: {
-                                    slidesPerView: 7,
-                                    spaceBetween: 50,
-                                },
-                            }}
+                            breakpoints={swiperBreakpoints}
                             modules={[Navigation, Scrollbar, Mousewheel]}
                             className={styles.mySwiper}
                         >
