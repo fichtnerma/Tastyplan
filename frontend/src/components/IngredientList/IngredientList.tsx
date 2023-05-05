@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Ingredient } from 'src/types/types';
 import styles from './IngredientList.module.scss';
 
@@ -54,9 +55,11 @@ function IngredientList({ ingredients }: IngredientListProps) {
             </div>
             <h5>Seasoning</h5>
             <div className="grid place-content-center">
-                <button type="button" className="btn-primary mt-10 mb-10">
-                    Go to Shoppinglist
-                </button>
+                <Link href="/shoppingList">
+                    <button type="button" className="btn-primary mt-10 mb-10">
+                        Go to Shoppinglist
+                    </button>
+                </Link>
             </div>
         </div>
     );
