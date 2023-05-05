@@ -93,7 +93,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                         {allDislikes.map((dislike, i) => (
                             <div key={i} className={styles.dislikeWrapper}>
                                 <span>
-                                    <label htmlFor={dislike.name}>
+                                    <label className="flex" htmlFor={dislike.name}>
                                         <p className="inline-block text-base pr-2">{dislike.name}</p>
 
                                         <a
