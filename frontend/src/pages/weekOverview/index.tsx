@@ -18,6 +18,37 @@ type DateFormatOptions = {
     day: '2-digit' | 'numeric';
 };
 
+const swiperBreakpoints = {
+    500: {
+        slidesPerView: 1,
+        spaceBetween: 20,
+    },
+    750: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+    },
+    1000: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+    },
+    1250: {
+        slidesPerView: 4,
+        spaceBetween: 20,
+    },
+    1500: {
+        slidesPerView: 5,
+        spaceBetween: 40,
+    },
+    1750: {
+        slidesPerView: 6,
+        spaceBetween: 50,
+    },
+    2000: {
+        slidesPerView: 7,
+        spaceBetween: 50,
+    },
+};
+
 export default function WeekOverview() {
     const { data: session } = useSession();
     const { data, error } = useFetchWithAuth('/service/weekplan/current');
@@ -43,36 +74,7 @@ export default function WeekOverview() {
                             }}
                             loop={false}
                             mousewheel={true}
-                            breakpoints={{
-                                500: {
-                                    slidesPerView: 1,
-                                    spaceBetween: 20,
-                                },
-                                750: {
-                                    slidesPerView: 2,
-                                    spaceBetween: 20,
-                                },
-                                1000: {
-                                    slidesPerView: 3,
-                                    spaceBetween: 20,
-                                },
-                                1250: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 20,
-                                },
-                                1500: {
-                                    slidesPerView: 5,
-                                    spaceBetween: 40,
-                                },
-                                1750: {
-                                    slidesPerView: 6,
-                                    spaceBetween: 50,
-                                },
-                                2000: {
-                                    slidesPerView: 7,
-                                    spaceBetween: 50,
-                                },
-                            }}
+                            breakpoints={swiperBreakpoints}
                             modules={[Navigation, Scrollbar, Mousewheel]}
                             className={styles.mySwiper}
                         >
