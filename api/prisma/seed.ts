@@ -23,7 +23,7 @@ async function main() {
     await initIngredients();
     await initRecipes();
     console.log('Matches: ', matches / (matches + noMatches));
-    fs.writeFile('./prisma/seeds/badMatches.json', JSON.stringify(Array.from(badMatches)));
+    // fs.writeFile('./prisma/seeds/badMatches.json', JSON.stringify(Array.from(badMatches)));
 }
 type Ingredient = {
     name: string;

@@ -6,7 +6,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class RecipesService {
-    constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) { }
+    constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) {}
 
     async create(createRecipeDto: CreateRecipeDto) {
         return 'This action adds a new recipe' + createRecipeDto.name;
@@ -34,6 +34,7 @@ export class RecipesService {
                         ingredient: {
                             select: {
                                 name: true,
+                                id: true,
                             },
                         },
                     },
