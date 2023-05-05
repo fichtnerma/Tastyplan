@@ -1,17 +1,17 @@
 import { IWeekplan, IWeekplanEntry } from './weekplan.interface';
+import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
-import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 
 @Injectable()
 export class WeekplanService {
     constructor(
         private prismaService: PrismaService,
         private recipeService: RecipesService,
-        private shoppingListService: ShoppingListService
-    ) { }
+        private shoppingListService: ShoppingListService,
+    ) {}
 
     async get(user: User) {
         try {
@@ -75,7 +75,7 @@ export class WeekplanService {
                 ...fetchedMeals,
             ];
         }
-        const shuffeledMeals = this.shuffleArray(fetchedMeals)
+        const shuffeledMeals = this.shuffleArray(fetchedMeals);
         const weekPlan = await this.prismaService.weekplan.create({
             data: {
                 userId: user.userId,
@@ -99,26 +99,24 @@ export class WeekplanService {
             },
         });
 
-        const weekplanRecipeIds = weekPlan.weekplanEntry.map((entry) => entry.recipeId)
-        this.shoppingListService.create(weekplanRecipeIds, user)
+        const weekplanRecipeIds = weekPlan.weekplanEntry.map((entry) => entry.recipeId);
+
+        this.shoppingListService.create(weekplanRecipeIds, user);
 
         return this.formatWeekPlan(weekPlan);
     }
 
     shuffleArray(array: { id: number }[]) {
-        let currentIndex = array.length, randomIndex;
+        let currentIndex = array.length,
+            randomIndex;
 
         while (currentIndex != 0) {
-
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
 
-            [array[currentIndex], array[randomIndex]] = [
-                array[randomIndex], array[currentIndex]];
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
         }
 
         return array;
     }
-
-
 }

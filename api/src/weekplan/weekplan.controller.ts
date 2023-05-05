@@ -7,7 +7,7 @@ import { Controller, Get, Post, ClassSerializerInterceptor, UseGuards, UseInterc
 
 @Controller('weekplan')
 export class WeekplanController {
-    constructor(private weekplanService: WeekplanService) { }
+    constructor(private weekplanService: WeekplanService) {}
 
     @UseGuards(JwtAuthGuard)
     @ApiSecurity('access-key')
