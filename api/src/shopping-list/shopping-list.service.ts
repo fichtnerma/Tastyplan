@@ -64,7 +64,6 @@ export class ShoppingListService {
                     },
                 },
             });
-            console.log('list', list);
         } catch (erro) {
             throw new InternalServerErrorException('Error: Failed to create new shoppinglist');
         }

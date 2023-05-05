@@ -1,4 +1,3 @@
-import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateGuestDto, CreateUserDto, LoginUserDto, Role, UpdatePasswordDto } from './dto/create-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { compare, hash } from 'bcrypt';
@@ -14,23 +13,31 @@ export class UsersService {
     constructor(private prismaService: PrismaService) {}
 
     async create(userDto: CreateUserDto): Promise<User> {
-        // // check if the user exists in the db
-        const userInDb = await this.prismaService.user.findFirst({
-            where: { userId: userDto.userId },
-        });
-        if (userInDb) {
-            throw new HttpException('user_already_exist', HttpStatus.CONFLICT);
+        try {
+            // check if the user exists in the db
+            const userInDb = await this.prismaService.user.findFirst({
+                where: { userId: userDto.userId },
+            });
+            if (userInDb) {
+                throw new HttpException('user_already_exist', HttpStatus.CONFLICT);
+            }
+        } catch (error) {
+            throw new HttpException('finding user for creation failed', HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        const user = await this.prismaService.user.create({
-            data: {
-                ...userDto,
-                role: Role.USER,
-                password: await hash(userDto.password, 10),
-            },
-        });
+        try {
+            const user = await this.prismaService.user.create({
+                data: {
+                    ...userDto,
+                    role: Role.USER,
+                    password: await hash(userDto.password, 10),
+                },
+            });
 
-        return user;
+            return user;
+        } catch (error) {
+            throw new HttpException('creating user failed', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     async createFromGuest(guest: User, userDto: CreateUserDto): Promise<User> {
@@ -52,14 +59,18 @@ export class UsersService {
         return user;
     }
     async createGuest(createGuestDto: CreateGuestDto): Promise<User> {
-        const user = await this.prismaService.user.create({
-            data: {
-                ...createGuestDto,
-                role: Role.GUEST,
-            },
-        });
+        try {
+            const user = await this.prismaService.user.create({
+                data: {
+                    ...createGuestDto,
+                    role: Role.GUEST,
+                },
+            });
 
-        return user;
+            return user;
+        } catch (error) {
+            throw new HttpException('creating guest failed', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     async updatePassword(payload: UpdatePasswordDto, id: string): Promise<User> {
@@ -81,69 +92,38 @@ export class UsersService {
     }
 
     async findByLogin({ userId, password }: LoginUserDto): Promise<FormatLogin> {
-        const user = await this.prismaService.user.findFirst({
-            where: { userId },
-        });
+        try {
+            const user = await this.prismaService.user.findFirst({
+                where: { userId },
+            });
 
-        if (!user) {
-            throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
+            if (!user) {
+                throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
+            }
+
+            // compare passwords
+            const areEqual = await compare(password, user.password);
+
+            if (!areEqual) {
+                throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
+            }
+
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { password: p, ...rest } = user;
+            return rest;
+        } catch (error) {
+            throw new HttpException('finding user by login failed', HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        // compare passwords
-        const areEqual = await compare(password, user.password);
-
-        if (!areEqual) {
-            throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
-        }
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { password: p, ...rest } = user;
-        return rest;
     }
 
     //use by auth module to get user in database
     async findByPayload({ userId }: { userId: string }): Promise<User> {
-        return await this.prismaService.user.findFirst({
-            where: { userId },
-        });
-    }
-
-    findAll() {
-        return `This action returns all users`;
-    }
-
-    findOne(id: number) {
-        return `This action returns a #${id} user`;
-    }
-
-    update(id: number, updateUserDto: UpdateUserDto) {
-        return `This action updates a #${id} user` + updateUserDto;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} user`;
-    }
-
-    private createGuestUser(createUserDto: CreateUserDto) {
-        const { userId, role } = createUserDto;
-        this.prismaService.user.create({
-            data: {
-                userId,
-                role,
-            },
-        });
-        return 'Guest user created';
-    }
-    private createUser(createUserDto: CreateUserDto) {
-        const { userId, password, email, role } = createUserDto;
-        this.prismaService.user.create({
-            data: {
-                userId,
-                password,
-                email,
-                role,
-            },
-        });
-        return 'User created';
+        try {
+            return await this.prismaService.user.findFirst({
+                where: { userId },
+            });
+        } catch (error) {
+            throw new HttpException('finding user by payload failed', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
