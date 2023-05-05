@@ -51,14 +51,14 @@ export default function WeekplanConfig({ onBack, onChoice, weekConfig, handlePre
         const clickedDay = days.find((day) => day.id === id);
         if (clickedDay) {
             if (!weekConfig.days.find((day) => day === clickedDay.label)) {
+                clickedDay.checked = true;
                 weekConfig.days.push(clickedDay.label);
                 setWeekplanChoices(weekConfig);
-                clickedDay.checked = true;
             } else {
                 const newDays = weekConfig.days.filter((day) => day === clickedDay.label);
+                clickedDay.checked = false;
                 weekConfig.days = newDays;
                 setWeekplanChoices(weekConfig);
-                clickedDay.checked = false;
             }
         }
     };
