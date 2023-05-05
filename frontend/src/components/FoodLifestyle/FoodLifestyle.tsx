@@ -35,7 +35,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
 
     return (
         <div>
-            <h4 className="mb-8">What is your food lifestyle?</h4>
+            <h4 className="mb-2">What is your food lifestyle?</h4>
             <div className={styles.scrolling}>
                 <div className={styles.preferencesWrapper}>
                     {preferences.map((preference, i) => (
@@ -60,7 +60,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
             </div>
             <div className="flex justify-end relative">
                 <button
-                    className="btn-primary mt-10 disabled:bg-gray-custom2"
+                    className="btn-primary mt-6 disabled:bg-gray-custom2"
                     data-btn="next"
                     onClick={onSubmitSelection}
                     data-anchor="next"
