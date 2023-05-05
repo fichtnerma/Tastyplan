@@ -22,6 +22,6 @@ export interface IngredientMap {
         id: number;
         quantity: number;
         unit: string;
-        ingredient: { name: string };
+        ingredient: { name: string; id: number };
     };
 }
