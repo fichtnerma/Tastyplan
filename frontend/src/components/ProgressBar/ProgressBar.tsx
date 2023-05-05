@@ -18,11 +18,7 @@ function ProgressBar({ stepNames, activeStep, foodLifeStyleSelected, onClick }: 
     }, [activeStep, stepNames]);
 
     const getGradient = (stepsCount: number, activeStep: number) => {
-        if (activeStep === 1) return 0;
-        if (activeStep === stepsCount) return 100;
-
-        const spaceBetweenPoints = Math.floor((stepsCount / (stepsCount - 1)) * (1 / stepsCount) * 100);
-        return spaceBetweenPoints * (activeStep - 1);
+        return Math.floor(((activeStep - 1) / (stepsCount - 1)) * 100);
     };
 
     const getStepClass = (elNr: number) => {
