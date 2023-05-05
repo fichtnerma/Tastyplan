@@ -1,54 +1,53 @@
-import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
 import { Ingredient, User } from '@prisma/client';
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class RecipesService {
     constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) {}
 
-    async create(createRecipeDto: CreateRecipeDto) {
-        return 'This action adds a new recipe' + createRecipeDto.name;
-    }
-
     async findById(id: number) {
-        const recipe = await this.prismaService.recipe.findUnique({
-            where: {
-                id: id,
-            },
-            select: {
-                id: true,
-                name: true,
-                description: true,
-                img: true,
-                formOfDiet: true,
-                preparingTime: true,
-                cookingTime: true,
-                totalTime: true,
-                ingredients: {
-                    select: {
-                        id: true,
-                        quantity: true,
-                        unit: true,
-                        ingredient: {
-                            select: {
-                                name: true,
-                                id: true,
+        try {
+            const recipe = await this.prismaService.recipe.findUnique({
+                where: {
+                    id: id,
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    description: true,
+                    img: true,
+                    formOfDiet: true,
+                    preparingTime: true,
+                    cookingTime: true,
+                    totalTime: true,
+                    ingredients: {
+                        select: {
+                            id: true,
+                            quantity: true,
+                            unit: true,
+                            ingredient: {
+                                select: {
+                                    name: true,
+                                    id: true,
+                                },
                             },
                         },
                     },
-                },
-                steps: {
-                    select: {
-                        stepCount: true,
-                        description: true,
+                    steps: {
+                        select: {
+                            stepCount: true,
+                            description: true,
+                        },
                     },
                 },
-            },
-        });
+            });
 
-        return recipe;
+            return recipe;
+        } catch (error) {
+            throw new InternalServerErrorException('Error: Failed to find recipe by id');
+        }
     }
 
     async filterByPreferences(user: User) {
@@ -63,31 +62,35 @@ export class RecipesService {
         const { formOfDiet, allergens } = preferences;
         const dislikedIngredients = preferences.foodDislikes.map((item: Ingredient) => item.id);
 
-        const recipes = await this.prismaService.recipe.findMany({
-            where: {
-                formOfDiet: {
-                    in: possibleDietsMap.get(formOfDiet),
-                },
-                ingredients: {
-                    every: {
-                        ingredient: {
-                            id: {
-                                notIn: dislikedIngredients,
-                            },
-                            NOT: {
-                                allergens: {
-                                    hasSome: allergens,
+        try {
+            const recipes = await this.prismaService.recipe.findMany({
+                where: {
+                    formOfDiet: {
+                        in: possibleDietsMap.get(formOfDiet),
+                    },
+                    ingredients: {
+                        every: {
+                            ingredient: {
+                                id: {
+                                    notIn: dislikedIngredients,
+                                },
+                                NOT: {
+                                    allergens: {
+                                        hasSome: allergens,
+                                    },
                                 },
                             },
                         },
                     },
                 },
-            },
-            select: {
-                id: true,
-            },
-        });
+                select: {
+                    id: true,
+                },
+            });
 
-        return recipes;
+            return recipes;
+        } catch (error) {
+            throw new InternalServerErrorException('Error: Filter recipes by preferences failed');
+        }
     }
 }
