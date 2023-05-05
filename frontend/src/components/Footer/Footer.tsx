@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Footer.module.scss';
 
 export default function Footer() {
@@ -61,10 +62,9 @@ export default function Footer() {
                                     </Link>
                                 </div>
                             </div>
-                            <div className="right-14 absolute mt-32">
+                            <div className="right-14 absolute mt-16">
                                 <Link href="/weekOverview">
-                                    <h3>Tasty</h3>
-                                    <h3>Plan</h3>
+                                    <Image src={'/logo.svg'} alt="Calendar Img" width={150} height={150} priority />
                                 </Link>
                             </div>
                         </div>

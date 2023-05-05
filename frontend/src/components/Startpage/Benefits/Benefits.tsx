@@ -37,7 +37,7 @@ function Benefits() {
     return (
         <div className="flex justify-between">
             {benefits.map((benefit) => (
-                <div key={benefit.id} className="w-[25%] p-2  hover:bg-green-custom1 rounded-2xl">
+                <div key={benefit.id} className="w-[25%] p-2 rounded-2xl">
                     <Image className="mb-20 mx-auto" src={benefit.icon} alt="icon" width={200} height={200}></Image>
                     <h5 className="h5-green-dark mb-8">{benefit.heading}</h5>
                     <p>{benefit.desc}</p>
