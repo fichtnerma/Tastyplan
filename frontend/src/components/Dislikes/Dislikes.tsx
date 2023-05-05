@@ -68,10 +68,10 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
     return (
         <div>
             <h4 className="mb-2">What food do you dislike?</h4>
-            <div className="h-[300px]">
-                <div className="flex flex-col">
+            <div className="flex h-[300px]">
+                <div className="flex w-1/3 flex-col">
                     <div className="w-full flex">
-                        <div className="text-input-wrapper w-1/3 mr-16">
+                        <div className="text-input-wrapper w-full">
                             <input
                                 type="text"
                                 placeholder="Search ingredients"
@@ -88,12 +88,12 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                         <SearchResultlist searchResults={[...searchResult]} clickHandler={handleAddChoice} />
                     )}
                 </div>
-                <div className=" h-[280px] overflow-y-auto">
-                    <div className="flex flex-wrap my-2 gap-x-2">
+                <div className=" h-[280px] overflow-y-auto ml-8 w-2/3">
+                    <div className="flex flex-wrap mb-2 gap-x-2">
                         {allDislikes.map((dislike, i) => (
                             <div key={i} className={styles.dislikeWrapper}>
                                 <span>
-                                    <label htmlFor={dislike.name}>
+                                    <label className="flex" htmlFor={dislike.name}>
                                         <p className="inline-block text-base pr-2">{dislike.name}</p>
 
                                         <a
