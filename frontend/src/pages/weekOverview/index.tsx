@@ -9,7 +9,7 @@ import { Mousewheel, Navigation, Scrollbar } from 'swiper';
 import RecipeCard from '@components/RecipeCard/RecipeCard';
 import Icon from '@components/Icon/Icon';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
-import { Weekplan, WeekplanEntry } from 'src/types/types';
+import { Role, Weekplan, WeekplanEntry } from 'src/types/types';
 import styles from '../../styles/WeekOverview.module.scss';
 
 type DateFormatOptions = {
@@ -22,7 +22,7 @@ export default function WeekOverview() {
     const { data: session } = useSession();
     const { data, error } = useFetchWithAuth('/service/weekplan/current');
     const weekplan = data as Weekplan;
-    const nickname = session?.user.userId;
+    const user = session?.user;
     const options: DateFormatOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
 
     const today = new Date().getDay();
@@ -32,7 +32,7 @@ export default function WeekOverview() {
         <>
             {data && !error ? (
                 <div className={`w-full ${styles.container}`}>
-                    <h1>{nickname ? nickname + "'s" : 'Your'} Weekplan</h1>
+                    <h1>{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Weekplan</h1>
                     <div className="flex mt-10">
                         <h2>Lunch</h2>
                         <Swiper
