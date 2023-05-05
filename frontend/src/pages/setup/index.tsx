@@ -8,7 +8,7 @@ import Intolerances from '@components/Intolerances/Intolerances';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';
 import { fetchWithAuth } from '@helpers/utils';
-import { APISearchResponse } from 'src/types/types';
+import { APISearchResponse, CustomSelectionInput } from 'src/types/types';
 import logo from '../../../public/logo.svg';
 
 interface Preferences {
@@ -36,6 +36,26 @@ const SetupParentPage = () => {
         weekConfig: { days: [], meals: [], servings: 1 },
     });
 
+    const [daysCheckboxes, setDays] = useState<CustomSelectionInput[]>([
+        {
+            id: '0',
+            label: 'Monday',
+            checked: false,
+        },
+        { id: '1', label: 'Tuesday', checked: false },
+        { id: '2', label: 'Wednesday', checked: false },
+        { id: '3', label: 'Thursday', checked: false },
+        { id: '4', label: 'Friday', checked: false },
+        { id: '5', label: 'Saturday', checked: false },
+        { id: '6', label: 'Sunday', checked: false },
+    ]);
+
+    const [mealsCheckboxes, setMeals] = useState<CustomSelectionInput[]>([
+        { id: '7', label: 'Breakfast', checked: false },
+        { id: '8', label: 'Lunch', checked: false },
+        { id: '9', label: 'Dinner', checked: false },
+    ]);
+
     const router = useRouter();
 
     const { data: session } = useSession();
@@ -50,6 +70,42 @@ const SetupParentPage = () => {
 
     const handleProgBarClick = (elementName: string) => {
         setCurrentStep(stepNames.findIndex((el) => el === elementName) + 1);
+    };
+
+    const handleDaySelection = (id: string) => {
+        const daysTemp = [...daysCheckboxes];
+        const prefTemp = { ...preferences };
+        daysTemp.forEach((day) => {
+            if (day.id === id) {
+                if (!prefTemp.weekConfig.days.find((dayT) => dayT === day.label)) {
+                    day.checked = true;
+                    prefTemp.weekConfig.days.push(day.label);
+                } else {
+                    day.checked = false;
+                    prefTemp.weekConfig.days = prefTemp.weekConfig.days.filter((dayT) => dayT !== day.label);
+                }
+            }
+        });
+        setDays(daysTemp);
+        setPreferences(prefTemp);
+    };
+
+    const handleMealSelection = (id: string) => {
+        const mealsTemp = [...mealsCheckboxes];
+        const prefTemp = { ...preferences };
+        mealsTemp.forEach((meal) => {
+            if (meal.id === id) {
+                if (!prefTemp.weekConfig.meals.find((mealT) => mealT === meal.label)) {
+                    meal.checked = true;
+                    prefTemp.weekConfig.meals.push(meal.label);
+                } else {
+                    meal.checked = false;
+                    prefTemp.weekConfig.meals = prefTemp.weekConfig.meals.filter((mealT) => mealT !== meal.label);
+                }
+            }
+        });
+        setMeals(mealsTemp);
+        setPreferences(prefTemp);
     };
 
     const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
@@ -153,6 +209,10 @@ const SetupParentPage = () => {
                                 onBack={handleBackStep}
                                 weekConfig={preferences.weekConfig}
                                 handlePreferences={handlePreferences}
+                                daysCheckboxes={daysCheckboxes}
+                                handleDaySelection={handleDaySelection}
+                                mealsCheckboxes={mealsCheckboxes}
+                                handleMealSelection={handleMealSelection}
                             />
                         )}
                     </fieldset>

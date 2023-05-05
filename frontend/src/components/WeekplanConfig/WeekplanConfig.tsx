@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
+import { CustomSelectionInput } from 'src/types/types';
 import styles from './WeekplanConfig.module.scss';
 
 type OnBackFunction = () => void;
 type OnChoiceFunction = (choices: WeekConfig) => void;
+type OnDaySelectionFunction = (id: string) => void;
+type OnMealSelectionFunction = (id: string) => void;
 
 interface WeekplanConfigProps {
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
     weekConfig: WeekConfig;
     handlePreferences: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
+    daysCheckboxes: CustomSelectionInput[];
+    handleDaySelection: OnDaySelectionFunction;
+    mealsCheckboxes: CustomSelectionInput[];
+    handleMealSelection: OnMealSelectionFunction;
 }
 
 interface WeekConfig {
@@ -19,75 +26,38 @@ interface WeekConfig {
     servings: number;
 }
 
-export default function WeekplanConfig({ onBack, onChoice, weekConfig, handlePreferences }: WeekplanConfigProps) {
+export default function WeekplanConfig({
+    onBack,
+    onChoice,
+    weekConfig,
+    handlePreferences,
+    daysCheckboxes,
+    handleDaySelection,
+    mealsCheckboxes,
+    handleMealSelection,
+}: WeekplanConfigProps) {
     const [weekplanChoices, setWeekplanChoices] = useState({
         ...weekConfig,
         days: [...weekConfig.days],
         meals: [...weekConfig.meals],
     });
 
-    const days = [
-        { id: '0', label: 'Monday', checked: false },
-        { id: '1', label: 'Tuesday', checked: false },
-        { id: '2', label: 'Wednesday', checked: false },
-        { id: '3', label: 'Thursday', checked: false },
-        { id: '4', label: 'Friday', checked: false },
-        { id: '5', label: 'Saturday', checked: false },
-        { id: '6', label: 'Sunday', checked: false },
-    ];
-
-    const meals = [
-        { id: '7', label: 'Breakfast', checked: false },
-        { id: '8', label: 'Lunch', checked: false },
-        { id: '9', label: 'Dinner', checked: false },
-    ];
-
     const handleBack = () => {
         onChoice(weekplanChoices);
         onBack();
     };
 
-    const handleDaySelect = (id: string) => {
-        const clickedDay = days.find((day) => day.id === id);
-        if (clickedDay) {
-            if (!weekConfig.days.find((day) => day === clickedDay.label)) {
-                clickedDay.checked = true;
-                weekConfig.days.push(clickedDay.label);
-                setWeekplanChoices(weekConfig);
-            } else {
-                const newDays = weekConfig.days.filter((day) => day === clickedDay.label);
-                clickedDay.checked = false;
-                weekConfig.days = newDays;
-                setWeekplanChoices(weekConfig);
-            }
-        }
-    };
-
-    const handleMealSelect = (id: string) => {
-        const clickedMeal = meals.find((meal) => meal.id === id);
-        if (clickedMeal) {
-            if (!weekConfig.meals.find((meal) => meal === clickedMeal.label)) {
-                weekConfig.meals.push(clickedMeal.label);
-                setWeekplanChoices(weekConfig);
-                clickedMeal.checked = true;
-            } else {
-                const newMeals = weekConfig.meals.filter((meal) => meal === clickedMeal.label);
-                weekConfig.meals = newMeals;
-                setWeekplanChoices(weekConfig);
-                clickedMeal.checked = false;
-            }
-        }
-    };
-
     const increasePortion = () => {
         const tempServings = weekplanChoices.servings + 1;
         setWeekplanChoices({ ...weekplanChoices, servings: tempServings });
+        onChoice(weekplanChoices);
     };
 
     const decreasePortion = () => {
         if (weekplanChoices.servings > 1) {
             const tempServings = weekplanChoices.servings - 1;
             setWeekplanChoices({ ...weekplanChoices, servings: tempServings });
+            onChoice(weekplanChoices);
         }
     };
 
@@ -98,18 +68,18 @@ export default function WeekplanConfig({ onBack, onChoice, weekConfig, handlePre
                 <div>
                     <h5>On what days do you want to cook?</h5>
                     <CheckboxGroup
-                        checkboxes={days}
+                        checkboxes={daysCheckboxes}
                         groupName="days"
-                        onCheckboxSelect={handleDaySelect}
+                        onCheckboxSelect={handleDaySelection}
                         disabled={false}
                     />
                 </div>
                 <div className="ml-0 lg:ml-4">
                     <h5 className="mt-8 lg:mt-0">What meals do you want to cook?</h5>
                     <CheckboxGroup
-                        checkboxes={meals}
+                        checkboxes={mealsCheckboxes}
                         groupName="meals"
-                        onCheckboxSelect={handleMealSelect}
+                        onCheckboxSelect={handleMealSelection}
                         disabled={false}
                     />
                     <h5 className="mt-8">How many servings?</h5>
