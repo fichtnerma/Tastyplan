@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { UserCredentials } from 'src/types/types';
 
 export default NextAuth({
-    secret: process.env.SECRETKEY,
+    secret: 'qY6aYs7lKasdgxuoEhQOMJiahxL56OzcGS+lXZlaUo4=',
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -15,7 +15,7 @@ export default NextAuth({
             async authorize(credentials) {
                 const { userId, password } = credentials as unknown as UserCredentials;
                 let res: Response;
-                if(password && userId) {
+                if (password && userId) {
                     res = await fetch('http://api:3000/auth/login', {
                         method: 'POST',
                         headers: {
@@ -25,7 +25,7 @@ export default NextAuth({
                             userId: userId,
                             password: password,
                         }),
-                });
+                    });
                 } else {
                     res = await fetch('http://api:3000/auth/guest', {
                         method: 'POST',
@@ -39,7 +39,7 @@ export default NextAuth({
                 }
 
                 const user = await res.json();
-                
+
                 if (res.ok && user) {
                     return user;
                 } else return null;
@@ -49,7 +49,6 @@ export default NextAuth({
 
     callbacks: {
         async jwt({ token, user }) {
-            
             if (user) {
                 token.role = user.role;
                 token.email = user.email;
@@ -58,7 +57,7 @@ export default NextAuth({
                 token.userId = user.userId;
                 token.token = user.token;
             }
-            
+
             return token;
         },
 
