@@ -70,7 +70,7 @@ function Steps() {
                             alt="curve"
                             width={step.svg.width}
                             height={step.svg.height}
-                            priority
+                            loading="lazy"
                             className={step.svg.class}
                         />
                     )}

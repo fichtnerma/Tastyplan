@@ -75,7 +75,7 @@ export default function Index() {
                             recipes, you'll never get bored with your meals.
                         </p>
                     </div>
-                    <Image src={'/whatIsTastyPlan.svg'} alt="a cookbook" width={800} height={139} priority />
+                    <Image src={'/whatIsTastyPlan.svg'} alt="a cookbook" width={800} height={139} loading="lazy" />
                 </div>
                 <p className={`h2-zeyada-green text-center my-0 mx-auto mt-20 animation ${styles.line}`}>
                     Meal planning has never been easier and more delicious.
