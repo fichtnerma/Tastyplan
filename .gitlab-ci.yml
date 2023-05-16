@@ -1,6 +1,7 @@
 stages:
   - test
   - build
+  - deploy
 
 variables:
   RULES_CHANGES_PATH: "**/*"
@@ -13,10 +14,7 @@ services:
   image: docker:20.10-dind
   stage: build
   only:
-     - merge_requests
-  except:
-     variables:
-       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
+     - master
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
@@ -78,3 +76,23 @@ build-client-image:
     - docker build -t $CI_REGISTRY_IMAGE/client:latest .
     - docker push $CI_REGISTRY_IMAGE/client:latest
 
+deploy:
+  stage: deploy
+  rules:
+    - when: manual
+  only :
+    - master
+  before_script:
+    - apt-get update -qq
+    - apt-get install -qq git
+    # Setup SSH deploy keys
+    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$VM_ACCESS_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  environment:
+    name: production
+    url: http://193.170.119.139
+  script:
+    - ssh admin@193.170.119.139 -p 5412 "cd tastyplan-prod && sudo docker compose down && sudo docker system prune -a -f && sudo docker compose up -d && exit"
