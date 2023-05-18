@@ -36,28 +36,28 @@ export default function Footer() {
                             <div className="flex gap-10 pt-5">
                                 <div>
                                     <h4>HELP</h4>
-                                    <Link href="/">
+                                    <Link href="/help/questions">
                                         <p>Q&A</p>
                                     </Link>
-                                    <Link href="/">
+                                    <Link href="/help/contact">
                                         <p>Contact</p>
                                     </Link>
                                 </div>
                                 <div>
                                     <h4>Company</h4>
-                                    <Link href="/">
+                                    <Link href="/company/aboutUs">
                                         <p>About us</p>
                                     </Link>
                                 </div>
                                 <div>
                                     <h4>Legal</h4>
-                                    <Link href="/">
+                                    <Link href="/legal/conditions">
                                         <p>Conditions</p>
                                     </Link>
-                                    <Link href="/">
+                                    <Link href="/legal/privacy">
                                         <p>Privacy</p>
                                     </Link>
-                                    <Link href="/">
+                                    <Link href="/legal/impressum">
                                         <p>Impressum</p>
                                     </Link>
                                 </div>
