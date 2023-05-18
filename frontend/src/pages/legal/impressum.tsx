@@ -4,6 +4,7 @@ function impressum() {
     return (
         <div>
             <h1>Impressum</h1>
+            <p>currently under construction</p>
         </div>
     );
 }
