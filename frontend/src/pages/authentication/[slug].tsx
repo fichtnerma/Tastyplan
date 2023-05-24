@@ -3,9 +3,12 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import SignUp from '@components/SignUp';
 import Modal from '@components/Layout/Modal';
+import { usePermissionCheck } from '@hooks/usePermissionCheck';
 
 function AuthenticationPage() {
     const router = useRouter();
+    const { hasAccess } = usePermissionCheck();
+    if (hasAccess) router.push('/weekOverview');
     const { slug } = router.query;
 
     const [pageState, setPageState] = useState('login');

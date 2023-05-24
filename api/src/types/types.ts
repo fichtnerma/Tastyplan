@@ -25,3 +25,8 @@ export interface IngredientMap {
         ingredient: { name: string; id: number };
     };
 }
+
+export enum UserState {
+    finished = 'finished',
+    registration = 'registration',
+}
