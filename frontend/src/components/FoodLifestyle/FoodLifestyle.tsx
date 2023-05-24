@@ -46,6 +46,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                                 value={preference.food}
                                 checked={selection === preference.food}
                                 onChange={onChoiceChange}
+                                data-cy={preference.food}
                             />
                             <label htmlFor={preference.food}>
                                 <p className="absolute pb-4 capitalize">{preference.food}</p>
@@ -65,6 +66,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                     onClick={onSubmitSelection}
                     data-anchor="next"
                     disabled={disabled}
+                    data-cy="next"
                 >
                     Next
                 </button>

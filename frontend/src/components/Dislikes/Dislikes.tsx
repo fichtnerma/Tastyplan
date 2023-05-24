@@ -81,6 +81,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                                     const debouncedHandler = debounce(() => handleSearch(e.target.value), 250);
                                     debouncedHandler();
                                 }}
+                                data-cy="dislikes-search-field"
                             />
                         </div>
                     </div>

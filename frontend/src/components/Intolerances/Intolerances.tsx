@@ -76,6 +76,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                                     value={intolerance.code}
                                     checked={allergeneChoices.includes(intolerance.code)}
                                     onChange={onAddChoice}
+                                    data-cy={intolerance.code}
                                 />
                                 <label htmlFor={intolerance.ui}>
                                     <p className="text-base">{intolerance.ui}</p>

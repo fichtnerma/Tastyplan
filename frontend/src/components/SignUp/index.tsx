@@ -62,6 +62,7 @@ export default function SignUp({ currentForm, setRoute }: SignUpProps) {
                                 <p
                                     className="cursor-pointer text-base text-gray-custom3 hover:text-black"
                                     onClick={skipRegistration}
+                                    data-cy="continue-as-guest"
                                 >
                                     Continue as guest
                                 </p>
