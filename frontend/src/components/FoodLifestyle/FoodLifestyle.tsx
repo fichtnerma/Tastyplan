@@ -29,7 +29,8 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
         setDisabled(false);
     };
 
-    const onSubmitSelection = () => {
+    const onSubmitSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         onNext();
     };
 
@@ -46,7 +47,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                                 value={preference.food}
                                 checked={selection === preference.food}
                                 onChange={onChoiceChange}
-                                data-cy={preference.food}
+                                data-cy={`${preference.food}-radio-btn`}
                             />
                             <label htmlFor={preference.food}>
                                 <p className="absolute pb-4 capitalize">{preference.food}</p>
@@ -66,7 +67,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                     onClick={onSubmitSelection}
                     data-anchor="next"
                     disabled={disabled}
-                    data-cy="next"
+                    data-cy="next-btn"
                 >
                     Next
                 </button>

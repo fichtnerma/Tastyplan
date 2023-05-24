@@ -76,7 +76,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                                     value={intolerance.code}
                                     checked={allergeneChoices.includes(intolerance.code)}
                                     onChange={onAddChoice}
-                                    data-cy={intolerance.code}
+                                    data-cy={`${intolerance.code}-checkbox`}
                                 />
                                 <label htmlFor={intolerance.ui}>
                                     <p className="text-base">{intolerance.ui}</p>
@@ -100,7 +100,13 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                 <button type="submit" className="btn-primary mt-6" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
-                <button type="submit" className="btn-primary mt-6" data-btn="next" onClick={handleClick}>
+                <button
+                    type="submit"
+                    className="btn-primary mt-6"
+                    data-btn="next"
+                    onClick={handleClick}
+                    data-cy="next-btn"
+                >
                     Next
                 </button>
             </div>
