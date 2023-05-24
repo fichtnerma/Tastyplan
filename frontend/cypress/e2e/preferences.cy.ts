@@ -23,6 +23,7 @@ describe('Select Preferences as guest', () => {
         const searchTerm = 'tomato';
 
         cy.dataCy('dislikes-search-field').should('exist').type(searchTerm, { delay: 200 });
+        cy.wait(200);
         cy.dataCy('item-number-0').should('exist').click();
         cy.dataCy('item-number-1').should('exist').click();
         cy.dataCy('next-btn').should('exist').click();
@@ -37,6 +38,13 @@ describe('Select Preferences as guest', () => {
         //Select meals
         cy.dataCy('8-checkbox').should('exist').click();
         cy.dataCy('9-checkbox').should('exist').click();
+
+        //Increase Servings
+        for (let i = 0; i < 3; i++) {
+            cy.dataCy('increase-serving-btn').should('exist').click();
+        }
+        cy.dataCy('decrease-serving-btn').should('exist').click();
+        cy.dataCy('portion-amount').should('exist').should('have.text', '3');
 
         //Create Weekplan
         cy.dataCy('create-weekplan-btn').should('exist').click();
