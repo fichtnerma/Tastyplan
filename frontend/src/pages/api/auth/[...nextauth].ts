@@ -55,6 +55,7 @@ export default NextAuth({
                 token.firstName = user.firstName;
                 token.lastName = user.lastName;
                 token.userId = user.userId;
+                token.state = user.state;
                 token.token = user.token;
             }
 
@@ -68,6 +69,7 @@ export default NextAuth({
                 session.user.firstName = token.firstName;
                 session.user.lastName = token.lastName;
                 session.user.userId = token.userId;
+                session.user.state = token.state;
                 session.user.token = token.token;
             }
             return session;

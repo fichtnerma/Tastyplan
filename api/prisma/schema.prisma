@@ -63,13 +63,12 @@ model Step {
 }
 
 model User {
-    id        String  @id @default(uuid())
-    userId    String  @unique
-    email     String? @unique
-    password  String?
-    role      String  @default("USER")
-    firstName String?
-    lastName  String?
+    id       String  @id @default(uuid())
+    userId   String  @unique
+    email    String? @unique
+    password String?
+    role     String  @default("USER")
+    state    String  @default("registered")
 
     createdAt    DateTime       @default(now())
     updatedAt    DateTime       @default(now()) @updatedAt
@@ -122,10 +121,4 @@ model ShoppingListEntry {
     isChecked      Boolean
     ShoppingList   ShoppingList? @relation(fields: [shoppingListId], references: [id])
     shoppingListId Int?
-}
-
-enum Role {
-    ADMIN
-    USER
-    GUEST
 }
