@@ -72,7 +72,7 @@ api_unit_tests:
     when: always
     reports:
       junit:
-        - reports/junit.xml
+        - api/reports/junit.xml
 
 build-api-image:
   extends: ".build-rules"
