@@ -6,3 +6,10 @@ export type IWeekplan = Weekplan & {
 export type IWeekplanEntry = WeekplanEntry & {
     recipe: Recipe;
 };
+
+export type IFormattedWeekplan = Pick<Weekplan, 'startDate' | 'endDate'> & {
+    weekplanEntry: {
+        date: Date;
+        recipe: Pick<Recipe, 'id' | 'name' | 'img' | 'preparingTime' | 'cookingTime' | 'formOfDiet'>;
+    }[];
+};

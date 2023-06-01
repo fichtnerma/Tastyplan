@@ -1,4 +1,4 @@
-import { IWeekplan, IWeekplanEntry } from './weekplan.interface';
+import { IFormattedWeekplan, IWeekplan, IWeekplanEntry } from './weekplan.interface';
 import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -40,7 +40,7 @@ export class WeekplanService {
         }
     }
 
-    private formatWeekPlan(weekplan: IWeekplan) {
+    formatWeekPlan(weekplan: IWeekplan): IFormattedWeekplan {
         const formattedWeekPlan = {
             startDate: weekplan.startDate,
             endDate: weekplan.endDate,
@@ -56,7 +56,6 @@ export class WeekplanService {
                 },
             })),
         };
-
         return formattedWeekPlan;
     }
 
