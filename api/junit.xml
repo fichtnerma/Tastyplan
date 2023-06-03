@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="10" failures="0" errors="0" time="3.144">
+  <testsuite name="Converter helper" errors="0" failures="0" skipped="0" timestamp="2023-06-01T07:45:05" time="3.07" tests="10">
+    <testcase classname="Converter helper-Minute input" name="Converter helper-Minute input" time="0.002">
+    </testcase>
+    <testcase classname="Converter helper-Hour input" name="Converter helper-Hour input" time="0">
+    </testcase>
+    <testcase classname="Converter helper-Mixed minute and hour input" name="Converter helper-Mixed minute and hour input" time="0">
+    </testcase>
+    <testcase classname="Converter helper-Null input test" name="Converter helper-Null input test" time="0">
+    </testcase>
+    <testcase classname="Matching prep helper-Ingredient without fillword" name="Matching prep helper-Ingredient without fillword" time="0">
+    </testcase>
+    <testcase classname="Matching prep helper-Ingredient with fillword" name="Matching prep helper-Ingredient with fillword" time="0.001">
+    </testcase>
+    <testcase classname="Matching prep helper-Ingredient with multiple fillword" name="Matching prep helper-Ingredient with multiple fillword" time="0">
+    </testcase>
+    <testcase classname="Matching prep helper-Ingredient without amount" name="Matching prep helper-Ingredient without amount" time="0.001">
+    </testcase>
+    <testcase classname="Matching prep helper-Ingredient without amount and with fillword" name="Matching prep helper-Ingredient without amount and with fillword" time="0">
+    </testcase>
+    <testcase classname="Matching prep helper-Ingredient without amount and ingredient (with fillword)" name="Matching prep helper-Ingredient without amount and ingredient (with fillword)" time="0">
+    </testcase>
+  </testsuite>
+</testsuites>
