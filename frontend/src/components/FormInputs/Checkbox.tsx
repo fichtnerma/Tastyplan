@@ -10,7 +10,7 @@ type CheckboxProps = {
 
 function Checkbox({ groupName, customCheckbox, handleChange, disabled }: CheckboxProps) {
     return (
-        <div className={styles.checkboxContainer}>
+        <div className={styles.checkboxContainer} data-cy={`${customCheckbox.id}-checkbox`}>
             <input
                 type="checkbox"
                 name={groupName}

@@ -4,6 +4,10 @@
     "dev": "docker-compose up -d",
     "db:seed": "cd api && npx prisma db seed",
     "setup:dev": "npm run containers:dev && npm run db:seed",
-    "test:api": "cd api && jest"
+    "test:api": "cd api && jest",
+    "e2e": "cypress run --browser chrome --headless --reporter junit"
+  },
+  "devDependencies": {
+    "cypress": "^12.13.0"
   }
 }
