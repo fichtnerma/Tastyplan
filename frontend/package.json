@@ -6,8 +6,7 @@
         "dev": "next dev -p 8080",
         "build": "next build",
         "start": "next start -p 8080",
-        "lint": "next lint",
-        "cypress:open": "cypress open"
+        "lint": "next lint"
     },
     "dependencies": {
         "@next/font": "13.1.6",
@@ -30,7 +29,6 @@
         "@typescript-eslint/eslint-plugin": "^5.57.0",
         "@typescript-eslint/parser": "^5.57.0",
         "autoprefixer": "^10.4.13",
-        "cypress": "^12.13.0",
         "eslint": "^8.37.0",
         "eslint-config-next": "^13.2.4",
         "eslint-config-prettier": "^8.8.0",
