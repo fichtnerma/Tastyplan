@@ -8,10 +8,12 @@ services:
     command: npm run start:watch
     container_name: api
     env_file:
-        - .env
+        - .env.dev
     environment:
         - NODE_ENV=development
         - DATABASE_URL=${DATABASE_URL}
+        - SECRET_KEY=${SECRET_KEY}
+        - EXPIRES_IN=${EXPIRES_IN}
     ports:
       - 3000:3000
     volumes:
@@ -35,7 +37,7 @@ services:
   postgres:
     image: postgres
     restart: unless-stopped
-    env_file: .env
+    env_file: .env.dev
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -54,6 +56,9 @@ services:
     ports:
       - 8080:8080
     restart: unless-stopped
+    env_file: .env.dev
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
     volumes:
       - ./frontend:/client
       - /client/node_modules
@@ -66,7 +71,7 @@ services:
   elasticsearch:
     image: elasticsearch:7.13.0
     container_name: elasticsearch
-    env_file: .env
+    env_file: .env.dev
     environment:
       - bootstrap.memory_lock=true
       - discovery.type=single-node
