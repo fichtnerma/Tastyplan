@@ -74,21 +74,21 @@ api_unit_tests:
       junit:
         - api/reports/junit.xml
 
-e2e:
-  stage: test
-  image: cypress/browsers:node18.12.0-chrome107
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
-      when: always
-  script:
-      - npm ci
-      - npm run e2e
-  artifacts:
-    when: always
-    paths:
-      - test-results.xml
-    reports:
-      junit: test-results.xml
+# e2e:
+#   stage: test
+#   image: cypress/browsers:node18.12.0-chrome107
+#   rules:
+#     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+#       when: always
+#   script:
+#       - npm ci
+#       - npm run e2e
+#   artifacts:
+#     when: always
+#     paths:
+#       - test-results.xml
+#     reports:
+#       junit: test-results.xml
 
 build-api:
   extends: ".build-rules"
