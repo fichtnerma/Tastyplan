@@ -111,7 +111,7 @@ const SetupParentPage = () => {
     const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
         evt.preventDefault();
         await fetchWithAuth(
-            '/service/preferences/',
+            '/service/preferences',
             {
                 method: 'POST',
                 body: JSON.stringify(preferences),

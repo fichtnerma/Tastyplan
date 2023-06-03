@@ -81,6 +81,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                                     const debouncedHandler = debounce(() => handleSearch(e.target.value), 250);
                                     debouncedHandler();
                                 }}
+                                data-cy="dislikes-search-field"
                             />
                         </div>
                     </div>
@@ -114,7 +115,13 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                 <button type="button" className="btn-primary mt-6" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
-                <button type="submit" className="btn-primary mt-6" data-btn="next" onClick={handleClick}>
+                <button
+                    type="submit"
+                    className="btn-primary mt-6"
+                    data-btn="next"
+                    onClick={handleClick}
+                    data-cy="next-btn"
+                >
                     Next
                 </button>
             </div>

@@ -88,14 +88,18 @@ export default function WeekplanConfig({
                             type="button"
                             className={`btn-primary ${styles.btnPortion} mr-2`}
                             onClick={decreasePortion}
+                            data-cy="decrease-serving-btn"
                         >
                             -
                         </button>
-                        <p id="portion">{weekplanChoices.servings}</p>
+                        <p id="portion" data-cy="portion-amount">
+                            {weekplanChoices.servings}
+                        </p>
                         <button
                             type="button"
                             className={`btn-primary ${styles.btnPortion} ml-2 mr-5`}
                             onClick={increasePortion}
+                            data-cy="increase-serving-btn"
                         >
                             +
                         </button>
@@ -106,7 +110,12 @@ export default function WeekplanConfig({
                 <button type="submit" className="btn-primary mt-6" data-btn="back" onClick={handleBack}>
                     Back
                 </button>
-                <Link className="btn-primary mt-6" onClick={handlePreferences} href={'/weekOverview'}>
+                <Link
+                    className="btn-primary mt-6"
+                    onClick={handlePreferences}
+                    href={'/weekOverview'}
+                    data-cy="create-weekplan-btn"
+                >
                     Create Weekplan
                 </Link>
             </div>

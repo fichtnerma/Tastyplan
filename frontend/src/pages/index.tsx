@@ -52,7 +52,7 @@ export default function Index() {
                         <p className="text-center mb-10">create your personalized meal plan!</p>
                         <div className="flex justify-center">
                             <Link href="/authentication/registration">
-                                <button className="btn-primary w-1/2 rounded-full">
+                                <button className="btn-primary w-1/2 rounded-full" data-cy="start-planning-btn">
                                     <h4 className="text-white-custom px-[30px]">Start Planning</h4>
                                 </button>
                             </Link>
