@@ -2,96 +2,114 @@ stages:
   - test
   - build
   - deploy
-
 variables:
   RULES_CHANGES_PATH: "**/*"
   DOCKER_TLS_CERTDIR: ""
   DOCKER_DRIVER: overlay2
 services:
   - docker:20.10-dind
-
-.build-rules:
+".build-rules":
   image: docker:20.10-dind
   stage: build
   only:
-     - master
+    - master
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
-.base-rules:
+".base-rules":
   image: node:18-alpine
   interruptible: true
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
       when: always
-    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: $CI_PIPELINE_SOURCE == "push"
       when: never
-    - if: $CI_COMMIT_TAG
+    - if: "$CI_COMMIT_TAG"
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
-        - $RULES_CHANGES_PATH
+        - "$RULES_CHANGES_PATH"
     - when: manual
       allow_failure: true
-
-.backend:
-  extends: .base-rules
+".backend":
+  extends: ".base-rules"
   before_script:
     - cd api
     - npm ci
   variables:
-    RULES_CHANGES_PATH: "api/**/*"
-  
-.frontend:
-  extends: .base-rules
+    RULES_CHANGES_PATH: api/**/*
+".frontend":
+  extends: ".base-rules"
   before_script:
     - cd frontend
     - npm ci
   variables:
-    RULES_CHANGES_PATH: "frontend/**/*"
-
+    RULES_CHANGES_PATH: frontend/**/*
 lint_api:
   stage: test
-  extends: .backend
+  extends: ".backend"
   script:
     - npm run lint
-
 lint_client:
   stage: test
-  extends: .frontend
+  extends: ".frontend"
   script:
     - npm run lint
+code_quality:
+  image: returntocorp/semgrep
+  script: semgrep ci
+  rules:
+    - if: "$CI_MERGE_REQUEST_IID"
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+  variables:
+    SEMGREP_APP_TOKEN: "$SEMGREP_APP_TOKEN"
 
-build-api-image:
-  extends: .build-rules
+api_unit_tests:
+  stage: test
+  extends: ".backend"
+  script:
+    - npm run test:ci-gitlab
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - api/reports/junit.xml
+
+build-api:
+  extends: ".build-rules"
   script:
     - cd api
     - docker build -t $CI_REGISTRY_IMAGE/api:latest .
     - docker push $CI_REGISTRY_IMAGE/api:latest
-
-build-client-image:
-  extends: .build-rules
+build-client:
+  extends: ".build-rules"
   script:
     - cd frontend
     - docker build -t $CI_REGISTRY_IMAGE/client:latest .
     - docker push $CI_REGISTRY_IMAGE/client:latest
-
-deploy:
+trigger-deploy-prod:
   stage: deploy
   image: ubuntu:latest
-  only :
+  only:
     - master
-  before_script:
-    - apt-get update -qq
-    - apt-get install -qq git
-    # Setup SSH deploy keys
-    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$VM_ACCESS_KEY")
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   environment:
     name: production
     url: http://193.170.119.139
   script:
-    - ssh admin@193.170.119.139 -p 5412 "cd tastyplan-prod && sudo docker compose down && sudo docker system prune -a -f && sudo docker compose up -d && exit"
+    - 'curl --fail --request POST --form token=$TRIGGER_TOKEN --form ref=main "https://gitlab.mediacube.at/api/v4/projects/10184/trigger/pipeline"'
+
+# trigger-deploy-test:
+#   stage: deploy
+#   image: ubuntu:latest
+#   only:
+#     - master
+#   environment:
+#     name: Staging
+#     url: http://193.170.119.147
+#   script:
+#     - 'curl --fail --request POST --form token=$TRIGGER_TOKEN --form ref=staging "https://gitlab.mediacube.at/api/v4/projects/10184/trigger/pipeline"'
+
+sast:
+  stage: test
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
