@@ -28,11 +28,10 @@ RUN npm ci --only=production && npm cache clean --force
 ###################
 
 FROM node:18-alpine as production
-
 # Copy the bundled code from the build stage to the production image
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 
 # Start the server using the production build
-CMD [ "node", "dist/src/main.js" ]
+CMD [ "node", "dist/main.js" ]
 
