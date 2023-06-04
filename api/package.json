@@ -118,8 +118,5 @@
         "titleTemplate": "{classname}-{title}",
         "ancestorSeparator": " › ",
         "usePathForSuiteName": true
-    },
-    "prisma": {
-        "seed": "ts-node prisma/seed.ts"
     }
 }

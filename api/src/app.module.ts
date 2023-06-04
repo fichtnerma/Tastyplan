@@ -27,7 +27,7 @@ import { Module } from '@nestjs/common';
         AuthModule,
         SearchModule,
         ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '..', 'images'),
+            rootPath: join(process.cwd(), 'dist', 'images'),
             serveRoot: '/images',
         }),
         ShoppingListModule,

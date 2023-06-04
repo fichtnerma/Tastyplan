@@ -17,9 +17,9 @@ import { Module } from '@nestjs/common';
             session: false,
         }),
         JwtModule.register({
-            secret: process.env.SECRETKEY,
+            secret: process.env.SECRET_KEY,
             signOptions: {
-                expiresIn: process.env.EXPIRESIN,
+                expiresIn: process.env.EXPIRES_IN,
             },
         }),
     ],
