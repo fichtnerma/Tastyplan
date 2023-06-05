@@ -14,14 +14,14 @@ services:
 .build-rules:
   image: docker:20.10-dind
   stage: build
-  rules: 
+  rules:
     - if: $CI_COMMIT_REF_NAME == "master"
       when: always
-      variables: 
+      variables:
         IMAGE_TAG: latest
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
-      variables: 
+      variables:
         IMAGE_TAG: pre-release
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
@@ -97,8 +97,8 @@ e2e:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
       when: always
   script:
-      - npm ci
-      - npm run e2e
+    - npm ci
+    - npm run e2e
   artifacts:
     when: always
     paths:
@@ -153,3 +153,12 @@ sast:
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
+semgrep-sast:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+nodejs-scan-sast:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+secret_detection:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
