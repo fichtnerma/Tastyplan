@@ -5,7 +5,9 @@
     "setup:dev": "npm run containers:dev",
     "test:api": "cd api && jest",
     "cypress:open": "cypress open",
-    "e2e": "cypress run --browser chrome --headless --reporter junit"
+    "e2e": "cypress run --browser chrome --headless --reporter junit",
+    "prettier:check:ci": "./node_modules/.bin/prettier --check .",
+    "prettier:format": "./node_modules/.bin/prettier --write ."
   },
   "devDependencies": {
     "cypress": "^12.13.0",
