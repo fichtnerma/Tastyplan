@@ -93,7 +93,7 @@ export default function Index() {
             <div className="my-80 flex justify-center">
                 <Link href="/authentication/registration">
                     <span className="btn-primary w-1/2 rounded-full">
-                        <h4 className=" text-white-custom px-[30px]">Start Planning</h4>
+                        <h4 className="text-white-custom px-[30px]">Start Planning</h4>
                     </span>
                 </Link>
             </div>

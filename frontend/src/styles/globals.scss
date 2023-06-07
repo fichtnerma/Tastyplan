@@ -11,7 +11,7 @@
     --green-dark-rgb: rgb(0, 115, 112);
     --green-dark: #007370;
 
-    --green-semi: #00A39E;
+    --green-semi: #00a39e;
 
     --black: #000000;
     --white: #fffffa;
@@ -32,9 +32,29 @@ body {
 }
 
 .h1 {
+    @apply text-4xl leading-tight mb-4;
     font-family: var(--font-bebas);
-    font-size: 100px;
     color: var(--black);
+
+    @screen sm {
+        @apply text-5xl leading-tight sm:mb-5;
+    }
+
+    @screen md {
+        @apply text-6xl leading-tight md:mb-6;
+    }
+
+    @screen lg {
+        @apply text-7xl leading-tight lg:mb-7;
+    }
+
+    @screen xl {
+        @apply text-8xl leading-tight xl:mb-8;
+    }
+}
+
+h1 {
+    @extend .h1;
 }
 
 .h1-green {
@@ -42,14 +62,35 @@ body {
     color: var(--green-dark);
 }
 
-h1 {
-    @extend .h1;
+.h2 {
+    @apply text-3xl leading-tight mb-4;
+    font-family: var(--font-bebas);
+    color: var(--black);
+
+    @screen sm {
+        @apply text-4xl leading-tight sm:mb-5;
+    }
+
+    @screen md {
+        @apply text-5xl leading-tight md:mb-6;
+    }
+
+    @screen lg {
+        @apply text-6xl leading-tight lg:mb-7;
+    }
+
+    @screen xl {
+        @apply text-7xl leading-tight xl:mb-8;
+    }
 }
 
-.h2 {
-    font-family: var(--font-bebas);
-    font-size: 80px;
-    color: var(--black);
+h2 {
+    @extend .h2;
+}
+
+.h2-white {
+    @extend .h2;
+    color: var(--white);
 }
 
 .h2-zeyada-green {
@@ -58,19 +99,30 @@ h1 {
     color: var(--green-dark);
 }
 
-.h2-white {
-    @extend .h2;
-    color: var(--white);
-}
-
-h2 {
-    @extend .h2;
-}
-
 .h3 {
+    @apply text-2xl leading-tight mb-4;
     font-family: var(--font-bebas);
-    font-size: 50px;
     color: var(--black);
+
+    @screen sm {
+        @apply text-3xl leading-tight sm:mb-5;
+    }
+
+    @screen md {
+        @apply text-4xl leading-tight md:mb-6;
+    }
+
+    @screen lg {
+        @apply text-5xl leading-tight lg:mb-7;
+    }
+
+    @screen xl {
+        @apply text-6xl leading-tight xl:mb-8;
+    }
+}
+
+h3 {
+    @extend .h3;
 }
 
 .h3-green-dark {
@@ -78,14 +130,30 @@ h2 {
     color: var(--green-dark);
 }
 
-h3 {
-    @extend .h3;
+.h4 {
+    @apply text-xl leading-tight mb-4;
+    font-family: var(--font-bebas);
+    color: var(--black);
+
+    @screen sm {
+        @apply text-2xl leading-tight sm:mb-5;
+    }
+
+    @screen md {
+        @apply text-3xl leading-tight md:mb-6;
+    }
+
+    @screen lg {
+        @apply text-4xl leading-tight lg:mb-7;
+    }
+
+    @screen xl {
+        @apply text-5xl leading-tight xl:mb-8;
+    }
 }
 
 .h4 {
-    font-family: var(--font-bebas);
-    font-size: 40px;
-    color: var(--black);
+    @extend .h4;
 }
 
 .h4-green-dark {
@@ -93,14 +161,30 @@ h3 {
     color: var(--green-dark);
 }
 
-h4 {
-    @extend .h4;
+.h5 {
+    @apply text-lg leading-tight mb-4;
+    font-family: var(--font-bebas);
+    color: var(--black);
+
+    @screen sm {
+        @apply text-xl leading-tight sm:mb-5;
+    }
+
+    @screen md {
+        @apply text-2xl leading-tight md:mb-6;
+    }
+
+    @screen lg {
+        @apply text-3xl leading-tight lg:mb-7;
+    }
+
+    @screen xl {
+        @apply text-4xl leading-tight xl:mb-8;
+    }
 }
 
 .h5 {
-    font-family: var(--font-bebas);
-    font-size: 28px;
-    color: var(--black);
+    @extend .h5;
 }
 
 .h5-green-dark {
@@ -108,24 +192,36 @@ h4 {
     color: var(--green-dark);
 }
 
-h5 {
-    @extend .h5;
+.p {
+    @apply text-base leading-relaxed mb-4;
+    font-family: var(--font-inter);
+    color: var(--black);
+
+    @screen sm {
+        @apply text-lg leading-relaxed;
+    }
+
+    @screen md {
+        @apply text-xl leading-relaxed;
+    }
+
+    @screen lg {
+        @apply text-2xl leading-relaxed;
+    }
+
+    @screen xl {
+        @apply text-3xl leading-relaxed;
+    }
 }
 
-.p {
-    font-family: var(--font-inter);
-    font-size: 20px;
+p {
+    @extend .p;
 }
 
 .p-white {
     @extend .p;
     font-size: 16px;
     color: var(--white);
-}
-
-p {
-    @extend .p;
-    color: var(--black);
 }
 
 .text-input-wrapper {
@@ -167,7 +263,7 @@ p {
     width: fit-content;
 
     &:hover {
-        background-color: var(--green-semi)
+        background-color: var(--green-semi);
     }
 }
 
@@ -175,8 +271,6 @@ p {
     @extend .btn;
     color: var(--white);
     background-color: var(--green-dark);
-
-    
 }
 
 .btn-secondary {
