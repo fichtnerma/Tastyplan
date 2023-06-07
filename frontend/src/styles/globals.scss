@@ -193,7 +193,7 @@ h3 {
 }
 
 .p {
-    @apply text-base leading-relaxed mb-4;
+    @apply text-base leading-relaxed;
     font-family: var(--font-inter);
     color: var(--black);
 
