@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
@@ -8,6 +8,7 @@ import Intolerances from '@components/Intolerances/Intolerances';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';
 import { fetchWithAuth } from '@helpers/utils';
+import { useAppUser } from '@hooks/useAppUser';
 import { APISearchResponse, CustomSelectionInput } from 'src/types/types';
 import logo from '../../../public/logo.svg';
 
@@ -27,6 +28,9 @@ interface WeekConfig {
 const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes', 'Weekplan'];
 
 const SetupParentPage = () => {
+    const { hasFinishedSetup } = useAppUser();
+    const { data: session } = useSession();
+    const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
     const [foodLifeStyleSelected, setFoodLifeStyleSelected] = useState(false);
     const [preferences, setPreferences] = useState<Preferences>({
@@ -35,6 +39,12 @@ const SetupParentPage = () => {
         foodDislikes: [],
         weekConfig: { days: [], meals: [], servings: 1 },
     });
+
+    useEffect(() => {
+        if (hasFinishedSetup) {
+            router.push(`${router.basePath}/weekOverview`, undefined, undefined);
+        }
+    }, [hasFinishedSetup, router]);
 
     const [daysCheckboxes, setDays] = useState<CustomSelectionInput[]>([
         {
@@ -55,10 +65,6 @@ const SetupParentPage = () => {
         { id: '8', label: 'Lunch', checked: false },
         { id: '9', label: 'Dinner', checked: false },
     ]);
-
-    const router = useRouter();
-
-    const { data: session } = useSession();
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
