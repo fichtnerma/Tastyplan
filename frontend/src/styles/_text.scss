@@ -1,0 +1,202 @@
+$h1-font-size: clamp(2.5rem, 6vw, 5rem);
+$h2-font-size: clamp(1.875rem, 5vw, 4rem);
+$h3-font-size: clamp(1.5625rem, 4vw, 3.5rem);
+$h4-font-size: clamp(1.25rem, 3.5vw, 2.75rem);
+$h5-font-size: clamp(1.125rem, 3vw, 2rem);
+$text-font-size: clamp(1rem, 2vw, 1.5rem);
+
+// $h1-line-height: clamp(2.75rem, 7vw, 5.5rem);
+// $h2-line-height: clamp(2.125rem, 6vw, 4.5rem);
+// $h3-line-height: clamp(1.875rem, 5vw, 4rem);
+// $h4-line-height: clamp(1.625rem, 4vw, 3.25rem);
+// $h5-line-height: clamp(1.375rem, 3.5vw, 2.5rem);
+// $text-line-height: clamp(1.125rem, 3vw, 2.25rem);
+
+.h1 {
+    @apply leading-tight mb-4;
+    font-size: $h1-font-size;
+    // line-height: $h1-line-height;
+    font-family: var(--font-bebas);
+    color: var(--black);
+
+    @screen sm {
+        @apply sm:mb-5;
+    }
+
+    @screen md {
+        @apply md:mb-6;
+    }
+
+    @screen lg {
+        @apply lg:mb-7;
+    }
+
+    @screen xl {
+        @apply xl:mb-8;
+    }
+}
+
+h1 {
+    @extend .h1;
+}
+
+.h1-green {
+    @extend .h1;
+    color: var(--green-dark);
+}
+
+.h2 {
+    @apply leading-tight mb-4;
+    font-size: $h2-font-size;
+    // line-height: $h2-line-height;
+    font-family: var(--font-bebas);
+    color: var(--black);
+
+    @screen sm {
+        @apply sm:mb-5;
+    }
+
+    @screen md {
+        @apply md:mb-6;
+    }
+
+    @screen lg {
+        @apply lg:mb-7;
+    }
+
+    @screen xl {
+        @apply xl:mb-8;
+    }
+}
+
+h2 {
+    @extend .h2;
+}
+
+.h2-white {
+    @extend .h2;
+    color: var(--white);
+}
+
+.h2-zeyada-green {
+    @extend .h2;
+    font-family: var(--font-zeyada);
+    color: var(--green-dark);
+}
+
+.h3 {
+    @apply leading-tight mb-4;
+    font-size: $h3-font-size;
+    // line-height: $h3-line-height;
+    font-family: var(--font-bebas);
+    color: var(--black);
+
+    @screen sm {
+        @apply sm:mb-5;
+    }
+
+    @screen md {
+        @apply md:mb-6;
+    }
+
+    @screen lg {
+        @apply lg:mb-7;
+    }
+
+    @screen xl {
+        @apply xl:mb-8;
+    }
+}
+
+h3 {
+    @extend .h3;
+}
+
+.h3-green-dark {
+    @extend .h3;
+    color: var(--green-dark);
+}
+
+.h4 {
+    @apply leading-tight mb-4;
+    font-size: $h4-font-size;
+    // line-height: $h4-line-height;
+    font-family: var(--font-bebas);
+    color: var(--black);
+
+    @screen sm {
+        @apply sm:mb-5;
+    }
+
+    @screen md {
+        @apply md:mb-6;
+    }
+
+    @screen lg {
+        @apply lg:mb-7;
+    }
+
+    @screen xl {
+        @apply xl:mb-8;
+    }
+}
+
+.h4 {
+    @extend .h4;
+}
+
+.h4-green-dark {
+    @extend .h4;
+    color: var(--green-dark);
+}
+
+.h5 {
+    @apply leading-tight mb-4;
+    // line-height: $h5-line-height;
+    font-size: $h5-font-size;
+    font-family: var(--font-bebas);
+    color: var(--black);
+
+    @screen sm {
+        @applysm:mb-5;
+    }
+
+    @screen md {
+        @apply md:mb-6;
+    }
+
+    @screen lg {
+        @apply lg:mb-7;
+    }
+
+    @screen xl {
+        @apply xl:mb-8;
+    }
+}
+
+.h5 {
+    @extend .h5;
+}
+
+.h5-green-dark {
+    @extend .h5;
+    color: var(--green-dark);
+}
+
+.p {
+    @apply leading-relaxed;
+    font-size: $text-font-size;
+    // line-height: $text-line-height;
+    font-family: var(--font-inter);
+    color: var(--black);
+}
+
+p {
+    @extend .p;
+}
+
+.p-white {
+    @extend .p;
+    font-size: 16px;
+    color: var(--white);
+}
