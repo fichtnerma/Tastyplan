@@ -1,0 +1,29 @@
+@import "@styles/variables.scss";
+
+.questions {
+
+    max-width: 80%;
+    ul {
+        list-style: circle;
+    }
+    
+    ol {
+        list-style: decimal;
+        margin-left: 10px;
+    }
+    
+    li {
+        font-size: 20px;
+        margin-left: 25px;
+        font-family: var(--font-inter);
+    }
+
+    p {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    h2, h3 {
+        margin-top: 100px;
+    }
+}
