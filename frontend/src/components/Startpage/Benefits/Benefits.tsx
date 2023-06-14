@@ -46,7 +46,7 @@ function Benefits() {
                         height={200}
                         loading="lazy"
                     />
-                    <h5 className="h5-green-dark mb-8">{benefit.heading}</h5>
+                    <h5 className="h5 text-green-custom2 mb-8">{benefit.heading}</h5>
                     <p>{benefit.desc}</p>
                 </div>
             ))}
