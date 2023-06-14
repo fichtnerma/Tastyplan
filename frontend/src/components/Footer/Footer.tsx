@@ -39,9 +39,9 @@ export default function Footer() {
                                     <Link href="/help/questions">
                                         <p>Q&A</p>
                                     </Link>
-                                    <Link href="/help/contact">
+                                    {/* <Link href="/help/contact">
                                         <p>Contact</p>
-                                    </Link>
+                                    </Link> */}
                                 </div>
                                 <div>
                                     <h4>Company</h4>
@@ -51,14 +51,14 @@ export default function Footer() {
                                 </div>
                                 <div>
                                     <h4>Legal</h4>
-                                    <Link href="/legal/conditions">
+                                    {/* <Link href="/legal/conditions">
                                         <p>Conditions</p>
-                                    </Link>
+                                    </Link> */}
                                     <Link href="/legal/privacy">
-                                        <p>Privacy</p>
+                                        <p>Privacy Policy</p>
                                     </Link>
                                     <Link href="/legal/impressum">
-                                        <p>Impressum</p>
+                                        <p>Imprint</p>
                                     </Link>
                                 </div>
                             </div>
