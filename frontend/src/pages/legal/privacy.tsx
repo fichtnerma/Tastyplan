@@ -17,7 +17,7 @@ function privacy() {
             <p>
                 We are committed to protecting your personal information and your right to privacy. If you have any
                 questions or concerns about this privacy notice or our practices concerning your personal information,
-                please contact us at info@tastyplan.com.
+                please contact us at contact@tastyplan.de.
             </p>
 
             <div>
@@ -55,7 +55,7 @@ function privacy() {
             </p>
 
             <div>
-                <h2>Table of contents</h2>
+                <h3>Table of contents</h3>
                 <ol>
                     <li>What information do we collect?</li>
                     <li>How do we use your information?</li>
@@ -73,7 +73,7 @@ function privacy() {
             </div>
 
             <div>
-                <h2>1. What information do we collect?</h2>
+                <h3>1. What information do we collect?</h3>
                 <p>
                     <strong>Personal information you disclose to us.</strong>
                 </p>
@@ -107,7 +107,7 @@ function privacy() {
             </div>
 
             <div>
-                <h2>2. How do we use your information?</h2>
+                <h3>2. How do we use your information?</h3>
                 <p className="italic">
                     In short: We process your information for purposes based on legitimate business interests, the
                     fulfillment of our contract with you, compliance with our legal obligations, and/or your consent.
@@ -140,7 +140,7 @@ function privacy() {
             </div>
 
             <div>
-                <h2>3. Will your information be shared with anyone?</h2>
+                <h3>3. Will your information be shared with anyone?</h3>
                 <p className="italic">
                     In short: We only share information with your consent, to comply with laws, to provide you with
                     services, to protect your rights, or to fulfill business obligations.
@@ -188,7 +188,7 @@ function privacy() {
             </div>
 
             <div>
-                <h2>4. Do we use cookies and other tracking technologies?</h2>
+                <h3>4. Do we use cookies and other tracking technologies?</h3>
                 <p className="italic">
                     In short: We do not use third-party cookies and other tracking technologies to collect and store
                     your information. But we do use a session cookie.
@@ -207,7 +207,7 @@ function privacy() {
             </div>
 
             <div>
-                <h2>5. How do we handle your social logins?</h2>
+                <h3>5. How do we handle your social logins?</h3>
                 <p className="italic">
                     In short: If you choose to register or log in to our services using a social media account, we may
                     have access to certain information about you.
@@ -223,7 +223,7 @@ function privacy() {
             </div>
 
             <div>
-                <h2>6. How long do we keep your information?</h2>
+                <h3>6. How long do we keep your information?</h3>
                 <p>
                     In short: We keep your information for as long as necessary to fulfill the purposes outlined in this
                     privacy notice unless otherwise required by law.
@@ -243,7 +243,7 @@ function privacy() {
             </div>
 
             <div>
-                <h2>7. How do we keep your information safe?</h2>
+                <h3>7. How do we keep your information safe?</h3>
                 <p className="italic">
                     In short: We aim to protect your personal information through a system of organizational and
                     technical security measures.
@@ -261,7 +261,7 @@ function privacy() {
             </div>
 
             <div>
-                <h2>8. What are your privacy rights?</h2>
+                <h3>8. What are your privacy rights?</h3>
                 <p className="italic">
                     In short: In some regions, such as the European Economic Area (EEA) and United Kingdom (UK), you
                     have rights that allow you greater access to and control over your personal information. You may
@@ -289,7 +289,8 @@ function privacy() {
                 </p>
                 <p>If you are a resident in Switzerland, contact this data protection supervisory authority.</p>
                 <p>
-                    If you have questions or comments about your privacy rights, you may email us at info@tastyplan.de .
+                    If you have questions or comments about your privacy rights, you may email us at
+                    contact@tastyplan.de .
                 </p>
 
                 <h3>Account Information</h3>
@@ -311,7 +312,7 @@ function privacy() {
             </div>
 
             <div>
-                <h2>9. Controls for do not track features</h2>
+                <h3>9. Controls for do not track features</h3>
                 <p>
                     Most web browsers and some mobile operating systems and mobile applications include a Do-Not-Track
                     ("DNT") feature or setting you can activate to signal your privacy preference not to have data about
@@ -324,7 +325,7 @@ function privacy() {
             </div>
 
             <div>
-                <h2>10. Do we make updates to this notice?</h2>
+                <h3>10. Do we make updates to this notice?</h3>
                 <p className="italic">
                     In short: Yes, we will update this notice as necessary to stay compliant with relevant laws.
                 </p>
@@ -338,12 +339,12 @@ function privacy() {
             </div>
 
             <div>
-                <h2>11. How can you contact us about this notice?</h2>
-                <p>If you have questions or comments about this notice, you may email us at info@tastyplan.de .</p>
+                <h3>11. How can you contact us about this notice?</h3>
+                <p>If you have questions or comments about this notice, you may email us at contact@tastyplan.de .</p>
             </div>
 
             <div>
-                <h2>12. How can you review, update or delete the data we collect from you?</h2>
+                <h3>12. How can you review, update or delete the data we collect from you?</h3>
                 <p>
                     Based on the applicable laws of your country, you may have the right to request access to the
                     personal information we collect from you, change that information, or delete it in some
