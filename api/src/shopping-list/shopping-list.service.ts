@@ -48,7 +48,7 @@ export class ShoppingListService {
         }
 
         try {
-            const list = await this.prismaService.shoppingList.create({
+            await this.prismaService.shoppingList.create({
                 data: {
                     userId: user.userId,
                     shoppingListEntries: {
