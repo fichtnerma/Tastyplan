@@ -53,7 +53,7 @@ export default function Index() {
                         <div className="flex justify-center">
                             <Link href="/authentication/registration">
                                 <button className="btn-primary w-1/2 rounded-full" data-cy="start-planning-btn">
-                                    <h4 className="text-white-custom px-[30px]">Start Planning</h4>
+                                    <span className="h4 text-white-custom px-[30px]">Start Planning</span>
                                 </button>
                             </Link>
                         </div>
@@ -77,7 +77,9 @@ export default function Index() {
                     </div>
                     <Image src={'/whatIsTastyPlan.svg'} alt="a cookbook" width={800} height={139} loading="lazy" />
                 </div>
-                <p className={`h2-zeyada-green text-center my-0 mx-auto mt-20 animation ${styles.line}`}>
+                <p
+                    className={`h2 !font-zeyada text-green-custom2  text-center my-0 mx-auto mt-20 animation ${styles.line}`}
+                >
                     Meal planning has never been easier and more delicious.
                 </p>
             </div>
@@ -92,9 +94,9 @@ export default function Index() {
 
             <div className="my-80 flex justify-center">
                 <Link href="/authentication/registration">
-                    <span className="btn-primary w-1/2 rounded-full">
-                        <h4 className=" text-white-custom px-[30px]">Start Planning</h4>
-                    </span>
+                    <button className="btn-primary w-1/2 rounded-full" data-cy="start-planning-btn">
+                        <span className="h4 text-white-custom px-[30px]">Start Planning</span>
+                    </button>
                 </Link>
             </div>
         </div>

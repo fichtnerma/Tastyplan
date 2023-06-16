@@ -75,7 +75,7 @@ function ShoppingListPage() {
 
     return (
         <div>
-            <h1 className="h1-green">Your shopping list:</h1>
+            <h1 className="text-green-custom2">Your shopping list:</h1>
             <div className="flex w-full">
                 <div className="mr-[20rem]">
                     <h2>Things you need:</h2>

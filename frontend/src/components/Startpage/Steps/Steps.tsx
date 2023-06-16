@@ -60,8 +60,8 @@ function Steps() {
             {steps.map((step) => (
                 <div key={step.id} className={step.class}>
                     <div className="flex flex-col justify-center items-center mr-8">
-                        <span className="h3-green-dark">0{step.id}</span>
-                        <p className="h4-green-dark mt-[-1rem]">step</p>
+                        <span className="h3 text-green-custom2">0{step.id}</span>
+                        <p className="h4 text-green-custom2 mt-[-1rem]">step</p>
                     </div>
                     <p>{step.desc}</p>
                     {step.svg.src !== '' && (
