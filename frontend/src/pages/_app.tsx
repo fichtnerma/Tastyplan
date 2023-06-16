@@ -1,6 +1,7 @@
 import '@styles/globals.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { Inter, Bebas_Neue, Zeyada } from '@next/font/google';
@@ -13,12 +14,23 @@ const bebasNeue = Bebas_Neue({ subsets: ['latin'], style: 'normal', weight: '400
 const zeyada = Zeyada({ subsets: ['latin'], style: 'normal', weight: '400', variable: '--font-zeyada' });
 
 export default function App({ Component, pageProps }: AppProps) {
+    const { asPath } = useRouter();
+
+    const showHeaders = () => {
+        return asPath.includes('/setup') || asPath.includes('/authentication');
+    };
+
     return (
         <SessionProvider session={pageProps.session}>
             <div className={`${inter.variable} ${bebasNeue.variable} ${zeyada.variable}`}>
                 <Layout>
-                    <MobileHeader />
-                    <DesktopHeader />
+                    {showHeaders() && (
+                        <>
+                            <MobileHeader />
+                            <DesktopHeader />
+                        </>
+                    )}
+
                     <Component {...pageProps} />
                 </Layout>
             </div>
