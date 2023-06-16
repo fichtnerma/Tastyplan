@@ -38,6 +38,14 @@ export default function Login({ visible }: LoginProps) {
         }
     };
 
+    const loginEnabled = (): boolean => {
+        if (username.length === 0 || password.length === 0) {
+            return false;
+        }
+
+        return true;
+    };
+
     return (
         <div className={`${styles.loginContainer} ${visible && styles.active}`}>
             <form className="px-10 mb-10 flex items-stretch flex-col gap-4" action="#" onSubmit={handleSubmit}>
@@ -48,7 +56,7 @@ export default function Login({ visible }: LoginProps) {
                     <Link href="#" className="mb-6">
                         Forgot your password?
                     </Link>
-                    <input type="submit" className="btn-primary" value="Sign in" />
+                    <input type="submit" className="btn-primary" value="Sign in" disabled={!loginEnabled()} />
                 </div>
                 {loginFailed && <p className="m-0 text-red-custom">Login failed</p>}
             </form>

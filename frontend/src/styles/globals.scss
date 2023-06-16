@@ -32,6 +32,10 @@ body {
     position: relative;
 }
 
+input[type='submit'] {
+    cursor: pointer;
+}
+
 .text-input-wrapper {
     display: flex;
     flex-direction: column;
@@ -72,6 +76,10 @@ body {
 
     &:hover {
         background-color: var(--green-semi);
+
+        &:disabled {
+            cursor: not-allowed;
+        }
     }
 
     &:disabled {
