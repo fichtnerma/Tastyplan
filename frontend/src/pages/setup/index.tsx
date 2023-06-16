@@ -41,6 +41,7 @@ const SetupParentPage = () => {
     });
 
     useEffect(() => {
+        console.log({ hasFinishedSetup });
         if (hasFinishedSetup) {
             router.push(`${router.basePath}/weekOverview`, undefined, undefined);
         }

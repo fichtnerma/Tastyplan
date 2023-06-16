@@ -37,7 +37,7 @@ export class PreferencesService {
                     foodDislikes: { connect: [...ingredientsIds] },
                 },
             });
-            this.prismaService.user.update({
+            await this.prismaService.user.update({
                 where: {
                     userId: user.userId,
                 },
@@ -45,6 +45,7 @@ export class PreferencesService {
                     state: UserState.finished,
                 },
             });
+
             return 'Preferences has been send successfully';
         } catch (error) {
             throw new HttpException('setting prefernces failed', HttpStatus.INTERNAL_SERVER_ERROR);
