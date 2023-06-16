@@ -13,13 +13,13 @@ export class ShoppingListService {
         const recipeIngredients = await Promise.all(
             recipeIds.map(async (id) => {
                 const recipe = await this.recipesService.findById(id);
-
                 return recipe.ingredients;
             }),
         );
 
         const flattenedIngredients = recipeIngredients.flat();
 
+        //Add up the amounts
         const ingredientMap: IngredientMap = {};
         flattenedIngredients.forEach((ingredient) => {
             if (ingredient.ingredient.id in ingredientMap) {
@@ -48,7 +48,7 @@ export class ShoppingListService {
         }
 
         try {
-            const list = await this.prismaService.shoppingList.create({
+            await this.prismaService.shoppingList.create({
                 data: {
                     userId: user.userId,
                     shoppingListEntries: {
@@ -59,6 +59,7 @@ export class ShoppingListService {
                                 unit: entry.unit,
                                 quantity: entry.quantity,
                                 isChecked: false,
+                                categories: entry.ingredient.categories,
                             };
                         }),
                     },
@@ -83,6 +84,7 @@ export class ShoppingListService {
                 unit: entry.unit,
                 quantity: entry.quantity,
                 isChecked: entry.isChecked,
+                categories: entry.categories,
             };
         });
         return shoppingListEntriesFormatted;
