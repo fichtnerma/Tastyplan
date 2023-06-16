@@ -73,6 +73,10 @@ body {
     &:hover {
         background-color: var(--green-semi);
     }
+
+    &:disabled {
+        background-color: var(--gray-5);
+    }
 }
 
 .btn-primary {

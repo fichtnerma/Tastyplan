@@ -10,9 +10,10 @@ import styles from './Register.module.scss';
 interface RegisterProps {
     visible: boolean;
     toggle: (activeForm: string) => void;
+    onSkipRegistration: (evt: React.MouseEvent) => void;
 }
 
-export default function Register({ visible }: RegisterProps) {
+export default function Register({ visible, onSkipRegistration }: RegisterProps) {
     const [mail, setMail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -46,6 +47,18 @@ export default function Register({ visible }: RegisterProps) {
         }
     };
 
+    const registerEnabled = (): boolean => {
+        if (mail.length === 0 || username.length === 0 || password.length < 6 || passwordConf.length < 6) {
+            return false;
+        }
+
+        if (isEmailValidator(mail)) {
+            return false;
+        }
+
+        return true;
+    };
+
     return (
         <div className={`${styles.registerContainer} ${visible && styles.active}`}>
             <form className="px-10 pb-7 flex flex-col gap-4" action="#" onSubmit={handleSubmit}>
@@ -69,11 +82,13 @@ export default function Register({ visible }: RegisterProps) {
                     label="Repeat Password"
                 />
                 <div className="flex justify-between">
-                    <input type="submit" className="btn-primary float-right" value="Register" />
-                    <button
-                        // onClick={skipRegistration}
-                        data-cy="continue-as-guest-btn"
-                    >
+                    <input
+                        type="submit"
+                        className="btn-primary float-right"
+                        value="Register"
+                        disabled={!registerEnabled()}
+                    />
+                    <button onClick={onSkipRegistration} data-cy="continue-as-guest-btn">
                         Continue as guest
                     </button>
                 </div>

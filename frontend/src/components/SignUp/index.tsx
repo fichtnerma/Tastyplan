@@ -56,7 +56,7 @@ export default function SignUp({ currentForm, setRoute }: SignUpProps) {
             ) : (
                 <CSSTransition in={isLogin} timeout={600} nodeRef={nodeRef2} classNames="fade-right">
                     <div ref={nodeRef2}>
-                        <Register visible={!isLogin} toggle={toggleForm} />
+                        <Register visible={!isLogin} toggle={toggleForm} onSkipRegistration={skipRegistration} />
                     </div>
                 </CSSTransition>
             )}
