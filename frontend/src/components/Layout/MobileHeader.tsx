@@ -6,7 +6,7 @@ function MobileHeader() {
             <Image
                 src="/logo.svg"
                 height={200}
-                className="block absolute w-full max-w-[120px] h-auto pt-4 sm:max-w-[200px] md:max-w-[250px] lg:max-w-none lg:hidden"
+                className="block absolute w-full max-w-[120px] h-auto pt-4 sm:max-w-[200px] md:max-w-[220px] lg:hidden"
                 alt="logo"
                 width={200}
                 priority
