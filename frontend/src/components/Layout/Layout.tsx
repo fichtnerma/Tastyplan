@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Header from '@components/Header/Header';
 import Footer from '@components/Footer/Footer';
-import styles from './Layout.module.scss';
 
 export default function Layout({ children }: React.PropsWithChildren) {
     const { asPath } = useRouter();
@@ -15,7 +14,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
                 !asPath.includes('/setup') &&
                 !asPath.includes('/intolerances') && <Header />}
             <main
-                className={styles.mainContainer}
+                className="min-h-screen flex lg:p-14"
                 style={{
                     backgroundColor:
                         asPath == '/authentication/registration' ||
