@@ -1,5 +1,4 @@
 .loginContainer {
-    position: absolute;
     top: 0;
 
     display: flex;
@@ -16,6 +15,7 @@
 
     @screen lg {
         display: block;
+        position: absolute;
         width: 50%;
     }
 

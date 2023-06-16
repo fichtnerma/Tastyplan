@@ -40,7 +40,7 @@ export default function Login({ visible }: LoginProps) {
 
     return (
         <div className={`${styles.loginContainer} ${visible && styles.active}`}>
-            <form className="pt-6 px-10 flex items-center flex-col gap-4 lg:pt-0" action="#" onSubmit={handleSubmit}>
+            <form className="px-10 mb-14 flex items-center flex-col gap-4" action="#" onSubmit={handleSubmit}>
                 <h2 className="h1 w-full text-left">Sign in</h2>
                 <TextInput value={username} required onChange={setUsername} label="Username" />
                 <TextInput value={password} type="password" required onChange={setPassword} label="Password" />
@@ -50,7 +50,7 @@ export default function Login({ visible }: LoginProps) {
                 <input type="submit" className="btn-primary" value="Sign in" />
                 {loginFailed && <p className="m-0 text-red-custom">Login failed</p>}
             </form>
-            <div className="block w-full flex flex-col items-center pb-6 lg:hidden">
+            <div className=" flex-col items-center w-full flex lg:hidden">
                 <p className="">New here?</p>
                 <Link href="/authentication/registration">Register here!</Link>
             </div>

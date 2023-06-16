@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { Inter, Bebas_Neue, Zeyada } from '@next/font/google';
+import MobileHeader from '@components/Layout/MobileHeader';
 import Layout from '@components/Layout/Layout';
 
 const inter = Inter({ subsets: ['latin'], style: ['normal'], weight: ['200', '400', '700'], variable: '--font-inter' });
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <SessionProvider session={pageProps.session}>
             <div className={`${inter.variable} ${bebasNeue.variable} ${zeyada.variable}`}>
                 <Layout>
+                    <MobileHeader />
                     <Component {...pageProps} />
                 </Layout>
             </div>
