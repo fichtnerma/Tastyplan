@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import WeekplanConfig from '@components/WeekplanConfig/WeekplanConfig';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
@@ -9,7 +8,6 @@ import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';
 import { fetchWithAuth } from '@helpers/utils';
 import { APISearchResponse, CustomSelectionInput } from 'src/types/types';
-import logo from '../../../public/logo.svg';
 
 interface Preferences {
     formOfDiet: string;
@@ -133,91 +131,90 @@ const SetupParentPage = () => {
     };
 
     return (
-        <div className="w-full">
-            <div className="relative flex w-full">
-                <div className="flex m-auto items-center w-full">
-                    <form
-                        className="w-full bg-white-custom  px-4 py-4 lg:px-16 lg:py-8 lg:rounded-[20px]"
-                        onKeyDown={(e) => {
-                            if (e.key == 'Enter') {
-                                e.preventDefault();
-                            }
-                        }}
-                    >
-                        <ProgressBar
-                            stepNames={stepNames}
-                            activeStep={currentStep}
-                            foodLifeStyleSelected={foodLifeStyleSelected}
-                            onClick={handleProgBarClick}
-                        />
-                        <fieldset className="flex flex-col mt-8 lg:mt-14">
-                            {currentStep === 1 && (
-                                <FoodLifestyle
-                                    onNext={handleNextStep}
-                                    onChoice={(foodLifeStyle: string) => {
-                                        setFoodLifeStyleSelected(true);
-                                        setPreferences({
-                                            formOfDiet: foodLifeStyle,
-                                            allergens: preferences.allergens,
-                                            foodDislikes: preferences.foodDislikes,
-                                            weekConfig: preferences.weekConfig,
-                                        });
-                                    }}
-                                    formOfDiet={preferences.formOfDiet}
-                                />
-                            )}
-                            {currentStep === 2 && (
-                                <Intolerances
-                                    onNext={handleNextStep}
-                                    onBack={handleBackStep}
-                                    onChoice={(allergens: string[]) => {
-                                        setPreferences({
-                                            formOfDiet: preferences.formOfDiet,
-                                            allergens: allergens,
-                                            foodDislikes: preferences.foodDislikes,
-                                            weekConfig: preferences.weekConfig,
-                                        });
-                                    }}
-                                    allergens={preferences.allergens}
-                                />
-                            )}
-                            {currentStep === 3 && (
-                                <Dislikes
-                                    onChoice={(foodDislikes: APISearchResponse[]) => {
-                                        setPreferences({
-                                            formOfDiet: preferences.formOfDiet,
-                                            allergens: preferences.allergens,
-                                            foodDislikes: foodDislikes,
-                                            weekConfig: preferences.weekConfig,
-                                        });
-                                    }}
-                                    onBack={handleBackStep}
-                                    foodDislikes={preferences.foodDislikes}
-                                    onNext={handleNextStep}
-                                />
-                            )}
-                            {currentStep === 4 && (
-                                <WeekplanConfig
-                                    onChoice={(weekConfig: WeekConfig) => {
-                                        setPreferences({
-                                            formOfDiet: preferences.formOfDiet,
-                                            allergens: preferences.allergens,
-                                            foodDislikes: preferences.foodDislikes,
-                                            weekConfig: weekConfig,
-                                        });
-                                    }}
-                                    onBack={handleBackStep}
-                                    weekConfig={preferences.weekConfig}
-                                    handlePreferences={handlePreferences}
-                                    daysCheckboxes={daysCheckboxes}
-                                    handleDaySelection={handleDaySelection}
-                                    mealsCheckboxes={mealsCheckboxes}
-                                    handleMealSelection={handleMealSelection}
-                                />
-                            )}
-                        </fieldset>
-                    </form>
-                </div>
+        <div className="bg-green-custom1 lg:h-[90vh] lg:flex lg:justify-center lg:items-center">
+            {/* lg:w-2/3 lg:max-w-[1700px] lg:h-3/4 lg:max-h-[600px] */}
+            <div className="flex justify-center items-center w-full">
+                <form
+                    className="w-full bg-white-custom px-4 pt-4 pb-2 lg:w-2/3 lg:px-16 lg:py-8 lg:rounded-[20px]"
+                    onKeyDown={(e) => {
+                        if (e.key == 'Enter') {
+                            e.preventDefault();
+                        }
+                    }}
+                >
+                    <ProgressBar
+                        stepNames={stepNames}
+                        activeStep={currentStep}
+                        foodLifeStyleSelected={foodLifeStyleSelected}
+                        onClick={handleProgBarClick}
+                    />
+                    <fieldset className="flex flex-col mt-8 lg:mt-14">
+                        {currentStep === 1 && (
+                            <FoodLifestyle
+                                onNext={handleNextStep}
+                                onChoice={(foodLifeStyle: string) => {
+                                    setFoodLifeStyleSelected(true);
+                                    setPreferences({
+                                        formOfDiet: foodLifeStyle,
+                                        allergens: preferences.allergens,
+                                        foodDislikes: preferences.foodDislikes,
+                                        weekConfig: preferences.weekConfig,
+                                    });
+                                }}
+                                formOfDiet={preferences.formOfDiet}
+                            />
+                        )}
+                        {currentStep === 2 && (
+                            <Intolerances
+                                onNext={handleNextStep}
+                                onBack={handleBackStep}
+                                onChoice={(allergens: string[]) => {
+                                    setPreferences({
+                                        formOfDiet: preferences.formOfDiet,
+                                        allergens: allergens,
+                                        foodDislikes: preferences.foodDislikes,
+                                        weekConfig: preferences.weekConfig,
+                                    });
+                                }}
+                                allergens={preferences.allergens}
+                            />
+                        )}
+                        {currentStep === 3 && (
+                            <Dislikes
+                                onChoice={(foodDislikes: APISearchResponse[]) => {
+                                    setPreferences({
+                                        formOfDiet: preferences.formOfDiet,
+                                        allergens: preferences.allergens,
+                                        foodDislikes: foodDislikes,
+                                        weekConfig: preferences.weekConfig,
+                                    });
+                                }}
+                                onBack={handleBackStep}
+                                foodDislikes={preferences.foodDislikes}
+                                onNext={handleNextStep}
+                            />
+                        )}
+                        {currentStep === 4 && (
+                            <WeekplanConfig
+                                onChoice={(weekConfig: WeekConfig) => {
+                                    setPreferences({
+                                        formOfDiet: preferences.formOfDiet,
+                                        allergens: preferences.allergens,
+                                        foodDislikes: preferences.foodDislikes,
+                                        weekConfig: weekConfig,
+                                    });
+                                }}
+                                onBack={handleBackStep}
+                                weekConfig={preferences.weekConfig}
+                                handlePreferences={handlePreferences}
+                                daysCheckboxes={daysCheckboxes}
+                                handleDaySelection={handleDaySelection}
+                                mealsCheckboxes={mealsCheckboxes}
+                                handleMealSelection={handleMealSelection}
+                            />
+                        )}
+                    </fieldset>
+                </form>
             </div>
         </div>
     );
