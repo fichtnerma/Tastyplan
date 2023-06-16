@@ -57,17 +57,6 @@ export default function SignUp({ currentForm, setRoute }: SignUpProps) {
                 <CSSTransition in={isLogin} timeout={600} nodeRef={nodeRef2} classNames="fade-right">
                     <div ref={nodeRef2}>
                         <Register visible={!isLogin} toggle={toggleForm} />
-                        <div className="absolute w-full bottom-2 z-[6]">
-                            <div className="flex justify-center ml-[50%]">
-                                <p
-                                    className="cursor-pointer text-base text-gray-custom3 hover:text-black"
-                                    onClick={skipRegistration}
-                                    data-cy="continue-as-guest-btn"
-                                >
-                                    Continue as guest
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 </CSSTransition>
             )}

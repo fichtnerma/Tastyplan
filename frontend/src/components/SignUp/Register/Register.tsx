@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import router from 'next/router';
+import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import TextInput from '@components/FormInputs/TextInput';
 import { isEmailValidator, isPasswordValidator } from '@helpers/validations';
@@ -47,8 +48,8 @@ export default function Register({ visible }: RegisterProps) {
 
     return (
         <div className={`${styles.registerContainer} ${visible && styles.active}`}>
-            <form className="px-10 flex flex-col gap-4" action="#" onSubmit={handleSubmit}>
-                <h3 className="mb-[-1rem]">Register</h3>
+            <form className="px-10 pb-7 flex flex-col gap-4" action="#" onSubmit={handleSubmit}>
+                <h2 className="h1 !mb-0 lg:mb-auto">Register</h2>
                 <TextInput value={username} required onChange={setUsername} label="Username" />
                 <TextInput value={mail} validate={isEmailValidator} required onChange={setMail} label="E-Mail" />
                 <TextInput
@@ -67,7 +68,19 @@ export default function Register({ visible }: RegisterProps) {
                     onChange={setPasswordConf}
                     label="Repeat Password"
                 />
-                <input type="submit" className="btn-primary float-right" value="Register" />
+                <div className="flex justify-between">
+                    <input type="submit" className="btn-primary float-right" value="Register" />
+                    <button
+                        // onClick={skipRegistration}
+                        data-cy="continue-as-guest-btn"
+                    >
+                        Continue as guest
+                    </button>
+                </div>
+                <div className="flex flex-col items-center lg:hidden">
+                    <p>Already have an account?</p>
+                    <Link href={'/authentication/login'}>Sign in here</Link>
+                </div>
             </form>
         </div>
     );
