@@ -39,9 +39,9 @@ export default function SignUp({ currentForm, setRoute }: SignUpProps) {
     return (
         <>
             <div
-                className={`absolute cursor-pointer z-50 top-3 transition-all ease-in-out duration-700 right-4 ${
+                className={`hidden absolute cursor-pointer z-50 top-3 transition-all ease-in-out duration-700 right-4 ${
                     isLogin ? 'text-white-custom' : 'text-black'
-                }`}
+                } lg:block`}
             >
                 <Link href="/">
                     <Icon size={20} icon="close" />
