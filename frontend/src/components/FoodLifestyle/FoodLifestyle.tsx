@@ -49,12 +49,12 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                                 onChange={onChoiceChange}
                                 data-cy={`${preference.food}-radio-btn`}
                             />
-                            <label htmlFor={preference.food}>
+                            <label htmlFor={preference.food} className="col-start-1">
                                 <p className="absolute pb-4 capitalize">{preference.food}</p>
                                 <p className="text-xs pt-8">{preference.description}</p>
                             </label>
-                            <div className="absolute right-0 pr-8 pt-2 z-[90]">
-                                <Icon size={60} icon={preference.icon}></Icon>
+                            <div className="flex self-center col-start-6 h-fit z-[90] center pr-4">
+                                <Icon size={50} icon={preference.icon}></Icon>
                             </div>
                         </div>
                     ))}
