@@ -36,11 +36,11 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
 
     return (
         <div>
-            <h4 className="mb-2">What is your food lifestyle?</h4>
+            <h4 className="mb-2 h2">What is your food lifestyle?</h4>
             <div className={styles.scrolling}>
-                <div className={styles.preferencesWrapper}>
+                <div className={`lg:grid-cols-2 lg:gap-x-4 lg:gap-y-5 ${styles.preferencesWrapper}`}>
                     {preferences.map((preference, i) => (
-                        <div key={i} className={styles.choiceWrapper}>
+                        <div key={i} className={`mb-3 lg:m-0 h-[60px] lg:h-[80px] ${styles.choiceWrapper}`}>
                             <input
                                 type="radio"
                                 name="preferences"
