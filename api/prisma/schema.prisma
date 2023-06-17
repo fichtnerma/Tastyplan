@@ -86,6 +86,12 @@ model Preferences {
     foodDislikes Ingredient[]
 }
 
+model DataSchema {
+    id             Int     @id @default(1)
+    ingredientHash String?
+    recipeHash     String?
+}
+
 model Weekplan {
     id            Int             @id @default(autoincrement())
     userId        String

@@ -48,10 +48,7 @@ export default NextAuth({
     ],
 
     callbacks: {
-        async jwt({ token, trigger, user, session }) {
-            if (trigger === 'update' && session?.state) {
-                token.name = session.state;
-            }
+        async jwt({ token, user }) {
             if (user) {
                 token.role = user.role;
                 token.email = user.email;
