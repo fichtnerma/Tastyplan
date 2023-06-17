@@ -48,13 +48,15 @@ export default NextAuth({
     ],
 
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, trigger, user, session }) {
+            if (trigger === 'update' && session?.state) {
+                token.name = session.state;
+            }
             if (user) {
                 token.role = user.role;
                 token.email = user.email;
-                token.firstName = user.firstName;
-                token.lastName = user.lastName;
                 token.userId = user.userId;
+                token.state = user.state;
                 token.token = user.token;
             }
 
@@ -65,9 +67,8 @@ export default NextAuth({
             if (token && session.user) {
                 session.user.role = token.role;
                 session.user.email = token.email;
-                session.user.firstName = token.firstName;
-                session.user.lastName = token.lastName;
                 session.user.userId = token.userId;
+                session.user.state = token.state;
                 session.user.token = token.token;
             }
             return session;

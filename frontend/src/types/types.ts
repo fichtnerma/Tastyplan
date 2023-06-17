@@ -9,6 +9,7 @@ export type APIRegistrationResponse = {
 export enum Role {
     user = 'user',
     admin = 'admin',
+    guest = 'guest',
 }
 
 export type APISearchResponse = {

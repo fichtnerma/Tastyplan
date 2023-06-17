@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import SignUp from '@components/SignUp';
 import Modal from '@components/Layout/Modal';
+import { useAppUser } from '@hooks/useAppUser';
 
 function AuthenticationPage() {
     const router = useRouter();
+    const { hasFinishedSetup, isLoggedIn } = useAppUser();
     const { slug } = router.query;
 
     const [pageState, setPageState] = useState('login');
@@ -12,7 +14,7 @@ function AuthenticationPage() {
     useEffect(() => {
         if (slug === 'login') setPageState('login');
         else if (slug === 'registration') setPageState('registration');
-    }, [router, slug]);
+    }, [router, slug, hasFinishedSetup, isLoggedIn]);
 
     const handleModal = (pageState: string) => {
         if (pageState === 'login') {

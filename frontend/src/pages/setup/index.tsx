@@ -27,6 +27,8 @@ interface WeekConfig {
 const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes', 'Weekplan'];
 
 const SetupParentPage = () => {
+    const { data: session } = useSession();
+    const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
     const [foodLifeStyleSelected, setFoodLifeStyleSelected] = useState(false);
     const [preferences, setPreferences] = useState<Preferences>({
@@ -55,10 +57,6 @@ const SetupParentPage = () => {
         { id: '8', label: 'Lunch', checked: false },
         { id: '9', label: 'Dinner', checked: false },
     ]);
-
-    const router = useRouter();
-
-    const { data: session } = useSession();
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);

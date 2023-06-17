@@ -17,16 +17,6 @@ export class CreateUserDto {
     @IsNotEmpty()
     email: string;
 
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
-    firstName: string;
-
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
-    lastName: string;
-
     @ApiProperty({
         description: `A list of user's roles`,
         example: ['admin'],
