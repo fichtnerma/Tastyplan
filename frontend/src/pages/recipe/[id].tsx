@@ -60,7 +60,7 @@ export default function DetailRecipe() {
                         </div>
                     </div>
                     <div>
-                        <div className="relative">
+                        <div className="relative mb-4">
                             <Image
                                 src={`/service/images/${recipe?.img}`}
                                 alt={'Pancakes Bild'}
@@ -73,14 +73,13 @@ export default function DetailRecipe() {
                                 </div>
                             </div>
                         </div>
-                        <div className="pt-4">
+                        <div>
                             <IngredientList ingredients={recipe?.ingredients} />
-                            <h4>Nutrition</h4>
-                            <div className="col-span-2">
+                            <div className="px-4 mb-8">
                                 <RecipeSteps recipe={recipe} />
                             </div>
 
-                            <div className="mt-40 pb-40">
+                            <div>
                                 <h3 className="text-center text-green-custom2">Well done!</h3>
                                 <p className="text-center">How do you rate the recipe?</p>
                                 <div className="flex justify-center mt-5">
