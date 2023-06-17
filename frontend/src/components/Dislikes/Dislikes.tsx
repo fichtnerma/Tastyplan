@@ -21,6 +21,57 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
 
+    const dislikeRecommendations = [
+        {
+            categoryName: 'Brussel sprouts',
+            id: 'brussel_sprouts',
+            categoryChildren: [
+                { id: 612, name: 'brussels sprouts, steamed' },
+                { id: 613, name: 'brussels sprouts, raw' },
+            ],
+        },
+        { categoryName: 'Cilantro', id: 'cilantro', categoryChildren: [{ id: 865, name: 'cilantro' }] },
+        {
+            categoryName: 'Mushrooms',
+            id: 'mushrooms',
+            categoryChildren: [
+                { id: 119, name: 'mushroom, steamed' },
+                { id: 120, name: 'mushroom, raw' },
+                { id: 118, name: 'mushroom (canned)' },
+                { id: 724, name: 'porcini mushroom, steamed' },
+                { id: 517, name: 'mushroom , steamed' },
+                { id: 518, name: 'mushroom , raw' },
+            ],
+        },
+        { categoryName: 'Paprika', id: 'paprika', categoryChildren: [{ id: 492, name: 'paprika' }] },
+        {
+            categoryName: 'Zucchini',
+            id: 'zucchini',
+            categoryChildren: [
+                { id: 832, name: 'courgettes, raw' },
+                { id: 831, name: 'courgettes, steamed' },
+                { id: 830, name: 'courgettes, steamed' },
+            ],
+        },
+        {
+            categoryName: 'Onions',
+            id: 'onions',
+            categoryChildren: [
+                { id: 845, name: 'onion, raw' },
+                { id: 844, name: 'onion, roasted' },
+                { id: 843, name: 'onion, steamed' },
+            ],
+        },
+        {
+            categoryName: 'Spinach',
+            id: 'spinach',
+            categoryChildren: [
+                { id: 717, name: 'spinach, raw' },
+                { id: 716, name: 'spinach, steamed' },
+            ],
+        },
+    ];
+
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         onChoice(allDislikes);
@@ -29,6 +80,21 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         } else {
             onBack();
         }
+    };
+
+    const handleAddRecommendation = (e: React.MouseEvent) => {
+        const target = e.target as HTMLButtonElement;
+        const categoryId = target.getAttribute('data-id');
+        const dislikes = dislikeRecommendations.find((dislike) => dislike.id === categoryId);
+        dislikes?.categoryChildren.map((dislike) => {
+            if (!allDislikes.find((dislikeAll) => dislikeAll.id === dislike.id)) {
+                setDislike([...allDislikes, dislike]);
+                target.style.display = 'none';
+            }
+            // für jedes kind wollen wir checken, ob es bereits ausgewählt wurde
+            // es wird nur das erste element genommen und nicht für andere Kinder geguckt
+        });
+        onChoice(allDislikes);
     };
 
     const handleAddChoice = (e: React.MouseEvent) => {
@@ -47,6 +113,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         }
 
         onChoice(allDislikes);
+        console.log(allDislikes);
     };
 
     const onDeleteChoice = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -83,6 +150,28 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                                 }}
                                 data-cy="dislikes-search-field"
                             />
+                            <p className="inline-block text-base pt-3">Add this to your dislikes.</p>
+                            <div className="flex flex-wrap mb-2 gap-x-2">
+                                {dislikeRecommendations.map((dislike, i) => (
+                                    <div key={i} className={styles.recommendationsWrapper}>
+                                        <span
+                                            className="inline-block cursor-pointer"
+                                            onClick={handleAddRecommendation}
+                                            data-id={dislike.id}
+                                        >
+                                            <label className="flex" htmlFor={dislike.categoryName}>
+                                                <p className="inline-block text-base pr-2">{dislike.categoryName}</p>
+
+                                                <a
+                                                    className="inline-block cursor-pointer"
+                                                    onClick={handleAddRecommendation}
+                                                    data-anchor={dislike.categoryChildren}
+                                                ></a>
+                                            </label>
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                     {searchResult.length !== 0 && (
