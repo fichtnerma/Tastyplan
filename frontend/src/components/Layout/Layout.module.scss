@@ -1,0 +1,11 @@
+.mainContainer {
+    padding: 1.5rem;
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+
+    @screen lg {
+        padding: 3.5rem;
+
+    }
+}

@@ -1,0 +1,17 @@
+.step {
+}
+.image {
+    animation: ltr 5s alternate infinite;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    z-index: 1;
+}
+
+@keyframes ltr {
+    0% {
+      object-position: 0% 0%;
+    }
+    100% {
+      object-position: 0% 100%;
+    }
+  }
