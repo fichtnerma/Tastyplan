@@ -16,8 +16,9 @@ const parse = require('csv-parser');
 @Injectable()
 export class IngredientsService implements OnApplicationBootstrap {
     constructor(private prismaService: PrismaService, private ingredientSearchService: IngredientsSearchService) {}
-
+    dataUrl = `${process.cwd()}/dist/ingredients/data`;
     async onApplicationBootstrap() {
+        log(this.dataUrl, process.env.NODE_ENV);
         log('Creating ingredients...');
         await this.createIngredients();
         log('Creating recipes...');
@@ -57,7 +58,7 @@ export class IngredientsService implements OnApplicationBootstrap {
         return new Promise((resolve, reject) => {
             const ingredients: Omit<Ingredient, 'id'>[] = [];
             try {
-                fs.createReadStream(`${process.cwd()}/dist/ingredients/data/ingredients.csv`)
+                fs.createReadStream(`${this.dataUrl}/ingredients.csv`)
                     .pipe(parse({ separator: ';' }))
                     .on('data', function (row: Omit<Ingredient, 'id'>) {
                         const ingredient = {
@@ -85,7 +86,7 @@ export class IngredientsService implements OnApplicationBootstrap {
     }
 
     async initRecipes() {
-        const rawdata = fs.readFileSync(`${process.cwd()}/dist/ingredients/data/recipe_dump.json`);
+        const rawdata = fs.readFileSync(`${this.dataUrl}/recipe_dump.json`);
         const recipes = JSON.parse(rawdata);
         if (recipes.length > (await this.prismaService.recipe.count())) {
             for (let index = 0; index < recipes.length; index++) {
