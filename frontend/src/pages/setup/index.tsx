@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import WeekplanConfig from '@components/WeekplanConfig/WeekplanConfig';
@@ -9,7 +9,6 @@ import Intolerances from '@components/Intolerances/Intolerances';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';
 import { fetchWithAuth } from '@helpers/utils';
-import { useAppUser } from '@hooks/useAppUser';
 import { APISearchResponse, CustomSelectionInput } from 'src/types/types';
 
 interface Preferences {
@@ -28,7 +27,6 @@ interface WeekConfig {
 const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes', 'Weekplan'];
 
 const SetupParentPage = () => {
-    const { hasFinishedSetup } = useAppUser();
     const { data: session } = useSession();
     const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
@@ -39,13 +37,6 @@ const SetupParentPage = () => {
         foodDislikes: [],
         weekConfig: { days: [], meals: [], servings: 1 },
     });
-
-    useEffect(() => {
-        console.log({ hasFinishedSetup });
-        if (hasFinishedSetup) {
-            router.push(`${router.basePath}/weekOverview`, undefined, undefined);
-        }
-    }, [hasFinishedSetup, router]);
 
     const [daysCheckboxes, setDays] = useState<CustomSelectionInput[]>([
         {

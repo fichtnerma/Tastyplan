@@ -6,7 +6,6 @@ export const useAppUser = () => {
     const user = session?.user;
     const isUser = user?.role === Role.user;
     const hasFinishedSetup = status === 'authenticated' && user?.state === 'finished';
-    console.log({ status, session });
 
     const isLoggedIn = status === 'authenticated';
     return { isUser, hasFinishedSetup, isLoggedIn };

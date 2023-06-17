@@ -12,14 +12,6 @@ function AuthenticationPage() {
     const [pageState, setPageState] = useState('login');
 
     useEffect(() => {
-        // if (hasFinishedSetup) {
-        //     router.push(`${router.basePath}/weekOverview`, undefined, undefined);
-        // } else if (isLoggedIn) {
-        //     router.push(`${router.basePath}/setup`, undefined, undefined);
-        // }
-
-        console.log({ hasFinishedSetup, isLoggedIn });
-
         if (slug === 'login') setPageState('login');
         else if (slug === 'registration') setPageState('registration');
     }, [router, slug, hasFinishedSetup, isLoggedIn]);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { signOut } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
 import styles from '../Header/Header.module.scss';
 
@@ -93,7 +94,9 @@ export default function Header() {
                                         <div
                                             className={`flex gap-2 items-center pb-5 pl-5 pt-3 user dropdown ${styles.userDropdown}`}
                                         >
-                                            <p>Log out</p>
+                                            <a href="#" onClick={async () => await signOut()}>
+                                                Log out
+                                            </a>
                                             <div className="right-0 absolute pr-8">
                                                 <Icon size={25} icon="user"></Icon>
                                             </div>
