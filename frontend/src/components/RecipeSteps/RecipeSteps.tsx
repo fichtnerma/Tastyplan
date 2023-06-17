@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { Recipe, Step } from 'src/types/types';
 import styles from './RecipeSteps.module.scss';
 
@@ -18,26 +17,12 @@ function RecipeSteps({ recipe }: RecipeStepsProps) {
                             <h4>Step {step.stepCount}</h4>
                             <div className="flex gap-20">
                                 <p className={` ${styles.recipeText}`}>{step.description}</p>
-                                <Image
-                                    src={'/Icons/carbonara.png'}
-                                    alt={'Pancakes Bild'}
-                                    width={200}
-                                    height={100}
-                                    className={styles.stepImg}
-                                ></Image>
                             </div>
                         </div>
                     ) : (
                         <div key={step.stepCount} className="my-10">
                             <h4>Step {step.stepCount}</h4>
                             <div className="flex gap-20">
-                                <Image
-                                    src={'/Icons/carbonara.png'}
-                                    alt={'Pancakes Bild'}
-                                    width={200}
-                                    height={100}
-                                    className={styles.stepImg}
-                                />
                                 <p className={styles.recipeText}>{step.description}</p>
                             </div>
                         </div>

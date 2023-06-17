@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { Ingredient } from 'src/types/types';
 import styles from './IngredientList.module.scss';
 
@@ -22,44 +21,44 @@ function IngredientList({ ingredients }: IngredientListProps) {
     };
     return (
         <div>
-            <div className="flex mb-5">
-                <button
-                    type="button"
-                    className={`btn-primary ${styles.btnPortion} mr-2`}
-                    onClick={changePortion}
-                    data-anchor={'-'}
-                >
-                    -
-                </button>
-                <p id="portion">{portion}</p>
-                <button
-                    type="button"
-                    className={`btn-primary ${styles.btnPortion} ml-2 mr-5`}
-                    onClick={changePortion}
-                    data-anchor={'+'}
-                >
-                    +
-                </button>
-                <h5>Portionen</h5>
+            <div className="flex justify-between px-6">
+                <div className="flex items-center">
+                    <button
+                        type="button"
+                        className={`btn-primary ${styles.btnPortion} mr-2`}
+                        onClick={changePortion}
+                        data-anchor={'-'}
+                    >
+                        <span className="block font-bold pb-[4px]">-</span>
+                    </button>
+                    <p id="portion" className="mr-2">
+                        {portion}
+                    </p>
+                    <button
+                        type="button"
+                        className={`btn-primary ${styles.btnPortion} mr-2`}
+                        onClick={changePortion}
+                        data-anchor={'+'}
+                    >
+                        <span className="block font-bold pb-[4px]">+</span>
+                    </button>
+                    <p className="h5 !mb-0">Portionen</p>
+                </div>
+                <button className="btn-primary">Refresh ShoppingList</button>
             </div>
-            <h4>Ingridients</h4>
-            <div className="my-5 mb-10">
+            <h2 className="px-6 mb-0">Ingridients</h2>
+            <div className="mb-6">
                 {ingredients?.map((ingredient, index) => (
-                    <div key={index} className="grid grid-cols-3 gap-5 mb-2">
-                        <p className="text-right col-span-1 font-semibold">
+                    <div key={index} className="flex odd:bg-green-custom1">
+                        <p className="w-1/2 pl-6 font-semibold">
                             {ingredient.quantity * portion} {ingredient.unit}
                         </p>
-                        <p className="text-left col-span-2 mr-2">{ingredient.ingredient.name}</p>
+                        <p className="w-1/2 text-left">{ingredient.ingredient.name}</p>
                     </div>
                 ))}
             </div>
-            <h5>Seasoning</h5>
-            <div className="grid place-content-center">
-                <Link href="/shoppingList">
-                    <button type="button" className="btn-primary mt-10 mb-10">
-                        Go to Shoppinglist
-                    </button>
-                </Link>
+            <div className="px-6">
+                <h3>Seasoning</h3>
             </div>
         </div>
     );
