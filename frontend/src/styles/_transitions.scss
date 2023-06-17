@@ -1,6 +1,8 @@
 .fade-left-enter {
-    opacity: 0;
-    transform: translateX(100px);
+    @screen lg {
+        opacity: 0;
+        transform: translateX(100px);
+    }
 }
 .fade-left-enter-active {
     opacity: 1;
@@ -16,13 +18,17 @@
 }
 
 .fade-right-exit {
-    opacity: 0;
-    transform: translateX(-100px);
+    @screen lg {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
 }
 .fade-right-exit-active {
-    opacity: 1;
-    transform: translateX(0);
-    transition: opacity 600ms ease-in-out, transform 600ms ease-in-out;
+    @screen lg {
+        opacity: 1;
+        transform: translateX(0);
+        transition: opacity 600ms ease-in-out, transform 600ms ease-in-out;
+    }
 }
 .fade-right-enter {
     opacity: 1;

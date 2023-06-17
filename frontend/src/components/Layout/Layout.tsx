@@ -14,25 +14,11 @@ export default function Layout({ children }: React.PropsWithChildren) {
                 !asPath.includes('/setup') &&
                 !asPath.includes('/intolerances') && <Header />}
             <main
-                className="min-h-screen flex lg:p-14"
                 style={{
                     backgroundColor:
-                        asPath == '/authentication/registration' ||
-                        asPath == '/authentication/login' ||
-                        asPath == '/preferences' ||
-                        asPath.includes('/intolerances') ||
-                        asPath.includes('/setup')
+                        asPath == '/preferences' || asPath.includes('/intolerances')
                             ? 'var(--green-light)'
                             : 'var(--white)',
-                    paddingTop:
-                        asPath == '/' ||
-                        asPath == '/authentication/registration' ||
-                        asPath == '/authentication/login' ||
-                        asPath == '/preferences' ||
-                        asPath.includes('/intolerances') ||
-                        asPath.includes('/setup')
-                            ? '2rem'
-                            : '7rem',
                 }}
             >
                 {children}
