@@ -39,9 +39,9 @@ export default function SignUp({ currentForm, setRoute }: SignUpProps) {
     return (
         <>
             <div
-                className={`absolute cursor-pointer z-50 top-3 transition-all ease-in-out duration-700 right-4 ${
+                className={`hidden absolute cursor-pointer z-50 top-3 transition-all ease-in-out duration-700 right-4 ${
                     isLogin ? 'text-white-custom' : 'text-black'
-                }`}
+                } lg:block`}
             >
                 <Link href="/">
                     <Icon size={20} icon="close" />
@@ -56,18 +56,7 @@ export default function SignUp({ currentForm, setRoute }: SignUpProps) {
             ) : (
                 <CSSTransition in={isLogin} timeout={600} nodeRef={nodeRef2} classNames="fade-right">
                     <div ref={nodeRef2}>
-                        <Register visible={!isLogin} toggle={toggleForm} />
-                        <div className="absolute w-full bottom-2 z-[6]">
-                            <div className="flex justify-center ml-[50%]">
-                                <p
-                                    className="cursor-pointer text-base text-gray-custom3 hover:text-black"
-                                    onClick={skipRegistration}
-                                    data-cy="continue-as-guest-btn"
-                                >
-                                    Continue as guest
-                                </p>
-                            </div>
-                        </div>
+                        <Register visible={!isLogin} toggle={toggleForm} onSkipRegistration={skipRegistration} />
                     </div>
                 </CSSTransition>
             )}

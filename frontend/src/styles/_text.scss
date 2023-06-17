@@ -20,12 +20,18 @@ h5,
 p {
     color: var(--black);
 }
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: var(--font-bebas);
+}
 
 .h1 {
     @apply leading-tight mb-4;
     font-size: $h1-font-size;
     // line-height: $h1-line-height;
-    font-family: var(--font-bebas);
 
     @screen sm {
         @apply mb-5;
@@ -53,7 +59,6 @@ h2,
     @apply leading-tight mb-4;
     font-size: $h2-font-size;
     // line-height: $h2-line-height;
-    font-family: var(--font-bebas);
 
     @screen sm {
         @apply mb-5;
@@ -77,7 +82,6 @@ h3,
     @apply leading-tight mb-4;
     font-size: $h3-font-size;
     // line-height: $h3-line-height;
-    font-family: var(--font-bebas);
 
     @screen sm {
         @apply mb-5;
@@ -101,7 +105,6 @@ h4,
     @apply leading-tight mb-4;
     font-size: $h4-font-size;
     // line-height: $h4-line-height;
-    font-family: var(--font-bebas);
 
     @screen sm {
         @apply mb-5;
@@ -125,7 +128,6 @@ h5,
     @apply leading-tight mb-4;
     // line-height: $h5-line-height;
     font-size: $h5-font-size;
-    font-family: var(--font-bebas);
 
     @screen sm {
         @apply mb-5;

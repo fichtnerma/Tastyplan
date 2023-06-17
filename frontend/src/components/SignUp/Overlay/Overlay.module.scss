@@ -10,6 +10,7 @@
 }
 
 .overlayContainer {
+    display: none;
     position: absolute;
     top: 0;
     left: 50%;
@@ -19,6 +20,10 @@
     overflow: hidden;
     transition: transform 0.6s ease-in-out;
     z-index: 10;
+
+    @screen lg {
+        display: block;
+    }
 
     &.rightPanel {
         transform: translateX(-100%);
@@ -48,7 +53,8 @@
         width: 200%;
         transform: translateX(0);
         transition: transform 0.6s ease-in-out;
-        h2, p {
+        h2,
+        p {
             color: #ffffff;
         }
 
