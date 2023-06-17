@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import WeekplanConfig from '@components/WeekplanConfig/WeekplanConfig';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
+import MobileHeader from '@components/Layout/MobileHeader';
+import DesktopHeader from '@components/Layout/DesktopHeader';
 import Intolerances from '@components/Intolerances/Intolerances';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';
 import { fetchWithAuth } from '@helpers/utils';
 import { APISearchResponse, CustomSelectionInput } from 'src/types/types';
-import logo from '../../../public/logo.svg';
 
 interface Preferences {
     formOfDiet: string;
@@ -133,14 +133,13 @@ const SetupParentPage = () => {
     };
 
     return (
-        <div className="w-full">
-            <div className="h-fit mb-6">
-                <Image src={logo} className="w-1/32" alt="logo" width={200} priority />
-            </div>
-            <div className="relative flex w-full">
-                <div className="flex m-auto items-center w-full">
+        <>
+            <MobileHeader />
+            <DesktopHeader />
+            <div className="bg-green-custom1 lg:h-[90vh] lg:flex lg:justify-center lg:items-center">
+                <div className="flex justify-center items-center w-full">
                     <form
-                        className="w-full bg-white-custom rounded-[20px] px-4 py-4 lg:px-16 lg:py-8"
+                        className="w-full bg-white-custom px-4 pt-4 pb-2 lg:w-2/3 lg:px-16 lg:py-8 lg:rounded-[20px]"
                         onKeyDown={(e) => {
                             if (e.key == 'Enter') {
                                 e.preventDefault();
@@ -222,7 +221,7 @@ const SetupParentPage = () => {
                     </form>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
