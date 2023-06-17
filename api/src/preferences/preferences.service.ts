@@ -45,7 +45,6 @@ export class PreferencesService {
                     state: UserState.finished,
                 },
             });
-
             return 'Preferences has been send successfully';
         } catch (error) {
             throw new HttpException('setting prefernces failed', HttpStatus.INTERNAL_SERVER_ERROR);
