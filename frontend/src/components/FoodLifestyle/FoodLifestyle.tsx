@@ -41,7 +41,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
             <div className="flex justify-center h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
                 <div className={`lg:grid-cols-2 lg:gap-x-4 lg:gap-y-5 ${styles.preferencesWrapper}`}>
                     {preferences.map((preference, i) => (
-                        <div key={i} className={`mb-3 lg:m-0 h-[60px] lg:h-[80px] ${styles.choiceWrapper}`}>
+                        <div key={i} className={`mb-3 lg:m-0 h-[60px] lg:h-[70px] ${styles.choiceWrapper}`}>
                             <input
                                 type="radio"
                                 name="preferences"

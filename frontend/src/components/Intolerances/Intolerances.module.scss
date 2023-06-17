@@ -3,6 +3,7 @@
     height: 50px;
     position: relative;
     border-radius: 50px;
+    display: grid;
 
     &:hover {
         label {
@@ -37,7 +38,7 @@
         border: 2px solid var(--gray-dark);
         border-radius: 50px;
         z-index: 1;
-        padding-left: 70px;
+        padding-left: 60px;
     }
 
     input[type='checkbox']:checked + label,

@@ -82,7 +82,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                                     <p className="text-base">{intolerance.ui}</p>
                                 </label>
                                 <div
-                                    className="absolute z-[1] top-3 left-3"
+                                    className="flex self-center h-fit center pl-4 absolute z-[1]"
                                     style={{
                                         color: allergeneChoices.find((entry) => entry == intolerance.code)
                                             ? 'var(--white)'
