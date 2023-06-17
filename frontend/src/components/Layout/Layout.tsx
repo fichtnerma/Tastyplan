@@ -18,7 +18,6 @@ export default function Layout({ children }: React.PropsWithChildren) {
     };
 
     const includesLiteHeader = () => {
-        //<MobileHeader /> <DesktopHeader />
         return (
             asPath.includes('/authentication') ||
             asPath.includes('/preferences') ||
@@ -36,7 +35,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
 
     return (
         <>
-            {/* {includesMainHeader() && <Header />} */}
+            {includesMainHeader() && <Header />}
             {includesLiteHeader() && <SecondHeader waveForm={getWaveForm()} />}
             <main
                 style={{
