@@ -35,12 +35,12 @@ function Benefits() {
         },
     ];
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gird-rows-1 md:grid-rows-2 lg:grid-rows-1 gab-4 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gird-rows-1 sm:grid-rows-2 lg:grid-rows-1 gab-4 w-full">
             {benefits.map((benefit) => (
                 <div key={benefit.id} className=" p-2 rounded-2xl pb-10 lg:pb-0">
                     <h3 className="h4 text-green-custom2 mb-8 h-8 lg:h-28">{benefit.heading}</h3>
                     <Image
-                        className="mb-2 lg:mb-10 mx-auto"
+                        className="mb-2 lg:mb-10 mx-auto h-[80px] lg:h-[120px] w-[80px] lg:w-[120px]"
                         src={benefit.icon}
                         alt="icon"
                         width={120}

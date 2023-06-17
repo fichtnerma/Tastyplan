@@ -97,7 +97,7 @@ export default function Index() {
                 <RecipesHome />
             </div>
 
-            <div className="text-right relative my-20">
+            <div className="text-right relative my-10">
                 <h2 className="leading-none mb-0 z-10 relative">Good Food</h2>
                 <h2 className="leading-none mt-0 z-10 relative">Good Mood</h2>
                 <div className="bg-green-custom1  w-40 md:w-60 lg:w-80  h-10 md:h-14 lg:h-20 absolute right-[-1rem] top-2 md:top-4 lg:top-6"></div>
