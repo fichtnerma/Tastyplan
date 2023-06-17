@@ -16,3 +16,22 @@
         }
     }
 }
+
+.recommendationsWrapper {
+    span {
+        display: inline-block;
+        height: 40px;
+        border: solid;
+        border-radius: 50px;
+        border: 2px solid var(--green-dark);
+        background-color: var(--white);
+        padding: 10px;
+        overflow: hidden;
+        white-space: nowrap;
+        width: max-content;
+
+        label {
+            align-items: center;
+        }
+    }
+}
