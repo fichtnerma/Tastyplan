@@ -63,7 +63,7 @@ export default function WeekplanConfig({
 
     return (
         <>
-            <h4 className="mb-2">Adjust your weekplan</h4>
+            <h4 className="mb-2 h2">Adjust your weekplan</h4>
             <div className="h-[300px] overflow-y-auto grid grid-cols-1 lg:grid-cols-2">
                 <div>
                     <h5>On what days do you want to cook?</h5>
