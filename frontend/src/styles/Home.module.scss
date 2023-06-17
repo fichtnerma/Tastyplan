@@ -1,9 +1,9 @@
 .home {
     width: 100%;
     max-width: 1600px;
-        margin-left: auto;
-        margin-right: auto; 
-           .explainWrapper {
+    margin-left: auto;
+    margin-right: auto;
+    .explainWrapper {
         // background-image: url('/Landingpage/FoodItems/Kaese.svg');
         // background-size: 100%;
         // background-repeat: no-repeat;
@@ -11,13 +11,11 @@
         height: 60vh;
         width: 100%;
 
-
         @screen lg {
             height: 80vh;
         }
     }
 }
-
 
 .line {
     position: relative;
