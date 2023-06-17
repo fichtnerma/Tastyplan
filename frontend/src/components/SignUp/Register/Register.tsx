@@ -88,7 +88,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
                         value="Register"
                         disabled={!registerEnabled()}
                     />
-                    <button onClick={onSkipRegistration} data-cy="continue-as-guest-btn">
+                    <button onClick={onSkipRegistration} className="btn-tertiary" data-cy="continue-as-guest-btn">
                         Continue as guest
                     </button>
                 </div>

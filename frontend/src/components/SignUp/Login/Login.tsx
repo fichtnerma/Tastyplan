@@ -53,7 +53,7 @@ export default function Login({ visible }: LoginProps) {
                 <TextInput value={username} required onChange={setUsername} label="Username" />
                 <TextInput value={password} type="password" required onChange={setPassword} label="Password" />
                 <div className="flex flex-col items-center mt-6 lg:items-start">
-                    <Link href="#" className="mb-6">
+                    <Link href="#" className="btn-tertiary mb-6">
                         Forgot your password?
                     </Link>
                     <input type="submit" className="btn-primary" value="Sign in" disabled={!loginEnabled()} />
