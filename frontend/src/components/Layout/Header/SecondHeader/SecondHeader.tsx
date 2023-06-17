@@ -8,11 +8,11 @@ function SecondHeader({ waveForm }: SecondHeaderProps) {
     return (
         <>
             {waveForm === 'strong' ? (
-                <div className="block relative lg:h-[10vh] lg:bg-green-custom1">
+                <div className="block relative">
                     <Image
                         src="/logo.svg"
                         height={200}
-                        className="block absolute w-full h-auto pt-4 max-w-[120px] sm:max-w-[200px] md:max-w-[220px]"
+                        className="block absolute w-full h-auto pt-4 max-w-[120px] sm:max-w-[200px] md:max-w-[220px] lg:hidden"
                         alt="logo"
                         width={200}
                         priority
@@ -30,7 +30,7 @@ function SecondHeader({ waveForm }: SecondHeaderProps) {
                     </svg>
                 </div>
             ) : (
-                <div className="h-[10vh]">
+                <div>
                     <Image
                         src="/logo.svg"
                         height={200}
