@@ -90,13 +90,11 @@ export default function Header() {
                                             </div>
                                         </div>
                                     </Link>
-                                    <Link href="/" className="">
+                                    <Link onClick={async () => await signOut()} href="/" className="">
                                         <div
                                             className={`flex gap-2 items-center pb-5 pl-5 pt-3 user dropdown ${styles.userDropdown}`}
                                         >
-                                            <a href="#" onClick={async () => await signOut()}>
-                                                Log out
-                                            </a>
+                                            <p>Log out</p>
                                             <div className="right-0 absolute pr-8">
                                                 <Icon size={25} icon="user"></Icon>
                                             </div>
