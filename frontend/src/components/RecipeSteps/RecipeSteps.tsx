@@ -8,7 +8,7 @@ type RecipeStepsProps = {
 function RecipeSteps({ recipe }: RecipeStepsProps) {
     return (
         <>
-            <h2>The Recipe</h2>
+            <h2 className="text-green-custom2">The Recipe</h2>
             <div>
                 {recipe?.steps?.map((step: Step) =>
                     step.stepCount % 2 == 0 ? (

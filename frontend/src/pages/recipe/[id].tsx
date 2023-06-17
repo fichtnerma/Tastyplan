@@ -59,51 +59,54 @@ export default function DetailRecipe() {
                             <Icon size={50} icon="heart"></Icon>
                         </div>
                     </div>
-                    <div>
-                        <div className="relative mb-4 lg:w-[700px]">
-                            <div className={styles.gradientBox}></div>
-                            <Image
-                                src={`/service/images/${recipe?.img}`}
-                                alt={'Pancakes Bild'}
-                                width={400}
-                                height={400}
-                                className="w-full"
-                            />
-                            <div className="absolute bottom-0 flex justify-around w-full pb-2">
-                                <IconList icons={icons} />
+                    <div className="lg:pl-5 xl:pl-12">
+                        <div className="lg:grid lg:grid-cols-3 lg:gap-[5rem] lg:mb-8">
+                            <div className="relative mb-10 lg:col-span-2 lg:mb-0 lg:h-fit lg:max-w-[1000px]">
+                                <div className={styles.gradientBox}></div>
+                                <Image
+                                    src={`/service/images/${recipe?.img}`}
+                                    alt={'Pancakes Bild'}
+                                    width={400}
+                                    height={400}
+                                    className="w-full lg:rounded-[30px]"
+                                />
+                                <div className="absolute bottom-0 flex justify-around w-full pb-2">
+                                    <IconList icons={icons} />
+                                </div>
+                            </div>
+                            <div className="lg:col-span-1">
+                                <IngredientList ingredients={recipe?.ingredients} />
+                            </div>
+                        </div>
+                        <div className="mb-8 lg:grid lg:grid-cols-3 lg:mb-14">
+                            <div className="px-4 lg:col-span-2 lg:px-0">
+                                <RecipeSteps recipe={recipe} />
                             </div>
                         </div>
                         <div>
-                            <IngredientList ingredients={recipe?.ingredients} />
-                            <div className="px-4 mb-8">
-                                <RecipeSteps recipe={recipe} />
-                            </div>
-
-                            <div>
-                                <h3 className="text-center text-green-custom2">Well done!</h3>
-                                <p className="text-center">How do you rate the recipe?</p>
-                                <div className="flex justify-center mt-5">
-                                    {Array.from(Array(5)).map((e, i) => {
-                                        if (i < rating)
-                                            return (
-                                                <button
-                                                    className="fill-green-custom2 text-green-custom2"
-                                                    onClick={() => rate(i + 1)}
-                                                >
-                                                    <Icon key={i} size={50} icon="star" />
-                                                </button>
-                                            );
-                                        else
-                                            return (
-                                                <button
-                                                    className="fill-none hover:fill-green-custom1 text-green-custom2"
-                                                    onClick={() => rate(i + 1)}
-                                                >
-                                                    <Icon key={i} size={50} icon="star" />
-                                                </button>
-                                            );
-                                    })}
-                                </div>
+                            <h3 className="text-center text-green-custom2">Well done!</h3>
+                            <p className="text-center">How do you rate the recipe?</p>
+                            <div className="flex justify-center mt-5">
+                                {Array.from(Array(5)).map((e, i) => {
+                                    if (i < rating)
+                                        return (
+                                            <button
+                                                className="fill-green-custom2 text-green-custom2"
+                                                onClick={() => rate(i + 1)}
+                                            >
+                                                <Icon key={i} size={50} icon="star" />
+                                            </button>
+                                        );
+                                    else
+                                        return (
+                                            <button
+                                                className="fill-none hover:fill-green-custom1 text-green-custom2"
+                                                onClick={() => rate(i + 1)}
+                                            >
+                                                <Icon key={i} size={50} icon="star" />
+                                            </button>
+                                        );
+                                })}
                             </div>
                         </div>
                     </div>

@@ -45,22 +45,16 @@
     }
 }
 
-.starIcon {
-    margin: 5px;
-
-    path {
-        &:hover {
-            fill: rebeccapurple;
-        }
-    }
-}
-
 .gradientBox {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
+
+    @screen lg {
+        border-bottom-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+    }
 }

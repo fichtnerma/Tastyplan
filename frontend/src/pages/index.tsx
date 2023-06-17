@@ -36,7 +36,7 @@ export default function Index() {
                         <Image src={'/logo.svg'} alt="logo" width={200} height={139} priority />
                     </div>
                     <Link href="/authentication/login">
-                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full hover:bg-green-custome3">
+                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full hover:bg-green-custom3">
                             <div className="h-fit pt-[20%] invert">
                                 <Icon size={30} icon="user"></Icon>
                             </div>
@@ -60,7 +60,7 @@ export default function Index() {
                     </div>
                 </div>
 
-                <button className="flex justify-center hover:text-green-custome3 mt-8" onClick={scrollTo}>
+                <button className="flex justify-center hover:text-green-custom3 mt-8" onClick={scrollTo}>
                     <Icon size={40} icon="arrowDownCircle"></Icon>
                 </button>
             </div>

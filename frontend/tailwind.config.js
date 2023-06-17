@@ -14,7 +14,8 @@ module.exports = {
                 green: {
                     custom1: '#d6e5e3',
                     custom2: '#007370',
-                    custome3: '#00A39E',
+                    custom3: '#00A39E',
+                    custom4: '#D6E5E3',
                 },
                 red: {
                     custom: '#d54444',
