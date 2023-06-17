@@ -122,6 +122,7 @@ model ShoppingListEntry {
     isChecked      Boolean
     ShoppingList   ShoppingList? @relation(fields: [shoppingListId], references: [id])
     shoppingListId Int?
+    category       String?
 }
 
 enum Role {
