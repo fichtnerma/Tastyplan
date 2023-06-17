@@ -68,7 +68,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
     return (
         <div>
             <h4 className="mb-2 h2">What food do you dislike?</h4>
-            <div className="flex h-[300px]">
+            <div className="flex h-[400px] lg:h-[300px]">
                 <div className="flex w-1/3 flex-col">
                     <div className="w-full flex">
                         <div className="text-input-wrapper w-full">
