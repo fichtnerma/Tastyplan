@@ -41,7 +41,7 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
         {
             id: 1,
             image: {
-                class: 'absolute top-[70%] right-[-15%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96',
+                class: 'absolute top-[40%] right-[-12%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96',
                 src: '/Landingpage/FoodItems/Fleisch.svg',
                 width: 300,
                 height: 300,
@@ -118,7 +118,7 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
                     className="col-start-3 row-start-8 text-green-custom2 hover:text-green-custome3 flex justify-center pt-8 z-10 animate-bounce"
                     onClick={scrollTo}
                 >
-                    <Icon size={50} icon="arrowDownCircle"></Icon>
+                    <Icon size={100} icon="arrowDownCircle"></Icon>
                 </button>
             </div>
         </div>
