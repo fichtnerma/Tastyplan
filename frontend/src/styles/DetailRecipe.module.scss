@@ -58,18 +58,9 @@
 .gradientBox {
     position: absolute;
     top: 0;
+    right: 0;
     bottom: 0;
-
-    display: flex;
-    align-items: end;
+    left: 0;
 
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
-    width: 100%;
-    height: auto;
-    max-height: 400px;
-    overflow-y: hidden;
-
-    @screen lg {
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
-    }
 }

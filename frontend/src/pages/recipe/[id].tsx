@@ -60,17 +60,17 @@ export default function DetailRecipe() {
                         </div>
                     </div>
                     <div>
-                        <div className="relative mb-4">
+                        <div className="relative mb-4 lg:w-[700px]">
+                            <div className={styles.gradientBox}></div>
                             <Image
                                 src={`/service/images/${recipe?.img}`}
                                 alt={'Pancakes Bild'}
                                 width={400}
                                 height={400}
+                                className="w-full"
                             />
-                            <div className={styles.gradientBox}>
-                                <div className="flex justify-around w-full pb-2">
-                                    <IconList icons={icons} />
-                                </div>
+                            <div className="absolute bottom-0 flex justify-around w-full pb-2">
+                                <IconList icons={icons} />
                             </div>
                         </div>
                         <div>
