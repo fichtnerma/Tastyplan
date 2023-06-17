@@ -3,8 +3,6 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import WeekplanConfig from '@components/WeekplanConfig/WeekplanConfig';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
-import MobileHeader from '@components/Layout/MobileHeader';
-import DesktopHeader from '@components/Layout/DesktopHeader';
 import Intolerances from '@components/Intolerances/Intolerances';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';

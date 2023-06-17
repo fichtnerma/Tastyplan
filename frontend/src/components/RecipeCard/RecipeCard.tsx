@@ -16,8 +16,6 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
     const className = getNumberOfLines(recipe);
 
     const isFavorit = () => {
-        console.log(favorit);
-
         if (favorit) {
             return setFavorit(false);
         }

@@ -159,7 +159,6 @@ function getElement(activeClass: string, settingsClass: string) {
     //     element?.classList.add(userClass);
     // }
     else {
-        console.log('Header: No Path found');
         return null;
     }
 }
