@@ -10,6 +10,8 @@ import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { IconMetaData, Recipe } from 'src/types/types';
 import styles from '../../styles/DetailRecipe.module.scss';
 
+const ratingStarsId = [1, 2, 3, 4, 5];
+
 export default function DetailRecipe() {
     const router = useRouter();
 
@@ -29,7 +31,6 @@ export default function DetailRecipe() {
                 { id: 3, src: 'cookingTime', withTime: true, text: recipe?.cookingTime + '' },
                 { id: 4, src: 'preparingTime', withTime: true, text: recipe?.preparingTime + '' },
             ]);
-            console.log(recipe);
         }
     }, [recipe]);
 
@@ -47,7 +48,7 @@ export default function DetailRecipe() {
     return (
         <>
             {!error && data ? (
-                <div className="pt-[4rem] sm:pt-[6rem] md:pt-[9rem] lg:pt-[6rem] lg:pl-6 xl:pl-12">
+                <div className="max-w-[1920px] pt-[4rem] sm:pt-[6rem] md:pt-[9rem] lg:pt-[6rem] lg:pl-6 lg:mx-auto xl:pl-12">
                     <div className="flex mb-4 px-6 lg:px-0 lg:pr-6">
                         <h1 className="h2 w-3/4 text-green-custom2 !mb-0">{recipe?.name}</h1>
                         <div
@@ -70,6 +71,7 @@ export default function DetailRecipe() {
                                     width={400}
                                     height={400}
                                     className="w-full lg:rounded-[30px]"
+                                    priority
                                 />
                                 <div className="absolute bottom-0 flex justify-around w-full pb-2">
                                     <IconList icons={icons} />
@@ -79,7 +81,7 @@ export default function DetailRecipe() {
                                 <IngredientList ingredients={recipe?.ingredients} />
                             </div>
                         </div>
-                        <div className="mb-8 lg:grid lg:grid-cols-3 lg:mb-14">
+                        <div className="mb-8 lg:grid lg:grid-cols-3 lg:mb-28">
                             <div className="px-4 lg:col-span-2 lg:px-0">
                                 <RecipeSteps recipe={recipe} />
                             </div>
@@ -88,23 +90,25 @@ export default function DetailRecipe() {
                             <h3 className="text-center text-green-custom2">Well done!</h3>
                             <p className="text-center">How do you rate the recipe?</p>
                             <div className="flex justify-center mt-5">
-                                {Array.from(Array(5)).map((e, i) => {
+                                {ratingStarsId.map((e, i) => {
                                     if (i < rating)
                                         return (
                                             <button
+                                                key={e}
                                                 className="fill-green-custom2 text-green-custom2"
                                                 onClick={() => rate(i + 1)}
                                             >
-                                                <Icon key={i} size={50} icon="star" />
+                                                <Icon key={e} size={50} icon="star" />
                                             </button>
                                         );
                                     else
                                         return (
                                             <button
+                                                key={e}
                                                 className="fill-none hover:fill-green-custom1 text-green-custom2"
                                                 onClick={() => rate(i + 1)}
                                             >
-                                                <Icon key={i} size={50} icon="star" />
+                                                <Icon key={e} size={50} icon="star" />
                                             </button>
                                         );
                                 })}
