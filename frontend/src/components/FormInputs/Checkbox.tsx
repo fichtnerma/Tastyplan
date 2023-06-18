@@ -10,8 +10,23 @@ type CheckboxProps = {
 
 function Checkbox({ groupName, customCheckbox, handleChange, disabled }: CheckboxProps) {
     return (
-        <div className={styles.checkboxContainer} data-cy={`${customCheckbox.id}-checkbox`}>
+        // <div className={styles.checkboxContainer} data-cy={`${customCheckbox.id}-checkbox`}>
+        //     <input
+        //         type="checkbox"
+        //         name={groupName}
+        //         id={customCheckbox.id}
+        //         onChange={() => {
+        //             if (!disabled) return handleChange(customCheckbox.id, customCheckbox.checked);
+        //         }}
+        //         checked={disabled ? true : customCheckbox.checked}
+        //         disabled={disabled}
+        //     />
+        //     <label htmlFor={customCheckbox.id}>{customCheckbox.label}</label>
+        // </div>
+
+        <label htmlFor={customCheckbox.id} className={styles.formControl}>
             <input
+                className=""
                 type="checkbox"
                 name={groupName}
                 id={customCheckbox.id}
@@ -21,8 +36,8 @@ function Checkbox({ groupName, customCheckbox, handleChange, disabled }: Checkbo
                 checked={disabled ? true : customCheckbox.checked}
                 disabled={disabled}
             />
-            <label htmlFor={customCheckbox.id}>{customCheckbox.label}</label>
-        </div>
+            <span className="p font-inter font-[400]">{customCheckbox.label}</span>
+        </label>
     );
 }
 
