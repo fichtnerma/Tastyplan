@@ -149,7 +149,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                                 data-cy="dislikes-search-field"
                             />
                             <div className="relative">
-                                <div className="absolute z-10">
+                                <div className="absolute z-1">
                                     {searchResult.length !== 0 && (
                                         <SearchResultlist
                                             searchResults={[...searchResult]}
