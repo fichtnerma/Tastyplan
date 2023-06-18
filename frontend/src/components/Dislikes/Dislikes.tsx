@@ -200,7 +200,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                             <div key={i} className={styles.dislikeWrapper}>
                                 <span>
                                     <label className="flex" htmlFor={dislike.name}>
-                                        <p className="inline-block text-base pr-2 w-[300px] truncate">
+                                        <p className="inline-block text-base pr-2 max-w-[300px] truncate">
                                             {dislike.name.charAt(0).toUpperCase() + dislike.name.slice(1)}
                                         </p>
 
