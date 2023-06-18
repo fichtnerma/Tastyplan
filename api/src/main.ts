@@ -4,6 +4,7 @@ import Module from 'module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import './helpers/date.utils';
 
 declare const module: Module & { hot?: { accept: () => void; dispose: (callback: () => void) => void } };
 

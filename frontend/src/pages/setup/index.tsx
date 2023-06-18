@@ -119,6 +119,7 @@ const SetupParentPage = () => {
             '/service/weekplan/create',
             {
                 method: 'POST',
+                body: JSON.stringify({ startDate: new Date(), duration: 7 }),
             },
             session,
         );

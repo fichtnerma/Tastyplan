@@ -2,10 +2,9 @@ import { UsersService } from './users.service';
 import { UpdatePasswordDto } from './dto/create-user.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiSecurity, ApiTags } from '@nestjs/swagger';
-import { Get } from '@nestjs/common/decorators';
 import { Body, ClassSerializerInterceptor, Controller, Put, Request, UseGuards, UseInterceptors } from '@nestjs/common';
 
-export type RequestWithUser = Request & { user: { id: string }; cookies: { [key: string]: string } };
+export type RequestWithUser = Request & { user: { id: string } } & { params: unknown };
 
 @ApiTags('user')
 @Controller('user')
@@ -25,12 +24,5 @@ export class UsersController {
         return {
             message: 'password_update_success',
         };
-    }
-    @UseGuards(JwtAuthGuard)
-    @ApiSecurity('access-key')
-    @UseInterceptors(ClassSerializerInterceptor)
-    @Get('test')
-    public test(@Request() request: RequestWithUser) {
-        return { msg: 'Authentication worked', data: request.cookies, user: request.user };
     }
 }

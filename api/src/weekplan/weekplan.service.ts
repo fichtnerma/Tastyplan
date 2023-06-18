@@ -1,8 +1,8 @@
-import { IFormattedWeekplan, IWeekplan, IWeekplanEntry } from './weekplan.interface';
+import { IFormattedWeekplan, IWeekplanEntry } from './weekplan.interface';
 import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from '@prisma/client';
+import { Recipe, User, Weekplan, WeekplanEntry } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
@@ -15,9 +15,15 @@ export class WeekplanService {
 
     async get(user: User) {
         try {
-            const weekplans = await this.prismaService.weekplan.findMany({
+            const weekplan = await this.prismaService.weekplan.findFirst({
                 where: {
                     userId: user.userId,
+                    startDate: {
+                        lte: new Date(),
+                    },
+                    endDate: {
+                        gte: new Date(),
+                    },
                 },
                 include: {
                     weekplanEntry: {
@@ -27,20 +33,39 @@ export class WeekplanService {
                     },
                 },
             });
-            const filteredWeekplans = weekplans.sort((a, b) => {
-                return (
-                    new Date(b.startDate).getTime() -
-                    new Date().getTime() -
-                    (new Date(a.startDate).getTime() - new Date().getTime())
-                );
-            });
-            return this.formatWeekPlan(filteredWeekplans[0]);
+            return this.formatWeekPlan(weekplan);
         } catch (error) {
             throw new HttpException('getting weekplan failed', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    formatWeekPlan(weekplan: IWeekplan): IFormattedWeekplan {
+    async findByDate(user: User, startDate: Date) {
+        try {
+            const weekplan = await this.prismaService.weekplan.findFirst({
+                where: {
+                    userId: user.userId,
+                    startDate: {
+                        lte: startDate,
+                    },
+                    endDate: {
+                        gte: startDate,
+                    },
+                },
+                include: {
+                    weekplanEntry: {
+                        include: {
+                            recipe: true,
+                        },
+                    },
+                },
+            });
+            return this.formatWeekPlan(weekplan);
+        } catch (error) {
+            throw new HttpException('getting weekplan failed', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    formatWeekPlan(weekplan: Weekplan & { weekplanEntry: (WeekplanEntry & { recipe: Recipe })[] }): IFormattedWeekplan {
         const formattedWeekPlan = {
             startDate: weekplan.startDate,
             endDate: weekplan.endDate,
@@ -59,20 +84,22 @@ export class WeekplanService {
         return formattedWeekPlan;
     }
 
-    async create(user: User) {
+    async create(user: User, startDate: Date, duration: number) {
         const week = [0, 1, 2, 3, 4, 5, 6];
 
         //Delete existing weekplan
         try {
-            const existingWeekplan = await this.queryExistingWeekplan(user.userId);
-            if (existingWeekplan) {
-                await this.prismaService.weekplanEntry.deleteMany({
-                    where: { weekplanId: existingWeekplan.id },
-                });
-                await this.prismaService.weekplan.delete({
-                    where: { id: existingWeekplan.id },
-                });
-            }
+            await this.prismaService.weekplan.deleteMany({
+                where: {
+                    userId: user.userId,
+                    startDate: {
+                        lte: startDate,
+                    },
+                    endDate: {
+                        gte: startDate,
+                    },
+                },
+            });
         } catch (error) {
             throw new InternalServerErrorException(
                 'Error: Failed to cleanup/delete existing shoppinglist for given user',
@@ -97,12 +124,12 @@ export class WeekplanService {
             const weekPlan = await this.prismaService.weekplan.create({
                 data: {
                     userId: user.userId,
-                    startDate: new Date(),
-                    endDate: new Date(new Date().setDate(new Date().getDate() + 6)),
+                    startDate: startDate,
+                    endDate: startDate.addDays(duration),
                     weekplanEntry: {
                         createMany: {
                             data: week.map((dayEntry) => ({
-                                date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
+                                date: startDate.addDays(dayEntry),
                                 recipeId: shuffeledMeals[dayEntry]?.id || 1,
                             })),
                         },
