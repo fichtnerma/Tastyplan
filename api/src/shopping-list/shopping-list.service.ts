@@ -91,7 +91,7 @@ export class ShoppingListService {
         return categorizedShoppingListMap;
     }
 
-    async upadteShoppingListEntry(entryId: number, shoppingListEntryInput: UpdateShoppingListDto) {
+    async updateShoppingListEntry(entryId: number, shoppingListEntryInput: UpdateShoppingListDto) {
         try {
             const shoppingListEntry = await this.prismaService.shoppingListEntry.update({
                 where: {
