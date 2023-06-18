@@ -29,6 +29,7 @@ export default function DetailRecipe() {
                 { id: 3, src: 'cookingTime', withTime: true, text: recipe?.cookingTime + '' },
                 { id: 4, src: 'preparingTime', withTime: true, text: recipe?.preparingTime + '' },
             ]);
+            console.log(recipe);
         }
     }, [recipe]);
 
@@ -46,9 +47,9 @@ export default function DetailRecipe() {
     return (
         <>
             {!error && data ? (
-                <div className="pt-6">
-                    <div className="flex px-6 mb-4">
-                        <h1 className="w-3/4 text-green-custom2 !mb-0">{recipe?.name}</h1>
+                <div className="pt-[4rem] sm:pt-[6rem] md:pt-[9rem] lg:pt-[6rem] lg:pl-6 xl:pl-12">
+                    <div className="flex mb-4 px-6 lg:px-0 lg:pr-6">
+                        <h1 className="h2 w-3/4 text-green-custom2 !mb-0">{recipe?.name}</h1>
                         <div
                             className="w-1/4 flex justify-end items-center hover:fill-green-custom1 hover:cursor-pointer text-green-custom2 "
                             style={{
@@ -56,11 +57,11 @@ export default function DetailRecipe() {
                             }}
                             onClick={() => isFavorit()}
                         >
-                            <Icon size={50} icon="heart"></Icon>
+                            <Icon size={50} icon="heart" classNames="w-10 lg:w-12"></Icon>
                         </div>
                     </div>
-                    <div className="lg:pl-5 xl:pl-12">
-                        <div className="lg:grid lg:grid-cols-3 lg:gap-[5rem] lg:mb-8">
+                    <div>
+                        <div className="lg:grid lg:grid-cols-3 lg:gap-[5rem] lg:mb-10 xl:mb-20">
                             <div className="relative mb-10 lg:col-span-2 lg:mb-0 lg:h-fit lg:max-w-[1000px]">
                                 <div className={styles.gradientBox}></div>
                                 <Image
