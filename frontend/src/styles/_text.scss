@@ -4,6 +4,7 @@ $h3-font-size: clamp(1.5625rem, 4vw, 3.5rem);
 $h4-font-size: clamp(1.25rem, 3.5vw, 2.75rem);
 $h5-font-size: clamp(1.125rem, 3vw, 2rem);
 $text-font-size: clamp(1rem, 2vw, 1.5rem);
+$checkbox-label-font-size: clamp(1.125rem, 3vw, 2rem);
 
 // $h1-line-height: clamp(2.75rem, 7vw, 5.5rem);
 // $h2-line-height: clamp(2.125rem, 6vw, 4.5rem);
@@ -160,4 +161,11 @@ p,
     font-size: $text-font-size;
     // line-height: $text-line-height;
     font-family: var(--font-inter);
+}
+
+.checkbox-label {
+    font-weight: 400;
+    // line-height: $h5-line-height;
+    margin-bottom: 4px;
+    font-size: $checkbox-label-font-size;
 }

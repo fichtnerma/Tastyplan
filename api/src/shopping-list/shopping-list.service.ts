@@ -2,7 +2,7 @@ import { CategorizedShoppingListMap, IngredientMap } from 'src/types/types';
 import { UpdateShoppingListDto } from './dto/update-shopping-list.dto';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from '@prisma/client';
+import { ShoppingListEntry, User } from '@prisma/client';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
@@ -80,9 +80,9 @@ export class ShoppingListService {
 
         //Transfom fetched shoppingList into a categorized version
         const categorizedShoppingListMap: CategorizedShoppingListMap = {};
-        shoppingList.shoppingListEntries.forEach((item) => {
+        shoppingList.shoppingListEntries.forEach((item: ShoppingListEntry) => {
             const { category, ...rest } = item;
-            if (item.category in categorizedShoppingListMap) {
+            if (item?.category in categorizedShoppingListMap) {
                 categorizedShoppingListMap[category].push(rest);
             } else {
                 categorizedShoppingListMap[category] = [rest];

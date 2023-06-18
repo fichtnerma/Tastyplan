@@ -72,12 +72,21 @@ export type CustomSelectionInput = {
 };
 
 export type ShoppingListItem = {
-    shoppingListEntryId: number;
+    id: number;
     ingredientId: number;
     ingredientName: string;
+    category?: string;
     unit: string;
     quantity: number;
     isChecked: boolean;
+};
+
+export type CustomSelectionInputGroups = {
+    [key: string]: CustomSelectionInput[];
+};
+
+export type CategorizedIngredients = {
+    [key: string]: ShoppingListItem[];
 };
 
 export type CustomSVG = {

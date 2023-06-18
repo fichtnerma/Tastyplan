@@ -3,29 +3,32 @@ import { useSession } from 'next-auth/react';
 import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
 import { fetchWithAuth, mapShoppingListToSelection } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
-import { CustomSelectionInput, ShoppingListItem } from 'src/types/types';
+import { CategorizedIngredients, CustomSelectionInput, CustomSelectionInputGroups } from 'src/types/types';
 
 function ShoppingListPage() {
-    const { data, error } = useFetchWithAuth<ShoppingListItem[]>('/service/shopping-list');
-    const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInput[]>([]);
-    const [presentIngredients, setPresentIngredients] = useState<CustomSelectionInput[]>([]);
+    const { data, error } = useFetchWithAuth<CategorizedIngredients>('/service/shopping-list');
+    const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInputGroups>({});
+    const [presentIngredients, setPresentIngredients] = useState<CustomSelectionInputGroups>({});
     const { data: session } = useSession();
 
     useEffect(() => {
-        if (data) filterIngredients(data);
+        if (data) {
+            filterIngredients(data);
+        }
     }, [data, error]);
 
-    const sendIngredient = async (ingredient: CustomSelectionInput) => {
-        const foundElement = data?.find((el) => el.ingredientId + '' === ingredient.id);
+    const sendIngredient = async (ingredient: CustomSelectionInput, category: string) => {
+        if (!data) return;
+
+        const foundElement = data[category].find((el) => el.ingredientId + '' === ingredient.id);
 
         if (!foundElement) return;
 
         const dataToSend = {
             isChecked: ingredient.checked,
         };
-
         fetchWithAuth(
-            `/service/shopping-list/update/${foundElement.shoppingListEntryId}`,
+            `/service/shopping-list/update/${foundElement.id}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -37,65 +40,138 @@ function ShoppingListPage() {
         );
     };
 
-    const filterIngredients = (ingredients: ShoppingListItem[]) => {
-        const neededIngredients = ingredients.filter((ingredient) => !ingredient.isChecked);
-        setNeededIngredients(mapShoppingListToSelection(neededIngredients));
+    const filterIngredients = (categorizedIngredients: CategorizedIngredients) => {
+        const neededIngredients: CategorizedIngredients = {};
+        const presentIngredients: CategorizedIngredients = {};
+        const selectionInputGroupsNeeded: CustomSelectionInputGroups = {};
+        const selectionInputGroupsPresent: CustomSelectionInputGroups = {};
 
-        const presentIngredients = ingredients.filter((ingredient) => ingredient.isChecked);
-        setPresentIngredients(mapShoppingListToSelection(presentIngredients));
+        for (const [key, ingredients] of Object.entries(categorizedIngredients)) {
+            neededIngredients[key] = ingredients.filter((ingredient) => {
+                if (!ingredient.isChecked) {
+                    ingredient.category = key;
+                    return true;
+                }
+            });
+
+            presentIngredients[key] = ingredients.filter((ingredient) => {
+                if (ingredient.isChecked) {
+                    ingredient.category = key;
+                    return true;
+                }
+            });
+
+            selectionInputGroupsNeeded[key] = mapShoppingListToSelection(neededIngredients[key]);
+            selectionInputGroupsPresent[key] = mapShoppingListToSelection(presentIngredients[key]);
+        }
+
+        setNeededIngredients(selectionInputGroupsNeeded);
+        setPresentIngredients(selectionInputGroupsPresent);
     };
 
     const handleNeededSelect = (id: string) => {
-        const filteredNeededIngredients = neededIngredients.filter((ingredient) => ingredient.id !== id);
-        const foundIngredient = neededIngredients.find((ingredient) => ingredient.id === id);
+        const filteredNeededIngredients: CustomSelectionInputGroups = {};
+        let foundIngredient: CustomSelectionInput | undefined = undefined;
+        let category = '';
+
+        for (const [key, ingredients] of Object.entries(neededIngredients)) {
+            filteredNeededIngredients[key] = ingredients.filter((ingredient) => ingredient.id !== id);
+
+            if (!foundIngredient) {
+                foundIngredient = ingredients.find((ingredient) => {
+                    if (ingredient.id === id) {
+                        category = key;
+                        return true;
+                    }
+                });
+            }
+        }
+
         if (foundIngredient) {
             foundIngredient.checked = true;
-            const presentIngredientsCopy = [...presentIngredients];
-            presentIngredientsCopy.push(foundIngredient);
+            const presentIngredientsCopy = { ...presentIngredients };
+            presentIngredientsCopy[category].push(foundIngredient);
             setPresentIngredients(presentIngredientsCopy);
-            sendIngredient(foundIngredient);
+            sendIngredient(foundIngredient, category);
         }
+
         setNeededIngredients(filteredNeededIngredients);
     };
 
     const handlePresentSelect = (id: string) => {
-        const filteredPresentIngredients = presentIngredients.filter((ingredient) => ingredient.id !== id);
+        const filteredPresentIngredients: CustomSelectionInputGroups = {};
+        let foundIngredient: CustomSelectionInput | undefined = undefined;
+        let category = '';
 
-        const foundIngredient = presentIngredients.find((ingredient) => ingredient.id === id);
+        for (const [key, ingredients] of Object.entries(presentIngredients)) {
+            filteredPresentIngredients[key] = ingredients.filter((ingredient) => ingredient.id !== id);
+
+            if (!foundIngredient) {
+                foundIngredient = ingredients.find((ingredient) => {
+                    if (ingredient.id === id) {
+                        category = key;
+                        return ingredient;
+                    }
+                });
+            }
+        }
 
         if (foundIngredient) {
             foundIngredient.checked = false;
-            const neededIngredientsCopy = [...neededIngredients];
-            neededIngredientsCopy.push(foundIngredient);
+            const neededIngredientsCopy = { ...neededIngredients };
+            neededIngredientsCopy[category].push(foundIngredient);
             setNeededIngredients(neededIngredientsCopy);
-            sendIngredient(foundIngredient);
+            sendIngredient(foundIngredient, category);
         }
+
         setPresentIngredients(filteredPresentIngredients);
     };
 
     return (
-        <div>
+        <div className="pt-[4rem] px-4 sm:pt-[6rem] md:pt-[9rem] lg:pt-[6rem] lg:px-0 lg:pl-[6rem] lg:max-w-[1920px]">
             <h1 className="text-green-custom2">Your shopping list:</h1>
-            <div className="flex w-full">
-                <div className="mr-[20rem]">
-                    <h2>Things you need:</h2>
-                    {data && (
-                        <CheckboxGroup
-                            checkboxes={neededIngredients}
-                            groupName="ingredients2"
-                            onCheckboxSelect={handleNeededSelect}
-                            disabled={false}
-                        />
-                    )}
+            <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="mb-14 md:mb-0">
+                    <h2>Things you need to buy</h2>
+                    {neededIngredients &&
+                        Object.entries(neededIngredients).map((key) => {
+                            return (
+                                <div key={key[0]} className="mb-6 last:mb-0 lg:mb-20 lg:last:mb-0">
+                                    {key[1].length > 0 && (
+                                        <>
+                                            <h3>{key[0]}</h3>
+                                            <CheckboxGroup
+                                                checkboxes={key[1]}
+                                                groupName={key[0]}
+                                                onCheckboxSelect={handleNeededSelect}
+                                                disabled={false}
+                                            />
+                                        </>
+                                    )}
+                                </div>
+                            );
+                        })}
                 </div>
                 <div>
-                    <h2>Things you already have:</h2>
-                    <CheckboxGroup
-                        checkboxes={presentIngredients}
-                        groupName="ingredients2"
-                        onCheckboxSelect={handlePresentSelect}
-                        disabled={false}
-                    />
+                    <h2>Things you already have</h2>
+                    {presentIngredients &&
+                        Object.entries(presentIngredients).map((key) => {
+                            return (
+                                <div key={key[0]} className="mb-6 last:mb-0 lg:mb-20 lg:last:mb-0">
+                                    {key[1].length > 0 && (
+                                        <>
+                                            <h3>{key[0]}</h3>
+                                            <CheckboxGroup
+                                                checkboxes={key[1]}
+                                                groupName={key[0]}
+                                                onCheckboxSelect={handlePresentSelect}
+                                                disabled={false}
+                                            />
+                                        </>
+                                    )}
+                                </div>
+                            );
+                        })}
                 </div>
             </div>
         </div>
