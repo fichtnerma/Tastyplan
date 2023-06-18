@@ -148,7 +148,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
     };
 
     const handleBlur = () => {
-        setFocus(false);
+        // setFocus(false);
     };
 
     return (
@@ -200,7 +200,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                             <div key={i} className={styles.dislikeWrapper}>
                                 <span>
                                     <label className="flex" htmlFor={dislike.name}>
-                                        <p className="inline-block text-base pr-2">
+                                        <p className="inline-block text-base pr-2 w-[310px] truncate">
                                             {dislike.name.charAt(0).toUpperCase() + dislike.name.slice(1)}
                                         </p>
 
