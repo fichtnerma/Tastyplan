@@ -35,6 +35,13 @@ export type Recipe = {
     totalTime: number;
 };
 
+export type IconMetaData = {
+    id: number;
+    src: string;
+    withTime: boolean;
+    text: string;
+};
+
 export type Ingredient = {
     ingredient: { name: string };
     quantity: number;

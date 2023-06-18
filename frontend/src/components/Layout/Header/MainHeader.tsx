@@ -3,9 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { signOut } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
-import styles from '../Header/Header.module.scss';
+import styles from './MainHeader.module.scss';
 
-export default function Header() {
+export default function MainHeader() {
     const [scrollPos, setScrollPos] = useState(0);
     const [headerClass, setHeaderClass] = useState('');
 
@@ -159,7 +159,6 @@ function getElement(activeClass: string, settingsClass: string) {
     //     element?.classList.add(userClass);
     // }
     else {
-        console.log('Header: No Path found');
         return null;
     }
 }

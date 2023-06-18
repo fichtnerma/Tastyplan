@@ -1,4 +1,4 @@
-import { IngredientMap } from 'src/types/types';
+import { CategorizedShoppingListMap, IngredientMap } from 'src/types/types';
 import { UpdateShoppingListDto } from './dto/update-shopping-list.dto';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -13,13 +13,13 @@ export class ShoppingListService {
         const recipeIngredients = await Promise.all(
             recipeIds.map(async (id) => {
                 const recipe = await this.recipesService.findById(id);
-
                 return recipe.ingredients;
             }),
         );
 
         const flattenedIngredients = recipeIngredients.flat();
 
+        //Add up the amounts
         const ingredientMap: IngredientMap = {};
         flattenedIngredients.forEach((ingredient) => {
             if (ingredient.ingredient.id in ingredientMap) {
@@ -29,6 +29,7 @@ export class ShoppingListService {
             }
         });
         const summurizedIngredients = Object.values(ingredientMap);
+
         //Deletes existing shoppingList to make sure there is only one per user
         try {
             const existingShoppingList = await this.queryExistingShoppingList(user.userId);
@@ -59,6 +60,7 @@ export class ShoppingListService {
                                 unit: entry.unit,
                                 quantity: entry.quantity,
                                 isChecked: false,
+                                category: entry.ingredient.categories,
                             };
                         }),
                     },
@@ -71,21 +73,22 @@ export class ShoppingListService {
 
     async findShoppingList(userId: string) {
         try {
-        } catch (erro) {
+        } catch (error) {
             throw new InternalServerErrorException('Error: Failed to find specific shoppinglist');
         }
         const shoppingList = await this.queryExistingShoppingList(userId);
-        const shoppingListEntriesFormatted = shoppingList.shoppingListEntries.map((entry) => {
-            return {
-                shoppingListEntryId: entry.id,
-                ingredientId: entry.ingredientId,
-                ingredientName: entry.ingredientName,
-                unit: entry.unit,
-                quantity: entry.quantity,
-                isChecked: entry.isChecked,
-            };
+
+        //Transfom fetched shoppingList into a categorized version
+        const categorizedShoppingListMap: CategorizedShoppingListMap = {};
+        shoppingList.shoppingListEntries.forEach((item) => {
+            const { category, ...rest } = item;
+            if (item.category in categorizedShoppingListMap) {
+                categorizedShoppingListMap[category].push(rest);
+            } else {
+                categorizedShoppingListMap[category] = [rest];
+            }
         });
-        return shoppingListEntriesFormatted;
+        return categorizedShoppingListMap;
     }
 
     async upadteShoppingListEntry(entryId: number, shoppingListEntryInput: UpdateShoppingListDto) {

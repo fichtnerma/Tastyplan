@@ -31,7 +31,7 @@ export class IngredientsService implements OnApplicationBootstrap {
 
         if (
             (await this.prismaService.ingredient.count()) == 0 ||
-            (await this.prismaService.dataSchema.findUnique({ where: { id: 1 } })).ingredientHash !== ingredientHash
+            (await this.prismaService.dataSchema.findUnique({ where: { id: 1 } }))?.ingredientHash !== ingredientHash
         ) {
             log('Creating ingredients...');
             await this.prismaService.ingredient.deleteMany({});
@@ -112,7 +112,7 @@ export class IngredientsService implements OnApplicationBootstrap {
         const recipes = JSON.parse(rawdata);
         if (
             (await this.prismaService.recipe.count()) == 0 ||
-            (await this.prismaService.dataSchema.findUnique({ where: { id: 1 } })).recipeHash !== recipeHash
+            (await this.prismaService.dataSchema.findUnique({ where: { id: 1 } }))?.recipeHash !== recipeHash
         ) {
             log('Creating recipes...');
             await this.prismaService.recipe.deleteMany({});

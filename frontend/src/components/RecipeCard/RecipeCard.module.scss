@@ -1,6 +1,5 @@
 @import '@styles/variables.scss';
 
-
 .wrapperContainer {
     &:hover .foodImg {
         opacity: 0.1;
@@ -37,7 +36,6 @@
         background-color: var(--green-dark);
     }
 }
-
 
 .weekplanBox {
     background: linear-gradient(rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
@@ -97,5 +95,4 @@
     width: 100%;
     fill: none;
     z-index: 5;
-    
 }
