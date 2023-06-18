@@ -93,6 +93,16 @@ input[type='submit'] {
     background-color: var(--green-dark);
 }
 
+.btn-primary-unobtrusive {
+    @extend .btn;
+    color: var(--black);
+    background-color: var(--green-light);
+
+    &:hover {
+        color: var(--white);
+    }
+}
+
 .btn-secondary {
     @extend .btn;
     color: var(--white);

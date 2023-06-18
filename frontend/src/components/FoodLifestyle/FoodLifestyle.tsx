@@ -27,6 +27,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
         setSelection(targetValue);
         onChoice(targetValue);
         setDisabled(false);
+        onNext();
     };
 
     const onSubmitSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,10 +38,10 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
     return (
         <div>
             <h4 className="mb-2 h2">What is your food lifestyle?</h4>
-            <div className={styles.scrolling}>
+            <div className="flex justify-center h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
                 <div className={`lg:grid-cols-2 lg:gap-x-4 lg:gap-y-5 ${styles.preferencesWrapper}`}>
                     {preferences.map((preference, i) => (
-                        <div key={i} className={`mb-3 lg:m-0 h-[60px] lg:h-[80px] ${styles.choiceWrapper}`}>
+                        <div key={i} className={`mb-3 lg:m-0 h-[60px] lg:h-[70px] ${styles.choiceWrapper}`}>
                             <input
                                 type="radio"
                                 name="preferences"

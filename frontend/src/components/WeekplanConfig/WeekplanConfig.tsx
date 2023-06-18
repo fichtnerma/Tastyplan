@@ -63,8 +63,8 @@ export default function WeekplanConfig({
 
     return (
         <>
-            <h4 className="mb-2">Adjust your weekplan</h4>
-            <div className="h-[300px] overflow-y-auto grid grid-cols-1 lg:grid-cols-2">
+            <h4 className="mb-2 h2">Adjust your weekplan</h4>
+            <div className="h-[400px] lg:h-[300px] overflow-y-auto grid grid-cols-1 lg:grid-cols-2">
                 <div>
                     <h5>On what days do you want to cook?</h5>
                     <CheckboxGroup
@@ -107,7 +107,7 @@ export default function WeekplanConfig({
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="submit" className="btn-primary mt-6" data-btn="back" onClick={handleBack}>
+                <button type="submit" className="btn-primary-unobtrusive mt-6" data-btn="back" onClick={handleBack}>
                     Back
                 </button>
                 <Link
