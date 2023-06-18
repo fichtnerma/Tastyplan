@@ -172,7 +172,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                                 onBlur={handleBlur}
                             />
                             <div className="relative">
-                                <div className="absolute z-1">
+                                <div className="absolute z-1 w-full">
                                     {searchResult.length !== 0 && isFocus === true && (
                                         <SearchResultlist
                                             searchResults={[...searchResult]}
