@@ -78,6 +78,7 @@ export class ShoppingListService {
         }
         const shoppingList = await this.queryExistingShoppingList(userId);
 
+        //Transfom fetched shoppingList into a categorized version
         const categorizedShoppingListMap: CategorizedShoppingListMap = {};
         shoppingList.shoppingListEntries.forEach((item) => {
             const { category, ...rest } = item;
@@ -87,17 +88,6 @@ export class ShoppingListService {
                 categorizedShoppingListMap[category] = [rest];
             }
         });
-
-        /* const shoppingListEntriesFormatted = shoppingList.shoppingListEntries.map((entry) => {
-            return {
-                shoppingListEntryId: entry.id,
-                ingredientId: entry.ingredientId,
-                ingredientName: entry.ingredientName,
-                unit: entry.unit,
-                quantity: entry.quantity,
-                isChecked: entry.isChecked,
-            };
-        }); */
         return categorizedShoppingListMap;
     }
 
