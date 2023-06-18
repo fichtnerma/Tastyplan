@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import WeekplanConfig from '@components/WeekplanConfig/WeekplanConfig';
+// import WeekplanConfig from '@components/WeekplanConfig/WeekplanConfig';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
 import Intolerances from '@components/Intolerances/Intolerances';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';
 import { fetchWithAuth } from '@helpers/utils';
-import { APISearchResponse, CustomSelectionInput } from 'src/types/types';
+import { APISearchResponse } from 'src/types/types';
 
 interface Preferences {
     formOfDiet: string;
     allergens: string[];
     foodDislikes: APISearchResponse[];
-    weekConfig: WeekConfig;
-}
-
-interface WeekConfig {
     days: string[];
     meals: string[];
-    servings: number;
+    serving: number;
 }
 
-const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes', 'Weekplan'];
+const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes'];
 
 const SetupParentPage = () => {
     const { data: session } = useSession();
@@ -33,28 +29,30 @@ const SetupParentPage = () => {
         formOfDiet: '',
         allergens: [],
         foodDislikes: [],
-        weekConfig: { days: [], meals: [], servings: 1 },
+        days: ['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun'],
+        meals: ['lun'],
+        serving: 1,
     });
 
-    const [daysCheckboxes, setDays] = useState<CustomSelectionInput[]>([
-        {
-            id: '0',
-            label: 'Monday',
-            checked: true,
-        },
-        { id: '1', label: 'Tuesday', checked: true },
-        { id: '2', label: 'Wednesday', checked: true },
-        { id: '3', label: 'Thursday', checked: true },
-        { id: '4', label: 'Friday', checked: true },
-        { id: '5', label: 'Saturday', checked: true },
-        { id: '6', label: 'Sunday', checked: true },
-    ]);
+    // const [daysCheckboxes, setDays] = useState<CustomSelectionInput[]>([
+    //     {
+    //         id: '0',
+    //         label: 'Monday',
+    //         checked: true,
+    //     },
+    //     { id: '1', label: 'Tuesday', checked: true },
+    //     { id: '2', label: 'Wednesday', checked: true },
+    //     { id: '3', label: 'Thursday', checked: true },
+    //     { id: '4', label: 'Friday', checked: true },
+    //     { id: '5', label: 'Saturday', checked: true },
+    //     { id: '6', label: 'Sunday', checked: true },
+    // ]);
 
-    const [mealsCheckboxes, setMeals] = useState<CustomSelectionInput[]>([
-        { id: '7', label: 'Breakfast', checked: false },
-        { id: '8', label: 'Lunch', checked: true },
-        { id: '9', label: 'Dinner', checked: false },
-    ]);
+    // const [mealsCheckboxes, setMeals] = useState<CustomSelectionInput[]>([
+    //     { id: '7', label: 'Breakfast', checked: false },
+    //     { id: '8', label: 'Lunch', checked: true },
+    //     { id: '9', label: 'Dinner', checked: false },
+    // ]);
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
@@ -68,41 +66,41 @@ const SetupParentPage = () => {
         setCurrentStep(stepNames.findIndex((el) => el === elementName) + 1);
     };
 
-    const handleDaySelection = (id: string) => {
-        const daysTemp = [...daysCheckboxes];
-        const prefTemp = { ...preferences };
-        daysTemp.forEach((day) => {
-            if (day.id === id) {
-                if (!prefTemp.weekConfig.days.find((dayT) => dayT === day.label)) {
-                    day.checked = true;
-                    prefTemp.weekConfig.days.push(day.label);
-                } else {
-                    day.checked = false;
-                    prefTemp.weekConfig.days = prefTemp.weekConfig.days.filter((dayT) => dayT !== day.label);
-                }
-            }
-        });
-        setDays(daysTemp);
-        setPreferences(prefTemp);
-    };
+    // const handleDaySelection = (id: string) => {
+    //     const daysTemp = [...daysCheckboxes];
+    //     const prefTemp = { ...preferences };
+    //     daysTemp.forEach((day) => {
+    //         if (day.id === id) {
+    //             if (!prefTemp.weekConfig.days.find((dayT) => dayT === day.label)) {
+    //                 day.checked = true;
+    //                 prefTemp.weekConfig.days.push(day.label);
+    //             } else {
+    //                 day.checked = false;
+    //                 prefTemp.weekConfig.days = prefTemp.weekConfig.days.filter((dayT) => dayT !== day.label);
+    //             }
+    //         }
+    //     });
+    //     setDays(daysTemp);
+    //     setPreferences(prefTemp);
+    // };
 
-    const handleMealSelection = (id: string) => {
-        const mealsTemp = [...mealsCheckboxes];
-        const prefTemp = { ...preferences };
-        mealsTemp.forEach((meal) => {
-            if (meal.id === id) {
-                if (!prefTemp.weekConfig.meals.find((mealT) => mealT === meal.label)) {
-                    meal.checked = true;
-                    prefTemp.weekConfig.meals.push(meal.label);
-                } else {
-                    meal.checked = false;
-                    prefTemp.weekConfig.meals = prefTemp.weekConfig.meals.filter((mealT) => mealT !== meal.label);
-                }
-            }
-        });
-        setMeals(mealsTemp);
-        setPreferences(prefTemp);
-    };
+    // const handleMealSelection = (id: string) => {
+    //     const mealsTemp = [...mealsCheckboxes];
+    //     const prefTemp = { ...preferences };
+    //     mealsTemp.forEach((meal) => {
+    //         if (meal.id === id) {
+    //             if (!prefTemp.weekConfig.meals.find((mealT) => mealT === meal.label)) {
+    //                 meal.checked = true;
+    //                 prefTemp.weekConfig.meals.push(meal.label);
+    //             } else {
+    //                 meal.checked = false;
+    //                 prefTemp.weekConfig.meals = prefTemp.weekConfig.meals.filter((mealT) => mealT !== meal.label);
+    //             }
+    //         }
+    //     });
+    //     setMeals(mealsTemp);
+    //     setPreferences(prefTemp);
+    // };
 
     const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
         evt.preventDefault();
@@ -155,7 +153,9 @@ const SetupParentPage = () => {
                                         formOfDiet: foodLifeStyle,
                                         allergens: preferences.allergens,
                                         foodDislikes: preferences.foodDislikes,
-                                        weekConfig: preferences.weekConfig,
+                                        days: preferences.days,
+                                        meals: preferences.meals,
+                                        serving: preferences.serving,
                                     });
                                 }}
                                 formOfDiet={preferences.formOfDiet}
@@ -170,7 +170,9 @@ const SetupParentPage = () => {
                                         formOfDiet: preferences.formOfDiet,
                                         allergens: allergens,
                                         foodDislikes: preferences.foodDislikes,
-                                        weekConfig: preferences.weekConfig,
+                                        days: preferences.days,
+                                        meals: preferences.meals,
+                                        serving: preferences.serving,
                                     });
                                 }}
                                 allergens={preferences.allergens}
@@ -183,15 +185,17 @@ const SetupParentPage = () => {
                                         formOfDiet: preferences.formOfDiet,
                                         allergens: preferences.allergens,
                                         foodDislikes: foodDislikes,
-                                        weekConfig: preferences.weekConfig,
+                                        days: preferences.days,
+                                        meals: preferences.meals,
+                                        serving: preferences.serving,
                                     });
                                 }}
                                 onBack={handleBackStep}
                                 foodDislikes={preferences.foodDislikes}
-                                onNext={handleNextStep}
+                                handlePreferences={handlePreferences}
                             />
                         )}
-                        {currentStep === 4 && (
+                        {/* {currentStep === 4 && (
                             <WeekplanConfig
                                 onChoice={(weekConfig: WeekConfig) => {
                                     setPreferences({
@@ -209,7 +213,7 @@ const SetupParentPage = () => {
                                 mealsCheckboxes={mealsCheckboxes}
                                 handleMealSelection={handleMealSelection}
                             />
-                        )}
+                        )} */}
                     </fieldset>
                 </form>
             </div>
