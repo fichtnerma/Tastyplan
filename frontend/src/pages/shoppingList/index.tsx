@@ -3,46 +3,59 @@ import { useSession } from 'next-auth/react';
 import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
 import { fetchWithAuth, mapShoppingListToSelection } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
-import { CustomSelectionInput, ShoppingListItem } from 'src/types/types';
+import {
+    CategorizedIngredients,
+    CustomSelectionInput,
+    CustomSelectionInputGroups,
+    ShoppingListItem,
+} from 'src/types/types';
 
 function ShoppingListPage() {
-    const { data, error } = useFetchWithAuth<ShoppingListItem[]>('/service/shopping-list');
-    const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInput[]>([]);
-    const [presentIngredients, setPresentIngredients] = useState<CustomSelectionInput[]>([]);
+    const { data, error } = useFetchWithAuth<CategorizedIngredients>('/service/shopping-list');
+    const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInputGroups>();
+    const [presentIngredients, setPresentIngredients] = useState<CustomSelectionInputGroups>({});
     const { data: session } = useSession();
 
     useEffect(() => {
-        if (data) filterIngredients(data);
+        if (data) {
+            filterIngredients(data);
+        }
     }, [data, error]);
 
     const sendIngredient = async (ingredient: CustomSelectionInput) => {
-        const foundElement = data?.find((el) => el.ingredientId + '' === ingredient.id);
-
-        if (!foundElement) return;
-
-        const dataToSend = {
-            isChecked: ingredient.checked,
-        };
-
-        fetchWithAuth(
-            `/service/shopping-list/update/${foundElement.shoppingListEntryId}`,
-            {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataToSend),
-            },
-            session,
-        );
+        // const foundElement = data?.find((el) => el.ingredientId + '' === ingredient.id);
+        // if (!foundElement) return;
+        // const dataToSend = {
+        //     isChecked: ingredient.checked,
+        // };
+        // fetchWithAuth(
+        //     `/service/shopping-list/update/${foundElement.shoppingListEntryId}`,
+        //     {
+        //         method: 'PATCH',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(dataToSend),
+        //     },
+        //     session,
+        // );
     };
 
-    const filterIngredients = (ingredients: ShoppingListItem[]) => {
-        const neededIngredients = ingredients.filter((ingredient) => !ingredient.isChecked);
-        setNeededIngredients(mapShoppingListToSelection(neededIngredients));
+    const filterIngredients = (categorizedIngredients: CategorizedIngredients) => {
+        const neededIngredients: CategorizedIngredients = {};
+        const presentIngredients: CategorizedIngredients = {};
+        const selectionInputGroupsNeeded: CustomSelectionInputGroups = {};
+        const selectionInputGroupsPresent: CustomSelectionInputGroups = {};
 
-        const presentIngredients = ingredients.filter((ingredient) => ingredient.isChecked);
-        setPresentIngredients(mapShoppingListToSelection(presentIngredients));
+        for (const [key, ingredients] of Object.entries(categorizedIngredients)) {
+            neededIngredients[key] = ingredients.filter((ingredient) => !ingredient.isChecked);
+            presentIngredients[key] = ingredients.filter((ingredient) => ingredient.isChecked);
+            selectionInputGroupsNeeded[key] = mapShoppingListToSelection(neededIngredients[key]);
+            selectionInputGroupsPresent[key] = mapShoppingListToSelection(presentIngredients[key]);
+        }
+
+        setNeededIngredients(selectionInputGroupsNeeded);
+        setPresentIngredients(selectionInputGroupsPresent);
     };
 
     const handleNeededSelect = (id: string) => {
@@ -74,28 +87,42 @@ function ShoppingListPage() {
     };
 
     return (
-        <div>
+        <div className="pt-[4rem] px-4 sm:pt-[6rem] md:pt-[9rem] lg:pt-[6rem]">
             <h1 className="text-green-custom2">Your shopping list:</h1>
-            <div className="flex w-full">
-                <div className="mr-[20rem]">
+            <div className="">
+                <div className="">
                     <h2>Things you need:</h2>
-                    {data && (
-                        <CheckboxGroup
-                            checkboxes={neededIngredients}
-                            groupName="ingredients2"
-                            onCheckboxSelect={handleNeededSelect}
-                            disabled={false}
-                        />
-                    )}
+                    {neededIngredients &&
+                        Object.entries(neededIngredients).map((key) => {
+                            return (
+                                <div key={key[0]}>
+                                    <h3>{key[0]}</h3>
+                                    <CheckboxGroup
+                                        checkboxes={key[1]}
+                                        groupName={key[0]}
+                                        onCheckboxSelect={handleNeededSelect}
+                                        disabled={false}
+                                    />
+                                </div>
+                            );
+                        })}
                 </div>
                 <div>
                     <h2>Things you already have:</h2>
-                    <CheckboxGroup
-                        checkboxes={presentIngredients}
-                        groupName="ingredients2"
-                        onCheckboxSelect={handlePresentSelect}
-                        disabled={false}
-                    />
+                    {presentIngredients &&
+                        Object.entries(presentIngredients).map((key) => {
+                            return (
+                                <div key={key[0]}>
+                                    <h3>{key[0]}</h3>
+                                    <CheckboxGroup
+                                        checkboxes={key[1]}
+                                        groupName={key[0]}
+                                        onCheckboxSelect={handlePresentSelect}
+                                        disabled={false}
+                                    />
+                                </div>
+                            );
+                        })}
                 </div>
             </div>
         </div>

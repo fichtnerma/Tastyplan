@@ -24,12 +24,14 @@ export default function Layout({ children }: React.PropsWithChildren) {
             asPath.includes('/setup') ||
             asPath.includes('/intolerances') ||
             asPath.includes('/weekOverview') ||
+            asPath.includes('/shoppingList') ||
             asPath.includes('/recipe')
         );
     };
 
     const getWaveForm = () => {
-        if (asPath.includes('/weekOverview') || asPath.includes('/recipe')) return 'lite';
+        if (asPath.includes('/weekOverview') || asPath.includes('/recipe') || asPath.includes('/shoppingList'))
+            return 'lite';
         else return 'strong';
     };
 

@@ -80,6 +80,14 @@ export type ShoppingListItem = {
     isChecked: boolean;
 };
 
+export type CustomSelectionInputGroups = {
+    [key: string]: CustomSelectionInput[];
+};
+
+export type CategorizedIngredients = {
+    [key: string]: ShoppingListItem[];
+};
+
 export type CustomSVG = {
     class: string;
     src: string;
