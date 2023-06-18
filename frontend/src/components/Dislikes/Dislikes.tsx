@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
 import TextInput from '@components/FormInputs/TextInput';
@@ -7,17 +8,18 @@ import { APISearchResponse } from 'src/types/types';
 import styles from '../Dislikes/Dislikes.module.scss';
 import cross from '../../../public/Icons/kreuz.png';
 
-type OnNextFunction = () => void;
+// type OnNextFunction = () => void;
 type OnBackFunction = () => void;
 type OnChoiceFunction = (choices: APISearchResponse[]) => void;
 interface DislikesProps {
-    onNext: OnNextFunction;
+    // onNext: OnNextFunction;
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
     foodDislikes: APISearchResponse[];
+    handlePreferences: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
-export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: DislikesProps) {
+export default function Dislikes({ onBack, onChoice, foodDislikes, handlePreferences }: DislikesProps) {
     const [allDislikes, setDislike] = useState(foodDislikes);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
@@ -74,14 +76,19 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         },
     ];
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
+    // const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    //     e.preventDefault();
+    //     onChoice(allDislikes);
+    //     if (e.currentTarget.getAttribute('data-btn') == 'next') {
+    //         onNext();
+    //     } else {
+    //         onBack();
+    //     }
+    // };
+
+    const handleBack = () => {
         onChoice(allDislikes);
-        if (e.currentTarget.getAttribute('data-btn') == 'next') {
-            onNext();
-        } else {
-            onBack();
-        }
+        onBack();
     };
 
     const handleAddRecommendation = (e: React.MouseEvent) => {
@@ -219,10 +226,10 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="button" className="btn-primary-unobtrusive mt-6" data-btn="back" onClick={handleClick}>
+                <button type="button" className="btn-primary-unobtrusive mt-6" data-btn="back" onClick={handleBack}>
                     Back
                 </button>
-                <button
+                {/* <button
                     type="submit"
                     className="btn-primary mt-6"
                     data-btn="next"
@@ -230,7 +237,15 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                     data-cy="next-btn"
                 >
                     Next
-                </button>
+                </button> */}
+                <Link
+                    className="btn-primary mt-6"
+                    onClick={handlePreferences}
+                    href={'/weekOverview'}
+                    data-cy="create-weekplan-btn"
+                >
+                    Create Weekplan
+                </Link>
             </div>
         </div>
     );
