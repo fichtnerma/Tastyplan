@@ -3,16 +3,11 @@ import { useSession } from 'next-auth/react';
 import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
 import { fetchWithAuth, mapShoppingListToSelection } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
-import {
-    CategorizedIngredients,
-    CustomSelectionInput,
-    CustomSelectionInputGroups,
-    ShoppingListItem,
-} from 'src/types/types';
+import { CategorizedIngredients, CustomSelectionInput, CustomSelectionInputGroups } from 'src/types/types';
 
 function ShoppingListPage() {
     const { data, error } = useFetchWithAuth<CategorizedIngredients>('/service/shopping-list');
-    const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInputGroups>();
+    const [neededIngredients, setNeededIngredients] = useState<CustomSelectionInputGroups>({});
     const [presentIngredients, setPresentIngredients] = useState<CustomSelectionInputGroups>({});
     const { data: session } = useSession();
 
@@ -22,23 +17,36 @@ function ShoppingListPage() {
         }
     }, [data, error]);
 
-    const sendIngredient = async (ingredient: CustomSelectionInput) => {
+    const sendIngredient = async (ingredient: CustomSelectionInput, category: string) => {
         // const foundElement = data?.find((el) => el.ingredientId + '' === ingredient.id);
         // if (!foundElement) return;
-        // const dataToSend = {
-        //     isChecked: ingredient.checked,
-        // };
-        // fetchWithAuth(
-        //     `/service/shopping-list/update/${foundElement.shoppingListEntryId}`,
-        //     {
-        //         method: 'PATCH',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(dataToSend),
-        //     },
-        //     session,
-        // );
+
+        console.log(category);
+
+        if (!data) return;
+
+        const foundElement = data[category].find((el) => el.ingredientId + '' === ingredient.id);
+
+        if (!foundElement) return;
+
+        console.log('id', foundElement.id);
+        console.log('ingredientId', foundElement.ingredientId);
+
+        console.log(foundElement.id);
+        const dataToSend = {
+            isChecked: ingredient.checked,
+        };
+        fetchWithAuth(
+            `/service/shopping-list/update/${foundElement.id}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            },
+            session,
+        );
     };
 
     const filterIngredients = (categorizedIngredients: CategorizedIngredients) => {
@@ -59,30 +67,60 @@ function ShoppingListPage() {
     };
 
     const handleNeededSelect = (id: string) => {
-        const filteredNeededIngredients = neededIngredients.filter((ingredient) => ingredient.id !== id);
-        const foundIngredient = neededIngredients.find((ingredient) => ingredient.id === id);
+        const filteredNeededIngredients: CustomSelectionInputGroups = {};
+        let foundIngredient: CustomSelectionInput | undefined = undefined;
+        let category = '';
+
+        for (const [key, ingredients] of Object.entries(neededIngredients)) {
+            filteredNeededIngredients[key] = ingredients.filter((ingredient) => ingredient.id !== id);
+
+            if (!foundIngredient) {
+                foundIngredient = ingredients.find((ingredient) => {
+                    if (ingredient.id === id) {
+                        category = key;
+                        return true;
+                    }
+                });
+            }
+        }
+
         if (foundIngredient) {
             foundIngredient.checked = true;
-            const presentIngredientsCopy = [...presentIngredients];
-            presentIngredientsCopy.push(foundIngredient);
+            const presentIngredientsCopy = { ...presentIngredients };
+            presentIngredientsCopy[category].push(foundIngredient);
             setPresentIngredients(presentIngredientsCopy);
-            sendIngredient(foundIngredient);
+            sendIngredient(foundIngredient, category);
         }
+
         setNeededIngredients(filteredNeededIngredients);
     };
 
     const handlePresentSelect = (id: string) => {
-        const filteredPresentIngredients = presentIngredients.filter((ingredient) => ingredient.id !== id);
+        const filteredPresentIngredients: CustomSelectionInputGroups = {};
+        let foundIngredient: CustomSelectionInput | undefined = undefined;
+        let category = '';
 
-        const foundIngredient = presentIngredients.find((ingredient) => ingredient.id === id);
+        for (const [key, ingredients] of Object.entries(neededIngredients)) {
+            filteredPresentIngredients[key] = ingredients.filter((ingredient) => ingredient.id !== id);
+
+            if (!foundIngredient) {
+                foundIngredient = ingredients.find((ingredient) => {
+                    if (ingredient.id === id) {
+                        category = key;
+                        return ingredient;
+                    }
+                });
+            }
+        }
 
         if (foundIngredient) {
             foundIngredient.checked = false;
-            const neededIngredientsCopy = [...neededIngredients];
-            neededIngredientsCopy.push(foundIngredient);
+            const neededIngredientsCopy = { ...neededIngredients };
+            neededIngredientsCopy[category].push(foundIngredient);
             setNeededIngredients(neededIngredientsCopy);
-            sendIngredient(foundIngredient);
+            sendIngredient(foundIngredient, category);
         }
+
         setPresentIngredients(filteredPresentIngredients);
     };
 
