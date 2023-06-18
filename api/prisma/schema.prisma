@@ -59,7 +59,7 @@ model Step {
     description String
     stepCount   Int
     recipeId    Int
-    recipe      Recipe @relation(fields: [recipeId], references: [id])
+    recipe      Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model User {
@@ -106,8 +106,8 @@ model WeekplanEntry {
     date       DateTime @db.Date
     weekplanId Int
     weekplan   Weekplan @relation(fields: [weekplanId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    recipeId   Int
-    recipe     Recipe   @relation(fields: [recipeId], references: [id])
+    recipeId   Int?
+    recipe     Recipe?  @relation(fields: [recipeId], references: [id], onDelete: SetNull, onUpdate: Cascade)
 }
 
 model ShoppingList {

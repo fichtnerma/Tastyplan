@@ -25,14 +25,16 @@ export class IngredientsService implements OnApplicationBootstrap {
 
     async createIngredients() {
         const hashSum = crypto.createHash('sha256');
-        hashSum.update(fs.readFileSync(`${this.dataUrl}/ingredients.csv`));
-        const ingredientHash = hashSum.digest('hex');
         const ingredients = await this.readCSVIngredients();
+        hashSum.update(fs.readFileSync(`${this.dataUrl}/ingredients.csv`).toString('utf-8'));
+        const ingredientHash = hashSum.digest('hex');
+
         if (
             (await this.prismaService.ingredient.count()) == 0 ||
             (await this.prismaService.dataSchema.findUnique({ where: { id: 1 } })).ingredientHash !== ingredientHash
         ) {
             log('Creating ingredients...');
+            await this.prismaService.ingredient.deleteMany({});
             await this.prismaService.dataSchema.upsert({
                 where: { id: 1 },
                 update: {
@@ -43,7 +45,6 @@ export class IngredientsService implements OnApplicationBootstrap {
                     ingredientHash: ingredientHash,
                 },
             });
-            await this.prismaService.ingredient.deleteMany();
             for (let index = 1; index < ingredients.length + 1; index++) {
                 const ingredient = ingredients[index - 1];
                 log(`Creating ingredient ${index} of ${ingredients.length}`);
@@ -104,14 +105,17 @@ export class IngredientsService implements OnApplicationBootstrap {
     async initRecipes() {
         const rawdata = fs.readFileSync(`${this.dataUrl}/recipe_dump.json`);
         const hashSum = crypto.createHash('sha256');
-        hashSum.update(rawdata);
+        hashSum.update(rawdata.toString('utf-8'));
         const recipeHash = hashSum.digest('hex');
+        console.log(recipeHash);
+
         const recipes = JSON.parse(rawdata);
         if (
             (await this.prismaService.recipe.count()) == 0 ||
             (await this.prismaService.dataSchema.findUnique({ where: { id: 1 } })).recipeHash !== recipeHash
         ) {
             log('Creating recipes...');
+            await this.prismaService.recipe.deleteMany({});
             await this.prismaService.dataSchema.upsert({
                 where: { id: 1 },
                 update: {
@@ -122,7 +126,6 @@ export class IngredientsService implements OnApplicationBootstrap {
                     recipeHash: recipeHash,
                 },
             });
-            await this.prismaService.recipe.deleteMany();
             for (let index = 0; index < recipes.length; index++) {
                 const recipe = recipes[index];
                 log(`Creating recipe ${index} of ${recipes.length}`);
@@ -216,13 +219,14 @@ export class IngredientsService implements OnApplicationBootstrap {
                     },
                     ['omnivore', 'pescetarian', 'vegetarian', 'vegan'],
                 );
+                const specialCharacter = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~'-]/g;
                 await this.prismaService.recipe.upsert({
                     where: { id: index + 1 },
                     update: {},
                     create: {
                         id: index + 1,
                         name: recipe.name,
-                        img: recipe.img || null,
+                        img: recipe.name.replace(specialCharacter, '') + '.png',
                         servings: +recipe.servings || 4,
                         description: recipe.description,
                         cookingTime: convertToTime(recipe.cookingTime) || 0,
