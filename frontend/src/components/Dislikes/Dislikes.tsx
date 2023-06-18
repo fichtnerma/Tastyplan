@@ -219,7 +219,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="button" className="btn-primary mt-6" data-btn="back" onClick={handleClick}>
+                <button type="button" className="btn-primary-unobtrusive mt-6" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
                 <button
