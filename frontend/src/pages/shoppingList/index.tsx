@@ -14,6 +14,7 @@ function ShoppingListPage() {
     useEffect(() => {
         if (data) {
             filterIngredients(data);
+            console.log(data);
         }
     }, [data, error]);
 
@@ -119,36 +120,44 @@ function ShoppingListPage() {
         <div className="pt-[4rem] px-4 sm:pt-[6rem] md:pt-[9rem] lg:pt-[6rem] lg:px-0 lg:pl-[6rem] lg:max-w-[1920px]">
             <h1 className="text-green-custom2">Your shopping list:</h1>
             <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="mb-14">
+                <div className="mb-14 md:mb-0">
                     <h2>Things you need to buy</h2>
                     {neededIngredients &&
                         Object.entries(neededIngredients).map((key) => {
                             return (
-                                <div key={key[0]} className="mb-6 last:mb-0">
-                                    <h3>{key[0]}</h3>
-                                    <CheckboxGroup
-                                        checkboxes={key[1]}
-                                        groupName={key[0]}
-                                        onCheckboxSelect={handleNeededSelect}
-                                        disabled={false}
-                                    />
+                                <div key={key[0]} className="mb-6 last:mb-0 lg:mb-12 lg:last:mb-0">
+                                    {key[1].length > 0 && (
+                                        <>
+                                            <h3>{key[0]}</h3>
+                                            <CheckboxGroup
+                                                checkboxes={key[1]}
+                                                groupName={key[0]}
+                                                onCheckboxSelect={handleNeededSelect}
+                                                disabled={false}
+                                            />
+                                        </>
+                                    )}
                                 </div>
                             );
                         })}
                 </div>
                 <div>
-                    <h2>Things you already have:</h2>
+                    <h2>Things you already have</h2>
                     {presentIngredients &&
                         Object.entries(presentIngredients).map((key) => {
                             return (
-                                <div key={key[0]} className="mb-6 last:mb-0">
-                                    <h3>{key[0]}</h3>
-                                    <CheckboxGroup
-                                        checkboxes={key[1]}
-                                        groupName={key[0]}
-                                        onCheckboxSelect={handlePresentSelect}
-                                        disabled={false}
-                                    />
+                                <div key={key[0]} className="mb-6 last:mb-0 lg:mb-12 lg:last:mb-0">
+                                    {key[1].length > 0 && (
+                                        <>
+                                            <h3>{key[0]}</h3>
+                                            <CheckboxGroup
+                                                checkboxes={key[1]}
+                                                groupName={key[0]}
+                                                onCheckboxSelect={handlePresentSelect}
+                                                disabled={false}
+                                            />
+                                        </>
+                                    )}
                                 </div>
                             );
                         })}
