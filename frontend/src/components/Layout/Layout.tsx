@@ -38,6 +38,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
             {includesMainHeader() && <Header />}
             {includesLiteHeader() && <SecondHeader waveForm={getWaveForm()} />}
             <main
+                className="overflow-x-hidden"
                 style={{
                     backgroundColor:
                         asPath == '/preferences' || asPath.includes('/intolerances')
