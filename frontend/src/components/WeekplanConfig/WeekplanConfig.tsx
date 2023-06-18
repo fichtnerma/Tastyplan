@@ -107,7 +107,7 @@ export default function WeekplanConfig({
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="submit" className="btn-primary mt-6" data-btn="back" onClick={handleBack}>
+                <button type="submit" className="btn-primary-unobtrusive mt-6" data-btn="back" onClick={handleBack}>
                     Back
                 </button>
                 <Link

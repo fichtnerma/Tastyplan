@@ -97,7 +97,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="submit" className="btn-primary mt-6" data-btn="back" onClick={handleClick}>
+                <button type="submit" className="btn-primary-unobtrusive mt-6" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
                 <button
