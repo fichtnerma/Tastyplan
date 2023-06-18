@@ -1,18 +1,24 @@
 .dislikeWrapper {
     span {
         display: inline-block;
-        height: 50px;
+        height: 40px;
         border: solid;
         border-radius: 50px;
         border: 2px solid var(--green-dark);
         background-color: var(--green-light);
         padding: 10px;
+        padding-top: 5px;
         overflow: hidden;
         white-space: nowrap;
         width: max-content;
 
         label {
             align-items: center;
+        }
+
+        @screen lg {
+            height: 50px;
+            padding-top: 10px;
         }
     }
 }
