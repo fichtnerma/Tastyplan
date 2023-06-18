@@ -10,7 +10,7 @@ function IconList({ icons }: IconListProps) {
         <>
             {icons.map((icon) => (
                 <div key={icon.id} className="flex flex-col items-center">
-                    <Icon size={40} icon={icon.src} />
+                    <Icon size={40} icon={icon.src} classNames="w-8 lg:w-12" />
                     <h5 className="!mb-0">
                         {icon.text} {icon.withTime ? 'MIN' : ''}
                     </h5>
