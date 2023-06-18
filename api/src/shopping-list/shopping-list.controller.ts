@@ -29,7 +29,7 @@ export class ShoppingListController {
         @Body() updateShoppingListDto: UpdateShoppingListDto,
     ) {
         const parsedEntryId = parseInt(entryId);
-        this.shoppingListService.upadteShoppingListEntry(parsedEntryId, updateShoppingListDto);
+        this.shoppingListService.updateShoppingListEntry(parsedEntryId, updateShoppingListDto);
         return 'Success: Shoppinglist entry was updated';
     }
 }
