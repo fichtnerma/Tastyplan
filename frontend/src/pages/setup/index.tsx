@@ -40,19 +40,19 @@ const SetupParentPage = () => {
         {
             id: '0',
             label: 'Monday',
-            checked: false,
+            checked: true,
         },
-        { id: '1', label: 'Tuesday', checked: false },
-        { id: '2', label: 'Wednesday', checked: false },
-        { id: '3', label: 'Thursday', checked: false },
-        { id: '4', label: 'Friday', checked: false },
-        { id: '5', label: 'Saturday', checked: false },
-        { id: '6', label: 'Sunday', checked: false },
+        { id: '1', label: 'Tuesday', checked: true },
+        { id: '2', label: 'Wednesday', checked: true },
+        { id: '3', label: 'Thursday', checked: true },
+        { id: '4', label: 'Friday', checked: true },
+        { id: '5', label: 'Saturday', checked: true },
+        { id: '6', label: 'Sunday', checked: true },
     ]);
 
     const [mealsCheckboxes, setMeals] = useState<CustomSelectionInput[]>([
         { id: '7', label: 'Breakfast', checked: false },
-        { id: '8', label: 'Lunch', checked: false },
+        { id: '8', label: 'Lunch', checked: true },
         { id: '9', label: 'Dinner', checked: false },
     ]);
 
