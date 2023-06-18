@@ -29,12 +29,18 @@ export class PreferencesService {
                     formOfDiet: createPreferencesDto.formOfDiet,
                     allergens: [...createPreferencesDto.allergens],
                     foodDislikes: { connect: [...ingredientsIds] },
+                    days: [...createPreferencesDto.days],
+                    meals: [...createPreferencesDto.days],
+                    serving: createPreferencesDto.serving,
                 },
                 create: {
                     userId: user.userId,
                     formOfDiet: createPreferencesDto.formOfDiet,
                     allergens: [...createPreferencesDto.allergens],
                     foodDislikes: { connect: [...ingredientsIds] },
+                    days: [...createPreferencesDto.days],
+                    meals: [...createPreferencesDto.days],
+                    serving: createPreferencesDto.serving,
                 },
             });
             await this.prismaService.user.update({
