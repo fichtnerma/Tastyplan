@@ -18,20 +18,22 @@
 }
 
 .recommendationsWrapper {
-    span {
-        display: inline-block;
-        height: 40px;
+    button {
+        margin-bottom: 6px;
+        margin-left: 6px;
         border: solid;
         border-radius: 50px;
         border: 2px solid var(--green-dark);
         background-color: var(--white);
-        padding: 10px;
-        overflow: hidden;
         white-space: nowrap;
-        width: max-content;
+        // overflow: hidden;
+        padding: 5px;
+        padding-left: 6px;
+        padding-right: 6px;
+        font-size: 0.8rem;
 
-        label {
-            align-items: center;
+        &:hover {
+            background-color: var(--green-light);
         }
     }
 }

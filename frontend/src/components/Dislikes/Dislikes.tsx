@@ -88,11 +88,9 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         const dislikes = dislikeRecommendations.find((dislike) => dislike.id === categoryId);
         dislikes?.categoryChildren.map((dislike) => {
             if (!allDislikes.find((dislikeAll) => dislikeAll.id === dislike.id)) {
-                setDislike([...allDislikes, dislike]);
+                setDislike((allDislikes) => [...allDislikes, dislike]);
                 target.style.display = 'none';
             }
-            // für jedes kind wollen wir checken, ob es bereits ausgewählt wurde
-            // es wird nur das erste element genommen und nicht für andere Kinder geguckt
         });
         onChoice(allDislikes);
     };
@@ -106,6 +104,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         if (allDislikes.find((dislike) => dislike.id === clickedDislike.id)) {
             target.style.backgroundColor = 'var(--gray-2)';
             //add hover effect to element: backgroundColor = 'var(--gray-5)'
+            // target.classList.add('hover-style');
             setDislike(allDislikes.filter((dislike) => dislike.id !== clickedDislike.id));
         } else {
             target.style.backgroundColor = 'var(--gray-5)';
@@ -113,7 +112,6 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         }
 
         onChoice(allDislikes);
-        console.log(allDislikes);
     };
 
     const onDeleteChoice = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -151,24 +149,12 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                                 data-cy="dislikes-search-field"
                             />
                             <p className="inline-block text-base pt-3">Add this to your dislikes.</p>
-                            <div className="flex flex-wrap mb-2 gap-x-2">
+                            <div className="flex flex-wrap">
                                 {dislikeRecommendations.map((dislike, i) => (
                                     <div key={i} className={styles.recommendationsWrapper}>
-                                        <span
-                                            className="inline-block cursor-pointer"
-                                            onClick={handleAddRecommendation}
-                                            data-id={dislike.id}
-                                        >
-                                            <label className="flex" htmlFor={dislike.categoryName}>
-                                                <p className="inline-block text-base pr-2">{dislike.categoryName}</p>
-
-                                                <a
-                                                    className="inline-block cursor-pointer"
-                                                    onClick={handleAddRecommendation}
-                                                    data-anchor={dislike.categoryChildren}
-                                                ></a>
-                                            </label>
-                                        </span>
+                                        <button type="button" onClick={handleAddRecommendation} data-id={dislike.id}>
+                                            {dislike.categoryName}
+                                        </button>
                                     </div>
                                 ))}
                             </div>
