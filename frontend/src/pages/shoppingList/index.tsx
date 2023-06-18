@@ -116,15 +116,15 @@ function ShoppingListPage() {
     };
 
     return (
-        <div className="pt-[4rem] px-4 sm:pt-[6rem] md:pt-[9rem] lg:pt-[6rem]">
+        <div className="pt-[4rem] px-4 sm:pt-[6rem] md:pt-[9rem] lg:pt-[6rem] lg:px-0 lg:pl-[6rem] lg:max-w-[1920px]">
             <h1 className="text-green-custom2">Your shopping list:</h1>
-            <div className="">
-                <div className="">
-                    <h2>Things you need:</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="mb-14">
+                    <h2>Things you need to buy</h2>
                     {neededIngredients &&
                         Object.entries(neededIngredients).map((key) => {
                             return (
-                                <div key={key[0]}>
+                                <div key={key[0]} className="mb-6 last:mb-0">
                                     <h3>{key[0]}</h3>
                                     <CheckboxGroup
                                         checkboxes={key[1]}
@@ -141,7 +141,7 @@ function ShoppingListPage() {
                     {presentIngredients &&
                         Object.entries(presentIngredients).map((key) => {
                             return (
-                                <div key={key[0]}>
+                                <div key={key[0]} className="mb-6 last:mb-0">
                                     <h3>{key[0]}</h3>
                                     <CheckboxGroup
                                         checkboxes={key[1]}
