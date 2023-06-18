@@ -148,6 +148,16 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                                 }}
                                 data-cy="dislikes-search-field"
                             />
+                            <div className="relative">
+                                <div className="absolute z-10">
+                                    {searchResult.length !== 0 && (
+                                        <SearchResultlist
+                                            searchResults={[...searchResult]}
+                                            clickHandler={handleAddChoice}
+                                        />
+                                    )}
+                                </div>
+                            </div>
                             <p className="inline-block text-base pt-3">Add this to your dislikes.</p>
                             <div className="flex flex-wrap">
                                 {dislikeRecommendations.map((dislike, i) => (
@@ -160,9 +170,6 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                             </div>
                         </div>
                     </div>
-                    {searchResult.length !== 0 && (
-                        <SearchResultlist searchResults={[...searchResult]} clickHandler={handleAddChoice} />
-                    )}
                 </div>
                 <div className=" h-[280px] overflow-y-auto ml-8 w-2/3">
                     <div className="flex flex-wrap mb-2 gap-x-2">
