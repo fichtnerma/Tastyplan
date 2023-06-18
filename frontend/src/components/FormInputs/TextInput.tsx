@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { isRequiredValidator } from '@helpers/validations';
 
 interface TextInputProps {
-    label: string;
+    label?: string;
+    placeholder?: string;
     type?: string;
     value: string;
     required?: boolean;
@@ -10,10 +11,13 @@ interface TextInputProps {
     decoration?: React.ReactNode;
     decorationPosition?: 'start' | 'end';
     onChange?: (value: string) => void;
+    onFocus?: () => void;
+    onBlur?: () => void;
 }
 
 export default function TextInput({
     label,
+    placeholder,
     type = 'text',
     validate,
     decoration,
@@ -21,6 +25,8 @@ export default function TextInput({
     onChange,
     value,
     required,
+    onFocus,
+    onBlur,
 }: TextInputProps) {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
     const isAtStart = decoration && decorationPosition == 'start';
@@ -60,9 +66,11 @@ export default function TextInput({
                         isAtEnd ? 'pr-9' : 'pr-4'
                     } h-10 w-full border-gray-700 rounded-xl`}
                     type={type}
+                    placeholder={placeholder}
                     value={value}
-                    onBlur={handleBlur}
+                    onBlur={onBlur ? onBlur : handleBlur}
                     onChange={handleTextChange}
+                    onFocus={onFocus}
                 />
             </div>
             <span className={`${errorMessage ? '' : 'hidden'} errorMessage`}>{errorMessage}</span>

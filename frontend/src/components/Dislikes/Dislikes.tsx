@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
+import TextInput from '@components/FormInputs/TextInput';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
 import styles from '../Dislikes/Dislikes.module.scss';
@@ -20,6 +21,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
     const [allDislikes, setDislike] = useState(foodDislikes);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
+    const [isFocus, setFocus] = useState(false);
 
     const dislikeRecommendations = [
         {
@@ -130,27 +132,48 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         setSearchResult([...data]);
     };
 
+    const searchChanged = (value: string) => {
+        setSearchTerm(() => value);
+        const debouncedHandler = debounce(() => handleSearch(value), 250);
+        debouncedHandler();
+    };
+
+    const deleteInput = () => {
+        setSearchTerm('');
+        searchChanged('');
+    };
+
+    const handleFocus = () => {
+        setFocus(true);
+    };
+
+    const handleBlur = () => {
+        setFocus(false);
+    };
+
     return (
         <div>
             <h4 className="mb-2 h2">What food do you dislike?</h4>
-            <div className="flex h-[400px] lg:h-[300px]">
-                <div className="flex w-1/3 flex-col">
+            <div className="flex h-[400px] lg:h-[300px] flex-col lg:flex-row">
+                <div className="flex w-full flex-col lg:w-1/3">
                     <div className="w-full flex">
                         <div className="text-input-wrapper w-full">
-                            <input
-                                type="text"
+                            <TextInput
                                 placeholder="Search ingredients"
                                 value={searchTerm}
-                                onChange={(e) => {
-                                    setSearchTerm(() => e.target.value);
-                                    const debouncedHandler = debounce(() => handleSearch(e.target.value), 250);
-                                    debouncedHandler();
-                                }}
-                                data-cy="dislikes-search-field"
+                                decoration={
+                                    <button type="button" onClick={deleteInput}>
+                                        <Image src={cross} className="pr-1" alt="cross" width={20} priority />
+                                    </button>
+                                }
+                                decorationPosition="end"
+                                onChange={searchChanged}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
                             />
                             <div className="relative">
                                 <div className="absolute z-1">
-                                    {searchResult.length !== 0 && (
+                                    {searchResult.length !== 0 && isFocus === true && (
                                         <SearchResultlist
                                             searchResults={[...searchResult]}
                                             clickHandler={handleAddChoice}
@@ -171,13 +194,15 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                         </div>
                     </div>
                 </div>
-                <div className=" h-[280px] overflow-y-auto ml-8 w-2/3">
+                <div className=" h-[280px] overflow-y-auto mt-2 lg:mt-0 lg:ml-8 lg:w-2/3">
                     <div className="flex flex-wrap mb-2 gap-x-2">
                         {allDislikes.map((dislike, i) => (
                             <div key={i} className={styles.dislikeWrapper}>
                                 <span>
                                     <label className="flex" htmlFor={dislike.name}>
-                                        <p className="inline-block text-base pr-2">{dislike.name}</p>
+                                        <p className="inline-block text-base pr-2">
+                                            {dislike.name.charAt(0).toUpperCase() + dislike.name.slice(1)}
+                                        </p>
 
                                         <a
                                             className="inline-block cursor-pointer"
