@@ -13,20 +13,37 @@ import { Ingredient } from '@prisma/client';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 const fs = require('fs');
 const parse = require('csv-parser');
+const crypto = require('crypto');
 @Injectable()
 export class IngredientsService implements OnApplicationBootstrap {
     constructor(private prismaService: PrismaService, private ingredientSearchService: IngredientsSearchService) {}
-
+    dataUrl = `${process.cwd()}/dist/ingredients/data`;
     async onApplicationBootstrap() {
-        log('Creating ingredients...');
         await this.createIngredients();
-        log('Creating recipes...');
         await this.initRecipes();
     }
 
     async createIngredients() {
+        const hashSum = crypto.createHash('sha256');
+        hashSum.update(fs.readFileSync(`${this.dataUrl}/ingredients.csv`));
+        const ingredientHash = hashSum.digest('hex');
         const ingredients = await this.readCSVIngredients();
-        if (ingredients.length > (await this.prismaService.ingredient.count())) {
+        if (
+            (await this.prismaService.ingredient.count()) == 0 ||
+            (await this.prismaService.dataSchema.findUnique({ where: { id: 1 } }))?.ingredientHash !== ingredientHash
+        ) {
+            log('Creating ingredients...');
+            await this.prismaService.dataSchema.upsert({
+                where: { id: 1 },
+                update: {
+                    ingredientHash: ingredientHash,
+                },
+                create: {
+                    id: 1,
+                    ingredientHash: ingredientHash,
+                },
+            });
+            await this.prismaService.ingredient.deleteMany();
             for (let index = 1; index < ingredients.length + 1; index++) {
                 const ingredient = ingredients[index - 1];
                 log(`Creating ingredient ${index} of ${ingredients.length}`);
@@ -57,7 +74,7 @@ export class IngredientsService implements OnApplicationBootstrap {
         return new Promise((resolve, reject) => {
             const ingredients: Omit<Ingredient, 'id'>[] = [];
             try {
-                fs.createReadStream(`${process.cwd()}/dist/ingredients/data/ingredients.csv`)
+                fs.createReadStream(`${this.dataUrl}/ingredients.csv`)
                     .pipe(parse({ separator: ';' }))
                     .on('data', function (row: Omit<Ingredient, 'id'>) {
                         const ingredient = {
@@ -85,9 +102,27 @@ export class IngredientsService implements OnApplicationBootstrap {
     }
 
     async initRecipes() {
-        const rawdata = fs.readFileSync(`${process.cwd()}/dist/ingredients/data/recipe_dump.json`);
+        const rawdata = fs.readFileSync(`${this.dataUrl}/recipe_dump.json`);
+        const hashSum = crypto.createHash('sha256');
+        hashSum.update(rawdata);
+        const recipeHash = hashSum.digest('hex');
         const recipes = JSON.parse(rawdata);
-        if (recipes.length > (await this.prismaService.recipe.count())) {
+        if (
+            (await this.prismaService.recipe.count()) == 0 ||
+            (await this.prismaService.dataSchema.findUnique({ where: { id: 1 } }))?.recipeHash !== recipeHash
+        ) {
+            log('Creating recipes...');
+            await this.prismaService.dataSchema.upsert({
+                where: { id: 1 },
+                update: {
+                    recipeHash: recipeHash,
+                },
+                create: {
+                    id: 1,
+                    recipeHash: recipeHash,
+                },
+            });
+            await this.prismaService.recipe.deleteMany();
             for (let index = 0; index < recipes.length; index++) {
                 const recipe = recipes[index];
                 log(`Creating recipe ${index} of ${recipes.length}`);

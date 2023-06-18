@@ -9,6 +9,7 @@ export type APIRegistrationResponse = {
 export enum Role {
     user = 'user',
     admin = 'admin',
+    guest = 'guest',
 }
 
 export type APISearchResponse = {
@@ -32,6 +33,13 @@ export type Recipe = {
     preparingTime: number;
     steps: Array<Step>;
     totalTime: number;
+};
+
+export type IconMetaData = {
+    id: number;
+    src: string;
+    withTime: boolean;
+    text: string;
 };
 
 export type Ingredient = {

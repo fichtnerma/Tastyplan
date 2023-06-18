@@ -63,13 +63,12 @@ model Step {
 }
 
 model User {
-    id        String  @id @default(uuid())
-    userId    String  @unique
-    email     String? @unique
-    password  String?
-    role      String  @default("USER")
-    firstName String?
-    lastName  String?
+    id       String  @id @default(uuid())
+    userId   String  @unique
+    email    String? @unique
+    password String?
+    role     String  @default("USER")
+    state    String  @default("registered")
 
     createdAt    DateTime       @default(now())
     updatedAt    DateTime       @default(now()) @updatedAt
@@ -85,6 +84,12 @@ model Preferences {
     formOfDiet   String
     allergens    String[]
     foodDislikes Ingredient[]
+}
+
+model DataSchema {
+    id             Int     @id @default(1)
+    ingredientHash String?
+    recipeHash     String?
 }
 
 model Weekplan {
@@ -123,10 +128,4 @@ model ShoppingListEntry {
     ShoppingList   ShoppingList? @relation(fields: [shoppingListId], references: [id])
     shoppingListId Int?
     category       String?
-}
-
-enum Role {
-    ADMIN
-    USER
-    GUEST
 }

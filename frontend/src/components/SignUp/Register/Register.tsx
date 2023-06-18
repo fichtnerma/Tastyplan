@@ -28,8 +28,6 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
             password: password,
             email: mail,
             role: 'user',
-            firstName: 'Max',
-            lastName: 'Mustermann',
         };
 
         const response = await fetchWithAuth(

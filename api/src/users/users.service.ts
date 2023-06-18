@@ -1,3 +1,4 @@
+import { UserState } from 'src/types/types';
 import { CreateGuestDto, CreateUserDto, LoginUserDto, Role, UpdatePasswordDto } from './dto/create-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { compare, hash } from 'bcrypt';
@@ -30,6 +31,7 @@ export class UsersService {
                 data: {
                     ...userDto,
                     role: Role.USER,
+                    state: UserState.registration,
                     password: await hash(userDto.password, 10),
                 },
             });
@@ -52,6 +54,7 @@ export class UsersService {
             data: {
                 ...userDto,
                 role: Role.USER,
+                state: UserState.finished,
                 password: await hash(userDto.password, 10),
             },
         });

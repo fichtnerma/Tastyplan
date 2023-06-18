@@ -26,6 +26,7 @@ export interface IngredientMap {
     };
 }
 
+
 export interface CategorizedShoppingListMap {
     [key: string]: ShoppinglistItem[];
 }
@@ -35,4 +36,8 @@ interface ShoppinglistItem {
     unit: string;
     quantity: number;
     isChecked: boolean;
+
+export enum UserState {
+    finished = 'finished',
+    registration = 'registration',
 }

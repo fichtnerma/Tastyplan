@@ -9,9 +9,9 @@
         "build": "nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
         "start": "nest start",
-        "start:dev": "nest start --tsc --watch",
-        "migrate": "dotenv npx prisma migrate dev",
-        "start:watch": "npx prisma migrate deploy && nest build --webpack --webpackPath webpack-hmr.config.js --watch",
+        "start:dev": "NODE_ENV=development nest start --tsc --watch",
+        "start:watch": "npx prisma migrate dev && NODE_ENV=development nest build --webpack --webpackPath webpack-hmr.config.js --watch",
+        "migrate": "dotenv -e .env.development -- npx prisma migrate dev",
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
         "start:prod:migrate": "npx prisma migrate deploy && npm run start:prod",
@@ -53,7 +53,6 @@
         "pg": "^8.9.0",
         "reflect-metadata": "^0.1.13",
         "rxjs": "^7.2.0",
-        "string-similarity": "^4.0.4",
         "swagger-ui-express": "^4.6.2"
     },
     "devDependencies": {

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { signOut } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
-import styles from '../Header/Header.module.scss';
+import styles from './MainHeader.module.scss';
 
-export default function Header() {
+export default function MainHeader() {
     const [scrollPos, setScrollPos] = useState(0);
     const [headerClass, setHeaderClass] = useState('');
 
@@ -89,7 +90,7 @@ export default function Header() {
                                             </div>
                                         </div>
                                     </Link>
-                                    <Link href="/" className="">
+                                    <Link onClick={async () => await signOut()} href="/" className="">
                                         <div
                                             className={`flex gap-2 items-center pb-5 pl-5 pt-3 user dropdown ${styles.userDropdown}`}
                                         >
@@ -158,7 +159,6 @@ function getElement(activeClass: string, settingsClass: string) {
     //     element?.classList.add(userClass);
     // }
     else {
-        console.log('Header: No Path found');
         return null;
     }
 }
