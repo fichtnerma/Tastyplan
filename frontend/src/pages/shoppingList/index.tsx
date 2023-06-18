@@ -18,21 +18,12 @@ function ShoppingListPage() {
     }, [data, error]);
 
     const sendIngredient = async (ingredient: CustomSelectionInput, category: string) => {
-        // const foundElement = data?.find((el) => el.ingredientId + '' === ingredient.id);
-        // if (!foundElement) return;
-
-        console.log(category);
-
         if (!data) return;
 
         const foundElement = data[category].find((el) => el.ingredientId + '' === ingredient.id);
 
         if (!foundElement) return;
 
-        console.log('id', foundElement.id);
-        console.log('ingredientId', foundElement.ingredientId);
-
-        console.log(foundElement.id);
         const dataToSend = {
             isChecked: ingredient.checked,
         };
@@ -100,7 +91,7 @@ function ShoppingListPage() {
         let foundIngredient: CustomSelectionInput | undefined = undefined;
         let category = '';
 
-        for (const [key, ingredients] of Object.entries(neededIngredients)) {
+        for (const [key, ingredients] of Object.entries(presentIngredients)) {
             filteredPresentIngredients[key] = ingredients.filter((ingredient) => ingredient.id !== id);
 
             if (!foundIngredient) {
