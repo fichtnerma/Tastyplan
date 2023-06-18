@@ -11,7 +11,7 @@
         "start": "nest start",
         "start:dev": "NODE_ENV=development nest start --tsc --watch",
         "start:watch": "npx prisma migrate dev && NODE_ENV=development nest build --webpack --webpackPath webpack-hmr.config.js --watch",
-        "migrate": "dotenv -e .env.development -- npx prisma migrate dev",
+        "migrate": "npx prisma migrate dev",
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
         "start:prod:migrate": "npx prisma migrate deploy && npm run start:prod",

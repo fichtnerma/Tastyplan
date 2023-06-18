@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "containers:dev": "docker compose up --build -d",
-    "dev": "docker compose up -d",
+    "containers:dev": "docker-compose up --build -d",
+    "dev": "docker-compose up --build -d",
     "setup:dev": "npm run containers:dev",
     "test:api": "cd api && jest",
     "cypress:open": "cypress open",
