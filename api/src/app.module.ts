@@ -13,6 +13,7 @@ import { AppController } from './app.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module({
     imports: [
@@ -30,6 +31,7 @@ import { Module } from '@nestjs/common';
             serveRoot: '/images',
         }),
         ShoppingListModule,
+        FavoritesModule,
     ],
     controllers: [AppController, PreferencesController],
     providers: [AppService],
