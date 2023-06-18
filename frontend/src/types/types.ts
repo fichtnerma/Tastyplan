@@ -75,6 +75,7 @@ export type ShoppingListItem = {
     id: number;
     ingredientId: number;
     ingredientName: string;
+    category?: string;
     unit: string;
     quantity: number;
     isChecked: boolean;

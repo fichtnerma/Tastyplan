@@ -14,7 +14,6 @@ function ShoppingListPage() {
     useEffect(() => {
         if (data) {
             filterIngredients(data);
-            console.log(data);
         }
     }, [data, error]);
 
@@ -48,8 +47,20 @@ function ShoppingListPage() {
         const selectionInputGroupsPresent: CustomSelectionInputGroups = {};
 
         for (const [key, ingredients] of Object.entries(categorizedIngredients)) {
-            neededIngredients[key] = ingredients.filter((ingredient) => !ingredient.isChecked);
-            presentIngredients[key] = ingredients.filter((ingredient) => ingredient.isChecked);
+            neededIngredients[key] = ingredients.filter((ingredient) => {
+                if (!ingredient.isChecked) {
+                    ingredient.category = key;
+                    return true;
+                }
+            });
+
+            presentIngredients[key] = ingredients.filter((ingredient) => {
+                if (ingredient.isChecked) {
+                    ingredient.category = key;
+                    return true;
+                }
+            });
+
             selectionInputGroupsNeeded[key] = mapShoppingListToSelection(neededIngredients[key]);
             selectionInputGroupsPresent[key] = mapShoppingListToSelection(presentIngredients[key]);
         }
@@ -125,7 +136,7 @@ function ShoppingListPage() {
                     {neededIngredients &&
                         Object.entries(neededIngredients).map((key) => {
                             return (
-                                <div key={key[0]} className="mb-6 last:mb-0 lg:mb-12 lg:last:mb-0">
+                                <div key={key[0]} className="mb-6 last:mb-0 lg:mb-20 lg:last:mb-0">
                                     {key[1].length > 0 && (
                                         <>
                                             <h3>{key[0]}</h3>
@@ -146,7 +157,7 @@ function ShoppingListPage() {
                     {presentIngredients &&
                         Object.entries(presentIngredients).map((key) => {
                             return (
-                                <div key={key[0]} className="mb-6 last:mb-0 lg:mb-12 lg:last:mb-0">
+                                <div key={key[0]} className="mb-6 last:mb-0 lg:mb-20 lg:last:mb-0">
                                     {key[1].length > 0 && (
                                         <>
                                             <h3>{key[0]}</h3>
