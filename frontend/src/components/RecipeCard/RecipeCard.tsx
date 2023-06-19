@@ -22,11 +22,19 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
         return setFavorit(true);
     };
 
+    const totalTime = recipe.cookingTime
+        ? recipe.preparingTime
+            ? recipe.cookingTime + recipe.preparingTime
+            : recipe.cookingTime
+        : recipe.preparingTime
+        ? recipe.preparingTime
+        : 0;
+
     return (
         <>
             <div className={styles.wrapperContainer}>
-                <div
-                    className={`justify-end flex absolute p-2 ${styles.heartIcon}`}
+                {/* <div
+                    className={`justify-end flex p-2 ${styles.heartIcon}`}
                     style={{
                         color: highlighted ? 'var(--white)' : 'var(--green-dark)',
                         fill: favorit ? (highlighted ? 'var(--white)' : 'var(--green-dark)') : 'none',
@@ -34,7 +42,7 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                     onClick={() => isFavorit()}
                 >
                     <Icon size={30} icon="heart"></Icon>
-                </div>
+                </div> */}
                 <Link href={`/recipe/${recipe.id}`}>
                     <div className={styles.foodBox}>
                         <Image
@@ -51,15 +59,17 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                         }
                     >
                         <div className={className}>
-                            <div className="h-16 absolute bottom-0">
-                                <p
-                                    className="text-2xl w-[210px] absolute bottom-0 recipeName"
-                                    style={{
-                                        color: highlighted ? 'var(--white)' : 'var(--black)',
-                                    }}
-                                >
-                                    {recipe.name}
-                                </p>
+                            <div className="">
+                                <div className="h-16 absolute bottom-0 col-span-4">
+                                    <p
+                                        className="text-l lg:text-2xl w-[140px] lg:w-[210px] absolute bottom-0 recipeName"
+                                        style={{
+                                            color: highlighted ? 'var(--white)' : 'var(--black)',
+                                        }}
+                                    >
+                                        {recipe.name}
+                                    </p>
+                                </div>
                             </div>
                             <div
                                 className={styles.discriptionHover}
@@ -67,11 +77,24 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                                     color: highlighted ? 'var(--white)' : 'var(--black)',
                                 }}
                             >
+                                {totalTime !== (null || 0) && (
+                                    <div className="flex flex-row gap-x-4 mt-4">
+                                        <Icon size={25} icon="totaltime"></Icon>
+                                        <p
+                                            className="text-lg my-auto text-center"
+                                            style={{
+                                                color: highlighted ? 'var(--white)' : 'var(--black)',
+                                            }}
+                                        >
+                                            {totalTime} min
+                                        </p>
+                                    </div>
+                                )}
                                 {recipe.preparingTime !== (null || 0) && (
                                     <div className="flex flex-row gap-x-4 mt-4">
-                                        <Icon size={40} icon="totaltime"></Icon>
+                                        <Icon size={25} icon="preparingTime"></Icon>
                                         <p
-                                            className="text-lg mt-1 text-center"
+                                            className="text-lg my-auto text-center"
                                             style={{
                                                 color: highlighted ? 'var(--white)' : 'var(--black)',
                                             }}
@@ -82,9 +105,9 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                                 )}
                                 {recipe.cookingTime !== (null || 0) && (
                                     <div className="flex flex-row gap-x-4 mt-4">
-                                        <Icon size={40} icon="cookingTime"></Icon>
+                                        <Icon size={25} icon="cookingTime"></Icon>
                                         <p
-                                            className="text-lg text-center mt-2"
+                                            className="text-lg text-center my-auto"
                                             style={{
                                                 color: highlighted ? 'var(--white)' : 'var(--black)',
                                             }}
@@ -95,9 +118,9 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                                 )}
                                 {recipe.formOfDiet !== null && (
                                     <div className="flex flex-row gap-x-4 mt-4">
-                                        <Icon size={40} icon={getFormOfDietIcon(recipe?.formOfDiet)}></Icon>
+                                        <Icon size={25} icon={getFormOfDietIcon(recipe?.formOfDiet)}></Icon>
                                         <p
-                                            className="text-lg text-center mt-1"
+                                            className="text-lg text-center my-auto"
                                             style={{
                                                 color: highlighted ? 'var(--white)' : 'var(--black)',
                                             }}
@@ -118,6 +141,9 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
 function getNumberOfLines(recipe: Recipe) {
     const pTags = document.querySelectorAll('.recipeName');
     const numLinesArray: { name: string | undefined; numLines: number }[] = [];
+
+    console.log('hallo du witz');
+
     if (pTags) {
         pTags.forEach((pTag) => {
             const lineHeight = parseInt(window.getComputedStyle(pTag).getPropertyValue('line-height'));
@@ -126,21 +152,26 @@ function getNumberOfLines(recipe: Recipe) {
             numLinesArray.push({ name: recipeName, numLines: numLines });
         });
     }
-    const matchingEntry = numLinesArray.find((entry) => entry.name === recipe.name);
-    const numLines = matchingEntry ? matchingEntry.numLines : null;
+
     let className = styles.discriptionFood;
+    const matchingEntry = numLinesArray.filter((entry) => entry.name === recipe.name);
+    matchingEntry.forEach((entry) => {
+        if (entry.numLines == 0) {
+            return className;
+        }
+        const numLines = entry.numLines;
 
-    if (numLines) {
-        className =
-            numLines >= 4
-                ? `${styles.discriptionFood} ${styles.fourLinesName}`
-                : numLines == 3
-                ? `${styles.discriptionFood} ${styles.threeLinesName}`
-                : numLines == 2
-                ? `${styles.discriptionFood} ${styles.twoLinesName}`
-                : styles.discriptionFood;
-    }
-
+        if (numLines) {
+            className =
+                numLines >= 4
+                    ? `${styles.discriptionFood} ${styles.fourLinesName}`
+                    : numLines == 3
+                    ? `${styles.discriptionFood} ${styles.threeLinesName}`
+                    : numLines == 2
+                    ? `${styles.discriptionFood} ${styles.twoLinesName}`
+                    : styles.discriptionFood;
+        }
+    });
     return className;
 }
 

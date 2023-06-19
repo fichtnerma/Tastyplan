@@ -35,7 +35,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
 
     return (
         <>
-            {includesMainHeader() && <Header />}
+            {/* {includesMainHeader() && <Header />} */}
             {includesLiteHeader() && <SecondHeader waveForm={getWaveForm()} />}
             <main
                 className="overflow-x-hidden"

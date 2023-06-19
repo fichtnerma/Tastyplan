@@ -1,52 +1,61 @@
 @import '@styles/variables.scss';
 
 .wrapperContainer {
-    &:hover .foodImg {
-        opacity: 0.1;
-    }
+    @screen lg {
+        &:hover .foodImg {
+            opacity: 0.1;
+        }
 
-    &:hover .discriptionHover {
-        opacity: 1;
-        cursor: pointer;
-    }
+        &:hover .discriptionHover {
+            opacity: 1;
+            cursor: pointer;
+        }
 
-    &:hover .heartIcon {
-        opacity: 1;
-        cursor: pointer;
-        top: 125px;
-    }
+        &:hover .heartIcon {
+            opacity: 1;
+            cursor: pointer;
+            top: 140px;
+        }
 
-    &:hover .discriptionFood {
-        top: 40px;
-    }
+        &:hover .discriptionFood {
+            top: 20px;
+        }
 
-    &:hover .twoLinesName {
-        top: 70px;
-    }
+        &:hover .twoLinesName {
+            top: 50px;
+        }
 
-    &:hover .threeLinesName {
-        top: 100px;
-    }
+        &:hover .threeLinesName {
+            top: 80px;
+        }
 
-    &:hover .fourLinesName {
-        top: 130px;
-    }
+        &:hover .fourLinesName {
+            top: 110px;
+        }
 
-    &:hover .weekplanBoxToday {
-        background-color: var(--green-dark);
+        &:hover .weekplanBoxToday {
+            background-color: var(--green-dark);
+        }
     }
 }
 
 .weekplanBox {
     background: linear-gradient(rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
-    width: 250px;
-    height: 350px;
+    width: 160px;
+    height: 225px;
     border-radius: $boder-radius;
     margin-inline: auto;
     margin-top: 10px;
     z-index: 5px;
     position: relative;
     overflow: hidden;
+    margin-left: 0;
+    margin-right: 0;
+
+    @screen lg {
+        width: 250px;
+        height: 350px;
+    }
 }
 
 .weekplanBoxToday {
@@ -55,10 +64,15 @@
 }
 
 .foodBox {
-    width: 250px;
-    height: 350px;
+    width: 160px;
+    height: 225px;
     border-radius: $boder-radius;
     position: absolute;
+
+    @screen lg {
+        width: 250px;
+        height: 350px;
+    }
 }
 
 .foodImg {
