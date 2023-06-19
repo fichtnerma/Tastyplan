@@ -10,6 +10,7 @@ module.exports = {
         };
         return config;
     },
+    output: 'standalone',
     images: {
         remotePatterns: [
             {
