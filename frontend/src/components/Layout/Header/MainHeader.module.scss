@@ -1,12 +1,18 @@
-@import "@styles/variables.scss";
+@import '@styles/variables.scss';
 
 .headerContainer {
     width: 100%;
-    padding: 3.5rem;
-    padding-top: 1.5rem;
+    padding: 0.5rem;
     padding-bottom: 0;
     position: fixed;
     z-index: 2;
+    bottom: 10px;
+
+    @screen md {
+        padding: 3.5rem;
+        padding-top: 1.5rem;
+        bottom: auto;
+    }
 
     p {
         font-size: 15px;
@@ -16,20 +22,22 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
-
     .container {
         transition: box-shadow 0.3s ease-in-out;
         margin-inline: auto;
         display: flex;
         justify-content: space-between;
         background-color: var(--green-light);
-        height: 75px;
+        height: 50px;
         border-radius: $border-radius-full;
+
+        @screen md {
+            height: 75px;
+        }
 
         .weekplan,
         .shoppingList,
         .cookbook {
-
             &:hover {
                 color: var(--green-semi);
                 p {
@@ -39,25 +47,23 @@
         }
     }
     .userIcon {
-
-            &:hover {
-                color: var(--green-semi);
-            }
-            &:hover .dropdown {
-                display: block;
-                color: var(--black)
-            }
+        &:hover {
+            color: var(--green-semi);
         }
+        &:hover .dropdown {
+            display: block;
+            color: var(--black);
+        }
+    }
 
     .dropdown {
         display: none;
-        
+
         &:hover {
             display: block;
         }
 
         .settingsDropdown {
-
             &:hover {
                 background-color: var(--green-semi);
                 border-radius: 1rem 1rem 0 0;
@@ -66,11 +72,9 @@
                     color: var(--white);
                 }
             }
-
         }
 
         .userDropdown {
-
             &:hover {
                 background-color: var(--green-semi);
                 border-radius: 0 0 1rem 1rem;
@@ -79,7 +83,6 @@
                     color: var(--white);
                 }
             }
-
         }
     }
 
@@ -88,7 +91,6 @@
         p {
             color: var(--green-dark);
         }
-
     }
 
     .settingsActive {
@@ -119,92 +121,85 @@
         // display: block;
         width: 100%;
     }
-
 }
-    
 
+// .navIcon {
+//     width: 60px;
+//     height: 45px;
+//     position: relative;
+//     z-index: 9999;
+//     margin: 50px auto;
+//     -webkit-transform: rotate(0deg);
+//     -moz-transform: rotate(0deg);
+//     -o-transform: rotate(0deg);
+//     transform: rotate(0deg);
+//     -webkit-transition: 0.5s ease-in-out;
+//     -moz-transition: 0.5s ease-in-out;
+//     -o-transition: 0.5s ease-in-out;
+//     transition: 0.5s ease-in-out;
+//     cursor: pointer;
 
+//     span {
+//         display: block;
+//         position: absolute;
+//         height: 9px;
+//         width: 100%;
+//         background: var(--gray-light);
+//         border-radius: 9px;
+//         opacity: 1;
+//         left: 0;
+//         -webkit-transform: rotate(0deg);
+//         -moz-transform: rotate(0deg);
+//         -o-transform: rotate(0deg);
+//         transform: rotate(0deg);
+//         -webkit-transition: 0.25s ease-in-out;
+//         -moz-transition: 0.25s ease-in-out;
+//         -o-transition: 0.25s ease-in-out;
+//         transition: 0.25s ease-in-out;
+//     }
+// }
 
+// .navIcon {
+//     span {
+//         &:nth-child(1) {
+//             top: 0px;
+//             -webkit-transform-origin: left center;
+//             -moz-transform-origin: left center;
+//             -o-transform-origin: left center;
+//             transform-origin: left center;
+//         }
 
+//         &:nth-child(2) {
+//             top: 18px;
+//         }
 
-    // .navIcon {
-    //     width: 60px;
-    //     height: 45px;
-    //     position: relative;
-    //     z-index: 9999;
-    //     margin: 50px auto;
-    //     -webkit-transform: rotate(0deg);
-    //     -moz-transform: rotate(0deg);
-    //     -o-transform: rotate(0deg);
-    //     transform: rotate(0deg);
-    //     -webkit-transition: 0.5s ease-in-out;
-    //     -moz-transition: 0.5s ease-in-out;
-    //     -o-transition: 0.5s ease-in-out;
-    //     transition: 0.5s ease-in-out;
-    //     cursor: pointer;
-    
-    //     span {
-    //         display: block;
-    //         position: absolute;
-    //         height: 9px;
-    //         width: 100%;
-    //         background: var(--gray-light);
-    //         border-radius: 9px;
-    //         opacity: 1;
-    //         left: 0;
-    //         -webkit-transform: rotate(0deg);
-    //         -moz-transform: rotate(0deg);
-    //         -o-transform: rotate(0deg);
-    //         transform: rotate(0deg);
-    //         -webkit-transition: 0.25s ease-in-out;
-    //         -moz-transition: 0.25s ease-in-out;
-    //         -o-transition: 0.25s ease-in-out;
-    //         transition: 0.25s ease-in-out;
-    //     }
-    // }
-    
-    // .navIcon {
-    //     span {
-    //         &:nth-child(1) {
-    //             top: 0px;
-    //             -webkit-transform-origin: left center;
-    //             -moz-transform-origin: left center;
-    //             -o-transform-origin: left center;
-    //             transform-origin: left center;
-    //         }
-    
-    //         &:nth-child(2) {
-    //             top: 18px;
-    //         }
-    
-    //         &:nth-child(3) {
-    //             top: 36px;
-    //             -webkit-transform-origin: left center;
-    //             -moz-transform-origin: left center;
-    //             -o-transform-origin: left center;
-    //             transform-origin: left center;
-    //         }
-    //     }
-    // }
-    
-    // .open {
-    //     span {
-    //         &:nth-child(1) {
-    //             transform: rotate(45deg);
-    //             top: -3px;
-    //             left: 8px;
-    //         }
-    
-    //         &:nth-child(2) {
-    //             width: 0%;
-    //             opacity: 0;
-    //         }
-    
-    //         &:nth-child(3) {
-    //             transform: rotate(-45deg);
-    //             top: 39px;
-    //             left: 8px;
-    //         }
-    //     }
-    // }
+//         &:nth-child(3) {
+//             top: 36px;
+//             -webkit-transform-origin: left center;
+//             -moz-transform-origin: left center;
+//             -o-transform-origin: left center;
+//             transform-origin: left center;
+//         }
+//     }
+// }
 
+// .open {
+//     span {
+//         &:nth-child(1) {
+//             transform: rotate(45deg);
+//             top: -3px;
+//             left: 8px;
+//         }
+
+//         &:nth-child(2) {
+//             width: 0%;
+//             opacity: 0;
+//         }
+
+//         &:nth-child(3) {
+//             transform: rotate(-45deg);
+//             top: 39px;
+//             left: 8px;
+//         }
+//     }
+// }

@@ -36,13 +36,13 @@ export default function MainHeader() {
         <>
             <div className={`${styles.headerContainer}`}>
                 <div className={`${styles.container} ${headerClass}`}>
-                    <Link href="/weekOverview">
+                    <Link href="/weekOverview" className="hidden md:block">
                         <div className="ml-6 mt-3">
                             <Image src={'/logo.svg'} alt="Calendar Img" width={90} height={90} priority />
                         </div>
                     </Link>
 
-                    <div className="flex gap-10 mr-8 mt-6">
+                    <div className="flex gap-14 md:gap-10 md:mr-8 md:mt-6 m-auto">
                         <Link
                             href="/weekOverview"
                             onClick={changeActiveTab}
@@ -50,35 +50,42 @@ export default function MainHeader() {
                         >
                             <div className={`flex gap-2 items-center ${styles.weekplan}`}>
                                 <Icon size={25} icon="calender"></Icon>
-                                <p>Weekplan</p>
+                                <p className="hidden md:block">Weekplan</p>
                             </div>
                             <div
-                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line ${styles.lineHide} ${styles.lineShow}`}
+                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${styles.lineHide} ${styles.lineShow}`}
                             ></div>
                         </Link>
                         <Link href="/shoppingList" onClick={changeActiveTab} className={`link shoppingList`}>
                             <div className={`flex gap-2 items-center ${styles.shoppingList}`}>
                                 <Icon size={25} icon="shoppinglist"></Icon>
-                                <p>Shopping List</p>
+                                <p className="hidden md:block">Shopping List</p>
                             </div>
                             <div
-                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line ${styles.lineHide}`}
+                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${styles.lineHide}`}
                             ></div>
                         </Link>
                         <Link href="/cookbook" onClick={changeActiveTab} className={`link cookbook`}>
                             <div className={`flex gap-2 items-center fill-none ${styles.cookbook}`}>
                                 <Icon size={25} icon="heart"></Icon>
-                                <p>Cookbook</p>
+                                <p className="hidden md:block">Cookbook</p>
                             </div>
                             <div
-                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line ${styles.lineHide}`}
+                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${styles.lineHide}`}
                             ></div>
                         </Link>
                         <div className={styles.userIcon}>
-                            <div className="flex gap-2 items-center">
+                            <div className="block md:hidden">
+                                <Link href="/settings" className="">
+                                    <div className="flex gap-2 items-center">
+                                        <Icon size={25} icon="user"></Icon>
+                                    </div>
+                                </Link>
+                            </div>
+                            <div className="hidden md:flex gap-2 items-center ">
                                 <Icon size={25} icon="user"></Icon>
                             </div>
-                            <div className={`w-40 pt-8 right-14 absolute ${styles.dropdown} `}>
+                            <div className={`w-40 pt-8 right-14 absolute hidden md:block ${styles.dropdown} `}>
                                 <div className={`rounded-2xl bg-green-custom1 ${headerClass}`}>
                                     <Link href="/settings" className="">
                                         <div
