@@ -33,7 +33,7 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
     return (
         <>
             <div className={styles.wrapperContainer}>
-                {/* <div
+                <div
                     className={`justify-end flex p-2 ${styles.heartIcon}`}
                     style={{
                         color: highlighted ? 'var(--white)' : 'var(--green-dark)',
@@ -42,7 +42,7 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                     onClick={() => isFavorit()}
                 >
                     <Icon size={30} icon="heart"></Icon>
-                </div> */}
+                </div>
                 <Link href={`/recipe/${recipe.id}`}>
                     <div className={styles.foodBox}>
                         <Image
@@ -60,9 +60,9 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                     >
                         <div className={className}>
                             <div className="">
-                                <div className="h-16 absolute bottom-0 col-span-4">
+                                <div className="h-16  w-full absolute bottom-0 col-span-4">
                                     <p
-                                        className="text-l lg:text-2xl w-[140px] lg:w-[210px] absolute bottom-0 recipeName"
+                                        className="text-l lg:text-2xl w-4/5 sm:w-[140px] lg:w-[210px] absolute bottom-0 recipeName"
                                         style={{
                                             color: highlighted ? 'var(--white)' : 'var(--black)',
                                         }}
