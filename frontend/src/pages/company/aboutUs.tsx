@@ -2,7 +2,7 @@ import React from 'react';
 
 function aboutUs() {
     return (
-        <div>
+        <div className="p-6 lg:p-14">
             <h1>About us</h1>
 
             <div className="w-2/3">

@@ -3,7 +3,7 @@ import styles from '../../styles/Legal.module.scss';
 
 function privacy() {
     return (
-        <div className={styles.privacy}>
+        <div className={`p-6 lg:p-14 ${styles.privacy}`}>
             <h1>Privacy Policy</h1>
             <p className="italic">Last updated on June 04, 2023</p>
 
