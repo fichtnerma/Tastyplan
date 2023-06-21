@@ -78,7 +78,7 @@ export default function WeekOverview() {
             <>
                 <div className="sm:mb-5">
                     <h3
-                        className="h2 !mb-0"
+                        className="h2 !mb-0 !leading-none"
                         style={{
                             color: today == new Date(day.date).getDay() ? 'var(--green-dark)' : 'var(--black)',
                         }}
@@ -110,7 +110,7 @@ export default function WeekOverview() {
     return (
         <>
             {data && !error ? (
-                <div className={`w-full p-6 lg:p-14 ${styles.container}`}>
+                <div className={`w-full p-6 md:p-14 md:pt-36 ${styles.container}`}>
                     <div className="sm:flex sm:justify-between">
                         <h1 className="">{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Weekplan</h1>
                         <div className="mt-6">
@@ -133,7 +133,7 @@ export default function WeekOverview() {
                             ))}
                         </div>
                         {/* Destkop */}
-                        <h2 className="hidden sm:block">Lunch</h2>
+                        <h2 className="h1 hidden sm:block">Lunch</h2>
                         <Swiper
                             slidesPerView={1}
                             spaceBetween={10}

@@ -2,10 +2,10 @@ import React from 'react';
 
 function aboutUs() {
     return (
-        <div>
+        <div className="p-6 md:p-14 md:pt-36">
             <h1>About us</h1>
 
-            <div className="w-2/3">
+            <div className="lg:w-2/3">
                 <p className="mb-5">
                     Welcome to Tastyplan! We are a dedicated team of five students pursuing our Master's degree in
                     Multimedia Technology at the University of Salzburg. As part of our Master's project, we embarked on

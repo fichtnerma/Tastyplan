@@ -30,7 +30,7 @@ function SecondHeader({ waveForm }: SecondHeaderProps) {
                     </svg>
                 </div>
             ) : (
-                <div className="h-[10vh]">
+                <div className="h-[10vh] md:hidden">
                     <Image
                         src="/logo.svg"
                         height={200}

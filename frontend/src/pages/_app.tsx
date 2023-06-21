@@ -1,6 +1,7 @@
 import '@styles/globals.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
+import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { Inter, Bebas_Neue, Zeyada } from '@next/font/google';
@@ -12,12 +13,17 @@ const zeyada = Zeyada({ subsets: ['latin'], style: 'normal', weight: '400', vari
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <SessionProvider session={pageProps.session}>
-            <div className={`${inter.variable} ${bebasNeue.variable} ${zeyada.variable}`}>
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </div>
-        </SessionProvider>
+        <>
+            <Head>
+                <title>Tastyplan - Personalized Meal Planning</title>
+            </Head>
+            <SessionProvider session={pageProps.session}>
+                <div className={`${inter.variable} ${bebasNeue.variable} ${zeyada.variable}`}>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </div>
+            </SessionProvider>
+        </>
     );
 }

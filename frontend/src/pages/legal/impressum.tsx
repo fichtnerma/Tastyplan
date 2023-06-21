@@ -2,7 +2,7 @@ import React from 'react';
 
 function impressum() {
     return (
-        <div className="w-3/6">
+        <div className="lg:w-3/6 p-6 md:p-14 md:pt-36">
             <h1>Imprint</h1>
 
             <p className="italic mb-10">
