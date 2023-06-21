@@ -1,8 +1,6 @@
 @import '@styles/variables.scss';
 
 .questions {
-    max-width: 80%;
-    padding: 3.5rem;
     ul {
         list-style: circle;
     }
@@ -13,7 +11,7 @@
     }
 
     li {
-        font-size: 20px;
+        font-size: clamp(1rem, 2vw, 1.5rem);
         margin-left: 25px;
         font-family: var(--font-inter);
     }

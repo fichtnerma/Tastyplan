@@ -3,7 +3,7 @@ import styles from '../../styles/Legal.module.scss';
 
 function privacy() {
     return (
-        <div className={`p-6 lg:p-14 ${styles.privacy}`}>
+        <div className={`p-6 md:p-14 md:pt-36 lg:w-4/5 ${styles.privacy}`}>
             <h1>Privacy Policy</h1>
             <p className="italic">Last updated on June 04, 2023</p>
 
@@ -11,7 +11,7 @@ function privacy() {
                 Thank you for choosing to be part of our community at tastyplan.de. Tastyplan is a project by Markus
                 Fichtner, Hannes Eckelt, Carolin Doht, Manuel Proß and Tabea Schaeffer. All rights are equally split
                 between these five creators. When the website says "tastyplan", "we at tastyplan", "us" or "our", it is
-                meant that statements are made on behalf of all four co-creators.
+                meant that statements are made on behalf of all five co-creators.
             </p>
 
             <p>

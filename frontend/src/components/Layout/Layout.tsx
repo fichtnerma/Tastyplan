@@ -25,12 +25,24 @@ export default function Layout({ children }: React.PropsWithChildren) {
             asPath.includes('/intolerances') ||
             asPath.includes('/weekOverview') ||
             asPath.includes('/shoppingList') ||
-            asPath.includes('/recipe')
+            asPath.includes('/recipe') ||
+            asPath.includes('/legal') ||
+            asPath.includes('/help') ||
+            asPath.includes('/company') ||
+            asPath.includes('/settings')
         );
     };
 
     const getWaveForm = () => {
-        if (asPath.includes('/weekOverview') || asPath.includes('/recipe') || asPath.includes('/shoppingList'))
+        if (
+            asPath.includes('/weekOverview') ||
+            asPath.includes('/recipe') ||
+            asPath.includes('/shoppingList') ||
+            asPath.includes('/legal') ||
+            asPath.includes('/help') ||
+            asPath.includes('/company') ||
+            asPath.includes('/settings')
+        )
             return 'lite';
         else return 'strong';
     };
