@@ -1,10 +1,17 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Icon from '@components/Icon/Icon';
 import styles from '../../styles/Help.module.scss';
 
 function questions() {
+    const router = useRouter();
+
     return (
         <div className={`p-6 md:p-14 md:pt-36 lg:w-4/5 ${styles.questions}`}>
+            <button type="button" onClick={() => router.back()}>
+                <Icon size={80} icon="arrowBack"></Icon>
+            </button>
             <h1>Questions & Answers</h1>
             <div className="mb-10">
                 <h3>How does Tastyplan help in saving time and money?</h3>
