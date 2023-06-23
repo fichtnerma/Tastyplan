@@ -47,7 +47,7 @@ function Steps() {
                 height: 800,
             },
             svg: {
-                class: 'absolute top-[36rem] right-[36rem] z-10',
+                class: 'absolute top-[58rem] right-[36rem] z-10',
                 src: '/Curves/curve2.svg',
                 width: 814,
                 height: 291,
@@ -70,7 +70,7 @@ function Steps() {
                 height: 800,
             },
             svg: {
-                class: 'absolute top-[26rem] right-[-25rem] z-10',
+                class: 'absolute top-[43rem] right-[-25rem]',
                 src: '/Curves/curve3.svg',
                 width: 814,
                 height: 291,
