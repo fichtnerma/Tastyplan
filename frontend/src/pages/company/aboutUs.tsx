@@ -2,10 +2,9 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Icon from '@components/Icon/Icon';
-import Icon from '@components/Icon/Icon';
 import insta from '../../../public/Icons/instagram_icon.png';
 
-function aboutUs() {
+function AboutUs() {
     const router = useRouter();
     return (
         <div className="p-6 md:p-14 md:pt-36">
@@ -68,4 +67,4 @@ function aboutUs() {
     );
 }
 
-export default aboutUs;
+export default AboutUs;

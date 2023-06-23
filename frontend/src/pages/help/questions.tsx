@@ -6,7 +6,7 @@ import Icon from '@components/Icon/Icon';
 import styles from '../../styles/Help.module.scss';
 import insta from '../../../public/Icons/instagram_icon.png';
 
-function questions() {
+function Questions() {
     const router = useRouter();
 
     return (
@@ -81,4 +81,4 @@ function questions() {
     );
 }
 
-export default questions;
+export default Questions;

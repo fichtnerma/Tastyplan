@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Icon from '@components/Icon/Icon';
 import styles from '../../styles/Legal.module.scss';
 
-function privacy() {
+function Privacy() {
     const router = useRouter();
     return (
         <div className={`p-6 md:p-14 md:pt-36 lg:w-4/5 ${styles.privacy}`}>
@@ -362,4 +362,4 @@ function privacy() {
     );
 }
 
-export default privacy;
+export default Privacy;
