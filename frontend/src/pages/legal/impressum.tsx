@@ -1,8 +1,14 @@
 import React from 'react';
+import { useRouter } from 'next/router';
+import Icon from '@components/Icon/Icon';
 
-function impressum() {
+function Impressum() {
+    const router = useRouter();
     return (
         <div className="lg:w-3/6 p-6 md:p-14 md:pt-36">
+            <button type="button" onClick={() => router.back()}>
+                <Icon size={80} icon="arrowBack"></Icon>
+            </button>
             <h1>Imprint</h1>
 
             <p className="italic mb-10">
@@ -33,4 +39,4 @@ function impressum() {
     );
 }
 
-export default impressum;
+export default Impressum;

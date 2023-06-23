@@ -23,7 +23,7 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
         {
             id: 1,
             image: {
-                class: 'absolute top-2/4 left-[10%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96 ',
+                class: 'absolute top-2/4 left-[10%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96 hover:scale-110 transition-all',
                 src: '/Landingpage/FoodItems/Brokkoli.svg',
                 width: 300,
                 height: 300,
@@ -32,7 +32,7 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
         {
             id: 1,
             image: {
-                class: 'absolute top-[-2%] left-[40%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96',
+                class: 'absolute top-[-2%] left-[40%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96 hover:scale-110 transition-all',
                 src: '/Landingpage/FoodItems/Karotte.svg',
                 width: 500,
                 height: 500,
@@ -41,7 +41,7 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
         {
             id: 1,
             image: {
-                class: 'absolute top-[40%] right-[-12%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96',
+                class: 'absolute top-[40%] right-[-12%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96 hover:scale-110 transition-all',
                 src: '/Landingpage/FoodItems/Fleisch.svg',
                 width: 300,
                 height: 300,
@@ -56,7 +56,7 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
                 </div>
                 <div className="col-start-5 flex justify-end">
                     <Link href="/authentication/login">
-                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full hover:bg-green-custome3">
+                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full hover:bg-green-custom3">
                             <div className="h-fit pt-[20%] invert">
                                 <Icon size={30} icon="user"></Icon>
                             </div>

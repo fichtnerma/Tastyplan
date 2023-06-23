@@ -1,6 +1,6 @@
 import React from 'react';
 
-function conditions() {
+function Conditions() {
     return (
         <div>
             <h1>Conditions</h1>
@@ -9,4 +9,4 @@ function conditions() {
     );
 }
 
-export default conditions;
+export default Conditions;
