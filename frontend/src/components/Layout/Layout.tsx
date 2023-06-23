@@ -1,11 +1,15 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 import Header from '@components/Layout/Header/MainHeader';
 import Footer from '@components/Footer/Footer';
 import SecondHeader from './Header/SecondHeader/SecondHeader';
 
 export default function Layout({ children }: React.PropsWithChildren) {
     const { asPath } = useRouter();
+    const { data: session } = useSession();
+
+    console.log(session);
 
     const includesMainHeader = () => {
         return (
@@ -13,7 +17,8 @@ export default function Layout({ children }: React.PropsWithChildren) {
             !asPath.includes('/authentication') &&
             !asPath.includes('/preferences') &&
             !asPath.includes('/setup') &&
-            !asPath.includes('/intolerances')
+            !asPath.includes('/intolerances') &&
+            session !== null
         );
     };
 

@@ -1,10 +1,16 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Icon from '@components/Icon/Icon';
 import insta from '../../../public/Icons/instagram_icon.png';
 
 function aboutUs() {
+    const router = useRouter();
     return (
         <div className="p-6 md:p-14 md:pt-36">
+            <button type="button" onClick={() => router.back()}>
+                <Icon size={80} icon="arrowBack"></Icon>
+            </button>
             <h1>About us</h1>
 
             <div className="lg:w-2/3">
