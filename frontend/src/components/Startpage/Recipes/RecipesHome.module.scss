@@ -29,7 +29,7 @@
         grid-area: 1 / 2 / 4 / 5;
         width: 200px;
         height: 200px;
-        background-image: url('/Landingpage/Recipes/erbsensuppe.svg');
+        background-image: url('/Landingpage/Recipes/erbsensuppe.png');
         background-size: cover;
         border-radius: 50%;
         justify-content: center;
@@ -80,22 +80,22 @@
     .topLeft {
         grid-area: 3 / 1 / 4 / 2;
         margin-top: -180px;
-        background-image: url('/Landingpage/Recipes/cabonarra.svg');
+        background-image: url('/Landingpage/Recipes/cabonarra.png');
     }
 
     .topRight {
         grid-area: 4 / 2 / 5 / 3;
-        background-image: url('/Landingpage/Recipes/porridge.svg');
+        background-image: url('/Landingpage/Recipes/porridge.png');
     }
 
     .bottomLeft {
         grid-area: 4 / 4 / 5 / 5;
-        background-image: url('/Landingpage/Recipes/spaetzle.svg');
+        background-image: url('/Landingpage/Recipes/spaetzle.png');
     }
 
     .bottomRight {
         grid-area: 3 / 5 / 4 / 6;
         margin-top: -180px;
-        background-image: url('/Landingpage/Recipes/sushibowl.svg');
+        background-image: url('/Landingpage/Recipes/sushibowl.png');
     }
 }

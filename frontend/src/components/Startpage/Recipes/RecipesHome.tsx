@@ -15,11 +15,11 @@ function RecipesHome() {
                         </p>
                     </div>
                     <div className={styles.imageLayout}>
-                        <div className={styles.mainImage}></div>
-                        <div className={`${styles.smallImage} ${styles.topLeft}`}></div>
-                        <div className={`${styles.smallImage} ${styles.topRight}`}></div>
-                        <div className={`${styles.smallImage} ${styles.bottomLeft}`}></div>
-                        <div className={`${styles.smallImage} ${styles.bottomRight}`}></div>
+                        <div className={`hover:scale-105 ${styles.mainImage}`}></div>
+                        <div className={`hover:scale-105 ${styles.smallImage} ${styles.topLeft}`}></div>
+                        <div className={`hover:scale-105 ${styles.smallImage} ${styles.topRight}`}></div>
+                        <div className={`hover:scale-105 ${styles.smallImage} ${styles.bottomLeft}`}></div>
+                        <div className={`hover:scale-105 ${styles.smallImage} ${styles.bottomRight}`}></div>
                     </div>
                 </div>
             </div>
