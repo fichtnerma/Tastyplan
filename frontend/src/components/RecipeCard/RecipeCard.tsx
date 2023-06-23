@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
-import { getFormOfDietIcon } from '@helpers/utils';
+import { fetchWithAuth, getFormOfDietIcon } from '@helpers/utils';
 import { Recipe } from 'src/types/types';
 import styles from './RecipeCard.module.scss';
 
@@ -14,12 +15,22 @@ type RecipeCardProps = {
 function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
     const [favorit, setFavorit] = useState(false);
     const className = getNumberOfLines(recipe);
+    const { data: session } = useSession();
 
-    const isFavorit = () => {
+    const isFavorit = async () => {
         if (favorit) {
             return setFavorit(false);
         }
-        return setFavorit(true);
+        const response = await fetchWithAuth(
+            '/service/favorites/add',
+            {
+                method: 'POST',
+                body: JSON.stringify({ recipeId: recipe.id }),
+            },
+            session,
+        );
+
+        if (response.ok) setFavorit(true);
     };
 
     return (
