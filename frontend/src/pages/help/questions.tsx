@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from '../../styles/Help.module.scss';
+import insta from '../../../public/Icons/instagram_icon.png';
 
 function questions() {
     return (
@@ -55,10 +57,18 @@ function questions() {
                     <p>Learn more about us</p>
                 </Link>
             </div>
-
+            <div className="mb-10">
+                <h3>Want to stick around and stay updated?</h3>
+                <div className="flex">
+                    <p>Follow us on Instagram</p>
+                    <a className="ml-5 self-center" href="https://www.instagram.com/tasty.plan/">
+                        <Image src={insta} className="pr-1" alt="instagram" width={50} />
+                    </a>
+                </div>
+            </div>
             <div className="mb-10">
                 <h3>What is the best way to contact us?</h3>
-                <p>Feel free to send us an email to contact@tastyplan.de</p>
+                <p>Feel free to send us an email at contact@tastyplan.de</p>
             </div>
         </div>
     );
