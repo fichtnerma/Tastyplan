@@ -1,4 +1,6 @@
 import React from 'react';
+import Image from 'next/image';
+import insta from '../../../public/Icons/instagram_icon.png';
 
 function aboutUs() {
     return (
@@ -7,17 +9,20 @@ function aboutUs() {
 
             <div className="lg:w-2/3">
                 <p className="mb-5">
-                    Welcome to Tastyplan! We are a dedicated team of five students pursuing our Master's degree in
-                    Multimedia Technology at the University of Salzburg. As part of our Master's project, we embarked on
-                    a mission to revolutionize meal planning. Faced with our own constant struggle of deciding what to
-                    eat, we created Tastyplan.
+                    Welcome to Tastyplan! As five students who struggle with creating a weekly meal plan consisting of
+                    tasty, quick and easy recipes, we were determined to simplify the process. No longer facing the
+                    hassle of contemplating what required groceries to buy. The solution: TastyPlan. Say goodbye to the
+                    stress of figuring out what to cook each week and enjoy the convenience of a personalized meal plan.
                 </p>
 
                 <p className="mb-5">
                     Our goal is to tackle the challenges of meal planning and help people effortlessly enjoy healthy and
                     delicious meals. Powered by artificial intelligence, Tastyplan offers personalized and flexible meal
                     planning tailored to individual preferences, allergies, and schedules. With our extensive database
-                    of mouth-watering recipes, you'll never run out of inspiration.
+                    of mouth-watering recipes, you'll never run out of inspiration. Our application also creates a
+                    shopping list, which can be categorized into food groups to shop most efficiently. TastyPlan
+                    supports its users throughout the entire process, from planning over shopping to cooking diverse and
+                    simple recipes.
                 </p>
                 <p className="mb-5">
                     Combining our passion for technology and culinary arts, we are thrilled to create an intuitive and
@@ -41,7 +46,14 @@ function aboutUs() {
                 <p>Tabea Schaeffer</p>
                 <p>Hannes Eckelt</p>
 
-                <p className="mt-10">
+                <div className="flex mt-10">
+                    <p>Follow us on Instagram</p>
+                    <a className="ml-5 self-center" href="https://www.instagram.com/tasty.plan/">
+                        <Image src={insta} className="pr-1" alt="instagram" width={50} />
+                    </a>
+                </div>
+
+                <p className="mt-5">
                     <strong>Email:</strong> contact@tastyplan.de
                 </p>
             </div>

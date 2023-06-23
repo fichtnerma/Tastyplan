@@ -62,7 +62,7 @@ export default function Index() {
                         <p className="sm:w-1/2 2xl:w-1/3 backdrop-blur-sm">
                             No more worrying about what to eat for the week or spending hours scouring the internet for
                             recipes. Tastyplan's AI does the work for you, creating a custom meal plan that fits your
-                            lifestyle and satisfies your taste buds. And with a database of thousands of mouth-watering
+                            lifestyle and satisfies your taste buds. With a database of hundreds of mouth-watering
                             recipes, you'll never get bored with your meals.
                         </p>
                     </div>
