@@ -9,8 +9,6 @@ export default function Layout({ children }: React.PropsWithChildren) {
     const { asPath } = useRouter();
     const { data: session } = useSession();
 
-    console.log(session);
-
     const includesMainHeader = () => {
         return (
             asPath !== '/' &&

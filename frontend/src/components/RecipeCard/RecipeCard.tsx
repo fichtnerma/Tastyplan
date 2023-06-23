@@ -142,8 +142,6 @@ function getNumberOfLines(recipe: Recipe) {
     const pTags = document.querySelectorAll('.recipeName');
     const numLinesArray: { name: string | undefined; numLines: number }[] = [];
 
-    console.log('hallo du witz');
-
     if (pTags) {
         pTags.forEach((pTag) => {
             const lineHeight = parseInt(window.getComputedStyle(pTag).getPropertyValue('line-height'));
