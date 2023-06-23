@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Icon from '@components/Icon/Icon';
+import Icon from '@components/Icon/Icon';
 import insta from '../../../public/Icons/instagram_icon.png';
 
 function aboutUs() {
