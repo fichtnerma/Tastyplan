@@ -51,7 +51,6 @@ export class FavoritesService {
                 recipe: true,
             },
         });
-        console.log({ favorites });
 
         return favorites;
     }
