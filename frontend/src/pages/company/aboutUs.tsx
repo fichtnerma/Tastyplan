@@ -1,8 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import Icon from '@components/Icon/Icon';
-import insta from '../../../public/Icons/instagram_icon.png';
 
 function AboutUs() {
     const router = useRouter();
@@ -43,7 +41,7 @@ function AboutUs() {
                 </p>
             </div>
 
-            <div>
+            <div className="mb-5">
                 <h4>Meet the Team</h4>
                 <p className="italic mb-5">Idea, Concept and Development</p>
                 <p>Markus Fichtner</p>
@@ -51,17 +49,20 @@ function AboutUs() {
                 <p>Manuel Proß</p>
                 <p>Tabea Schaeffer</p>
                 <p>Hannes Eckelt</p>
-
-                <div className="flex mt-10">
-                    <p>Follow us on Instagram</p>
-                    <a className="ml-5 self-center" href="https://www.instagram.com/tasty.plan/">
-                        <Image src={insta} className="pr-1" alt="instagram" width={50} />
-                    </a>
-                </div>
-
+            </div>
+            <div>
+                <h4>Contact us</h4>
                 <p className="mt-5">
                     <strong>Email:</strong> contact@tastyplan.de
                 </p>
+                <div className="flex gap-2">
+                    <p>
+                        <strong>Instagram: </strong>
+                    </p>
+                    <a className="underline underline-offset-8" href="https://www.instagram.com/tasty.plan/">
+                        <p> tasty.plan</p>
+                    </a>
+                </div>
             </div>
         </div>
     );
