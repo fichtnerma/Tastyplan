@@ -5,6 +5,7 @@
 @import '@styles/variables.scss';
 @import '@styles/transitions.scss';
 @import '@styles/text.scss';
+@import '@styles/btns.scss';
 
 :root {
     --green-light-rgb: rgb(214, 229, 227);
@@ -65,60 +66,6 @@ input[type='submit'] {
         input {
             border-color: var(--red);
         }
-    }
-}
-
-.btn {
-    display: block;
-    border-radius: 60px;
-    padding: 0.5rem 1.5rem;
-    width: fit-content;
-
-    &:hover {
-        background-color: var(--green-semi);
-
-        &:disabled {
-            cursor: not-allowed;
-        }
-    }
-
-    &:disabled {
-        background-color: var(--gray-5);
-    }
-}
-
-.btn-primary {
-    @extend .btn;
-    color: var(--white);
-    background-color: var(--green-dark);
-}
-
-.btn-primary-unobtrusive {
-    @extend .btn;
-    color: var(--black);
-    background-color: var(--green-light);
-
-    &:hover {
-        color: var(--white);
-    }
-}
-
-.btn-secondary {
-    @extend .btn;
-    color: var(--white);
-    border: 1px solid var(--white);
-    background-color: inherit;
-}
-
-.btn-tertiary {
-    @extend .btn;
-    color: var(--green-dark);
-    padding: 0;
-    font-weight: bold;
-
-    &:hover {
-        color: var(--green-semi);
-        background-color: unset;
     }
 }
 
