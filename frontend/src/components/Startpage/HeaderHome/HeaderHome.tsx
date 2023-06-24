@@ -23,7 +23,7 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
         {
             id: 1,
             image: {
-                class: 'absolute top-2/4 left-[10%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96 ',
+                class: 'absolute top-2/4 left-[10%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96 hover:scale-110 transition-all',
                 src: '/Landingpage/FoodItems/Brokkoli.svg',
                 width: 300,
                 height: 300,
@@ -32,7 +32,7 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
         {
             id: 1,
             image: {
-                class: 'absolute top-[-2%] left-[40%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96',
+                class: 'absolute top-[-2%] left-[40%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96 hover:scale-110 transition-all',
                 src: '/Landingpage/FoodItems/Karotte.svg',
                 width: 500,
                 height: 500,
@@ -41,7 +41,7 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
         {
             id: 1,
             image: {
-                class: 'absolute top-[40%] right-[-12%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96',
+                class: 'absolute top-[40%] right-[-12%] w-36 sm:w-64 lg:w-80 h-36 sm:h-64 lg:h-96 hover:scale-110 transition-all',
                 src: '/Landingpage/FoodItems/Fleisch.svg',
                 width: 300,
                 height: 300,
@@ -56,7 +56,7 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
                 </div>
                 <div className="col-start-5 flex justify-end">
                     <Link href="/authentication/login">
-                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full hover:bg-green-custome3">
+                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full hover:bg-green-custom3">
                             <div className="h-fit pt-[20%] invert">
                                 <Icon size={30} icon="user"></Icon>
                             </div>
@@ -69,10 +69,8 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
                     <h2 className="h5 !mb-0">- Tastyplan's AI will delight</h2>
                     <h2 className="h5">your taste buds</h2>
                     <div className="">
-                        <Link href="/authentication/registration">
-                            <button className="btn-primary w-1/2 rounded-full" data-cy="start-planning-btn">
-                                <span className="text-white-custom px-[30px]">Start Planning</span>
-                            </button>
+                        <Link href="/authentication/registration" data-cy="start-planning-btn" className="btn-primary">
+                            Start Planning
                         </Link>
                     </div>
                 </div>
@@ -95,13 +93,13 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
                         </div>
                         <div className="bg-green-custom1 h-[90%] rounded-[12px] lg:rounded-[30px]">
                             <p className={`h5 !font-zeyada text-green-custom2  text-center my-0 mx-auto pt-2`}>
-                                Thurstday
+                                Thursday
                             </p>
                         </div>
                     </div>
 
-                    {foodImages.map((img) => (
-                        <div key={img.id}>
+                    {foodImages.map((img, index) => (
+                        <div key={index}>
                             <Image
                                 src={img.image.src}
                                 alt=""

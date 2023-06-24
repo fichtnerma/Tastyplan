@@ -1,9 +1,15 @@
 import React from 'react';
+import { useRouter } from 'next/router';
+import Icon from '@components/Icon/Icon';
 import styles from '../../styles/Legal.module.scss';
 
-function privacy() {
+function Privacy() {
+    const router = useRouter();
     return (
         <div className={`p-6 md:p-14 md:pt-36 lg:w-4/5 ${styles.privacy}`}>
+            <button type="button" onClick={() => router.back()}>
+                <Icon size={80} icon="arrowBack"></Icon>
+            </button>
             <h1>Privacy Policy</h1>
             <p className="italic">Last updated on June 04, 2023</p>
 
@@ -356,4 +362,4 @@ function privacy() {
     );
 }
 
-export default privacy;
+export default Privacy;

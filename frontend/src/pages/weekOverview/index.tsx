@@ -119,7 +119,7 @@ export default function WeekOverview() {
                                 data-cy="start-planning-btn"
                                 onClick={generateNewWeek}
                             >
-                                <span className="text-white-custom px-[30px]">Generate New Plan</span>
+                                <span className="text-white-custom">Generate New Plan</span>
                             </button>
                         </div>
                     </div>
