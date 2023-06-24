@@ -15,7 +15,6 @@ type RecipeCardProps = {
 
 function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
     const [isFavorite, setIsFavorite] = useState(false);
-    const className = getNumberOfLines(recipe);
     const { data: session } = useSession();
     const { data: allFavorites, refresh } = useFetchWithAuth('/service/favorites');
     const favorites = allFavorites as Favorite[];
@@ -25,7 +24,7 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
             const fav = favorites.find((favorit: Favorite) => favorit.recipeId == recipe.id);
             if (fav) setIsFavorite(true);
         }
-    }, [isFavorite, favorites, recipe.id]);
+    }, [isFavorite, favorites, recipe]);
 
     const handleFavorite = async () => {
         const response = await fetchWithAuth(
@@ -80,7 +79,7 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                             highlighted ? `${styles.weekplanBox} ${styles.weekplanBoxToday}` : styles.weekplanBox
                         }
                     >
-                        <div className={className}>
+                        <div className={getNumberOfLines(recipe)}>
                             <div className="">
                                 <div className="h-16  w-full absolute bottom-0 col-span-4">
                                     <p
