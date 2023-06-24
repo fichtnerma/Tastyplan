@@ -1,34 +1,29 @@
 import React from 'react';
+import { useSession } from 'next-auth/react';
 import RecipeCard from '@components/RecipeCard/RecipeCard';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
-import { Recipe } from 'src/types/types';
-
-type FavoriteData = {
-    id: number;
-    recipe: Recipe;
-    recipeId: number;
-    userId: string;
-};
+import { Favorite, Role } from 'src/types/types';
 
 function Cookbook() {
     const { data, error } = useFetchWithAuth('/service/favorites');
-    const favorites = data as FavoriteData[];
-
-    console.log(data);
+    const { data: session } = useSession();
+    const user = session?.user;
+    const favorites = data as Favorite[];
 
     return (
         <>
-            {' '}
-            {!error && data ? (
-                <div>
-                    <h1>Your Cookbook</h1>
-                    {favorites.map((favorite: FavoriteData) => {
-                        return <RecipeCard key={favorite.recipeId} recipe={favorite.recipe} highlighted={false} />;
-                    })}
-                </div>
-            ) : (
-                <div>loading</div>
-            )}
+            <div className="p-6 md:p-14 md:pt-36 lg:max-w-[1920px]">
+                <h1>{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Cookbook</h1>
+                {!error && data ? (
+                    <div className="flex gap-12 flex-wrap">
+                        {favorites.map((favorite: Favorite) => {
+                            return <RecipeCard key={favorite.recipeId} recipe={favorite.recipe} highlighted={false} />;
+                        })}
+                    </div>
+                ) : (
+                    <div>loading</div>
+                )}
+            </div>
         </>
     );
 }
