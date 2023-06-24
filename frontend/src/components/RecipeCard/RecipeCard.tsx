@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
-import { getFormOfDietIcon } from '@helpers/utils';
-import { Recipe } from 'src/types/types';
+import { fetchWithAuth, getFormOfDietIcon } from '@helpers/utils';
+import useFetchWithAuth from '@hooks/fetchWithAuth';
+import { Favorite, Recipe } from 'src/types/types';
 import styles from './RecipeCard.module.scss';
 
 type RecipeCardProps = {
@@ -12,14 +14,34 @@ type RecipeCardProps = {
 };
 
 function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
-    const [favorit, setFavorit] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
     const className = getNumberOfLines(recipe);
+    const { data: session } = useSession();
+    const { data: allFavorites, refresh } = useFetchWithAuth('/service/favorites');
+    const favorites = allFavorites as Favorite[];
 
-    const isFavorit = () => {
-        if (favorit) {
-            return setFavorit(false);
+    useEffect(() => {
+        if (favorites !== undefined) {
+            const fav = favorites.find((favorit: Favorite) => favorit.recipeId == recipe.id);
+            if (fav) setIsFavorite(true);
         }
-        return setFavorit(true);
+    }, [isFavorite, favorites, recipe.id]);
+
+    const handleFavorite = async () => {
+        const response = await fetchWithAuth(
+            '/service/favorites/add',
+            {
+                method: 'POST',
+                body: JSON.stringify({ recipeId: recipe.id }),
+            },
+            session,
+        );
+
+        if (response.ok) {
+            setIsFavorite((isFavorite) => !isFavorite);
+
+            refresh();
+        }
     };
 
     const totalTime = recipe.cookingTime
@@ -37,9 +59,9 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                     className={`justify-end flex p-2 ${styles.heartIcon}`}
                     style={{
                         color: highlighted ? 'var(--white)' : 'var(--green-dark)',
-                        fill: favorit ? (highlighted ? 'var(--white)' : 'var(--green-dark)') : 'none',
+                        fill: isFavorite ? (highlighted ? 'var(--white)' : 'var(--green-dark)') : 'none',
                     }}
-                    onClick={() => isFavorit()}
+                    onClick={() => handleFavorite()}
                 >
                     <Icon size={30} icon="heart"></Icon>
                 </div>

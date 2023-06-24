@@ -107,7 +107,6 @@ export class IngredientsService implements OnApplicationBootstrap {
         const hashSum = crypto.createHash('sha256');
         hashSum.update(rawdata.toString('utf-8'));
         const recipeHash = hashSum.digest('hex');
-        console.log(recipeHash);
 
         const recipes = JSON.parse(rawdata);
         if (

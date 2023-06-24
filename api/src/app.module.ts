@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { PreferencesModule } from './preferences/preferences.module';
 import { PreferencesController } from './preferences/preferences.controller';
 import { IngredientsModule } from './ingredients/ingredients.module';
+import { FavoritesModule } from './favorites/favorites.module';
 import { AuthModule } from './auth/auth.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
@@ -30,6 +31,7 @@ import { Module } from '@nestjs/common';
             serveRoot: '/images',
         }),
         ShoppingListModule,
+        FavoritesModule,
     ],
     controllers: [AppController, PreferencesController],
     providers: [AppService],

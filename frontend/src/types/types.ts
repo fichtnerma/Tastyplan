@@ -95,3 +95,10 @@ export type CustomSVG = {
     width: number;
     height: number;
 };
+
+export type Favorite = {
+    id: number;
+    recipe: Recipe;
+    recipeId: number;
+    userId: string;
+};
