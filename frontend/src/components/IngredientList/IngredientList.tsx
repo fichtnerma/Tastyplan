@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Ingredient } from 'src/types/types';
-import styles from './IngredientList.module.scss';
 
 type IngredientListProps = {
     ingredients: Array<Ingredient>;
@@ -43,23 +42,23 @@ function IngredientList({ ingredients }: IngredientListProps) {
                 <div className="flex items-center">
                     <button
                         type="button"
-                        className={`btn-primary ${styles.btnPortion} mr-2`}
+                        className="text-white-custom w-[30px] h-[30px] rounded-[15px] bg-green-custom2 mr-2 disabled:bg-gray-custom2"
                         onClick={changePortion}
                         data-anchor={'-'}
                         disabled={portion <= 1}
                     >
-                        <span className="block font-bold pb-[4px]">-</span>
+                        <span className="block font-bold mb-[3px]">-</span>
                     </button>
                     <p id="portion" className="mr-2">
                         {portion}
                     </p>
                     <button
                         type="button"
-                        className={`btn-primary ${styles.btnPortion} mr-2`}
+                        className="text-white-custom w-[30px] h-[30px] rounded-[15px] bg-green-custom2 mr-2"
                         onClick={changePortion}
                         data-anchor={'+'}
                     >
-                        <span className="block font-bold pb-[4px]">+</span>
+                        <span className="block font-bold mb-[3px]">+</span>
                     </button>
                     <p className="h5 !mb-0">Portionen</p>
                 </div>

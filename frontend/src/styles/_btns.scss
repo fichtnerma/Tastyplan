@@ -1,0 +1,68 @@
+$btn-font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+$btn-tertiary-font-size: clamp(1rem, 2vw, 1.125rem);
+
+.btn {
+    display: block;
+    border-radius: 60px;
+    font-size: $btn-font-size;
+    @apply px-6;
+    @apply py-2;
+    width: fit-content;
+
+    &:hover {
+        background-color: var(--green-semi);
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+    }
+
+    &:disabled {
+        background-color: var(--gray-5);
+    }
+
+    @screen sm {
+        @apply px-7;
+        @apply py-2;
+    }
+
+    @screen md {
+        @apply px-8;
+        @apply py-2;
+    }
+}
+
+.btn-primary {
+    @extend .btn;
+    color: var(--white);
+    background-color: var(--green-dark);
+}
+
+.btn-primary-unobtrusive {
+    @extend .btn;
+    color: var(--black);
+    background-color: var(--green-light);
+
+    &:hover {
+        color: var(--white);
+    }
+}
+
+.btn-secondary {
+    @extend .btn;
+    color: var(--white);
+    border: 1px solid var(--white);
+    background-color: inherit;
+}
+
+.btn-tertiary {
+    color: var(--green-dark);
+    font-size: $btn-tertiary-font-size;
+    padding: 0;
+    font-weight: bold;
+
+    &:hover {
+        color: var(--green-semi);
+        background-color: unset;
+    }
+}

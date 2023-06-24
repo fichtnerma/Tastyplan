@@ -69,10 +69,8 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
                     <h2 className="h5 !mb-0">- Tastyplan's AI will delight</h2>
                     <h2 className="h5">your taste buds</h2>
                     <div className="">
-                        <Link href="/authentication/registration">
-                            <button className="btn-primary w-1/2 rounded-full" data-cy="start-planning-btn">
-                                <span className="text-white-custom px-[30px]">Start Planning</span>
-                            </button>
+                        <Link href="/authentication/registration" data-cy="start-planning-btn" className="btn-primary">
+                            Start Planning
                         </Link>
                     </div>
                 </div>
