@@ -98,8 +98,8 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
                         </div>
                     </div>
 
-                    {foodImages.map((img, index) => (
-                        <div key={index}>
+                    {foodImages.map((img) => (
+                        <div key={img.image.src}>
                             <Image
                                 src={img.image.src}
                                 alt=""
