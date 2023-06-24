@@ -3,9 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
-import { fetchWithAuth, getFormOfDietIcon } from '@helpers/utils';
-import useFetchWithAuth from '@hooks/fetchWithAuth';
-import { Favorite, Recipe } from 'src/types/types';
+import { getFormOfDietIcon } from '@helpers/utils';
+import { useFavoriteStore } from '@hooks/useFavorites';
+import { Recipe } from 'src/types/types';
 import styles from './RecipeCard.module.scss';
 
 type RecipeCardProps = {
@@ -17,31 +17,20 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
     const [isFavorite, setIsFavorite] = useState(false);
     const className = getNumberOfLines(recipe);
     const { data: session } = useSession();
-    const { data: allFavorites, refresh } = useFetchWithAuth('/service/favorites');
-    const favorites = allFavorites as Favorite[];
+    const { favorites, add, remove } = useFavoriteStore();
 
     useEffect(() => {
-        if (favorites !== undefined) {
-            const fav = favorites.find((favorit: Favorite) => favorit.recipeId == recipe.id);
-            if (fav) setIsFavorite(true);
-        }
+        const fav = favorites.find((favorit: Recipe) => favorit.id == recipe.id);
+        if (fav) setIsFavorite(true);
     }, [isFavorite, favorites, recipe.id]);
 
     const handleFavorite = async () => {
-        const response = await fetchWithAuth(
-            '/service/favorites/add',
-            {
-                method: 'POST',
-                body: JSON.stringify({ recipeId: recipe.id }),
-            },
-            session,
-        );
-
-        if (response.ok) {
-            setIsFavorite((isFavorite) => !isFavorite);
-
-            refresh();
+        if (isFavorite) {
+            remove(recipe.id, session);
+        } else {
+            add(recipe, session);
         }
+        setIsFavorite((isFavorite) => !isFavorite);
     };
 
     const totalTime = recipe.cookingTime
