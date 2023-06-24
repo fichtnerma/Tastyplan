@@ -1,5 +1,5 @@
-$btn-font-size: clamp(1.125rem, 2.5vw, 1.5rem);
-$btn-tertiary-font-size: clamp(1rem, 2vw, 1.125rem);
+$btn-font-size: clamp(1rem, 2vw, 1.2rem);
+$btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
 
 .btn {
     display: block;
@@ -28,7 +28,6 @@ $btn-tertiary-font-size: clamp(1rem, 2vw, 1.125rem);
 
     @screen md {
         @apply px-8;
-        @apply py-2;
     }
 }
 
