@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
@@ -15,7 +15,6 @@ type RecipeCardProps = {
 
 function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
     const [isFavorite, setIsFavorite] = useState(false);
-    const titleRef = useRef<HTMLParagraphElement>(null);
     const { data: session } = useSession();
     const { favorites, add, remove } = useFavoriteStore();
     useEffect(() => {
@@ -68,12 +67,11 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                             highlighted ? `${styles.weekplanBox} ${styles.weekplanBoxToday}` : styles.weekplanBox
                         }
                     >
-                        <div className={getNumberOfLines(recipe, titleRef)}>
+                        <div className={styles.discriptionFood}>
                             <div className="">
-                                <div className="h-16  w-full absolute bottom-0 col-span-4">
+                                <div className="w-full col-span-4">
                                     <p
-                                        className="text-l lg:text-2xl w-4/5 sm:w-[140px] lg:w-[210px] absolute bottom-0 recipeName"
-                                        ref={titleRef}
+                                        className="text-l lg:text-2xl w-4/5 sm:w-[140px] lg:w-[210px] recipeName"
                                         style={{
                                             color: highlighted ? 'var(--white)' : 'var(--black)',
                                         }}
@@ -147,45 +145,6 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
             </div>
         </>
     );
-}
-
-function getNumberOfLines(recipe: Recipe, titleRef: React.MutableRefObject<HTMLParagraphElement | null>) {
-    if (titleRef.current) {
-        const pTags = [titleRef.current];
-
-        const numLinesArray: { name: string | undefined; numLines: number }[] = [];
-
-        if (pTags) {
-            pTags.forEach((pTag) => {
-                const lineHeight = parseInt(window.getComputedStyle(pTag).getPropertyValue('line-height'));
-                const numLines = Math.round(pTag.clientHeight / lineHeight);
-                const recipeName = pTag.textContent?.trim();
-                numLinesArray.push({ name: recipeName, numLines: numLines });
-            });
-        }
-
-        let className = styles.discriptionFood;
-        const matchingEntry = numLinesArray.filter((entry) => entry.name === recipe.name);
-        matchingEntry.forEach((entry) => {
-            if (entry.numLines == 0) {
-                return className;
-            }
-            const numLines = entry.numLines;
-
-            if (numLines) {
-                className =
-                    numLines >= 4
-                        ? `${styles.discriptionFood} ${styles.fourLinesName}`
-                        : numLines == 3
-                        ? `${styles.discriptionFood} ${styles.threeLinesName}`
-                        : numLines == 2
-                        ? `${styles.discriptionFood} ${styles.twoLinesName}`
-                        : styles.discriptionFood;
-            }
-        });
-
-        return className;
-    }
 }
 
 export default RecipeCard;
