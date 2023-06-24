@@ -9,8 +9,6 @@ import {
     Get,
     Post,
     Body,
-    Param,
-    Delete,
     ClassSerializerInterceptor,
     UseGuards,
     UseInterceptors,
@@ -36,8 +34,7 @@ export class FavoritesController {
     @Get('/')
     async findAll(@Req() request: RequestWithUser) {
         const user = request.user as User;
-        console.log({user});
-        
+
         return await this.favoritesService.findAll(user);
     }
 }

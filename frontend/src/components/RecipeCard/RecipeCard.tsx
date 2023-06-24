@@ -19,7 +19,6 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
     const { data: session } = useSession();
     const { data: allFavorites, refresh } = useFetchWithAuth('/service/favorites');
     const favorites = allFavorites as Favorite[];
-    console.log(favorites);
 
     useEffect(() => {
         if (favorites !== undefined) {
@@ -42,7 +41,6 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
             setIsFavorite((isFavorite) => !isFavorite);
 
             refresh();
-            console.log(isFavorite);
         }
     };
 
