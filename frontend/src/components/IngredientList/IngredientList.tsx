@@ -61,11 +61,11 @@ function IngredientList({ ingredients }: IngredientListProps) {
                     >
                         <span className="block font-bold pb-[4px]">+</span>
                     </button>
-                    <p className="h5 !mb-0">Portionen</p>
+                    <p className="h5 !mb-0">Servings</p>
                 </div>
                 {/* <button className="btn-primary">Refresh ShoppingList</button> */}
             </div>
-            <h2 className="pl-6 mb-0">Ingridients</h2>
+            <h2 className="pl-6 mb-0">Ingredients</h2>
             <div className="mb-6 lg:mb-0">
                 {ingredients?.map((ingredient) => (
                     <div key={ingredient.id} className="flex odd:bg-green-custom1 lg:py-1">

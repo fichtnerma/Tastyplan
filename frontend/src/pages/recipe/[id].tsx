@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import RecipeSteps from '@components/RecipeSteps/RecipeSteps';
 import IngredientList from '@components/IngredientList/IngredientList';
 import IconList from '@components/IconList/IconList';
 import Icon from '@components/Icon/Icon';
 import { getFormOfDietIcon } from '@helpers/utils';
+import { useFavoriteStore } from '@hooks/useFavorites';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { IconMetaData, Recipe } from 'src/types/types';
 import styles from '../../styles/DetailRecipe.module.scss';
@@ -20,8 +22,11 @@ export default function DetailRecipe() {
     const recipe = data as Recipe;
 
     const [rating, setRating] = useState(0);
-    const [favorit, setFavorit] = useState(false);
     const [icons, setIcons] = useState<IconMetaData[]>([]);
+
+    const [isFavorite, setIsFavorite] = useState(false);
+    const { data: session } = useSession();
+    const { favorites, add, remove } = useFavoriteStore();
 
     useEffect(() => {
         if (recipe) {
@@ -31,32 +36,37 @@ export default function DetailRecipe() {
                 { id: 3, src: 'cookingTime', withTime: true, text: recipe?.cookingTime + '' },
                 { id: 4, src: 'preparingTime', withTime: true, text: recipe?.preparingTime + '' },
             ]);
+
+            const fav = favorites.find((favorit: Recipe) => favorit.id == recipe.id);
+            if (fav) setIsFavorite(true);
         }
-    }, [recipe]);
+    }, [isFavorite, favorites, recipe]);
 
     const rate = (index: number) => {
         setRating(index);
     };
 
-    const isFavorit = () => {
-        if (favorit) {
-            return setFavorit(false);
+    const handleFavorite = async () => {
+        if (isFavorite) {
+            remove(recipe.id, session);
+        } else {
+            add(recipe, session);
         }
-        return setFavorit(true);
+        setIsFavorite((isFavorite) => !isFavorite);
     };
 
     return (
         <>
             {!error && data ? (
-                <div className="max-w-[1920px] pt-[4rem] sm:pt-[6rem] md:pt-[9rem] lg:pt-[6rem] lg:pl-6 lg:mx-auto xl:pl-12">
+                <div className="max-w-[1920px] p-6 md:p-14 md:pt-36 lg:mx-auto">
                     <div className="flex mb-4 px-6 lg:px-0 lg:pr-6">
                         <h1 className="h2 w-3/4 text-green-custom2 !mb-0">{recipe?.name}</h1>
                         <div
                             className="w-1/4 flex justify-end items-center hover:fill-green-custom1 hover:cursor-pointer text-green-custom2 "
                             style={{
-                                fill: favorit ? 'var(--green-dark)' : 'none',
+                                fill: isFavorite ? 'var(--green-dark)' : 'none',
                             }}
-                            onClick={() => isFavorit()}
+                            onClick={() => handleFavorite()}
                         >
                             <Icon size={50} icon="heart" classNames="w-10 lg:w-12"></Icon>
                         </div>
