@@ -15,14 +15,13 @@ type RecipeCardProps = {
 
 function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
     const [isFavorite, setIsFavorite] = useState(false);
-    const className = getNumberOfLines(recipe);
     const { data: session } = useSession();
     const { favorites, add, remove } = useFavoriteStore();
 
     useEffect(() => {
         const fav = favorites.find((favorit: Recipe) => favorit.id == recipe.id);
         if (fav) setIsFavorite(true);
-    }, [isFavorite, favorites, recipe.id]);
+    }, [isFavorite, favorites, recipe]);
 
     const handleFavorite = async () => {
         if (isFavorite) {
@@ -69,7 +68,7 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                             highlighted ? `${styles.weekplanBox} ${styles.weekplanBoxToday}` : styles.weekplanBox
                         }
                     >
-                        <div className={className}>
+                        <div className={getNumberOfLines(recipe)}>
                             <div className="">
                                 <div className="h-16  w-full absolute bottom-0 col-span-4">
                                     <p
