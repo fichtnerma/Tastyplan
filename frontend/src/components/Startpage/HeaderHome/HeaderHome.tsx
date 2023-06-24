@@ -93,7 +93,7 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
                         </div>
                         <div className="bg-green-custom1 h-[90%] rounded-[12px] lg:rounded-[30px]">
                             <p className={`h5 !font-zeyada text-green-custom2  text-center my-0 mx-auto pt-2`}>
-                                Thurstday
+                                Thursday
                             </p>
                         </div>
                     </div>
