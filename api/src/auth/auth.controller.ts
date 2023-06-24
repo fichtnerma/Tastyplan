@@ -17,11 +17,13 @@ export class AuthController {
         let result: RegistrationStatus;
         const user = request.user as User;
         const userDto: CreateUserDto = request.body;
+
         if (user && user.role === 'guest') {
             result = await this.authService.convertGuestToUser(user, userDto);
         } else {
             result = await this.authService.register(userDto);
         }
+
         if (!result.success) {
             throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
         }

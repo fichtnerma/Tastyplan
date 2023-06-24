@@ -9,6 +9,7 @@ export type APIRegistrationResponse = {
 export enum Role {
     user = 'user',
     admin = 'admin',
+    guest = 'guest',
 }
 
 export type APISearchResponse = {
@@ -34,7 +35,15 @@ export type Recipe = {
     totalTime: number;
 };
 
+export type IconMetaData = {
+    id: number;
+    src: string;
+    withTime: boolean;
+    text: string;
+};
+
 export type Ingredient = {
+    id: number;
     ingredient: { name: string };
     quantity: number;
     unit: string;
@@ -63,12 +72,21 @@ export type CustomSelectionInput = {
 };
 
 export type ShoppingListItem = {
-    shoppingListEntryId: number;
+    id: number;
     ingredientId: number;
     ingredientName: string;
+    category?: string;
     unit: string;
     quantity: number;
     isChecked: boolean;
+};
+
+export type CustomSelectionInputGroups = {
+    [key: string]: CustomSelectionInput[];
+};
+
+export type CategorizedIngredients = {
+    [key: string]: ShoppingListItem[];
 };
 
 export type CustomSVG = {
@@ -76,4 +94,11 @@ export type CustomSVG = {
     src: string;
     width: number;
     height: number;
+};
+
+export type Favorite = {
+    id: number;
+    recipe: Recipe;
+    recipeId: number;
+    userId: string;
 };

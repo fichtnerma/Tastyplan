@@ -1,10 +1,10 @@
 {
   "scripts": {
     "containers:dev": "docker-compose up --build -d",
-    "dev": "docker-compose up -d",
-    "db:seed": "cd api && npx prisma db seed",
-    "setup:dev": "npm run containers:dev && npm run db:seed",
+    "dev": "docker-compose up --build -d",
+    "setup:dev": "npm run containers:dev",
     "test:api": "cd api && jest",
+    "cypress:open": "cypress open",
     "e2e": "cypress run --browser chrome --headless --reporter junit"
   },
   "devDependencies": {

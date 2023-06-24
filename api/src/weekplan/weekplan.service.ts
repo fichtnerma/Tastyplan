@@ -3,7 +3,7 @@ import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from '@prisma/client';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class WeekplanService {
@@ -61,6 +61,23 @@ export class WeekplanService {
 
     async create(user: User) {
         const week = [0, 1, 2, 3, 4, 5, 6];
+
+        //Delete existing weekplan
+        try {
+            const existingWeekplan = await this.queryExistingWeekplan(user.userId);
+            if (existingWeekplan) {
+                await this.prismaService.weekplanEntry.deleteMany({
+                    where: { weekplanId: existingWeekplan.id },
+                });
+                await this.prismaService.weekplan.delete({
+                    where: { id: existingWeekplan.id },
+                });
+            }
+        } catch (error) {
+            throw new InternalServerErrorException(
+                'Error: Failed to cleanup/delete existing shoppinglist for given user',
+            );
+        }
 
         try {
             let fetchedMeals = await this.recipeService.filterByPreferences(user);
@@ -121,5 +138,15 @@ export class WeekplanService {
             [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
         }
         return array;
+    }
+
+    async queryExistingWeekplan(userId: string) {
+        const weekplan = await this.prismaService.weekplan.findFirst({
+            where: {
+                userId: userId,
+            },
+            include: { weekplanEntry: true },
+        });
+        return weekplan;
     }
 }

@@ -28,28 +28,39 @@
 //     return [isLoading, data];
 // };
 
-import { useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 
 interface State<T> {
-    data?: T;
+    data?: T | null;
     error?: Error;
 }
+
+type ReturnType<T> = {
+    data?: T | null;
+    error?: Error;
+    refresh: () => void;
+};
 
 type Cache<T> = { [url: string]: T };
 
 // discriminated union type
-type Action<T> = { type: 'loading' } | { type: 'fetched'; payload: T } | { type: 'error'; payload: Error };
+type Action<T> = { type: 'loading' } | { type: 'fetched'; payload: T | null } | { type: 'error'; payload: Error };
 
-function useFetchWithAuth<T = unknown>(url?: string, options?: RequestInit): State<T> {
-    const cache = useRef<Cache<T>>({});
-
+function useFetchWithAuth<T = unknown>(url?: string, options?: RequestInit): ReturnType<T> {
+    const cache = useRef<Cache<T | null>>({});
+    const [shouldRefresh, setShouldRefresh] = useState(false);
     // Used to prevent state update if the component is unmounted
     const cancelRequest = useRef<boolean>(false);
 
     const initialState: State<T> = {
         error: undefined,
         data: undefined,
+    };
+
+    const refresh = () => {
+        if (url) cache.current[url] = null;
+        setShouldRefresh((shouldRefresh) => !shouldRefresh);
     };
 
     // Keep state logic separated
@@ -75,7 +86,6 @@ function useFetchWithAuth<T = unknown>(url?: string, options?: RequestInit): Sta
         if (!url) return;
 
         if (!session) return;
-
         cancelRequest.current = false;
 
         const fetchData = async () => {
@@ -117,9 +127,9 @@ function useFetchWithAuth<T = unknown>(url?: string, options?: RequestInit): Sta
             cancelRequest.current = true;
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [url, session]);
+    }, [url, session, shouldRefresh]);
 
-    return state;
+    return { data: state.data, error: state.error, refresh };
 }
 
 export default useFetchWithAuth;

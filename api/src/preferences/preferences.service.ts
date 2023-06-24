@@ -1,3 +1,4 @@
+import { UserState } from 'src/types/types';
 import { PreferencesDto } from './dto/createPreferences.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from '@prisma/client';
@@ -28,15 +29,28 @@ export class PreferencesService {
                     formOfDiet: createPreferencesDto.formOfDiet,
                     allergens: [...createPreferencesDto.allergens],
                     foodDislikes: { connect: [...ingredientsIds] },
+                    days: [...createPreferencesDto.days],
+                    meals: [...createPreferencesDto.days],
+                    serving: createPreferencesDto.serving,
                 },
                 create: {
                     userId: user.userId,
                     formOfDiet: createPreferencesDto.formOfDiet,
                     allergens: [...createPreferencesDto.allergens],
                     foodDislikes: { connect: [...ingredientsIds] },
+                    days: [...createPreferencesDto.days],
+                    meals: [...createPreferencesDto.days],
+                    serving: createPreferencesDto.serving,
                 },
             });
-
+            await this.prismaService.user.update({
+                where: {
+                    userId: user.userId,
+                },
+                data: {
+                    state: UserState.finished,
+                },
+            });
             return 'Preferences has been send successfully';
         } catch (error) {
             throw new HttpException('setting prefernces failed', HttpStatus.INTERNAL_SERVER_ERROR);

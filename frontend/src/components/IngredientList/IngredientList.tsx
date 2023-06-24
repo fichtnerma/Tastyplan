@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { Ingredient } from 'src/types/types';
 import styles from './IngredientList.module.scss';
 
 type IngredientListProps = {
-    ingredients: Array<Ingredient> | undefined;
+    ingredients: Array<Ingredient>;
 };
 
 function IngredientList({ ingredients }: IngredientListProps) {
@@ -20,47 +19,67 @@ function IngredientList({ ingredients }: IngredientListProps) {
             }
         }
     };
+
+    const truncateUnit = (unit: string) => {
+        let truncatedUnit = '';
+
+        switch (unit) {
+            case 'teaspoon':
+                truncatedUnit = 'tsp';
+                break;
+            case 'tablespoon':
+                truncatedUnit = 'tbsp';
+                break;
+            default:
+                break;
+        }
+
+        return truncatedUnit;
+    };
+
     return (
-        <div>
-            <div className="flex mb-5">
-                <button
-                    type="button"
-                    className={`btn-primary ${styles.btnPortion} mr-2`}
-                    onClick={changePortion}
-                    data-anchor={'-'}
-                >
-                    -
-                </button>
-                <p id="portion">{portion}</p>
-                <button
-                    type="button"
-                    className={`btn-primary ${styles.btnPortion} ml-2 mr-5`}
-                    onClick={changePortion}
-                    data-anchor={'+'}
-                >
-                    +
-                </button>
-                <h5>Portionen</h5>
+        <div className="mb-8 lg:py-6 lg:mb-0 lg:bg-green-custom4/30 lg:rounded-tl-[30px] lg:rounded-bl-[30px]">
+            <div className="flex justify-between px-6 mb-6 lg:flex-col lg:px-8 lg:mb-8">
+                <div className="flex items-center">
+                    <button
+                        type="button"
+                        className={`btn-primary ${styles.btnPortion} mr-2`}
+                        onClick={changePortion}
+                        data-anchor={'-'}
+                        disabled={portion <= 1}
+                    >
+                        <span className="block font-bold pb-[4px]">-</span>
+                    </button>
+                    <p id="portion" className="mr-2">
+                        {portion}
+                    </p>
+                    <button
+                        type="button"
+                        className={`btn-primary ${styles.btnPortion} mr-2`}
+                        onClick={changePortion}
+                        data-anchor={'+'}
+                    >
+                        <span className="block font-bold pb-[4px]">+</span>
+                    </button>
+                    <p className="h5 !mb-0">Portionen</p>
+                </div>
+                {/* <button className="btn-primary">Refresh ShoppingList</button> */}
             </div>
-            <h4>Ingridients</h4>
-            <div className="my-5 mb-10">
-                {ingredients?.map((ingredient, index) => (
-                    <div key={index} className="grid grid-cols-3 gap-5 mb-2">
-                        <p className="text-right col-span-1 font-semibold">
-                            {ingredient.quantity * portion} {ingredient.unit}
+            <h2 className="pl-6 mb-0">Ingridients</h2>
+            <div className="mb-6 lg:mb-0">
+                {ingredients?.map((ingredient) => (
+                    <div key={ingredient.id} className="flex odd:bg-green-custom1 lg:py-1">
+                        <p className="w-1/2 pl-6 font-semibold">
+                            <span className="mr-2">{ingredient.quantity * portion}</span>
+                            <span>{truncateUnit(ingredient.unit)}</span>
                         </p>
-                        <p className="text-left col-span-2 mr-2">{ingredient.ingredient.name}</p>
+                        <p className="w-1/2 text-left">{ingredient.ingredient.name}</p>
                     </div>
                 ))}
             </div>
-            <h5>Seasoning</h5>
-            <div className="grid place-content-center">
-                <Link href="/shoppingList">
-                    <button type="button" className="btn-primary mt-10 mb-10">
-                        Go to Shoppinglist
-                    </button>
-                </Link>
-            </div>
+            {/* <div className="pl-6 lg:pl-8">
+                <h3 className="mb-0">Seasoning</h3>
+            </div> */}
         </div>
     );
 }

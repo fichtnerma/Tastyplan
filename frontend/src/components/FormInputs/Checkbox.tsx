@@ -10,7 +10,7 @@ type CheckboxProps = {
 
 function Checkbox({ groupName, customCheckbox, handleChange, disabled }: CheckboxProps) {
     return (
-        <div className={styles.checkboxContainer} data-cy={`${customCheckbox.id}-checkbox`}>
+        <label htmlFor={customCheckbox.id} className={styles.formControl}>
             <input
                 type="checkbox"
                 name={groupName}
@@ -21,8 +21,8 @@ function Checkbox({ groupName, customCheckbox, handleChange, disabled }: Checkbo
                 checked={disabled ? true : customCheckbox.checked}
                 disabled={disabled}
             />
-            <label htmlFor={customCheckbox.id}>{customCheckbox.label}</label>
-        </div>
+            <span className="checkbox-label">{customCheckbox.label}</span>
+        </label>
     );
 }
 

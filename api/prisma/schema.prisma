@@ -42,6 +42,7 @@ model Recipe {
     ingredients         IngredientWithAmount[]
     steps               Step[]
     weekplanEntryRecipe WeekplanEntry[]
+    Favorites           Favorites[]
 }
 
 model IngredientWithAmount {
@@ -59,23 +60,23 @@ model Step {
     description String
     stepCount   Int
     recipeId    Int
-    recipe      Recipe @relation(fields: [recipeId], references: [id])
+    recipe      Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model User {
-    id        String  @id @default(uuid())
-    userId    String  @unique
-    email     String? @unique
-    password  String?
-    role      String  @default("USER")
-    firstName String?
-    lastName  String?
+    id       String  @id @default(uuid())
+    userId   String  @unique
+    email    String? @unique
+    password String?
+    role     String  @default("USER")
+    state    String  @default("registered")
 
     createdAt    DateTime       @default(now())
     updatedAt    DateTime       @default(now()) @updatedAt
     Weekplan     Weekplan[]
     Preferences  Preferences[]
     ShoppingList ShoppingList[]
+    Favorites    Favorites[]
 }
 
 model Preferences {
@@ -85,6 +86,15 @@ model Preferences {
     formOfDiet   String
     allergens    String[]
     foodDislikes Ingredient[]
+    days         String[]
+    meals        String[]
+    serving      Int?
+}
+
+model DataSchema {
+    id             Int     @id @default(1)
+    ingredientHash String?
+    recipeHash     String?
 }
 
 model Weekplan {
@@ -96,13 +106,23 @@ model Weekplan {
     weekplanEntry WeekplanEntry[]
 }
 
+model Favorites {
+    id       Int    @id @default(autoincrement())
+    userId   String
+    user     User   @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+    recipeId Int
+    recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    @@unique([userId, recipeId])
+}
+
 model WeekplanEntry {
     id         Int      @id @default(autoincrement())
     date       DateTime @db.Date
     weekplanId Int
     weekplan   Weekplan @relation(fields: [weekplanId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    recipeId   Int
-    recipe     Recipe   @relation(fields: [recipeId], references: [id])
+    recipeId   Int?
+    recipe     Recipe?  @relation(fields: [recipeId], references: [id], onDelete: SetNull, onUpdate: Cascade)
 }
 
 model ShoppingList {
@@ -122,10 +142,5 @@ model ShoppingListEntry {
     isChecked      Boolean
     ShoppingList   ShoppingList? @relation(fields: [shoppingListId], references: [id])
     shoppingListId Int?
-}
-
-enum Role {
-    ADMIN
-    USER
-    GUEST
+    category       String?
 }

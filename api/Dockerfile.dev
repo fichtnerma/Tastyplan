@@ -3,11 +3,12 @@
 ###################
 
 FROM node:18-alpine
-
+ENV DATABASE_URL $DATABASE_URL
 WORKDIR /app
 
 COPY . /app
-
+ENV NODE_ENV development
 RUN npm install
 
+CMD [ "npx", "prisma", "migrate", "dev" ]
 EXPOSE 3000

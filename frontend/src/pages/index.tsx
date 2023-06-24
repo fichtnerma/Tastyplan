@@ -2,8 +2,9 @@ import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Steps from '@components/Startpage/Steps/Steps';
+import RecipesHome from '@components/Startpage/Recipes/RecipesHome';
+import HeaderHome from '@components/Startpage/HeaderHome/HeaderHome';
 import Benefits from '@components/Startpage/Benefits/Benefits';
-import Icon from '@components/Icon/Icon';
 import styles from '../styles/Home.module.scss';
 
 export type Benefit = {
@@ -15,86 +16,98 @@ export type Benefit = {
 
 export default function Index() {
     const fieldRef = useRef<HTMLInputElement>(null);
+    // function startAnimation() {
+    //     const animationClass = `${styles.animTypewriter}`;
 
-    const scrollTo = () => {
-        fieldRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+    //     const element = document.querySelector('.animation');
 
-    function startAnimation() {
-        const animationClass = `${styles.animTypewriter}`;
+    //     element?.classList.add(animationClass);
+    // }
 
-        const element = document.querySelector('.animation');
-
-        element?.classList.add(animationClass);
-    }
+    // const leftVariants: Variants = {
+    //     offscreen: {
+    //         y: 300,
+    //     },
+    //     onscreen: {
+    //         y: 50,
+    //         rotate: -10,
+    //         transition: {
+    //             type: 'spring',
+    //             bounce: 0.4,
+    //             duration: 0.8,
+    //         },
+    //     },
+    // };
 
     return (
-        <div className="">
-            <div className="flex flex-col justify-start h-screen">
-                <div className="flex justify-between items-center">
-                    <div className="flex items-center h-[150px]">
-                        <Image src={'/logo.svg'} alt="logo" width={200} height={139} priority />
-                    </div>
-                    <Link href="/authentication/login">
-                        <div className="flex justify-center bg-green-custom2 h-14 w-14 rounded-full hover:bg-green-custome3">
-                            <div className="h-fit pt-[20%] invert">
-                                <Icon size={30} icon="user"></Icon>
-                            </div>
-                        </div>
-                    </Link>
-                </div>
-                <div className="flex items-center justify-center h-3/5">
+        <div className={styles.home}>
+            <HeaderHome fieldRef={fieldRef} />
+            {/* <div ref={fieldRef} onMouseOver={startAnimation}> */}
+            {/* <motion.div initial="offscreen" whileInView="onscreen" viewport={{ amount: 1 }}> */}
+            {/* <motion.div variants={leftVariants}> */}
+            <div ref={fieldRef} className={`"flex pt-8 ${styles.explainWrapper}`}>
+                <div className="flex flex-col pt-20 lg:pt-40 w-full relative">
                     <div>
-                        <div className="flex justify-center h-[350px] mt-[-100px]">
-                            <Image src={'/startpageImg.svg'} alt="img" width={600} height={800} priority />
-                        </div>
-                        <p className="text-center">Tastyplan's AI will delight your taste buds -</p>
-                        <p className="text-center mb-10">create your personalized meal plan!</p>
-                        <div className="flex justify-center">
-                            <Link href="/authentication/registration">
-                                <button className="btn-primary w-1/2 rounded-full" data-cy="start-planning-btn">
-                                    <h4 className="text-white-custom px-[30px]">Start Planning</h4>
-                                </button>
-                            </Link>
-                        </div>
+                        <Image
+                            src="/Landingpage/FoodItems/Kaese.svg"
+                            alt=""
+                            width="1200"
+                            height="1200"
+                            loading="lazy"
+                            className="absolute w-[700px] lg:w-[1000px] left-[-240px] top-[-130px] md:top-[-100px] !max-w-none"
+                        />
                     </div>
-                </div>
-
-                <button className="flex justify-center hover:text-green-custome3 mt-8" onClick={scrollTo}>
-                    <Icon size={40} icon="arrowDownCircle"></Icon>
-                </button>
-            </div>
-            <div ref={fieldRef} onMouseOver={startAnimation}>
-                <div className="flex pt-8">
-                    <div className="flex flex-col">
-                        <h2>What is Tasty Plan?</h2>
-                        <p>
+                    <div className="z-10 ">
+                        <h2 className="">What is Tasty Plan?</h2>
+                        <p className="sm:w-1/2 2xl:w-1/3 backdrop-blur-sm">
                             No more worrying about what to eat for the week or spending hours scouring the internet for
                             recipes. Tastyplan's AI does the work for you, creating a custom meal plan that fits your
-                            lifestyle and satisfies your taste buds. And with a database of thousands of mouth-watering
+                            lifestyle and satisfies your taste buds. With a database of hundreds of mouth-watering
                             recipes, you'll never get bored with your meals.
                         </p>
                     </div>
-                    <Image src={'/whatIsTastyPlan.svg'} alt="a cookbook" width={800} height={139} loading="lazy" />
                 </div>
-                <p className={`h2-zeyada-green text-center my-0 mx-auto mt-20 animation ${styles.line}`}>
+                {/* </div> */}
+                {/* </motion.div> */}
+                {/* </motion.div> */}
+                {/* <p
+                    className={`h2 !font-zeyada text-green-custom2  text-center my-0 mx-auto mt-20 animation ${styles.line}`}
+                >
                     Meal planning has never been easier and more delicious.
-                </p>
+                </p> */}
             </div>
-            <div className="pt-96">
-                <h2 className="mb-24">But why Meal Planning?</h2>
+            <div className="pt-10 lg:pt-60">
+                <h2 className="mb-10">But why Meal Planning?</h2>
                 <Benefits />
             </div>
-            <div className="pt-96 w-full">
-                <h2 className="mb-24">How Does Tastyplan work?</h2>
+            <div className="pt-10 lg:pt-40 w-full">
+                <h2 className="mb-8 lg:mb-24">How Does Tastyplan work?</h2>
                 <Steps />
             </div>
 
-            <div className="my-80 flex justify-center">
+            <div className="my-40 flex justify-center">
                 <Link href="/authentication/registration">
-                    <span className="btn-primary w-1/2 rounded-full">
-                        <h4 className=" text-white-custom px-[30px]">Start Planning</h4>
-                    </span>
+                    <button className="btn-primary w-1/2 rounded-full" data-cy="start-planning-btn">
+                        <span className="text-white-custom px-[30px]">Start Planning</span>
+                    </button>
+                </Link>
+            </div>
+
+            <div>
+                <RecipesHome />
+            </div>
+
+            <div className="text-right relative my-10">
+                <h2 className="leading-none mb-0 z-10 relative">Good Food</h2>
+                <h2 className="leading-none mt-0 z-10 relative">Good Mood</h2>
+                <div className="bg-green-custom1  w-40 md:w-60 lg:w-80  h-10 md:h-14 lg:h-20 absolute right-[-1rem] top-2 md:top-4 lg:top-6"></div>
+            </div>
+
+            <div className="my-20 flex justify-center">
+                <Link href="/authentication/registration">
+                    <button className="btn-primary w-1/2 rounded-full" data-cy="start-planning-btn">
+                        <span className="text-white-custom px-[30px]">Start Planning</span>
+                    </button>
                 </Link>
             </div>
         </div>

@@ -1,12 +1,8 @@
 <svg id="arrowDownCircle" viewBox="0 0 116 116" fill="none" xmlns="http://www.w3.org/2000/svg"
     stroke="currentColor">
     <g>
-        <path id="Vector"
-            d="M58.2376 110.475C87.0876 110.475 110.475 87.0876 110.475 58.2376C110.475 29.3876 87.0876 6 58.2376 6C29.3876 6 6 29.3876 6 58.2376C6 87.0876 29.3876 110.475 58.2376 110.475Z"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
         <path id="Vector_2" d="M37.3425 58.2378L58.2376 79.1328L79.1326 58.2378"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        <path id="Vector_3" d="M58.2375 37.3428V79.1328" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" />
+            stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
     </g>
 </svg>

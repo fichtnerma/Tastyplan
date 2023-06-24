@@ -22,6 +22,22 @@ export interface IngredientMap {
         id: number;
         quantity: number;
         unit: string;
-        ingredient: { name: string; id: number };
+        ingredient: { name: string; id: number; categories: string };
     };
+}
+
+export interface CategorizedShoppingListMap {
+    [key: string]: ShoppinglistItem[];
+}
+interface ShoppinglistItem {
+    ingredientId: number;
+    ingredientName: string;
+    unit: string;
+    quantity: number;
+    isChecked: boolean;
+}
+
+export enum UserState {
+    finished = 'finished',
+    registration = 'registration',
 }

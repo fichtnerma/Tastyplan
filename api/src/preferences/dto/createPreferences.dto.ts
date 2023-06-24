@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class PreferencesDto {
     @IsString()
@@ -11,4 +11,15 @@ export class PreferencesDto {
 
     @IsArray()
     foodDislikes: { id: number; name: string }[];
+
+    @IsArray()
+    @IsString({ each: true })
+    days: string[];
+
+    @IsArray()
+    @IsString({ each: true })
+    meals: string[];
+
+    @IsNumber()
+    serving: number;
 }

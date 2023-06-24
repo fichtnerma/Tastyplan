@@ -31,6 +31,7 @@ export class RecipesService {
                                 select: {
                                     name: true,
                                     id: true,
+                                    categories: true,
                                 },
                             },
                         },

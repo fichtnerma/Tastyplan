@@ -10,26 +10,26 @@
         color: var(--green-light);
         writing-mode: vertical-lr;
         text-align: center;
-        font-size: 100px;
-        line-height: 100px;
         padding-right: 0px;
         transform: rotate(180deg);
         margin-top: 80px;
     }
 
-    h4 {
-        margin-bottom: -15px;
-    }
-
-
     p {
         font-family: var(--font-inter);
         font-weight: 700;
     }
+
+    .mySwiper {
+        display: none;
+        @screen sm {
+            display: block;
+        }
+    }
 }
 
 .weekContainer {
-    height: 500px;
+    @screen sm {
+        height: 500px;
+    }
 }
-
-

@@ -1,5 +1,4 @@
-@import "@styles/variables.scss";
-
+@import '@styles/variables.scss';
 
 .container {
     margin-inline: auto;
@@ -19,29 +18,21 @@
     color: var(--green-dark);
 }
 
-.foodImg {
-    width: 90%;
-    height: 550px;
-    object-fit: cover;
-    border-radius: $boder-radius;
-    position: absolute;
-}
-
 .checkbox {
     margin-right: 10px;
 
-    &+label {
+    & + label {
         font-size: 20px;
     }
 
     // Hover
-    &+label:hover {
+    & + label:hover {
         color: var(--green-dark-rgb);
     }
 
     // Checked
     &:checked {
-        &+label {
+        & + label {
             &:before {
                 background: red;
                 box-shadow: none;
@@ -54,25 +45,16 @@
     }
 }
 
-.starIcon {
-    margin: 5px;
-
-    path {
-
-        &:hover {
-            fill: rebeccapurple;
-        }
-    }
-}
-
 .gradientBox {
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
-    width: 100%;
-    height: 550px;
-    border-radius: $boder-radius;
-    margin-inline: auto;
-    margin-top: 10px;
-    z-index: 5px;
-    position: relative;
-    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
+
+    @screen lg {
+        border-bottom-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+    }
 }

@@ -7,10 +7,10 @@ import { PrismaModule } from './prisma/prisma.module';
 import { PreferencesModule } from './preferences/preferences.module';
 import { PreferencesController } from './preferences/preferences.controller';
 import { IngredientsModule } from './ingredients/ingredients.module';
+import { FavoritesModule } from './favorites/favorites.module';
 import { AuthModule } from './auth/auth.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
-import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
@@ -27,10 +27,11 @@ import { Module } from '@nestjs/common';
         AuthModule,
         SearchModule,
         ServeStaticModule.forRoot({
-            rootPath: join(__dirname, '..', 'images'),
+            rootPath: process.env.NODE_ENV === 'development' ? '/app/images' : `${process.cwd()}/dist/images`,
             serveRoot: '/images',
         }),
         ShoppingListModule,
+        FavoritesModule,
     ],
     controllers: [AppController, PreferencesController],
     providers: [AppService],

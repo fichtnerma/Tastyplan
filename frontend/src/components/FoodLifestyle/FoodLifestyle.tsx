@@ -27,6 +27,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
         setSelection(targetValue);
         onChoice(targetValue);
         setDisabled(false);
+        onNext();
     };
 
     const onSubmitSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,11 +37,11 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
 
     return (
         <div>
-            <h4 className="mb-2">What is your food lifestyle?</h4>
-            <div className={styles.scrolling}>
-                <div className={styles.preferencesWrapper}>
+            <h4 className="mb-2 h2">What is your food lifestyle?</h4>
+            <div className="flex justify-center h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
+                <div className={`lg:grid-cols-2 lg:gap-x-4 lg:gap-y-5 ${styles.preferencesWrapper}`}>
                     {preferences.map((preference, i) => (
-                        <div key={i} className={styles.choiceWrapper}>
+                        <div key={i} className={`mb-3 lg:m-0 h-[60px] lg:h-[70px] ${styles.choiceWrapper}`}>
                             <input
                                 type="radio"
                                 name="preferences"
@@ -49,12 +50,12 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                                 onChange={onChoiceChange}
                                 data-cy={`${preference.food}-radio-btn`}
                             />
-                            <label htmlFor={preference.food}>
+                            <label htmlFor={preference.food} className="col-start-1">
                                 <p className="absolute pb-4 capitalize">{preference.food}</p>
                                 <p className="text-xs pt-8">{preference.description}</p>
                             </label>
-                            <div className="absolute right-0 pr-8 pt-2 z-[90]">
-                                <Icon size={60} icon={preference.icon}></Icon>
+                            <div className="flex self-center col-start-6 h-fit z-[90] center pr-4">
+                                <Icon size={50} icon={preference.icon}></Icon>
                             </div>
                         </div>
                     ))}

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import SignUp from '@components/SignUp';
 import Modal from '@components/Layout/Modal';
+import { useAppUser } from '@hooks/useAppUser';
 
 function AuthenticationPage() {
     const router = useRouter();
+    const { hasFinishedSetup, isLoggedIn } = useAppUser();
     const { slug } = router.query;
 
     const [pageState, setPageState] = useState('login');
@@ -13,7 +14,7 @@ function AuthenticationPage() {
     useEffect(() => {
         if (slug === 'login') setPageState('login');
         else if (slug === 'registration') setPageState('registration');
-    }, [router, slug]);
+    }, [router, slug, hasFinishedSetup, isLoggedIn]);
 
     const handleModal = (pageState: string) => {
         if (pageState === 'login') {
@@ -26,14 +27,11 @@ function AuthenticationPage() {
     };
 
     return (
-        <div>
-            <Image src="/logo.svg" height={200} className="" alt="logo" width={200} priority />
-            <div className="flex justify-center items-center ml-50">
-                <Modal>
-                    <SignUp setRoute={handleModal} currentForm={pageState} />
-                </Modal>
-            </div>
-        </div>
+        <>
+            <Modal>
+                <SignUp setRoute={handleModal} currentForm={pageState} />
+            </Modal>
+        </>
     );
 }
 

@@ -37,26 +37,30 @@ function ProgressBar({ stepNames, activeStep, foodLifeStyleSelected, onClick }: 
     };
 
     return (
-        <div className="flex justify-between items-center relative w-full" onClick={handleStepClick}>
-            <div
-                className="absolute top-1/2 translate-y-[-50%] w-full h-[3px]"
-                style={{
-                    background: `linear-gradient(to right, var(--green-dark) ${getGradient(
-                        stepNames.length,
-                        activeStep,
-                    )}%, var(--gray-5) ${getGradient(stepNames.length, activeStep)}%)`,
-                }}
-            ></div>
-            {numbersArr.map((el, i) => (
-                <div key={el} className="relative flex items-center">
-                    <span
-                        data-step-name={stepNames[i]}
-                        className={getStepClass(el)}
-                        style={{ transform: el === activeStep ? 'scale(2)' : '' }}
-                    ></span>
-                    <p className={el <= activeStep ? styles.activeLabel : styles.label}>{stepNames[i]}</p>
-                </div>
-            ))}
+        <div className="flex justify-center">
+            <div className="flex justify-between items-center relative w-5/6 lg:w-full" onClick={handleStepClick}>
+                <div
+                    className="absolute top-1/2 translate-y-[-50%] w-full h-[3px]"
+                    style={{
+                        background: `linear-gradient(to right, var(--green-dark) ${getGradient(
+                            stepNames.length,
+                            activeStep,
+                        )}%, var(--gray-5) ${getGradient(stepNames.length, activeStep)}%)`,
+                    }}
+                ></div>
+                {numbersArr.map((el, i) => (
+                    <div key={el} className="relative flex items-center">
+                        <span
+                            data-step-name={stepNames[i]}
+                            className={getStepClass(el)}
+                            style={{ transform: el === activeStep ? 'scale(2)' : '' }}
+                        ></span>
+                        <p className={`hidden lg:block ${el <= activeStep ? styles.activeLabel : styles.label}`}>
+                            {stepNames[i]}
+                        </p>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

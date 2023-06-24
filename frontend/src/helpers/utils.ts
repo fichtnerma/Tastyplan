@@ -36,7 +36,9 @@ export function mapShoppingListToSelection(ingredientList: ShoppingListItem[]): 
     const selectionList: CustomSelectionInput[] = ingredientList.map((ingredient) => {
         return {
             id: ingredient.ingredientId + '',
-            label: `${ingredient.quantity} ${ingredient.unit} ${ingredient.ingredientName}`,
+            label: `${ingredient?.category === 'Spices' ? '' : ingredient.quantity} ${
+                ingredient?.category === 'Spices' ? '' : ingredient.unit
+            } ${ingredient.ingredientName}`,
             checked: ingredient.isChecked,
         };
     });
