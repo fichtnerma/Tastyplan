@@ -8,7 +8,7 @@ export default function Document() {
                 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
                 <link rel="icon" type="image/png" href="/favicon.png" />
                 <link rel="apple-touch-icon" href="/icon.png"></link>
-                <meta name="theme-color" content="#fff" />
+                <meta name="theme-color" content="#D6E5E3" />
             </Head>
             <body>
                 <Main />

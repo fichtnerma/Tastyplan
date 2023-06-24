@@ -48,7 +48,13 @@ export default NextAuth({
     ],
 
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user, trigger, session }) {
+            console.log('start', { token, user, trigger, session });
+
+            if (trigger === 'update' && session?.name) {
+                console.log('trigger', { token, user, trigger, session });
+                token.state = session.state;
+            }
             if (user) {
                 token.role = user.role;
                 token.email = user.email;
@@ -56,6 +62,7 @@ export default NextAuth({
                 token.state = user.state;
                 token.token = user.token;
             }
+            console.log('end', { token, user, trigger, session });
 
             return token;
         },

@@ -1,6 +1,7 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
-import { Ingredient, User } from '@prisma/client';
+import { convertToTime } from 'src/helpers/converter.utils';
+import { Ingredient, Recipe, Step, User } from '@prisma/client';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
@@ -93,5 +94,126 @@ export class RecipesService {
         } catch (error) {
             throw new InternalServerErrorException('Error: Filter recipes by preferences failed');
         }
+    }
+
+    async createRecipe(
+        recipe: Recipe & {
+            cookingTime: string;
+            totalTime: string;
+            prepareTime: string;
+            steps: Array<Step>;
+            ingredients: Array<{ ingredientId: number }>;
+        },
+    ) {
+        const specialCharacter = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~'-]/g;
+        await this.prismaService.recipe.upsert({
+            where: { id: recipe.id },
+            update: {},
+            create: {
+                id: recipe.id,
+                name: recipe.name,
+                img: recipe.name.replace(specialCharacter, '') + '.png',
+                servings: +recipe.servings || 4,
+                description: recipe.description,
+                cookingTime: convertToTime(recipe.cookingTime) || 0,
+                preparingTime: convertToTime(recipe.prepareTime) || 0,
+                totalTime: convertToTime(recipe.totalTime) || 0,
+                formOfDiet: recipe.formOfDiet.at(-1) || 'omnivore',
+                ingredients: {
+                    createMany: {
+                        data: [...recipe.ingredients],
+                    },
+                },
+                tags: recipe.tags,
+                steps: {
+                    createMany: {
+                        data: recipe.steps.map((step: { stepCount: number; description: string }) => ({
+                            stepCount: +step.stepCount,
+                            description: step.description,
+                        })),
+                    },
+                },
+            },
+        });
+    }
+
+    async categorizeRecipe(
+        ingredients: {
+            categories: string;
+            subcategories: string;
+        }[],
+    ) {
+        const omnivoreCategories = ['Meat and sausage products', 'Meat and offal'];
+        const pescetaraianCategories = ['Fish'];
+        const vegetarianCategories = ['Milk and dairy products', 'Eggs'];
+
+        const omnivoreSubCategories = [
+            'Boiled sausage products',
+            'Raw sausage products',
+            'Cooked sausages',
+            'Veal,meat and offal',
+            'Wild',
+            'Poultry',
+            'Pork,meat and offal',
+            'Lamb, Sheep',
+            'Poultry,meat and offal',
+            'Beef',
+            'Pig',
+        ];
+        const pescetaraianSubCategories = [
+            'Sea fish',
+            'Freshwater fish',
+            'Freshwater fish,Fish',
+            'Seafood, crustaceans and shellfish',
+            'Fish products',
+        ];
+        const vegetarianSubCategories = [
+            'Gelling and binding agents',
+            'Hard cheese',
+            'Cream cheese and curd',
+            'Soft cheese',
+            'Milk and yoghurt drinks',
+            'Milk and yoghurt drinks,Soft drinks',
+            'Cream,Milk and dairy products',
+            'Milk',
+            'Fats,milk and dairy products',
+            'Yoghurt and sour milk',
+            'Fat',
+            'Cream cheese and curd,milk and dairy products',
+            'Creams and puddings',
+            'Mayonnaises',
+            'Soft cheese,Milk and dairy products',
+            'Cheese products',
+        ];
+
+        const formOfDiet = ingredients.reduce(
+            (acc, curr) => {
+                if (
+                    omnivoreCategories.includes(curr.categories) ||
+                    omnivoreSubCategories.includes(curr.subcategories)
+                ) {
+                    acc.splice(acc.indexOf('pescetarian'), 1);
+                    acc.splice(acc.indexOf('vegetarian'), 1);
+                    acc.splice(acc.indexOf('vegan'), 1);
+                }
+                if (
+                    pescetaraianCategories.includes(curr.categories) ||
+                    pescetaraianSubCategories.includes(curr.subcategories)
+                ) {
+                    acc.splice(acc.indexOf('vegetarian'), 1);
+                    acc.splice(acc.indexOf('vegan'), 1);
+                }
+                if (
+                    vegetarianCategories.includes(curr.categories) ||
+                    vegetarianSubCategories.includes(curr.subcategories)
+                ) {
+                    acc.splice(acc.indexOf('vegan'), 1);
+                }
+                return acc;
+            },
+            ['omnivore', 'pescetarian', 'vegetarian', 'vegan'],
+        );
+
+        return formOfDiet;
     }
 }

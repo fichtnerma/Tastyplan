@@ -21,7 +21,7 @@ interface Preferences {
 const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes'];
 
 const SetupParentPage = () => {
-    const { data: session } = useSession();
+    const { data: session, update } = useSession();
     const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
     const [foodLifeStyleSelected, setFoodLifeStyleSelected] = useState(false);
@@ -112,6 +112,10 @@ const SetupParentPage = () => {
             },
             session,
         );
+        console.log('session before', session);
+
+        // await update({ state: 'finished' });
+        console.log('session after', session);
 
         const weekplanRes = await fetchWithAuth(
             '/service/weekplan/create',

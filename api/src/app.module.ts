@@ -6,6 +6,7 @@ import { RecipesModule } from './recipes/recipes.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PreferencesModule } from './preferences/preferences.module';
 import { PreferencesController } from './preferences/preferences.controller';
+import { InitializerModule } from './initializer/initializer.module';
 import { IngredientsModule } from './ingredients/ingredients.module';
 import { AuthModule } from './auth/auth.module';
 import { AppService } from './app.service';
@@ -30,6 +31,7 @@ import { Module } from '@nestjs/common';
             serveRoot: '/images',
         }),
         ShoppingListModule,
+        InitializerModule,
     ],
     controllers: [AppController, PreferencesController],
     providers: [AppService],
