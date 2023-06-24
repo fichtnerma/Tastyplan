@@ -18,9 +18,9 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
     const { data: session } = useSession();
 
     const isFavorit = async () => {
-        if (favorit) {
-            return setFavorit(false);
-        }
+        // if (favorit) {
+        //     return setFavorit(false);
+        // }
         const response = await fetchWithAuth(
             '/service/favorites/add',
             {
@@ -30,7 +30,12 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
             session,
         );
 
-        if (response.ok) setFavorit(true);
+        if (response.ok) {
+            if (favorit) {
+                return setFavorit(false);
+            }
+            setFavorit(true);
+        }
     };
 
     return (
