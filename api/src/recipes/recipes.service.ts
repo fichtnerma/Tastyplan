@@ -112,7 +112,7 @@ export class RecipesService {
             create: {
                 id: recipe.id,
                 name: recipe.name,
-                img: recipe.name.replace(specialCharacter, '') + '.png',
+                img: recipe.name.replace(specialCharacter, '') + '.jpg',
                 servings: +recipe.servings || 4,
                 description: recipe.description,
                 cookingTime: convertToTime(recipe.cookingTime) || 0,
