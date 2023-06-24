@@ -32,20 +32,20 @@ import { useEffect, useReducer, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 
 interface State<T> {
-    data?: T;
+    data?: T | null;
     error?: Error;
 }
 
 type ReturnType<T> = {
-    data?: T;
+    data?: T | null;
     error?: Error;
     refresh: () => void;
-}
+};
 
 type Cache<T> = { [url: string]: T };
 
 // discriminated union type
-type Action<T> = { type: 'loading' } | { type: 'fetched'; payload: T } | { type: 'error'; payload: Error };
+type Action<T> = { type: 'loading' } | { type: 'fetched'; payload: T | null } | { type: 'error'; payload: Error };
 
 function useFetchWithAuth<T = unknown>(url?: string, options?: RequestInit): ReturnType<T> {
     const cache = useRef<Cache<T | null>>({});
@@ -59,9 +59,9 @@ function useFetchWithAuth<T = unknown>(url?: string, options?: RequestInit): Ret
     };
 
     const refresh = () => {
-        if (url) cache.current[url] = null
-        setShouldRefresh((shouldRefresh) => !shouldRefresh );
-    }
+        if (url) cache.current[url] = null;
+        setShouldRefresh((shouldRefresh) => !shouldRefresh);
+    };
 
     // Keep state logic separated
     const fetchReducer = (state: State<T>, action: Action<T>): State<T> => {
@@ -82,10 +82,9 @@ function useFetchWithAuth<T = unknown>(url?: string, options?: RequestInit): Ret
     const { data: session } = useSession();
 
     useEffect(() => {
-        
         // Do nothing if the url is not given
         if (!url) return;
-        
+
         if (!session) return;
         cancelRequest.current = false;
 
@@ -97,7 +96,7 @@ function useFetchWithAuth<T = unknown>(url?: string, options?: RequestInit): Ret
                 dispatch({ type: 'fetched', payload: cache.current[url] });
                 return;
             }
-            
+
             try {
                 const response = await fetch(url, {
                     ...options,
@@ -130,7 +129,7 @@ function useFetchWithAuth<T = unknown>(url?: string, options?: RequestInit): Ret
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url, session, shouldRefresh]);
 
-    return {data: state.data, error: state.error, refresh};
+    return { data: state.data, error: state.error, refresh };
 }
 
 export default useFetchWithAuth;
