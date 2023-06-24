@@ -25,26 +25,19 @@ export class FavoritesController {
     @ApiSecurity('access-key')
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/add')
-    create(@Body() addFavoriteDto: AddFavoriteDto, @Req() request: RequestWithUser) {
+    async addOrDelete(@Body() addFavoriteDto: AddFavoriteDto, @Req() request: RequestWithUser) {
         const user = request.user as User;
-        return this.favoritesService.create(addFavoriteDto, user);
+        return await this.favoritesService.addOrDelete(addFavoriteDto, user);
     }
 
     @UseGuards(JwtAuthGuard)
     @ApiSecurity('access-key')
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('/')
-    findAll(@Req() request: RequestWithUser) {
+    async findAll(@Req() request: RequestWithUser) {
         const user = request.user as User;
-        return this.favoritesService.findAll(user);
-    }
-
-    @UseGuards(JwtAuthGuard)
-    @ApiSecurity('access-key')
-    @UseInterceptors(ClassSerializerInterceptor)
-    @Delete(':recipeId')
-    remove(@Param('recipeId') recipeId: string, @Req() request: RequestWithUser) {
-        const user = request.user as User;
-        return this.favoritesService.remove(recipeId, user);
+        console.log({user});
+        
+        return await this.favoritesService.findAll(user);
     }
 }
