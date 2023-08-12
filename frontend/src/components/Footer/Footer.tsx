@@ -1,5 +1,4 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Footer.module.scss';
@@ -7,12 +6,6 @@ import styles from './Footer.module.scss';
 export default function Footer() {
     return (
         <>
-            {/* {asPath !== '/registration' &&
-                asPath !== '/authentication/registration' &&
-                asPath !== '/authentication/login' &&
-                asPath !== '/preferences' &&
-                !asPath.includes('/intolerances') &&
-                !asPath.includes('/setup') && ( */}
             <div className={`w-full ${styles.container}`}>
                 <div className="h-[10vh]"></div>
                 <div className="hidden md:block">
@@ -70,7 +63,6 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-            {/* )} */}
         </>
     );
 }
