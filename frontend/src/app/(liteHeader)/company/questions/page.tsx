@@ -1,19 +1,13 @@
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import Icon from '@components/Icon/Icon';
+import ReturnButton from '@components/common/ReturnButton';
 import styles from '@styles/Help.module.scss';
-import insta from '../../../public/Icons/instagram_icon.png';
 
 function Questions() {
-    const router = useRouter();
-
     return (
         <div className={`p-6 md:p-14 md:pt-36 lg:w-4/5 ${styles.questions}`}>
-            <button type="button" onClick={() => router.back()}>
-                <Icon size={80} icon="arrowBack"></Icon>
-            </button>
+            <ReturnButton />
             <h1>Questions & Answers</h1>
             <div className="mb-10">
                 <h3>How does Tastyplan help in saving time and money?</h3>
@@ -69,7 +63,13 @@ function Questions() {
                 <div className="flex">
                     <p>Follow us on Instagram</p>
                     <a className="ml-5 self-center" href="https://www.instagram.com/tasty.plan/">
-                        <Image src={insta} className="pr-1" alt="instagram" width={50} />
+                        <Image
+                            src={'/Icons/instagram_icon.png'}
+                            height={100}
+                            className="pr-1"
+                            alt="instagram"
+                            width={50}
+                        />
                     </a>
                 </div>
             </div>
