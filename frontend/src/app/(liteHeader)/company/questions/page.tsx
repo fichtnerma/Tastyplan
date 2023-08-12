@@ -1,9 +1,9 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import Icon from '@components/Icon/Icon';
-import styles from '../../styles/Help.module.scss';
+import styles from '@styles/Help.module.scss';
 import insta from '../../../public/Icons/instagram_icon.png';
 
 function Questions() {

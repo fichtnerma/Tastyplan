@@ -1,7 +1,7 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Icon from '@components/Icon/Icon';
-import styles from '../../styles/Legal.module.scss';
+import styles from '@styles/Legal.module.scss';
 
 function Privacy() {
     const router = useRouter();

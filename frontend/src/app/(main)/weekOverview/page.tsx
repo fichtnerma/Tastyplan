@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { useSession } from 'next-auth/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,7 +11,7 @@ import RecipeCard from '@components/RecipeCard/RecipeCard';
 import { fetchWithAuth } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { Role, Weekplan, WeekplanEntry } from 'src/types/types';
-import styles from '../../styles/WeekOverview.module.scss';
+import styles from '@styles/WeekOverview.module.scss';
 
 type DateFormatOptions = {
     year: '2-digit' | 'numeric';

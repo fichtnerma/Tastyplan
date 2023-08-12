@@ -1,28 +1,26 @@
+'use client';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import SignUp from '@components/SignUp';
 import Modal from '@components/Layout/Modal';
-import { useAppUser } from '@hooks/useAppUser';
 
-function AuthenticationPage() {
+function AuthenticationPage({ params: { slug } }: { params: { slug: string } }) {
     const router = useRouter();
-    const { hasFinishedSetup, isLoggedIn } = useAppUser();
-    const { slug } = router.query;
 
     const [pageState, setPageState] = useState('login');
 
     useEffect(() => {
         if (slug === 'login') setPageState('login');
         else if (slug === 'registration') setPageState('registration');
-    }, [router, slug, hasFinishedSetup, isLoggedIn]);
+    }, [router, slug]);
 
     const handleModal = (pageState: string) => {
         if (pageState === 'login') {
-            router.push(`${router.basePath}/authentication/login`, undefined, undefined);
-            setPageState('login');
+            // setPageState('login');
+            router.push(`/authentication/login`, undefined);
         } else if (pageState === 'registration') {
-            router.push(`${router.basePath}/authentication/registration`, undefined, undefined);
-            setPageState('registration');
+            // setPageState('registration');
+            router.push(`/authentication/registration`, undefined);
         }
     };
 
