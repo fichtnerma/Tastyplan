@@ -2,26 +2,13 @@
  * @type {import('next').NextConfig}
  */
 
-module.exports = {
-    webpackDevMiddleware: (config) => {
-        config.watchOptions = {
-            poll: 1000,
-            aggregateTimeout: 300,
-        };
-        return config;
-    },
+const baseConfig = {
     output: 'standalone',
+    reactStrictMode: true,
     images: {
-        remotePatterns: [
-            {
-                protocol: '**',
-                hostname: '**',
-            },
-        ],
         domains: ['localhost'],
         unoptimized: true,
     },
-    reactStrictMode: true,
     async redirects() {
         return [
             {
@@ -39,4 +26,19 @@ module.exports = {
             },
         ];
     },
+};
+const devConfig = {
+    webpackDevMiddleware: (config) => {
+        config.watchOptions = {
+            poll: 1000,
+            aggregateTimeout: 300,
+        };
+        return config;
+    },
+};
+const prodConfig = {};
+
+module.exports = {
+    ...baseConfig,
+    ...(process.env.NODE_ENV === 'production' ? prodConfig : devConfig),
 };

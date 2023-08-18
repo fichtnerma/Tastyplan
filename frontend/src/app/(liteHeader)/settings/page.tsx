@@ -8,12 +8,9 @@ function Settings() {
             <div className="block md:hidden">
                 <div className="mb-10">
                     <h2>HELP</h2>
-                    <Link href="/help/questions">
+                    <Link href="/company/questions">
                         <p>Q&A</p>
                     </Link>
-                    {/* <Link href="/help/contact">
-                                        <p>Contact</p>
-                                    </Link> */}
                 </div>
                 <div className="mb-10">
                     <h2>Company</h2>
@@ -23,9 +20,6 @@ function Settings() {
                 </div>
                 <div className="mb-10">
                     <h2>Legal</h2>
-                    {/* <Link href="/legal/conditions">
-                                        <p>Conditions</p>
-                                    </Link> */}
                     <Link href="/legal/privacy">
                         <p>Privacy Policy</p>
                     </Link>

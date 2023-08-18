@@ -9,7 +9,7 @@
         "build": "nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
         "start": "nest start",
-        "start:dev": "NODE_ENV=development nest start --tsc --watch",
+        "start:dev": "npm run start:watch",
         "start:watch": "npx prisma migrate dev && NODE_ENV=development nest build --webpack --webpackPath webpack-hmr.config.js --watch",
         "migrate": "npx prisma migrate dev",
         "start:debug": "nest start --debug --watch",

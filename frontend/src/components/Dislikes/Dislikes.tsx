@@ -95,7 +95,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
         const target = e.target as HTMLButtonElement;
         const categoryId = target.getAttribute('data-id');
         const dislikes = dislikeRecommendations.find((dislike) => dislike.id === categoryId);
-        dislikes?.categoryChildren.map((dislike) => {
+        dislikes?.categoryChildren.forEach((dislike) => {
             if (!allDislikes.find((dislikeAll) => dislikeAll.id === dislike.id)) {
                 setDislike((allDislikes) => [...allDislikes, dislike]);
                 target.style.display = 'none';
