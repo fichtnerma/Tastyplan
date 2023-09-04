@@ -50,7 +50,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                                 onChange={onChoiceChange}
                                 data-cy={`${preference.food}-radio-btn`}
                             />
-                            <label htmlFor={preference.food} className="col-start-1">
+                            <label tabIndex={i} htmlFor={preference.food} className="col-start-1">
                                 <p className="absolute pb-4 capitalize">{preference.food}</p>
                                 <p className="text-xs pt-8">{preference.description}</p>
                             </label>
@@ -63,6 +63,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
             </div>
             <div className="flex justify-end relative">
                 <button
+                    tabIndex={5}
                     className="btn-primary mt-6 disabled:bg-gray-custom2"
                     data-btn="next"
                     onClick={onSubmitSelection}

@@ -30,16 +30,37 @@
 }
 
 html {
-	scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-	html {
-		scroll-behavior: auto;
-	}
+    html {
+        scroll-behavior: auto;
+    }
 }
+
 body {
     position: relative;
+}
+
+a {
+    &:focus {
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+    }
+
+    &:focus-visible {
+        outline: unset;
+    }
+}
+
+input {
+    &:focus {
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+    }
+
+    &:focus-visible {
+        outline: unset;
+    }
 }
 
 input[type='submit'] {
