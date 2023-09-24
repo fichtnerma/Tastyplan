@@ -11,11 +11,16 @@ interface FoodLifestyleProps {
 }
 export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLifestyleProps) {
     const preferences = [
-        { food: 'vegan', description: 'You dont eat any kind of animal products', icon: 'Vegan-color' },
-        { food: 'vegetarian', description: 'You dont eat any meat and fish', icon: 'Vegetarisch-color' },
-        { food: 'omnivore', description: 'You eat all animal products', icon: 'Omnivor-color' },
-        { food: 'flexitarian', description: 'You rarely eat all animal products', icon: 'Flexitarisch-color' },
-        { food: 'pescetarian', description: 'You only eat fish from all animal products', icon: 'Pescetarisch-color' },
+        { id: 1, food: 'vegan', description: 'You dont eat any kind of animal products', icon: 'Vegan-color' },
+        { id: 2, food: 'vegetarian', description: 'You dont eat any meat and fish', icon: 'Vegetarisch-color' },
+        { id: 3, food: 'omnivore', description: 'You eat all animal products', icon: 'Omnivor-color' },
+        { id: 4, food: 'flexitarian', description: 'You rarely eat all animal products', icon: 'Flexitarisch-color' },
+        {
+            id: 5,
+            food: 'pescetarian',
+            description: 'You only eat fish from all animal products',
+            icon: 'Pescetarisch-color',
+        },
     ];
 
     const [selection, setSelection] = useState(formOfDiet);
@@ -39,9 +44,16 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
         <div>
             <h4 className="mb-2 h2">What is your food lifestyle?</h4>
             <div className="flex justify-center h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
-                <div className={`lg:grid-cols-2 lg:gap-x-4 lg:gap-y-5 ${styles.preferencesWrapper}`}>
+                <div
+                    className={`grid lg:grid-cols-2 lg:gap-x-4 lg:gap-y-5 lg:justify-items-center ${styles.preferencesWrapper}`}
+                    tabIndex={-1}
+                >
                     {preferences.map((preference, i) => (
-                        <div key={i} className={`mb-3 lg:m-0 h-[60px] lg:h-[70px] ${styles.choiceWrapper}`}>
+                        <div
+                            key={preference.id}
+                            className={`lg:m-0 h-[60px] lg:h-[70px] ${styles.choiceWrapper}`}
+                            tabIndex={i + 1}
+                        >
                             <input
                                 type="radio"
                                 name="preferences"
@@ -50,7 +62,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                                 onChange={onChoiceChange}
                                 data-cy={`${preference.food}-radio-btn`}
                             />
-                            <label tabIndex={i} htmlFor={preference.food} className="col-start-1">
+                            <label htmlFor={preference.food} className="col-start-1">
                                 <p className="absolute pb-4 capitalize">{preference.food}</p>
                                 <p className="text-xs pt-8">{preference.description}</p>
                             </label>
