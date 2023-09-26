@@ -53,7 +53,7 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                 >
                     <Icon size={30} icon="heart"></Icon>
                 </div>
-                <Link href={`/recipe/${recipe.id}`}>
+                <Link className="block h-full" href={`/recipe/${recipe.id}`}>
                     <div className={styles.foodBox}>
                         <Image
                             src={`/service/images/${recipe.img}`}
