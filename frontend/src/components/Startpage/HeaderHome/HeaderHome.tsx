@@ -57,13 +57,11 @@ function HeaderHome() {
                 <h1 className="text-green-custom2 leading-none">Planning</h1>
                 <h2 className="h5 !mb-0">- Tastyplan's AI will delight</h2>
                 <h2 className="h5">your taste buds</h2>
-                <div className="">
-                    <Link href="/authentication/registration" data-cy="start-planning-btn" className="btn-primary">
-                        Start Planning
-                    </Link>
-                </div>
+                <Link href="/authentication/registration" data-cy="start-planning-btn" className="btn-primary">
+                    Start Planning
+                </Link>
             </div>
-            <div className="col-span-5 row-span-3 row-start-5 lg:col-span-3 lg:row-span-6 lg:col-start-3 lg:row-start-2 lg:ml-[-3rem] mt-[-2rem] relative">
+            <div className="col-span-5 row-span-3 row-start-5 lg:col-span-3 lg:row-span-6 lg:col-start-3 lg:row-start-2 lg:ml-[-3rem] mt-0 md:mt-[-2rem] relative">
                 <div className="grid grid-cols-4 grid-rows-1 gap-4 lg:gap-12 h-full">
                     <div className="bg-green-custom1 h-[90%] rounded-[12px] lg:rounded-[30px]">
                         <p className={`h5 !font-zeyada text-green-custom2  text-center my-0 mx-auto pt-2`}>Monday</p>
