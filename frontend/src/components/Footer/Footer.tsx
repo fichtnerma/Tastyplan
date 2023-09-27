@@ -29,34 +29,28 @@ export default function Footer() {
                         <div className="flex gap-10 pt-5">
                             <div>
                                 <h4>HELP</h4>
-                                <Link href="/company/questions">
-                                    <p>Q&A</p>
+                                <Link className="p" href="/company/questions">
+                                    Q&A
                                 </Link>
-                                {/* <Link href="/company/contact">
-                                        <p>Contact</p>
-                                    </Link> */}
                             </div>
                             <div>
                                 <h4>Company</h4>
-                                <Link href="/company/aboutUs">
-                                    <p>About us</p>
+                                <Link className="p" href="/company/aboutUs">
+                                    About us
                                 </Link>
                             </div>
-                            <div>
+                            <div className="flex flex-col">
                                 <h4>Legal</h4>
-                                {/* <Link href="/legal/conditions">
-                                        <p>Conditions</p>
-                                    </Link> */}
-                                <Link href="/legal/privacy">
-                                    <p>Privacy Policy</p>
+                                <Link className="p" href="/legal/privacy">
+                                    Privacy Policy
                                 </Link>
-                                <Link href="/legal/impressum">
-                                    <p>Imprint</p>
+                                <Link className="p" href="/legal/impressum">
+                                    Imprint
                                 </Link>
                             </div>
                         </div>
                         <div className="right-14 absolute mt-16">
-                            <Link href="/weekOverview">
+                            <Link className="block" href="/weekOverview">
                                 <Image src={'/logo.svg'} alt="Calendar Img" width={150} height={150} priority />
                             </Link>
                         </div>
