@@ -155,7 +155,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
     };
 
     const handleBlur = () => {
-        // setFocus(false);
+        setFocus(false);
     };
 
     return (
