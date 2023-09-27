@@ -52,9 +52,7 @@ export default function HomePage() {
                 </Link>
             </div>
 
-            <div>
-                <RecipesHome />
-            </div>
+            <RecipesHome />
 
             <div className="text-right relative my-10">
                 <h2 className="leading-none mb-0 z-10 relative">Good Food</h2>
