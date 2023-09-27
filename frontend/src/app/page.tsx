@@ -40,7 +40,7 @@ export default function HomePage() {
                     </div>
                 </div>
             </div>
-            <div className="pt-10 lg:pt-60">
+            <div className="pt-20 md:pt-10 lg:pt-60">
                 <h2 className="mb-10">But why Meal Planning?</h2>
                 <Benefits />
             </div>
