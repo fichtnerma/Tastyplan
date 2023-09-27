@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
@@ -23,7 +23,10 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
     const [allDislikes, setDislike] = useState(foodDislikes);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
-    const [isFocus, setFocus] = useState(false);
+    // const [isFocus, setFocus] = useState(false);
+    const [searchResultVisible, setSearchResultVisible] = useState(false);
+    const searchInputRef = useRef(null);
+    const searchResultRef = useRef(null);
 
     const dislikeRecommendations = [
         {
@@ -151,11 +154,12 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
     };
 
     const handleFocus = () => {
-        setFocus(true);
+        // setFocus(true);
+        setSearchResultVisible(true);
     };
 
     const handleBlur = () => {
-        setFocus(false);
+        // setFocus(false);
     };
 
     return (
@@ -177,13 +181,15 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                                 onChange={searchChanged}
                                 onFocus={handleFocus}
                                 onBlur={handleBlur}
+                                ref={searchInputRef}
                             />
                             <div className="relative">
                                 <div className="absolute z-1 w-full">
-                                    {searchResult.length !== 0 && isFocus === true && (
+                                    {searchResult.length !== 0 && searchResultVisible === true && (
                                         <SearchResultlist
                                             searchResults={[...searchResult]}
                                             clickHandler={handleAddChoice}
+                                            ref={searchResultRef}
                                         />
                                     )}
                                 </div>

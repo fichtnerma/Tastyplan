@@ -13,6 +13,7 @@ interface TextInputProps {
     onChange?: (value: string) => void;
     onFocus?: () => void;
     onBlur?: () => void;
+    ref?: React.Ref<HTMLInputElement>;
 }
 
 export default function TextInput({
@@ -27,6 +28,7 @@ export default function TextInput({
     required,
     onFocus,
     onBlur,
+    ref,
 }: TextInputProps) {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
     const isAtStart = decoration && decorationPosition == 'start';
@@ -71,6 +73,7 @@ export default function TextInput({
                     onBlur={onBlur ? onBlur : handleBlur}
                     onChange={handleTextChange}
                     onFocus={onFocus}
+                    ref={ref}
                 />
             </div>
             <span className={`${errorMessage ? '' : 'hidden'} errorMessage`}>{errorMessage}</span>
