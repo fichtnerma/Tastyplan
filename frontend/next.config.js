@@ -35,6 +35,9 @@ const devConfig = {
         };
         return config;
     },
+    experimental: {
+        appDir: true,
+    },
 };
 const prodConfig = {};
 
