@@ -3,9 +3,7 @@ services:
         build:
             context: ./api
             dockerfile: Dockerfile.dev
-            # Only will build development stage from our dockerfile
-        # Run in dev Mode: npm run start:dev
-        command: npm run start:watch
+        command: npm run start:dev
         container_name: api
         env_file:
             - .env

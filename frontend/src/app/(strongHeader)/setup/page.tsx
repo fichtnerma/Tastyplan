@@ -1,5 +1,6 @@
+'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 // import WeekplanConfig from '@components/WeekplanConfig/WeekplanConfig';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
@@ -122,7 +123,7 @@ const SetupParentPage = () => {
         );
 
         if (weekplanRes.ok) {
-            router.push(`${router.basePath}/weekOverview`, undefined, undefined);
+            router.push(`/weekOverview`, undefined);
         }
     };
 

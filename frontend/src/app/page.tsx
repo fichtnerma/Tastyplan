@@ -1,11 +1,10 @@
-import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Steps from '@components/Startpage/Steps/Steps';
 import RecipesHome from '@components/Startpage/Recipes/RecipesHome';
 import HeaderHome from '@components/Startpage/HeaderHome/HeaderHome';
 import Benefits from '@components/Startpage/Benefits/Benefits';
-import styles from '../styles/Home.module.scss';
+import styles from '@styles/Home.module.scss';
 
 export type Benefit = {
     id: number;
@@ -14,38 +13,11 @@ export type Benefit = {
     desc: string;
 };
 
-export default function Index() {
-    const fieldRef = useRef<HTMLInputElement>(null);
-    // function startAnimation() {
-    //     const animationClass = `${styles.animTypewriter}`;
-
-    //     const element = document.querySelector('.animation');
-
-    //     element?.classList.add(animationClass);
-    // }
-
-    // const leftVariants: Variants = {
-    //     offscreen: {
-    //         y: 300,
-    //     },
-    //     onscreen: {
-    //         y: 50,
-    //         rotate: -10,
-    //         transition: {
-    //             type: 'spring',
-    //             bounce: 0.4,
-    //             duration: 0.8,
-    //         },
-    //     },
-    // };
-
+export default function HomePage() {
     return (
         <div className={styles.home}>
-            <HeaderHome fieldRef={fieldRef} />
-            {/* <div ref={fieldRef} onMouseOver={startAnimation}> */}
-            {/* <motion.div initial="offscreen" whileInView="onscreen" viewport={{ amount: 1 }}> */}
-            {/* <motion.div variants={leftVariants}> */}
-            <div ref={fieldRef} className={`"flex pt-8 ${styles.explainWrapper}`}>
+            <HeaderHome />
+            <div id="scrollRef" className={`"flex pt-8 ${styles.explainWrapper}`}>
                 <div className="flex flex-col pt-20 lg:pt-40 w-full relative">
                     <div>
                         <Image
@@ -67,14 +39,6 @@ export default function Index() {
                         </p>
                     </div>
                 </div>
-                {/* </div> */}
-                {/* </motion.div> */}
-                {/* </motion.div> */}
-                {/* <p
-                    className={`h2 !font-zeyada text-green-custom2  text-center my-0 mx-auto mt-20 animation ${styles.line}`}
-                >
-                    Meal planning has never been easier and more delicious.
-                </p> */}
             </div>
             <div className="pt-10 lg:pt-60">
                 <h2 className="mb-10">But why Meal Planning?</h2>

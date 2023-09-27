@@ -1,4 +1,3 @@
-import { RefObject } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Icon from '@components/Icon/Icon';
@@ -10,15 +9,7 @@ type FoodImages = {
     image: CustomSVG;
 };
 
-type HeaderHomeProps = {
-    fieldRef: RefObject<HTMLInputElement>;
-};
-
-function HeaderHome({ fieldRef }: HeaderHomeProps) {
-    const scrollTo = () => {
-        fieldRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-
+function HeaderHome() {
     const foodImages: FoodImages[] = [
         {
             id: 1,
@@ -112,12 +103,12 @@ function HeaderHome({ fieldRef }: HeaderHomeProps) {
                     ))}
                 </div>
 
-                <button
+                <Link
+                    href="#scrollRef"
                     className="col-start-3 row-start-8 text-green-custom2 hover:text-green-custome3 flex justify-center pt-8 z-10 animate-bounce"
-                    onClick={scrollTo}
                 >
                     <Icon size={100} icon="arrowDownCircle"></Icon>
-                </button>
+                </Link>
             </div>
         </div>
     );
