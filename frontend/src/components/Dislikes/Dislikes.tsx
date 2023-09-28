@@ -23,7 +23,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
     const [allDislikes, setDislike] = useState(foodDislikes);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
-    const [isFocus, setFocus] = useState(false);
+    const [isInputFocus, setInputFocus] = useState(false);
 
     const dislikeRecommendations = [
         {
@@ -111,15 +111,10 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
         if (!id || !name) return;
         const clickedDislike = { id: +id, name } as APISearchResponse;
         if (allDislikes.find((dislike) => dislike.id === clickedDislike.id)) {
-            target.style.backgroundColor = 'var(--gray-2)';
-            //add hover effect to element: backgroundColor = 'var(--gray-5)'
-            // target.classList.add('hover-style');
             setDislike(allDislikes.filter((dislike) => dislike.id !== clickedDislike.id));
         } else {
-            target.style.backgroundColor = 'var(--gray-5)';
             setDislike([...allDislikes, clickedDislike]);
         }
-
         onChoice(allDislikes);
     };
 
@@ -150,16 +145,17 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
         searchChanged('');
     };
 
-    const handleFocus = () => {
-        setFocus(true);
-    };
-
-    const handleBlur = () => {
-        // setFocus(false);
+    const handleClickOnListAndInput = (e: React.MouseEvent) => {
+        const clickedElement = e.target as HTMLElement;
+        if (clickedElement.tagName === 'INPUT' || clickedElement.tagName === 'LI') {
+            setInputFocus(true);
+        } else {
+            setInputFocus(false);
+        }
     };
 
     return (
-        <div>
+        <div onClick={handleClickOnListAndInput}>
             <h4 className="mb-2 h2">What food do you dislike?</h4>
             <div className="flex h-[400px] lg:h-[300px] flex-col lg:flex-row">
                 <div className="flex w-full flex-col lg:w-1/3">
@@ -175,15 +171,14 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                                 }
                                 decorationPosition="end"
                                 onChange={searchChanged}
-                                onFocus={handleFocus}
-                                onBlur={handleBlur}
                             />
                             <div className="relative">
                                 <div className="absolute z-1 w-full">
-                                    {searchResult.length !== 0 && isFocus === true && (
+                                    {searchResult.length !== 0 && isInputFocus == true && (
                                         <SearchResultlist
                                             searchResults={[...searchResult]}
                                             clickHandler={handleAddChoice}
+                                            dislikes={allDislikes}
                                         />
                                     )}
                                 </div>
@@ -207,7 +202,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                             <div key={i} className={styles.dislikeWrapper}>
                                 <span>
                                     <label className="flex" htmlFor={dislike.name}>
-                                        <p className="inline-block text-base pr-2 max-w-[300px] truncate">
+                                        <p className="inline-block pr-2 max-w-[300px] truncate text-sm">
                                             {dislike.name.charAt(0).toUpperCase() + dislike.name.slice(1)}
                                         </p>
 
@@ -216,7 +211,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                                             onClick={onDeleteChoice}
                                             data-anchor={dislike.name}
                                         >
-                                            <Image src={cross} className="" alt="cross" width={20} priority />
+                                            <Image src={cross} className="" alt="cross" width={12} priority />
                                         </a>
                                     </label>
                                 </span>
