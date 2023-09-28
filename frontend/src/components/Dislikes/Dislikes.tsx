@@ -202,7 +202,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                             <div key={i} className={styles.dislikeWrapper}>
                                 <span>
                                     <label className="flex" htmlFor={dislike.name}>
-                                        <p className="inline-block text-base pr-2 max-w-[300px] truncate">
+                                        <p className="inline-block pr-2 max-w-[300px] truncate text-sm">
                                             {dislike.name.charAt(0).toUpperCase() + dislike.name.slice(1)}
                                         </p>
 
@@ -211,7 +211,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                                             onClick={onDeleteChoice}
                                             data-anchor={dislike.name}
                                         >
-                                            <Image src={cross} className="" alt="cross" width={20} priority />
+                                            <Image src={cross} className="" alt="cross" width={12} priority />
                                         </a>
                                     </label>
                                 </span>
