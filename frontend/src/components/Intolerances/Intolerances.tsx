@@ -61,17 +61,18 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
 
     return (
         <>
-            <h4 className="mb-2 h2">What are your intolerances?</h4>
+            <h4 className="h2 mb-2">What are your intolerances?</h4>
             <div className="h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
                 <div className="grid grid-cols-2 gap-4 lg:gap-y-4 lg:grid-cols-3 xl:gap-y-8 xl:grid-cols-3 2xl:gap-y-8 2xl:grid-cols-4">
                     {intolerances.map((intolerance, i) => (
                         <div
                             key={intolerance.id}
-                            className={`${styles.intoleranceWrapper} lg:w-[180px] xl:w-[190px] 2xl:w-[200px]`}
+                            className={`${styles.intoleranceWrapper} block w-[200px] h-[70px] relative rounded-[50px] lg:w-[180px] xl:w-[190px] 2xl:w-[200px]`}
                             tabIndex={-1}
                         >
                             <div className={`flex ${styles.intoleranceCustomFocus}`} tabIndex={i + 1}>
                                 <input
+                                    className="absolute top-0 right-0 bottom-0 left-0 bg-white-custom cursor:pointer opacity=[.01] z-[100] w-full h-full rounded-[50px]"
                                     type="checkbox"
                                     name="intolerances"
                                     value={intolerance.code}
@@ -79,7 +80,10 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                                     onChange={onAddChoice}
                                     data-cy={`${intolerance.code}-checkbox`}
                                 />
-                                <label htmlFor={intolerance.ui}>
+                                <label
+                                    className="absolute top-0 right-0 bottom-0 left-0 bg-white-custom cursor:pointer flex justify-left items-center border-[2px] border-solid border-gray-custom4 font-medium text-[.875rem] leading-[1.25rem] text-gray-custom4 rounded-[50px] pl-[67px]"
+                                    htmlFor={intolerance.ui}
+                                >
                                     <p className="text-base">{intolerance.ui}</p>
                                 </label>
                                 <div

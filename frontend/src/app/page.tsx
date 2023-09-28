@@ -4,7 +4,6 @@ import Steps from '@components/Startpage/Steps/Steps';
 import RecipesHome from '@components/Startpage/Recipes/RecipesHome';
 import HeaderHome from '@components/Startpage/HeaderHome/HeaderHome';
 import Benefits from '@components/Startpage/Benefits/Benefits';
-import styles from '@styles/Home.module.scss';
 
 export type Benefit = {
     id: number;
@@ -15,21 +14,19 @@ export type Benefit = {
 
 export default function HomePage() {
     return (
-        <div className={styles.home}>
+        <div className="w-full max-w-[1600px] ml-auto mr-auto p-6 lg:p-14">
             <HeaderHome />
-            <div id="scrollRef" className={`"flex pt-8 ${styles.explainWrapper}`}>
+            <div id="scrollRef" className="flex w-full h-[60vh] lg:h-[80vh] pt-8">
                 <div className="flex flex-col pt-20 lg:pt-40 w-full relative">
-                    <div>
-                        <Image
-                            src="/Landingpage/FoodItems/Kaese.svg"
-                            alt=""
-                            width="1200"
-                            height="1200"
-                            loading="lazy"
-                            className="absolute w-[700px] lg:w-[1000px] left-[-240px] top-[-130px] md:top-[-100px] !max-w-none"
-                        />
-                    </div>
-                    <div className="z-10 ">
+                    <Image
+                        src="/Landingpage/FoodItems/Kaese.svg"
+                        alt=""
+                        width="1200"
+                        height="1200"
+                        loading="lazy"
+                        className="absolute w-[700px] lg:w-[1000px] left-[-240px] top-[-130px] md:top-[-100px] !max-w-none"
+                    />
+                    <div className="z-10">
                         <h2 className="">What is Tasty Plan?</h2>
                         <p className="sm:w-1/2 2xl:w-1/3 backdrop-blur-sm">
                             No more worrying about what to eat for the week or spending hours scouring the internet for
@@ -40,7 +37,7 @@ export default function HomePage() {
                     </div>
                 </div>
             </div>
-            <div className="pt-10 lg:pt-60">
+            <div className="pt-20 md:pt-10 lg:pt-60">
                 <h2 className="mb-10">But why Meal Planning?</h2>
                 <Benefits />
             </div>
@@ -55,9 +52,7 @@ export default function HomePage() {
                 </Link>
             </div>
 
-            <div>
-                <RecipesHome />
-            </div>
+            <RecipesHome />
 
             <div className="text-right relative my-10">
                 <h2 className="leading-none mb-0 z-10 relative">Good Food</h2>
