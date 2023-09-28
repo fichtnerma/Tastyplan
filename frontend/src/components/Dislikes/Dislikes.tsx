@@ -111,15 +111,10 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
         if (!id || !name) return;
         const clickedDislike = { id: +id, name } as APISearchResponse;
         if (allDislikes.find((dislike) => dislike.id === clickedDislike.id)) {
-            target.style.backgroundColor = 'var(--gray-2)';
-            //add hover effect to element: backgroundColor = 'var(--gray-5)'
-            // target.classList.add('hover-style');
             setDislike(allDislikes.filter((dislike) => dislike.id !== clickedDislike.id));
         } else {
-            target.style.backgroundColor = 'var(--gray-5)';
             setDislike([...allDislikes, clickedDislike]);
         }
-
         onChoice(allDislikes);
     };
 
@@ -183,6 +178,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                                         <SearchResultlist
                                             searchResults={[...searchResult]}
                                             clickHandler={handleAddChoice}
+                                            dislikes={allDislikes}
                                         />
                                     )}
                                 </div>
