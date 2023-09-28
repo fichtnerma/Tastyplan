@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
@@ -23,10 +23,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
     const [allDislikes, setDislike] = useState(foodDislikes);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
-    // const [isFocus, setFocus] = useState(false);
-    const [searchResultVisible, setSearchResultVisible] = useState(false);
-    const searchInputRef = useRef(null);
-    const searchResultRef = useRef(null);
+    const [isInputFocus, setInputFocus] = useState(false);
 
     const dislikeRecommendations = [
         {
@@ -153,17 +150,17 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
         searchChanged('');
     };
 
-    const handleFocus = () => {
-        // setFocus(true);
-        setSearchResultVisible(true);
-    };
-
-    const handleBlur = () => {
-        // setFocus(false);
+    const handleClickOnListAndInput = (e: React.MouseEvent) => {
+        const clickedElement = e.target as HTMLElement;
+        if (clickedElement.tagName === 'INPUT' || clickedElement.tagName === 'LI') {
+            setInputFocus(true);
+        } else {
+            setInputFocus(false);
+        }
     };
 
     return (
-        <div>
+        <div onClick={handleClickOnListAndInput}>
             <h4 className="mb-2 h2">What food do you dislike?</h4>
             <div className="flex h-[400px] lg:h-[300px] flex-col lg:flex-row">
                 <div className="flex w-full flex-col lg:w-1/3">
@@ -179,17 +176,13 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                                 }
                                 decorationPosition="end"
                                 onChange={searchChanged}
-                                onFocus={handleFocus}
-                                onBlur={handleBlur}
-                                ref={searchInputRef}
                             />
                             <div className="relative">
                                 <div className="absolute z-1 w-full">
-                                    {searchResult.length !== 0 && searchResultVisible === true && (
+                                    {searchResult.length !== 0 && isInputFocus == true && (
                                         <SearchResultlist
                                             searchResults={[...searchResult]}
                                             clickHandler={handleAddChoice}
-                                            ref={searchResultRef}
                                         />
                                     )}
                                 </div>
