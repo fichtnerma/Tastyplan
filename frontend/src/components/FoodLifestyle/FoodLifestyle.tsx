@@ -65,7 +65,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                             />
                             <label
                                 htmlFor={preference.food}
-                                className={`absolute top-0 right-0 bottom-0 left-0 cursor-pointer z-[1] flex justify-left items-center border-2 border-solid border-gray-custom3 rounded-[50px] z-[90] font-medium text-[1.124rem] leading-8 pl-8 col-start-1 ${styles.customFocus} ${styles.radioLabel}`}
+                                className={`absolute top-0 right-0 bottom-0 left-0 cursor-pointer z-[1] flex justify-left items-center border-2 border-solid border-gray-custom4 rounded-[50px] z-[90] font-medium text-[1.124rem] leading-8 pl-8 col-start-1 ${styles.customFocus} ${styles.radioLabel}`}
                             >
                                 <p className="absolute top-1 capitalize">{preference.food}</p>
                                 <p className="text-xs pt-6 lg:pt-8 lg:max-w-[200px] xl:max-w-[unset]">
