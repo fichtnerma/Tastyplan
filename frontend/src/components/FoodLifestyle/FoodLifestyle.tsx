@@ -45,7 +45,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
             <h4 className="mb-2 h2">What is your food lifestyle?</h4>
             <div className="flex justify-center h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
                 <div
-                    className={`grid lg:grid-cols-2 lg:gap-x-4 lg:gap-y-5 lg:justify-items-center ${styles.preferencesWrapper}`}
+                    className="grid grid-flow-row items-center w-full lg:grid-cols-2 lg:gap-x-4 lg:gap-y-5 lg:justify-items-center"
                     tabIndex={-1}
                 >
                     {preferences.map((preference, i) => (
