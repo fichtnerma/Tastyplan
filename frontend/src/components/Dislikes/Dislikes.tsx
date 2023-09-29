@@ -187,7 +187,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                     </div>
                 </div>
                 <div className=" h-[280px] overflow-y-auto mt-2 lg:mt-0 lg:ml-8 lg:w-2/3">
-                    <div className="flex flex-wrap mb-2 gap-x-2">
+                    <div className="flex flex-wrap gap-2">
                         {allDislikes.map((dislike, i) => (
                             <div
                                 key={i}
