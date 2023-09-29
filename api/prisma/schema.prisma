@@ -86,8 +86,8 @@ model Preferences {
     formOfDiet   String
     allergens    String[]
     foodDislikes Ingredient[]
-    days         String[]
-    meals        String[]
+    days         Int[]
+    meals        Int[]
     serving      Int?
 }
 

@@ -13,12 +13,10 @@ export class PreferencesDto {
     foodDislikes: { id: number; name: string }[];
 
     @IsArray()
-    @IsString({ each: true })
-    days: string[];
+    days: number[];
 
     @IsArray()
-    @IsString({ each: true })
-    meals: string[];
+    meals: number[];
 
     @IsNumber()
     serving: number;
