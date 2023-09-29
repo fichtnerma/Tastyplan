@@ -38,34 +38,38 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
     return (
         <>
             <h4 className="mb-2 h2">What is your food lifestyle?</h4>
-            <div className="flex justify-center h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
-                <div className={`lg:grid-cols-2 lg:gap-x-4 lg:gap-y-5 ${styles.preferencesWrapper}`} tabIndex={-1}>
-                    {preferences.map((preference, i) => (
-                        <div
-                            key={preference.food}
-                            className={`mb-3 lg:m-0 h-[60px] lg:h-[70px] ${styles.choiceWrapper}`}
-                            tabIndex={i + 1}
+            <div
+                className="flex flex-col justify-center lg:grid lg:grid-cols-2 gap-y-4 lg:gap-x-4 w-full h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden"
+                tabIndex={-1}
+            >
+                {preferences.map((preference, i) => (
+                    <div
+                        key={preference.food}
+                        className={`flex justify-end items-center w-full relative pr-5 h-[60px] lg:h-[70px] ${styles.choiceWrapper}`}
+                        tabIndex={i + 1}
+                    >
+                        <input
+                            className={`absolute top-0 right-0 bottom-0 left-0 cursor:pointer opacity=[.01] z-[-1] w-full h-full rounded-[50px] hover:cursor-pointer custom-focus ${styles.customInput}`}
+                            id={preference.food}
+                            type="radio"
+                            name="preferences"
+                            value={preference.food}
+                            checked={selection === preference.food}
+                            onChange={onChoiceChange}
+                            data-cy={`${preference.food}-radio-btn`}
+                        />
+                        <label
+                            htmlFor={preference.food}
+                            className={`absolute top-0 right-0 bottom-0 left-0 hover:cursor-pointer flex justify-start items-center border-2 border-solid border-gray-custom4 rounded-[50px] z-[1] font-medium font-[1.125rem] leading-7 pl-8 col-start-1 ${styles.customLabel}`}
                         >
-                            <input
-                                className="custom-focus"
-                                id={preference.food}
-                                type="radio"
-                                name="preferences"
-                                value={preference.food}
-                                checked={selection === preference.food}
-                                onChange={onChoiceChange}
-                                data-cy={`${preference.food}-radio-btn`}
-                            />
-                            <label htmlFor={preference.food} className="col-start-1">
-                                <p className="absolute pb-4 capitalize">{preference.food}</p>
-                                <p className="text-xs pt-8">{preference.description}</p>
-                            </label>
-                            <div className="flex self-center col-start-6 h-fit z-[90] center pr-4">
-                                <Icon size={50} icon={preference.icon}></Icon>
-                            </div>
+                            <p className="absolute pb-4 capitalize">{preference.food}</p>
+                            <p className="text-xs pt-8">{preference.description}</p>
+                        </label>
+                        <div className="z-[2]">
+                            <Icon size={50} icon={preference.icon}></Icon>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
             <div className="flex justify-end relative">
                 <button
