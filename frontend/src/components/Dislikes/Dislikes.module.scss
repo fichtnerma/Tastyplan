@@ -1,24 +1,3 @@
-.dislikeWrapper {
-    span {
-        display: inline-block;
-        border: solid;
-        border-radius: 50px;
-        border: 2px solid var(--green-dark);
-        background-color: var(--green-light);
-        overflow: hidden;
-        white-space: nowrap;
-        width: max-content;
-        padding: 5px;
-        font-size: 0.8rem;
-        padding-left: 7px;
-        padding-right: 7px;
-
-        label {
-            align-items: center;
-        }
-    }
-}
-
 .recommendationsWrapper {
     button {
         margin-bottom: 6px;

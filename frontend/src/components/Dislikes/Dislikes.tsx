@@ -76,16 +76,6 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
         },
     ];
 
-    // const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //     e.preventDefault();
-    //     onChoice(allDislikes);
-    //     if (e.currentTarget.getAttribute('data-btn') == 'next') {
-    //         onNext();
-    //     } else {
-    //         onBack();
-    //     }
-    // };
-
     const handleBack = () => {
         onChoice(allDislikes);
         onBack();
@@ -199,9 +189,12 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                 <div className=" h-[280px] overflow-y-auto mt-2 lg:mt-0 lg:ml-8 lg:w-2/3">
                     <div className="flex flex-wrap mb-2 gap-x-2">
                         {allDislikes.map((dislike, i) => (
-                            <div key={i} className={styles.dislikeWrapper}>
+                            <div
+                                key={i}
+                                className="inline-block border-2 border-solid border-green-custom1 rounded-[50px] overflow-hidden whitespace-nowrap w-max py-[5px] px-[7px]"
+                            >
                                 <span>
-                                    <label className="flex" htmlFor={dislike.name}>
+                                    <label className="flex items-center" htmlFor={dislike.name}>
                                         <p className="inline-block pr-2 max-w-[300px] truncate text-sm">
                                             {dislike.name.charAt(0).toUpperCase() + dislike.name.slice(1)}
                                         </p>
