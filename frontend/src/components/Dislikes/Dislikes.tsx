@@ -5,7 +5,6 @@ import SearchResultlist from '@components/SearchResultList/SearchResultList';
 import TextInput from '@components/FormInputs/TextInput';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
-import styles from '../Dislikes/Dislikes.module.scss';
 import cross from '../../../public/Icons/kreuz.png';
 
 // type OnNextFunction = () => void;
@@ -176,11 +175,15 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                             <p className="inline-block text-base pt-3">Add this to your dislikes.</p>
                             <div className="flex flex-wrap">
                                 {dislikeRecommendations.map((dislike, i) => (
-                                    <div key={i} className={styles.recommendationsWrapper}>
-                                        <button type="button" onClick={handleAddRecommendation} data-id={dislike.id}>
-                                            {dislike.categoryName}
-                                        </button>
-                                    </div>
+                                    <button
+                                        key={dislike.id}
+                                        className="mb-[6px] ml-[6px] border-solid rounded-[50px] border-2 border-green-custom2 bg-white-custom whitespace-nowrap text-[.8rem] hover:bg-green-custom1 py-[5px] px-[6px]"
+                                        type="button"
+                                        onClick={handleAddRecommendation}
+                                        data-id={dislike.id}
+                                    >
+                                        {dislike.categoryName}
+                                    </button>
                                 ))}
                             </div>
                         </div>
