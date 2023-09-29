@@ -191,7 +191,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                         {allDislikes.map((dislike, i) => (
                             <div
                                 key={i}
-                                className="inline-block border-2 border-solid border-green-custom1 rounded-[50px] overflow-hidden whitespace-nowrap w-max py-[5px] px-[7px]"
+                                className="inline-block border-2 border-solid border-green-custom2 rounded-[50px] bg-green-custom1 overflow-hidden whitespace-nowrap w-max py-[5px] px-[7px]"
                             >
                                 <span>
                                     <label className="flex items-center" htmlFor={dislike.name}>
