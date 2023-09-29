@@ -36,13 +36,19 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
     };
 
     return (
-        <div>
+        <>
             <h4 className="mb-2 h2">What is your food lifestyle?</h4>
             <div className="flex justify-center h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
-                <div className={`lg:grid-cols-2 lg:gap-x-4 lg:gap-y-5 ${styles.preferencesWrapper}`}>
+                <div className={`lg:grid-cols-2 lg:gap-x-4 lg:gap-y-5 ${styles.preferencesWrapper}`} tabIndex={-1}>
                     {preferences.map((preference, i) => (
-                        <div key={i} className={`mb-3 lg:m-0 h-[60px] lg:h-[70px] ${styles.choiceWrapper}`}>
+                        <div
+                            key={preference.food}
+                            className={`mb-3 lg:m-0 h-[60px] lg:h-[70px] ${styles.choiceWrapper}`}
+                            tabIndex={i + 1}
+                        >
                             <input
+                                className="custom-focus"
+                                id={preference.food}
                                 type="radio"
                                 name="preferences"
                                 value={preference.food}
@@ -69,10 +75,11 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                     data-anchor="next"
                     disabled={disabled}
                     data-cy="next-btn"
+                    tabIndex={preferences.length}
                 >
                     Next
                 </button>
             </div>
-        </div>
+        </>
     );
 }

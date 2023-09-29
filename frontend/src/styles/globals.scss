@@ -45,21 +45,21 @@ body {
 
 a {
     &:focus {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+        outline: unset;
     }
 
     &:focus-visible {
-        outline: unset;
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
     }
 }
 
 .custom-focus {
     &:focus {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+        outline: unset;
     }
 
     &:focus-visible {
-        outline: unset;
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
     }
 }
 
