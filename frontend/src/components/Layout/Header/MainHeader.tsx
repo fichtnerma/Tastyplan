@@ -37,13 +37,13 @@ export default function MainHeader() {
         <>
             <div className={`${styles.headerContainer}`}>
                 <div className={`${styles.container} ${headerClass}`}>
-                    <Link href="/weekOverview" className="hidden md:block">
-                        <div className="ml-6 mt-3">
-                            <Image src={'/logo.svg'} alt="Calendar Img" width={90} height={90} priority />
+                    <Link href="/weekOverview" className="hidden md:block my-auto">
+                        <div className="ml-6">
+                            <Image src={'/logo.svg'} alt="Calendar Img" width={70} height={70} priority />
                         </div>
                     </Link>
 
-                    <div className="flex gap-14 md:gap-10 md:mr-8 md:mt-6 m-auto">
+                    <div className="flex gap-14 md:gap-10 md:mr-8 m-auto mt-3">
                         <Link
                             href="/weekOverview"
                             onClick={changeActiveTab}

@@ -22,31 +22,23 @@ type DateFormatOptions = {
 const swiperBreakpoints = {
     400: {
         slidesPerView: 3,
-        spaceBetween: 20,
+        spaceBetween: 10,
     },
     780: {
         slidesPerView: 4,
-        spaceBetween: 20,
+        spaceBetween: 10,
     },
     1000: {
-        slidesPerView: 3,
-        spaceBetween: 20,
+        slidesPerView: 5,
+        spaceBetween: 10,
     },
     1250: {
-        slidesPerView: 4,
-        spaceBetween: 20,
+        slidesPerView: 6,
+        spaceBetween: 10,
     },
     1500: {
-        slidesPerView: 5,
-        spaceBetween: 40,
-    },
-    1750: {
-        slidesPerView: 6,
-        spaceBetween: 50,
-    },
-    2000: {
         slidesPerView: 7,
-        spaceBetween: 50,
+        spaceBetween: 10,
     },
 };
 
@@ -111,12 +103,12 @@ export default function WeekOverview() {
     return (
         <>
             {data && !error ? (
-                <div className={`w-full p-6 md:p-14 md:pt-36 ${styles.container}`}>
+                <div className={`w-full p-6 md:p-14 md:pt-24 ${styles.container}`}>
                     <div className="sm:flex sm:justify-between">
                         <h1 className="">{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Weekplan</h1>
-                        <div className="mt-6">
+                        <div className="mt-4">
                             <button
-                                className="btn-primary rounded-full"
+                                className="btn-primary rounded-full btn-small"
                                 data-cy="start-planning-btn"
                                 onClick={generateNewWeek}
                             >
@@ -124,7 +116,7 @@ export default function WeekOverview() {
                             </button>
                         </div>
                     </div>
-                    <div className="flex mt-10">
+                    <div className="flex">
                         {/* Mobile */}
                         <div className="sm:hidden w-full">
                             {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
@@ -145,7 +137,7 @@ export default function WeekOverview() {
                             mousewheel={{
                                 forceToAxis: true,
                             }}
-                            breakpoints={swiperBreakpoints}
+                            // breakpoints={swiperBreakpoints}
                             modules={[Navigation, Scrollbar, Mousewheel]}
                             className={styles.mySwiper}
                         >

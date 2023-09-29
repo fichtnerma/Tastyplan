@@ -72,7 +72,7 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
                             <div className="">
                                 <div className="w-full col-span-4">
                                     <p
-                                        className="text-l lg:text-2xl w-4/5 sm:w-[140px] lg:w-[210px] recipeName"
+                                        className="h5 !mb-0 w-4/5 sm:w-[140px] lg:w-[210px] recipeName"
                                         style={{
                                             color: highlighted ? 'var(--white)' : 'var(--black)',
                                         }}
