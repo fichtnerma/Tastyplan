@@ -174,7 +174,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                             </div>
                             <p className="inline-block text-base pt-3">Add this to your dislikes.</p>
                             <div className="flex flex-wrap">
-                                {dislikeRecommendations.map((dislike, i) => (
+                                {dislikeRecommendations.map((dislike) => (
                                     <button
                                         key={dislike.id}
                                         className="mb-[6px] ml-[6px] border-solid rounded-[50px] border-2 border-green-custom2 bg-white-custom whitespace-nowrap text-[.8rem] hover:bg-green-custom1 py-[5px] px-[6px]"
