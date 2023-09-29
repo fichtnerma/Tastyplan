@@ -5,7 +5,6 @@ import SearchResultlist from '@components/SearchResultList/SearchResultList';
 import TextInput from '@components/FormInputs/TextInput';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
-import styles from '../Dislikes/Dislikes.module.scss';
 import cross from '../../../public/Icons/kreuz.png';
 
 // type OnNextFunction = () => void;
@@ -75,16 +74,6 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
             ],
         },
     ];
-
-    // const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //     e.preventDefault();
-    //     onChoice(allDislikes);
-    //     if (e.currentTarget.getAttribute('data-btn') == 'next') {
-    //         onNext();
-    //     } else {
-    //         onBack();
-    //     }
-    // };
 
     const handleBack = () => {
         onChoice(allDislikes);
@@ -185,23 +174,30 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                             </div>
                             <p className="inline-block text-base pt-3">Add this to your dislikes.</p>
                             <div className="flex flex-wrap">
-                                {dislikeRecommendations.map((dislike, i) => (
-                                    <div key={i} className={styles.recommendationsWrapper}>
-                                        <button type="button" onClick={handleAddRecommendation} data-id={dislike.id}>
-                                            {dislike.categoryName}
-                                        </button>
-                                    </div>
+                                {dislikeRecommendations.map((dislike) => (
+                                    <button
+                                        key={dislike.id}
+                                        className="mb-[6px] ml-[6px] border-solid rounded-[50px] border-2 border-green-custom2 bg-white-custom whitespace-nowrap text-[.8rem] hover:bg-green-custom1 py-[5px] px-[6px]"
+                                        type="button"
+                                        onClick={handleAddRecommendation}
+                                        data-id={dislike.id}
+                                    >
+                                        {dislike.categoryName}
+                                    </button>
                                 ))}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className=" h-[280px] overflow-y-auto mt-2 lg:mt-0 lg:ml-8 lg:w-2/3">
-                    <div className="flex flex-wrap mb-2 gap-x-2">
+                    <div className="flex flex-wrap gap-2">
                         {allDislikes.map((dislike, i) => (
-                            <div key={i} className={styles.dislikeWrapper}>
+                            <div
+                                key={i}
+                                className="inline-block border-2 border-solid border-green-custom2 rounded-[50px] bg-green-custom1 overflow-hidden whitespace-nowrap w-max py-[5px] px-[7px]"
+                            >
                                 <span>
-                                    <label className="flex" htmlFor={dislike.name}>
+                                    <label className="flex items-center" htmlFor={dislike.name}>
                                         <p className="inline-block pr-2 max-w-[300px] truncate text-sm">
                                             {dislike.name.charAt(0).toUpperCase() + dislike.name.slice(1)}
                                         </p>
