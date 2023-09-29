@@ -3,7 +3,7 @@ import ReturnButton from '@components/common/ReturnButton';
 
 function Impressum() {
     return (
-        <div className="lg:w-3/6 p-6 md:p-14 md:pt-36">
+        <div className="lg:w-3/6 p-6 md:p-14 md:pt-24">
             <ReturnButton />
             <h1>Imprint</h1>
 

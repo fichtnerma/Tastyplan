@@ -6,7 +6,7 @@ import styles from '@styles/Help.module.scss';
 
 function Questions() {
     return (
-        <div className={`p-6 md:p-14 md:pt-36 lg:w-4/5 ${styles.questions}`}>
+        <div className={`p-6 md:p-14 md:pt-24 lg:w-4/5 ${styles.questions}`}>
             <ReturnButton />
             <h1>Questions & Answers</h1>
             <div className="mb-10">

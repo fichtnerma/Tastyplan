@@ -3,7 +3,7 @@ import ReturnButton from '@components/common/ReturnButton';
 
 function AboutUs() {
     return (
-        <div className="p-6 md:p-14 md:pt-36">
+        <div className="p-6 md:p-14 md:pt-24">
             <ReturnButton />
             <h1>About us</h1>
 

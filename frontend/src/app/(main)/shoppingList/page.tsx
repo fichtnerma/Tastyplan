@@ -129,7 +129,7 @@ function ShoppingListPage() {
     };
 
     return (
-        <div className="p-6 md:p-14 md:pt-36 lg:max-w-[1920px]">
+        <div className="p-6 md:p-14 md:pt-24 lg:max-w-[1920px]">
             <h1 className="text-green-custom2">Your shopping list:</h1>
             <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="mb-14 md:mb-0">
@@ -140,7 +140,7 @@ function ShoppingListPage() {
                                 <div key={key[0]} className="mb-6 last:mb-0 lg:mb-20 lg:last:mb-0">
                                     {key[1].length > 0 && (
                                         <>
-                                            <h3>{key[0]}</h3>
+                                            <h3 className="h5 !mb-1">{key[0]}</h3>
                                             <CheckboxGroup
                                                 checkboxes={key[1]}
                                                 groupName={key[0]}
@@ -161,7 +161,7 @@ function ShoppingListPage() {
                                 <div key={key[0]} className="mb-6 last:mb-0 lg:mb-20 lg:last:mb-0">
                                     {key[1].length > 0 && (
                                         <>
-                                            <h3>{key[0]}</h3>
+                                            <h3 className="h5 !mb-1">{key[0]}</h3>
                                             <CheckboxGroup
                                                 checkboxes={key[1]}
                                                 groupName={key[0]}
