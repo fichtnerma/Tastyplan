@@ -137,7 +137,7 @@ export default function WeekOverview() {
                             mousewheel={{
                                 forceToAxis: true,
                             }}
-                            // breakpoints={swiperBreakpoints}
+                            breakpoints={swiperBreakpoints}
                             modules={[Navigation, Scrollbar, Mousewheel]}
                             className={styles.mySwiper}
                         >
