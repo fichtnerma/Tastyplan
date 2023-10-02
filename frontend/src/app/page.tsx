@@ -46,11 +46,25 @@ export default function HomePage() {
                 <Steps />
             </div>
 
-            <div className="my-40 flex justify-center">
+            <div className="mt-40 mb-20 flex justify-center">
                 <Link href="/authentication/registration" data-cy="start-planning-btn" className="btn-primary">
                     Start Planning
                 </Link>
             </div>
+
+            <Link
+                className="flex justify-center mb-20"
+                href="https://www.producthunt.com/posts/tastyplan?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-tastyplan"
+                target="_blank"
+            >
+                <Image
+                    src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=401266&theme=light&period=daily"
+                    alt="TastyPlan - Create&#0032;your&#0032;personalized&#0032;meal&#0032;plan | Product Hunt"
+                    style={{ width: 250 + 'px', height: 54 + 'px' }}
+                    width="250"
+                    height="54"
+                ></Image>
+            </Link>
 
             <RecipesHome />
 
