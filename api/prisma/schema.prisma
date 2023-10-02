@@ -88,7 +88,7 @@ model Preferences {
     foodDislikes Ingredient[]
     days         Int[]
     meals        Int[]
-    serving      Int?
+    servings     Int?
 }
 
 model DataSchema {

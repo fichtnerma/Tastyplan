@@ -18,23 +18,24 @@ import {
 @Controller('preferences')
 export class PreferencesController {
     constructor(private preferencesService: PreferencesService) {}
-
-    @UseGuards(JwtAuthGuard)
+    /* @UseGuards(JwtAuthGuard)
     @ApiSecurity('access-key')
-    @UseInterceptors(ClassSerializerInterceptor)
+    @UseInterceptors(ClassSerializerInterceptor) */
     @Post('/')
     async setPreferences(@Req() request: RequestWithUser, @Body() preferencesDto: PreferencesDto) {
-        const user = request.user as User;
-
+        const user = { userId: 'lars' };
+        console.log('USER', user);
+        console.log('PREFERENCES', preferencesDto);
         return await this.preferencesService.setPreferences(preferencesDto, user);
     }
 
-    @UseGuards(JwtAuthGuard)
+    /* @UseGuards(JwtAuthGuard)
     @ApiSecurity('access-key')
-    @UseInterceptors(ClassSerializerInterceptor)
+    @UseInterceptors(ClassSerializerInterceptor) */
     @Get('/')
     async getPreferences(@Req() request: RequestWithUser) {
-        const user = request.user as User;
-        return await this.preferencesService.getPreferences(user);
+        //const user = request.user as User;
+        const user = { userId: 'lars' };
+     //   return await this.preferencesService.getPreferences(user);
     }
 }

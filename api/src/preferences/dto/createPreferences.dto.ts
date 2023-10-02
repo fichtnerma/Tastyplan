@@ -19,5 +19,5 @@ export class PreferencesDto {
     meals: number[];
 
     @IsNumber()
-    serving: number;
+    servings: number;
 }

@@ -8,7 +8,7 @@ import { HttpException, HttpStatus, Injectable, InternalServerErrorException } f
 export class PreferencesService {
     constructor(private prismaService: PrismaService) {}
 
-    async setPreferences(createPreferencesDto: PreferencesDto, user: User) {
+    async setPreferences(createPreferencesDto: PreferencesDto, user: { userId: string }) {
         try {
             const ingredientNames = createPreferencesDto.foodDislikes;
             const CheckIngredientsPromise = ingredientNames.map(async (item) => {
@@ -31,7 +31,7 @@ export class PreferencesService {
                     foodDislikes: { connect: [...ingredientsIds] },
                     days: [...createPreferencesDto.days],
                     meals: [...createPreferencesDto.days],
-                    serving: createPreferencesDto.serving,
+                    serving: createPreferencesDto.servings,
                 },
                 create: {
                     userId: user.userId,
@@ -40,7 +40,7 @@ export class PreferencesService {
                     foodDislikes: { connect: [...ingredientsIds] },
                     days: [...createPreferencesDto.days],
                     meals: [...createPreferencesDto.days],
-                    serving: createPreferencesDto.serving,
+                    serving: createPreferencesDto.servings,
                 },
             });
             await this.prismaService.user.update({
@@ -66,6 +66,9 @@ export class PreferencesService {
                 select: {
                     formOfDiet: true,
                     allergens: true,
+                    servings: true,
+                    days: true,
+
                     foodDislikes: {
                         select: {
                             id: true,
