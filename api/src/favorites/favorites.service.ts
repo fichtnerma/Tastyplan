@@ -47,8 +47,21 @@ export class FavoritesService {
             where: {
                 userId: user.userId,
             },
-            include: {
-                recipe: true,
+            select: {
+                recipe: {
+                    select: {
+                        cookingTime: true,
+                        description: true,
+                        formOfDiet: true,
+                        id: true,
+                        img: true,
+                        name: true,
+                        preparingTime: true,
+                        servings: true,
+                        tags: true,
+                        totalTime: true,
+                    },
+                },
             },
         });
 
@@ -65,5 +78,11 @@ export class FavoritesService {
             },
         });
         return `Removed #${recipeId}`;
+    }
+
+    async findAllFavorites(user: User) {
+        const favorites = await this.findAll(user);
+        const recipes = favorites.map((favorite) => favorite.recipe);
+        return recipes;
     }
 }

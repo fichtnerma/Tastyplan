@@ -15,9 +15,6 @@ export const useFavoriteStore = create<FavoriteState>()((set) => {
         favorites: [],
         fetch: async (session) => {
             const resp = await fetchWithAuth('/service/favorites', { method: 'GET' }, session);
-            const data = (await resp.json()) as unknown;
-
-            console.log(data);
             set({ favorites: (await resp.json()) as Recipe[] });
         },
         add: (recipe, session) => {
