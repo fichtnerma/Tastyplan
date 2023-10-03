@@ -10,13 +10,14 @@ const isClickInsideRectangle = (e: MouseEvent, element: HTMLElement) => {
 
 type Props = {
     title: string;
+    buttonClose: string;
     isOpened: boolean;
     onProceed: () => void;
     onClose: () => void;
     children: React.ReactNode;
 };
 
-const DialogModal = ({ title, isOpened, onProceed, onClose, children }: Props) => {
+const DialogModal = ({ title, buttonClose, isOpened, onProceed, onClose, children }: Props) => {
     const ref = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
@@ -54,7 +55,7 @@ const DialogModal = ({ title, isOpened, onProceed, onClose, children }: Props) =
 
             <div className="flex gap-4">
                 <button onClick={onClose} className="btn-primary  btn-small">
-                    I take the original recipe
+                    {buttonClose}
                 </button>
                 <button onClick={proceedAndClose} className="btn-primary  btn-small">
                     No recipe for this mealtime

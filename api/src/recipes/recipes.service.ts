@@ -216,4 +216,27 @@ export class RecipesService {
 
         return formOfDiet;
     }
+
+    async getRecommendations(k: number, user: User) {
+        try {
+            let fetchedMeals = await this.filterByPreferences(user);
+
+            if (fetchedMeals.length < k) {
+                fetchedMeals = [
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                ];
+            }
+            console.log(fetchedMeals);
+
+            return fetchedMeals.slice(0, k);
+        } catch (error) {
+            throw new InternalServerErrorException('Error: no k random recipes could be created');
+        }
+    }
 }

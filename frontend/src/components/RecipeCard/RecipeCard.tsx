@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
-import DialogModal from '@components/DialogModal/DialogModal';
+import ChangeRecipeModal from '@components/ChangeRecipeModal/ChangeRecipeModal';
 import { getFormOfDietIcon } from '@helpers/utils';
 import { useFavoriteStore } from '@hooks/useFavorites';
 import { Recipe } from 'src/types/types';
@@ -18,6 +18,7 @@ type RecipeCardProps = {
 
 function RecipeCard({ recipe, highlighted, switchCard }: RecipeCardProps) {
     const [isFavorite, setIsFavorite] = useState(false);
+    const [isOpened, setIsOpened] = useState(false);
     const { data: session } = useSession();
     const { favorites, add, remove } = useFavoriteStore();
     useEffect(() => {
@@ -42,10 +43,9 @@ function RecipeCard({ recipe, highlighted, switchCard }: RecipeCardProps) {
         ? recipe.preparingTime
         : 0;
 
-    const [isOpened, setIsOpened] = useState(false);
-
-    const onProceed = () => {
-        console.log('Proceed clicked');
+    const openModal = () => {
+        setIsOpened(true);
+        // console.log(isOpened);
     };
 
     return (
@@ -68,19 +68,11 @@ function RecipeCard({ recipe, highlighted, switchCard }: RecipeCardProps) {
                     flex p-1 top-[10px] text-white-custom right-8 rounded-full cursor-pointer absolute z-10 bg-green-custom2  transition-all duration-600 ease-in-out ${
                         styles.icon
                     }`}
-                    onClick={() => setIsOpened(true)}
+                    onClick={() => openModal()}
                 >
                     <Icon size={15} icon="switch"></Icon>
                 </div>
-
-                <DialogModal
-                    title="Choose a new recipe"
-                    isOpened={isOpened}
-                    onProceed={onProceed}
-                    onClose={() => setIsOpened(false)}
-                >
-                    {/* <p>To close: click Close, press Escape, or click outside.</p> */}
-                </DialogModal>
+                <ChangeRecipeModal open={isOpened}></ChangeRecipeModal>
                 <Link className="block h-full" href={`/recipe/${recipe.id}`}>
                     <div className={` w-full h-full absolute rounded-custom_s ${styles.foodBox}`}>
                         <Image
