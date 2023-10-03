@@ -33,12 +33,6 @@ function RecipeCard({ recipe, highlighted, switchCard }: RecipeCardProps) {
         setIsFavorite((isFavorite) => !isFavorite);
     };
 
-    const [isOpened, setIsOpened] = useState(false);
-
-    const onProceed = () => {
-        console.log('Proceed clicked');
-    };
-
     const totalTime = recipe.cookingTime
         ? recipe.preparingTime
             ? recipe.cookingTime + recipe.preparingTime
@@ -50,14 +44,6 @@ function RecipeCard({ recipe, highlighted, switchCard }: RecipeCardProps) {
     return (
         <>
             <div className={styles.wrapperContainer}>
-                {/* <DialogModal
-                    title="Dialog modal example"
-                    isOpened={isOpened}
-                    onProceed={onProceed}
-                    onClose={() => setIsOpened(false)}
-                >
-                    <p>To close: click Close, press Escape, or click outside.</p>
-                </DialogModal> */}
                 <div
                     className={`justify-end ${highlighted ? styles.icon__highlighted : styles.icon__notHighlighted} ${
                         isFavorite ? styles.icon__favorite : 'none'
@@ -75,7 +61,7 @@ function RecipeCard({ recipe, highlighted, switchCard }: RecipeCardProps) {
                     flex p-1 top-[10px] text-white-custom right-8 rounded-full cursor-pointer absolute z-10 bg-green-custom2  transition-all duration-600 ease-in-out ${
                         styles.icon
                     }`}
-                    onClick={() => setIsOpened(true)}
+                    // onClick={() => setIsOpened(true)}
                 >
                     <Icon size={15} icon="switch"></Icon>
                 </div>

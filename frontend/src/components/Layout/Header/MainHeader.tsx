@@ -35,7 +35,7 @@ export default function MainHeader() {
 
     return (
         <>
-            <div className={`${styles.headerContainer} mainContainer left-1/2 translate-x-[-50%]`}>
+            <div className={`${styles.headerContainer} mainContainer !min-h-fit left-1/2 translate-x-[-50%]`}>
                 <div className={`${styles.container} ${headerClass}`}>
                     <Link href="/weekOverview" className="hidden md:block my-auto">
                         <div className="ml-6">
