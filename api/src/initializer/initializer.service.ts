@@ -8,7 +8,11 @@ const fs = require('fs');
 const parse = require('csv-parser');
 const crypto = require('crypto');
 
-type RecipeMapped = Recipe & {
+type RecipeMapped = {
+    recipes: RecipeWithIngredients[];
+    shouldUpdate: boolean;
+};
+type RecipeWithIngredients = Recipe & {
     cookingTime: string;
     totalTime: string;
     prepareTime: string;
@@ -17,6 +21,7 @@ type RecipeMapped = Recipe & {
         ingredientId: number;
     }[];
 };
+
 @Injectable()
 export class InitializerService implements OnApplicationBootstrap {
     constructor(
@@ -28,9 +33,13 @@ export class InitializerService implements OnApplicationBootstrap {
     async onApplicationBootstrap() {
         await this.syncIngredients();
         await this.ingredientService.storeinRedis();
-        const recipes = await this.readJSONRecipes();
-        for await (const recipe of this.syncRecipes(recipes)) {
-            await this.recipeService.createRecipe(recipe);
+        const { recipes, shouldUpdate } = await this.readJSONRecipes();
+        if (shouldUpdate) {
+            for await (const recipe of this.syncRecipes(recipes)) {
+                console.log('Recipe to save: ', recipe.name, 'with index: ', recipe.id);
+
+                await this.recipeService.createRecipe(recipe);
+            }
         }
     }
 
@@ -83,17 +92,17 @@ export class InitializerService implements OnApplicationBootstrap {
         });
     }
 
-    async readJSONRecipes(): Promise<RecipeMapped[]> {
+    async readJSONRecipes(): Promise<RecipeMapped> {
         const rawdata = fs.readFileSync(`${this.dataUrl}/recipe_dump.json`);
         const hashSum = crypto.createHash('sha256');
         hashSum.update(rawdata.toString('utf-8'));
         const recipeHash = hashSum.digest('hex');
 
         const recipes = JSON.parse(rawdata);
-        if (
+        const shouldUpdate =
             (await this.prismaService.recipe.count()) == 0 ||
-            (await this.prismaService.dataSchema.findUnique({ where: { id: 1 } }))?.recipeHash !== recipeHash
-        ) {
+            (await this.prismaService.dataSchema.findUnique({ where: { id: 1 } }))?.recipeHash !== recipeHash;
+        if (shouldUpdate) {
             log('Creating recipes...');
             await this.prismaService.recipe.deleteMany({});
             await this.prismaService.dataSchema.upsert({
@@ -107,42 +116,55 @@ export class InitializerService implements OnApplicationBootstrap {
                 },
             });
         }
-        return recipes;
+        return { recipes: recipes, shouldUpdate: shouldUpdate };
     }
 
-    async *syncRecipes(recipes: RecipeMapped[]) {
+    async *syncRecipes(recipes: RecipeMapped['recipes']) {
+        log('Creating', recipes.length, 'recipes...');
         for (let index = 0; index < recipes.length; index++) {
             const recipe = recipes[index];
-            log(`Creating recipe ${index} of ${recipes.length}`);
             yield await this.prepareRecipeData(recipe, index);
         }
     }
 
-    async prepareRecipeData(recipe: RecipeMapped, index: number) {
-        const recipeJson = await fetch('http://recommender:5000/mapping', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(recipe),
-        });
-        const recipeMapped = await recipeJson.json();
-        const ingredientsMapped = recipeMapped;
-        const ing = await this.prismaService.ingredient.findMany({
-            where: {
-                id: {
-                    in: ingredientsMapped.map((ing: { ingredientId: number }) => ing.ingredientId),
+    async prepareRecipeData(recipe: RecipeWithIngredients, index: number) {
+        try {
+            const recipeJson = await fetch('http://recommender:5000/mapping', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(recipe),
+            });
+
+            const recipeMapped = await recipeJson.json();
+            const ingredientsMapped = recipeMapped.map(
+                (ing: { ingredientId: number; quantity: string; unit: string; condition: string }) => ({
+                    ingredientId: ing.ingredientId,
+                    quantity: parseFloat(ing.quantity) || null,
+                    unit: ing.unit,
+                    condition: ing.condition,
+                }),
+            );
+            const ing = await this.prismaService.ingredient.findMany({
+                where: {
+                    id: {
+                        in: ingredientsMapped.map((ing: { ingredientId: number }) => ing.ingredientId),
+                    },
                 },
-            },
-            select: {
-                categories: true,
-                subcategories: true,
-            },
-        });
-        const formOfDiet = await this.recipeService.categorizeRecipe(ing);
-        return {
-            ...recipe,
-            id: index + 1,
-            formOfDiet,
-            ingredients: [...ingredientsMapped],
-        };
+                select: {
+                    categories: true,
+                    subcategories: true,
+                },
+            });
+            const formOfDiet = await this.recipeService.categorizeRecipe(ing);
+            return {
+                ...recipe,
+                id: index + 1,
+                formOfDiet,
+                ingredients: [...ingredientsMapped],
+            };
+        } catch (error) {
+            console.log('Recipe: ', recipe.name, 'with index: ', index + 1, 'failed');
+            console.log(error);
+        }
     }
 }

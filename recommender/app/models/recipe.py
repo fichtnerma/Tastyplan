@@ -10,7 +10,6 @@ class Recipe(BaseModel):
     description: str
     cookingTime: Optional[str] = None
     totalTime: Optional[str] = None
-    servings: int
     ingredients: List[Ingredient]
     steps: List[Step]
     formOfDiet: Optional[str] = None
