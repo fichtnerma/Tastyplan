@@ -2,43 +2,24 @@ name;categories;subcategories;calories;protein;fat;carbs;calcium;iron;magnesium;
 Agar agar;Miscellaneous;Gelling and binding agents;160.0;2.4;0.2;0.0;660.0;4.5;100.0;
 Agave syrup;Sweets;Sugar and sweeteners;293.0;0.2;0.0;73.1;0.0;0.0;0.0;
 Maple syrup;Sweets;Sugar and sweeteners;358.0;0.0;0.3;88.7;96.0;0.1;30.0;
-Alga, Nori, dried;Vegetables;Dried vegetables;255.0;31.5;1.6;10.5;320.0;37.0;490.0;
+Alga Nori dried;Vegetables;Dried vegetables;255.0;31.5;1.6;10.5;320.0;37.0;490.0;
 Älplermagronen, prepared;Courts;Other salty;180.0;6.0;9.0;17.9;120.0;0.4;20.0;
-Amaranth, seeds, cooked;Cereal products, pulses and potatoes;Other cereal products;119.0;5.0;2.1;18.1;58.0;3.0;84.0;
-Amaranth, seed, raw;Cereal products, pulses and potatoes;Other cereal products;376.0;15.8;7.0;56.8;160.0;9.0;250.0;
-Amaretti;Sweets;Guetzli;464.0;8.8;13.0;76.7;69.0;0.9;62.0;
-Pineapple, in pineapple juice, canned, drained;Fruits;Fruit cooked (incl. preserves);60.0;0.5;0.1;13.6;11.0;0.2;12.0;
-Pineapple, in pineapple juice, canned, not drained;Fruits;Fruit cooked (incl. preserves);59.0;0.4;0.1;13.6;10.0;0.2;12.0;
-Pineapple, in syrup, canned, drained;Fruits;Fruit cooked (incl. preserves);70.0;0.5;0.1;15.9;6.4;0.1;11.0;
-Pineapple, with sweetener, canned, drained;Fruits;Fruit cooked (incl. preserves);42.0;0.5;0.1;9.4;13.0;0.1;8.8;
-Pineapple, raw;Fruits;Fruits fresh;52.0;0.5;0.1;11.7;14.0;0.2;11.0;
-Pineapple juice;Fruits;Fruit juices;51.0;0.4;0.1;12.1;16.0;0.2;14.0;
-Apple, steamed, drained;Fruits;Fruit cooked (incl. preserves);56.0;0.3;0.3;12.2;6.7;0.1;6.8;
-Apple, peeled, dried;Fruits;Fruits dried;264.0;1.4;1.6;55.4;30.0;1.2;23.0;
-Apple, raw;Fruits;Fruits fresh;52.0;0.3;0.3;11.6;5.3;0.1;6.5;
-Applesauce, sweetened (canned);Fruits;Fruit cooked (incl. preserves);89.0;0.3;0.3;20.5;4.4;0.2;3.6;
-Applesauce, unsweetened (canned);Fruits;Fruit cooked (incl. preserves);55.0;0.3;0.3;11.7;4.8;0.2;4.0;
+Amaranth seeds, cooked;Cereal products, pulses and potatoes;Other cereal products;119.0;5.0;2.1;18.1;58.0;3.0;84.0;
+Amaretti;Sweets;Guetzli;464.0;8.8;13.0;76.7;69.0;0.9;62.0;, raw
+Applesauce;Fruits;Fruit cooked (incl. preserves);89.0;0.3;0.3;20.5;4.4;0.2;3.6;
 Apple juice;Fruits;Fruit juices,Soft drinks;50.0;0.2;0.1;11.9;4.5;0.3;4.7;
 Cider, 6.2 vol%;Alcoholic drinks;Wine;64.0;0.0;0.0;7.3;5.0;0.3;4.0;
-Appenzeller, quarter fat;Milk and dairy products;Hard cheese;235.0;33.1;11.4;0.0;1090.0;0.2;36.0;milk
-Appenzeller, full-fat;Milk and dairy products;Hard cheese;384.0;24.3;31.7;0.0;740.0;0.3;29.0;milk
-Apricot, stewed, drained;Fruits;Fruit cooked (incl. preserves);45.0;1.0;0.2;9.0;18.0;0.2;8.4;
-Apricot, dried;Fruits;Fruits dried;239.0;2.9;0.5;59.1;82.0;1.4;50.0;
-Apricot, in syrup, canned, drained;Fruits;Fruit cooked (incl. preserves);62.0;0.9;0.1;13.7;18.0;0.1;4.9;
-Apricot, with sweetener, canned, drained;Fruits;Fruit cooked (incl. preserves);40.0;0.9;0.1;8.2;16.0;0.2;7.6;
-Apricot, raw;Fruits;Fruits fresh;44.0;0.8;0.1;9.0;15.0;0.2;8.4;
-Artichokes, heart, drained (canned);Vegetables;Vegetables cooked (incl. canned);27.0;1.8;0.5;2.3;25.0;0.4;18.0;
-Aubergine, steamed;Vegetables;Vegetables cooked (incl. canned);23.0;1.0;0.2;3.2;10.0;0.2;13.0;
-Aubergine, steamed;Vegetables;Vegetables cooked (incl. canned);27.0;1.2;0.2;3.6;12.0;0.3;13.0;
-Aubergine, raw;Vegetables;Vegetables fresh;23.0;1.0;0.2;3.1;10.0;0.3;13.0;
+Appenzeller;Milk and dairy products;Hard cheese;384.0;24.3;31.7;0.0;740.0;0.3;29.0;milk
+Apricot dried;Fruits;Fruits dried;239.0;2.9;0.5;59.1;82.0;1.4;50.0;
+Apricot;Fruits;Fruits fresh;44.0;0.8;0.1;9.0;15.0;0.2;8.4;
+Artichokes;Vegetables;Vegetables cooked (incl. canned);27.0;1.8;0.5;2.3;25.0;0.4;18.0;, raw
 Cold cuts;Meat and sausage products;Boiled sausage products;276.0;13.9;24.2;0.7;8.1;0.8;12.0;
-Avocado, raw;Vegetables;Fresh vegetables, nuts, seeds and oil fruits;144.0;1.8;14.2;0.8;16.0;1.0;33.0;
+Avocado;Vegetables;Fresh vegetables, nuts, seeds and oil fruits;144.0;1.8;14.2;0.8;16.0;1.0;33.0;
 Baker's yeast, pressed;Miscellaneous;Yeast,Miscellaneous;96.0;16.7;1.2;1.1;16.0;2.9;41.0;
 Balsamic vinegar;Miscellaneous;Salt, spices and flavours;128.0;0.7;0.6;25.8;18.0;1.0;12.0;
-Banana, dried;Fruits;Fruits dried;370.0;3.9;1.8;80.7;22.0;1.2;110.0;
-Banana, dried;Fruits;Fruits dried;273.0;3.0;1.0;60.2;20.0;1.3;90.0;
-Banana, raw;Fruits;Fruits fresh;89.0;1.1;0.1;19.7;5.1;0.2;28.0;
-Basil, raw;Vegetables;Herbs;46.0;3.1;0.8;5.1;250.0;5.5;11.0;
+Banana dried;Fruits;Fruits dried;370.0;3.9;1.8;80.7;22.0;1.2;110.0;
+Banana;Fruits;Fruits fresh;89.0;1.1;0.1;19.7;5.1;0.2;28.0;
+Basil;Vegetables;Herbs;46.0;3.1;0.8;5.1;250.0;5.5;11.0;
 Basel treat;Sweets;Guetzli;412.0;7.5;7.9;75.0;51.0;1.0;40.0;
 Farmhouse bread;Breads, flakes and breakfast cereals;Breads and bread products;241.0;9.2;2.0;44.3;46.0;1.5;38.0;
 Bauernschüblig;Meat and sausage products;Raw sausage products;524.0;21.3;48.5;0.3;4.8;1.5;23.0;
@@ -46,804 +27,549 @@ Tree nut;Nuts, seeds and oil fruits;;709.0;15.7;67.3;6.9;78.0;2.6;140.0;
 Tree nut bread;Breads, flakes and breakfast cereals;Breads and bread products;332.0;9.2;17.9;30.8;31.0;2.1;67.0;
 Tree nut oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;
 Béchamel sauce, homemade;Miscellaneous;Sauces;147.0;4.2;9.9;10.1;120.0;0.1;12.0;
-Berries , cooked;Fruits;Fruit cooked (incl. preserves);36.0;0.7;0.6;5.3;18.0;0.2;11.0;
-Berries , raw;Fruits;Fruits fresh;40.0;0.7;0.5;6.3;18.0;0.2;12.0;
-Bernese alpine cheese;Milk and dairy products;Hard cheese;453.0;27.1;38.3;0.0;920.0;0.0;0.0;milk
-Bernese Hobelkäse;Milk and dairy products;Hard cheese;491.0;30.0;41.2;0.0;0.0;0.0;0.0;milk
-Bernese tongue sausage;Meat and sausage products;Boiled sausage products;333.0;17.3;29.4;0.0;3.4;1.3;20.0;
+Berries;Fruits;Fruits fresh;40.0;0.7;0.5;6.3;18.0;0.2;12.0;
+Alpine cheese;Milk and dairy products;Hard cheese;453.0;27.1;38.3;0.0;920.0;0.0;0.0;milk
+Hobelkäse;Milk and dairy products;Hard cheese;491.0;30.0;41.2;0.0;0.0;0.0;0.0;milk
+Tongue sausage;Meat and sausage products;Boiled sausage products;333.0;17.3;29.4;0.0;3.4;1.3;20.0;
 Beaver;Sweets;Other sweet baked goods;355.0;7.8;5.6;65.6;52.0;1.3;30.0;
-Beer, Radler;Alcoholic drinks;Beer;39.0;0.2;0.0;7.4;4.5;0.1;11.0;
-Beer, non-alcoholic;Alcoholic drinks;Beer;23.0;0.4;0.0;4.9;4.8;0.0;6.2;
-Beer, Lager;Alcoholic drinks;Beer;42.0;0.5;0.0;3.1;3.5;0.0;9.6;
+Radler;Alcoholic drinks;Beer;39.0;0.2;0.0;7.4;4.5;0.1;11.0;
+Beer non-alcoholic;Alcoholic drinks;Beer;23.0;0.4;0.0;4.9;4.8;0.0;6.2;
+Beer Lager;Alcoholic drinks;Beer;42.0;0.5;0.0;3.1;3.5;0.0;9.6;
 Brewer's yeast, dried;Special food;Supplements,Miscellaneous;354.0;47.9;4.2;26.5;50.0;18.0;230.0;
 Beer sausage;Meat and sausage products;Boiled sausage products;291.0;15.6;25.4;0.0;2.9;1.2;13.0;
-Pear, stewed, drained;Fruits;Fruit cooked (incl. preserves);57.0;0.6;0.4;11.3;8.0;0.1;8.6;
-Pear, dried;Fruits;Fruits dried;288.0;2.3;1.4;59.7;48.0;0.8;34.0;
-Pear, in syrup, canned, drained;Fruits;Fruit cooked (incl. preserves);71.0;0.4;0.4;15.2;8.8;0.0;4.0;
-Pear, with sweetener, canned, drained;Fruits;Fruit cooked (incl. preserves);50.0;0.5;0.3;9.9;7.0;0.1;7.5;
-Pear, raw;Fruits;Fruits fresh;54.0;0.5;0.3;10.9;6.5;0.1;8.2;
+Pear dried;Fruits;Fruits dried;288.0;2.3;1.4;59.7;48.0;0.8;34.0;
+Pear;Fruits;Fruits fresh;54.0;0.5;0.3;10.9;6.5;0.1;8.2;
 Pear juice;Fruits;Fruit juices,Soft drinks;52.0;0.5;0.3;12.1;10.0;0.2;7.0;
 Birnenweggen;Sweets;Other sweet baked goods;363.0;4.9;10.4;57.2;64.0;1.6;32.0;egg
-Blanc battu with fruit, with sweeteners;Milk and dairy products;Cream cheese and curd;67.0;8.0;0.2;8.3;130.0;0.1;13.0;milk
 Blanc battu, nature, lean;Milk and dairy products;Cream cheese and curd;47.0;7.8;0.0;3.9;130.0;0.2;12.0;milk
-Puff pastry , unbaked;Cereal products, pulses and potatoes;Doughs;383.0;5.7;24.0;35.1;4.6;0.3;7.4;
-Puff pastry, homemade , unbaked;Cereal products, pulses and potatoes;Doughs;364.0;5.2;24.7;29.4;11.0;0.6;15.0;
-Puff pastry, homemade , unbaked;Cereal products, pulses and potatoes;Doughs;358.0;5.2;24.1;29.4;9.6;0.7;15.0;
+Puff pastry;Cereal products, pulses and potatoes;Doughs;383.0;5.7;24.0;35.1;4.6;0.3;7.4;
 Puff pastry sticks;Salty snacks;Puff pastries;496.0;7.1;33.5;40.4;14.0;0.9;21.0;
-Lettuce , raw;Vegetables;Vegetables fresh;18.0;1.6;0.3;1.4;53.0;1.0;13.0;
+Lettuce;Vegetables;Vegetables fresh;18.0;1.6;0.3;1.4;53.0;1.0;13.0;
 Blue cheese;Milk and dairy products;Hard cheese;360.0;19.1;31.5;0.2;610.0;0.4;24.0;milk
 Cauliflower, steamed;Vegetables;Vegetables cooked (incl. canned);26.0;2.4;0.3;2.3;20.0;0.4;14.0;
-Cauliflower, raw;Vegetables;Vegetables fresh;26.0;2.4;0.3;2.3;20.0;0.5;15.0;
+Cauliflower;Vegetables;Vegetables fresh;26.0;2.4;0.3;2.3;20.0;0.5;15.0;
 Black pudding;Meat and sausage products;Cooked sausages;149.0;10.2;10.8;2.6;61.0;30.0;13.0;
-Bean , cooked;Cereal products, pulses and potatoes;Legumes;111.0;7.7;0.6;14.5;45.0;2.0;51.0;
-Bean , dried;Cereal products, pulses and potatoes;Legumes;305.0;20.9;1.5;40.7;130.0;6.3;160.0;
-Bean, green, steamed;Vegetables;Vegetables cooked (incl. canned);32.0;2.2;0.2;3.8;58.0;0.9;27.0;
-Bean, green, dried;Vegetables;Dried vegetables;252.0;20.2;2.0;25.7;540.0;7.2;230.0;
-Bean, green, raw;Vegetables;Vegetables fresh;31.0;2.1;0.2;3.6;56.0;1.0;28.0;
-Bouillon, meat, prepared;Courts;Stews and soups;5.0;0.3;0.3;0.2;1.0;0.2;10.0;
-Bouillon, poultry, prepared;Courts;Stews and soups;5.0;0.3;0.3;0.3;6.0;0.0;11.0;
-Bouillon, vegetables, prepared;Courts;Stews and soups;6.0;0.3;0.4;0.4;1.0;0.1;4.0;
+Bean;Cereal products, pulses and potatoes;Legumes;305.0;20.9;1.5;40.7;130.0;6.3;160.0;
+Bean green;Vegetables;Vegetables fresh;31.0;2.1;0.2;3.6;56.0;1.0;28.0;
+Meat Bouillon;Courts;Stews and soups;5.0;0.3;0.3;0.2;1.0;0.2;10.0;
+Poultry Bouillon;Courts;Stews and soups;5.0;0.3;0.3;0.3;6.0;0.0;11.0;
+Vegetables Bouillon;Courts;Stews and soups;6.0;0.3;0.4;0.4;1.0;0.1;4.0;
 Branchli;Sweets;Chocolate and cocoa products;558.0;8.3;35.7;49.1;190.0;1.5;79.0;
 Grain brandy, 40 vol%;Alcoholic drinks;Spirits;234.0;0.0;0.0;0.1;1.9;0.0;1.0;
 Brandy from wine;Alcoholic drinks;Spirits;228.0;0.0;0.0;1.9;0.0;0.0;1.0;
 Brandy from sugar cane;Alcoholic drinks;Spirits;222.0;0.0;0.0;0.0;0.0;0.1;0.0;
-Gravy, bound;Miscellaneous;Sauces;53.0;1.6;3.0;4.6;18.0;0.6;8.0;
-Gravy, clear;Miscellaneous;Sauces;44.0;1.5;2.5;3.5;18.0;0.6;8.0;
+Gravy bound;Miscellaneous;Sauces;53.0;1.6;3.0;4.6;18.0;0.6;8.0;
 Bresaola;Meat and sausage products;Raw sausage products;167.0;32.4;3.9;0.4;35.0;7.1;0.0;
-Brie, cream;Milk and dairy products;Soft cheese;342.0;17.7;30.0;0.0;500.0;0.2;20.0;milk
-Brie, full fat;Milk and dairy products;Soft cheese;298.0;21.4;23.5;0.0;420.0;0.1;19.0;milk
-Broccoli, steamed;Vegetables;Vegetables cooked (incl. canned);28.0;2.7;0.4;2.2;85.0;1.1;22.0;
-Broccoli, raw;Vegetables;Vegetables fresh;31.0;3.0;0.4;2.4;93.0;1.4;25.0;
-Blackberry, raw;Fruits;Fruits fresh;47.0;1.1;0.7;6.5;31.0;0.4;20.0;
+Brie cream;Milk and dairy products;Soft cheese;342.0;17.7;30.0;0.0;500.0;0.2;20.0;milk
+Brie;Milk and dairy products;Soft cheese;298.0;21.4;23.5;0.0;420.0;0.1;19.0;milk
+Broccoli;Vegetables;Vegetables fresh;31.0;3.0;0.4;2.4;93.0;1.4;25.0;
+Blackberry;Fruits;Fruits fresh;47.0;1.1;0.7;6.5;31.0;0.4;20.0;
 Bread;Breads, flakes and breakfast cereals;Breads and bread products;264.0;9.2;4.6;44.6;29.0;1.5;36.0;
 Smoked boiled sausages;Meat and sausage products;Boiled sausage products;249.0;14.0;21.2;0.5;8.5;0.9;13.0;
-Cooked sausages unsmoked;Meat and sausage products;Boiled sausage products;251.0;13.4;21.6;0.8;12.0;0.7;13.0;
-Watercress, raw;Vegetables;Vegetables fresh;17.0;2.2;0.2;0.3;160.0;1.3;20.0;
+Cooked sausages;Meat and sausage products;Boiled sausage products;251.0;13.4;21.6;0.8;12.0;0.7;13.0;
+Watercress;Vegetables;Vegetables fresh;17.0;2.2;0.2;0.3;160.0;1.3;20.0;
 Brunsli;Sweets;Guetzli;515.0;14.9;29.9;43.3;140.0;3.1;140.0;
-Buckwheat, grain hulled;Cereal products, pulses and potatoes;Other cereal products;346.0;9.8;1.7;71.0;18.0;3.8;140.0;gluten
+Buckwheat grain;Cereal products, pulses and potatoes;Other cereal products;346.0;9.8;1.7;71.0;18.0;3.8;140.0;gluten
 Buckwheat flour;Cereal products, pulses and potatoes;Flours and starches;348.0;11.5;2.2;68.4;24.0;2.5;160.0;gluten
-Grisons barley soup;Courts;Stews and soups;42.0;1.4;0.9;6.7;29.0;0.5;11.0;gluten
 Bürli;Breads, flakes and breakfast cereals;Breads and bread products;215.0;8.6;1.0;41.5;17.0;1.3;28.0;
-Butter croissants, light;Breads, flakes and breakfast cereals;Breads and bread products;432.0;8.7;24.2;43.5;52.0;1.0;25.0;
-Butter croissants, wholemeal;Breads, flakes and breakfast cereals;Breads and bread products;368.0;6.8;19.7;38.7;15.0;1.0;24.0;
+Butter croissants light;Breads, flakes and breakfast cereals;Breads and bread products;432.0;8.7;24.2;43.5;52.0;1.0;25.0;
+Butter croissants wholemeal;Breads, flakes and breakfast cereals;Breads and bread products;368.0;6.8;19.7;38.7;15.0;1.0;24.0;
 Buttermilk;Milk and dairy products;Milk and yoghurt drinks;34.0;3.4;0.5;4.0;110.0;0.1;16.0;milk
 Café crème, unsweetened;Soft drinks;Coffee;13.0;0.3;1.1;0.5;14.0;0.0;3.7;
 Cake Financier;Sweets;Cakes, Pies and Cake;440.0;11.1;26.1;38.5;80.0;1.0;71.0;
-Camembert, half fat;Milk and dairy products;Soft cheese;188.0;24.4;10.0;0.0;530.0;0.3;22.0;milk
-Camembert, cream;Milk and dairy products;Soft cheese;355.0;17.1;31.7;0.0;350.0;0.2;16.0;milk
-Camembert, full fat;Milk and dairy products;Soft cheese;297.0;20.8;23.7;0.0;370.0;0.1;19.0;milk
-Cappuccino , unsweetened;Milk and dairy products;Milk and yoghurt drinks,Soft drinks;37.0;1.7;2.2;2.6;67.0;0.0;6.6;milk
-Capuns, prepared;Courts;Other salty;164.0;8.1;10.2;9.6;42.0;1.0;15.0;
+Camembert cream;Milk and dairy products;Soft cheese;355.0;17.1;31.7;0.0;350.0;0.2;16.0;milk
+Camembert;Milk and dairy products;Soft cheese;297.0;20.8;23.7;0.0;370.0;0.1;19.0;milk
+Cappuccino;Milk and dairy products;Milk and yoghurt drinks,Soft drinks;37.0;1.7;2.2;2.6;67.0;0.0;6.6;milk
+Capuns;Courts;Other salty;164.0;8.1;10.2;9.6;42.0;1.0;15.0;
 Cashew nut;Nuts, seeds and oil fruits;;593.0;21.5;45.2;23.2;40.0;5.9;270.0;shellFruit
 Cervelat;Meat and sausage products;Boiled sausage products;249.0;13.4;21.5;0.5;11.0;0.8;13.0;
-Mushroom (canned);Vegetables;Mushrooms;19.0;2.2;0.3;0.5;23.0;0.8;12.0;
-Mushroom, steamed;Vegetables;Mushrooms;29.0;4.2;0.3;1.2;8.3;1.0;11.0;
-Mushroom, raw;Vegetables;Mushrooms;25.0;3.7;0.3;1.1;7.0;1.0;11.0;
+Mushroom;Vegetables;Mushrooms;25.0;3.7;0.3;1.1;7.0;1.0;11.0;
 Chia seeds;Nuts, seeds and oil fruits;;482.0;21.4;34.1;1.8;550.0;6.5;320.0;
-Chicory, steamed;Vegetables;Vegetables cooked (incl. canned);13.0;1.0;0.2;0.7;20.0;0.2;9.3;
-Chicory, raw;Vegetables;Vegetables fresh;14.0;1.0;0.2;0.7;20.0;0.2;10.0;
-Chinese cabbage, steamed;Vegetables;Vegetables cooked (incl. canned);15.0;1.0;0.3;1.2;40.0;0.5;9.5;
-Chinese cabbage, raw;Vegetables;Vegetables fresh;16.0;1.1;0.3;1.2;40.0;0.6;11.0;
+Chicory;Vegetables;Vegetables fresh;14.0;1.0;0.2;0.7;20.0;0.2;10.0;
+Chinese cabbage;Vegetables;Vegetables fresh;16.0;1.1;0.3;1.2;40.0;0.6;11.0;
 Chräbeli;Sweets;Guetzli;366.0;8.6;2.9;75.3;32.0;1.8;14.0;
-Cicorino red, raw;Vegetables;Vegetables fresh;19.0;1.4;0.1;1.6;36.0;0.3;0.0;
-Cocktail sauce, with rapeseed oil mayonnaise, homemade;Miscellaneous;Sauces;696.0;2.4;74.5;3.8;21.0;0.9;4.8;
-Cola drink, sweetened;Soft drinks;Sweet drinks;40.0;0.0;0.0;10.0;5.0;0.0;1.0;
-Cola drink, with sweeteners;Soft drinks;Sweet drinks energy reduced;0.0;0.0;0.0;0.0;4.0;0.0;1.0;
-Coleslaw salad, prepared;Courts;Salads;120.0;1.6;10.3;4.1;59.0;0.3;11.0;
+Cicorino red;Vegetables;Vegetables fresh;19.0;1.4;0.1;1.6;36.0;0.3;0.0;
+Cocktail sauce;Miscellaneous;Sauces;696.0;2.4;74.5;3.8;21.0;0.9;4.8;
+Cola drink sweetened;Soft drinks;Sweet drinks;40.0;0.0;0.0;10.0;5.0;0.0;1.0;
+Cola drink with sweeteners;Soft drinks;Sweet drinks energy reduced;0.0;0.0;0.0;0.0;4.0;0.0;1.0;
+Coleslaw salad;Courts;Salads;120.0;1.6;10.3;4.1;59.0;0.3;11.0;
 Coppa;Meat and sausage products;Raw sausage products;319.0;28.8;22.5;0.3;13.0;1.4;26.0;
 Cornflakes;Breads, flakes and breakfast cereals;Muesli mixes and breakfast cereals;363.0;7.7;0.6;79.7;13.0;2.0;14.0;
 Cotechino;Meat and sausage products;Raw sausage products;450.0;17.2;42.3;0.0;30.0;2.1;0.0;
 Cotto;Meat and sausage products;Cooked sausages;93.0;15.7;3.1;0.6;7.5;0.7;18.0;
-Crackers, savoury biscuits, aperitif biscuits;Salty snacks;Salt sticks and pretzels;449.0;9.2;15.9;66.3;110.0;1.6;24.0;
+Crackers;Salty snacks;Salt sticks and pretzels;449.0;9.2;15.9;66.3;110.0;1.6;24.0;
 Cream slice;Sweets;Other sweet baked goods;301.0;4.1;18.8;28.8;79.0;0.3;11.0;
-Date, dried;Fruits;Fruits dried;289.0;2.4;0.6;64.7;68.0;2.2;55.0;
-Spelt flour, Ruch, type 1100;Cereal products, pulses and potatoes;Flours and starches;348.0;14.3;2.2;65.0;28.0;2.4;64.0;gluten
-Spelt flour, wholemeal, type 1900;Cereal products, pulses and potatoes;Flours and starches;346.0;15.6;2.7;60.0;35.0;3.6;140.0;gluten
-Spelt flour, white, type 550;Cereal products, pulses and potatoes;Flours and starches;348.0;13.3;1.5;69.0;22.0;1.0;23.0;gluten
+Date dried;Fruits;Fruits dried;289.0;2.4;0.6;64.7;68.0;2.2;55.0;
+Spelt flour;Cereal products, pulses and potatoes;Flours and starches;348.0;14.3;2.2;65.0;28.0;2.4;64.0;gluten
 Safflower oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;
 Double cream, pasteurised;Fats and oils;Cream,Milk and dairy products;468.0;1.9;50.0;2.7;49.0;0.1;5.0;
-Dried bean, soaked, steamed;Vegetables;Vegetables cooked (incl. canned);63.0;5.1;0.5;6.4;140.0;1.8;57.0;
-Cod, fillet, steamed;Fish;Sea fish;72.0;17.0;0.5;0.0;16.0;0.2;24.0;
-Cod, raw;Fish;Sea fish;76.0;18.1;0.4;0.0;13.0;0.2;23.0;
+Cod;Fish;Sea fish;76.0;18.1;0.4;0.0;13.0;0.2;23.0;
 Dulce de Leche;Sweets;Jams and sweet spreads;299.0;5.7;7.3;52.6;210.0;0.1;18.0;
-Sweet chestnut, raw;Nuts, seeds and oil fruits;;210.0;2.9;1.9;41.2;18.0;2.1;31.0;
-Egli, raw;Fish;Freshwater fish;79.0;18.0;0.7;0.0;80.0;0.9;30.0;
-Egg liqueur, 16.5 vol%;Alcoholic drinks;Other alcoholic beverages;313.0;4.4;7.7;30.8;15.0;0.8;4.4;egg
-Eggsprout, steamed;Vegetables;Mushrooms;28.0;2.6;0.6;0.2;9.5;6.7;14.0;egg
-Chanterelle, raw;Vegetables;Mushrooms;24.0;2.3;0.5;0.2;8.0;6.5;14.0;
-Iceberg lettuce, raw;Vegetables;Vegetables fresh;16.0;1.0;0.2;1.6;34.0;0.5;7.0;
-Iced tea, sweetened;Soft drinks;Sweet drinks,Soft drinks;30.0;0.0;0.0;7.5;0.1;0.0;0.9;
-Emmental, full-fat;Milk and dairy products;Hard cheese;408.0;28.4;32.6;0.0;1030.0;0.4;31.0;milk
-Endive, raw;Vegetables;Vegetables fresh;16.0;1.8;0.2;1.2;54.0;1.4;10.0;
-Energy drink, sweetened;Soft drinks;Sweet drinks;44.0;0.0;0.0;10.9;4.0;0.0;1.0;
-Pea (canned);Vegetables;Vegetables cooked (incl. canned);87.0;4.8;0.8;12.8;32.0;1.6;21.0;
-Pea (canned), reheated (without adding salt);Vegetables;Vegetables cooked (incl. canned);89.0;4.9;0.8;13.1;32.0;1.4;20.0;
-Pea, green, steamed;Vegetables;Vegetables cooked (incl. canned);100.0;6.6;0.8;13.2;28.0;1.8;35.0;
-Pea, green, raw;Vegetables;Vegetables fresh;90.0;6.0;0.7;12.0;26.0;1.9;34.0;
-Pea, ripe, dried;Cereal products, pulses and potatoes;Legumes;331.0;21.3;1.7;51.9;39.0;4.3;96.0;
-Pea, ripe, dried, cooked;Cereal products, pulses and potatoes;Legumes;137.0;9.0;0.7;21.2;18.0;1.6;36.0;
-Peas and carrots (canned);Vegetables;Vegetables cooked (incl. canned);67.0;3.7;0.5;9.5;28.0;1.2;23.0;
-Peas and carrots (canned), reheated (without adding salt);Vegetables;Vegetables cooked (incl. canned);68.0;3.8;0.5;9.7;28.0;1.0;22.0;
-Strawberry, raw;Fruits;Fruits fresh;39.0;0.6;0.5;6.0;18.0;0.2;12.0;
+Sweet chestnut;Nuts, seeds and oil fruits;;210.0;2.9;1.9;41.2;18.0;2.1;31.0;
+Egli;Fish;Freshwater fish;79.0;18.0;0.7;0.0;80.0;0.9;30.0;
+Egg liqueur 16.5 vol%;Alcoholic drinks;Other alcoholic beverages;313.0;4.4;7.7;30.8;15.0;0.8;4.4;egg
+Chanterelle;Vegetables;Mushrooms;24.0;2.3;0.5;0.2;8.0;6.5;14.0;
+Iceberg lettuce;Vegetables;Vegetables fresh;16.0;1.0;0.2;1.6;34.0;0.5;7.0;
+Iced tea;Soft drinks;Sweet drinks,Soft drinks;30.0;0.0;0.0;7.5;0.1;0.0;0.9;
+Emmental;Milk and dairy products;Hard cheese;408.0;28.4;32.6;0.0;1030.0;0.4;31.0;milk
+Endive;Vegetables;Vegetables fresh;16.0;1.8;0.2;1.2;54.0;1.4;10.0;
+Energy drink;Soft drinks;Sweet drinks;44.0;0.0;0.0;10.9;4.0;0.0;1.0;
+Pea;Vegetables;Vegetables cooked (incl. canned);87.0;4.8;0.8;12.8;32.0;1.6;21.0;
+Pea green;Vegetables;Vegetables fresh;90.0;6.0;0.7;12.0;26.0;1.9;34.0;
+Strawberry;Fruits;Fruits fresh;39.0;0.6;0.5;6.0;18.0;0.2;12.0;
 Peanut;Nuts, seeds and oil fruits;;623.0;26.1;49.1;14.8;65.0;1.6;160.0;peanut
 Peanut flips;Salty snacks;Chips;507.0;13.2;24.2;56.5;16.0;0.9;43.0;peanut
-Peanut, roasted, salted;Salty snacks;Salted nuts, seeds, kernels;631.0;26.2;50.0;15.0;47.0;1.2;170.0;peanut
+Peanut roasted, salted;Salty snacks;Salted nuts, seeds, kernels;631.0;26.2;50.0;15.0;47.0;1.2;170.0;peanut
 Peanut butter;Sweets;Jams and sweet spreads;636.0;26.1;51.8;12.5;37.0;2.0;180.0;peanut
 Peanut oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;peanut
 Espresso crème, unsweetened;Soft drinks;Coffee;28.0;0.5;2.5;0.8;23.0;0.0;4.1;
 Vinegar;Miscellaneous;Salt, spices and flavours;22.0;0.1;0.0;0.7;7.0;0.2;7.7;
-Falafel, deep fried;Courts;Oriental dishes;222.0;8.4;7.8;26.3;44.0;1.6;41.0;
-Spring cabbage, steamed;Vegetables;Vegetables cooked (incl. canned);47.0;4.6;1.0;2.7;290.0;1.4;29.0;
-Spring cabbage, raw;Vegetables;Vegetables fresh;44.0;4.3;0.9;2.5;270.0;1.3;27.0;
-Fig, dried;Fruits;Fruits dried;267.0;3.1;1.2;55.9;190.0;1.4;67.0;
-Fig, raw;Fruits;Fruits fresh;71.0;1.2;0.5;13.5;57.0;0.3;22.0;
-Whitefish, raw;Fish;Freshwater fish;101.0;19.2;2.7;0.0;34.0;0.4;26.0;fish
-Fennel, steamed;Vegetables;Vegetables cooked (incl. canned);22.0;1.0;0.3;2.2;35.0;0.4;11.0;
-Fennel, raw;Vegetables;Vegetables fresh;23.0;1.1;0.3;2.3;37.0;0.5;12.0;
+Falafel;Courts;Oriental dishes;222.0;8.4;7.8;26.3;44.0;1.6;41.0;
+Spring cabbage;Vegetables;Vegetables fresh;44.0;4.3;0.9;2.5;270.0;1.3;27.0;
+Fig dried;Fruits;Fruits dried;267.0;3.1;1.2;55.9;190.0;1.4;67.0;
+Fig;Fruits;Fruits fresh;71.0;1.2;0.5;13.5;57.0;0.3;22.0;
+Whitefish;Fish;Freshwater fish;101.0;19.2;2.7;0.0;34.0;0.4;26.0;fish
+Fennel;Vegetables;Vegetables fresh;23.0;1.1;0.3;2.3;37.0;0.5;12.0;
 Fermented dough;Cereal products, pulses and potatoes;Doughs;199.0;7.8;0.9;38.3;13.0;1.5;32.0;
-Fish , fillet, steamed;Fish;;146.0;19.6;7.5;0.0;29.0;0.8;32.0;fish
-Fish , raw;Fish;Freshwater fish,Fish;146.0;20.9;6.9;0.0;23.0;0.8;30.0;fish
-Fish fingers , fried in HOLL rapeseed oil;Fish;Sea fish;300.0;16.0;18.6;16.6;11.0;0.4;19.0;fish
-Fish fingers , baked in the oven;Fish;Sea fish;248.0;16.8;12.2;17.4;12.0;0.4;20.0;fish
-Fish fingers, breaded and pre-fried;Fish;Sea fish;230.0;15.5;11.7;15.3;10.0;0.5;19.0;fish
-Tarte flan dough, unbaked;Cereal products, pulses and potatoes;Doughs;221.0;7.5;2.9;39.9;11.0;1.1;25.0;
-Meat , raw;Meat and offal;Veal,meat and offal;146.0;21.4;6.7;0.0;6.5;1.1;22.0;
-Flounder, fillet, steamed;Fish;Sea fish;69.0;15.5;0.8;0.0;60.0;0.3;23.0;
-Flounder, raw;Fish;Sea fish;72.0;16.5;0.7;0.0;48.0;0.3;22.0;
+Fish;Fish;Freshwater fish,Fish;146.0;20.9;6.9;0.0;23.0;0.8;30.0;fish
+Fish fingers;Fish;Sea fish;300.0;16.0;18.6;16.6;11.0;0.4;19.0;fish
+Tarte flan dough;Cereal products, pulses and potatoes;Doughs;221.0;7.5;2.9;39.9;11.0;1.1;25.0;
+Meat;Meat and offal;Veal,meat and offal;146.0;21.4;6.7;0.0;6.5;1.1;22.0;
+Flounder;Fish;Sea fish;72.0;16.5;0.7;0.0;48.0;0.3;22.0;
 Fondue non-alcoholic, prepared;Courts;Other salty;283.0;18.7;21.5;1.6;680.0;0.5;22.0;
-Trout, raw;Fish;Freshwater fish;127.0;16.0;7.0;0.0;14.0;2.0;30.0;fish
-Fotzel slices unsweetened;Courts;Other sweet dishes;222.0;8.0;9.9;24.5;56.0;0.7;13.0;
+Trout;Fish;Freshwater fish;127.0;16.0;7.0;0.0;14.0;2.0;30.0;fish
+Fotzel slices;Courts;Other sweet dishes;222.0;8.0;9.9;24.5;56.0;0.7;13.0;
 Fribourg Vacherin;Milk and dairy products;Hard cheese;370.0;23.5;30.4;0.0;640.0;0.1;25.0;milk
-Cream cheese, double cream;Milk and dairy products;Cream cheese and curd;351.0;11.1;32.1;4.5;110.0;0.2;8.0;milk
-Fruit cocktail, in syrup, canned, drained;Fruits;Fruit cooked (incl. preserves);77.0;0.6;0.2;17.3;8.2;0.1;7.4;
-Fruit cocktail, with sweetener, canned, drained;Fruits;Fruit cooked (incl. preserves);47.0;0.7;0.2;9.5;8.7;0.2;8.0;
-Fruits , cooked;Fruits;Fruit cooked (incl. preserves);50.0;0.6;0.4;9.9;14.0;0.2;8.5;
-Fruits , dried;Fruits;Fruits dried;278.0;2.5;1.1;60.5;70.0;1.4;53.0;
-Fruits , raw;Fruits;Fruits fresh;54.0;0.6;0.2;11.3;14.0;0.2;12.0;
+Cream cheese;Milk and dairy products;Cream cheese and curd;351.0;11.1;32.1;4.5;110.0;0.2;8.0;milk
+Fruit cocktail;Fruits;Fruit cooked (incl. preserves);77.0;0.6;0.2;17.3;8.2;0.1;7.4;
+Fruits cooked;Fruits;Fruit cooked (incl. preserves);50.0;0.6;0.4;9.9;14.0;0.2;8.5;
+Fruits dried;Fruits;Fruits dried;278.0;2.5;1.1;60.5;70.0;1.4;53.0;
+Fruits;Fruits;Fruits fresh;54.0;0.6;0.2;11.3;14.0;0.2;12.0;
 Fruit juice spritzer , unsweetened;Soft drinks;Fruit and vegetable juices;31.0;0.2;0.1;7.4;7.4;0.2;4.8;
-Fruit juice , unsweetened;Fruits;Fruit juices,Soft drinks;52.0;0.4;0.1;12.3;7.7;0.3;7.4;
-Spring roll, deep fried;Courts;Asian dishes;224.0;6.5;11.2;23.1;25.0;0.9;16.0;
+Fruit juice;Fruits;Fruit juices,Soft drinks;52.0;0.4;0.1;12.3;7.7;0.3;7.4;
+Spring roll;Courts;Asian dishes;224.0;6.5;11.2;23.1;25.0;0.9;16.0;
 Five-grain beer;Alcoholic drinks;Beer;40.0;0.6;0.0;2.0;3.6;0.0;11.0;
-Shrimp, cooked;Fish;Seafood, crustaceans and shellfish;46.0;9.0;0.5;1.3;32.0;0.3;0.0;crustacean
-Shrimp, raw;Fish;Seafood, crustaceans and shellfish;56.0;11.4;0.6;1.2;30.0;0.3;0.0;crustacean
-Poultry meat , raw;Meat and offal;Poultry;134.0;21.6;5.3;0.1;7.5;0.5;25.0;
-Poultry meat with skin , raw;Meat and offal;Poultry;161.0;20.0;9.0;0.0;7.2;0.5;22.0;
-Poultry meat without skin , raw;Meat and offal;Poultry;114.0;22.9;2.4;0.1;7.7;0.5;27.0;
+Shrimp;Fish;Seafood, crustaceans and shellfish;56.0;11.4;0.6;1.2;30.0;0.3;0.0;crustacean
+Poultry meat;Meat and offal;Poultry;134.0;21.6;5.3;0.1;7.5;0.5;25.0;
 Poultry Lyoner;Meat and sausage products;Boiled sausage products;205.0;13.5;16.4;0.9;13.0;0.5;17.0;
-Minced meat , fried;Meat and offal;;164.0;26.3;6.6;0.0;5.2;1.4;23.0;
-Minced meat , raw;Meat and offal;Veal,meat and offal;143.0;21.6;6.2;0.0;4.2;1.1;20.0;
-Vegetables , raw;Vegetables;Vegetables fresh;26.0;1.3;0.3;3.7;27.0;0.4;13.0;
+Minced meat;Meat and offal;Veal,meat and offal;143.0;21.6;6.2;0.0;4.2;1.1;20.0;
+Vegetables;Vegetables;Vegetables fresh;26.0;1.3;0.3;3.7;27.0;0.4;13.0;
 Barley flakes;Breads, flakes and breakfast cereals;Flakes, bran and germ;333.0;8.5;1.5;66.1;16.0;2.0;66.0;gluten
-Gerstotto, cooked;Cereal products, pulses and potatoes;Other cereal products;135.0;3.5;2.1;24.7;13.0;1.0;23.0;
-Sliced meat , fried;Meat and offal;;150.0;28.9;3.8;0.1;8.6;1.0;26.0;
-Sliced meat , raw;Meat and offal;Veal,meat and offal;118.0;22.0;3.3;0.1;6.4;0.8;22.0;
+Sliced meat;Meat and offal;Veal,meat and offal;118.0;22.0;3.3;0.1;6.4;0.8;22.0;
 Cereal flakes;Breads, flakes and breakfast cereals;Flakes, bran and germ;348.0;10.8;3.2;64.0;26.0;3.6;94.0;
 Glarus Schabziger;Milk and dairy products;Cream cheese and curd;132.0;31.6;0.5;0.0;860.0;0.2;34.0;milk
 Gorgonzola;Milk and dairy products;Hard cheese;357.0;19.0;31.2;0.1;610.0;0.3;20.0;milk
-Pomegranate, raw;Fruits;Fruits fresh;81.0;1.4;1.2;14.3;9.5;0.2;12.0;
-Grapefruit , raw;Fruits;Fruits fresh;42.0;0.9;0.5;8.0;23.0;0.1;8.0;
-Gruyère, full fat;Milk and dairy products;Hard cheese;396.0;26.4;32.0;0.0;900.0;0.4;35.0;milk
+Pomegranate;Fruits;Fruits fresh;81.0;1.4;1.2;14.3;9.5;0.2;12.0;
+Grapefruit;Fruits;Fruits fresh;42.0;0.9;0.5;8.0;23.0;0.1;8.0;
+Gruyère;Milk and dairy products;Hard cheese;396.0;26.4;32.0;0.0;900.0;0.4;35.0;milk
 Gumdrop with fruit essence;Sweets;Sweets, fruit and chewing gum;341.0;6.6;0.0;78.6;9.0;0.2;2.0;
-Cucumber, pickled in vinegar;Vegetables;Vegetables cooked (incl. canned);14.0;0.7;0.1;2.1;14.0;1.0;11.0;
-Cucumber, raw;Vegetables;Vegetables fresh;14.0;0.7;0.1;2.0;15.0;0.2;10.0;
-Meatloaf, baked in the oven;Courts;Other salty;166.0;15.8;7.7;8.2;13.0;1.3;16.0;
+Cucumber in vinegar;Vegetables;Vegetables cooked (incl. canned);14.0;0.7;0.1;2.1;14.0;1.0;11.0;
+Cucumber;Vegetables;Vegetables fresh;14.0;0.7;0.1;2.0;15.0;0.2;10.0;
+Meatloaf;Courts;Other salty;166.0;15.8;7.7;8.2;13.0;1.3;16.0;
 Oatmeal;Breads, flakes and breakfast cereals;Flakes, bran and germ;381.0;13.5;7.5;59.5;53.0;3.8;120.0;
 Oat bran;Breads, flakes and breakfast cereals;Flakes, bran and germ;371.0;18.5;7.0;50.8;58.0;5.4;240.0;
-Semi-skimmed milk 1.5% fat, UHT;Milk and dairy products;Milk;46.0;3.2;1.5;4.8;120.0;0.0;12.0;milk
+Semi-skimmed milk;Milk and dairy products;Milk;46.0;3.2;1.5;4.8;120.0;0.0;12.0;milk
 Half-fat butter;Fats and oils;Fats,milk and dairy products;391.0;4.8;39.8;3.5;120.0;0.0;14.0;
 Half cream, pasteurised;Fats and oils;Cream,Milk and dairy products;274.0;2.3;27.9;3.3;78.0;0.0;7.0;
 Half cream, UHT;Fats and oils;Cream,Milk and dairy products;251.0;2.5;25.1;3.7;91.0;0.0;8.6;
 Half-white bread;Breads, flakes and breakfast cereals;Breads and bread products;240.0;9.4;1.1;46.4;16.0;1.8;38.0;
-Half-white bread;Breads, flakes and breakfast cereals;Breads and bread products;240.0;9.4;1.1;46.4;16.0;1.8;38.0;
 Hemp oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;
-Hard and semi-hard cheese, full-fat;Milk and dairy products;Hard cheese;397.0;26.6;32.1;0.0;910.0;0.3;32.0;milk
-Hard caramels, hard sweets;Sweets;Sweets, fruit and chewing gum;385.0;0.5;0.3;95.0;4.0;0.1;3.0;
-Durum wheat semolina, dry;Cereal products, pulses and potatoes;Other cereal products;353.0;12.0;1.4;71.4;17.0;0.9;27.0;gluten
-Hare , raw;Meat and offal;Other species;115.0;22.0;3.0;0.0;14.0;2.8;24.0;
+Hard and semi-hard cheese;Milk and dairy products;Hard cheese;397.0;26.6;32.1;0.0;910.0;0.3;32.0;milk
+Hard caramels;Sweets;Sweets, fruit and chewing gum;385.0;0.5;0.3;95.0;4.0;0.1;3.0;
+Durum wheat semolina;Cereal products, pulses and potatoes;Other cereal products;353.0;12.0;1.4;71.4;17.0;0.9;27.0;gluten
+Hare;Meat and offal;Other species;115.0;22.0;3.0;0.0;14.0;2.8;24.0;
 Hazelnut;Nuts, seeds and oil fruits;;661.0;16.4;59.5;10.1;160.0;3.6;160.0;hazelnut
-Hazelnut chocolate spread;Sweets;Jams and sweet spreads;548.0;6.0;32.7;55.9;130.0;1.2;50.0;hazelnut
+Hazelnut chocolate;Sweets;Jams and sweet spreads;548.0;6.0;32.7;55.9;130.0;1.2;50.0;hazelnut
 Hazelnut biscuits;Sweets;Guetzli;473.0;6.7;27.7;47.4;80.0;1.6;49.0;hazelnut
 Hazelnut macaroon;Sweets;Guetzli;544.0;12.2;37.0;37.5;100.0;2.3;100.0;hazelnut
 Hazelnut oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;hazelnut
 Hazelnut stalks;Sweets;Guetzli;567.0;10.5;36.6;47.0;61.0;1.9;55.0;hazelnut
-Pike, raw;Fish;Freshwater fish;81.0;18.4;0.9;0.0;32.0;0.5;28.0;
-Yeast dough , sweet, unbaked;Cereal products, pulses and potatoes;Doughs;311.0;8.7;11.1;43.2;34.0;1.1;22.0;
-Yeast dough , sweet, unbaked;Cereal products, pulses and potatoes;Doughs;304.0;9.2;11.4;40.0;35.0;1.1;24.0;
-Blueberry, freeze-dried;Fruits;Fruits dried;338.0;6.1;4.4;56.4;120.0;1.8;49.0;
-Blueberry, raw;Fruits;Fruits fresh;52.0;0.9;0.3;10.6;10.0;0.6;5.0;
-Halibut, raw;Fish;Sea fish;118.0;20.6;3.9;0.0;15.0;0.5;23.0;
-Raspberry, raw;Fruits;Fruits fresh;44.0;1.2;0.8;5.8;16.0;0.4;20.0;
+Pike;Fish;Freshwater fish;81.0;18.4;0.9;0.0;32.0;0.5;28.0;
+Yeast dough;Cereal products, pulses and potatoes;Doughs;311.0;8.7;11.1;43.2;34.0;1.1;22.0;
+Blueberry;Fruits;Fruits fresh;52.0;0.9;0.3;10.6;10.0;0.6;5.0;
+Halibut;Fish;Sea fish;118.0;20.6;3.9;0.0;15.0;0.5;23.0;
+Raspberry;Fruits;Fruits fresh;44.0;1.2;0.8;5.8;16.0;0.4;20.0;
 Ham in the rear;Meat and sausage products;Cooked sausages;104.0;20.2;2.3;0.7;17.0;0.6;24.0;
-Venison , raw;Meat and offal;Wild;112.0;20.6;3.3;0.0;10.0;2.3;21.0;
-Venison, entrecôte, raw;Meat and offal;Wild;111.0;23.1;2.1;0.0;3.2;3.0;23.0;
-Millet, grain hulled;Cereal products, pulses and potatoes;Other cereal products;360.0;10.6;3.9;68.8;9.5;6.9;120.0;
-Millet flakes, wholemeal;Breads, flakes and breakfast cereals;Flakes, bran and germ;360.0;10.6;3.9;68.8;10.0;6.9;120.0;
-Hirsotto, cooked;Cereal products, pulses and potatoes;Other cereal products;144.0;3.7;3.0;24.8;11.0;2.3;44.0;
+Venison;Meat and offal;Wild;112.0;20.6;3.3;0.0;10.0;2.3;21.0;
+Millet grain;Cereal products, pulses and potatoes;Other cereal products;360.0;10.6;3.9;68.8;9.5;6.9;120.0;
+Millet flakes;Breads, flakes and breakfast cereals;Flakes, bran and germ;360.0;10.6;3.9;68.8;10.0;6.9;120.0;
 Hollandaise sauce;Miscellaneous;Sauces;212.0;3.0;18.0;9.3;41.0;0.7;6.0;
-Elderberry, black, raw;Fruits;Fruits fresh;63.0;2.5;1.7;7.4;37.0;1.6;30.0;
+Elderberry, black;Fruits;Fruits fresh;63.0;2.5;1.7;7.4;37.0;1.6;30.0;
 Honey;Sweets;Jams and sweet spreads;306.0;0.4;0.0;76.0;5.0;0.5;3.0;
-egg, hard-boiled;Eggs;;156.0;14.0;10.9;0.3;46.0;1.7;12.0;egg
-egg, raw;Eggs;;140.0;12.6;9.8;0.3;48.0;1.8;12.0;egg
-egg yolk, raw;Eggs;;349.0;16.4;31.3;0.3;140.0;5.5;12.0;egg
-egg white, raw;Eggs;;45.0;10.8;0.0;0.4;5.1;0.0;11.0;egg
-Legumes , cooked;Cereal products, pulses and potatoes;Legumes;127.0;9.6;1.9;14.7;36.0;2.0;44.0;
-Pulses , dried;Cereal products, pulses and potatoes;Legumes;336.0;25.1;4.9;39.7;96.0;6.0;130.0;
+egg hard-boiled;Eggs;;156.0;14.0;10.9;0.3;46.0;1.7;12.0;egg
+egg;Eggs;;140.0;12.6;9.8;0.3;48.0;1.8;12.0;egg
+egg yolk;Eggs;;349.0;16.4;31.3;0.3;140.0;5.5;12.0;egg
+egg white;Eggs;;45.0;10.8;0.0;0.4;5.1;0.0;11.0;egg
+Legumes;Cereal products, pulses and potatoes;Legumes;127.0;9.6;1.9;14.7;36.0;2.0;44.0;
+Pulses;Cereal products, pulses and potatoes;Legumes;336.0;25.1;4.9;39.7;96.0;6.0;130.0;
 Hummus;Miscellaneous;Sauces;204.0;7.3;14.0;9.4;170.0;2.1;75.0;
-Cottage cheese, nature;Milk and dairy products;Cream cheese and curd;100.0;12.4;4.5;2.4;69.0;0.0;6.2;milk
-Instant mashed potatoes, prepared;Cereal products, pulses and potatoes;Potatoes;80.0;2.0;2.8;11.5;46.0;0.4;13.0;
+Cottage cheese;Milk and dairy products;Cream cheese and curd;100.0;12.4;4.5;2.4;69.0;0.0;6.2;milk
+Instant mashed potatoes;Cereal products, pulses and potatoes;Potatoes;80.0;2.0;2.8;11.5;46.0;0.4;13.0;
 Hunter's sauce;Miscellaneous;Sauces;58.0;2.2;1.8;8.0;17.0;0.7;8.0;
-Yoghurt Bifidus, nature;Milk and dairy products;Yoghurt and sour milk;66.0;4.0;3.6;4.5;150.0;0.0;12.0;milk
+Yoghurt Bifidus;Milk and dairy products;Yoghurt and sour milk;66.0;4.0;3.6;4.5;150.0;0.0;12.0;milk
 Yoghurt sweetened;Milk and dairy products;Yoghurt and sour milk;105.0;3.7;3.4;14.7;120.0;0.1;15.0;milk
 Flavoured yoghurt, lean, with sweeteners;Milk and dairy products;Yoghurt and sour milk;47.0;4.4;0.1;7.0;100.0;0.1;11.0;milk
 Yoghurt with fruit, lean, with sweeteners;Milk and dairy products;Yoghurt and sour milk;49.0;4.5;0.1;7.0;110.0;0.1;11.0;milk
-Yoghurt, Strawberry;Milk and dairy products;Yoghurt and sour milk;101.0;3.4;2.7;15.2;110.0;0.1;11.0;milk
-Yoghurt, Hazelnut;Milk and dairy products;Yoghurt and sour milk;119.0;3.8;4.6;15.0;110.0;0.1;16.0;milk
-Yoghurt, Mocha;Milk and dairy products;Yoghurt and sour milk;99.0;3.7;3.1;14.1;130.0;0.1;13.0;milk
-Yoghurt, Mocha, Organic;Milk and dairy products;Yoghurt and sour milk;95.0;3.4;3.3;13.1;120.0;0.2;18.0;milk
-Yoghurt, nature;Milk and dairy products;Yoghurt and sour milk;66.0;3.9;3.6;4.5;140.0;0.0;12.0;milk
-Yoghurt, nature, lean;Milk and dairy products;Yoghurt and sour milk;42.0;4.7;0.1;5.5;160.0;0.1;15.0;milk
-Yoghurt, chocolate;Milk and dairy products;Yoghurt and sour milk;120.0;3.9;3.9;16.9;130.0;0.3;18.0;milk
-Yoghurt, vanilla;Milk and dairy products;Yoghurt and sour milk;98.0;3.7;3.0;14.0;130.0;0.0;11.0;milk
-Yoghurt alternative made from soy, with fruit or flavouring;Milk and dairy products;Milk substitutes;82.0;3.4;1.8;12.2;0.0;0.5;19.0;milk
-Yoghurt alternative made from soy, with fruit or flavouring, enriched with calcium;Milk and dairy products;Milk substitutes;82.0;3.4;1.8;12.2;120.0;0.5;19.0;milk
-Yoghurt alternative made from soy, natural;Milk and dairy products;Milk substitutes;45.0;4.0;2.2;1.5;13.0;0.4;22.0;milk
-Yoghurt alternative made from soy, natural, enriched with calcium;Milk and dairy products;Milk substitutes;45.0;4.0;2.2;1.5;120.0;0.4;22.0;milk
-Currant, red, raw;Fruits;Fruits fresh;50.0;1.6;0.7;7.1;38.0;0.4;12.0;
-Currant, black, raw;Fruits;Fruits fresh;71.0;1.3;0.9;9.7;57.0;1.2;23.0;
-Coffee soluble, powder;Soft drinks;Coffee;253.0;11.2;0.0;42.6;170.0;4.4;390.0;
-Coffee, black, unsweetened;Soft drinks;Coffee;2.0;0.1;0.0;0.3;8.0;0.0;3.3;
+Yoghurt Strawberry;Milk and dairy products;Yoghurt and sour milk;101.0;3.4;2.7;15.2;110.0;0.1;11.0;milk
+Yoghurt Hazelnut;Milk and dairy products;Yoghurt and sour milk;119.0;3.8;4.6;15.0;110.0;0.1;16.0;milk
+Yoghurt Mocha;Milk and dairy products;Yoghurt and sour milk;99.0;3.7;3.1;14.1;130.0;0.1;13.0;milk
+Yoghurt Mocha, Organic;Milk and dairy products;Yoghurt and sour milk;95.0;3.4;3.3;13.1;120.0;0.2;18.0;milk
+Yoghurt nature;Milk and dairy products;Yoghurt and sour milk;66.0;3.9;3.6;4.5;140.0;0.0;12.0;milk
+Yoghurt chocolate;Milk and dairy products;Yoghurt and sour milk;120.0;3.9;3.9;16.9;130.0;0.3;18.0;milk
+Yoghurt vanilla;Milk and dairy products;Yoghurt and sour milk;98.0;3.7;3.0;14.0;130.0;0.0;11.0;milk
+Yoghurt alternative made from soy with fruit or flavouring;Milk and dairy products;Milk substitutes;82.0;3.4;1.8;12.2;0.0;0.5;19.0;milk
+Yoghurt alternative made from soy natural;Milk and dairy products;Milk substitutes;45.0;4.0;2.2;1.5;13.0;0.4;22.0;milk
+Currant, red;Fruits;Fruits fresh;50.0;1.6;0.7;7.1;38.0;0.4;12.0;
+Currant, black;Fruits;Fruits fresh;71.0;1.3;0.9;9.7;57.0;1.2;23.0;
+Coffee soluble;Soft drinks;Coffee;253.0;11.2;0.0;42.6;170.0;4.4;390.0;
+Coffee black;Soft drinks;Coffee;2.0;0.1;0.0;0.3;8.0;0.0;3.3;
 Coffee cream;Fats and oils;Cream,Milk and dairy products;161.0;2.6;15.0;3.8;96.0;0.0;8.2;
 Cocoa butter;Fats and oils;Fat;900.0;0.0;100.0;0.0;0.0;0.0;0.0;
 Cocoa powder;Sweets;Chocolate and cocoa products,Non-alcoholic beverages;419.0;22.5;24.5;10.8;110.0;13.0;410.0;
-Persimmon, raw;Fruits;Fruits fresh;70.0;0.9;0.3;14.3;6.9;0.1;7.2;
-Veal, breast, cooked;Meat and offal;Calf;234.0;23.5;15.5;0.0;6.1;0.9;15.0;
-Veal, breast, raw;Meat and offal;Calf;204.0;18.3;14.5;0.0;5.3;0.6;18.0;
-Veal, corner piece, raw;Meat and offal;Calf;103.0;22.2;1.6;0.0;5.0;2.3;27.0;
-Veal, fillet, raw;Meat and offal;Calf;119.0;21.2;3.8;0.0;17.0;1.4;25.0;
-Veal, minced meat, raw;Meat and offal;Calf;104.0;20.5;2.4;0.0;4.9;0.8;20.0;
-Veal, cut into strips, roasted;Meat and offal;Calf;123.0;28.2;1.1;0.0;5.8;0.8;25.0;
-Veal, cut into strips, raw;Meat and offal;Calf;98.0;22.0;1.1;0.0;4.8;0.6;22.0;
-Veal, shank, braised;Meat and offal;Calf;165.0;29.7;5.1;0.0;6.6;3.5;26.0;
-Veal, shank, raw;Meat and offal;Calf;122.0;20.7;4.4;0.0;5.0;2.3;26.0;
-Veal, cutlet, raw;Meat and offal;Calf;161.0;20.7;8.7;0.0;5.3;0.6;19.0;
-Veal, liver, raw;Meat and offal;Calf;135.0;19.6;4.3;4.6;9.0;7.4;19.0;
-Veal, milks, raw;Meat and offal;Calf;99.0;17.2;3.4;0.0;4.0;1.9;16.0;
-Calf, kidney, raw;Meat and offal;Calf;112.0;15.8;5.0;1.0;11.0;12.0;16.0;
-Veal, kidney piece, steak, roasted;Meat and offal;Calf;144.0;27.3;3.9;0.0;21.0;1.8;29.0;
-Veal, kidney piece, steak, raw;Meat and offal;Calf;113.0;22.8;2.4;0.0;4.7;0.5;21.0;
-Veal, round mock, raw;Meat and offal;Calf;104.0;21.9;1.8;0.0;4.0;0.5;20.0;
-Veal, shoulder, roast, roasted in the oven;Meat and offal;Calf;163.0;28.6;5.4;0.0;30.0;2.0;30.0;
-Veal, shoulder, roast, raw;Meat and offal;Calf;124.0;20.2;4.8;0.0;22.0;1.4;23.0;
-Veal, starter, raw;Meat and offal;Calf;102.0;20.0;2.4;0.0;4.7;0.6;19.0;
-Veal, tongue, raw;Meat and offal;Calf;181.0;17.2;11.6;1.9;9.0;2.8;17.0;
-Veal , raw;Meat and offal;Calf;128.0;21.1;4.8;0.0;9.7;1.1;22.0;
+Persimmon;Fruits;Fruits fresh;70.0;0.9;0.3;14.3;6.9;0.1;7.2;
+Veal, breast;Meat and offal;Calf;204.0;18.3;14.5;0.0;5.3;0.6;18.0;
+Veal minced;Meat and offal;Calf;104.0;20.5;2.4;0.0;4.9;0.8;20.0;
+Veal liver;Meat and offal;Calf;135.0;19.6;4.3;4.6;9.0;7.4;19.0;
+Veal milks;Meat and offal;Calf;99.0;17.2;3.4;0.0;4.0;1.9;16.0;
+Calf kidney;Meat and offal;Calf;112.0;15.8;5.0;1.0;11.0;12.0;16.0;
+Veal shoulder, roast;Meat and offal;Calf;124.0;20.2;4.8;0.0;22.0;1.4;23.0;
+Veal tongue;Meat and offal;Calf;181.0;17.2;11.6;1.9;9.0;2.8;17.0;
+Veal;Meat and offal;Calf;128.0;21.1;4.8;0.0;9.7;1.1;22.0;
 Veal sausage;Meat and sausage products;Boiled sausage products;228.0;12.5;19.2;1.2;20.0;0.5;12.0;
-Squid, raw;Fish;Seafood, crustaceans and shellfish;83.0;16.0;1.1;2.3;14.0;0.6;40.0;mollusk
-Rabbit , cooked;Meat and offal;Other species;205.0;28.0;10.3;0.0;19.0;2.2;34.0;
-Rabbit , raw;Meat and offal;Other species;150.0;20.5;7.5;0.0;14.0;1.6;25.0;
-Rabbit, fillet, raw;Meat and offal;Other species;111.0;24.3;1.5;0.0;4.5;0.3;28.0;
-Carrot, steamed;Vegetables;Vegetables cooked (incl. canned);40.0;0.8;0.3;7.0;33.0;0.2;8.0;
-Carrot, raw;Vegetables;Vegetables fresh;38.0;0.8;0.3;6.6;31.0;0.2;8.4;
+Squid;Fish;Seafood, crustaceans and shellfish;83.0;16.0;1.1;2.3;14.0;0.6;40.0;mollusk
+Rabbit;Meat and offal;Other species;150.0;20.5;7.5;0.0;14.0;1.6;25.0;
+Carrot;Vegetables;Vegetables fresh;38.0;0.8;0.3;6.6;31.0;0.2;8.4;
 Carrot juice;Soft drinks;Fruit and vegetable juices,Vegetables;33.0;0.7;0.1;6.8;24.0;0.5;13.0;
-Potato, peeled, steamed;Cereal products, pulses and potatoes;Potatoes;75.0;2.0;0.1;15.6;5.8;0.4;18.0;
-Potato, peeled, raw;Cereal products, pulses and potatoes;Potatoes;76.0;2.0;0.1;15.6;6.0;0.4;19.0;
-Potato flakes, with milk powder and salt;Cereal products, pulses and potatoes;Potatoes;365.0;11.3;5.3;65.5;230.0;2.0;71.0;
+Potato;Cereal products, pulses and potatoes;Potatoes;75.0;2.0;0.1;15.6;5.8;0.4;18.0;
 Potato starch;Cereal products, pulses and potatoes;Flours and starches,Miscellaneous;336.0;0.6;0.1;83.1;35.0;1.8;6.0;
-Mashed potatoes, prepared;Cereal products, pulses and potatoes;Potatoes;139.0;2.0;8.4;12.9;18.0;0.3;16.0;
-Mashed potatoes, prepared;Cereal products, pulses and potatoes;Potatoes;88.0;2.2;2.6;13.2;27.0;0.3;17.0;
-Mashed potatoes, prepared;Cereal products, pulses and potatoes;Potatoes;90.0;2.2;2.8;13.2;27.0;0.3;16.0;
+Mashed potatoes;Cereal products, pulses and potatoes;Potatoes;139.0;2.0;8.4;12.9;18.0;0.3;16.0;
 Cheese in brine;Milk and dairy products;Cream cheese and curd,milk and dairy products;256.0;16.0;20.7;1.4;480.0;0.2;20.0;milk
-Cheese in brine;Milk and dairy products;Cream cheese and curd,milk and dairy products;242.0;16.7;18.8;1.5;450.0;0.2;20.0;milk
 Cheese butter;Fats and oils;Fats,milk and dairy products;747.0;0.4;82.5;0.6;12.0;0.0;1.0;
-Cheese slice, prepared;Courts;Other salty;272.0;13.8;12.1;26.0;310.0;1.2;34.0;
-Kefe, steamed;Vegetables;Vegetables cooked (incl. canned);73.0;4.3;0.2;10.8;22.0;1.8;31.0;
-Kefe, raw;Vegetables;Vegetables fresh;68.0;4.0;0.2;10.0;20.0;2.0;30.0;
+Kefe;Vegetables;Vegetables fresh;68.0;4.0;0.2;10.0;20.0;2.0;30.0;
 Ketchup;Miscellaneous;Sauces;117.0;2.0;0.4;26.0;19.0;0.9;19.0;
-Chickpea, cooked;Cereal products, pulses and potatoes;Legumes;127.0;7.3;2.0;16.8;44.0;1.9;48.0;
-Chickpea, dried;Cereal products, pulses and potatoes;Legumes;327.0;18.6;4.9;44.3;120.0;5.4;140.0;
+Chickpea dried;Cereal products, pulses and potatoes;Legumes;327.0;18.6;4.9;44.3;120.0;5.4;140.0;
 Kirsch;Alcoholic drinks;Spirits;233.0;0.0;0.0;0.0;1.9;0.0;0.0;
-Cherry, stewed, drained;Fruits;Fruit cooked (incl. preserves);58.0;0.9;0.5;12.0;11.0;0.2;8.1;
-Cherry, raw;Fruits;Fruits fresh;62.0;0.8;0.4;13.0;9.9;0.2;8.8;
-Kiwi, raw;Fruits;Fruits fresh;58.0;0.9;0.6;11.0;33.0;0.2;13.0;
-Crispbread, wholemeal;Breads, flakes and breakfast cereals;Crispbreads, rusks, crackers and waffles;332.0;12.0;1.7;61.1;26.0;4.0;100.0;
-Crispbread, wholemeal with linseed;Breads, flakes and breakfast cereals;Crispbreads, rusks, crackers and waffles;352.0;12.9;5.7;55.2;47.0;4.3;130.0;
-Crispbread, wholemeal with sesame seeds;Breads, flakes and breakfast cereals;Crispbreads, rusks, crackers and waffles;360.0;13.1;6.9;55.3;120.0;4.4;130.0;sesame
-Garlic, raw;Vegetables;Vegetables fresh;137.0;7.0;0.5;24.5;38.0;1.4;21.0;
-Celeriac, steamed;Vegetables;Vegetables cooked (incl. canned);29.0;1.5;0.3;2.4;43.0;0.6;11.0;
-Celeriac, raw;Vegetables;Vegetables fresh;28.0;1.5;0.3;2.4;43.0;0.7;12.0;
+Cherry;Fruits;Fruits fresh;62.0;0.8;0.4;13.0;9.9;0.2;8.8;
+Kiwi;Fruits;Fruits fresh;58.0;0.9;0.6;11.0;33.0;0.2;13.0;
+Crispbread;Breads, flakes and breakfast cereals;Crispbreads, rusks, crackers and waffles;332.0;12.0;1.7;61.1;26.0;4.0;100.0;
+Garlic;Vegetables;Vegetables fresh;137.0;7.0;0.5;24.5;38.0;1.4;21.0;
+Celeriac;Vegetables;Vegetables fresh;28.0;1.5;0.3;2.4;43.0;0.7;12.0;
 Button flour;Cereal products, pulses and potatoes;Flours and starches;351.0;11.9;1.3;71.3;15.0;0.8;24.0;
-Cooking butter;Fats and oils;Fats,milk and dairy products;745.0;0.5;82.2;0.7;16.0;0.0;1.4;
-Cooked cured products;Meat and sausage products;Cooked sausages;223.0;19.8;15.6;0.7;9.8;0.5;21.0;
 Table salt;Miscellaneous;Salt, spices and flavours;0.0;0.0;0.0;0.0;10.0;0.3;1.0;
 Cooked bacon;Meat and sausage products;Raw sausage products;322.0;17.8;27.6;0.6;10.0;0.4;16.0;
 Cooked sausages;Meat and sausage products;Cooked sausages;278.0;15.4;23.5;1.1;25.0;8.7;11.0;
-Cabbage vegetables , cooked;Vegetables;Vegetables cooked (incl. canned);28.0;2.2;0.3;2.9;50.0;0.5;17.0;
-Cabbage , raw;Vegetables;Vegetables fresh;29.0;2.2;0.3;3.0;52.0;0.7;19.0;
-Kohlrabi, steamed;Vegetables;Vegetables cooked (incl. canned);28.0;2.0;0.2;3.9;68.0;0.4;43.0;
-Kohlrabi, raw;Vegetables;Vegetables fresh;27.0;1.9;0.2;3.7;64.0;0.5;43.0;
+Cabbage;Vegetables;Vegetables fresh;29.0;2.2;0.3;3.0;52.0;0.7;19.0;
+Kohlrabi;Vegetables;Vegetables fresh;27.0;1.9;0.2;3.7;64.0;0.5;43.0;
 Coconut oil;Fats and oils;Fat;894.0;0.8;99.0;0.0;2.0;0.0;200.0;
 Coconut macaroons;Sweets;Guetzli;567.0;6.9;41.4;37.1;8.3;1.8;66.0;
 Coconut;Nuts, seeds and oil fruits;;384.0;4.6;36.5;4.8;20.0;2.3;39.0;
-Coconut, dried;Nuts, seeds and oil fruits;;681.0;7.6;65.2;8.4;11.0;2.8;100.0;
+Coconut dried;Nuts, seeds and oil fruits;;681.0;7.6;65.2;8.4;11.0;2.8;100.0;
 Coconut milk;Nuts, seeds and oil fruits;;214.0;2.4;21.3;3.1;18.0;3.3;46.0;
-Condensed milk, sweetened;Milk and dairy products;Milk;339.0;8.0;10.0;54.3;280.0;0.2;24.0;milk
-Condensed milk, unsweetened;Milk and dairy products;Milk;131.0;6.4;7.6;9.3;240.0;0.1;27.0;milk
+Condensed milk;Milk and dairy products;Milk;131.0;6.4;7.6;9.3;240.0;0.1;27.0;milk
 Jam;Sweets;Jams and sweet spreads;246.0;0.5;0.5;58.7;18.0;1.4;2.0;
-Jam, energy-reduced, with sweeteners;Sweets;Jams and sweet spreads;136.0;0.5;0.5;31.9;19.0;0.4;1.0;
-Lettuce, raw;Vegetables;Vegetables fresh;14.0;1.3;0.2;1.1;31.0;0.4;7.6;
-Cutlet , fried;Meat and offal;;223.0;28.8;12.0;0.0;7.0;0.6;26.0;
-Cutlet , raw;Meat and offal;Pork,meat and offal;177.0;21.3;10.2;0.0;5.1;0.5;21.0;
-Crustaceans , raw;Fish;Seafood, crustaceans and shellfish;75.0;15.5;1.0;1.0;30.0;1.2;34.0;
-Cake batter , unbaked;Cereal products, pulses and potatoes;Doughs;375.0;6.7;21.2;38.5;11.0;0.8;19.0;
-Cake batter , unbaked;Cereal products, pulses and potatoes;Doughs;392.0;6.6;23.3;38.1;7.8;0.8;19.0;
-Cake dough, wholemeal , unbaked;Cereal products, pulses and potatoes;Doughs;372.0;7.6;21.5;33.8;20.0;2.8;72.0;
-Cake dough, wholemeal , unbaked;Cereal products, pulses and potatoes;Doughs;366.0;7.6;21.0;33.8;18.0;2.8;72.0;
-Pumpkin Piccata, prepared;Courts;Other salty;136.0;5.0;8.5;9.4;80.0;0.7;11.0;
-Pumpkin, steamed;Vegetables;Vegetables cooked (incl. canned);24.0;0.6;0.1;4.6;19.0;0.3;6.8;
-Pumpkin, raw;Vegetables;Vegetables fresh;23.0;0.6;0.1;4.5;18.0;0.4;7.0;
+Lettuce;Vegetables;Vegetables fresh;14.0;1.3;0.2;1.1;31.0;0.4;7.6;
+Cutlet;Meat and offal;Pork,meat and offal;177.0;21.3;10.2;0.0;5.1;0.5;21.0;
+Crustaceans;Fish;Seafood, crustaceans and shellfish;75.0;15.5;1.0;1.0;30.0;1.2;34.0;
+Cake batter;Cereal products, pulses and potatoes;Doughs;375.0;6.7;21.2;38.5;11.0;0.8;19.0;
+Cake dough;Cereal products, pulses and potatoes;Doughs;372.0;7.6;21.5;33.8;20.0;2.8;72.0;
+Pumpkin;Vegetables;Vegetables fresh;23.0;0.6;0.1;4.5;18.0;0.4;7.0;
 Pumpkin seeds;Nuts, seeds and oil fruits;;615.0;35.6;49.1;4.7;63.0;8.2;520.0;
 Pumpkin seed oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;
-Pumpkin slices, breaded, prepared;Courts;Other salty;139.0;4.3;5.8;16.7;29.0;0.7;11.0;
-Salmon, smoked;Fish;Sea fish;167.0;23.2;8.2;0.0;10.0;0.0;27.0;fish
-Salmon, wild caught, raw;Fish;Sea fish;182.0;19.7;11.5;0.0;8.0;0.4;30.0;fish
-Salmon, farmed, fillet, steamed;Fish;Sea fish;180.0;18.7;11.7;0.0;15.0;0.4;30.0;fish
-Salmon, farmed, raw;Fish;Sea fish;200.0;19.9;13.4;0.0;12.0;0.4;28.0;fish
-"Lamb, fillet, ""medium"" roasted";Meat and offal;Lamb, Sheep;136.0;25.8;3.6;0.0;14.0;2.4;31.0;
-Lamb, fillet, raw;Meat and offal;Lamb, Sheep;112.0;20.4;3.4;0.0;12.0;1.9;27.0;
-Lamb, Gigot, roasted;Meat and offal;Lamb, Sheep;203.0;28.6;9.8;0.0;6.3;2.3;25.0;
-Lamb, Gigot, raw;Meat and offal;Lamb, Sheep;155.0;20.2;8.2;0.0;4.7;1.6;20.0;
-Lamb, chop, raw;Meat and offal;Lamb, Sheep;179.0;20.2;10.9;0.0;8.4;1.5;20.0;
-Lamb, kidney piece, raw;Meat and offal;Lamb, Sheep;117.0;21.8;3.3;0.0;3.8;1.9;23.0;
-Lamb, rack, raw;Meat and offal;Lamb, Sheep;156.0;20.3;8.3;0.0;7.5;1.8;24.0;
-Lamb, pre-meal, raw;Meat and offal;Lamb, Sheep;154.0;19.6;8.4;0.0;4.6;1.3;18.0;
-Lamb/sheep , raw;Meat and offal;Lamb, Sheep;134.0;20.5;5.8;0.0;6.3;1.7;22.0;
-Lamb stew with sauce, prepared;Courts;Other salty;112.0;11.1;6.1;3.0;10.0;0.8;8.9;
+Salmon smoked;Fish;Sea fish;167.0;23.2;8.2;0.0;10.0;0.0;27.0;fish
+Salmon;Fish;Sea fish;182.0;19.7;11.5;0.0;8.0;0.4;30.0;fish
+Lamb chop;Meat and offal;Lamb, Sheep;179.0;20.2;10.9;0.0;8.4;1.5;20.0;
+Lamb kidney piece;Meat and offal;Lamb, Sheep;117.0;21.8;3.3;0.0;3.8;1.9;23.0;
+Lamb rack;Meat and offal;Lamb, Sheep;156.0;20.3;8.3;0.0;7.5;1.8;24.0;
 Landjäger;Meat and sausage products;Raw sausage products;491.0;26.6;42.7;0.0;21.0;1.9;21.0;
-Latte macchiato, unsweetened;Milk and dairy products;Milk and yoghurt drinks,Soft drinks;47.0;2.2;2.8;3.2;84.0;0.0;7.6;milk
-Lettuce, raw;Vegetables;Vegetables fresh;16.0;1.2;0.3;1.3;37.0;0.3;11.0;
-Leek, steamed;Vegetables;Vegetables cooked (incl. canned);31.0;1.7;0.3;3.9;34.0;0.9;10.0;
-Leek, raw;Vegetables;Vegetables fresh;30.0;1.6;0.3;3.7;31.0;0.9;11.0;
+Latte macchiato;Milk and dairy products;Milk and yoghurt drinks,Soft drinks;47.0;2.2;2.8;3.2;84.0;0.0;7.6;milk
+Lettuce;Vegetables;Vegetables fresh;16.0;1.2;0.3;1.3;37.0;0.3;11.0;
+Leek;Vegetables;Vegetables fresh;30.0;1.6;0.3;3.7;31.0;0.9;11.0;
 Pretzel roll;Breads, flakes and breakfast cereals;Breads and bread products;282.0;9.3;4.9;48.9;57.0;0.5;15.0;
 Pretzels dry;Salty snacks;Salt sticks and pretzels;361.0;8.6;4.1;72.1;140.0;0.7;0.0;
 Laugengipfeli;Breads, flakes and breakfast cereals;Breads and bread products;423.0;9.1;25.0;39.4;35.0;0.4;11.0;
-Liver , roasted;Meat and offal;;157.0;23.5;5.0;4.4;9.6;13.0;20.0;
-Liver , raw;Meat and offal;Poultry,meat and offal;134.0;20.3;4.3;3.6;7.9;11.0;20.0;
 Liver sausage;Meat and sausage products;Cooked sausages;253.0;19.8;19.1;0.5;5.0;3.6;16.0;
 Gingerbread;Sweets;Other sweet baked goods;404.0;6.5;13.8;61.6;69.0;1.9;45.0;
-Gingerbread with chocolate coating;Sweets;Other sweet baked goods;444.0;6.5;18.9;60.2;120.0;2.0;48.0;
 Linseed oil, cold pressed;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.9;0.0;0.0;
 Linseed;Nuts, seeds and oil fruits;;533.0;21.3;42.2;3.6;240.0;6.3;320.0;
 Lemon Curd;Sweets;Creams and puddings;317.0;6.4;16.0;36.8;26.0;0.9;7.1;
 Limburg;Milk and dairy products;Hard cheese;273.0;20.0;21.4;0.0;230.0;0.1;15.0;milk
-Lemonade, with flavour, sweetened;Soft drinks;Sweet drinks;38.0;0.0;0.0;9.5;5.0;0.1;11.0;
-Lentil, whole, cooked;Cereal products, pulses and potatoes;Legumes;115.0;8.8;0.5;15.6;22.0;2.5;31.0;
-Lentil, whole, dried;Cereal products, pulses and potatoes;Legumes;324.0;24.4;1.5;44.8;57.0;8.0;96.0;
-Lentil, peeled, cooked;Cereal products, pulses and potatoes;Legumes;134.0;11.0;0.6;19.0;16.0;2.0;30.0;
-Lentil, peeled, dried;Cereal products, pulses and potatoes;Legumes;334.0;27.0;1.5;48.0;33.0;5.6;83.0;
+Lemonade;Soft drinks;Sweet drinks;38.0;0.0;0.0;9.5;5.0;0.1;11.0;
+Lentil dried;Cereal products, pulses and potatoes;Legumes;324.0;24.4;1.5;44.8;57.0;8.0;96.0;
 Ladyfingers;Sweets;Guetzli;413.0;12.2;8.3;71.8;65.0;2.1;15.0;
 Luganighe;Meat and sausage products;Raw sausage products;298.0;22.1;22.9;0.5;3.9;1.3;25.0;
 Lyon;Meat and sausage products;Boiled sausage products;244.0;11.5;21.8;0.5;6.5;0.5;11.0;
-Skimmed milk, UHT;Milk and dairy products;Milk;33.0;3.3;0.1;4.7;130.0;0.0;11.0;milk
-Skimmed milk powder;Milk and dairy products;Milk;348.0;34.3;1.0;50.5;1290.0;0.8;110.0;milk
 Corn chips;Salty snacks;Chips;509.0;7.8;27.2;56.0;67.0;1.9;43.0;
-Corn, steamed;Vegetables;Vegetables cooked (incl. canned);100.0;3.5;1.3;16.9;2.4;0.4;28.0;
-Maize, raw;Vegetables;Vegetables fresh;93.0;3.3;1.2;15.7;2.2;0.4;27.0;
-Maize semolina, cooked;Cereal products, pulses and potatoes;Maize;79.0;2.0;0.2;16.7;7.3;0.2;5.4;
-Maize grits, dry;Cereal products, pulses and potatoes;Maize;350.0;8.8;1.1;73.8;4.0;1.0;20.0;
+Corn;Vegetables;Vegetables cooked (incl. canned);100.0;3.5;1.3;16.9;2.4;0.4;28.0;
+Maize;Vegetables;Vegetables fresh;93.0;3.3;1.2;15.7;2.2;0.4;27.0;
+Maize grits;Cereal products, pulses and potatoes;Maize;350.0;8.8;1.1;73.8;4.0;1.0;20.0;
 Maize germ oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;
-Corn cobs, pickled in vinegar;Vegetables;Vegetables cooked (incl. canned);119.0;3.4;1.4;21.0;3.0;0.6;33.0;
+Corn cobs pickled in vinegar;Vegetables;Vegetables cooked (incl. canned);119.0;3.4;1.4;21.0;3.0;0.6;33.0;
 Maize starch;Cereal products, pulses and potatoes;Flours and starches,Miscellaneous;354.0;0.3;0.0;88.0;1.0;0.5;2.0;
-Malt drink enriched with cocoa, vitamins and minerals, powdered;Soft drinks;Malt extract beverages;382.0;8.9;3.6;76.2;440.0;12.0;190.0;
-Malt drink enriched with cocoa, vitamins and minerals, prepared;Soft drinks;Malt extract drinks,milk and milk products;84.0;3.6;3.4;9.6;140.0;0.8;23.0;
-Tangerine, raw;Fruits;Fruits fresh;47.0;0.8;0.2;9.2;23.0;0.1;9.3;
+Tangerine;Fruits;Fruits fresh;47.0;0.8;0.2;9.2;23.0;0.1;9.3;
 Almond;Nuts, seeds and oil fruits;;624.0;25.6;52.1;7.8;270.0;3.3;240.0;shellFruit
-Almond, roasted, salted;Salty snacks;Salted nuts, seeds, kernels;649.0;25.6;55.2;7.2;240.0;3.3;270.0;shellFruit
-Almond, roasted without fat, salted;Salty snacks;Salted nuts, seeds, kernels;637.0;25.4;52.5;10.1;270.0;3.7;280.0;shellFruit
-Mango, dried;Fruits;Fruits dried;293.0;2.9;2.2;61.1;59.0;2.0;88.0;
-Mango, raw;Fruits;Fruits fresh;68.0;0.6;0.6;14.3;15.0;0.1;9.0;
-Chard, steamed;Vegetables;Vegetables cooked (incl. canned);29.0;2.6;0.3;3.4;100.0;2.4;96.0;
-Chard, raw;Vegetables;Vegetables fresh;23.0;2.1;0.2;2.7;80.0;2.3;81.0;
-Cassava, root tuber, cooked;Vegetables;Vegetables cooked (incl. canned);131.0;1.0;0.2;29.8;30.0;0.7;59.0;
-Cassava, root tuber, raw;Vegetables;Vegetables fresh;140.0;1.0;0.2;32.1;32.0;0.7;65.0;
+Almond roasted and salted;Salty snacks;Salted nuts, seeds, kernels;649.0;25.6;55.2;7.2;240.0;3.3;270.0;shellFruit
+Mango dried;Fruits;Fruits dried;293.0;2.9;2.2;61.1;59.0;2.0;88.0;
+Mango;Fruits;Fruits fresh;68.0;0.6;0.6;14.3;15.0;0.1;9.0;
+Chard;Vegetables;Vegetables fresh;23.0;2.1;0.2;2.7;80.0;2.3;81.0;
+Cassava root tuber;Vegetables;Vegetables fresh;140.0;1.0;0.2;32.1;32.0;0.7;65.0;
 Margarine;Fats and oils;Fat;724.0;0.5;80.0;0.5;10.0;0.1;1.8;
 Marble cake;Sweets;Cakes, Pies and Cake;356.0;7.4;17.1;42.6;44.0;1.0;19.0;
 Marzipan;Sweets;Other sweets;474.0;8.0;17.6;68.6;82.0;1.5;72.0;
 Mascarpone;Milk and dairy products;Cream cheese and curd;435.0;4.5;44.5;4.1;68.0;0.2;0.0;milk
 Mayonnaise;Fats and oils;Mayonnaises;742.0;1.1;81.7;0.5;15.0;0.6;7.0;
-Mayonnaise, calorie reduced;Fats and oils;Mayonnaises;327.0;0.9;34.5;3.3;66.0;1.0;12.0;
-Mayonnaise, with rapeseed oil, homemade;Fats and oils;Mayonnaises;792.0;2.4;86.9;0.1;20.0;0.8;2.0;
 Flour;Cereal products, pulses and potatoes;Flours and starches;343.0;12.4;1.4;67.8;14.0;1.9;45.0;
-Flour, light;Cereal products, pulses and potatoes;Flours and starches;344.0;12.2;1.3;68.9;11.0;1.5;33.0;
 Molasses, treacle;Sweets;Jams and sweet spreads;274.0;1.2;0.0;67.2;500.0;9.2;140.0;
 Meringue;Sweets;Other sweets;401.0;5.0;0.5;94.0;4.0;0.2;5.0;
-Mussel, raw;Fish;Seafood, crustaceans and shellfish;85.0;11.7;2.7;3.4;88.0;5.8;36.0;mollusk
+Mussel;Fish;Seafood, crustaceans and shellfish;85.0;11.7;2.7;3.4;88.0;5.8;36.0;mollusk
 Milk;Milk and dairy products;Milk;62.0;3.2;3.4;4.6;120.0;0.0;10.0;milk
-Coffee with milk, dark, unsweetened;Milk and dairy products;Milk and yoghurt drinks,Soft drinks;16.0;0.7;0.9;1.2;32.0;0.0;4.8;milk
-Coffee with milk, light, unsweetened;Milk and dairy products;Milk and yoghurt drinks,Soft drinks;22.0;1.0;1.2;1.6;42.0;0.0;5.4;milk
-Coffee with milk, unsweetened;Milk and dairy products;Milk and yoghurt drinks,Soft drinks;19.0;0.9;1.1;1.4;38.0;0.0;5.1;milk
-Rice pudding, prepared;Sweets;Creams and puddings;129.0;5.3;3.5;19.0;150.0;0.1;17.0;
-Rice pudding, prepared;Sweets;Creams and puddings;143.0;5.1;5.1;19.0;150.0;0.1;17.0;
+Coffee with milk;Milk and dairy products;Milk and yoghurt drinks,Soft drinks;16.0;0.7;0.9;1.2;32.0;0.0;4.8;milk
+Rice pudding;Sweets;Creams and puddings;129.0;5.3;3.5;19.0;150.0;0.1;17.0;
 Milk chocolate;Sweets;Chocolate and cocoa products;537.0;6.5;31.1;56.9;250.0;2.1;55.0;
 Minipic sausages;Meat and sausage products;Raw sausage products;460.0;26.1;39.1;0.8;0.0;3.0;28.0;
-Mirabelle, steamed, drained;Fruits;Fruit cooked (incl. preserves);70.0;0.7;0.2;16.6;12.0;0.1;7.5;
-Mirabelle, raw;Fruits;Fruits fresh;76.0;0.6;0.2;18.0;11.0;0.1;8.2;
-Whey, sweet;Milk and dairy products;Milk and yoghurt drinks;24.0;0.8;0.2;4.7;68.0;0.1;8.0;milk
-Morel, steamed;Vegetables;Mushrooms;34.0;2.8;0.4;0.6;13.0;1.2;16.0;
-Morel, raw;Vegetables;Mushrooms;29.0;2.5;0.3;0.5;11.0;1.2;16.0;
+Mirabelle;Fruits;Fruits fresh;76.0;0.6;0.2;18.0;11.0;0.1;8.2;
+Whey;Milk and dairy products;Milk and yoghurt drinks;24.0;0.8;0.2;4.7;68.0;0.1;8.0;milk
+Morel;Vegetables;Mushrooms;29.0;2.5;0.3;0.5;11.0;1.2;16.0;
 Mortadella;Meat and sausage products;Boiled sausage products;314.0;16.1;27.3;0.8;3.9;0.9;13.0;
 Mostbröckli;Meat and sausage products;Raw sausage products;150.0;32.6;1.9;0.5;0.0;3.3;33.0;
 Mozzarella;Milk and dairy products;Soft cheese,Milk and dairy products;256.0;19.5;19.5;0.7;340.0;0.1;10.0;milk
-Shortcrust , sweet, unbaked;Cereal products, pulses and potatoes;Doughs;393.0;6.4;19.7;46.7;9.3;0.8;17.0;
-Nectarine, raw;Fruits;Fruits fresh;55.0;1.0;0.3;11.3;7.0;0.2;9.0;
-Lamb's lettuce, raw;Vegetables;Vegetables fresh;23.0;2.0;0.4;2.0;38.0;2.1;13.0;
-Nut bun from yeast dough;Sweets;Other sweet baked goods;445.0;12.2;18.7;54.9;69.0;1.6;42.0;
+Shortcrust;Cereal products, pulses and potatoes;Doughs;393.0;6.4;19.7;46.7;9.3;0.8;17.0;
+Nectarine;Fruits;Fruits fresh;55.0;1.0;0.3;11.3;7.0;0.2;9.0;
+Lamb's lettuce;Vegetables;Vegetables fresh;23.0;2.0;0.4;2.0;38.0;2.1;13.0;
 Oven fries, deep-frozen;Cereal products, pulses and potatoes;Potatoes;127.0;1.8;5.0;18.1;5.2;0.3;15.0;
-Olive, green, in brine, drained;Nuts, seeds and oil fruits;;154.0;1.3;15.7;0.0;58.0;0.2;24.0;
-Olive, black;Nuts, seeds and oil fruits;;176.0;1.4;17.2;0.8;80.0;8.5;16.0;
+Olive green;Nuts, seeds and oil fruits;;154.0;1.3;15.7;0.0;58.0;0.2;24.0;
+Olive black;Nuts, seeds and oil fruits;;176.0;1.4;17.2;0.8;80.0;8.5;16.0;
 Olive oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.1;0.9;
-Orange, raw;Fruits;Fruits fresh;45.0;0.8;0.2;8.0;45.0;0.3;15.0;
+Orange;Fruits;Fruits fresh;45.0;0.8;0.2;8.0;45.0;0.3;15.0;
 Orange nectar;Soft drinks;Sweet drinks,Soft drinks;44.0;0.4;0.0;10.5;6.0;0.1;7.0;
 Orange juice;Fruits;Fruit juices,Soft drinks;44.0;0.6;0.1;10.0;8.3;0.1;10.0;
-Palm oil - palm fat;Fats and oils;Oils,Fats and Oils;799.0;0.0;88.8;0.0;0.9;0.0;0.9;
+Palm oil;Fats and oils;Oils,Fats and Oils;799.0;0.0;88.8;0.0;0.9;0.0;0.9;
 Pancetta;Meat and sausage products;Raw sausage products;467.0;19.5;43.0;0.4;13.0;0.8;0.0;
 Panettone;Sweets;Other sweet baked goods;354.0;6.4;10.7;56.5;150.0;3.0;0.0;
 Breadcrumbs;Cereal products, pulses and potatoes;Flours and starches;373.0;12.7;2.1;73.5;50.0;1.2;23.0;
 Pantli;Meat and sausage products;Raw sausage products;553.0;21.7;51.4;0.9;5.1;1.7;22.0;
-Papaya, ripe, raw;Fruits;Fruits fresh;44.0;0.5;0.1;9.5;21.0;0.2;17.0;
-Paprika;Miscellaneous;Salt, spices and flavours;358.0;14.8;13.0;34.9;180.0;24.0;190.0;
+Papaya;Fruits;Fruits fresh;44.0;0.5;0.1;9.5;21.0;0.2;17.0;
 Brazil nut;Nuts, seeds and oil fruits;;698.0;17.0;66.5;4.2;160.0;2.4;350.0;shellFruit
 Parisian bread;Breads, flakes and breakfast cereals;Breads and bread products;255.0;9.0;0.9;51.2;10.0;0.9;22.0;
 Parmesan;Milk and dairy products;Hard cheese;401.0;30.5;31.0;0.0;1340.0;0.7;44.0;milk
-Passion fruit, raw;Fruits;Fruits fresh;102.0;2.1;3.0;10.9;8.1;0.6;26.0;
-Parsnip, cooked;Vegetables;Vegetables cooked (incl. canned);58.0;1.2;0.4;11.4;47.0;0.6;16.0;
-Parsnip, raw;Vegetables;Vegetables fresh;62.0;1.3;0.4;12.1;47.0;0.7;26.0;
-Pepperoni, green, steamed;Vegetables;Vegetables cooked (incl. canned);25.0;1.0;0.4;3.2;7.7;0.3;6.6;
-Pepperoni, green, raw;Vegetables;Vegetables fresh;20.0;0.8;0.3;2.6;6.0;0.3;6.0;
-Pepperoni, red, stewed;Vegetables;Vegetables cooked (incl. canned);39.0;1.1;0.4;6.4;11.0;0.4;13.0;
-Pepperoni, red, raw;Vegetables;Vegetables fresh;32.0;0.9;0.4;5.2;9.0;0.4;12.0;
-Pesto sauce, green;Miscellaneous;Sauces;430.0;3.9;42.5;6.6;150.0;0.6;36.0;
-Pesto sauce, red;Miscellaneous;Sauces;398.0;5.7;35.8;10.8;99.0;2.0;58.0;
-Parsley, raw;Vegetables;Herbs;58.0;3.9;0.5;7.4;210.0;5.9;37.0;
+Passion fruit;Fruits;Fruits fresh;102.0;2.1;3.0;10.9;8.1;0.6;26.0;
+Parsnip;Vegetables;Vegetables fresh;62.0;1.3;0.4;12.1;47.0;0.7;26.0;
+Pepperoni green;Vegetables;Vegetables fresh;20.0;0.8;0.3;2.6;6.0;0.3;6.0;
+Pepperoni red;Vegetables;Vegetables fresh;32.0;0.9;0.4;5.2;9.0;0.4;12.0;
+Pesto green;Miscellaneous;Sauces;430.0;3.9;42.5;6.6;150.0;0.6;36.0;
+Pesto red;Miscellaneous;Sauces;398.0;5.7;35.8;10.8;99.0;2.0;58.0;
+Parsley;Vegetables;Herbs;58.0;3.9;0.5;7.4;210.0;5.9;37.0;
 Petit beurre;Sweets;Guetzli;431.0;8.7;12.4;70.2;11.0;1.1;24.0;
-Peppermint, raw;Vegetables;Herbs;49.0;3.8;0.7;5.3;210.0;9.5;30.0;
-Horse, fillet, roasted;Meat and offal;Other species;129.0;27.8;2.0;0.0;16.0;6.2;27.0;
-Horse, fillet, raw;Meat and offal;Other species;102.0;21.4;1.9;0.0;13.0;4.7;23.0;
-Horse ragout with sauce, prepared;Courts;Other salty;88.0;11.8;3.1;3.0;14.0;2.8;11.0;
-Peach, yellow, raw;Fruits;Fruits fresh;43.0;0.8;0.1;8.9;7.3;0.2;9.0;
-Peach, in syrup, canned, drained;Fruits;Fruit cooked (incl. preserves);82.0;0.7;0.1;18.6;7.2;0.1;7.4;
-Peach, with sweetener, canned, drained;Fruits;Fruit cooked (incl. preserves);40.0;0.8;0.1;8.1;7.9;0.2;8.2;
-Plum, steamed, drained;Fruits;Fruit cooked (incl. preserves);48.0;0.7;0.2;10.1;9.7;0.3;7.3;
-Plum, dried;Fruits;Fruits dried;227.0;1.6;0.4;55.4;50.0;0.4;30.0;
-Plum, raw;Fruits;Fruits fresh;48.0;0.6;0.2;10.2;8.3;0.3;7.4;
-Mushroom , steamed;Vegetables;Mushrooms;34.0;3.9;0.4;0.7;8.9;2.5;13.0;
-Mushroom , raw;Vegetables;Mushrooms;29.0;3.5;0.4;0.6;7.6;2.4;13.0;
-Pine nuts;Nuts, seeds and oil fruits;;688.0;16.5;61.9;13.0;20.0;6.5;370.0;
+Peppermint;Vegetables;Herbs;49.0;3.8;0.7;5.3;210.0;9.5;30.0;
+Peach;Fruits;Fruits fresh;43.0;0.8;0.1;8.9;7.3;0.2;9.0;
+Plum dried;Fruits;Fruits dried;227.0;1.6;0.4;55.4;50.0;0.4;30.0;
+Plum;Fruits;Fruits fresh;48.0;0.6;0.2;10.2;8.3;0.3;7.4;
+Mushroom;Vegetables;Mushrooms;29.0;3.5;0.4;0.6;7.6;2.4;13.0;
 Pistachio;Nuts, seeds and oil fruits;;594.0;23.8;45.4;17.6;92.0;2.8;120.0;shellFruit
-Pizza dough , unbaked;Cereal products, pulses and potatoes;Doughs;229.0;7.0;3.6;41.2;5.9;0.4;9.4;
+Pizza dough;Cereal products, pulses and potatoes;Doughs;229.0;7.0;3.6;41.2;5.9;0.4;9.4;
 French fries;Salty snacks;Chips;538.0;4.9;34.8;49.3;14.0;0.9;40.0;
-French fries reduced fat;Salty snacks;Chips;468.0;5.9;22.1;59.2;17.0;1.1;48.0;
-French fries , unsalted;Cereal products, pulses and potatoes;Potatoes;232.0;3.3;9.1;33.0;9.5;0.6;27.0;
-French fries , unsalted;Cereal products, pulses and potatoes;Potatoes;286.0;3.2;15.4;32.4;9.4;0.6;26.0;
 Popcorn;Salty snacks;Other salty snacks;367.0;12.0;4.2;62.9;10.0;2.7;110.0;
-Port wine, 18.5 vol%;Alcoholic drinks;Wine;152.0;0.2;0.0;12.0;7.0;0.4;9.0;
-Chicken breast, with skin, raw;Meat and offal;Poultry;152.0;23.3;6.5;0.0;3.9;0.3;26.0;
-Chicken breast, without skin, raw;Meat and offal;Poultry;107.0;24.6;1.0;0.0;3.3;0.3;27.0;
-Chicken breast, escalope or cutlet, roasted;Meat and offal;Poultry;128.0;30.1;0.8;0.0;4.1;0.4;27.0;
-Chicken, whole, with skin, roasted;Meat and offal;Poultry;193.0;25.1;10.3;0.0;15.0;0.9;21.0;
-Chicken, whole, with skin, raw;Meat and offal;Poultry;168.0;18.8;10.3;0.0;12.0;0.7;20.0;
-Chicken, thigh, with skin, roasted;Meat and offal;Poultry;187.0;23.9;10.2;0.0;7.2;0.6;21.0;
-Chicken, thigh, with skin, raw;Meat and offal;Poultry;163.0;17.9;10.2;0.0;5.7;0.5;20.0;
-Chicken, thigh, without skin, raw;Meat and offal;Poultry;135.0;19.7;6.2;0.0;5.6;0.5;20.0;
-Cranberry, raw;Fruits;Fruits fresh;36.0;0.3;0.5;6.2;14.0;0.5;6.0;
-Pudding, Caramel;Sweets;Creams and puddings;125.0;3.4;2.1;23.0;94.0;0.0;9.0;
-Pudding, chocolate;Sweets;Creams and puddings;121.0;3.0;2.6;21.0;90.0;0.5;14.0;
-Pudding, vanilla;Sweets;Creams and puddings;102.0;2.8;2.1;18.0;96.0;0.1;10.0;
-Quark, nature, half-fat;Milk and dairy products;Cream cheese and curd;99.0;9.4;5.0;4.1;110.0;0.0;9.3;milk
-Quark, nature, lean;Milk and dairy products;Cream cheese and curd;61.0;10.6;0.2;4.2;110.0;0.0;9.9;milk
+Port wine;Alcoholic drinks;Wine;152.0;0.2;0.0;12.0;7.0;0.4;9.0;
+Chicken breast;Meat and offal;Poultry;152.0;23.3;6.5;0.0;3.9;0.3;26.0;
+Chicken breast cutlet, roasted;Meat and offal;Poultry;128.0;30.1;0.8;0.0;4.1;0.4;27.0;
+Chicken thigh;Meat and offal;Poultry;187.0;23.9;10.2;0.0;7.2;0.6;21.0;
+Cranberry;Fruits;Fruits fresh;36.0;0.3;0.5;6.2;14.0;0.5;6.0;
+Pudding Caramel;Sweets;Creams and puddings;125.0;3.4;2.1;23.0;94.0;0.0;9.0;
+Pudding chocolate;Sweets;Creams and puddings;121.0;3.0;2.6;21.0;90.0;0.5;14.0;
+Pudding vanilla;Sweets;Creams and puddings;102.0;2.8;2.1;18.0;96.0;0.1;10.0;
 Quark, nature, cream;Milk and dairy products;Cream cheese and curd;183.0;6.9;15.6;3.7;93.0;0.0;8.1;milk
-Curd sheet dough , unbaked;Cereal products, pulses and potatoes;Doughs;401.0;7.1;28.3;29.0;38.0;0.6;16.0;
-Curd sheet dough , unbaked;Cereal products, pulses and potatoes;Doughs;396.0;7.1;27.7;28.9;37.0;0.6;16.0;
-Quince, cooked, drained;Fruits;Fruit cooked (incl. preserves);49.0;0.5;0.6;7.3;12.0;0.7;8.2;
-Quince, raw;Fruits;Fruits fresh;47.0;0.4;0.5;7.3;10.0;0.6;8.2;
+Curd sheet dough;Cereal products, pulses and potatoes;Doughs;401.0;7.1;28.3;29.0;38.0;0.6;16.0;
+Quince;Fruits;Fruits fresh;47.0;0.4;0.5;7.3;10.0;0.6;8.2;
 Raclette cheese;Milk and dairy products;Hard cheese;357.0;25.9;27.9;0.0;670.0;0.1;27.0;milk
-Radish, raw;Vegetables;Vegetables fresh;17.0;1.1;0.1;2.1;26.0;0.4;9.4;
+Radish;Vegetables;Vegetables fresh;17.0;1.1;0.1;2.1;26.0;0.4;9.4;
 Cream;Fats and oils;Cream,Milk and dairy products;252.0;2.3;25.4;3.4;84.0;0.0;7.5;
-Cream ice cream, fruit;Sweets;Milk-based glazes;185.0;3.5;8.0;24.7;110.0;0.5;0.0;
-Cream caramels;Sweets;Sweets, fruit and chewing gum;351.0;0.4;3.6;79.3;21.0;0.8;5.0;
-Rim, steamed;Vegetables;Vegetables cooked (incl. canned);54.0;1.8;0.1;10.0;20.0;1.0;22.0;
-Rim, raw;Vegetables;Vegetables fresh;46.0;1.5;0.1;8.4;17.0;0.9;21.0;
+Ice cream, fruit;Sweets;Milk-based glazes;185.0;3.5;8.0;24.7;110.0;0.5;0.0;
+Rim;Vegetables;Vegetables fresh;46.0;1.5;0.1;8.4;17.0;0.9;21.0;
 Rapeseed oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;
-Rapeseed oil HOLL;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;
 Reblochon;Milk and dairy products;Soft cheese;307.0;19.9;25.2;0.0;390.0;0.1;20.0;milk
-Venison , raw;Meat and offal;Wild;122.0;22.4;3.6;0.0;25.0;3.0;20.0;
-Venison, ragout, raw;Meat and offal;Wild;105.0;22.0;1.9;0.0;3.7;2.7;20.0;
-Venison, cutlet, raw;Meat and offal;Wild;105.0;22.5;1.7;0.0;4.2;2.8;22.0;
+Venison;Meat and offal;Wild;122.0;22.4;3.6;0.0;25.0;3.0;20.0;
+Venison ragout;Meat and offal;Wild;105.0;22.0;1.9;0.0;3.7;2.7;20.0;
+Venison cutlet;Meat and offal;Wild;105.0;22.5;1.7;0.0;4.2;2.8;22.0;
 Grated cheese;Milk and dairy products;Hard cheese;406.0;29.3;32.1;0.0;1190.0;0.5;41.0;milk
-Rice parboiled, cooked in salted water;Cereal products, pulses and potatoes;Rice;120.0;2.4;0.3;26.7;24.0;0.1;11.0;
-Rice parboiled, dry;Cereal products, pulses and potatoes;Rice;356.0;7.5;1.0;78.6;58.0;0.4;32.0;
-Rice polished, cooked in salted water;Cereal products, pulses and potatoes;Rice;116.0;2.3;0.3;25.8;6.6;0.1;8.8;
-Rice polished, dry;Cereal products, pulses and potatoes;Rice;352.0;7.4;0.9;78.0;5.8;0.2;24.0;
-Rice unpolished, cooked in salted water;Cereal products, pulses and potatoes;Rice;126.0;2.7;1.0;25.7;8.6;0.4;45.0;
-Rice unpolished, dry;Cereal products, pulses and potatoes;Rice;350.0;7.4;2.8;71.4;11.0;1.1;120.0;
-Rice drink, nature;Milk and dairy products;Milk substitutes;52.0;0.4;1.1;9.9;5.0;0.0;3.3;milk
-Radish, raw;Vegetables;Vegetables fresh;18.0;0.6;0.3;2.6;20.0;0.8;7.0;
-Rhubarb, raw;Fruits;Fruits fresh;22.0;0.8;0.2;1.5;130.0;0.3;14.0;
-Beef, breast, cooked;Meat and offal;Beef;254.0;28.3;15.6;0.0;5.3;3.6;18.0;
-Beef, breast, raw;Meat and offal;Beef;188.0;18.9;12.5;0.0;4.0;2.2;18.0;
-Beef, corner piece, raw;Meat and offal;Beef;111.0;22.6;2.3;0.0;3.8;2.2;23.0;
-"Beef, entrecôte, ""medium"" roasted";Meat and offal;Beef;162.0;30.2;4.6;0.0;6.0;1.7;23.0;
-Beef, entrecôte, raw;Meat and offal;Beef;133.0;23.2;4.5;0.0;4.9;1.3;20.0;
-"Beef, fillet, ""medium"" roasted";Meat and offal;Beef;128.0;27.7;2.0;0.0;3.6;2.9;25.0;
-Beef, fillet, raw;Meat and offal;Beef;105.0;21.9;2.0;0.0;3.0;2.3;22.0;
-Beef, minced, roasted;Meat and offal;Beef;211.0;32.6;8.9;0.0;7.1;3.0;23.0;
-Beef, minced, raw;Meat and offal;Beef;154.0;21.6;7.5;0.0;5.0;2.0;17.0;
-Beef, cut into strips, raw;Meat and offal;Beef;102.0;22.2;1.5;0.0;4.2;1.4;20.0;
-Beef, neck, raw;Meat and offal;Beef;150.0;19.3;8.1;0.0;6.8;2.1;18.0;
-Beef, saddle of pork, raw;Meat and offal;Beef;165.0;21.1;9.0;0.0;4.4;1.5;18.0;
-Beef, liver, raw;Meat and offal;Beef;138.0;20.5;3.9;5.3;7.0;7.0;17.0;
-Beef, Round Mock, raw;Meat and offal;Beef;106.0;22.4;1.8;0.0;5.1;1.0;20.0;
-"Beef, shoulder, roast ""medium"", roasted in the oven";Meat and offal;Beef;146.0;28.5;3.6;0.0;5.0;2.4;22.0;
-"Beef, shoulder, roast ""rare"", roasted in the oven";Meat and offal;Beef;135.0;26.3;3.3;0.0;4.6;2.2;21.0;
-"Beef, shoulder, roast ""well done"", roasted in the oven";Meat and offal;Beef;170.0;33.1;4.2;0.0;5.8;2.8;26.0;
-Beef, shoulder, roast, raw;Meat and offal;Beef;117.0;21.6;3.5;0.0;4.0;1.8;19.0;
-Beef, boiled meat, streaked, raw;Meat and offal;Beef;227.0;19.5;16.6;0.0;4.1;1.2;18.0;
-Beef, boiled meat, streaked, cooked;Meat and offal;Beef;276.0;26.6;18.9;0.0;5.0;1.8;16.0;
-Beef, boiled meat, lean, cooked;Meat and offal;Beef;190.0;31.7;7.1;0.0;5.9;2.8;19.0;
-Beef, boiled meat, lean, raw;Meat and offal;Beef;132.0;20.7;5.5;0.0;4.4;1.7;18.0;
-Beef, starter, raw;Meat and offal;Beef;97.0;21.2;1.3;0.0;3.9;1.2;18.0;
-Beef, tongue, raw;Meat and offal;Beef;196.0;16.0;13.0;3.7;10.0;3.0;18.0;
-Beef , raw;Meat and offal;Beef;134.0;21.4;5.4;0.0;4.5;1.8;20.0;
-Ribs , raw;Meat and sausage products;Cooked sausages;155.0;21.7;7.3;0.5;32.0;1.5;54.0;
-Ristretto crème, unsweetened;Soft drinks;Coffee;47.0;0.8;4.3;1.3;33.0;0.0;4.7;
-Rye bread with sourdough;Breads, flakes and breakfast cereals;Breads and bread products;215.0;6.5;0.9;41.5;20.0;1.8;45.0;gluten
-Rye flour, semi-white, type 815;Cereal products, pulses and potatoes;Flours and starches;334.0;6.9;1.0;71.0;22.0;2.1;26.0;gluten
-Rye flour, Ruch, type 1050;Cereal products, pulses and potatoes;Flours and starches;336.0;9.0;1.3;67.8;28.0;2.1;50.0;gluten
-Rye flour, wholemeal, meal, type 1800;Cereal products, pulses and potatoes;Flours and starches;337.0;10.8;1.5;63.1;26.0;3.2;82.0;gluten
+Rice;Cereal products, pulses and potatoes;Rice;350.0;7.4;2.8;71.4;11.0;1.1;120.0;
+Rice drink;Milk substitutes;52.0;0.4;1.1;9.9;5.0;0.0;3.3;milk
+Radish;Vegetables;Vegetables fresh;18.0;0.6;0.3;2.6;20.0;0.8;7.0;
+Rhubarb;Fruits;Fruits fresh;22.0;0.8;0.2;1.5;130.0;0.3;14.0;
+Beef breast;Meat and offal;Beef;188.0;18.9;12.5;0.0;4.0;2.2;18.0;
+Beef corner piece;Meat and offal;Beef;111.0;22.6;2.3;0.0;3.8;2.2;23.0;
+Beef entrecôte;Meat and offal;Beef;133.0;23.2;4.5;0.0;4.9;1.3;20.0;
+Beef minced;Meat and offal;Beef;154.0;21.6;7.5;0.0;5.0;2.0;17.0;
+Beef neck;Meat and offal;Beef;150.0;19.3;8.1;0.0;6.8;2.1;18.0;
+Beef liver;Meat and offal;Beef;138.0;20.5;3.9;5.3;7.0;7.0;17.0;
+Beef tongue;Meat and offal;Beef;196.0;16.0;13.0;3.7;10.0;3.0;18.0;
+Beef;Meat and offal;Beef;134.0;21.4;5.4;0.0;4.5;1.8;20.0;
+Ribs;Meat and sausage products;Cooked sausages;155.0;21.7;7.3;0.5;32.0;1.5;54.0;
+Ristretto crème;Soft drinks;Coffee;47.0;0.8;4.3;1.3;33.0;0.0;4.7;
+Rye flour;Cereal products, pulses and potatoes;Flours and starches;337.0;10.8;1.5;63.1;26.0;3.2;82.0;gluten
 Rye bread;Breads, flakes and breakfast cereals;Breads and bread products;235.0;7.7;1.0;44.1;21.0;2.2;56.0;gluten
-Raw bacon;Meat and sausage products;Raw sausage products;400.0;22.1;34.3;0.6;0.0;0.0;22.0;
-Raw cured products;Meat and sausage products;Raw sausage products;274.0;29.4;17.2;0.4;10.0;2.8;21.0;
-Raw ham;Meat and sausage products;Raw sausage products;229.0;31.0;11.5;0.3;9.0;2.8;30.0;
-Raw sausages with aborted maturation;Meat and sausage products;Raw sausage products;313.0;17.7;26.6;0.7;11.0;0.9;19.0;
-Raw sausages/permanent sausages;Meat and sausage products;Raw sausage products;445.0;22.2;39.4;0.2;7.1;1.5;19.0;
+Bacon;Meat and sausage products;Raw sausage products;400.0;22.1;34.3;0.6;0.0;0.0;22.0;
+Ham;Meat and sausage products;Raw sausage products;229.0;31.0;11.5;0.3;9.0;2.8;30.0;
 Rolled barley;Cereal products, pulses and potatoes;Other cereal products;347.0;10.4;1.4;71.0;18.0;3.0;65.0;gluten
 Rollmops;Fish;Fish products;270.0;12.0;15.9;19.6;30.0;0.9;6.4;
 Rolled ham;Meat and sausage products;Cooked sausages;181.0;20.3;10.6;1.2;7.7;0.7;21.0;
-Rolled ham, cooked;Meat and sausage products;Other meat and sausage products;188.0;23.3;9.9;1.4;8.0;0.8;20.0;
 Roquefort;Milk and dairy products;Hard cheese;363.0;19.2;31.7;0.2;600.0;0.4;27.0;milk
-Brussels sprouts, steamed;Vegetables;Vegetables cooked (incl. canned);39.0;3.7;0.5;3.2;28.0;0.8;20.0;
-Brussels sprouts, raw;Vegetables;Vegetables fresh;43.0;4.0;0.5;3.5;31.0;1.1;23.0;
-Sultana, dried;Fruits;Fruits dried;321.0;3.0;0.9;73.2;80.0;2.3;41.0;
-Rosemary, raw;Vegetables;Herbs;62.0;0.8;2.5;7.7;210.0;4.8;36.0;
-Rösti , unfried;Cereal products, pulses and potatoes;Potatoes;150.0;2.6;5.7;20.7;7.8;0.5;24.0;
-Red cabbage, steamed;Vegetables;Vegetables cooked (incl. canned);26.0;1.2;0.3;3.4;47.0;0.4;10.0;
-Red cabbage, raw;Vegetables;Vegetables fresh;30.0;1.4;0.3;4.0;52.0;0.5;13.0;
+Brussels sprouts;Vegetables;Vegetables fresh;43.0;4.0;0.5;3.5;31.0;1.1;23.0;
+Sultana dried;Fruits;Fruits dried;321.0;3.0;0.9;73.2;80.0;2.3;41.0;
+Rosemary;Vegetables;Herbs;62.0;0.8;2.5;7.7;210.0;4.8;36.0;
+Rösti;Cereal products, pulses and potatoes;Potatoes;150.0;2.6;5.7;20.7;7.8;0.5;24.0;
+Red cabbage;Vegetables;Vegetables fresh;30.0;1.4;0.3;4.0;52.0;0.5;13.0;
 Ruchbrot;Breads, flakes and breakfast cereals;Breads and bread products;234.0;9.5;1.2;44.3;20.0;1.6;38.0;
-Ruchbrot;Breads, flakes and breakfast cereals;Breads and bread products;234.0;9.5;1.2;44.3;20.0;1.6;38.0;
-Rocket, raw;Vegetables;Vegetables fresh;28.0;2.6;0.7;2.1;160.0;1.5;0.0;
-Sablé, butter;Sweets;Guetzli;474.0;5.9;26.2;53.1;7.9;0.3;7.5;
+Rocket;Vegetables;Vegetables fresh;28.0;2.6;0.7;2.1;160.0;1.5;0.0;
+Sablé butter;Sweets;Guetzli;474.0;5.9;26.2;53.1;7.9;0.3;7.5;
 Salametti;Meat and sausage products;Raw sausage products;343.0;14.8;31.4;0.3;3.0;0.9;16.0;
-Salami;Meat and sausage products;Raw sausage products;367.0;24.1;30.1;0.0;0.0;1.3;18.0;
 Salami;Meat and sausage products;Raw sausage products;422.0;22.0;37.1;0.0;0.0;1.2;17.0;
-Sage, raw;Vegetables;Herbs;59.0;1.7;2.1;6.9;270.0;4.5;69.0;
+Sage;Vegetables;Herbs;59.0;1.7;2.1;6.9;270.0;4.5;69.0;
 Salt;Miscellaneous;Salt, spices and flavours;0.0;0.0;0.0;0.0;140.0;24.0;0.0;
-Seeds, kernels, nuts , unsalted;Nuts, seeds and oil fruits;;612.0;20.9;52.5;9.1;170.0;4.5;260.0;
-Anchovy in oil, drained;Fish;Sea fish;182.0;26.4;8.5;0.2;290.0;2.7;230.0;
+Seeds;Nuts, seeds and oil fruits;;612.0;20.9;52.5;9.1;170.0;4.5;260.0;
+Anchovy in oil;Fish;Sea fish;182.0;26.4;8.5;0.2;290.0;2.7;230.0;
 Anchovy paste;Miscellaneous;Spreads;272.0;19.8;21.3;0.2;220.0;2.1;170.0;
 Sardine in oil, drained;Fish;Sea fish;215.0;23.0;13.7;0.0;400.0;2.5;37.0;
-Sardine, raw;Fish;Sea fish;163.0;20.4;9.0;0.0;85.0;1.4;28.0;
+Sardine;Fish;Sea fish;163.0;20.4;9.0;0.0;85.0;1.4;28.0;
 Saucisse aux choux;Meat and sausage products;Raw sausage products;361.0;15.9;32.3;1.5;16.0;0.7;18.0;
 Saucisson;Meat and sausage products;Raw sausage products;403.0;18.2;36.4;0.5;3.8;0.9;21.0;
 Saucisson vaudois;Meat and sausage products;Raw sausage products;358.0;16.5;32.3;0.2;14.0;0.7;17.0;
-Saucisson, cooked;Meat and sausage products;Raw sausage products;442.0;21.1;39.4;0.6;3.9;1.1;26.0;
-Sauerkraut, pickled in vinegar;Vegetables;Vegetables cooked (incl. canned);19.0;1.3;0.3;1.7;36.0;0.5;11.0;
+Sauerkraut pickled in vinegar;Vegetables;Vegetables cooked (incl. canned);19.0;1.3;0.3;1.7;36.0;0.5;11.0;
 Sour cream;Fats and oils;Cream,Milk and dairy products;336.0;2.4;35.0;2.8;73.0;0.1;7.0;
-Sour half cream;Fats and oils;Cream,Milk and dairy products;173.0;2.7;16.6;3.2;100.0;0.1;11.0;
 Sbrinz;Milk and dairy products;Hard cheese;415.0;28.0;33.2;0.0;1030.0;0.3;38.0;milk
-Scampi , raw;Fish;Seafood, crustaceans and shellfish;93.0;19.6;1.3;0.8;29.0;2.0;68.0;
+Scampi;Fish;Seafood, crustaceans and shellfish;93.0;19.6;1.3;0.8;29.0;2.0;68.0;
 Sheep's milk;Milk and dairy products;Milk;105.0;5.5;7.1;4.7;180.0;0.0;18.0;milk
 Sparkling wine;Alcoholic drinks;Wine;71.0;0.2;0.0;1.5;10.0;0.8;6.0;
 Ham croissants;Salty snacks;Puff pastries,Dishes;338.0;11.1;20.8;26.0;24.0;0.7;16.0;
-Processed cheese, slice, cream;Milk and dairy products;Cheese products;327.0;14.3;30.0;0.0;550.0;0.9;45.0;milk
-Processed cheese, slice, quarter fat;Milk and dairy products;Cheese products;155.0;19.4;8.6;0.0;600.0;0.9;45.0;milk
-Processed cheese, slice, full-fat;Milk and dairy products;Cheese products;316.0;22.8;25.0;0.0;600.0;0.9;45.0;milk
-Processed cheese, spreadable, cream;Milk and dairy products;Cheese products;316.0;12.9;29.4;0.0;400.0;0.9;30.0;milk
-Processed cheese, spreadable, quarter-fat;Milk and dairy products;Cheese products;150.0;16.4;9.3;0.0;600.0;0.9;30.0;milk
-Processed cheese, spreadable, full-fat;Milk and dairy products;Cheese products;247.0;14.1;21.2;0.0;500.0;0.9;30.0;milk
-Chives, raw;Vegetables;Herbs;30.0;3.0;0.6;1.9;86.0;1.5;40.0;
-Chocolate, dark;Sweets;Chocolate and cocoa products;537.0;5.7;31.8;53.4;48.0;6.7;120.0;
-Chocolate, white;Sweets;Chocolate and cocoa products;567.0;6.7;35.2;55.8;260.0;0.3;12.0;
+Processed cheese;Milk and dairy products;Cheese products;327.0;14.3;30.0;0.0;550.0;0.9;45.0;milk
+Chives;Vegetables;Herbs;30.0;3.0;0.6;1.9;86.0;1.5;40.0;
+Chocolate dark;Sweets;Chocolate and cocoa products;537.0;5.7;31.8;53.4;48.0;6.7;120.0;
+Chocolate white;Sweets;Chocolate and cocoa products;567.0;6.7;35.2;55.8;260.0;0.3;12.0;
 Chocolate cream;Sweets;Creams and puddings;122.0;3.6;3.0;20.0;150.0;0.9;14.0;
 Chocolate powder;Sweets;Chocolate and cocoa products,Non-alcoholic beverages;398.0;5.3;7.8;71.3;37.0;4.2;130.0;
-Plaice, raw;Fish;Sea fish;86.0;17.1;1.9;0.0;61.0;0.9;22.0;
+Plaice;Fish;Sea fish;86.0;17.1;1.9;0.0;61.0;0.9;22.0;
 Schümliguetzli;Sweets;Guetzli;444.0;4.2;9.9;83.5;18.0;2.1;41.0;
 Schümliguetzli with chocolate;Sweets;Guetzli;486.0;5.2;19.4;71.5;120.0;2.1;47.0;
 Schützenwurst;Meat and sausage products;Boiled sausage products;244.0;9.2;23.0;0.2;5.5;0.9;7.3;
-Black salsify, steamed;Vegetables;Vegetables cooked (incl. canned);57.0;1.5;0.5;2.2;56.0;3.1;22.0;
-Black salsify, raw;Vegetables;Vegetables fresh;55.0;1.4;0.4;2.1;53.0;3.3;23.0;
-Pork, breast tip, raw;Meat and offal;Pig;239.0;17.9;18.6;0.0;6.0;0.7;19.0;
-Pork, corner piece, Plätzli, roasted;Meat and offal;Pig;162.0;33.0;3.3;0.0;12.0;2.6;27.0;
-Pork, corner piece, raw;Meat and offal;Pig;115.0;22.6;2.7;0.0;9.0;1.7;21.0;
-Pork, fillet, roasted;Meat and offal;Pig;153.0;29.3;4.0;0.0;10.0;1.7;30.0;
-Pork, fillet, raw;Meat and offal;Pig;121.0;22.2;3.6;0.0;8.0;1.2;25.0;
-Pork, minced meat, raw;Meat and offal;Pig;159.0;20.5;8.5;0.0;4.2;1.1;19.0;
-Pork, cutlets, roasted;Meat and offal;Pig;176.0;29.8;6.4;0.0;5.7;1.0;25.0;
-Pork, cutlets, raw;Meat and offal;Pig;134.0;21.3;5.4;0.0;4.3;0.7;20.0;
-Pork, Neck, Steak, Roasted;Meat and offal;Pig;255.0;26.4;16.6;0.0;5.0;1.3;23.0;
-Pork, neck, steak, raw;Meat and offal;Pig;203.0;18.9;14.1;0.0;3.8;0.9;18.0;
-Pork, knuckle, braised;Meat and offal;Pig;239.0;36.6;9.9;0.9;2.6;1.7;25.0;
-Pork, knuckle, raw;Meat and offal;Pig;173.0;25.6;7.6;0.7;2.0;1.1;25.0;
-Pork, chop, roasted;Meat and offal;Pig;240.0;31.3;12.8;0.0;6.8;0.6;27.0;
-Pork, chop, raw;Meat and offal;Pig;179.0;21.4;10.4;0.0;4.9;0.4;21.0;
-Pork, liver, raw;Meat and offal;Pig;131.0;20.7;4.9;0.9;7.6;18.0;23.0;
-Pork, kidney piece, raw;Meat and offal;Pig;138.0;22.9;5.1;0.0;3.7;0.4;21.0;
-Pork, round mock, raw;Meat and offal;Pig;127.0;20.6;4.9;0.0;3.7;0.7;19.0;
-"Pork, shoulder, roast ""medium"", roasted in the oven";Meat and offal;Pig;202.0;29.6;9.3;0.0;8.5;1.5;26.0;
-"Pork, shoulder, roast ""well done"", roasted in the oven";Meat and offal;Pig;221.0;32.5;10.2;0.0;9.3;1.6;28.0;
-Pork, shoulder, roast, raw;Meat and offal;Pig;181.0;24.6;9.2;0.0;8.1;1.3;23.0;
-Pork, starter, raw;Meat and offal;Pig;135.0;20.9;5.7;0.0;4.7;0.8;19.0;
-Pork , raw;Meat and offal;Pig;160.0;21.4;8.3;0.0;6.0;1.0;21.0;
+Black salsify;Vegetables;Vegetables fresh;55.0;1.4;0.4;2.1;53.0;3.3;23.0;
+Pork breast tip;Meat and offal;Pig;239.0;17.9;18.6;0.0;6.0;0.7;19.0;
+Pork corner piece;Meat and offal;Pig;162.0;33.0;3.3;0.0;12.0;2.6;27.0;
+Pork, corner piece;Meat and offal;Pig;115.0;22.6;2.7;0.0;9.0;1.7;21.0;
+Pork minced;Meat and offal;Pig;159.0;20.5;8.5;0.0;4.2;1.1;19.0;
+Pork, cutlets;Meat and offal;Pig;134.0;21.3;5.4;0.0;4.3;0.7;20.0;
+Pork Neck;Meat and offal;Pig;255.0;26.4;16.6;0.0;5.0;1.3;23.0;
+Pork, knuckle;Meat and offal;Pig;173.0;25.6;7.6;0.7;2.0;1.1;25.0;
+Pork, chop;Meat and offal;Pig;179.0;21.4;10.4;0.0;4.9;0.4;21.0;
+Pork liver;Meat and offal;Pig;131.0;20.7;4.9;0.9;7.6;18.0;23.0;
+Pork kidney;Meat and offal;Pig;138.0;22.9;5.1;0.0;3.7;0.4;21.0;
+Pork;Meat and offal;Pig;160.0;21.4;8.3;0.0;6.0;1.0;21.0;
 Lard;Fats and oils;Fat;891.0;0.0;99.0;0.0;1.0;0.0;1.0;
-Pork sausage;Meat and sausage products;Raw sausage products;236.0;16.2;18.8;0.5;10.0;1.0;18.0;
-Pork sausage, roasted;Meat and sausage products;Raw sausage products;283.0;19.8;22.3;0.6;13.0;1.3;22.0;
 Pork sausage;Meat and sausage products;Boiled sausage products;268.0;16.2;22.4;0.5;10.0;1.0;17.0;
-Hake, raw;Fish;Sea fish;71.0;17.0;0.3;0.0;25.0;0.7;25.0;
-Saithe, raw;Fish;Sea fish;80.0;19.3;0.3;0.0;8.0;0.2;14.0;
-Sole, raw;Fish;Sea fish;85.0;18.7;1.1;0.0;29.0;0.6;25.0;
-Celery piccata, prepared;Courts;Other salty;133.0;5.5;8.2;7.1;98.0;0.9;14.0;celery
-Celery slices, breaded, prepared;Vegetables;Vegetables cooked (incl. canned);136.0;4.9;5.7;14.0;49.0;0.9;14.0;celery
+Hake;Fish;Sea fish;71.0;17.0;0.3;0.0;25.0;0.7;25.0;
+Saithe;Fish;Sea fish;80.0;19.3;0.3;0.0;8.0;0.2;14.0;
+Sole;Fish;Sea fish;85.0;18.7;1.1;0.0;29.0;0.6;25.0;
+Celery piccata;Courts;Other salty;133.0;5.5;8.2;7.1;98.0;0.9;14.0;celery
 Semmeli;Breads, flakes and breakfast cereals;Breads and bread products;245.0;9.2;0.9;48.5;10.0;1.0;22.0;
 Mustard;Miscellaneous;Sauces;124.0;7.1;7.7;3.8;110.0;1.7;95.0;mustard
 Sesame oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;sesame
-Sesame seeds unpeeled;Nuts, seeds and oil fruits;;619.0;23.1;53.8;4.0;930.0;7.7;330.0;sesame
-Sesame seeds, hulled;Nuts, seeds and oil fruits;;660.0;26.8;57.4;4.6;37.0;5.8;350.0;sesame
-Sherry, 18.5 vol%;Alcoholic drinks;Wine;118.0;0.1;0.0;3.6;9.0;0.5;8.0;
-Silver onion, pickled in vinegar;Vegetables;Vegetables cooked (incl. canned);28.0;0.9;0.2;4.9;22.0;0.2;0.0;
-Syrup undiluted;Soft drinks;Syrup;371.0;0.1;0.2;91.8;3.9;0.5;2.6;
-Syrup prepared;Soft drinks;Syrup,Soft drinks;55.0;0.0;0.0;13.5;6.2;0.1;1.2;
-Soybean, cooked;Cereal products, pulses and potatoes;Legumes;157.0;15.0;7.3;3.3;72.0;2.2;75.0;soy
-Soybean, dried;Cereal products, pulses and potatoes;Legumes;399.0;38.2;18.3;8.7;200.0;6.6;220.0;soy
-Soy drink, nature;Milk and dairy products;Milk substitutes;40.0;3.9;2.2;0.8;13.0;0.4;17.0;milk
-Soya flour, defatted;Cereal products, pulses and potatoes;Flours and starches;296.0;51.5;1.2;7.5;240.0;9.2;300.0;soy
-Soya flour, full fat;Cereal products, pulses and potatoes;Flours and starches;398.0;40.8;20.6;3.1;200.0;12.0;250.0;soy
+Sesame seeds;Nuts, seeds and oil fruits;;619.0;23.1;53.8;4.0;930.0;7.7;330.0;sesame
+Sherry;Alcoholic drinks;Wine;118.0;0.1;0.0;3.6;9.0;0.5;8.0;
+Silver onion pickled in vinegar;Vegetables;Vegetables cooked (incl. canned);28.0;0.9;0.2;4.9;22.0;0.2;0.0;
+Syrup;Soft drinks;Syrup,Soft drinks;55.0;0.0;0.0;13.5;6.2;0.1;1.2;
+Soybean;Cereal products, pulses and potatoes;Legumes;399.0;38.2;18.3;8.7;200.0;6.6;220.0;soy
+Soy drink;Milk and dairy products;Milk substitutes;40.0;3.9;2.2;0.8;13.0;0.4;17.0;milk
+Soya flour;Cereal products, pulses and potatoes;Flours and starches;398.0;40.8;20.6;3.1;200.0;12.0;250.0;soy
 Soya oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;soy
 Soy sauce;Miscellaneous;Sauces;56.0;8.1;0.6;4.1;33.0;1.5;74.0;soy
-Bean sprouts, raw;Vegetables;Sprouts and seedlings;55.0;5.5;1.0;4.7;32.0;0.9;19.0;
+Bean sprouts;Vegetables;Sprouts and seedlings;55.0;5.5;1.0;4.7;32.0;0.9;19.0;
 Sunflower seeds;Nuts, seeds and oil fruits;;621.0;25.1;54.5;3.6;86.0;5.0;330.0;
 Sunflower oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.9;0.1;0.0;
-Sunflower oil HO , refined;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;
-Sorbet, Fruit;Sweets;Water-based glazes;137.0;0.2;0.0;32.1;12.0;0.2;4.0;
-Asparagus, steamed;Vegetables;Vegetables cooked (incl. canned);26.0;2.1;0.2;3.1;21.0;0.7;16.0;
-Asparagus, raw;Vegetables;Vegetables fresh;27.0;2.2;0.2;3.3;22.0;0.9;18.0;
-Spinach, steamed;Vegetables;Vegetables cooked (incl. canned);28.0;3.4;0.5;1.0;130.0;2.8;69.0;
-Spinach, raw;Vegetables;Vegetables fresh;23.0;2.7;0.4;0.8;100.0;2.7;58.0;
+Sorbet Fruit;Sweets;Water-based glazes;137.0;0.2;0.0;32.1;12.0;0.2;4.0;
+Asparagus;Vegetables;Vegetables fresh;27.0;2.2;0.2;3.3;22.0;0.9;18.0;
+Spinach;Vegetables;Vegetables fresh;23.0;2.7;0.4;0.8;100.0;2.7;58.0;
 Spirits 40 vol%;Alcoholic drinks;Spirits;222.0;0.0;0.0;0.0;0.0;0.0;0.0;
 Pomeranian;Sweets;Other sweet baked goods;499.0;5.8;25.6;60.3;14.0;1.0;16.0;
 St Paulin;Milk and dairy products;Hard cheese;294.0;21.8;23.0;0.0;700.0;0.4;35.0;milk
-Gooseberry, raw;Fruits;Fruits fresh;39.0;0.8;0.2;7.1;29.0;0.6;15.0;
-Celery stalks, steamed;Vegetables;Vegetables cooked (incl. canned);15.0;0.9;0.1;1.5;53.0;0.4;13.0;celery
-Celery, raw;Vegetables;Vegetables fresh;15.0;0.9;0.1;1.5;52.0;0.5;14.0;celery
-Porcini mushroom, steamed;Vegetables;Mushrooms;46.0;6.1;0.5;0.6;5.0;1.0;12.0;
-Boletus, raw;Vegetables;Mushrooms;39.0;5.4;0.4;0.5;4.2;1.0;12.0;
+Gooseberry;Fruits;Fruits fresh;39.0;0.8;0.2;7.1;29.0;0.6;15.0;
+Celery;Vegetables;Vegetables fresh;15.0;0.9;0.1;1.5;52.0;0.5;14.0;celery
+Boletus;Vegetables;Mushrooms;39.0;5.4;0.4;0.5;4.2;1.0;12.0;
 Surimi;Fish;Fish products;125.0;8.3;4.9;11.8;19.0;0.4;12.0;
-Sweet potato, steamed;Cereal products, pulses and potatoes;Potatoes;81.0;1.6;0.1;17.1;40.0;0.5;25.0;
-Sweet potato, raw;Cereal products, pulses and potatoes;Potatoes;81.0;1.6;0.1;17.1;41.0;0.6;26.0;
-Tea, unsweetened;Soft drinks;Tea;0.0;0.0;0.0;0.0;0.0;0.0;1.0;
-Pasta with egg, cooked in salted water;Cereal products, pulses and potatoes;Pasta;132.0;5.0;1.1;25.0;8.3;0.8;13.0;egg
-Pasta with egg, dry;Cereal products, pulses and potatoes;Pasta;365.0;13.3;2.8;69.9;23.0;3.0;42.0;egg
-Pasta without egg, cooked in salted water;Cereal products, pulses and potatoes;Pasta;158.0;5.9;0.6;31.2;9.8;0.5;22.0;
-Pasta without egg, dry;Cereal products, pulses and potatoes;Pasta;353.0;12.6;1.2;70.5;22.0;1.5;56.0;
-Pasta without egg, wholemeal, cooked in salt water;Cereal products, pulses and potatoes;Pasta;152.0;5.9;1.2;26.8;15.0;1.4;48.0;
-Pasta without egg, wholemeal, dry;Cereal products, pulses and potatoes;Pasta;338.0;12.6;2.5;60.6;34.0;3.9;120.0;
-Semi-skimmed milk, pasteurised;Milk and dairy products;Milk;56.0;3.1;2.8;4.7;120.0;0.0;10.0;milk
-Semi-skimmed milk, UHT;Milk and dairy products;Milk;57.0;3.3;2.8;4.6;120.0;0.0;10.0;milk
+Sweet potato;Cereal products, pulses and potatoes;Potatoes;81.0;1.6;0.1;17.1;41.0;0.6;26.0;
+Tea;Soft drinks;Tea;0.0;0.0;0.0;0.0;0.0;0.0;1.0;
+Pasta;Cereal products, pulses and potatoes;Pasta;365.0;13.3;2.8;69.9;23.0;3.0;42.0;egg
+Pasta without wholemeal;Cereal products, pulses and potatoes;Pasta;338.0;12.6;2.5;60.6;34.0;3.9;120.0;
 Terrine de Campagne;Meat and sausage products;Cooked sausages;298.0;13.6;26.5;1.0;17.0;4.2;14.0;
 Ticino bread;Breads, flakes and breakfast cereals;Breads and bread products;323.0;10.3;5.2;57.1;13.0;1.3;29.0;
 Tête de Moine;Milk and dairy products;Hard cheese;417.0;24.2;35.5;0.0;700.0;0.1;27.0;milk
-Tuna, raw;Fish;Sea fish;149.0;23.4;6.2;0.0;28.0;1.1;34.0;fish
-Thyme, raw;Vegetables;Herbs;52.0;1.5;1.2;7.3;310.0;20.0;36.0;
-Tilsiter, pasteurised, full-fat;Milk and dairy products;Hard cheese;351.0;24.1;28.0;0.0;840.0;0.1;29.0;milk
-Tilsiter, raw milk, full-fat;Milk and dairy products;Hard cheese;376.0;25.6;30.2;0.0;900.0;0.3;24.0;milk
-Toast, wholemeal;Breads, flakes and breakfast cereals;Breads and bread products;271.0;9.3;4.9;43.7;21.0;3.4;87.0;
-Toast,dark or multigrain;Breads, flakes and breakfast cereals;Breads and bread products;272.0;9.1;4.7;45.6;17.0;2.4;59.0;
-Tofu, firm, nature;Meat substitutes;;148.0;14.7;8.5;2.9;100.0;2.4;100.0;soy
-Tofu, smoked;Meat substitutes;;164.0;16.4;9.5;2.9;62.0;2.0;140.0;soy
-Tofu, silky , nature;Meat substitutes;;53.0;5.0;2.9;1.5;21.0;0.6;64.0;soy
-Tomato, stewed;Vegetables;Vegetables cooked (incl. canned);26.0;1.0;0.4;3.9;11.0;0.2;6.9;
-Tomato, peeled (canned);Vegetables;Vegetables cooked (incl. canned);20.0;0.9;0.2;3.0;16.0;0.7;12.0;
-Tomato, dried;Vegetables;Dried vegetables;210.0;11.3;0.5;29.2;140.0;6.5;180.0;
-Tomato, raw;Vegetables;Vegetables fresh;21.0;0.8;0.3;3.2;8.5;0.2;6.3;
+Tuna;Fish;Sea fish;149.0;23.4;6.2;0.0;28.0;1.1;34.0;fish
+Thyme;Vegetables;Herbs;52.0;1.5;1.2;7.3;310.0;20.0;36.0;
+Tilsiter;Milk and dairy products;Hard cheese;351.0;24.1;28.0;0.0;840.0;0.1;29.0;milk
+Tilsiter milk;Milk and dairy products;Hard cheese;376.0;25.6;30.2;0.0;900.0;0.3;24.0;milk
+Toast wholemeal;Breads, flakes and breakfast cereals;Breads and bread products;271.0;9.3;4.9;43.7;21.0;3.4;87.0;
+Tofu;Meat substitutes;;148.0;14.7;8.5;2.9;100.0;2.4;100.0;soy
+Tofu smoked;Meat substitutes;;164.0;16.4;9.5;2.9;62.0;2.0;140.0;soy
+Tomato dried;Vegetables;Dried vegetables;210.0;11.3;0.5;29.2;140.0;6.5;180.0;
+Tomato;Vegetables;Vegetables fresh;21.0;0.8;0.3;3.2;8.5;0.2;6.3;
 Tomato paste;Vegetables;Vegetables cooked (incl. canned);77.0;4.5;0.2;12.9;48.0;1.6;48.0;
 Tomato juice;Soft drinks;Fruit and vegetable juices,Vegetables;16.0;0.8;0.1;3.0;14.0;0.5;13.0;
 Tomato sauce;Miscellaneous;Sauces;69.0;1.8;2.1;9.7;23.0;1.4;17.0;
 Tomme;Milk and dairy products;Soft cheese;284.0;20.3;22.5;0.0;290.0;0.1;18.0;milk
-Jerusalem artichoke, cooked;Vegetables;Vegetables cooked (incl. canned);52.0;2.3;0.4;3.8;28.0;0.5;10.0;
-Jerusalem artichoke, raw;Vegetables;Vegetables fresh;54.0;2.4;0.4;4.0;28.0;0.6;16.0;
-Grape, white, raw;Fruits;Fruits fresh;69.0;0.7;0.3;15.2;12.0;0.4;7.6;
+Jerusalem artichoke;Vegetables;Vegetables fresh;54.0;2.4;0.4;4.0;28.0;0.6;16.0;
+Grape white;Fruits;Fruits fresh;69.0;0.7;0.3;15.2;12.0;0.4;7.6;
 Grape seed oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;
 Grape juice;Fruits;Fruit juices,Soft drinks;71.0;0.3;0.1;17.3;8.8;0.5;8.9;
 Dextrose;Sweets;Sugar and sweeteners;399.0;0.0;0.0;99.8;1.0;0.3;0.0;
-Drinking water;Soft drinks;Drinking water;0.0;0.0;0.0;0.0;7.0;0.0;1.0;
+Water;Soft drinks;Drinking water;0.0;0.0;0.0;0.0;7.0;0.0;1.0;
 Dried meat;Meat and sausage products;Raw sausage products;190.0;39.3;3.5;0.4;0.0;4.0;37.0;
-Turkey, breast, escalope or cutlet, roasted;Meat and offal;Poultry;139.0;31.8;1.3;0.0;11.0;0.9;35.0;
-Turkey, breast, escalope or cutlet, raw;Meat and offal;Poultry;108.0;24.0;1.3;0.0;7.9;0.7;32.0;
+Turkey breast;Meat and offal;Poultry;139.0;31.8;1.3;0.0;11.0;0.9;35.0;
 Vacherin Mont d'Or;Milk and dairy products;Soft cheese;279.0;17.2;23.2;0.0;430.0;0.1;20.0;milk
-Vanilla cream, homemade, cooked;Sweets;Creams and puddings;109.0;4.3;4.6;12.7;100.0;0.3;9.8;
-Vegetarian minced meat, from mycoprotein, raw;Meat substitutes;;92.0;13.4;2.3;1.6;160.0;0.3;38.0;
+Vanilla cream;Sweets;Creams and puddings;109.0;4.3;4.6;12.7;100.0;0.3;9.8;
+Vegetarian minced meat;Meat substitutes;;92.0;13.4;2.3;1.6;160.0;0.3;38.0;
 Vinaigrette;Fats and oils;Salad dressings;255.0;4.7;25.1;2.3;24.0;0.7;9.0;
 Wholemeal rice cake;Breads, flakes and breakfast cereals;Crispbreads, rusks, crackers and waffles;390.0;7.7;2.8;81.5;11.0;1.5;130.0;
-Whole milk, pasteurised;Milk and dairy products;Milk;68.0;3.2;4.0;4.7;120.0;0.0;10.0;milk
-Whole milk, UHT;Milk and dairy products;Milk;68.0;3.2;4.1;4.6;120.0;0.0;10.0;milk
 Whole milk powder;Milk and dairy products;Milk;480.0;24.7;26.2;35.1;1060.0;0.7;88.0;milk
-Whole cream, pasteurised;Fats and oils;Cream,Milk and dairy products;334.0;2.0;34.8;3.1;71.0;0.1;6.2;
-Full cream, UHT;Fats and oils;Cream,Milk and dairy products;335.0;2.0;34.9;3.1;71.0;0.0;6.3;
-Shoulder of ham;Meat and sausage products;Cooked sausages;106.0;18.6;3.3;0.4;15.0;0.8;21.0;
+Whole cream;Fats and oils;Cream,Milk and dairy products;334.0;2.0;34.8;3.1;71.0;0.1;6.2;
+Full cream;Fats and oils;Cream,Milk and dairy products;335.0;2.0;34.9;3.1;71.0;0.0;6.3;
 Valais rye bread;Breads, flakes and breakfast cereals;Breads and bread products;227.0;7.6;1.0;42.6;20.0;2.1;53.0;gluten
 Wasabi paste;Miscellaneous;Sauces;308.0;2.9;10.6;49.6;0.0;0.0;0.0;
 Water ice;Sweets;Water-based glazes;88.0;0.0;0.0;22.0;0.0;0.0;0.0;
-Watermelon, raw;Fruits;Fruits fresh;37.0;0.7;0.0;8.3;6.0;0.2;11.0;
-Soft caramels, sweets;Sweets;Sweets, fruit and chewing gum;448.0;2.1;17.2;71.1;95.0;1.5;25.0;
+Watermelon;Fruits;Fruits fresh;37.0;0.7;0.0;8.3;6.0;0.2;11.0;
+Soft caramels;Sweets;Sweets, fruit and chewing gum;448.0;2.1;17.2;71.1;95.0;1.5;25.0;
 Soft cheese;Milk and dairy products;Soft cheese;325.0;19.4;27.4;0.0;440.0;0.2;20.0;milk
-Soft cheese, double cream;Milk and dairy products;Soft cheese;376.0;9.7;37.5;0.0;270.0;0.3;15.0;milk
-Soft cheese, cream;Milk and dairy products;Soft cheese;347.0;17.4;30.9;0.0;420.0;0.2;18.0;milk
-Soft cheese, full-fat;Milk and dairy products;Soft cheese;296.0;20.6;23.7;0.0;360.0;0.1;19.0;milk
-Wine red, 13.5 vol%;Alcoholic drinks;Wine;76.0;0.0;0.0;0.2;0.0;0.0;0.0;
-Wine white, 12.5 vol%;Alcoholic drinks;Wine;71.0;0.2;0.0;0.1;10.0;0.6;10.0;
-Wine white, spritzed, sour;Alcoholic drinks;Wine;36.0;0.1;0.0;0.1;8.5;0.3;5.5;
-Wine white, sparkling, sweet;Alcoholic drinks;Wine;55.0;0.1;0.0;4.8;7.5;0.4;11.0;
+Wine red;Alcoholic drinks;Wine;76.0;0.0;0.0;0.2;0.0;0.0;0.0;
+Wine white;Alcoholic drinks;Wine;71.0;0.2;0.0;0.1;10.0;0.6;10.0;
+Wine white sparkling;Alcoholic drinks;Wine;55.0;0.1;0.0;4.8;7.5;0.4;11.0;
 White bread;Breads, flakes and breakfast cereals;Breads and bread products;242.0;8.5;0.8;48.9;8.3;0.6;15.0;
-White cabbage, steamed;Vegetables;Vegetables cooked (incl. canned);28.0;1.3;0.2;4.0;53.0;0.2;11.0;
-White cabbage, steamed;Vegetables;Vegetables cooked (incl. canned);30.0;1.4;0.2;4.2;58.0;0.3;10.0;
-White cabbage, raw;Vegetables;Vegetables fresh;30.0;1.4;0.2;4.2;56.0;0.3;12.0;
+White cabbage;Vegetables;Vegetables fresh;30.0;1.4;0.2;4.2;56.0;0.3;12.0;
 Weisswurst;Meat and sausage products;Boiled sausage products;220.0;11.8;18.9;0.6;21.0;0.7;10.0;
-Wheat , whole grain;Cereal products, pulses and potatoes;Other cereal products;327.0;11.4;1.8;59.6;33.0;3.2;97.0;gluten
-Wheat flakes, wholemeal;Breads, flakes and breakfast cereals;Flakes, bran and germ;335.0;13.5;1.8;59.6;33.0;3.2;97.0;gluten
+Wheat whole grain;Cereal products, pulses and potatoes;Other cereal products;327.0;11.4;1.8;59.6;33.0;3.2;97.0;gluten
+Wheat flakes;Breads, flakes and breakfast cereals;Flakes, bran and germ;335.0;13.5;1.8;59.6;33.0;3.2;97.0;gluten
 Wheat germ;Breads, flakes and breakfast cereals;Flakes, bran and germ,Special foods;375.0;29.2;9.5;35.1;54.0;6.9;250.0;gluten
 Wheat germ oil;Fats and oils;Oils;810.0;0.0;90.0;0.0;0.0;0.0;0.0;gluten
 Wheat bran;Breads, flakes and breakfast cereals;Flakes, bran and germ;264.0;15.2;4.7;17.7;67.0;16.0;480.0;gluten
-Wheat flour , type 550;Cereal products, pulses and potatoes;Flours and starches;344.0;12.0;1.3;69.5;11.0;1.5;34.0;gluten
-Wheat flour, semi-white, type 720;Cereal products, pulses and potatoes;Flours and starches;340.0;13.0;1.5;66.2;17.0;2.4;53.0;gluten
-Wheat flour, Ruch, type 1100;Cereal products, pulses and potatoes;Flours and starches;339.0;13.5;1.7;64.6;24.0;2.2;54.0;gluten
-Wheat flour, wholemeal, type 1700;Cereal products, pulses and potatoes;Flours and starches;338.0;13.5;2.0;61.0;26.0;5.0;130.0;gluten
 Wheat flour, white, type 400;Cereal products, pulses and potatoes;Flours and starches;346.0;11.5;1.1;71.0;5.0;0.6;14.0;gluten
-Wheat toto, cooked;Courts;Other salty;163.0;5.0;3.0;26.2;22.0;1.5;44.0;gluten
 Wheat starch;Cereal products, pulses and potatoes;Flours and starches,Miscellaneous;348.0;0.4;0.1;85.8;0.0;0.0;4.0;gluten
 Wholemeal wheat bread;Breads, flakes and breakfast cereals;Breads and bread products;213.0;8.6;1.3;38.3;20.0;3.1;82.0;gluten
-Vermouth, 15 vol%;Alcoholic drinks;Wine;139.0;0.1;0.0;13.5;8.0;0.5;5.4;
+Vermouth;Alcoholic drinks;Wine;139.0;0.1;0.0;13.5;8.0;0.5;5.4;
 Viennese sausage;Meat and sausage products;Boiled sausage products;242.0;13.9;20.4;0.6;7.9;0.8;13.0;
-Vienna sausage, cooked;Meat and sausage products;Boiled sausage products;220.0;13.0;18.4;0.6;6.5;0.7;13.0;
-Game meat , cooked;Meat and offal;Wild;157.0;29.0;4.6;0.0;20.0;3.4;29.0;
-Game meat , raw;Meat and offal;Wild;115.0;21.1;3.4;0.0;15.0;2.5;21.0;
-Wild boar , raw;Meat and offal;Wild;108.0;19.5;3.4;0.0;10.0;1.8;22.0;
-Savoy cabbage, steamed;Vegetables;Vegetables cooked (incl. canned);30.0;2.7;0.3;2.8;61.0;0.4;11.0;
-Savoy cabbage, raw;Vegetables;Vegetables fresh;31.0;2.8;0.3;2.9;64.0;0.6;12.0;
-Root and tuber vegetables , steamed;Vegetables;Vegetables cooked (incl. canned);38.0;1.1;0.3;6.3;35.0;0.3;11.0;
-Root and tuber vegetables , steamed;Vegetables;Vegetables cooked (incl. canned);33.0;0.9;0.3;5.4;32.0;0.3;9.6;
-Root and tuber vegetables , cooked;Vegetables;Vegetables cooked (incl. canned);34.0;1.0;0.3;5.6;33.0;0.3;7.5;
-Root and tuber vegetables , raw;Vegetables;Vegetables fresh;36.0;1.0;0.3;6.0;33.0;0.3;12.0;
-Goat , raw;Meat and offal;Other species;149.0;19.5;7.9;0.0;10.0;2.0;20.0;
+Game meat;Meat and offal;Wild;115.0;21.1;3.4;0.0;15.0;2.5;21.0;
+Wild boar;Meat and offal;Wild;108.0;19.5;3.4;0.0;10.0;1.8;22.0;
+Savoy cabbage;Vegetables;Vegetables fresh;31.0;2.8;0.3;2.9;64.0;0.6;12.0;
+Root and tuber vegetables;Vegetables;Vegetables fresh;36.0;1.0;0.3;6.0;33.0;0.3;12.0;
+Goat;Meat and offal;Other species;149.0;19.5;7.9;0.0;10.0;2.0;20.0;
 Goat's milk;Milk and dairy products;Milk;57.0;2.8;3.2;4.2;120.0;0.0;10.0;milk
 Cinnamon;Miscellaneous;Salt, spices and flavours;317.0;3.9;3.2;56.0;1230.0;38.0;56.0;
 Cinnamon Star;Sweets;Guetzli;505.0;14.2;25.9;50.9;150.0;2.2;120.0;
 Candied lemon peel;Sweets;Other sweets;289.0;0.4;0.4;70.0;40.0;0.3;5.0;
-Lemon, raw;Fruits;Fruits fresh;23.0;0.8;0.5;2.9;25.0;0.5;16.0;
+Lemon;Fruits;Fruits fresh;23.0;0.8;0.5;2.9;25.0;0.5;16.0;
 Lemon juice;Fruits;Fruit juices,Soft drinks;28.0;0.4;0.2;2.5;6.0;0.1;6.0;
-Citrus fruits , raw;Fruits;Fruits fresh;41.0;0.8;0.3;8.0;32.0;0.2;12.0;
-Courgettes, steamed;Vegetables;Vegetables cooked (incl. canned);20.0;1.9;0.2;2.2;21.0;0.7;24.0;
-Courgettes, steamed;Vegetables;Vegetables cooked (incl. canned);23.0;2.2;0.2;2.4;24.0;0.9;25.0;
-Courgettes, raw;Vegetables;Vegetables fresh;19.0;1.8;0.2;2.0;19.0;0.8;23.0;
-Sugar, brown;Sweets;Sugar and sweeteners;390.0;0.0;0.0;97.6;85.0;1.9;22.0;
-Sugar, white;Sweets;Sugar and sweeteners;400.0;0.0;0.0;100.0;1.0;0.1;0.0;
-Sweet corn (canned);Vegetables;Vegetables cooked (incl. canned);100.0;3.0;1.2;18.2;4.0;0.6;22.0;
-Sweet corn (canned), reheated (without adding salt);Vegetables;Vegetables cooked (incl. canned);103.0;3.1;1.2;18.6;4.0;0.5;21.0;
-Sugar melon, raw;Fruits;Fruits fresh;62.0;1.1;0.1;14.8;11.0;0.2;16.0;
-Tongue , raw;Meat and offal;Veal,meat and offal;188.0;16.6;12.3;2.8;9.5;2.9;18.0;
-Plum, stewed, drained;Fruits;Fruit cooked (incl. preserves);43.0;0.7;0.1;8.7;15.0;0.4;7.9;
-Plum, raw;Fruits;Fruits fresh;43.0;0.6;0.1;8.8;13.0;0.4;8.0;
+Citrus fruits;Fruits;Fruits fresh;41.0;0.8;0.3;8.0;32.0;0.2;12.0;
+Courgettes;Vegetables;Vegetables fresh;19.0;1.8;0.2;2.0;19.0;0.8;23.0;
+Sugar brown;Sweets;Sugar and sweeteners;390.0;0.0;0.0;97.6;85.0;1.9;22.0;
+Sugar white;Sweets;Sugar and sweeteners;400.0;0.0;0.0;100.0;1.0;0.1;0.0;
+Sweet corn;Vegetables;Vegetables cooked (incl. canned);100.0;3.0;1.2;18.2;4.0;0.6;22.0;
+Sugar melon;Fruits;Fruits fresh;62.0;1.1;0.1;14.8;11.0;0.2;16.0;
+Plum;Fruits;Fruits fresh;43.0;0.6;0.1;8.8;13.0;0.4;8.0;
 Rusk;Breads, flakes and breakfast cereals;Crispbreads, rusks, crackers and waffles;421.0;11.6;7.8;74.6;39.0;1.4;33.0;
-Rusk, wholemeal;Breads, flakes and breakfast cereals;Crispbreads, rusks, crackers and waffles;411.0;17.5;9.0;61.2;99.0;3.6;98.0;
-Onion, steamed;Vegetables;Vegetables cooked (incl. canned);43.0;1.5;0.2;7.8;33.0;0.3;9.3;
-Onion, roasted;Vegetables;Vegetables cooked (incl. canned);92.0;3.1;0.5;16.7;68.0;0.6;22.0;
-Onion, raw;Vegetables;Vegetables fresh;39.0;1.3;0.2;7.0;28.0;0.3;9.4;
+Onion;Vegetables;Vegetables fresh;39.0;1.3;0.2;7.0;28.0;0.3;9.4;
 Ajowan;Spices;;;;;;;;;
 Anis;Spices;;;;;;;;;
 Annatto;Spices;;;;;;;;;soy
@@ -950,7 +676,6 @@ Rhubarb;Spices;;;;;;;;;
 Rosemary;Spices;;;;;;;;;
 Rouille;Spices;;;;;;;;;
 Saffron;Spices;;;;;;;;;
-Sage;Spices;;;;;;;;;
 Sambal;Spices;;;;;;;;;
 Sassafras;Spices;;;;;;;;;
 Sorrel;Spices;;;;;;;;;
@@ -992,7 +717,6 @@ Lemon peel;Spices;;;;;;;;;
 Lemon thyme;Spices;;;;;;;;;
 Citrus root;Spices;;;;;;;;;
 Noodles, dry;Cereal products, pulses and potatoes;Pasta;353.0;12.6;1.2;70.5;22.0;1.5;56.0;
-Water;Liquid;;0.0;0.0;0.0;0.0;0.0;0.0;0.0;
 Red wine vinegar;Miscellaneous;Salt, spices and flavours;;;;;;;;
 Bamboo skewers;Miscellaneous;;;;;;;;;
 Black pepper;Spices;;;;;;;;;
@@ -1016,10 +740,10 @@ Red pepper flakes;Spices;;;;;;;;;
 Ground beef;Meat and offal;Beef;;;;;;;;
 Raisins;Fruits;Fruits dried;;;;;;;;
 Steak seasoning;Spices;;;;;;;;;
-Long grain rice;Cereal products;;;;;;;;;
+Long grain rice;Cereal products, pulses and potatoes;;;;;;;;;
 Yellow corn;Vegetables;;;;;;;;;
 Tomato,fire roasted;;;;;;;;;
-Quinoa,Cereal products;;;;;;;;;
+Quinoa,Cereal products, pulses and potatoes;;;;;;;;;
 Celery, sliced;Vegetables;;;;;;;;;
 Chicken Broth;Spices;;;;;;;;;
 Ancho chilly, dried;Spices;;;;;;;;;
@@ -1028,15 +752,15 @@ Shrimp, peeled and deveined;Fish;;;;;;;;;
 Pork loin, without bone;Meat and offal;;;;;;;;;
 Salad dressing, italian style;Fats and oils;;;;;;;;;
 Rump roast;Meat and offal;;;;;;;;;
-Spaghetti;Cereal products;;;;;;;;;
-Gnocchi, refrigerated;Cereal products;;;;;;;;;
+Spaghetti;Cereal products, pulses and potatoes;;;;;;;;;
+Gnocchi, refrigerated;Cereal products, pulses and potatoes;;;;;;;;;
 Chicken sausage, italian style;Meat and offal;;;;;;;;;
 Yellow onion;Vegetables;;;;;;;;;
 Tomato, crushed;Vegetables;;;;;;;;;
-Pappardelle pasta;Cereal products;;;;;;;;;
-Cornstarch;Cereal products;;;;;;;;;
+Pappardelle pasta;Cereal products, pulses and potatoes;;;;;;;;;
+Cornstarch;Cereal products, pulses and potatoes;;;;;;;;;
 Chicken, cubed;Meat and offal;;;;;;;;;
-Ramen noodles;Cereal products;;;;;;;;;
+Ramen noodles;Cereal products, pulses and potatoes;;;;;;;;;
 Green onion, sliced; Vegetables;;;;;;;;;
 Chicken thights, boneless and skinless;Meat and offal;;;;;;;;;
 Plain yogurt;Milk and dairy products;;;;;;;;;
@@ -1045,9 +769,9 @@ Bacon;Meat and offal;;;;;;;;;
 Zucchini, sliced;Vegetables;;;;;;;;;
 Red onion;Vegetables;;;;;;;;;
 Orzo pasta;Vegetables;;;;;;;;;
-Brown lentil;Cereal products;;;;;;;;;
+Brown lentil;Cereal products, pulses and potatoes;;;;;;;;;
 Plain greek style yogurt;Milk and dairy products;;;;;;;;;
-Penne pasta;Cereal products;;;;;;;;;
+Penne pasta;Cereal products, pulses and potatoes;;;;;;;;;
 Eggplant, sliced;Vegetables;;;;;;;;;
 Beef bouillon cube;Meat and offal;;;;;;;;;
 White peppercorns;Spices;;;;;;;;;
@@ -1068,15 +792,15 @@ Red pepper;Vegetable;;;;;;;;;
 Serrano ham;Meat and sausage products;;;;;;;;;
 Green peas;Vegetables;;;;;;;;;
 Mild paprika;Spices;;;;;;;;;
-Butter beans;Cereal products;;;;;;;;;
+Butter beans;Cereal products, pulses and potatoes;;;;;;;;;
 Chourico sausage;Meat and sausage products;;;;;;;;;
 Linguica sausage;Meat and sausage products;;;;;;;;;
-Italian seasoning;Cereal products;;;;;;;;;
-Fava beans;Cereal products;;;;;;;;;
-Baking powder;Cereal products;;;;;;;;;
+Italian seasoning;Cereal products, pulses and potatoes;;;;;;;;;
+Fava beans;Cereal products, pulses and potatoes;;;;;;;;;
+Baking powder;Cereal products, pulses and potatoes;;;;;;;;;
 Sumac powder;Spices;;;;;;;;;
-Basmati rice;Cereal products;;;;;;;;;
-Russet potato;Cereal products;;;;;;;;;
+Basmati rice;Cereal products, pulses and potatoes;;;;;;;;;
+Russet potato;Cereal products, pulses and potatoes;;;;;;;;;
 Dried limes;Spices;;;;;;;;;
 Pita bread;Breads, flakes and breakfast cereals;;;;;;;;;
 Cooking spray;Fats and oils;;;;;;;;;
@@ -1087,7 +811,6 @@ Napa cabbage;Vegetables;;;;;;;;;
 Cellophane noodles;Pasta;;;;;;;;;
 Beef stock;Meat and offal;;;;;;;;;
 Beef sirloin steak;Meat and sausage products;;;;;;;;;
-Brown sugar;Sugar and sweeteners;;;;;;;;;
 Heavy cream;Milk and dairy products;;;;;;;;;
 Gruyere cheese;Milk and dairy products;;;;;;;;;
 Yellow squash;Vegetables;;;;;;;;;
@@ -1095,17 +818,138 @@ Yellow bell pepper;Vegetables;;;;;;;;;
 Red bell pepper;Vegetables;;;;;;;;;
 Thyme leaves;Spices;;;;;;;;;
 Mascarpone cheese;Milk and dairy products;;;;;;;;;
-
 Pork chops;Meat and offal;;;;;;;;;
 Beef flank steak;Meat and offal;;;;;;;;;
-Apricot jam;Sweets;;;;;;;;;
-Apricot jam;Sweets;;;;;;;;;
-Apricot jam;Sweets;;;;;;;;;
-Apricot jam;Sweets;;;;;;;;;
+Risotto rice;Cereal products, pulses and potatoes;;;;;;;;;
+Bone-in pork chops;Meat and offal;;;;;;;;;
+Yakisoba noodles;Cereal products, pulses and potatoes;;;;;;;;;
+Dashi stock;Fish;;;;;;;;;
+Mirin;Alcoholic drinks;;;;;;;;;
+Vegetarian refried beans;Miscellaneous;;;;;;;;;
+Vegan chees;Milk substitutes;;;;;;;;;
+Dried Seeweed;Miscellaneous;;;;;;;;;
+Green enchilada sauce;Miscellaneous;;;;;;;;;
+Green chiles;Spices;;;;;;;;;
+Red chiles;Spices;;;;;;;;;
+Rice vermicelli;Cereal products, pulses and potatoes;;;;;;;;;
+Cucumber;Vegetables;;;;;;;;;
+Pickled cucumbers;Vegetables;;;;;;;;;
 
 
-
-
-
-
-
+Rice wrapper;;;;;;;;;; 
+Rice paper
+Thai basilikum
+Panko bread crumbs
+Yam
+Kaiser roll
+Potato salad
+Pimento pepper
+Collard greens
+Goat cheese
+White truffle oil
+Buffalo mozzarella
+Heirloom tomato
+Tortellini
+Split mung beans
+Monterey Jack cheese
+Tomato puree
+Fontina cheese
+Feta cheese
+Miso paste
+Soba noodles
+Sweet chili sauce
+Pico de gallo
+Sriracha chile sauce
+Caraway seed
+Colby cheese
+Heavy whipping cream
+Linguine pasta
+Cajun seasoning
+White cornmeal
+Hoagie rolls
+Enoa salami
+Deli hamrice papers
+Meatless ground beef substitute
+dry white wine
+Taco seasoning mix
+Vegan Cheddar cheese
+Hot Italian pork sausage
+Parmigiano-Reggiano cheese
+Marinara sauce
+Greek yogurt
+Poblano pepper
+Swiss cheese
+White beans
+Soy margarine
+Masala paste
+Tahini
+Monterey Jack cheese
+Sea bass fillets
+Sriracha sauce
+Italian sausage
+Cottage cheese
+Queso fresco
+Bok choy
+Chinese spice powder
+Cellophane noodles
+Hot pepper sauce
+Ranch dressing
+Hot dog bun
+Sport peppers
+Seitan
+Hot chili oil
+Shiitake mushrooms
+Provolone cheese
+Lemon grass
+Udon noodles
+Ramen nooodles
+Coriander seed
+Rice vinegar
+Fontina cheese
+Chile garlic sauce
+Ziti pasta
+Turkey cold cuts
+Garbanzo beans
+Pepitas
+Greek seasoning
+Artichoke hearts
+Deli turkey
+Garlic salt
+Maggie sauce
+Corn tortillas
+Mozzarella balls
+Ginger garlic paste
+Tandoori masala powder
+Chicken thighs
+Green cardamom pods
+Creme fraiche
+Cornstarch
+caraway seeds
+Fennel seeds
+Coriander seeds
+Rosemary
+Beef rump roast
+Lemon pepper
+Brown lentils
+Wooden skewers
+Kabob skewers
+Metal skewers
+Penne pasta
+Soup base
+Worcestershire sauce
+Beef rib eye steaks
+Sake
+Kimchi
+Bonito shavings
+Seaweed
+Lamb loin chops
+Rice vermicelli
+Hoisin sauce
+Romano cheese
+Lamb stew meat
+Beef stew meat
+Apricots
+Saffron threads
+Chuck roast
+Pork roast
+Recaito
