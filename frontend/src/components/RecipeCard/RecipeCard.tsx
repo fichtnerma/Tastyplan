@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
+import DialogModal from '@components/DialogModal/DialogModal';
 import { getFormOfDietIcon } from '@helpers/utils';
 import { useFavoriteStore } from '@hooks/useFavorites';
 import { Recipe } from 'src/types/types';
@@ -41,6 +42,12 @@ function RecipeCard({ recipe, highlighted, switchCard }: RecipeCardProps) {
         ? recipe.preparingTime
         : 0;
 
+    const [isOpened, setIsOpened] = useState(false);
+
+    const onProceed = () => {
+        console.log('Proceed clicked');
+    };
+
     return (
         <>
             <div className={styles.wrapperContainer}>
@@ -61,10 +68,19 @@ function RecipeCard({ recipe, highlighted, switchCard }: RecipeCardProps) {
                     flex p-1 top-[10px] text-white-custom right-8 rounded-full cursor-pointer absolute z-10 bg-green-custom2  transition-all duration-600 ease-in-out ${
                         styles.icon
                     }`}
-                    // onClick={() => setIsOpened(true)}
+                    onClick={() => setIsOpened(true)}
                 >
                     <Icon size={15} icon="switch"></Icon>
                 </div>
+
+                <DialogModal
+                    title="Choose a new recipe"
+                    isOpened={isOpened}
+                    onProceed={onProceed}
+                    onClose={() => setIsOpened(false)}
+                >
+                    {/* <p>To close: click Close, press Escape, or click outside.</p> */}
+                </DialogModal>
                 <Link className="block h-full" href={`/recipe/${recipe.id}`}>
                     <div className={` w-full h-full absolute rounded-custom_s ${styles.foodBox}`}>
                         <Image
