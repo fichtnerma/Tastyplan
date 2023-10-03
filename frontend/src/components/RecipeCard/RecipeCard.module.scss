@@ -7,42 +7,57 @@
     @screen sm {
         width: 160px;
 
-        &:hover .foodImg {
-            opacity: 0.1;
-        }
+        &:hover {
+            .foodImg {
+                opacity: 0.1;
+            }
+            .discriptionHover {
+                opacity: 1;
+                cursor: pointer;
+                position: relative;
+            }
 
-        &:hover .discriptionHover {
-            opacity: 1;
-            cursor: pointer;
-        }
+            .icon {
+                background-color: transparent;
+            }
 
-        &:hover .heartIcon {
-            opacity: 1;
-            cursor: pointer;
-            top: 10px;
-        }
+            .icon__highlighted {
+                color: #fff;
 
-        &:hover .discriptionFood {
-            top: 20px;
-        }
+                &:hover {
+                    color: var(--green-semi);
+                    fill: var(--green-semi);
+                }
+            }
 
-        &:hover .twoLinesName {
-            top: 50px;
-        }
+            .icon__notHighlighted {
+                color: var(--green-dark);
 
-        &:hover .threeLinesName {
-            top: 80px;
-        }
+                &:hover {
+                    color: var(--green-semi);
+                    fill: var(--green-semi);
+                }
+            }
 
-        &:hover .fourLinesName {
-            top: 110px;
-        }
+            .discriptionFood {
+                bottom: 0;
+            }
 
-        &:hover .weekplanBoxToday {
-            background-color: var(--green-dark);
-        }
-        &:hover .weekplanBox {
-            flex-direction: column;
+            .weekplanBoxToday {
+                background-color: var(--green-dark);
+            }
+            .weekplanBox {
+                flex-direction: column;
+            }
+
+            .icon__favorite.icon__notHighlighted {
+                fill: var(--green-dark);
+
+                &:hover {
+                    color: var(--green-semi);
+                    fill: var(--green-semi);
+                }
+            }
         }
     }
 
@@ -54,18 +69,7 @@
 
 .weekplanBox {
     background: linear-gradient(rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column-reverse;
-    border-radius: $boder-radius;
-    margin-inline: auto;
-    margin-top: 10px;
-    z-index: 5px;
-    position: relative;
-    overflow: hidden;
-    margin-left: 0;
-    margin-right: 0;
+    transition: all 0.8s;
 }
 
 .weekplanBoxToday {
@@ -73,45 +77,6 @@
     background: linear-gradient(rgba(255, 255, 255, 0) 60%, var(--green-dark) 90%);
 }
 
-.foodBox {
-    width: 100%;
-    height: 100%;
-    border-radius: $boder-radius;
-    position: absolute;
-}
-
-.foodImg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: $boder-radius;
-    z-index: -5px;
-    transition: opacity 0.6s ease-in-out;
-}
-
-.discriptionFood {
-    padding: 10px;
-    transition: top 0.6s ease-in-out;
-    top: calc(100% - 30px);
-    height: fit-content;
-    width: 100%;
-}
-
-.discriptionHover {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease-in-out;
-    position: absolute;
-    margin-top: 25px;
-    width: 240px;
-}
-
-.heartIcon {
-    opacity: 0;
-    position: absolute;
-    transition: all 0.6s ease-in-out;
-    top: calc(100% - 10px);
-    width: 100%;
-    fill: none;
-    z-index: 5;
+.icon__favorite {
+    fill: var(--white);
 }

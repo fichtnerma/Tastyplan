@@ -19,7 +19,14 @@ function Cookbook() {
                 {!error && data ? (
                     <div className="flex gap-12 flex-wrap">
                         {favorites.map((favorite: Recipe) => {
-                            return <RecipeCard key={favorite.id} recipe={favorite} highlighted={false} />;
+                            return (
+                                <RecipeCard
+                                    key={favorite.id}
+                                    recipe={favorite}
+                                    highlighted={false}
+                                    switchCard={false}
+                                />
+                            );
                         })}
                     </div>
                 ) : (

@@ -38,6 +38,11 @@ module.exports = {
             boxShadow: {
                 custom: '0px 2px 15px 3px rgba(0,0,0,0.4)',
             },
+            borderRadius: {
+                custom_xs: '10px',
+                custom_s: '20px',
+                custom_m: '50px',
+            },
         },
     },
     plugins: [],
