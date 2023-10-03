@@ -9,18 +9,18 @@ import { ClassSerializerInterceptor, Controller, Get, Param, Req, UseGuards, Use
 export class RecipesController {
     constructor(private readonly recipesService: RecipesService) {}
 
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.recipesService.findById(+id);
-    }
-
     @UseGuards(JwtAuthGuard)
     @ApiSecurity('access-key')
     @UseInterceptors(ClassSerializerInterceptor)
-    @Get('/recommendations')
-    getKRecipes(@Req() request: RequestWithUser) {
+    @Get('/recommend')
+    public findAll(@Req() request: RequestWithUser) {
         const user = request.user as User;
         const k = 5;
         return this.recipesService.getRecommendations(k, user);
+    }
+
+    @Get(':id')
+    public findOne(@Param('id') id: string) {
+        return this.recipesService.findById(+id);
     }
 }

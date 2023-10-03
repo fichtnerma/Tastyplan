@@ -4,7 +4,7 @@ import useFetchWithAuth from '@hooks/fetchWithAuth';
 
 function ChangeRecipeModal({ open }: { open: boolean }) {
     const [isOpened, setIsOpened] = useState(false);
-    const { data } = useFetchWithAuth('/service/recipes/recommendations');
+    const { data } = useFetchWithAuth('/service/recipes/recommend');
 
     console.log(data);
 
