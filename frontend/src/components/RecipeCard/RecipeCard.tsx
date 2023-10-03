@@ -18,8 +18,9 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
     const [isFavorite, setIsFavorite] = useState(false);
     const { data: session } = useSession();
     const { favorites, add, remove } = useFavoriteStore();
+
     useEffect(() => {
-        const fav = favorites.find((favorit: Recipe) => favorit.id == recipe.id);
+        const fav = favorites.find((favorit) => favorit.id === recipe.id);
         if (fav) setIsFavorite(true);
     }, [isFavorite, favorites, recipe]);
 

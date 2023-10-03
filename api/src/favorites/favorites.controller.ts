@@ -35,6 +35,7 @@ export class FavoritesController {
     async findAll(@Req() request: RequestWithUser) {
         const user = request.user as User;
 
-        return await this.favoritesService.findAll(user);
+        const recipes = this.favoritesService.findAllFavorites(user);
+        return recipes;
     }
 }
