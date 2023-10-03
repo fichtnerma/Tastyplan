@@ -106,6 +106,8 @@ export class RecipesService {
         },
     ) {
         const specialCharacter = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~'-]/g;
+        console.log('Recipe Id', recipe.id);
+
         await this.prismaService.recipe.upsert({
             where: { id: recipe.id },
             update: {},
@@ -214,6 +216,6 @@ export class RecipesService {
             ['omnivore', 'pescetarian', 'vegetarian', 'vegan'],
         );
 
-        return formOfDiet;
+        return formOfDiet.at(-1) || 'omnivore';
     }
 }

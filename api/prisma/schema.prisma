@@ -48,6 +48,7 @@ model Recipe {
 model IngredientWithAmount {
     id           Int         @id @default(autoincrement())
     unit         String?
+    condition    String?
     quantity     Float?
     ingredientId Int?
     ingredient   Ingredient? @relation(fields: [ingredientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
