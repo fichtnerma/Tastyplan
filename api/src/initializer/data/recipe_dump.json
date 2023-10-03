@@ -26,7 +26,7 @@
     ],
     "formOfDiet": "omnivore",
     "img": "EasyAuthenticMexicanRice.png",
-    "prepareTime": null
+    "prepareTime": ""
   },
   {
     "tags": ["mexican", "main dishes", "enchilada recipes", "chicken"],
@@ -319,7 +319,7 @@
     "tags": ["main dishes", "casserole recipes", "chicken", "rice"],
     "name": "Chicken Fajita Rice Casserole",
     "description": "This rice and chicken casserole is very easy to pull together and has a lot of flavor. Don't skip toasting the rice - it is an incredibly easy way to add just a hint of nuttiness and more depth of flavor. Top with shredded Cheddar cheese, sour cream, chopped tomatoes, or whatever topping you prefer.",
-    "cookingTime": null,
+    "cookingTime": "",
     "totalTime": "1 hrs 5 mins",
     "servings": "8",
     "ingredients": [
@@ -380,7 +380,7 @@
     ],
     "formOfDiet": "vegeterian",
     "img": "ChickenFajitaRiceCasserole.png",
-    "prepareTime": null
+    "prepareTime": ""
   },
   {
     "tags": ["everyday cooking"],
@@ -642,7 +642,7 @@
     "description": "These chicken tacos seasoned with lime, oregano, and garlic are flavorful and delicious. I was given this recipe by my mom when I went away to college, and it has become all of my friends' favorite dinner!",
     "cookingTime": "30 mins",
     "totalTime": "50 mins",
-    "servings": null,
+    "servings": "",
     "ingredients": [
       {
         "quantity": "1.5",
@@ -687,7 +687,7 @@
     "description": "These chicken tacos are perfect for those nights when you don't have a lot of time for dinner preparations. Feel free to add chili powder or paprika to the chicken if your family likes it.",
     "cookingTime": "15 mins",
     "totalTime": "30 mins",
-    "servings": null,
+    "servings": "",
     "ingredients": [
       {
         "quantity": "1",
@@ -1202,7 +1202,7 @@
     "tags": ["pasta and noodles", "pasta by shape recipes", "gnocchi recipes"],
     "name": "Gnocchi with Pomodoro Sauce",
     "description": "Fluffy potato dumplings sautéed for a crispy exterior and tender interior with a simple tomato sauce. I used the oil from the marinated mozzarella ball container for the sauce with great success.",
-    "cookingTime": null,
+    "cookingTime": "",
     "totalTime": "10 mins",
     "servings": "4",
     "ingredients": [
@@ -2763,7 +2763,7 @@
     "tags": ["appetizers and snacks", "pastries", "empanadas"],
     "name": "Empanada Dough",
     "description": "This basic empanada dough can be filled with any type of filling, then fried or baked.",
-    "cookingTime": null,
+    "cookingTime": "",
     "totalTime": "20 mins",
     "servings": "24",
     "ingredients": [
@@ -3700,7 +3700,7 @@
     ],
     "formOfDiet": "omnivore",
     "img": "YakiUdon.png",
-    "prepareTime": null
+    "prepareTime": ""
   },
   {
     "tags": ["cuisine", "asian", "vietnamese"],
@@ -5090,8 +5090,8 @@
     "tags": ["bread"],
     "name": "Empanadas",
     "description": "Better make plenty - these disappear fast. The unbaked dough may be frozen. The baked cookies may also be frozen.",
-    "cookingTime": null,
-    "totalTime": null,
+    "cookingTime": "",
+    "totalTime": "",
     "servings": "12",
     "ingredients": [
       { "quantity": "0.5", "unit": "cup", "name": "butter, softened" },
@@ -5121,7 +5121,7 @@
     ],
     "formOfDiet": "vegeterian",
     "img": "Empanadas.png",
-    "prepareTime": null
+    "prepareTime": ""
   },
   {
     "tags": ["cuisine", "european", "spanish"],
@@ -6645,7 +6645,7 @@
     ],
     "formOfDiet": "vegan",
     "img": "HabichuelasGuisadas.png",
-    "prepareTime": null
+    "prepareTime": ""
   },
   {
     "tags": ["appetizers and snacks", "wraps and rolls", "egg roll recipes"],

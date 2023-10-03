@@ -214,6 +214,6 @@ export class RecipesService {
             ['omnivore', 'pescetarian', 'vegetarian', 'vegan'],
         );
 
-        return formOfDiet;
+        return formOfDiet.at(-1) || 'omnivore';
     }
 }

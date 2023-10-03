@@ -5,6 +5,8 @@ export interface ISteps {
 
 export interface IngredientsWithAmount {
     amount: string;
+    condition: string;
+    unit: string;
     ingredient: string;
 }
 
