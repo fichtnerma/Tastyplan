@@ -4,7 +4,7 @@ import styles from '@styles/Legal.module.scss';
 
 function Privacy() {
     return (
-        <div className={`p-6 md:p-14 md:pt-24 lg:w-4/5 ${styles.privacy}`}>
+        <div className={`mainContainer ${styles.privacy}`}>
             <ReturnButton />
             <h1>Privacy Policy</h1>
             <p className="italic">Last updated on June 04, 2023</p>

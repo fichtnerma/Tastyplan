@@ -129,7 +129,7 @@ function ShoppingListPage() {
     };
 
     return (
-        <div className="p-6 md:p-14 md:pt-24 lg:max-w-[1920px]">
+        <div className="mainContainer">
             <h1 className="text-green-custom2">Your shopping list:</h1>
             <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="mb-14 md:mb-0">

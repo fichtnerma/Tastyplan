@@ -70,7 +70,7 @@ export default function WeekOverview() {
     return (
         <>
             {data && !error ? (
-                <div className={`w-full p-6 md:p-14 md:pt-24 ${styles.container}`}>
+                <div className={`mainContainer ${styles.container}`}>
                     <div className="sm:flex sm:justify-between">
                         <h1 className="">{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Weekplan</h1>
                         <div className="mt-4">
