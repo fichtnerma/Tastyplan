@@ -26,7 +26,7 @@
         "test:ci-gitlab": "jest --ci --reporters=default --reporters=jest-junit"
     },
     "dependencies": {
-        "@elastic/elasticsearch": "~7.12.0",
+        "@elastic/elasticsearch": "~7.17.0",
         "@nestjs/cache-manager": "^2.1.0",
         "@nestjs/common": "^9.0.0",
         "@nestjs/config": "^2.3.0",
