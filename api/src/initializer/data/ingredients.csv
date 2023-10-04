@@ -390,7 +390,7 @@ Venison;Meat and offal;Wild;122.0;22.4;3.6;0.0;25.0;3.0;20.0;
 Venison ragout;Meat and offal;Wild;105.0;22.0;1.9;0.0;3.7;2.7;20.0;
 Venison cutlet;Meat and offal;Wild;105.0;22.5;1.7;0.0;4.2;2.8;22.0;
 Grated cheese;Milk and dairy products;Hard cheese;406.0;29.3;32.1;0.0;1190.0;0.5;41.0;milk
-Rice;Cereal products, pulses and potatoes;Rice;350.0;7.4;2.8;71.4;11.0;1.1;120.0;
+Rice;Cereal products, pulses and potatoes;;;;;;;;;
 Rice drink;Milk substitutes;52.0;0.4;1.1;9.9;5.0;0.0;3.3;milk
 Radish;Vegetables;Vegetables fresh;18.0;0.6;0.3;2.6;20.0;0.8;7.0;
 Rhubarb;Fruits;Fruits fresh;22.0;0.8;0.2;1.5;130.0;0.3;14.0;
@@ -741,22 +741,19 @@ Ground beef;Meat and offal;Beef;;;;;;;;
 Raisins;Fruits;Fruits dried;;;;;;;;
 Steak seasoning;Spices;;;;;;;;;
 Long grain rice;Cereal products, pulses and potatoes;;;;;;;;;
-Yellow corn;Vegetables;;;;;;;;;
-Tomato,fire roasted;;;;;;;;;
+Yellow corn;Vegetables;;;;;;;;;;
 Quinoa,Cereal products, pulses and potatoes;;;;;;;;;
-Celery, sliced;Vegetables;;;;;;;;;
+Celery;Vegetables;;;;;;;;;
 Chicken Broth;Spices;;;;;;;;;
-Ancho chilly, dried;Spices;;;;;;;;;
-Lettuce, shredded;Vegetables;;;;;;;;;
-Shrimp, peeled and deveined;Fish;;;;;;;;;
-Pork loin, without bone;Meat and offal;;;;;;;;;
-Salad dressing, italian style;Fats and oils;;;;;;;;;
+Ancho chilly dried;Spices;;;;;;;;;
+Pork loin without bone;Meat and offal;;;;;;;;;
+Salad dressing italian style;Fats and oils;;;;;;;;;
 Rump roast;Meat and offal;;;;;;;;;
 Spaghetti;Cereal products, pulses and potatoes;;;;;;;;;
 Gnocchi, refrigerated;Cereal products, pulses and potatoes;;;;;;;;;
 Chicken sausage, italian style;Meat and offal;;;;;;;;;
 Yellow onion;Vegetables;;;;;;;;;
-Tomato, crushed;Vegetables;;;;;;;;;
+Tomato crushed;Vegetables;;;;;;;;;
 Pappardelle pasta;Cereal products, pulses and potatoes;;;;;;;;;
 Cornstarch;Cereal products, pulses and potatoes;;;;;;;;;
 Chicken, cubed;Meat and offal;;;;;;;;;
@@ -795,7 +792,7 @@ Mild paprika;Spices;;;;;;;;;
 Butter beans;Cereal products, pulses and potatoes;;;;;;;;;
 Chourico sausage;Meat and sausage products;;;;;;;;;
 Linguica sausage;Meat and sausage products;;;;;;;;;
-Italian seasoning;Cereal products, pulses and potatoes;;;;;;;;;
+Italian seasoning;Spices;;;;;;;;;
 Fava beans;Cereal products, pulses and potatoes;;;;;;;;;
 Baking powder;Cereal products, pulses and potatoes;;;;;;;;;
 Sumac powder;Spices;;;;;;;;;
@@ -834,122 +831,126 @@ Red chiles;Spices;;;;;;;;;
 Rice vermicelli;Cereal products, pulses and potatoes;;;;;;;;;
 Cucumber;Vegetables;;;;;;;;;
 Pickled cucumbers;Vegetables;;;;;;;;;
-
-
-Rice wrapper;;;;;;;;;; 
-Rice paper
-Thai basilikum
-Panko bread crumbs
-Yam
-Kaiser roll
-Potato salad
-Pimento pepper
-Collard greens
-Goat cheese
-White truffle oil
-Buffalo mozzarella
-Heirloom tomato
-Tortellini
-Split mung beans
-Monterey Jack cheese
-Tomato puree
-Fontina cheese
-Feta cheese
-Miso paste
-Soba noodles
-Sweet chili sauce
-Pico de gallo
-Sriracha chile sauce
-Caraway seed
-Colby cheese
-Heavy whipping cream
-Linguine pasta
-Cajun seasoning
-White cornmeal
-Hoagie rolls
-Enoa salami
-Deli hamrice papers
-Meatless ground beef substitute
-dry white wine
-Taco seasoning mix
-Vegan Cheddar cheese
-Hot Italian pork sausage
-Parmigiano-Reggiano cheese
-Marinara sauce
-Greek yogurt
-Poblano pepper
-Swiss cheese
-White beans
-Soy margarine
-Masala paste
-Tahini
-Monterey Jack cheese
-Sea bass fillets
-Sriracha sauce
-Italian sausage
-Cottage cheese
-Queso fresco
-Bok choy
-Chinese spice powder
-Cellophane noodles
-Hot pepper sauce
-Ranch dressing
-Hot dog bun
-Sport peppers
-Seitan
-Hot chili oil
-Shiitake mushrooms
-Provolone cheese
-Lemon grass
-Udon noodles
-Ramen nooodles
-Coriander seed
-Rice vinegar
-Fontina cheese
-Chile garlic sauce
-Ziti pasta
-Turkey cold cuts
-Garbanzo beans
-Pepitas
-Greek seasoning
-Artichoke hearts
-Deli turkey
-Garlic salt
-Maggie sauce
-Corn tortillas
-Mozzarella balls
-Ginger garlic paste
-Tandoori masala powder
-Chicken thighs
-Green cardamom pods
-Creme fraiche
-Cornstarch
-caraway seeds
-Fennel seeds
-Coriander seeds
-Rosemary
-Beef rump roast
-Lemon pepper
-Brown lentils
-Wooden skewers
-Kabob skewers
-Metal skewers
-Penne pasta
-Soup base
-Worcestershire sauce
-Beef rib eye steaks
-Sake
-Kimchi
-Bonito shavings
-Seaweed
-Lamb loin chops
-Rice vermicelli
-Hoisin sauce
-Romano cheese
-Lamb stew meat
-Beef stew meat
-Apricots
-Saffron threads
-Chuck roast
-Pork roast
-Recaito
+Rice wrapper;Miscellaneous;;;;;;;;; 
+Rice paper;Miscellaneous;;;;;;;;;
+Thai basilikum;Vegetables;;;;;;;;;
+Panko bread crumbs;Breads;;;;;;;;;
+Yam;Cereal products, pulses and potatoes;;;;;;;;;
+Kaiser roll;Cereal products, pulses and potatoes;;;;;;;;;
+Potato salad;Courts;;;;;;;;;
+Pimento pepper;Spices;;;;;;;;;
+Collard greens;Vegetables;;;;;;;;;
+Goat cheese;Milk and dairy products;;;;;;;;;
+White truffle oil;Fats and oils;;;;;;;;;
+Buffalo mozzarella;Milk and dairy products;;;;;;;;;
+Heirloom tomato;Vegtables;;;;;;;;;
+Tortellini;Cereal products, pulses and potatoes;;;;;;;;;
+Split mung beans;Cereal products, pulses and potatoes;;;;;;;;;
+Monterey Jack cheese;Milk and dairy products;;;;;;;;;
+Tomato puree;Vegetables;;;;;;;;;
+Fontina cheese;Milk and dairy products;;;;;;;;;
+Feta cheese;Milk and dairy products;;;;;;;;;
+Miso paste;Spices;;;;;;;;;
+Soba noodles;Cereal products, pulses and potatoes;;;;;;;;;
+Sweet chili sauce;Spices;;;;;;;;;
+Pico de gallo;Courts;;;;;;;;;
+Sriracha chile sauce;Spices;;;;;;;;;
+Caraway seed;Spices;;;;;;;;;
+Colby cheese;Milk and dairy products;;;;;;;;;
+Heavy whipping cream;Milk and dairy products;;;;;;;;;
+Linguine pasta;Cereal products, pulses and potatoes;;;;;;;;;
+Cajun seasoning;Spices;;;;;;;;;
+White cornmeal;Cereal products, pulses and potatoes;;;;;;;;;
+Hoagie rolls;Courts;;;;;;;;;
+Enoa salami;Meat and sausage products;;;;;;;;;
+Deli hamrice papers;Miscellaneous;;;;;;;;;
+Meatless ground beef substitute;Meat substitutes;;;;;;;;;
+White wine;Alcoholic drinks;;;;;;;;;
+Taco seasoning mix;Spices;;;;;;;;;
+Vegan Cheddar cheese;Milk substitutes;;;;;;;;;
+Hot Italian pork sausage;Meat and sausage products;;;;;;;;;
+Parmigiano-Reggiano cheese;Milk and dairy products;;;;;;;;;
+Marinara sauce;Courts;;;;;;;;;
+Greek yogurt;Milk and dairy products;;;;;;;;;
+Poblano pepper;Spices;;;;;;;;;
+Swiss cheese;Milk and dairy products;;;;;;;;;
+White beans;Cereal products, pulses and potatoes;;;;;;;;;
+Soy margarine;Milk substitutes;;;;;;;;;
+Masala paste;Spices;;;;;;;;;
+Tahini;Spices;;;;;;;;;
+Monterey Jack cheese;Milk and dairy products;;;;;;;;;
+Sea bass fillets;Fish;;;;;;;;;
+Sriracha sauce;Spices;;;;;;;;;
+Italian sausage;Meat and sausage products;;;;;;;;;
+Cottage cheese;Milk and dairy products;;;;;;;;;
+Queso fresco;Milk and dairy products;;;;;;;;;
+Bok choy;Vegtables;;;;;;;;;
+Chinese spice powder;Spices;;;;;;;;;
+Cellophane noodles;Cereal products, pulses and potatoes;;;;;;;;;
+Hot pepper sauce;Spices;;;;;;;;;
+Ranch dressing;Spices;;;;;;;;;
+Hot dog bun;Breads;;;;;;;;;
+Sport peppers;Vegtables;;;;;;;;;
+Seitan;Meat substitutes;;;;;;;;;
+Hot chili oil;Fats and oils;;;;;;;;;
+Shiitake mushrooms;Vegetables;;;;;;;;;
+Provolone cheese;Milk and dairy products;;;;;;;;;
+Lemon grass;Vegetables;;;;;;;;;
+Udon noodles;Cereal products, pulses and potatoes;;;;;;;;;
+Ramen nooodles;Cereal products, pulses and potatoes;;;;;;;;;
+Coriander seed;Spices;;;;;;;;;
+Rice vinegar;Miscellaneous;;;;;;;;;
+Fontina cheese;Milk and dairy products;;;;;;;;;
+Chile garlic sauce;Courts;;;;;;;;;
+Ziti pasta;Spices;;;;;;;;;
+Turkey cold cuts;Meat and sausage products;;;;;;;;;
+Garbanzo beans;Cereal products, pulses and potatoes;;;;;;;;;
+Pepitas;Nuts, seeds and oil fruits;;;;;;;;;
+Greek seasoning;Spices;;;;;;;;;
+Artichoke hearts;Vegtables;;;;;;;;;
+Deli turkey;Meat and sausage products;;;;;;;;;
+Garlic salt;Spices;;;;;;;;;
+Maggie sauce;Spices;;;;;;;;;
+Corn tortillas;Cereal products, pulses and potatoes;;;;;;;;;
+Mozzarella balls;Milk and dairy products;;;;;;;;;
+Ginger garlic paste;Spices;;;;;;;;;
+Tandoori masala powder;Spices;;;;;;;;;
+Chicken thighs;Meat and offal;;;;;;;;;
+Green cardamom pods;Nuts, seeds and oil fruits;;;;;;;;;
+Creme fraiche;Milk and dairy products;;;;;;;;;
+Cornstarch;Cereal products, pulses and potatoes;;;;;;;;;
+Caraway seeds;Nuts, seeds and oil fruits;;;;;;;;;
+Fennel seeds;Nuts, seeds and oil fruits;;;;;;;;;
+Coriander seeds;Nuts, seeds and oil fruits;;;;;;;;;
+Rosemary;Spices;;;;;;;;;
+Beef rump;Meat and offal;;;;;;;;;
+Lemon pepper;Spices;;;;;;;;;
+Brown lentils;Cereal products, pulses and potatoes;;;;;;;;;
+Wooden skewers;Miscellaneous;;;;;;;;;
+Kabob skewers;Miscellaneous;;;;;;;;;
+Metal skewers;Miscellaneous;;;;;;;;;
+Penne pasta;Cereal products, pulses and potatoes;;;;;;;;;
+Soup base;Miscellaneous;;;;;;;;;
+Worcestershire sauce;Spices;;;;;;;;;
+Beef rib eye steaks;Meat and offal;;;;;;;;;
+Sake;Alcoholic drinks;;;;;;;;;
+Kimchi;Courts;;;;;;;;;
+Bonito shavings;Fish;;;;;;;;;
+Seaweed;Miscellaneous;;;;;;;;;
+Lamb loin chops;Meat and offal;;;;;;;;;
+Rice vermicelli;Cereal products, pulses and potatoes;;;;;;;;;
+Hoisin sauce;Spices;;;;;;;;;
+Romano cheese;Milk and dairy products;;;;;;;;;
+Lamb stew meat;Meat and sausage products;;;;;;;;;
+Beef stew meat;Meat and sausage products;;;;;;;;;
+Apricots;Fruits;;;;;;;;;
+Saffron threads;Spices;;;;;;;;;
+Chuck roast;Meat and sausage products;;;;;;;;;
+Pork roast;Meat and sausage products;;;;;;;;;
+Recaito;Spices;;;;;;;;;
+Silken tofu;Meat substitutes;;;;;;;;;
+Chipotle peppers;Spices;;;;;;;;;
+Sausage;Meat and sausage products;;;;;;;;;
+Dangmyun noodles;Cereal products, pulses and potatoes;;;;;;;;;
+Heirloom tomato;Vegtables;;;;;;;;;
+Potatoes;Cereal products, pulses and potatoes;;;;;;;;;
