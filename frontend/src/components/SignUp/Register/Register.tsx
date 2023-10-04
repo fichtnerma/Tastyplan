@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import TextInput from '@components/FormInputs/TextInput';
@@ -14,6 +14,8 @@ interface RegisterProps {
 }
 
 export default function Register({ visible, onSkipRegistration }: RegisterProps) {
+    const router = useRouter();
+
     const [mail, setMail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -41,7 +43,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
         );
 
         if (response.ok) {
-            router.push(`${router.basePath}/authentication/login`, undefined, undefined);
+            router.push(`/authentication/login`, undefined);
         }
     };
 
