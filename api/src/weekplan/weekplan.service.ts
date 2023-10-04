@@ -15,11 +15,11 @@ export class WeekplanService {
         private shoppingListService: ShoppingListService,
     ) {}
 
-    async get(user: User) {
+    async get(userId: string) {
         try {
             const weekplans = await this.prismaService.weekplan.findMany({
                 where: {
-                    userId: user.userId,
+                    userId: userId,
                 },
                 include: {
                     weekplanEntry: {
@@ -65,12 +65,12 @@ export class WeekplanService {
         return formattedWeekPlan;
     }
 
-    async create(user: User) {
+    async create(userId: string) {
         const week = [0, 1, 2, 3, 4, 5, 6];
 
         //Delete existing weekplan
         try {
-            const existingWeekplan = await this.queryExistingWeekplan(user.userId);
+            const existingWeekplan = await this.queryExistingWeekplan(userId);
             if (existingWeekplan) {
                 await this.prismaService.weekplanEntry.deleteMany({
                     where: { weekplanId: existingWeekplan.id },
@@ -86,23 +86,15 @@ export class WeekplanService {
         }
 
         try {
-            let fetchedMeals = await this.recipeService.filterByPreferences(user.id);
-
-            if (fetchedMeals.length < 7) {
-                fetchedMeals = [
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                ];
+            const fetchedMealsAndWeekplanPreferences = await this.recipeService.filterByPreferences(userId);
+            let fetchedMeals = fetchedMealsAndWeekplanPreferences.recipes;
+            if (fetchedMeals.length < 14) {
+                fetchedMeals = [...fetchedMeals, ...fetchedMeals];
             }
             const shuffeledMeals = shuffleArray(fetchedMeals);
             const weekPlan = await this.prismaService.weekplan.create({
                 data: {
-                    userId: user.userId,
+                    userId: userId,
                     startDate: new Date(),
                     endDate: new Date(new Date().setDate(new Date().getDate() + 6)),
                     weekplanEntry: {
@@ -125,7 +117,7 @@ export class WeekplanService {
 
             const weekplanRecipeIds = weekPlan.weekplanEntry.map((entry) => entry.recipeId);
 
-            this.shoppingListService.create(weekplanRecipeIds, user.userId);
+            this.shoppingListService.create(weekplanRecipeIds, userId);
 
             return this.formatWeekPlan(weekPlan);
         } catch (error) {

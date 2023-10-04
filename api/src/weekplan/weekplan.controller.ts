@@ -25,16 +25,16 @@ export class WeekplanController {
     @Get('/current')
     findOne(@Req() request: RequestWithUser) {
         const user = request.user as User;
-        return this.weekplanService.get(user);
+        return this.weekplanService.get(user.userId);
     }
 
-    @UseGuards(JwtAuthGuard)
+    /* @UseGuards(JwtAuthGuard)
     @ApiSecurity('access-key')
-    @UseInterceptors(ClassSerializerInterceptor)
+    @UseInterceptors(ClassSerializerInterceptor) */
     @Post('/create')
     create(@Req() request: RequestWithUser) {
         const user = request.user as User;
-        return this.weekplanService.create(user);
+        return this.weekplanService.create(user.userId);
     }
 
     @UseGuards(JwtAuthGuard)

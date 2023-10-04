@@ -1,14 +1,13 @@
 import { UserState } from 'src/types/types';
 import { PreferencesDto } from './dto/createPreferences.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class PreferencesService {
     constructor(private prismaService: PrismaService) {}
 
-    async setPreferences(createPreferencesDto: PreferencesDto, user: User) {
+    async setPreferences(createPreferencesDto: PreferencesDto, userId: string) {
         try {
             const ingredientNames = createPreferencesDto.foodDislikes;
             const CheckIngredientsPromise = ingredientNames.map(async (item) => {
@@ -22,29 +21,29 @@ export class PreferencesService {
             const ingredientIds = await Promise.all(CheckIngredientsPromise);
             await this.prismaService.preferences.upsert({
                 where: {
-                    userId: user.userId,
+                    userId: userId,
                 },
                 update: {
                     formOfDiet: createPreferencesDto.formOfDiet,
                     allergens: [...createPreferencesDto.allergens],
                     foodDislikes: { connect: [...ingredientIds] },
                     days: [...createPreferencesDto.days],
-                    meals: [...createPreferencesDto.days],
+                    meals: [...createPreferencesDto.meals],
                     servings: createPreferencesDto.servings,
                 },
                 create: {
-                    userId: user.userId,
+                    userId: userId,
                     formOfDiet: createPreferencesDto.formOfDiet,
                     allergens: [...createPreferencesDto.allergens],
                     foodDislikes: { connect: [...ingredientIds] },
                     days: [...createPreferencesDto.days],
-                    meals: [...createPreferencesDto.days],
+                    meals: [...createPreferencesDto.meals],
                     servings: createPreferencesDto.servings,
                 },
             });
             await this.prismaService.user.update({
                 where: {
-                    userId: user.userId,
+                    userId: userId,
                 },
                 data: {
                     state: UserState.finished,
@@ -67,7 +66,7 @@ export class PreferencesService {
                     allergens: true,
                     servings: true,
                     days: true,
-
+                    meals: true,
                     foodDislikes: {
                         select: {
                             id: true,

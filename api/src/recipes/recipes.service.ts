@@ -89,9 +89,8 @@ export class RecipesService {
             ['omnivore', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
         ]);
         const preferences = await this.preferencesService.getPreferences(userId);
-        const { formOfDiet, allergens } = preferences;
+        const { formOfDiet, allergens, days, meals } = preferences;
         const dislikedIngredients = preferences.foodDislikes.map((item: Ingredient) => item.id);
-
         try {
             const recipes = await this.prismaService.recipe.findMany({
                 where: {
@@ -119,7 +118,7 @@ export class RecipesService {
             });
             console.log('Recipes', recipes);
 
-            return recipes;
+            return { recipes: recipes, days: days, meals: meals };
         } catch (error) {
             throw new InternalServerErrorException('Error: Filter recipes by preferences failed');
         }
