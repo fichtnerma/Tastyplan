@@ -8,7 +8,7 @@ import { HttpException, HttpStatus, Injectable, InternalServerErrorException } f
 export class PreferencesService {
     constructor(private prismaService: PrismaService) {}
 
-    async setPreferences(createPreferencesDto: PreferencesDto, user: { userId: string }) {
+    async setPreferences(createPreferencesDto: PreferencesDto, user: User) {
         try {
             const ingredientNames = createPreferencesDto.foodDislikes;
             const CheckIngredientsPromise = ingredientNames.map(async (item) => {
@@ -19,8 +19,7 @@ export class PreferencesService {
                 });
                 return { id: ingredient.id };
             });
-
-            const ingredientsIds = await Promise.all(CheckIngredientsPromise);
+            const ingredientIds = await Promise.all(CheckIngredientsPromise);
             await this.prismaService.preferences.upsert({
                 where: {
                     userId: user.userId,
@@ -28,19 +27,19 @@ export class PreferencesService {
                 update: {
                     formOfDiet: createPreferencesDto.formOfDiet,
                     allergens: [...createPreferencesDto.allergens],
-                    foodDislikes: { connect: [...ingredientsIds] },
+                    foodDislikes: { connect: [...ingredientIds] },
                     days: [...createPreferencesDto.days],
                     meals: [...createPreferencesDto.days],
-                    serving: createPreferencesDto.servings,
+                    servings: createPreferencesDto.servings,
                 },
                 create: {
                     userId: user.userId,
                     formOfDiet: createPreferencesDto.formOfDiet,
                     allergens: [...createPreferencesDto.allergens],
-                    foodDislikes: { connect: [...ingredientsIds] },
+                    foodDislikes: { connect: [...ingredientIds] },
                     days: [...createPreferencesDto.days],
                     meals: [...createPreferencesDto.days],
-                    serving: createPreferencesDto.servings,
+                    servings: createPreferencesDto.servings,
                 },
             });
             await this.prismaService.user.update({
@@ -77,7 +76,7 @@ export class PreferencesService {
                     },
                 },
             });
-
+            console.log(preferences);
             return preferences;
         } catch (error) {
             throw new InternalServerErrorException('Error: Getting the preferences failed');
