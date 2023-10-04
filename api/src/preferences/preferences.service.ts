@@ -76,7 +76,6 @@ export class PreferencesService {
                     },
                 },
             });
-            console.log(preferences);
             return preferences;
         } catch (error) {
             throw new InternalServerErrorException('Error: Getting the preferences failed');
