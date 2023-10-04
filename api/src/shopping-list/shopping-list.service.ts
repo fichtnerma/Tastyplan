@@ -2,14 +2,14 @@ import { CategorizedShoppingListMap, IngredientMap } from 'src/types/types';
 import { UpdateShoppingListDto } from './dto/update-shopping-list.dto';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { ShoppingListEntry, User } from '@prisma/client';
+import { ShoppingListEntry } from '@prisma/client';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class ShoppingListService {
     constructor(private recipesService: RecipesService, private prismaService: PrismaService) {}
 
-    async create(recipeIds: number[], user: User) {
+    async create(recipeIds: number[], userId: string) {
         const recipeIngredients = await Promise.all(
             recipeIds.map(async (id) => {
                 const recipe = await this.recipesService.findById(id);
@@ -32,7 +32,7 @@ export class ShoppingListService {
 
         //Deletes existing shoppingList to make sure there is only one per user
         try {
-            const existingShoppingList = await this.queryExistingShoppingList(user.userId);
+            const existingShoppingList = await this.queryExistingShoppingList(userId);
 
             if (existingShoppingList) {
                 await this.prismaService.shoppingListEntry.deleteMany({
@@ -51,7 +51,7 @@ export class ShoppingListService {
         try {
             await this.prismaService.shoppingList.create({
                 data: {
-                    userId: user.userId,
+                    userId: userId,
                     shoppingListEntries: {
                         create: summurizedIngredients.map((entry) => {
                             return {

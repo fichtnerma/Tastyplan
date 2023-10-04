@@ -86,8 +86,7 @@ export class WeekplanService {
         }
 
         try {
-            let fetchedMeals = await this.recipeService.filterByPreferences(user);
-            console.log(fetchedMeals);
+            let fetchedMeals = await this.recipeService.filterByPreferences(user.id);
 
             if (fetchedMeals.length < 7) {
                 fetchedMeals = [
@@ -126,7 +125,7 @@ export class WeekplanService {
 
             const weekplanRecipeIds = weekPlan.weekplanEntry.map((entry) => entry.recipeId);
 
-            this.shoppingListService.create(weekplanRecipeIds, user);
+            this.shoppingListService.create(weekplanRecipeIds, user.userId);
 
             return this.formatWeekPlan(weekPlan);
         } catch (error) {

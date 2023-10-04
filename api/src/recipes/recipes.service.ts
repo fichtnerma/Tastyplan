@@ -80,7 +80,7 @@ export class RecipesService {
         await this.cache.set('recipes', recipesFormatted, 0);
     }
 
-    async filterByPreferences(user: User) {
+    async filterByPreferences(userId: string) {
         const possibleDietsMap = new Map([
             ['vegan', ['vegan']],
             ['vegetarian', ['vegan', 'vegetarian']],
@@ -88,7 +88,7 @@ export class RecipesService {
             ['flexitarian', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
             ['omnivore', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
         ]);
-        const preferences = await this.preferencesService.getPreferences(user);
+        const preferences = await this.preferencesService.getPreferences(userId);
         const { formOfDiet, allergens } = preferences;
         const dislikedIngredients = preferences.foodDislikes.map((item: Ingredient) => item.id);
 
@@ -250,7 +250,7 @@ export class RecipesService {
 
     async getRecommendations(k: number, user: User) {
         try {
-            let fetchedMeals = await this.filterByPreferences(user);
+            let fetchedMeals = await this.filterByPreferences(user.userId);
 
             if (fetchedMeals.length < k) {
                 fetchedMeals = [

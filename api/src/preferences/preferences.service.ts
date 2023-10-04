@@ -56,11 +56,11 @@ export class PreferencesService {
         }
     }
 
-    async getPreferences(user: User) {
+    async getPreferences(userId: string) {
         try {
             const preferences = await this.prismaService.preferences.findUnique({
                 where: {
-                    userId: user.userId,
+                    userId: userId,
                 },
                 select: {
                     formOfDiet: true,
