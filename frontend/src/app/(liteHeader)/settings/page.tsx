@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 function Settings() {
     return (
-        <div className="p-6 md:p-14 md:pt-24">
+        <div className="mainContainer">
             <h1>Settings</h1>
             <div className="block md:hidden">
                 <div className="mb-10">

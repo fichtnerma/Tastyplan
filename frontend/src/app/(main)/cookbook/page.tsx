@@ -14,12 +14,20 @@ function Cookbook() {
 
     return (
         <>
-            <div className="p-6 md:p-14 md:pt-24 lg:max-w-[1920px]">
+            <div className="mainContainer">
                 <h1>{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Cookbook</h1>
                 {!error && data ? (
                     <div className="flex gap-12 flex-wrap">
                         {favorites.map((favorite: Recipe) => {
-                            return <RecipeCard key={favorite.id} recipe={favorite} highlighted={false} />;
+                            return (
+                                <RecipeCard
+                                    key={favorite.id}
+                                    recipe={favorite}
+                                    highlighted={false}
+                                    withSwitch={false}
+                                    smallCard={false}
+                                />
+                            );
                         })}
                     </div>
                 ) : (

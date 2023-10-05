@@ -1,12 +1,10 @@
 'use client';
 import React from 'react';
 import { useSession } from 'next-auth/react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import 'swiper/swiper-bundle.css';
-import { Mousewheel, Navigation, Scrollbar } from 'swiper';
 import RecipeCard from '@components/RecipeCard/RecipeCard';
 import { fetchWithAuth } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
@@ -17,29 +15,6 @@ type DateFormatOptions = {
     year: '2-digit' | 'numeric';
     month: '2-digit' | 'numeric' | 'narrow' | 'short' | 'long';
     day: '2-digit' | 'numeric';
-};
-
-const swiperBreakpoints = {
-    400: {
-        slidesPerView: 3,
-        spaceBetween: 10,
-    },
-    780: {
-        slidesPerView: 4,
-        spaceBetween: 10,
-    },
-    1000: {
-        slidesPerView: 5,
-        spaceBetween: 10,
-    },
-    1250: {
-        slidesPerView: 6,
-        spaceBetween: 10,
-    },
-    1500: {
-        slidesPerView: 7,
-        spaceBetween: 10,
-    },
 };
 
 export default function WeekOverview() {
@@ -71,7 +46,7 @@ export default function WeekOverview() {
             <>
                 <div className="sm:mb-5">
                     <h3
-                        className="h2 !mb-0 !leading-none"
+                        className="h3 !mb-0 !leading-none"
                         style={{
                             color: today == new Date(day.date).getDay() ? 'var(--green-dark)' : 'var(--black)',
                         }}
@@ -79,7 +54,7 @@ export default function WeekOverview() {
                         {week[new Date(day.date).getDay()]}
                     </h3>
                     <h4
-                        className="h5 !mb-0"
+                        className="h6 !mb-0"
                         style={{
                             color: today == new Date(day.date).getDay() ? 'var(--green-dark)' : 'var(--gray-3)',
                         }}
@@ -87,15 +62,14 @@ export default function WeekOverview() {
                         {new Date(day.date).toLocaleDateString('de-DE', options)}
                     </h4>
                 </div>
-                {/* <div
-                    className="flex justify-end w-[260px] h-2"
-                    style={{
-                        color: today == new Date(day.date).getDay() ? 'var(--green-dark)' : 'var(--black)',
-                    }}
-                >
-                    <Icon size={40} icon="threeDots"></Icon>
-                </div> */}
-                <RecipeCard recipe={day.recipe} highlighted={today == new Date(day.date).getDay()} />
+                <RecipeCard
+                    recipe={day.recipe}
+                    highlighted={today == new Date(day.date).getDay()}
+                    withSwitch={true}
+                    smallCard={false}
+                    entryId={day.id}
+                    refreshWeekplan={refresh}
+                />
             </>
         );
     }
@@ -103,16 +77,16 @@ export default function WeekOverview() {
     return (
         <>
             {data && !error ? (
-                <div className={`w-full p-6 md:p-14 md:pt-24 ${styles.container}`}>
-                    <div className="sm:flex sm:justify-between">
+                <div className={`mainContainer ${styles.container}`}>
+                    <div className="flex justify-between">
                         <h1 className="">{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Weekplan</h1>
-                        <div className="mt-4">
+                        <div className="sm:mt-4">
                             <button
                                 className="btn-primary rounded-full btn-small"
                                 data-cy="start-planning-btn"
                                 onClick={generateNewWeek}
                             >
-                                <span className="text-white-custom">Generate New Plan</span>
+                                <span className="text-white-custom">Generate new Plan</span>
                             </button>
                         </div>
                     </div>
@@ -127,30 +101,20 @@ export default function WeekOverview() {
                         </div>
                         {/* Destkop */}
                         <h2 className="h1 hidden sm:block">Lunch</h2>
-                        <Swiper
-                            slidesPerView={1}
-                            spaceBetween={10}
-                            scrollbar={{
-                                draggable: true,
-                            }}
-                            loop={false}
-                            mousewheel={{
-                                forceToAxis: true,
-                            }}
-                            breakpoints={swiperBreakpoints}
-                            modules={[Navigation, Scrollbar, Mousewheel]}
-                            className={styles.mySwiper}
-                        >
+
+                        <div className="hidden sm:flex overflow-y-hidden scrollable-element">
                             {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
-                                <SwiperSlide key={day.date}>
-                                    <div className="mr-12">{showWeekplan(day)}</div>
-                                </SwiperSlide>
+                                <div className="mr-6 mb-2" key={day.date}>
+                                    {showWeekplan(day)}
+                                </div>
                             ))}
-                        </Swiper>
+                        </div>
                     </div>
                 </div>
             ) : (
-                <div>loading</div>
+                <div className="mainContainer">
+                    <p>loading</p>
+                </div>
             )}
         </>
     );

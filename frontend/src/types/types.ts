@@ -61,6 +61,7 @@ export type Weekplan = {
 };
 
 export type WeekplanEntry = {
+    id: string;
     date: string;
     recipe: Recipe;
 };

@@ -19,7 +19,7 @@ export default async function DetailRecipe({ params: { id } }: { params: { id: s
     ];
 
     return (
-        <div className="max-w-[1920px] p-6 md:p-14 md:pt-24 lg:mx-auto">
+        <div className="mainContainer">
             <div className="flex mb-4 px-6 lg:px-0 lg:pr-6">
                 <h1 className="h2 w-3/4 text-green-custom2 !mb-0">{recipe?.name}</h1>
                 <FavoriteButton recipe={recipe} />

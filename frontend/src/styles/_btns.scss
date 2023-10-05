@@ -1,5 +1,5 @@
 $btn-font-size: clamp(1rem, 2vw, 1.2rem);
-$btn-font-size-small: clamp(0.8rem, 1.5vw, 1rem);
+$btn-font-size-small: clamp(0.6rem, 1.2vw, 0.8rem);
 $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
 
 .btn {
@@ -77,4 +77,5 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
 
 .btn-small {
     font-size: $btn-font-size-small;
+    @apply px-4;
 }

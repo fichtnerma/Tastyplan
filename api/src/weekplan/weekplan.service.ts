@@ -1,7 +1,9 @@
 import { IFormattedWeekplan, IWeekplan, IWeekplanEntry } from './weekplan.interface';
+import { ChangeRecipeDto } from './dto/change-recipe.dto';
 import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { shuffleArray } from 'src/helpers/converter.utils';
 import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 
@@ -45,17 +47,21 @@ export class WeekplanService {
             startDate: weekplan.startDate,
             endDate: weekplan.endDate,
             weekplanEntry: weekplan.weekplanEntry.map((entry: IWeekplanEntry) => ({
+                id: entry.id,
                 date: entry.date,
-                recipe: {
-                    id: entry.recipe.id,
-                    name: entry.recipe.name,
-                    img: entry.recipe.img,
-                    preparingTime: entry.recipe.preparingTime,
-                    cookingTime: entry.recipe.cookingTime,
-                    formOfDiet: entry.recipe.formOfDiet,
-                },
+                recipe: entry.recipe
+                    ? {
+                          id: entry.recipe.id,
+                          name: entry.recipe.name,
+                          img: entry.recipe.img,
+                          preparingTime: entry.recipe.preparingTime,
+                          cookingTime: entry.recipe.cookingTime,
+                          formOfDiet: entry.recipe.formOfDiet,
+                      }
+                    : null,
             })),
         };
+        formattedWeekPlan.weekplanEntry = formattedWeekPlan.weekplanEntry.sort((a, b) => a.id - b.id);
         return formattedWeekPlan;
     }
 
@@ -94,7 +100,7 @@ export class WeekplanService {
                     ...fetchedMeals,
                 ];
             }
-            const shuffeledMeals = this.shuffleArray(fetchedMeals);
+            const shuffeledMeals = shuffleArray(fetchedMeals);
             const weekPlan = await this.prismaService.weekplan.create({
                 data: {
                     userId: user.userId,
@@ -128,19 +134,6 @@ export class WeekplanService {
         }
     }
 
-    shuffleArray(array: { id: number }[]) {
-        let currentIndex = array.length,
-            randomIndex;
-
-        while (currentIndex != 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex--;
-
-            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-        }
-        return array;
-    }
-
     async queryExistingWeekplan(userId: string) {
         const weekplan = await this.prismaService.weekplan.findFirst({
             where: {
@@ -149,5 +142,31 @@ export class WeekplanService {
             include: { weekplanEntry: true },
         });
         return weekplan;
+    }
+
+    async changeRecipe(changeRecipeReq: ChangeRecipeDto, user: User) {
+        try {
+            const weekplanEntry = await this.prismaService.weekplanEntry.findFirst({
+                where: { id: +changeRecipeReq.weekplanEntry, weekplan: { userId: user.userId } },
+                include: { weekplan: true },
+            });
+
+            if (!weekplanEntry) {
+                throw new InternalServerErrorException('Error: Failed to change Recipe no weekplanEntry');
+            }
+            if (changeRecipeReq.id) {
+                await this.prismaService.weekplanEntry.update({
+                    where: { id: +changeRecipeReq.weekplanEntry },
+                    data: { recipeId: +changeRecipeReq.id },
+                });
+            } else {
+                await this.prismaService.weekplanEntry.update({
+                    where: { id: +changeRecipeReq.weekplanEntry },
+                    data: { recipe: { disconnect: true } },
+                });
+            }
+        } catch (error) {
+            throw new InternalServerErrorException('Error: Failed to change Recipe for given user');
+        }
     }
 }

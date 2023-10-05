@@ -8,7 +8,7 @@ export default function Footer() {
         <>
             <div className={`w-full ${styles.container}`}>
                 <div className="h-[10vh]"></div>
-                <div className="hidden md:block">
+                <div className="hidden md:block ">
                     <div className={styles.shape}>
                         <svg
                             data-name="Layer 1"
@@ -23,36 +23,38 @@ export default function Footer() {
                         </svg>
                     </div>
                     <div
-                        className={`flex pb-10 ${styles.footerContainer}`}
+                        className={`flex pb-10 ${styles.footerContainer} `}
                         style={{ backgroundColor: 'var(--green-light)' }}
                     >
-                        <div className="flex gap-10 pt-5">
-                            <div>
-                                <h4>HELP</h4>
-                                <Link className="p" href="/company/questions">
-                                    Q&A
+                        <div className="flex container relative mx-auto">
+                            <div className="flex gap-10 pt-5">
+                                <div>
+                                    <h4>HELP</h4>
+                                    <Link className="p" href="/company/questions">
+                                        Q&A
+                                    </Link>
+                                </div>
+                                <div>
+                                    <h4>Company</h4>
+                                    <Link className="p" href="/company/aboutUs">
+                                        About us
+                                    </Link>
+                                </div>
+                                <div className="flex flex-col">
+                                    <h4>Legal</h4>
+                                    <Link className="p" href="/legal/privacy">
+                                        Privacy Policy
+                                    </Link>
+                                    <Link className="p" href="/legal/impressum">
+                                        Imprint
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="right-14 absolute mt-16">
+                                <Link className="block" href="/weekOverview">
+                                    <Image src={'/logo.svg'} alt="Calendar Img" width={150} height={150} priority />
                                 </Link>
                             </div>
-                            <div>
-                                <h4>Company</h4>
-                                <Link className="p" href="/company/aboutUs">
-                                    About us
-                                </Link>
-                            </div>
-                            <div className="flex flex-col">
-                                <h4>Legal</h4>
-                                <Link className="p" href="/legal/privacy">
-                                    Privacy Policy
-                                </Link>
-                                <Link className="p" href="/legal/impressum">
-                                    Imprint
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="right-14 absolute mt-16">
-                            <Link className="block" href="/weekOverview">
-                                <Image src={'/logo.svg'} alt="Calendar Img" width={150} height={150} priority />
-                            </Link>
                         </div>
                     </div>
                 </div>

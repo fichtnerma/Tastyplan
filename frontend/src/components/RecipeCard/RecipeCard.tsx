@@ -1,23 +1,40 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
-import { getFormOfDietIcon } from '@helpers/utils';
+import ChangeRecipeModal from '@components/ChangeRecipeModal/ChangeRecipeModal';
 import { useFavoriteStore } from '@hooks/useFavorites';
 import { Recipe } from 'src/types/types';
 import styles from './RecipeCard.module.scss';
+import CardContent from './CardContent';
 
 type RecipeCardProps = {
     recipe: Recipe;
-    highlighted: boolean;
+    highlighted?: boolean;
+    withSwitch?: boolean;
+    smallCard?: boolean;
+    switchRecipe?: () => void;
+    entryId?: string;
+    refreshWeekplan?: () => void;
 };
 
-function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
+function RecipeCard({
+    recipe,
+    highlighted = false,
+    withSwitch = false,
+    smallCard = false,
+    switchRecipe,
+    entryId,
+    refreshWeekplan,
+}: RecipeCardProps) {
     const [isFavorite, setIsFavorite] = useState(false);
+    const [isOpened, setIsOpened] = useState(false);
     const { data: session } = useSession();
     const { favorites, add, remove } = useFavoriteStore();
+
+    const smallCardSize = 'md:!h-[225px] md:!w-[150px] bg-green-custom_super_light';
+    const mediumCardSize = 'md:!h-[300px] md:!w-[200px] bg-white-custom';
 
     useEffect(() => {
         const fav = favorites.find((favorit) => favorit.id === recipe.id);
@@ -33,118 +50,69 @@ function RecipeCard({ recipe, highlighted }: RecipeCardProps) {
         setIsFavorite((isFavorite) => !isFavorite);
     };
 
-    const totalTime = recipe.cookingTime
-        ? recipe.preparingTime
-            ? recipe.cookingTime + recipe.preparingTime
-            : recipe.cookingTime
-        : recipe.preparingTime
-        ? recipe.preparingTime
-        : 0;
+    const openModal = () => {
+        setIsOpened(!isOpened);
+    };
 
     return (
         <>
-            <div className={styles.wrapperContainer}>
+            {recipe ? (
                 <div
-                    className={`justify-end flex p-2 ${styles.heartIcon}`}
-                    style={{
-                        color: highlighted ? 'var(--white)' : 'var(--green-dark)',
-                        fill: isFavorite ? (highlighted ? 'var(--white)' : 'var(--green-dark)') : 'none',
-                    }}
-                    onClick={() => handleFavorite()}
+                    className={`${styles.wrapperContainer} ${
+                        smallCard ? smallCardSize : mediumCardSize
+                    } rounded-custom_s relative w-full h-[225px] sm:h-[160px]`}
                 >
-                    <Icon size={30} icon="heart"></Icon>
-                </div>
-                <Link className="block h-full" href={`/recipe/${recipe.id}`}>
-                    <div className="absolute w-full h-full rounded-[20px]">
-                        <Image
-                            src={`/service/images/${recipe.img}`}
-                            width={200}
-                            height={200}
-                            alt="Food Img"
-                            className={styles.foodImg}
-                        />
-                    </div>
                     <div
-                        className={
-                            highlighted ? `${styles.weekplanBox} ${styles.weekplanBoxToday}` : styles.weekplanBox
-                        }
+                        className={`justify-end ${
+                            highlighted ? styles.icon__highlighted : styles.icon__notHighlighted
+                        } ${
+                            isFavorite ? styles.icon__favorite : 'none'
+                        } flex p-1 top-[10px] text-white-custom right-2 rounded-full cursor-pointer absolute fill-none z-10 bg-green-custom2 
+                        transition-all duration-600 ease-in-out hover:bg-green-custom3 ${styles.icon}`}
+                        onClick={() => handleFavorite()}
                     >
-                        <div className={styles.discriptionFood}>
-                            <div className="">
-                                <div className="w-full col-span-4">
-                                    <p
-                                        className="h5 !mb-0 w-4/5 sm:w-[140px] lg:w-[210px] recipeName"
-                                        style={{
-                                            color: highlighted ? 'var(--white)' : 'var(--black)',
-                                        }}
-                                    >
-                                        {recipe.name}
-                                    </p>
-                                </div>
-                            </div>
-                            <div
-                                className={styles.discriptionHover}
-                                style={{
-                                    color: highlighted ? 'var(--white)' : 'var(--black)',
-                                }}
-                            >
-                                {totalTime !== (null || 0) && (
-                                    <div className="flex flex-row gap-x-4 mt-4">
-                                        <Icon size={25} icon="totaltime"></Icon>
-                                        <p
-                                            className="text-lg my-auto text-center"
-                                            style={{
-                                                color: highlighted ? 'var(--white)' : 'var(--black)',
-                                            }}
-                                        >
-                                            {totalTime} min
-                                        </p>
-                                    </div>
-                                )}
-                                {recipe.preparingTime !== (null || 0) && (
-                                    <div className="flex flex-row gap-x-4 mt-4">
-                                        <Icon size={25} icon="preparingTime"></Icon>
-                                        <p
-                                            className="text-lg my-auto text-center"
-                                            style={{
-                                                color: highlighted ? 'var(--white)' : 'var(--black)',
-                                            }}
-                                        >
-                                            {recipe.preparingTime} min
-                                        </p>
-                                    </div>
-                                )}
-                                {recipe.cookingTime !== (null || 0) && (
-                                    <div className="flex flex-row gap-x-4 mt-4">
-                                        <Icon size={25} icon="cookingTime"></Icon>
-                                        <p
-                                            className="text-lg text-center my-auto"
-                                            style={{
-                                                color: highlighted ? 'var(--white)' : 'var(--black)',
-                                            }}
-                                        >
-                                            {recipe.cookingTime} min
-                                        </p>
-                                    </div>
-                                )}
-                                {recipe.formOfDiet !== null && (
-                                    <div className="flex flex-row gap-x-4 mt-4">
-                                        <Icon size={25} icon={getFormOfDietIcon(recipe?.formOfDiet)}></Icon>
-                                        <p
-                                            className="text-lg text-center my-auto"
-                                            style={{
-                                                color: highlighted ? 'var(--white)' : 'var(--black)',
-                                            }}
-                                        >
-                                            {recipe.formOfDiet}
-                                        </p>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                        <Icon size={18} icon="heart"></Icon>
                     </div>
-                </Link>
-            </div>
+
+                    <div
+                        className={`justify-end ${highlighted ? styles.icon__highlighted : styles.icon__notHighlighted}
+                    ${withSwitch ? 'block' : 'hidden'}
+            
+                    flex p-1 top-[10px] text-white-custom right-10 rounded-full cursor-pointer absolute z-10 bg-green-custom2  transition-all duration-600 ease-in-out ${
+                        styles.icon
+                    }`}
+                        onClick={openModal}
+                    >
+                        <Icon size={18} icon="switch"></Icon>
+                    </div>
+                    {switchRecipe ? (
+                        <button className="block h-full w-full text-left" onClick={switchRecipe}>
+                            <CardContent recipe={recipe} highlighted={highlighted} smallCard={smallCard} />
+                        </button>
+                    ) : (
+                        <Link className="block h-full" href={`/recipe/${recipe.id}`}>
+                            <CardContent recipe={recipe} highlighted={highlighted} smallCard={smallCard} />
+                        </Link>
+                    )}
+                </div>
+            ) : (
+                <button
+                    className="flex justify-center flex-col rounded-custom_s relative w-full h-[225px] sm:h-[160px] md:!h-[300px] md:!w-[200px] bg-green-custom4 items-center hover:bg-green-custom_super_light text-green-custom2 hover:text-green-custom3"
+                    onClick={openModal}
+                >
+                    <div className="">
+                        <Icon size={50} icon="addCircle"></Icon>
+                    </div>
+                    <h5 className="text-inherit pt-5 m-0">add recipe</h5>
+                </button>
+            )}
+
+            <ChangeRecipeModal
+                open={isOpened}
+                setIsOpened={setIsOpened}
+                entryId={entryId}
+                refresh={refreshWeekplan}
+            ></ChangeRecipeModal>
         </>
     );
 }
