@@ -7,10 +7,6 @@
     position: fixed;
     z-index: 2;
     bottom: 10px;
-    // left: 50%;
-
-    // max-width: 1600px;
-    // transform: translateX(-50%);
 
     @screen md {
         padding: 3.5rem;
@@ -129,13 +125,11 @@
     }
 
     .lineHide {
-        // display: none;
         width: 0%;
         transition: width 0.3s ease-in-out;
     }
 
     .lineShow {
-        // display: block;
         width: 100%;
     }
 }

@@ -6,11 +6,14 @@ import { signOut, useSession } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
 import styles from './MainHeader.module.scss';
 
+type ActiveTab = 'weekplan' | 'shoppingList' | 'cookbook';
+
 export default function MainHeader() {
     const { data: session } = useSession();
     const [scrollPos, setScrollPos] = useState(0);
     const [headerClass, setHeaderClass] = useState('');
     const [userIsGuest, setUserIsGuest] = useState(true);
+    const [activeTab, setActiveTab] = useState<ActiveTab>('weekplan');
 
     useEffect(() => {
         function handleScroll() {
@@ -34,9 +37,9 @@ export default function MainHeader() {
         else setUserIsGuest(false);
     }, [scrollPos, session, userIsGuest]);
 
-    if (typeof window !== 'undefined') {
-        changeActiveTab();
-    }
+    // if (typeof window !== 'undefined') {
+    //     changeActiveTab();
+    // }
 
     return (
         <>
@@ -51,8 +54,8 @@ export default function MainHeader() {
                     <div className="flex gap-14 md:gap-10 md:mr-8 m-auto mt-3">
                         <Link
                             href="/weekOverview"
-                            onClick={changeActiveTab}
-                            className={`link weekOverview ${styles.active}`}
+                            onClick={() => setActiveTab('weekplan')}
+                            className={`link weekOverview ${activeTab === 'weekplan' ? styles.active : ''}`}
                         >
                             <div className={`flex gap-2 items-center ${styles.weekplan}`}>
                                 <Icon size={25} icon="calender"></Icon>
@@ -62,8 +65,16 @@ export default function MainHeader() {
                                 className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${styles.lineHide} ${styles.lineShow}`}
                             ></div>
                         </Link>
-                        <Link href="/shoppingList" onClick={changeActiveTab} className={`link shoppingList`}>
-                            <div className={`flex gap-2 items-center ${styles.shoppingList}`}>
+                        <Link
+                            href="/shoppingList"
+                            onClick={() => setActiveTab('shoppingList')}
+                            className="link shoppingList"
+                        >
+                            <div
+                                className={`flex gap-2 items-center ${styles.shoppingList} ${
+                                    activeTab === 'shoppingList' ? styles.active : ''
+                                }`}
+                            >
                                 <Icon size={25} icon="shoppinglist"></Icon>
                                 <p className="hidden md:block">Shopping List</p>
                             </div>
@@ -71,7 +82,11 @@ export default function MainHeader() {
                                 className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${styles.lineHide}`}
                             ></div>
                         </Link>
-                        <Link href="/cookbook" onClick={changeActiveTab} className={`link cookbook`}>
+                        <Link
+                            href="/cookbook"
+                            onClick={() => setActiveTab('cookbook')}
+                            className={`link cookbook ${activeTab === 'cookbook' ? styles.active : ''}`}
+                        >
                             <div className={`flex gap-2 items-center fill-none ${styles.cookbook}`}>
                                 <Icon size={25} icon="heart"></Icon>
                                 <p className="hidden md:block">Cookbook</p>
@@ -133,50 +148,4 @@ export default function MainHeader() {
             </div>
         </>
     );
-}
-
-function changeActiveTab() {
-    const activeClass = `${styles.active}`;
-    const settingsClass = `${styles.settingsActive}`;
-    const lineShowClass = `${styles.lineShow}`;
-
-    document.querySelectorAll('.link').forEach((el) => {
-        el.classList.remove(activeClass);
-    });
-
-    document.querySelectorAll('.dropdown').forEach((el) => {
-        el.classList.remove(settingsClass);
-    });
-
-    document.querySelectorAll('.line').forEach((el) => {
-        el.classList.remove(lineShowClass);
-    });
-
-    const activeElement = getElement(activeClass, settingsClass);
-
-    const line = activeElement?.querySelector('.line');
-    line?.classList.add(lineShowClass);
-}
-
-function getElement(activeClass: string, settingsClass: string) {
-    const currentPath = window.location.pathname;
-    if (currentPath === '/weekOverview') {
-        const element = document.querySelector('.weekOverview');
-        element?.classList.add(activeClass);
-        return element;
-    } else if (currentPath === '/shoppingList') {
-        const element = document.querySelector('.shoppingList');
-        element?.classList.add(activeClass);
-        return element;
-    } else if (currentPath === '/cookbook') {
-        const element = document.querySelector('.cookbook');
-        element?.classList.add(activeClass);
-        return element;
-    } else if (currentPath === '/settings') {
-        const element = document.querySelector('.settings');
-        element?.classList.add(settingsClass);
-        return null;
-    } else {
-        return null;
-    }
 }
