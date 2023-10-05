@@ -5,14 +5,14 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from '@prisma/client';
 import { ApiSecurity } from '@nestjs/swagger';
 import {
+    Body,
+    ClassSerializerInterceptor,
     Controller,
     Get,
     Post,
-    ClassSerializerInterceptor,
+    Req,
     UseGuards,
     UseInterceptors,
-    Req,
-    Body,
 } from '@nestjs/common';
 
 @Controller('weekplan')
@@ -28,9 +28,9 @@ export class WeekplanController {
         return this.weekplanService.get(user.userId);
     }
 
-    /* @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @ApiSecurity('access-key')
-    @UseInterceptors(ClassSerializerInterceptor) */
+    @UseInterceptors(ClassSerializerInterceptor)
     @Post('/create')
     create(@Req() request: RequestWithUser) {
         const user = request.user as User;

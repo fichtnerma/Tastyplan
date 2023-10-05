@@ -1,3 +1,4 @@
+import { WeekplanEntry } from 'src/types/types';
 import { IFormattedWeekplan, IWeekplan, IWeekplanEntry } from './weekplan.interface';
 import { ChangeRecipeDto } from './dto/change-recipe.dto';
 import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
@@ -24,7 +25,8 @@ export class WeekplanService {
                 include: {
                     weekplanEntry: {
                         include: {
-                            recipe: true,
+                            lunch: true,
+                            dinner: true,
                         },
                     },
                 },
@@ -46,19 +48,27 @@ export class WeekplanService {
         const formattedWeekPlan = {
             startDate: weekplan.startDate,
             endDate: weekplan.endDate,
+            hasDinner: weekplan.hasDinner,
+            hasLunch: weekplan.hasLunch,
             weekplanEntry: weekplan.weekplanEntry.map((entry: IWeekplanEntry) => ({
                 id: entry.id,
                 date: entry.date,
-                recipe: entry.recipe
-                    ? {
-                          id: entry.recipe.id,
-                          name: entry.recipe.name,
-                          img: entry.recipe.img,
-                          preparingTime: entry.recipe.preparingTime,
-                          cookingTime: entry.recipe.cookingTime,
-                          formOfDiet: entry.recipe.formOfDiet,
-                      }
-                    : null,
+                lunch: entry.lunch && {
+                    id: entry.lunch.id,
+                    name: entry.lunch.name,
+                    img: entry.lunch.img,
+                    preparingTime: entry.lunch.preparingTime,
+                    cookingTime: entry.lunch.cookingTime,
+                    formOfDiet: entry.lunch.formOfDiet,
+                },
+                dinner: entry.lunch && {
+                    id: entry.dinner.id,
+                    name: entry.dinner.name,
+                    img: entry.dinner.img,
+                    preparingTime: entry.dinner.preparingTime,
+                    cookingTime: entry.dinner.cookingTime,
+                    formOfDiet: entry.dinner.formOfDiet,
+                },
             })),
         };
         formattedWeekPlan.weekplanEntry = formattedWeekPlan.weekplanEntry.sort((a, b) => a.id - b.id);
@@ -66,8 +76,6 @@ export class WeekplanService {
     }
 
     async create(userId: string) {
-        const week = [0, 1, 2, 3, 4, 5, 6];
-
         //Delete existing weekplan
         try {
             const existingWeekplan = await this.queryExistingWeekplan(userId);
@@ -97,28 +105,32 @@ export class WeekplanService {
                     userId: userId,
                     startDate: new Date(),
                     endDate: new Date(new Date().setDate(new Date().getDate() + 6)),
+                    hasDinner: fetchedMealsAndWeekplanPreferences.wantsDinner,
+                    hasLunch: fetchedMealsAndWeekplanPreferences.wantsLunch,
                     weekplanEntry: {
                         createMany: {
-                            data: week.map((dayEntry) => ({
-                                date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
-                                recipeId: shuffeledMeals[dayEntry]?.id || 1,
-                            })),
+                            data: this.createWeekplanData(
+                                fetchedMealsAndWeekplanPreferences.days,
+                                shuffeledMeals,
+                                fetchedMealsAndWeekplanPreferences.wantsLunch,
+                                fetchedMealsAndWeekplanPreferences.wantsDinner,
+                            ),
                         },
                     },
                 },
                 include: {
                     weekplanEntry: {
                         include: {
-                            recipe: true,
+                            lunch: true,
+                            dinner: true,
                         },
                     },
                 },
             });
-
-            const weekplanRecipeIds = weekPlan.weekplanEntry.map((entry) => entry.recipeId);
-
+            const weekplanRecipeIds = weekPlan.weekplanEntry
+                .flatMap((entry) => [entry.lunchId, entry.dinnerId])
+                .filter((id) => id !== null);
             this.shoppingListService.create(weekplanRecipeIds, userId);
-
             return this.formatWeekPlan(weekPlan);
         } catch (error) {
             throw new HttpException('creating weekplan failed', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -159,5 +171,30 @@ export class WeekplanService {
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to change Recipe for given user');
         }
+    }
+
+    createWeekplanData(
+        daysPreferences: number[],
+        shuffeledMeals: { id: number }[],
+        wantsLunch: boolean,
+        wantsDinner: boolean,
+    ) {
+        const week = [0, 1, 2, 3, 4, 5, 6];
+        let recipeCounter = 0;
+        const weekplan = week.map((dayEntry) => {
+            const weekplanEntry: WeekplanEntry = {
+                date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
+            };
+            if (daysPreferences.includes(dayEntry) && wantsLunch) {
+                weekplanEntry.lunchId = shuffeledMeals[recipeCounter]?.id || 1;
+                recipeCounter++;
+            }
+            if (daysPreferences.includes(dayEntry) && wantsDinner) {
+                weekplanEntry.dinnerId = shuffeledMeals[recipeCounter]?.id || 1;
+                recipeCounter++;
+            }
+            return weekplanEntry;
+        });
+        return weekplan;
     }
 }

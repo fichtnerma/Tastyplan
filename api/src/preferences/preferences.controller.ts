@@ -18,9 +18,9 @@ import {
 @Controller('preferences')
 export class PreferencesController {
     constructor(private preferencesService: PreferencesService) {}
-    /* @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @ApiSecurity('access-key')
-    @UseInterceptors(ClassSerializerInterceptor) */
+    @UseInterceptors(ClassSerializerInterceptor)
     @Post('/')
     async setPreferences(@Req() request: RequestWithUser, @Body() preferencesDto: PreferencesDto) {
         const user = request.user as User;

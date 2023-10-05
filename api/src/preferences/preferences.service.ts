@@ -10,6 +10,8 @@ export class PreferencesService {
     async setPreferences(createPreferencesDto: PreferencesDto, userId: string) {
         try {
             const ingredientNames = createPreferencesDto.foodDislikes;
+            const wantsLunch = createPreferencesDto.meals.includes(0) ? true : false;
+            const wantsDinner = createPreferencesDto.meals.includes(1) ? true : false;
             const CheckIngredientsPromise = ingredientNames.map(async (item) => {
                 const ingredient = await this.prismaService.ingredient.findUnique({
                     where: {
@@ -28,7 +30,8 @@ export class PreferencesService {
                     allergens: [...createPreferencesDto.allergens],
                     foodDislikes: { connect: [...ingredientIds] },
                     days: [...createPreferencesDto.days],
-                    meals: [...createPreferencesDto.meals],
+                    wantsDinner: wantsDinner,
+                    wantsLunch: wantsLunch,
                     servings: createPreferencesDto.servings,
                 },
                 create: {
@@ -37,7 +40,8 @@ export class PreferencesService {
                     allergens: [...createPreferencesDto.allergens],
                     foodDislikes: { connect: [...ingredientIds] },
                     days: [...createPreferencesDto.days],
-                    meals: [...createPreferencesDto.meals],
+                    wantsDinner: wantsDinner,
+                    wantsLunch: wantsLunch,
                     servings: createPreferencesDto.servings,
                 },
             });
@@ -66,7 +70,8 @@ export class PreferencesService {
                     allergens: true,
                     servings: true,
                     days: true,
-                    meals: true,
+                    wantsLunch: true,
+                    wantsDinner: true,
                     foodDislikes: {
                         select: {
                             id: true,

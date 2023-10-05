@@ -29,20 +29,21 @@ model Ingredient {
 }
 
 model Recipe {
-    id                  Int                    @id @default(autoincrement())
-    name                String
-    img                 String?
-    description         String?
-    cookingTime         Int?
-    preparingTime       Int
-    totalTime           Int
-    servings            Int
-    tags                String[]
-    formOfDiet          String
-    ingredients         IngredientWithAmount[]
-    steps               Step[]
-    weekplanEntryRecipe WeekplanEntry[]
-    Favorites           Favorites[]
+    id            Int                    @id @default(autoincrement())
+    name          String
+    img           String?
+    description   String?
+    cookingTime   Int?
+    preparingTime Int
+    totalTime     Int
+    servings      Int
+    tags          String[]
+    formOfDiet    String
+    ingredients   IngredientWithAmount[]
+    steps         Step[]
+    lunchEntries  WeekplanEntry[]        @relation(name: "WeekplanEntry_lunch")
+    dinnerEntries WeekplanEntry[]        @relation(name: "WeekplanEntry_dinner")
+    Favorites     Favorites[]
 }
 
 model IngredientWithAmount {
@@ -87,8 +88,9 @@ model Preferences {
     allergens    String[]
     foodDislikes Ingredient[]
     days         Int[]
-    meals        Int[]
     servings     Int?
+    wantsLunch   Boolean?
+    wantsDinner  Boolean?
 }
 
 model DataSchema {
@@ -103,6 +105,8 @@ model Weekplan {
     user          User            @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
     startDate     DateTime
     endDate       DateTime
+    hasLunch      Boolean?
+    hasDinner     Boolean?
     weekplanEntry WeekplanEntry[]
 }
 
@@ -121,8 +125,10 @@ model WeekplanEntry {
     date       DateTime @db.Date
     weekplanId Int
     weekplan   Weekplan @relation(fields: [weekplanId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    recipeId   Int?
-    recipe     Recipe?  @relation(fields: [recipeId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+    lunch      Recipe?  @relation(name: "WeekplanEntry_lunch", fields: [lunchId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+    lunchId    Int?
+    dinner     Recipe?  @relation(name: "WeekplanEntry_dinner", fields: [dinnerId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+    dinnerId   Int?
 }
 
 model ShoppingList {
