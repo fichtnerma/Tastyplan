@@ -4,11 +4,21 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
 python-dotenv = "*"
-flask-restful = "*"
 nltk = "*"
 importlib-metadata = "*"
+jellyfish = "*"
+requests = "*"
+fastapi = "*"
+uvicorn = {version = "*", extras = ["standard"]}
+pydantic = "*"
+fuzzy-match = "*"
+numpy = "*"
+scipy = "*"
+matplotlib = "*"
+redis = "*"
+scikit-learn = "*"
+pandas = "*"
 
 [dev-packages]
 

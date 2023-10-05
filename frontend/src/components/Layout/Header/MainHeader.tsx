@@ -2,13 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
 import styles from './MainHeader.module.scss';
 
 export default function MainHeader() {
+    const { data: session } = useSession();
     const [scrollPos, setScrollPos] = useState(0);
     const [headerClass, setHeaderClass] = useState('');
+    const [userIsGuest, setUserIsGuest] = useState(true);
 
     useEffect(() => {
         function handleScroll() {
@@ -27,7 +29,10 @@ export default function MainHeader() {
         } else {
             setHeaderClass('');
         }
-    }, [scrollPos]);
+
+        if (session?.user.role === 'guest') setUserIsGuest(true);
+        else setUserIsGuest(false);
+    }, [scrollPos, session, userIsGuest]);
 
     if (typeof window !== 'undefined') {
         changeActiveTab();
@@ -78,7 +83,7 @@ export default function MainHeader() {
                         <div className={styles.userIcon}>
                             <div className="block md:hidden">
                                 <Link href="/settings" className="">
-                                    <div className="flex gap-2 items-center">
+                                    <div className="flex gap-2 items-center hover:cursor-pointer">
                                         <Icon size={25} icon="user"></Icon>
                                     </div>
                                 </Link>
@@ -88,26 +93,38 @@ export default function MainHeader() {
                             </div>
                             <div className={`w-40 pt-8 right-14 absolute hidden md:block ${styles.dropdown} `}>
                                 <div className={`rounded-2xl bg-green-custom1 ${headerClass}`}>
-                                    <Link href="/settings" className="">
-                                        <div
-                                            className={`flex gap-2 text-right pt-5 pb-3 pl-5 settings dropdown ${styles.settingsDropdown}`}
-                                        >
-                                            <p>Settings</p>
-                                            <div className="right-0 absolute pr-8">
-                                                <Icon size={25} icon="settings"></Icon>
+                                    {userIsGuest ? (
+                                        <Link href="authentication/registration">
+                                            <div
+                                                className={`flex justify-center gap-2 text-right py-5 settings dropdown ${styles.guestUserDropdown}`}
+                                            >
+                                                <p>Registration</p>
                                             </div>
-                                        </div>
-                                    </Link>
-                                    <Link onClick={async () => await signOut()} href="/" className="">
-                                        <div
-                                            className={`flex gap-2 items-center pb-5 pl-5 pt-3 user dropdown ${styles.userDropdown}`}
-                                        >
-                                            <p>Log out</p>
-                                            <div className="right-0 absolute pr-8">
-                                                <Icon size={25} icon="user"></Icon>
+                                        </Link>
+                                    ) : (
+                                        <Link href="/settings">
+                                            <div
+                                                className={`flex gap-2 text-right pt-5 pb-3 pl-5 settings dropdown ${styles.settingsDropdown}`}
+                                            >
+                                                <p>Settings</p>
+                                                <div className="right-0 absolute pr-8">
+                                                    <Icon size={25} icon="settings"></Icon>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Link>
+                                        </Link>
+                                    )}
+                                    {!userIsGuest && (
+                                        <Link onClick={async () => await signOut()} href="/" className="">
+                                            <div
+                                                className={`flex gap-2 items-center pb-5 pl-5 pt-3 user dropdown ${styles.userDropdown}`}
+                                            >
+                                                <p>Log out</p>
+                                                <div className="right-0 absolute pr-8">
+                                                    <Icon size={25} icon="user"></Icon>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -122,7 +139,6 @@ function changeActiveTab() {
     const activeClass = `${styles.active}`;
     const settingsClass = `${styles.settingsActive}`;
     const lineShowClass = `${styles.lineShow}`;
-    // const userClass = `${styles.userActive}`;
 
     document.querySelectorAll('.link').forEach((el) => {
         el.classList.remove(activeClass);
@@ -130,7 +146,6 @@ function changeActiveTab() {
 
     document.querySelectorAll('.dropdown').forEach((el) => {
         el.classList.remove(settingsClass);
-        // el.classList.remove(userClass);
     });
 
     document.querySelectorAll('.line').forEach((el) => {
@@ -161,38 +176,7 @@ function getElement(activeClass: string, settingsClass: string) {
         const element = document.querySelector('.settings');
         element?.classList.add(settingsClass);
         return null;
-    }
-    // else if (currentPath === '/') {
-    //     const element = document.querySelector('.user');
-    //     element?.classList.add(userClass);
-    // }
-    else {
+    } else {
         return null;
     }
-}
-
-// const [menuOpen, setMenuOpen] = useState(false);
-// const toggleMenu = () => {
-//     setMenuOpen(!menuOpen);
-// };
-
-{
-    /* <div>
-    <button
-        className={menuOpen ? `${styles.navIcon} ${styles.open}` : styles.navIcon}
-        onClick={() => toggleMenu()}
-    >
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-</div> */
-}
-
-{
-    /* {menuOpen && (
-    <div>
-        <Menu menuOpen={menuOpen} toggleMenu={toggleMenu} />
-    </div>
-)} */
 }

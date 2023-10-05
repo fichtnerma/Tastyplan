@@ -1,43 +1,34 @@
 import logging
-import os
-from flask import Flask, jsonify
-from app.api import TestAPI
-from flask_restful import Api, Resource
+from typing import Union
+from app.api.recommendations import Recommender
+from app.api.mapping import Mapping
+from fastapi import FastAPI
+from app.models.recipe import Recipe
 
-# from app import config
+# setup logger
+logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
+# get root logger
+# the __name__ resolve to "main" since we are at the root of the project.
+logger = logging.getLogger(__name__)
+# This will get the root logger since no logger in the configuration has this name.
 
+app = FastAPI(root_path="/api")
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='[%(asctime)s]: {} %(levelname)s %(message)s'.format(
-                        os.getpid()),
-                    datefmt='%Y-%m-%d %H:%M:%S',
-                    handlers=[logging.StreamHandler()])
-
-logger = logging.getLogger()
-
-
-def create_app():
-    logger.info(f'Starting app in dev environment')
-    app = Flask(__name__)
-    # app.config.from_object(config)
-    return app
+mapping = Mapping()
+recommender = Recommender()
 
 
-app = create_app()
-api = Api(app, prefix="/api")
+@app.post("/mapping")
+async def map_ingredients(recipeJson: Recipe):
+    return mapping.parseIngredients(recipeJson)
 
 
-class TestRes(Resource):
-    def get(self):
-        return jsonify({'task_id': 123, 'status': 'running'})
+@app.get("/recommend/{item_id}")
+async def recommend_recipes(item_id: int, k: Union[int, None] = 5):
+    return recommender.recommendContentBased(item_id, k)
 
 
-# data processing endpoint
-# api.add_resource(PreProcessingAPI, '/pre-process')
-
-# task status endpoint
-api.add_resource(TestRes, '/rest')
-api.add_resource(TestAPI, '/tasks')
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True, port=5000)
+@app.get("/initalize")
+async def initalize():
+    recommender.initalize()
+    return

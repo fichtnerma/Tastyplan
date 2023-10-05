@@ -26,7 +26,7 @@ export default function Overlay({ toggle, visible }: OverlayProps) {
                 </div>
                 <div className={styles.overlayRight}>
                     <h2>Welcome Back!</h2>
-                    <p>Don`t have have an account ? </p>
+                    <p>Don`t have an account ? </p>
                     <br />
                     <button className="btn-secondary" onClick={handleToggle} id="registration">
                         Sign Up

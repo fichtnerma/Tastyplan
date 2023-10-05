@@ -1,12 +1,18 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
 import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
+import { Cache } from 'cache-manager';
 import { Ingredient, Recipe, Step, User } from '@prisma/client';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
 export class RecipesService {
-    constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) {}
+    constructor(
+        @Inject(CACHE_MANAGER) private readonly cache: Cache,
+        private prismaService: PrismaService,
+        private preferencesService: PreferencesService,
+    ) {}
 
     async findById(id: number) {
         try {
@@ -52,6 +58,28 @@ export class RecipesService {
         }
     }
 
+    async storeInRedis() {
+        const recipes = await this.prismaService.recipe.findMany({
+            include: {
+                steps: true,
+                ingredients: {
+                    include: {
+                        ingredient: {
+                            select: {
+                                name: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+        const recipesFormatted = recipes.map((recipe) => ({
+            ...recipe,
+            ingredients: recipe.ingredients.map((ingredient) => ({ ...ingredient, name: ingredient.ingredient.name })),
+        }));
+        await this.cache.set('recipes', recipesFormatted, 0);
+    }
+
     async filterByPreferences(user: User) {
         const possibleDietsMap = new Map([
             ['vegan', ['vegan']],
@@ -89,6 +117,7 @@ export class RecipesService {
                     id: true,
                 },
             });
+            console.log('Recipes', recipes);
 
             return recipes;
         } catch (error) {
@@ -106,6 +135,8 @@ export class RecipesService {
         },
     ) {
         const specialCharacter = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~'-]/g;
+        console.log('Recipe Id', recipe.id);
+
         await this.prismaService.recipe.upsert({
             where: { id: recipe.id },
             update: {},
@@ -118,7 +149,7 @@ export class RecipesService {
                 cookingTime: convertToTime(recipe.cookingTime) || 0,
                 preparingTime: convertToTime(recipe.prepareTime) || 0,
                 totalTime: convertToTime(recipe.totalTime) || 0,
-                formOfDiet: recipe.formOfDiet.at(-1) || 'omnivore',
+                formOfDiet: recipe.formOfDiet || 'omnivore',
                 ingredients: {
                     createMany: {
                         data: [...recipe.ingredients],
@@ -214,7 +245,7 @@ export class RecipesService {
             ['omnivore', 'pescetarian', 'vegetarian', 'vegan'],
         );
 
-        return formOfDiet;
+        return formOfDiet.at(-1) || 'omnivore';
     }
 
     async getRecommendations(k: number, user: User) {

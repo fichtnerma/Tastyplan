@@ -49,6 +49,7 @@
     }
     .userIcon {
         &:hover {
+            cursor: pointer;
             color: var(--green-semi);
         }
         &:hover .dropdown {
@@ -74,6 +75,18 @@
                 }
             }
         }
+        
+        .guestUserDropdown {
+            &:hover {
+                background-color: var(--green-semi);
+                border-radius: 1rem;
+                color: var(--white);
+                p {
+                    color: var(--white);
+                }
+            }
+        }
+
 
         .userDropdown {
             &:hover {

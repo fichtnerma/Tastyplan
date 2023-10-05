@@ -7,14 +7,19 @@ import {
     jaroWinklerSimilarity,
 } from 'src/helpers/similarity.utils';
 import Prep from 'src/helpers/MatchingPrep';
+import { throwError } from 'rxjs';
+import { Cache } from 'cache-manager';
 import { Ingredient } from '@prisma/client';
-import { Injectable } from '@nestjs/common';
-const fs = require('fs');
-const parse = require('csv-parser');
-const crypto = require('crypto');
+import { Inject, Injectable } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+
 @Injectable()
 export class IngredientsService {
-    constructor(private prismaService: PrismaService, private ingredientSearchService: IngredientsSearchService) {}
+    constructor(
+        @Inject(CACHE_MANAGER) private readonly cache: Cache,
+        private prismaService: PrismaService,
+        private ingredientSearchService: IngredientsSearchService,
+    ) {}
 
     async createIngredient(ingredient: Ingredient) {
         await this.prismaService.ingredient.upsert({
@@ -35,6 +40,11 @@ export class IngredientsService {
                 allergens: ingredient.allergens || [],
             },
         });
+    }
+
+    async storeinRedis() {
+        const ingredients = await this.prismaService.ingredient.findMany();
+        await this.cache.set('ingredients', ingredients, 0);
     }
 
     async findSimilarIngredients(ingredient: string) {
@@ -68,6 +78,13 @@ export class IngredientsService {
             return [];
         }
         return results;
+    }
+    async getAll() {
+        const ingredients = await this.prismaService.ingredient.findMany();
+        if (ingredients.length < 1) {
+            throwError(() => new Error('No ingredients found'));
+        }
+        return ingredients;
     }
     async createIndex() {
         const ingredients = await this.prismaService.ingredient.findMany();

@@ -12,13 +12,24 @@ import { FavoritesModule } from './favorites/favorites.module';
 import { AuthModule } from './auth/auth.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+import * as redisStore from 'cache-manager-redis-store';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
-
+import { CacheModule } from '@nestjs/cache-manager';
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
+        ServeStaticModule.forRoot({
+            rootPath: process.env.NODE_ENV === 'development' ? '/app/images' : `${process.cwd()}/dist/images`,
+            serveRoot: '/images',
+        }),
+        CacheModule.register({
+            isGlobal: true,
+            store: redisStore,
+            host: process.env.REDIS_HOST,
+            port: process.env.REDIS_PORT,
+        }),
         IngredientsModule,
         RecipesModule,
         PreferencesModule,
@@ -27,10 +38,6 @@ import { Module } from '@nestjs/common';
         UsersModule,
         AuthModule,
         SearchModule,
-        ServeStaticModule.forRoot({
-            rootPath: process.env.NODE_ENV === 'development' ? '/app/images' : `${process.cwd()}/dist/images`,
-            serveRoot: '/images',
-        }),
         ShoppingListModule,
         InitializerModule,
         FavoritesModule,
