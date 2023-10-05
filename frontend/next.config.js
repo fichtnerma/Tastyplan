@@ -27,6 +27,7 @@ const baseConfig = {
         ];
     },
 };
+
 const devConfig = {
     webpackDevMiddleware: (config) => {
         config.watchOptions = {
@@ -39,7 +40,10 @@ const devConfig = {
         appDir: true,
     },
 };
-const prodConfig = {};
+
+const prodConfig = require('next-pwa')({
+    dest: 'public',
+});
 
 module.exports = {
     ...baseConfig,
