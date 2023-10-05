@@ -17,6 +17,8 @@ numpy = "*"
 scipy = "*"
 matplotlib = "*"
 redis = "*"
+scikit-learn = "*"
+pandas = "*"
 
 [dev-packages]
 

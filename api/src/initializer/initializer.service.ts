@@ -41,6 +41,8 @@ export class InitializerService implements OnApplicationBootstrap {
                 await this.recipeService.createRecipe(recipe);
             }
         }
+        await this.recipeService.storeInRedis();
+        await fetch('http://recommender:5000/initalize', { method: 'GET' });
     }
 
     async syncIngredients() {

@@ -1,12 +1,18 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
 import { convertToTime } from 'src/helpers/converter.utils';
+import { Cache } from 'cache-manager';
 import { Ingredient, Recipe, Step, User } from '@prisma/client';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
 export class RecipesService {
-    constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) {}
+    constructor(
+        @Inject(CACHE_MANAGER) private readonly cache: Cache,
+        private prismaService: PrismaService,
+        private preferencesService: PreferencesService,
+    ) {}
 
     async findById(id: number) {
         try {
@@ -50,6 +56,28 @@ export class RecipesService {
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to find recipe by id');
         }
+    }
+
+    async storeInRedis() {
+        const recipes = await this.prismaService.recipe.findMany({
+            include: {
+                steps: true,
+                ingredients: {
+                    include: {
+                        ingredient: {
+                            select: {
+                                name: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+        const recipesFormatted = recipes.map((recipe) => ({
+            ...recipe,
+            ingredients: recipe.ingredients.map((ingredient) => ({ ...ingredient, name: ingredient.ingredient.name })),
+        }));
+        await this.cache.set('recipes', recipesFormatted, 0);
     }
 
     async filterByPreferences(user: User) {
