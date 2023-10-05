@@ -14,17 +14,15 @@ interface Preferences {
     formOfDiet: string;
     allergens: string[];
     foodDislikes: APISearchResponse[];
-    weekConfig: WeekConfig;
-}
-interface WeekConfig {
-    days: string[];
-    meals: string[];
+    days: number[];
+    meals: number[];
     servings: number;
 }
 
 const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes', 'Weekplan'];
 
 const SetupParentPage = () => {
+    const numberDaysOfWeek = 7;
     const { data: session } = useSession();
     const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
@@ -33,7 +31,9 @@ const SetupParentPage = () => {
         formOfDiet: '',
         allergens: [],
         foodDislikes: [],
-        weekConfig: { days: [], meals: [], servings: 1 },
+        days: [0, 1, 2, 3, 4, 5, 6],
+        meals: [1],
+        servings: 1,
     });
 
     const [daysCheckboxes, setDays] = useState<CustomSelectionInput[]>([
@@ -71,17 +71,15 @@ const SetupParentPage = () => {
     const handleDaySelection = (id: string) => {
         const daysTemp = [...daysCheckboxes];
         const prefTemp = { ...preferences };
-        daysTemp.forEach((day) => {
-            if (day.id === id) {
-                if (!prefTemp.weekConfig.days.find((dayT) => dayT === day.label)) {
-                    day.checked = true;
-                    prefTemp.weekConfig.days.push(day.label);
-                } else {
-                    day.checked = false;
-                    prefTemp.weekConfig.days = prefTemp.weekConfig.days.filter((dayT) => dayT !== day.label);
-                }
-            }
-        });
+        const clickedDay = daysTemp.find((day) => day.id === id);
+        if (!clickedDay) return;
+        if (prefTemp.days.includes(parseInt(clickedDay?.id))) {
+            clickedDay.checked = false;
+            prefTemp.days = prefTemp.days.filter((dayT) => dayT !== parseInt(clickedDay.id));
+        } else {
+            clickedDay.checked = true;
+            prefTemp.days.push(parseInt(clickedDay.id));
+        }
         setDays(daysTemp);
         setPreferences(prefTemp);
     };
@@ -89,17 +87,15 @@ const SetupParentPage = () => {
     const handleMealSelection = (id: string) => {
         const mealsTemp = [...mealsCheckboxes];
         const prefTemp = { ...preferences };
-        mealsTemp.forEach((meal) => {
-            if (meal.id === id) {
-                if (!prefTemp.weekConfig.meals.find((mealT) => mealT === meal.label)) {
-                    meal.checked = true;
-                    prefTemp.weekConfig.meals.push(meal.label);
-                } else {
-                    meal.checked = false;
-                    prefTemp.weekConfig.meals = prefTemp.weekConfig.meals.filter((mealT) => mealT !== meal.label);
-                }
-            }
-        });
+        const clickedMeal = mealsTemp.find((meal) => meal.id === id);
+        if (!clickedMeal) return;
+        if (prefTemp.meals.includes(parseInt(clickedMeal?.id) - numberDaysOfWeek)) {
+            clickedMeal.checked = false;
+            prefTemp.meals = prefTemp.meals.filter((mealT) => mealT !== parseInt(clickedMeal.id) - numberDaysOfWeek);
+        } else {
+            clickedMeal.checked = true;
+            prefTemp.meals.push(parseInt(clickedMeal.id) - numberDaysOfWeek);
+        }
         setMeals(mealsTemp);
         setPreferences(prefTemp);
     };
@@ -155,7 +151,9 @@ const SetupParentPage = () => {
                                         formOfDiet: foodLifeStyle,
                                         allergens: preferences.allergens,
                                         foodDislikes: preferences.foodDislikes,
-                                        weekConfig: preferences.weekConfig,
+                                        days: preferences.days,
+                                        meals: preferences.meals,
+                                        servings: preferences.servings,
                                     });
                                 }}
                                 formOfDiet={preferences.formOfDiet}
@@ -170,7 +168,9 @@ const SetupParentPage = () => {
                                         formOfDiet: preferences.formOfDiet,
                                         allergens: allergens,
                                         foodDislikes: preferences.foodDislikes,
-                                        weekConfig: preferences.weekConfig,
+                                        days: preferences.days,
+                                        meals: preferences.meals,
+                                        servings: preferences.servings,
                                     });
                                 }}
                                 allergens={preferences.allergens}
@@ -183,7 +183,9 @@ const SetupParentPage = () => {
                                         formOfDiet: preferences.formOfDiet,
                                         allergens: preferences.allergens,
                                         foodDislikes: foodDislikes,
-                                        weekConfig: preferences.weekConfig,
+                                        days: preferences.days,
+                                        meals: preferences.meals,
+                                        servings: preferences.servings,
                                     });
                                 }}
                                 onBack={handleBackStep}
@@ -193,16 +195,18 @@ const SetupParentPage = () => {
                         )}
                         {currentStep === 4 && (
                             <WeekplanConfig
-                                onChoice={(weekConfig: WeekConfig) => {
+                                onChoice={(servings: number) => {
                                     setPreferences({
                                         formOfDiet: preferences.formOfDiet,
                                         allergens: preferences.allergens,
                                         foodDislikes: preferences.foodDislikes,
-                                        weekConfig: weekConfig,
+                                        days: preferences.days,
+                                        meals: preferences.meals,
+                                        servings: servings,
                                     });
                                 }}
                                 onBack={handleBackStep}
-                                weekConfig={preferences.weekConfig}
+                                servings={preferences.servings}
                                 handlePreferences={handlePreferences}
                                 daysCheckboxes={daysCheckboxes}
                                 handleDaySelection={handleDaySelection}

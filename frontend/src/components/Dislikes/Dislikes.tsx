@@ -14,7 +14,6 @@ interface DislikesProps {
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
     foodDislikes: APISearchResponse[];
-    // handlePreferences: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: DislikesProps) {
@@ -84,15 +83,6 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         }
     };
 
-    // const handleBack = () => {
-    //     onChoice(allDislikes);
-    //     if (e.currentTarget.getAttribute('data-btn') == 'next') {
-    //         onNext();
-    //     } else {
-    //         onBack();
-    //     }
-    // };
-
     const handleAddRecommendation = (e: React.MouseEvent) => {
         const target = e.target as HTMLButtonElement;
         const categoryId = target.getAttribute('data-id');
@@ -158,7 +148,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
 
     return (
         <div onClick={handleClickOnListAndInput}>
-            <h4 className="mb-2 h2">What food do you dislike?</h4>
+            <h4 className="!mb-2 h2">What food do you dislike?</h4>
             <div className="flex h-[400px] lg:h-[300px] flex-col lg:flex-row">
                 <div className="flex w-full flex-col lg:w-1/3">
                     <div className="w-full flex">
