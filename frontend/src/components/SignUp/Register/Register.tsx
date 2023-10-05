@@ -17,7 +17,6 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
     const router = useRouter();
 
     const [mail, setMail] = useState('');
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConf, setPasswordConf] = useState('');
     const { data: session } = useSession();
@@ -26,9 +25,8 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
         e.preventDefault();
 
         const data = {
-            userId: username,
+            userId: mail,
             password: password,
-            email: mail,
             role: 'user',
         };
 
@@ -48,7 +46,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
     };
 
     const registerEnabled = (): boolean => {
-        if (mail.length === 0 || username.length === 0 || password.length < 6 || passwordConf.length < 6) {
+        if (mail.length === 0 || password.length < 6 || passwordConf.length < 6) {
             return false;
         }
 
@@ -63,7 +61,6 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
         <div className={`${styles.registerContainer} ${visible && styles.active}`}>
             <form className="px-10 pb-7 flex flex-col gap-4" action="#" onSubmit={handleSubmit}>
                 <h2 className="h1 !mb-0 lg:mb-auto">Register</h2>
-                <TextInput value={username} required onChange={setUsername} label="Username" />
                 <TextInput value={mail} validate={isEmailValidator} required onChange={setMail} label="E-Mail" />
                 <TextInput
                     value={password}
