@@ -1,19 +1,23 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
 import styles from './MainHeader.module.scss';
 
-type ActiveTab = 'weekplan' | 'shoppingList' | 'cookbook';
+type ActiveTab = '/weekOverview' | '/shoppingList' | '/cookbook' | null;
 
 export default function MainHeader() {
     const { data: session } = useSession();
+
+    const pathname = usePathname() as ActiveTab;
+
     const [scrollPos, setScrollPos] = useState(0);
     const [headerClass, setHeaderClass] = useState('');
     const [userIsGuest, setUserIsGuest] = useState(true);
-    const [activeTab, setActiveTab] = useState<ActiveTab>('weekplan');
+    const [activeTab, setActiveTab] = useState<ActiveTab>(pathname);
 
     useEffect(() => {
         function handleScroll() {
@@ -37,10 +41,6 @@ export default function MainHeader() {
         else setUserIsGuest(false);
     }, [scrollPos, session, userIsGuest]);
 
-    // if (typeof window !== 'undefined') {
-    //     changeActiveTab();
-    // }
-
     return (
         <>
             <div className={`${styles.headerContainer}`}>
@@ -54,45 +54,51 @@ export default function MainHeader() {
                     <div className="flex gap-14 md:gap-10 md:mr-8 m-auto mt-3">
                         <Link
                             href="/weekOverview"
-                            onClick={() => setActiveTab('weekplan')}
-                            className={`link weekOverview ${activeTab === 'weekplan' ? styles.active : ''}`}
+                            onClick={() => setActiveTab('/weekOverview')}
+                            className={`link weekOverview ${activeTab === '/weekOverview' ? styles.active : ''}`}
                         >
                             <div className={`flex gap-2 items-center ${styles.weekplan}`}>
                                 <Icon size={25} icon="calender"></Icon>
                                 <p className="hidden md:block">Weekplan</p>
                             </div>
                             <div
-                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${styles.lineHide} ${styles.lineShow}`}
+                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${
+                                    styles.lineHide
+                                } ${activeTab === '/weekOverview' && styles.lineShow}`}
                             ></div>
                         </Link>
                         <Link
                             href="/shoppingList"
-                            onClick={() => setActiveTab('shoppingList')}
+                            onClick={() => setActiveTab('/shoppingList')}
                             className="link shoppingList"
                         >
                             <div
                                 className={`flex gap-2 items-center ${styles.shoppingList} ${
-                                    activeTab === 'shoppingList' ? styles.active : ''
+                                    activeTab === '/shoppingList' ? styles.active : ''
                                 }`}
                             >
                                 <Icon size={25} icon="shoppinglist"></Icon>
                                 <p className="hidden md:block">Shopping List</p>
                             </div>
                             <div
-                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${styles.lineHide}`}
+                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${
+                                    styles.lineHide
+                                } ${activeTab === '/shoppingList' && styles.lineShow}`}
                             ></div>
                         </Link>
                         <Link
                             href="/cookbook"
-                            onClick={() => setActiveTab('cookbook')}
-                            className={`link cookbook ${activeTab === 'cookbook' ? styles.active : ''}`}
+                            onClick={() => setActiveTab('/cookbook')}
+                            className={`link cookbook ${activeTab === '/cookbook' ? styles.active : ''}`}
                         >
                             <div className={`flex gap-2 items-center fill-none ${styles.cookbook}`}>
                                 <Icon size={25} icon="heart"></Icon>
                                 <p className="hidden md:block">Cookbook</p>
                             </div>
                             <div
-                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${styles.lineHide}`}
+                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${
+                                    styles.lineHide
+                                } ${activeTab === '/cookbook' && styles.lineShow}`}
                             ></div>
                         </Link>
                         <div className={styles.userIcon}>
