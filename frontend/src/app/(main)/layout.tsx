@@ -8,9 +8,11 @@ import Footer from '@components/Footer/Footer';
 export default function MainLayout({ children }: PropsWithChildren) {
     return (
         <>
-            <Header />
             <SecondHeader waveForm="lite" />
-            <SessionProviderWrapper>{children}</SessionProviderWrapper>
+            <SessionProviderWrapper>
+                <Header />
+                {children}
+            </SessionProviderWrapper>
             <Footer />
         </>
     );
