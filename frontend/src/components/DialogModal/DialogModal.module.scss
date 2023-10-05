@@ -1,5 +1,6 @@
 @import '@styles/variables.scss';
 
-body.modal-open {
+.modalOpen {
     overflow: hidden;
+    background-color: aqua;
 }

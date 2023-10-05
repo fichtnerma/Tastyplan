@@ -16,6 +16,7 @@ module.exports = {
                     custom2: '#007370',
                     custom3: '#00A39E',
                     custom4: '#D6E5E3',
+                    custom_super_light: '#F3F7F6',
                 },
                 red: {
                     custom: '#d54444',

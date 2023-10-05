@@ -1,26 +1,41 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
 import ChangeRecipeModal from '@components/ChangeRecipeModal/ChangeRecipeModal';
-import { getFormOfDietIcon } from '@helpers/utils';
 import { useFavoriteStore } from '@hooks/useFavorites';
 import { Recipe } from 'src/types/types';
 import styles from './RecipeCard.module.scss';
+import CardContent from './CardContent';
 
 type RecipeCardProps = {
     recipe: Recipe;
-    highlighted: boolean;
-    switchCard: boolean;
+    highlighted?: boolean;
+    withSwitch?: boolean;
+    smallCard?: boolean;
+    switchRecipe?: () => void;
+    entryId?: string;
+    refreshWeekplan?: () => void;
 };
 
-function RecipeCard({ recipe, highlighted, switchCard }: RecipeCardProps) {
+function RecipeCard({
+    recipe,
+    highlighted = false,
+    withSwitch = false,
+    smallCard = false,
+    switchRecipe,
+    entryId,
+    refreshWeekplan,
+}: RecipeCardProps) {
     const [isFavorite, setIsFavorite] = useState(false);
     const [isOpened, setIsOpened] = useState(false);
     const { data: session } = useSession();
     const { favorites, add, remove } = useFavoriteStore();
+
+    const smallCardSize = 'md:!h-[225px] md:!w-[150px] bg-green-custom_super_light';
+    const mediumCardSize = 'md:!h-[300px] md:!w-[200px] bg-white-custom';
+
     useEffect(() => {
         const fav = favorites.find((favorit: Recipe) => favorit.id == recipe.id);
         if (fav) setIsFavorite(true);
@@ -35,111 +50,69 @@ function RecipeCard({ recipe, highlighted, switchCard }: RecipeCardProps) {
         setIsFavorite((isFavorite) => !isFavorite);
     };
 
-    const totalTime = recipe.cookingTime
-        ? recipe.preparingTime
-            ? recipe.cookingTime + recipe.preparingTime
-            : recipe.cookingTime
-        : recipe.preparingTime
-        ? recipe.preparingTime
-        : 0;
-
     const openModal = () => {
-        setIsOpened(true);
-        // console.log(isOpened);
+        setIsOpened(!isOpened);
     };
 
     return (
         <>
-            <div className={styles.wrapperContainer}>
+            {recipe ? (
                 <div
-                    className={`justify-end ${highlighted ? styles.icon__highlighted : styles.icon__notHighlighted} ${
-                        isFavorite ? styles.icon__favorite : 'none'
-                    } flex p-1 top-[10px] text-white-custom right-2 rounded-full cursor-pointer absolute fill-none z-10 bg-green-custom2 
-                        transition-all duration-600 ease-in-out hover:bg-green-custom3 ${styles.icon}`}
-                    onClick={() => handleFavorite()}
+                    className={`${styles.wrapperContainer} ${
+                        smallCard ? smallCardSize : mediumCardSize
+                    } rounded-custom_s relative w-full h-[225px] sm:h-[160px]`}
                 >
-                    <Icon size={15} icon="heart"></Icon>
-                </div>
+                    <div
+                        className={`justify-end ${
+                            highlighted ? styles.icon__highlighted : styles.icon__notHighlighted
+                        } ${
+                            isFavorite ? styles.icon__favorite : 'none'
+                        } flex p-1 top-[10px] text-white-custom right-2 rounded-full cursor-pointer absolute fill-none z-10 bg-green-custom2 
+                        transition-all duration-600 ease-in-out hover:bg-green-custom3 ${styles.icon}`}
+                        onClick={() => handleFavorite()}
+                    >
+                        <Icon size={18} icon="heart"></Icon>
+                    </div>
 
-                <div
-                    className={`justify-end ${highlighted ? styles.icon__highlighted : styles.icon__notHighlighted}
-                    ${switchCard ? 'block' : 'hidden'}
+                    <div
+                        className={`justify-end ${highlighted ? styles.icon__highlighted : styles.icon__notHighlighted}
+                    ${withSwitch ? 'block' : 'hidden'}
             
-                    flex p-1 top-[10px] text-white-custom right-8 rounded-full cursor-pointer absolute z-10 bg-green-custom2  transition-all duration-600 ease-in-out ${
+                    flex p-1 top-[10px] text-white-custom right-10 rounded-full cursor-pointer absolute z-10 bg-green-custom2  transition-all duration-600 ease-in-out ${
                         styles.icon
                     }`}
-                    onClick={() => openModal()}
-                >
-                    <Icon size={15} icon="switch"></Icon>
-                </div>
-                <ChangeRecipeModal open={isOpened}></ChangeRecipeModal>
-                <Link className="block h-full" href={`/recipe/${recipe.id}`}>
-                    <div className={` w-full h-full absolute rounded-custom_s ${styles.foodBox}`}>
-                        <Image
-                            src={`/service/images/${recipe.img}`}
-                            width={200}
-                            height={200}
-                            alt="Food Img"
-                            className={`w-full h-full object-cover rounded-custom_s z-[-5] transition-opacity duration-600 ease-in-out ${styles.foodImg}`}
-                        />
-                    </div>
-                    <div
-                        className={` w-full h-full flex flex-col-reverse rounded-custom_s relative overflow-hidden ${
-                            highlighted ? `${styles.weekplanBox} ${styles.weekplanBoxToday}` : styles.weekplanBox
-                        }`}
+                        onClick={openModal}
                     >
-                        <div
-                            className={`absolute p-2 transition-bottom duration-600 ease-in-out h-auto w-full ${styles.discriptionFood}`}
-                        >
-                            <div className="">
-                                <div className="w-full col-span-4">
-                                    <div
-                                        className="p-big leading-5 !mb-0 w-4/5 sm:w-[140px] lg:w-[160px] recipeName"
-                                        style={{
-                                            color: highlighted ? 'var(--white)' : 'var(--black)',
-                                        }}
-                                    >
-                                        {recipe.name}
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                className={`opacity-0 pointer-events-none transition-opacity duration-500 ease-in-out absolute mt-0 w-[240px] ${styles.discriptionHover}`}
-                                style={{
-                                    color: highlighted ? 'var(--white)' : 'var(--black)',
-                                }}
-                            >
-                                {recipe.formOfDiet !== null && (
-                                    <div className="flex flex-row gap-x-2 mt-4">
-                                        <Icon size={20} icon={getFormOfDietIcon(recipe?.formOfDiet)}></Icon>
-                                        <p
-                                            className="text-base text-center my-auto"
-                                            style={{
-                                                color: highlighted ? 'var(--white)' : 'var(--black)',
-                                            }}
-                                        >
-                                            {recipe.formOfDiet}
-                                        </p>
-                                    </div>
-                                )}
-                                {totalTime !== (null || 0) && (
-                                    <div className="flex flex-row gap-x-2 mt-4">
-                                        <Icon size={20} icon="totaltime"></Icon>
-                                        <p
-                                            className="text-base my-auto text-center"
-                                            style={{
-                                                color: highlighted ? 'var(--white)' : 'var(--black)',
-                                            }}
-                                        >
-                                            {totalTime} min
-                                        </p>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                        <Icon size={18} icon="switch"></Icon>
                     </div>
-                </Link>
-            </div>
+                    {switchRecipe ? (
+                        <button className="block h-full w-full text-left" onClick={switchRecipe}>
+                            <CardContent recipe={recipe} highlighted={highlighted} smallCard={smallCard} />
+                        </button>
+                    ) : (
+                        <Link className="block h-full" href={`/recipe/${recipe.id}`}>
+                            <CardContent recipe={recipe} highlighted={highlighted} smallCard={smallCard} />
+                        </Link>
+                    )}
+                </div>
+            ) : (
+                <button
+                    className="flex justify-center flex-col rounded-custom_s relative w-full h-[225px] sm:h-[160px] md:!h-[300px] md:!w-[200px] bg-green-custom4 items-center hover:bg-green-custom_super_light text-green-custom2 hover:text-green-custom3"
+                    onClick={openModal}
+                >
+                    <div className="">
+                        <Icon size={50} icon="addCircle"></Icon>
+                    </div>
+                    <h5 className="text-inherit pt-5 m-0">add recipe</h5>
+                </button>
+            )}
+
+            <ChangeRecipeModal
+                open={isOpened}
+                setIsOpened={setIsOpened}
+                entryId={entryId}
+                refresh={refreshWeekplan}
+            ></ChangeRecipeModal>
         </>
     );
 }

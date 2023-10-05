@@ -1,12 +1,7 @@
 @import '@styles/variables.scss';
 
 .wrapperContainer {
-    position: relative;
-    width: 100%;
-    height: 225px;
     @screen sm {
-        width: 160px;
-
         &:hover {
             .foodImg {
                 opacity: 0.1;
@@ -59,11 +54,6 @@
                 }
             }
         }
-    }
-
-    @screen lg {
-        width: 200px;
-        height: 300px;
     }
 }
 

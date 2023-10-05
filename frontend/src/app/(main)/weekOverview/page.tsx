@@ -62,7 +62,14 @@ export default function WeekOverview() {
                         {new Date(day.date).toLocaleDateString('de-DE', options)}
                     </h4>
                 </div>
-                <RecipeCard recipe={day.recipe} highlighted={today == new Date(day.date).getDay()} switchCard={true} />
+                <RecipeCard
+                    recipe={day.recipe}
+                    highlighted={today == new Date(day.date).getDay()}
+                    withSwitch={true}
+                    smallCard={false}
+                    entryId={day.id}
+                    refreshWeekplan={refresh}
+                />
             </>
         );
     }
@@ -71,9 +78,9 @@ export default function WeekOverview() {
         <>
             {data && !error ? (
                 <div className={`mainContainer ${styles.container}`}>
-                    <div className="sm:flex sm:justify-between">
+                    <div className="flex justify-between">
                         <h1 className="">{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Weekplan</h1>
-                        <div className="mt-4">
+                        <div className="sm:mt-4">
                             <button
                                 className="btn-primary rounded-full btn-small"
                                 data-cy="start-planning-btn"
@@ -105,7 +112,9 @@ export default function WeekOverview() {
                     </div>
                 </div>
             ) : (
-                <div>loading</div>
+                <div className="mainContainer">
+                    <p>loading</p>
+                </div>
             )}
         </>
     );

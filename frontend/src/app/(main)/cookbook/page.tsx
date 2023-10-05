@@ -24,7 +24,8 @@ function Cookbook() {
                                     key={favorite.id}
                                     recipe={favorite}
                                     highlighted={false}
-                                    switchCard={false}
+                                    withSwitch={false}
+                                    smallCard={false}
                                 />
                             );
                         })}

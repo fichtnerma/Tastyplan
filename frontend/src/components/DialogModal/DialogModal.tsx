@@ -1,6 +1,5 @@
 import { MouseEvent, useEffect, useRef } from 'react';
 import Icon from '@components/Icon/Icon';
-// import styles from "./DialogModal.module.scss";
 
 const isClickInsideRectangle = (e: MouseEvent, element: HTMLElement) => {
     const r = element.getBoundingClientRect();
@@ -11,29 +10,23 @@ const isClickInsideRectangle = (e: MouseEvent, element: HTMLElement) => {
 type Props = {
     title: string;
     buttonClose: string;
+    buttonProceed: string;
     isOpened: boolean;
     onProceed: () => void;
     onClose: () => void;
     children: React.ReactNode;
 };
 
-const DialogModal = ({ title, buttonClose, isOpened, onProceed, onClose, children }: Props) => {
+const DialogModal = ({ title, buttonClose, buttonProceed, isOpened, onProceed, onClose, children }: Props) => {
     const ref = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
         if (isOpened) {
             ref.current?.showModal();
-            document.body.classList.add('modal-open'); // prevent bg scroll
         } else {
             ref.current?.close();
-            document.body.classList.remove('modal-open');
         }
     }, [isOpened]);
-
-    const proceedAndClose = () => {
-        onProceed();
-        onClose();
-    };
 
     return (
         <dialog
@@ -42,23 +35,31 @@ const DialogModal = ({ title, buttonClose, isOpened, onProceed, onClose, childre
             onClick={(e: MouseEvent<Element, globalThis.MouseEvent>) =>
                 ref.current && !isClickInsideRectangle(e, ref.current) && onClose()
             }
-            className="bg-green-custom4 rounded-custom_s"
+            className="bg-green-custom_super_light rounded-custom_s overflow-hidden"
         >
+            <div className="absolute top-0 left-0 w-full h-[280px]">
+                <svg viewBox="0 0 980 249" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M482.174 204.673C258.611 274.469 222.542 257.811 0 182.899V0H980V193.631C721.049 132.558 579.387 174.323 482.174 204.673Z"
+                        fill="#007370"
+                    />
+                </svg>
+            </div>
             <div className="relative h-6 w-full">
-                <button onClick={onClose} className="right-0 top-1 absolute">
+                <button onClick={onClose} className="right-0 top-1 absolute text-green-custom4">
                     <Icon size={20} icon="close" />
                 </button>
             </div>
-            <h3 className="h2 px-6">{title}</h3>
+            <h3 className="h2 text-center text-green-custom4 z-10 relative">{title}</h3>
 
             {children}
 
-            <div className="flex gap-4">
+            <div className="flex place-content-between pb-5">
                 <button onClick={onClose} className="btn-primary  btn-small">
                     {buttonClose}
                 </button>
-                <button onClick={proceedAndClose} className="btn-primary  btn-small">
-                    No recipe for this mealtime
+                <button onClick={onProceed} className="btn-primary  btn-small">
+                    {buttonProceed}
                 </button>
             </div>
         </dialog>

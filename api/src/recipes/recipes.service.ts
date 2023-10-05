@@ -1,6 +1,6 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
-import { convertToTime } from 'src/helpers/converter.utils';
+import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
 import { Ingredient, Recipe, Step, User } from '@prisma/client';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
@@ -232,9 +232,47 @@ export class RecipesService {
                     ...fetchedMeals,
                 ];
             }
-            console.log(fetchedMeals);
 
-            return fetchedMeals.slice(0, k);
+            const shuffeledMeals = shuffleArray(fetchedMeals);
+            const recipeIds = shuffeledMeals.slice(0, k);
+
+            const recipes = await this.prismaService.recipe.findMany({
+                where: {
+                    id: { in: recipeIds.map((object) => object.id) },
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    description: true,
+                    img: true,
+                    formOfDiet: true,
+                    preparingTime: true,
+                    cookingTime: true,
+                    totalTime: true,
+                    ingredients: {
+                        select: {
+                            id: true,
+                            quantity: true,
+                            unit: true,
+                            ingredient: {
+                                select: {
+                                    name: true,
+                                    id: true,
+                                    categories: true,
+                                },
+                            },
+                        },
+                    },
+                    steps: {
+                        select: {
+                            stepCount: true,
+                            description: true,
+                        },
+                    },
+                },
+            });
+
+            return recipes;
         } catch (error) {
             throw new InternalServerErrorException('Error: no k random recipes could be created');
         }
