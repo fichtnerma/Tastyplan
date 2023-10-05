@@ -81,6 +81,7 @@ export class WeekplanService {
 
         try {
             let fetchedMeals = await this.recipeService.filterByPreferences(user);
+            console.log(fetchedMeals);
 
             if (fetchedMeals.length < 7) {
                 fetchedMeals = [

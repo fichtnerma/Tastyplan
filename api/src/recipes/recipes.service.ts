@@ -117,6 +117,7 @@ export class RecipesService {
                     id: true,
                 },
             });
+            console.log('Recipes', recipes);
 
             return recipes;
         } catch (error) {
@@ -148,7 +149,7 @@ export class RecipesService {
                 cookingTime: convertToTime(recipe.cookingTime) || 0,
                 preparingTime: convertToTime(recipe.prepareTime) || 0,
                 totalTime: convertToTime(recipe.totalTime) || 0,
-                formOfDiet: recipe.formOfDiet.at(-1) || 'omnivore',
+                formOfDiet: recipe.formOfDiet || 'omnivore',
                 ingredients: {
                     createMany: {
                         data: [...recipe.ingredients],

@@ -1,16 +1,14 @@
 import Image from 'next/image';
-import { getServerSession } from 'next-auth';
 import RecipeSteps from '@components/RecipeSteps/RecipeSteps';
 import IngredientList from '@components/IngredientList/IngredientList';
 import IconList from '@components/IconList/IconList';
-import { fetchWithAuth, getFormOfDietIcon } from '@helpers/utils';
+import { getFormOfDietIcon } from '@helpers/utils';
 import { Recipe } from 'src/types/types';
 import styles from '@styles/DetailRecipe.module.scss';
 import FavoriteButton from './FavoriteButton';
 
 export default async function DetailRecipe({ params: { id } }: { params: { id: string } }) {
-    const session = await getServerSession();
-    const data = await fetchWithAuth(`/service/recipes/${id}`, { method: 'GET' }, session);
+    const data = await fetch(`${process.env.API_URL}/recipes/${id}`, { method: 'GET' });
     const recipe = (await data.json()) as Recipe;
 
     const icons = [

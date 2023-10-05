@@ -42,7 +42,7 @@ export class InitializerService implements OnApplicationBootstrap {
             }
         }
         await this.recipeService.storeInRedis();
-        await fetch('http://recommender:5000/initalize', { method: 'GET' });
+        await fetch(`${process.env.RECOMMENDER_URL}/initalize`, { method: 'GET' });
     }
 
     async syncIngredients() {
@@ -131,7 +131,7 @@ export class InitializerService implements OnApplicationBootstrap {
 
     async prepareRecipeData(recipe: RecipeWithIngredients, index: number) {
         try {
-            const recipeJson = await fetch('http://recommender:5000/mapping', {
+            const recipeJson = await fetch(`${process.env.RECOMMENDER_URL}/mapping`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(recipe),
