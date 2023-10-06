@@ -133,7 +133,6 @@ export class RecipesService {
             ingredients: Array<{ ingredientId: number }>;
         },
     ) {
-        const specialCharacter = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~'-]/g;
         console.log('Recipe Id', recipe.id);
 
         await this.prismaService.recipe.upsert({
@@ -142,7 +141,7 @@ export class RecipesService {
             create: {
                 id: recipe.id,
                 name: recipe.name,
-                img: recipe.name.replace(specialCharacter, '') + '.jpg',
+                img: recipe.img,
                 servings: +recipe.servings || 4,
                 description: recipe.description,
                 cookingTime: convertToTime(recipe.cookingTime) || 0,
