@@ -33,7 +33,7 @@ function CheckboxGroup({ checkboxes, groupName, onCheckboxSelect, disabled }: Ch
     };
 
     return (
-        <div className="w-fit inline-grid grid-cols-1 gap-4">
+        <div className="w-fit inline-grid grid-cols-1 gap-2">
             {checkboxGroup.map((checkbox) => (
                 <Checkbox
                     customCheckbox={checkbox}

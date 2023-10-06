@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
 import { CustomCheckboxInput } from 'src/types/types';
 import styles from './WeekplanConfig.module.scss';
 
 type OnBackFunction = () => void;
-type OnChoiceFunction = (choices: WeekConfig) => void;
+type OnChoiceFunction = (servings: number) => void;
 type OnDaySelectionFunction = (id: string) => void;
 type OnMealSelectionFunction = (id: string) => void;
 
 interface WeekplanConfigProps {
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
-    weekConfig: WeekConfig;
+    servings: number;
     handlePreferences: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
     daysCheckboxes: CustomCheckboxInput[];
     handleDaySelection: OnDaySelectionFunction;
@@ -20,53 +20,37 @@ interface WeekplanConfigProps {
     handleMealSelection: OnMealSelectionFunction;
 }
 
-interface WeekConfig {
-    days: string[];
-    meals: string[];
-    servings: number;
-}
-
 export default function WeekplanConfig({
     onBack,
     onChoice,
-    weekConfig,
+    servings,
     handlePreferences,
     daysCheckboxes,
     handleDaySelection,
     mealsCheckboxes,
     handleMealSelection,
 }: WeekplanConfigProps) {
-    const [weekplanChoices, setWeekplanChoices] = useState({
-        ...weekConfig,
-        days: [...weekConfig.days],
-        meals: [...weekConfig.meals],
-    });
-
     const handleBack = () => {
-        onChoice(weekplanChoices);
+        onChoice(servings);
         onBack();
     };
 
     const increasePortion = () => {
-        const tempServings = weekplanChoices.servings + 1;
-        setWeekplanChoices({ ...weekplanChoices, servings: tempServings });
-        onChoice(weekplanChoices);
+        onChoice(servings + 1);
     };
 
     const decreasePortion = () => {
-        if (weekplanChoices.servings > 1) {
-            const tempServings = weekplanChoices.servings - 1;
-            setWeekplanChoices({ ...weekplanChoices, servings: tempServings });
-            onChoice(weekplanChoices);
+        if (servings > 1) {
+            onChoice(servings - 1);
         }
     };
 
     return (
         <>
-            <h4 className="mb-2 h2">Adjust your weekplan</h4>
+            <h4 className="!mb-2 h2">Adjust your weekplan</h4>
             <div className="h-[400px] lg:h-[300px] overflow-y-auto grid grid-cols-1 lg:grid-cols-2">
                 <div>
-                    <h5>On what days do you want to cook?</h5>
+                    <h5 className="mb-2">On what days do you want to cook?</h5>
                     <CheckboxGroup
                         checkboxes={daysCheckboxes}
                         groupName="days"
@@ -75,29 +59,29 @@ export default function WeekplanConfig({
                     />
                 </div>
                 <div className="ml-0 lg:ml-4">
-                    <h5 className="mt-8 lg:mt-0">What meals do you want to cook?</h5>
+                    <h5 className="mt-8 lg:mt-0 mb-2">What meals do you want to cook?</h5>
                     <CheckboxGroup
                         checkboxes={mealsCheckboxes}
                         groupName="meals"
                         onCheckboxSelect={handleMealSelection}
                         disabled={false}
                     />
-                    <h5 className="mt-8">How many servings?</h5>
+                    <h5 className="mt-8 lg:mt-4 mb-2">How many servings?</h5>
                     <div className="flex mb-5">
                         <button
                             type="button"
-                            className={`btn-primary ${styles.btnPortion} mr-2`}
+                            className={`btn-primary ${styles.btnPortion}`}
                             onClick={decreasePortion}
                             data-cy="decrease-serving-btn"
                         >
                             -
                         </button>
-                        <p id="portion" data-cy="portion-amount">
-                            {weekplanChoices.servings}
+                        <p id="portion" data-cy="portion-amount" className="text-base w-10 text-center">
+                            {servings}
                         </p>
                         <button
                             type="button"
-                            className={`btn-primary ${styles.btnPortion} ml-2 mr-5`}
+                            className={`btn-primary ${styles.btnPortion} mr-5`}
                             onClick={increasePortion}
                             data-cy="increase-serving-btn"
                         >

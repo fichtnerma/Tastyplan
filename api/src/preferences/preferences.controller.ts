@@ -18,15 +18,13 @@ import {
 @Controller('preferences')
 export class PreferencesController {
     constructor(private preferencesService: PreferencesService) {}
-
     @UseGuards(JwtAuthGuard)
     @ApiSecurity('access-key')
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/')
     async setPreferences(@Req() request: RequestWithUser, @Body() preferencesDto: PreferencesDto) {
         const user = request.user as User;
-
-        return await this.preferencesService.setPreferences(preferencesDto, user);
+        return await this.preferencesService.setPreferences(preferencesDto, user.userId);
     }
 
     @UseGuards(JwtAuthGuard)
@@ -35,6 +33,6 @@ export class PreferencesController {
     @Get('/')
     async getPreferences(@Req() request: RequestWithUser) {
         const user = request.user as User;
-        return await this.preferencesService.getPreferences(user);
+        return await this.preferencesService.getPreferences(user.userId);
     }
 }

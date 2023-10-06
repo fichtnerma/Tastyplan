@@ -1,4 +1,5 @@
 import { IngredientsService } from './ingredients.service';
+import { Cache } from 'cache-manager';
 import { Controller, Get, Inject, Query, UseInterceptors } from '@nestjs/common';
 import { CACHE_MANAGER, CacheInterceptor } from '@nestjs/cache-manager';
 

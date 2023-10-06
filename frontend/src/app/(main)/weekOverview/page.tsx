@@ -41,7 +41,7 @@ export default function WeekOverview() {
         }
     };
 
-    function showWeekplan(day: WeekplanEntry) {
+    function showDates(day: WeekplanEntry) {
         return (
             <>
                 <div className="sm:mb-5">
@@ -62,14 +62,40 @@ export default function WeekOverview() {
                         {new Date(day.date).toLocaleDateString('de-DE', options)}
                     </h4>
                 </div>
-                <RecipeCard
-                    recipe={day.recipe}
-                    highlighted={today == new Date(day.date).getDay()}
-                    withSwitch={true}
-                    smallCard={false}
-                    entryId={day.id}
-                    refreshWeekplan={refresh}
-                />
+            </>
+        );
+    }
+
+    function showWeekplan(day: WeekplanEntry, hasLunch: boolean, hasDinner: boolean) {
+        return (
+            <>
+                {showDates(day)}
+
+                <div className="flex sm:block gap-4">
+                    {hasLunch && (
+                        <div className=" sm:mb-10 w-full">
+                            <RecipeCard
+                                recipe={day.lunch}
+                                highlighted={today == new Date(day.date).getDay()}
+                                withSwitch={true}
+                                smallCard={false}
+                                entryId={day.id}
+                                refreshWeekplan={refresh}
+                                isLunch={true}
+                            />
+                        </div>
+                    )}
+                    {hasDinner && (
+                        <RecipeCard
+                            recipe={day.dinner}
+                            highlighted={today == new Date(day.date).getDay()}
+                            withSwitch={true}
+                            smallCard={false}
+                            entryId={day.id}
+                            refreshWeekplan={refresh}
+                        />
+                    )}
+                </div>
             </>
         );
     }
@@ -92,22 +118,33 @@ export default function WeekOverview() {
                     </div>
                     <div className="flex">
                         {/* Mobile */}
-                        <div className="sm:hidden w-full">
-                            {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
-                                <div key={day.date} className="mb-5">
-                                    {showWeekplan(day)}
-                                </div>
-                            ))}
-                        </div>
-                        {/* Destkop */}
-                        <h2 className="h1 hidden sm:block">Lunch</h2>
+                        {weekplan.hasLunch && (
+                            <div className="sm:hidden w-full">
+                                {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
+                                    <div key={day.date} className="mb-5">
+                                        {showWeekplan(day, weekplan.hasLunch, weekplan.hasDinner)}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
-                        <div className="hidden sm:flex overflow-y-hidden scrollable-element">
-                            {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
-                                <div className="mr-6 mb-2" key={day.date}>
-                                    {showWeekplan(day)}
+                        {/* Desktop */}
+
+                        <div className="w-full">
+                            {/* Lunch */}
+                            <div className="flex mb-10">
+                                <div className="grid grid-cols-1 grid-rows-2">
+                                    {weekplan.hasLunch && <h2 className="h1 hidden sm:block">Lunch</h2>}
+                                    {weekplan.hasDinner && <h2 className="h1 hidden sm:block">Dinner</h2>}
                                 </div>
-                            ))}
+                                <div className="hidden sm:flex overflow-y-hidden scrollable-element">
+                                    {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
+                                        <div className="mr-6 mb-2 " key={day.date}>
+                                            {showWeekplan(day, weekplan.hasLunch, weekplan.hasDinner)}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

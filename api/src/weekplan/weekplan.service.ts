@@ -1,3 +1,4 @@
+import { WeekplanEntry } from 'src/types/types';
 import { IFormattedWeekplan, IWeekplan, IWeekplanEntry } from './weekplan.interface';
 import { ChangeRecipeDto } from './dto/change-recipe.dto';
 import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
@@ -15,16 +16,17 @@ export class WeekplanService {
         private shoppingListService: ShoppingListService,
     ) {}
 
-    async get(user: User) {
+    async get(userId: string) {
         try {
             const weekplans = await this.prismaService.weekplan.findMany({
                 where: {
-                    userId: user.userId,
+                    userId: userId,
                 },
                 include: {
                     weekplanEntry: {
                         include: {
-                            recipe: true,
+                            lunch: true,
+                            dinner: true,
                         },
                     },
                 },
@@ -46,31 +48,37 @@ export class WeekplanService {
         const formattedWeekPlan = {
             startDate: weekplan.startDate,
             endDate: weekplan.endDate,
+            hasDinner: weekplan.hasDinner,
+            hasLunch: weekplan.hasLunch,
             weekplanEntry: weekplan.weekplanEntry.map((entry: IWeekplanEntry) => ({
                 id: entry.id,
                 date: entry.date,
-                recipe: entry.recipe
-                    ? {
-                          id: entry.recipe.id,
-                          name: entry.recipe.name,
-                          img: entry.recipe.img,
-                          preparingTime: entry.recipe.preparingTime,
-                          cookingTime: entry.recipe.cookingTime,
-                          formOfDiet: entry.recipe.formOfDiet,
-                      }
-                    : null,
+                lunch: entry.lunch && {
+                    id: entry.lunch.id,
+                    name: entry.lunch.name,
+                    img: entry.lunch.img,
+                    preparingTime: entry.lunch.preparingTime,
+                    cookingTime: entry.lunch.cookingTime,
+                    formOfDiet: entry.lunch.formOfDiet,
+                },
+                dinner: entry.dinner && {
+                    id: entry.dinner.id,
+                    name: entry.dinner.name,
+                    img: entry.dinner.img,
+                    preparingTime: entry.dinner.preparingTime,
+                    cookingTime: entry.dinner.cookingTime,
+                    formOfDiet: entry.dinner.formOfDiet,
+                },
             })),
         };
         formattedWeekPlan.weekplanEntry = formattedWeekPlan.weekplanEntry.sort((a, b) => a.id - b.id);
         return formattedWeekPlan;
     }
 
-    async create(user: User) {
-        const week = [0, 1, 2, 3, 4, 5, 6];
-
+    async create(userId: string) {
         //Delete existing weekplan
         try {
-            const existingWeekplan = await this.queryExistingWeekplan(user.userId);
+            const existingWeekplan = await this.queryExistingWeekplan(userId);
             if (existingWeekplan) {
                 await this.prismaService.weekplanEntry.deleteMany({
                     where: { weekplanId: existingWeekplan.id },
@@ -86,48 +94,43 @@ export class WeekplanService {
         }
 
         try {
-            let fetchedMeals = await this.recipeService.filterByPreferences(user);
-            console.log(fetchedMeals);
-
-            if (fetchedMeals.length < 7) {
-                fetchedMeals = [
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                ];
+            const fetchedMealsAndWeekplanPreferences = await this.recipeService.filterByPreferences(userId);
+            let fetchedMeals = fetchedMealsAndWeekplanPreferences.recipes;
+            if (fetchedMeals.length < 14) {
+                fetchedMeals = [...fetchedMeals, ...fetchedMeals];
             }
             const shuffeledMeals = shuffleArray(fetchedMeals);
             const weekPlan = await this.prismaService.weekplan.create({
                 data: {
-                    userId: user.userId,
+                    userId: userId,
                     startDate: new Date(),
                     endDate: new Date(new Date().setDate(new Date().getDate() + 6)),
+                    hasDinner: fetchedMealsAndWeekplanPreferences.wantsDinner,
+                    hasLunch: fetchedMealsAndWeekplanPreferences.wantsLunch,
                     weekplanEntry: {
                         createMany: {
-                            data: week.map((dayEntry) => ({
-                                date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
-                                recipeId: shuffeledMeals[dayEntry]?.id || 1,
-                            })),
+                            data: this.createWeekplanData(
+                                fetchedMealsAndWeekplanPreferences.days,
+                                shuffeledMeals,
+                                fetchedMealsAndWeekplanPreferences.wantsLunch,
+                                fetchedMealsAndWeekplanPreferences.wantsDinner,
+                            ),
                         },
                     },
                 },
                 include: {
                     weekplanEntry: {
                         include: {
-                            recipe: true,
+                            lunch: true,
+                            dinner: true,
                         },
                     },
                 },
             });
-
-            const weekplanRecipeIds = weekPlan.weekplanEntry.map((entry) => entry.recipeId);
-
-            this.shoppingListService.create(weekplanRecipeIds, user);
-
+            const weekplanRecipeIds = weekPlan.weekplanEntry
+                .flatMap((entry) => [entry.lunchId, entry.dinnerId])
+                .filter((id) => id !== null);
+            this.shoppingListService.create(weekplanRecipeIds, userId);
             return this.formatWeekPlan(weekPlan);
         } catch (error) {
             throw new HttpException('creating weekplan failed', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -154,19 +157,58 @@ export class WeekplanService {
             if (!weekplanEntry) {
                 throw new InternalServerErrorException('Error: Failed to change Recipe no weekplanEntry');
             }
-            if (changeRecipeReq.id) {
-                await this.prismaService.weekplanEntry.update({
-                    where: { id: +changeRecipeReq.weekplanEntry },
-                    data: { recipeId: +changeRecipeReq.id },
-                });
-            } else {
-                await this.prismaService.weekplanEntry.update({
-                    where: { id: +changeRecipeReq.weekplanEntry },
-                    data: { recipe: { disconnect: true } },
-                });
+            if (changeRecipeReq.isLunch) {
+                if (changeRecipeReq.id) {
+                    await this.prismaService.weekplanEntry.update({
+                        where: { id: +changeRecipeReq.weekplanEntry },
+                        data: { lunchId: +changeRecipeReq.id },
+                    });
+                } else {
+                    await this.prismaService.weekplanEntry.update({
+                        where: { id: +changeRecipeReq.weekplanEntry },
+                        data: { lunch: { disconnect: true } },
+                    });
+                }
+            } else if (changeRecipeReq.isDinner) {
+                if (changeRecipeReq.id) {
+                    await this.prismaService.weekplanEntry.update({
+                        where: { id: +changeRecipeReq.weekplanEntry },
+                        data: { dinnerId: +changeRecipeReq.id },
+                    });
+                } else {
+                    await this.prismaService.weekplanEntry.update({
+                        where: { id: +changeRecipeReq.weekplanEntry },
+                        data: { dinner: { disconnect: true } },
+                    });
+                }
             }
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to change Recipe for given user');
         }
+    }
+
+    createWeekplanData(
+        daysPreferences: number[],
+        shuffeledMeals: { id: number }[],
+        wantsLunch: boolean,
+        wantsDinner: boolean,
+    ) {
+        const week = [0, 1, 2, 3, 4, 5, 6];
+        let recipeCounter = 0;
+        const weekplan = week.map((dayEntry) => {
+            const weekplanEntry: WeekplanEntry = {
+                date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
+            };
+            if (daysPreferences.includes(dayEntry) && wantsLunch) {
+                weekplanEntry.lunchId = shuffeledMeals[recipeCounter]?.id || 1;
+                recipeCounter++;
+            }
+            if (daysPreferences.includes(dayEntry) && wantsDinner) {
+                weekplanEntry.dinnerId = shuffeledMeals[recipeCounter]?.id || 1;
+                recipeCounter++;
+            }
+            return weekplanEntry;
+        });
+        return weekplan;
     }
 }

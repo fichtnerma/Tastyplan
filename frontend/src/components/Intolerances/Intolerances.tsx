@@ -61,7 +61,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
 
     return (
         <>
-            <h4 className="h2 mb-2">What are your intolerances?</h4>
+            <h4 className="h2 !mb-2">What are your intolerances?</h4>
             <div className="h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
                 <div className="grid grid-cols-2 gap-4 lg:gap-y-4 lg:grid-cols-3 xl:gap-y-8 xl:grid-cols-3 2xl:gap-y-8 2xl:grid-cols-4">
                     {intolerances.map((intolerance, i) => (
