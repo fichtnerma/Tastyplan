@@ -39,6 +39,7 @@ export function mapShoppingListToSelection(ingredientList: ShoppingListItem[]): 
             label: `${ingredient?.category === 'Spices' ? '' : ingredient.quantity} ${
                 ingredient?.category === 'Spices' ? '' : ingredient.unit
             } ${ingredient.ingredientName}`,
+            value: ingredient.ingredientName,
             checked: ingredient.isChecked,
         };
     });

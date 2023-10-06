@@ -69,6 +69,7 @@ export type WeekplanEntry = {
 export type CustomSelectionInput = {
     id: string;
     label: string;
+    value: string;
     checked: boolean;
 };
 
