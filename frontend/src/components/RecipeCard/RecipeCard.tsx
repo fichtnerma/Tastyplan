@@ -10,13 +10,14 @@ import styles from './RecipeCard.module.scss';
 import CardContent from './CardContent';
 
 type RecipeCardProps = {
-    recipe: Recipe;
+    recipe?: Recipe;
     highlighted?: boolean;
     withSwitch?: boolean;
     smallCard?: boolean;
     switchRecipe?: () => void;
     entryId?: string;
     refreshWeekplan?: () => void;
+    isLunch?: boolean;
 };
 
 function RecipeCard({
@@ -27,6 +28,7 @@ function RecipeCard({
     switchRecipe,
     entryId,
     refreshWeekplan,
+    isLunch = false,
 }: RecipeCardProps) {
     const [isFavorite, setIsFavorite] = useState(false);
     const [isOpened, setIsOpened] = useState(false);
@@ -37,15 +39,17 @@ function RecipeCard({
     const mediumCardSize = 'md:!h-[300px] md:!w-[200px] bg-white-custom';
 
     useEffect(() => {
-        const fav = favorites.find((favorit) => favorit.id === recipe.id);
+        const fav = favorites.find((favorit) => favorit.id === recipe?.id);
         if (fav) setIsFavorite(true);
     }, [isFavorite, favorites, recipe]);
 
     const handleFavorite = async () => {
-        if (isFavorite) {
-            remove(recipe.id, session);
-        } else {
-            add(recipe, session);
+        if (recipe) {
+            if (isFavorite) {
+                remove(recipe.id, session);
+            } else {
+                add(recipe, session);
+            }
         }
         setIsFavorite((isFavorite) => !isFavorite);
     };
@@ -112,6 +116,7 @@ function RecipeCard({
                 setIsOpened={setIsOpened}
                 entryId={entryId}
                 refresh={refreshWeekplan}
+                isLunch={isLunch}
             ></ChangeRecipeModal>
         </>
     );

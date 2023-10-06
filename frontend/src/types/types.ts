@@ -57,13 +57,16 @@ export type Step = {
 export type Weekplan = {
     endDate: string;
     startDate: string;
+    hasDinner: boolean;
+    hasLunch: boolean;
     weekplanEntry: Array<WeekplanEntry>;
 };
 
 export type WeekplanEntry = {
     id: string;
     date: string;
-    recipe: Recipe;
+    lunch?: Recipe;
+    dinner?: Recipe;
 };
 
 export type CustomSelectionInput = {

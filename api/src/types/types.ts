@@ -43,3 +43,9 @@ export enum UserState {
     finished = 'finished',
     registration = 'registration',
 }
+
+export interface WeekplanEntry {
+    date: Date;
+    lunchId?: number;
+    dinnerId?: number;
+}

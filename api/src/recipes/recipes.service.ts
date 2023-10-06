@@ -80,7 +80,7 @@ export class RecipesService {
         await this.cache.set('recipes', recipesFormatted, 0);
     }
 
-    async filterByPreferences(user: User) {
+    async filterByPreferences(userId: string) {
         const possibleDietsMap = new Map([
             ['vegan', ['vegan']],
             ['vegetarian', ['vegan', 'vegetarian']],
@@ -88,10 +88,9 @@ export class RecipesService {
             ['flexitarian', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
             ['omnivore', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
         ]);
-        const preferences = await this.preferencesService.getPreferences(user);
-        const { formOfDiet, allergens } = preferences;
+        const preferences = await this.preferencesService.getPreferences(userId);
+        const { formOfDiet, allergens, days, wantsDinner, wantsLunch } = preferences;
         const dislikedIngredients = preferences.foodDislikes.map((item: Ingredient) => item.id);
-
         try {
             const recipes = await this.prismaService.recipe.findMany({
                 where: {
@@ -119,7 +118,7 @@ export class RecipesService {
             });
             console.log('Recipes', recipes);
 
-            return recipes;
+            return { recipes: recipes, days: days, wantsDinner: wantsDinner, wantsLunch: wantsLunch };
         } catch (error) {
             throw new InternalServerErrorException('Error: Filter recipes by preferences failed');
         }
@@ -134,7 +133,6 @@ export class RecipesService {
             ingredients: Array<{ ingredientId: number }>;
         },
     ) {
-        const specialCharacter = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~'-]/g;
         console.log('Recipe Id', recipe.id);
 
         await this.prismaService.recipe.upsert({
@@ -143,7 +141,7 @@ export class RecipesService {
             create: {
                 id: recipe.id,
                 name: recipe.name,
-                img: recipe.name.replace(specialCharacter, '') + '.jpg',
+                img: recipe.img,
                 servings: +recipe.servings || 4,
                 description: recipe.description,
                 cookingTime: convertToTime(recipe.cookingTime) || 0,
@@ -250,7 +248,7 @@ export class RecipesService {
 
     async getRecommendations(k: number, user: User) {
         try {
-            let fetchedMeals = await this.filterByPreferences(user);
+            let { recipes: fetchedMeals } = await this.filterByPreferences(user.userId);
 
             if (fetchedMeals.length < k) {
                 fetchedMeals = [
