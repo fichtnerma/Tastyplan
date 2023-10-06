@@ -157,16 +157,30 @@ export class WeekplanService {
             if (!weekplanEntry) {
                 throw new InternalServerErrorException('Error: Failed to change Recipe no weekplanEntry');
             }
-            if (changeRecipeReq.id) {
-                await this.prismaService.weekplanEntry.update({
-                    where: { id: +changeRecipeReq.weekplanEntry },
-                    data: { recipeId: +changeRecipeReq.id },
-                });
-            } else {
-                await this.prismaService.weekplanEntry.update({
-                    where: { id: +changeRecipeReq.weekplanEntry },
-                    data: { recipe: { disconnect: true } },
-                });
+            if (changeRecipeReq.isLunch) {
+                if (changeRecipeReq.id) {
+                    await this.prismaService.weekplanEntry.update({
+                        where: { id: +changeRecipeReq.weekplanEntry },
+                        data: { lunchId: +changeRecipeReq.id },
+                    });
+                } else {
+                    await this.prismaService.weekplanEntry.update({
+                        where: { id: +changeRecipeReq.weekplanEntry },
+                        data: { lunch: { disconnect: true } },
+                    });
+                }
+            } else if (changeRecipeReq.isDinner) {
+                if (changeRecipeReq.id) {
+                    await this.prismaService.weekplanEntry.update({
+                        where: { id: +changeRecipeReq.weekplanEntry },
+                        data: { dinnerId: +changeRecipeReq.id },
+                    });
+                } else {
+                    await this.prismaService.weekplanEntry.update({
+                        where: { id: +changeRecipeReq.weekplanEntry },
+                        data: { dinner: { disconnect: true } },
+                    });
+                }
             }
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to change Recipe for given user');

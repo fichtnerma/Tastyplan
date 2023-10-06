@@ -249,7 +249,7 @@ export class RecipesService {
 
     async getRecommendations(k: number, user: User) {
         try {
-            let fetchedMeals = await this.filterByPreferences(user.userId);
+            let { recipes: fetchedMeals } = await this.filterByPreferences(user.userId);
 
             if (fetchedMeals.length < k) {
                 fetchedMeals = [

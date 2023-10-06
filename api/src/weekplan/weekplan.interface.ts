@@ -4,12 +4,13 @@ export type IWeekplan = Weekplan & {
     weekplanEntry: IWeekplanEntry[];
 };
 export type IWeekplanEntry = {
+    id: number;
     date: Date;
     lunch?: Recipe;
     dinner?: Recipe;
 };
 
-export type IFormattedWeekplan = Pick<Weekplan, 'startDate' | 'endDate'> & {
+export type IFormattedWeekplan = Pick<Weekplan, 'startDate' | 'endDate' | 'hasLunch' | 'hasDinner'> & {
     weekplanEntry: {
         date: Date;
         lunch: Pick<Recipe, 'id' | 'name' | 'img' | 'preparingTime' | 'cookingTime' | 'formOfDiet'>;
