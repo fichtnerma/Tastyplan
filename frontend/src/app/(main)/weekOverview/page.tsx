@@ -23,6 +23,7 @@ export default function WeekOverview() {
     const weekplan = data as Weekplan;
     const user = session?.user;
     const options: DateFormatOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
+    console.log(weekplan);
 
     const today = new Date().getDay();
     const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -41,35 +42,50 @@ export default function WeekOverview() {
         }
     };
 
-    function showWeekplan(day: WeekplanEntry) {
+    function showWeekplan(day: WeekplanEntry, isLunch: boolean) {
         return (
             <>
-                <div className="sm:mb-5">
-                    <h3
-                        className="h3 !mb-0 !leading-none"
-                        style={{
-                            color: today == new Date(day.date).getDay() ? 'var(--green-dark)' : 'var(--black)',
-                        }}
-                    >
-                        {week[new Date(day.date).getDay()]}
-                    </h3>
-                    <h4
-                        className="h6 !mb-0"
-                        style={{
-                            color: today == new Date(day.date).getDay() ? 'var(--green-dark)' : 'var(--gray-3)',
-                        }}
-                    >
-                        {new Date(day.date).toLocaleDateString('de-DE', options)}
-                    </h4>
-                </div>
-                <RecipeCard
-                    recipe={day.lunch}
-                    highlighted={today == new Date(day.date).getDay()}
-                    withSwitch={true}
-                    smallCard={false}
-                    entryId={day.id}
-                    refreshWeekplan={refresh}
-                />
+                {weekplan.hasDinner && weekplan.hasLunch && isLunch && (
+                    <div className="sm:mb-5">
+                        <h3
+                            className="h3 !mb-0 !leading-none"
+                            style={{
+                                color: today == new Date(day.date).getDay() ? 'var(--green-dark)' : 'var(--black)',
+                            }}
+                        >
+                            {week[new Date(day.date).getDay()]}
+                        </h3>
+                        <h4
+                            className="h6 !mb-0"
+                            style={{
+                                color: today == new Date(day.date).getDay() ? 'var(--green-dark)' : 'var(--gray-3)',
+                            }}
+                        >
+                            {new Date(day.date).toLocaleDateString('de-DE', options)}
+                        </h4>
+                    </div>
+                )}
+
+                {isLunch ? (
+                    <RecipeCard
+                        recipe={day.lunch}
+                        highlighted={today == new Date(day.date).getDay()}
+                        withSwitch={true}
+                        smallCard={false}
+                        entryId={day.id}
+                        refreshWeekplan={refresh}
+                        isLunch={true}
+                    />
+                ) : (
+                    <RecipeCard
+                        recipe={day.dinner}
+                        highlighted={today == new Date(day.date).getDay()}
+                        withSwitch={true}
+                        smallCard={false}
+                        entryId={day.id}
+                        refreshWeekplan={refresh}
+                    />
+                )}
             </>
         );
     }
@@ -95,19 +111,38 @@ export default function WeekOverview() {
                         <div className="sm:hidden w-full">
                             {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
                                 <div key={day.date} className="mb-5">
-                                    {showWeekplan(day)}
+                                    {showWeekplan(day, true)}
                                 </div>
                             ))}
                         </div>
-                        {/* Destkop */}
-                        <h2 className="h1 hidden sm:block">Lunch</h2>
+                        {/* Desktop */}
 
-                        <div className="hidden sm:flex overflow-y-hidden scrollable-element">
-                            {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
-                                <div className="mr-6 mb-2" key={day.date}>
-                                    {showWeekplan(day)}
+                        <div className="">
+                            {/* Lunch */}
+                            <div className="flex">
+                                {weekplan.hasLunch && <h2 className="h1 hidden sm:block">Lunch</h2>}
+
+                                <div className="hidden sm:flex overflow-y-hidden scrollable-element">
+                                    {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
+                                        <div className="mr-6 mb-2 " key={day.date}>
+                                            {showWeekplan(day, true)}
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
+                            </div>
+
+                            {/* Dinner */}
+                            <div className="flex">
+                                {weekplan.hasDinner && <h2 className="h1 hidden sm:block">Dinner</h2>}
+
+                                <div className="hidden sm:flex overflow-y-hidden scrollable-element">
+                                    {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
+                                        <div className="mr-6 mb-2" key={day.date}>
+                                            {showWeekplan(day, false)}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

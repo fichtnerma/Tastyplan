@@ -32,7 +32,7 @@ const SetupParentPage = () => {
         allergens: [],
         foodDislikes: [],
         days: [0, 1, 2, 3, 4, 5, 6],
-        meals: [1],
+        meals: [0],
         servings: 1,
     });
 
@@ -51,9 +51,9 @@ const SetupParentPage = () => {
     ]);
 
     const [mealsCheckboxes, setMeals] = useState<CustomSelectionInput[]>([
-        { id: '7', label: 'Breakfast', checked: false },
-        { id: '8', label: 'Lunch', checked: true },
-        { id: '9', label: 'Dinner', checked: false },
+        // { id: '7', label: 'Breakfast', checked: false },
+        { id: '7', label: 'Lunch', checked: true },
+        { id: '8', label: 'Dinner', checked: false },
     ]);
 
     const handleNextStep = () => {

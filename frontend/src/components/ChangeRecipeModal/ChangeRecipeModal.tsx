@@ -11,9 +11,10 @@ type ChangRecipeModalProps = {
     setIsOpened: (x: boolean) => void;
     entryId?: string;
     refresh?: () => void;
+    isLunch: boolean;
 };
 
-function ChangeRecipeModal({ open, setIsOpened, entryId, refresh }: ChangRecipeModalProps) {
+function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch }: ChangRecipeModalProps) {
     const [newRecipe, setNewRecipe] = useState(false);
     const [recipes, setRecipes] = useState<Array<Recipe>>([]);
     const { data: session } = useSession();
@@ -32,7 +33,7 @@ function ChangeRecipeModal({ open, setIsOpened, entryId, refresh }: ChangRecipeM
 
     const switchRecipe = (recipeId: number | null) => {
         setIsOpened(false);
-        const changedRecipe = { id: recipeId, weekplanEntry: entryId, isLunch: true, isDinner: false };
+        const changedRecipe = { id: recipeId, weekplanEntry: entryId, isLunch: isLunch, isDinner: !isLunch };
         fetchWithAuth(
             '/service/weekplan/changeRecipe',
             { method: 'POST', body: JSON.stringify(changedRecipe) },
