@@ -63,7 +63,7 @@ export default function WeekOverview() {
                     </h4>
                 </div>
                 <RecipeCard
-                    recipe={day.recipe}
+                    recipe={day.lunch}
                     highlighted={today == new Date(day.date).getDay()}
                     withSwitch={true}
                     smallCard={false}

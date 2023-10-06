@@ -32,7 +32,7 @@ function ChangeRecipeModal({ open, setIsOpened, entryId, refresh }: ChangRecipeM
 
     const switchRecipe = (recipeId: number | null) => {
         setIsOpened(false);
-        const changedRecipe = { id: recipeId, weekplanEntry: entryId };
+        const changedRecipe = { id: recipeId, weekplanEntry: entryId, isLunch: true, isDinner: false };
         fetchWithAuth(
             '/service/weekplan/changeRecipe',
             { method: 'POST', body: JSON.stringify(changedRecipe) },
