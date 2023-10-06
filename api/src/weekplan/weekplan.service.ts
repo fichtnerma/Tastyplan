@@ -61,7 +61,7 @@ export class WeekplanService {
                     cookingTime: entry.lunch.cookingTime,
                     formOfDiet: entry.lunch.formOfDiet,
                 },
-                dinner: entry.lunch && {
+                dinner: entry.dinner && {
                     id: entry.dinner.id,
                     name: entry.dinner.name,
                     img: entry.dinner.img,
