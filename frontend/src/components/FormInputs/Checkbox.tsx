@@ -1,9 +1,9 @@
-import { CustomSelectionInput } from 'src/types/types';
+import { CustomCheckboxInput } from 'src/types/types';
 import styles from './Checkbox.module.scss';
 
 type CheckboxProps = {
     groupName: string;
-    customCheckbox: CustomSelectionInput;
+    customCheckbox: CustomCheckboxInput;
     handleChange: (id: string, value: string, checked: boolean) => void;
     disabled: boolean;
 };

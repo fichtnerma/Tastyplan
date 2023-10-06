@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { CustomSelectionInput } from 'src/types/types';
+import { CustomCheckboxInput } from 'src/types/types';
 import Checkbox from '../Checkbox';
 
 type CheckboxProps = {
     groupName: string;
-    checkboxes: CustomSelectionInput[];
+    checkboxes: CustomCheckboxInput[];
     onCheckboxSelect?: (id: string) => void;
     disabled: boolean;
 };

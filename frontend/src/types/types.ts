@@ -66,7 +66,7 @@ export type WeekplanEntry = {
     recipe: Recipe;
 };
 
-export type CustomSelectionInput = {
+export type CustomCheckboxInput = {
     id: string;
     label: string;
     value: string;
@@ -84,7 +84,7 @@ export type ShoppingListItem = {
 };
 
 export type CustomSelectionInputGroups = {
-    [key: string]: CustomSelectionInput[];
+    [key: string]: CustomCheckboxInput[];
 };
 
 export type CategorizedIngredients = {
