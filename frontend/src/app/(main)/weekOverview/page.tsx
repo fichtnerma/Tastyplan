@@ -23,7 +23,6 @@ export default function WeekOverview() {
     const weekplan = data as Weekplan;
     const user = session?.user;
     const options: DateFormatOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
-    console.log(weekplan);
 
     const today = new Date().getDay();
     const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
