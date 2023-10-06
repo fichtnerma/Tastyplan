@@ -6,6 +6,7 @@
 @import '@styles/transitions.scss';
 @import '@styles/text.scss';
 @import '@styles/btns.scss';
+@import '@styles/scrollbar.scss';
 
 :root {
     --green-light-rgb: rgb(214, 229, 227);
@@ -29,8 +30,58 @@
     --gray-dark: rgb(58, 58, 58);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
 body {
     position: relative;
+}
+
+a {
+    &:focus {
+        outline: unset;
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+    }
+}
+
+.custom-focus {
+    &:focus {
+        outline: unset;
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+    }
+}
+
+input {
+    &:focus {
+        outline: unset;
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+    }
+}
+
+button {
+    &:focus {
+        outline: unset;
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+    }
 }
 
 input[type='submit'] {
@@ -69,46 +120,16 @@ input[type='submit'] {
     }
 }
 
-.swiper {
-    padding-bottom: 35px !important;
+.mainContainer {
+    max-width: 1536px;
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 10vh - 315px);
+    padding: 1.5rem;
+    margin-inline: auto;
 
-    .swiper-button-next {
-        color: var(--green-dark) !important;
-
-        &::after {
-            font-size: 50px !important;
-            font-weight: 900;
-        }
-    }
-
-    .swiper-button-prev {
-        color: var(--green-dark) !important;
-
-        &::after {
-            font-size: 50px !important;
-            font-weight: 900;
-        }
-    }
-
-    .swiper-button-disabled {
-        color: var(--green-light) !important;
-
-        &::after {
-            font-size: 50px !important;
-            font-weight: 900;
-        }
-    }
-
-    .swiper-horizontal > .swiper-scrollbar,
-    .swiper-scrollbar.swiper-scrollbar-horizontal {
-        bottom: var(--swiper-scrollbar-bottom, 0px) !important;
-        background-color: var(--green-light) !important;
-        width: 50% !important;
-        left: 25%;
-        height: 7px;
-    }
-
-    .swiper-scrollbar-drag {
-        background-color: var(--green-dark) !important;
+    @screen md {
+        padding: 3.5rem;
+        padding-top: 6rem;
     }
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import TextInput from '@components/FormInputs/TextInput';
@@ -10,7 +10,7 @@ interface LoginProps {
 }
 
 export default function Login({ visible }: LoginProps) {
-    const [username, setUsername] = useState('');
+    const [email, setEMail] = useState('');
     const [password, setPassword] = useState('');
     const [loginFailed, setLoginFailed] = useState(false);
     const router = useRouter();
@@ -22,7 +22,7 @@ export default function Login({ visible }: LoginProps) {
 
     const sendData = async () => {
         const data = {
-            userId: username,
+            userId: email,
             password: password,
         };
         const res = await signIn('credentials', {
@@ -39,7 +39,7 @@ export default function Login({ visible }: LoginProps) {
     };
 
     const loginEnabled = (): boolean => {
-        if (username.length === 0 || password.length === 0) {
+        if (email.length === 0 || password.length === 0) {
             return false;
         }
 
@@ -50,7 +50,7 @@ export default function Login({ visible }: LoginProps) {
         <div className={`${styles.loginContainer} ${visible && styles.active}`}>
             <form className="px-10 mb-10 flex items-stretch flex-col gap-4" action="#" onSubmit={handleSubmit}>
                 <h2 className="h1 w-full text-left">Sign in</h2>
-                <TextInput value={username} required onChange={setUsername} label="Username" />
+                <TextInput value={email} required onChange={setEMail} label="E-Mail" />
                 <TextInput value={password} type="password" required onChange={setPassword} label="Password" />
                 <div className="flex flex-col items-center mt-6 lg:items-start">
                     <Link href="#" className="btn-tertiary mb-6">

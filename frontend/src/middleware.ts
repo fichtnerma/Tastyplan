@@ -3,12 +3,12 @@ import { getToken } from 'next-auth/jwt';
 import { Role } from './types/types';
 
 const secret = process.env.SECRET_KEY;
+const requireSetupPaths = ['/weekOverview', '/shoppingList'];
+const protectedPaths = ['/setup', '/settings'].concat(requireSetupPaths);
+const authPaths = ['/setup', '/authentication/login', '/authentication/register'];
 
 export async function middleware(req: NextRequest) {
     const pathname = req.nextUrl.pathname;
-    const requireSetupPaths = ['/weekOverview', '/shoppingList'];
-    const protectedPaths = ['/setup', '/settings'].concat(requireSetupPaths);
-    const authPaths = ['/setup', '/authentication/login', '/authentication/register'];
     const res = NextResponse.next();
     const token = await getToken({ req, secret });
     if (authPaths.some((path) => pathname == path)) {

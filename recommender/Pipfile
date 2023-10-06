@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+python-dotenv = "*"
+nltk = "*"
+importlib-metadata = "*"
+jellyfish = "*"
+requests = "*"
+fastapi = "*"
+uvicorn = {version = "*", extras = ["standard"]}
+pydantic = "*"
+fuzzy-match = "*"
+numpy = "*"
+scipy = "*"
+matplotlib = "*"
+redis = "*"
+scikit-learn = "*"
+pandas = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"

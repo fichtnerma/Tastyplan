@@ -1,101 +1,48 @@
-.recipes {
-    .imageLayout {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: repeat(4, 1fr);
-        grid-column-gap: 0px;
-        grid-row-gap: 0px;
-        height: 600px;
-        width: 100%;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        margin-top: -20%;
+.mainImage {
+    grid-area: 1 / 2 / 4 / 5;
+    width: 200px;
+    height: 200px;
+    background-image: url('/Landingpage/Recipes/erbsensuppe.png');
+    background-size: cover;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 
-        @screen sm {
-            margin: 0 auto;
-        }
-
-        @screen lg {
-            width: 600px;
-        }
-
-        @screen 2xl {
-            height: 1000px;
-        }
+    @screen sm {
+        width: 250px;
+        height: 250px;
     }
 
-    .mainImage {
-        grid-area: 1 / 2 / 4 / 5;
-        width: 200px;
-        height: 200px;
-        background-image: url('/Landingpage/Recipes/erbsensuppe.png');
-        background-size: cover;
-        border-radius: 50%;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-
-        @screen sm {
-            width: 250px;
-            height: 250px;
-        }
-
-        @screen lg {
-            width: 350px;
-            height: 350px;
-        }
-
-        @screen 2xl {
-            width: 550px;
-            height: 550px;
-        }
+    @screen lg {
+        width: 350px;
+        height: 350px;
     }
 
-    .smallImage {
-        width: 80px;
-        height: 80px;
-        background-size: cover;
-        border-radius: 50%;
-        margin-top: -300px;
-
-        @screen sm {
-            width: 100px;
-            height: 100px;
-        }
-
-        @screen lg {
-            width: 120px;
-            height: 120px;
-            margin-top: -150px;
-        }
-
-        @screen 2xl {
-            width: 200px;
-            height: 200px;
-            margin-top: -180px;
-        }
+    @screen 2xl {
+        width: 550px;
+        height: 550px;
     }
+}
 
-    .topLeft {
-        grid-area: 3 / 1 / 4 / 2;
-        margin-top: -180px;
-        background-image: url('/Landingpage/Recipes/cabonarra.png');
-    }
+.topLeft {
+    grid-area: 3 / 1 / 4 / 2;
+    margin-top: -180px;
+    background-image: url('/Landingpage/Recipes/cabonarra.png');
+}
 
-    .topRight {
-        grid-area: 4 / 2 / 5 / 3;
-        background-image: url('/Landingpage/Recipes/porridge.png');
-    }
+.topRight {
+    grid-area: 4 / 2 / 5 / 3;
+    background-image: url('/Landingpage/Recipes/porridge.png');
+}
 
-    .bottomLeft {
-        grid-area: 4 / 4 / 5 / 5;
-        background-image: url('/Landingpage/Recipes/spaetzle.png');
-    }
+.bottomLeft {
+    grid-area: 4 / 4 / 5 / 5;
+    background-image: url('/Landingpage/Recipes/spaetzle.png');
+}
 
-    .bottomRight {
-        grid-area: 3 / 5 / 4 / 6;
-        margin-top: -180px;
-        background-image: url('/Landingpage/Recipes/sushibowl.png');
-    }
+.bottomRight {
+    grid-area: 3 / 5 / 4 / 6;
+    margin-top: -180px;
+    background-image: url('/Landingpage/Recipes/sushibowl.png');
 }

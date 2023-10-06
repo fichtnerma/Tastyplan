@@ -5,6 +5,8 @@ export interface ISteps {
 
 export interface IngredientsWithAmount {
     amount: string;
+    condition: string;
+    unit: string;
     ingredient: string;
 }
 
@@ -40,4 +42,10 @@ interface ShoppinglistItem {
 export enum UserState {
     finished = 'finished',
     registration = 'registration',
+}
+
+export interface WeekplanEntry {
+    date: Date;
+    lunchId?: number;
+    dinnerId?: number;
 }

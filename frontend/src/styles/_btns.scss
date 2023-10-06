@@ -1,4 +1,5 @@
 $btn-font-size: clamp(1rem, 2vw, 1.2rem);
+$btn-font-size-small: clamp(0.6rem, 1.2vw, 0.8rem);
 $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
 
 .btn {
@@ -8,6 +9,14 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
     @apply px-6;
     @apply py-2;
     width: fit-content;
+
+    &:focus {
+        outline: unset;
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+    }
 
     &:hover {
         background-color: var(--green-semi);
@@ -64,4 +73,9 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
         color: var(--green-semi);
         background-color: unset;
     }
+}
+
+.btn-small {
+    font-size: $btn-font-size-small;
+    @apply px-4;
 }

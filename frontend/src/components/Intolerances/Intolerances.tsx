@@ -15,22 +15,22 @@ interface IntolerancesProps {
 
 export default function Intolerances({ onNext, onBack, onChoice, allergens }: IntolerancesProps) {
     const intolerances = [
-        { ui: 'Peanuts', code: 'peanut', icon: 'Erdnuss' },
-        { ui: 'Hazelnuts', code: 'hazelnut', icon: 'Haselnuss' },
-        { ui: 'Walnuts', code: 'walnut', icon: 'Wallnuss' },
-        { ui: 'Other Nuts', code: 'shellFruit', icon: 'Nüsse' },
-        { ui: 'Lactose', code: 'milk', icon: 'laktose' },
-        { ui: 'Gluten', code: 'gluten', icon: 'Weizen' },
-        { ui: 'Eggs', code: 'egg', icon: 'Ei' },
-        { ui: 'Shellfish', code: 'crustacaen', icon: 'Shrimp' },
-        { ui: 'Fish', code: 'fish', icon: 'fisch' },
-        { ui: 'Soy', code: 'soy', icon: 'Soja' },
-        { ui: 'Celery', code: 'celery', icon: 'Sellerie' },
-        { ui: 'Mustard', code: 'mustard', icon: 'Senfglas' },
-        { ui: 'Sesame', code: 'sesame', icon: 'Sesam' },
-        { ui: 'Sulfur Dioxide', code: 'sulfur', icon: 'Wein' },
-        { ui: 'Lupine', code: 'lupine', icon: 'Lupinen' },
-        { ui: 'Mollusk', code: 'mollusk', icon: 'Weichtiere' },
+        { id: 1, ui: 'Peanuts', code: 'peanut', icon: 'Erdnuss' },
+        { id: 2, ui: 'Hazelnuts', code: 'hazelnut', icon: 'Haselnuss' },
+        { id: 3, ui: 'Walnuts', code: 'walnut', icon: 'Wallnuss' },
+        { id: 4, ui: 'Other Nuts', code: 'shellFruit', icon: 'Nüsse' },
+        { id: 5, ui: 'Lactose', code: 'milk', icon: 'laktose' },
+        { id: 6, ui: 'Gluten', code: 'gluten', icon: 'Weizen' },
+        { id: 7, ui: 'Eggs', code: 'egg', icon: 'Ei' },
+        { id: 8, ui: 'Shellfish', code: 'crustacaen', icon: 'Shrimp' },
+        { id: 9, ui: 'Fish', code: 'fish', icon: 'fisch' },
+        { id: 10, ui: 'Soy', code: 'soy', icon: 'Soja' },
+        { id: 11, ui: 'Celery', code: 'celery', icon: 'Sellerie' },
+        { id: 12, ui: 'Mustard', code: 'mustard', icon: 'Senfglas' },
+        { id: 13, ui: 'Sesame', code: 'sesame', icon: 'Sesam' },
+        { id: 14, ui: 'Sulfur Dioxide', code: 'sulfur', icon: 'Wein' },
+        { id: 15, ui: 'Lupine', code: 'lupine', icon: 'Lupinen' },
+        { id: 16, ui: 'Mollusk', code: 'mollusk', icon: 'Weichtiere' },
     ];
 
     const [allergeneChoices, setAllergeneChoices] = useState(allergens);
@@ -61,16 +61,18 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
 
     return (
         <>
-            <h4 className="mb-2 h2">What are your intolerances?</h4>
+            <h4 className="h2 !mb-2">What are your intolerances?</h4>
             <div className="h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
                 <div className="grid grid-cols-2 gap-4 lg:gap-y-4 lg:grid-cols-3 xl:gap-y-8 xl:grid-cols-3 2xl:gap-y-8 2xl:grid-cols-4">
                     {intolerances.map((intolerance, i) => (
                         <div
-                            key={i}
-                            className={`${styles.intoleranceWrapper} lg:w-[180px] xl:w-[190px] 2xl:w-[200px] `}
+                            key={intolerance.id}
+                            className={`${styles.intoleranceWrapper} block w-[200px] h-[70px] relative rounded-[50px] lg:w-[180px] xl:w-[190px] 2xl:w-[200px]`}
+                            tabIndex={-1}
                         >
-                            <div className={styles.containerField}>
+                            <div className={`flex ${styles.intoleranceCustomFocus}`} tabIndex={i + 1}>
                                 <input
+                                    className="absolute top-0 right-0 bottom-0 left-0 bg-white-custom cursor:pointer opacity=[.01] z-[100] w-full h-full rounded-[50px]"
                                     type="checkbox"
                                     name="intolerances"
                                     value={intolerance.code}
@@ -78,7 +80,10 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                                     onChange={onAddChoice}
                                     data-cy={`${intolerance.code}-checkbox`}
                                 />
-                                <label htmlFor={intolerance.ui}>
+                                <label
+                                    className="absolute top-0 right-0 bottom-0 left-0 bg-white-custom cursor:pointer flex justify-left items-center border-[2px] border-solid font-medium text-[.875rem] leading-[1.25rem] text-gray-custom4 rounded-[50px] pl-[67px]"
+                                    htmlFor={intolerance.ui}
+                                >
                                     <p className="text-base">{intolerance.ui}</p>
                                 </label>
                                 <div
@@ -97,7 +102,13 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="submit" className="btn-primary-unobtrusive mt-6" data-btn="back" onClick={handleClick}>
+                <button
+                    type="submit"
+                    className="btn-primary-unobtrusive mt-6"
+                    data-btn="back"
+                    onClick={handleClick}
+                    tabIndex={intolerances.length + 1}
+                >
                     Back
                 </button>
                 <button
@@ -106,6 +117,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                     data-btn="next"
                     onClick={handleClick}
                     data-cy="next-btn"
+                    tabIndex={intolerances.length + 2}
                 >
                     Next
                 </button>

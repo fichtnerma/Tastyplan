@@ -120,6 +120,13 @@ build-client:
     - docker build -t $CI_REGISTRY_IMAGE/client:$IMAGE_TAG .
     - docker push $CI_REGISTRY_IMAGE/client:$IMAGE_TAG
 
+build-recommender:
+  extends: ".build-rules"
+  script:
+    - cd recommender
+    - docker build -t $CI_REGISTRY_IMAGE/recommender:$IMAGE_TAG .
+    - docker push $CI_REGISTRY_IMAGE/recommender:$IMAGE_TAG
+
 trigger-deploy-prod:
   stage: deploy
   image: ubuntu:latest

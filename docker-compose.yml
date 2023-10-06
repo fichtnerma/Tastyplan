@@ -3,9 +3,7 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile.dev
-      # Only will build development stage from our dockerfile
-    # Run in dev Mode: npm run start:dev
-    command: npm run start:watch
+    command: npm run start:dev
     container_name: api
     env_file:
       - .env
@@ -66,6 +64,7 @@ services:
       - /client/.next
     depends_on:
       - api
+      - recommender
     networks:
       - public
 
@@ -91,6 +90,20 @@ services:
       - esdata:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+  recommender:
+    build:
+      context: ./recommender
+      dockerfile: Dockerfile.dev
+    ports:
+      - 5001:5000
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./recommender/:/app
+    depends_on:
+      - api
+    networks:
+      - private
 networks:
   private:
   public:

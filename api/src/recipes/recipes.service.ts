@@ -1,12 +1,18 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
-import { convertToTime } from 'src/helpers/converter.utils';
+import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
+import { Cache } from 'cache-manager';
 import { Ingredient, Recipe, Step, User } from '@prisma/client';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
 export class RecipesService {
-    constructor(private prismaService: PrismaService, private preferencesService: PreferencesService) {}
+    constructor(
+        @Inject(CACHE_MANAGER) private readonly cache: Cache,
+        private prismaService: PrismaService,
+        private preferencesService: PreferencesService,
+    ) {}
 
     async findById(id: number) {
         try {
@@ -52,7 +58,29 @@ export class RecipesService {
         }
     }
 
-    async filterByPreferences(user: User) {
+    async storeInRedis() {
+        const recipes = await this.prismaService.recipe.findMany({
+            include: {
+                steps: true,
+                ingredients: {
+                    include: {
+                        ingredient: {
+                            select: {
+                                name: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+        const recipesFormatted = recipes.map((recipe) => ({
+            ...recipe,
+            ingredients: recipe.ingredients.map((ingredient) => ({ ...ingredient, name: ingredient.ingredient.name })),
+        }));
+        await this.cache.set('recipes', recipesFormatted, 0);
+    }
+
+    async filterByPreferences(userId: string) {
         const possibleDietsMap = new Map([
             ['vegan', ['vegan']],
             ['vegetarian', ['vegan', 'vegetarian']],
@@ -60,10 +88,9 @@ export class RecipesService {
             ['flexitarian', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
             ['omnivore', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
         ]);
-        const preferences = await this.preferencesService.getPreferences(user);
-        const { formOfDiet, allergens } = preferences;
+        const preferences = await this.preferencesService.getPreferences(userId);
+        const { formOfDiet, allergens, days, wantsDinner, wantsLunch } = preferences;
         const dislikedIngredients = preferences.foodDislikes.map((item: Ingredient) => item.id);
-
         try {
             const recipes = await this.prismaService.recipe.findMany({
                 where: {
@@ -89,8 +116,9 @@ export class RecipesService {
                     id: true,
                 },
             });
+            console.log('Recipes', recipes);
 
-            return recipes;
+            return { recipes: recipes, days: days, wantsDinner: wantsDinner, wantsLunch: wantsLunch };
         } catch (error) {
             throw new InternalServerErrorException('Error: Filter recipes by preferences failed');
         }
@@ -105,20 +133,21 @@ export class RecipesService {
             ingredients: Array<{ ingredientId: number }>;
         },
     ) {
-        const specialCharacter = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~'-]/g;
+        console.log('Recipe Id', recipe.id);
+
         await this.prismaService.recipe.upsert({
             where: { id: recipe.id },
             update: {},
             create: {
                 id: recipe.id,
                 name: recipe.name,
-                img: recipe.name.replace(specialCharacter, '') + '.jpg',
+                img: recipe.img,
                 servings: +recipe.servings || 4,
                 description: recipe.description,
                 cookingTime: convertToTime(recipe.cookingTime) || 0,
                 preparingTime: convertToTime(recipe.prepareTime) || 0,
                 totalTime: convertToTime(recipe.totalTime) || 0,
-                formOfDiet: recipe.formOfDiet.at(-1) || 'omnivore',
+                formOfDiet: recipe.formOfDiet || 'omnivore',
                 ingredients: {
                     createMany: {
                         data: [...recipe.ingredients],
@@ -214,6 +243,67 @@ export class RecipesService {
             ['omnivore', 'pescetarian', 'vegetarian', 'vegan'],
         );
 
-        return formOfDiet;
+        return formOfDiet.at(-1) || 'omnivore';
+    }
+
+    async getRecommendations(k: number, user: User) {
+        try {
+            let { recipes: fetchedMeals } = await this.filterByPreferences(user.userId);
+
+            if (fetchedMeals.length < k) {
+                fetchedMeals = [
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                    ...fetchedMeals,
+                ];
+            }
+
+            const shuffeledMeals = shuffleArray(fetchedMeals);
+            const recipeIds = shuffeledMeals.slice(0, k);
+
+            const recipes = await this.prismaService.recipe.findMany({
+                where: {
+                    id: { in: recipeIds.map((object) => object.id) },
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    description: true,
+                    img: true,
+                    formOfDiet: true,
+                    preparingTime: true,
+                    cookingTime: true,
+                    totalTime: true,
+                    ingredients: {
+                        select: {
+                            id: true,
+                            quantity: true,
+                            unit: true,
+                            ingredient: {
+                                select: {
+                                    name: true,
+                                    id: true,
+                                    categories: true,
+                                },
+                            },
+                        },
+                    },
+                    steps: {
+                        select: {
+                            stepCount: true,
+                            description: true,
+                        },
+                    },
+                },
+            });
+
+            return recipes;
+        } catch (error) {
+            throw new InternalServerErrorException('Error: no k random recipes could be created');
+        }
     }
 }

@@ -1,29 +1,26 @@
 import { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
 import TextInput from '@components/FormInputs/TextInput';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
-import styles from '../Dislikes/Dislikes.module.scss';
 import cross from '../../../public/Icons/kreuz.png';
 
-// type OnNextFunction = () => void;
+type OnNextFunction = () => void;
 type OnBackFunction = () => void;
 type OnChoiceFunction = (choices: APISearchResponse[]) => void;
 interface DislikesProps {
-    // onNext: OnNextFunction;
+    onNext: OnNextFunction;
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
     foodDislikes: APISearchResponse[];
-    handlePreferences: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
-export default function Dislikes({ onBack, onChoice, foodDislikes, handlePreferences }: DislikesProps) {
+export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: DislikesProps) {
     const [allDislikes, setDislike] = useState(foodDislikes);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
-    const [isFocus, setFocus] = useState(false);
+    const [isInputFocus, setInputFocus] = useState(false);
 
     const dislikeRecommendations = [
         {
@@ -76,26 +73,21 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
         },
     ];
 
-    // const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //     e.preventDefault();
-    //     onChoice(allDislikes);
-    //     if (e.currentTarget.getAttribute('data-btn') == 'next') {
-    //         onNext();
-    //     } else {
-    //         onBack();
-    //     }
-    // };
-
-    const handleBack = () => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         onChoice(allDislikes);
-        onBack();
+        if (e.currentTarget.getAttribute('data-btn') == 'next') {
+            onNext();
+        } else {
+            onBack();
+        }
     };
 
     const handleAddRecommendation = (e: React.MouseEvent) => {
         const target = e.target as HTMLButtonElement;
         const categoryId = target.getAttribute('data-id');
         const dislikes = dislikeRecommendations.find((dislike) => dislike.id === categoryId);
-        dislikes?.categoryChildren.map((dislike) => {
+        dislikes?.categoryChildren.forEach((dislike) => {
             if (!allDislikes.find((dislikeAll) => dislikeAll.id === dislike.id)) {
                 setDislike((allDislikes) => [...allDislikes, dislike]);
                 target.style.display = 'none';
@@ -111,15 +103,10 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
         if (!id || !name) return;
         const clickedDislike = { id: +id, name } as APISearchResponse;
         if (allDislikes.find((dislike) => dislike.id === clickedDislike.id)) {
-            target.style.backgroundColor = 'var(--gray-2)';
-            //add hover effect to element: backgroundColor = 'var(--gray-5)'
-            // target.classList.add('hover-style');
             setDislike(allDislikes.filter((dislike) => dislike.id !== clickedDislike.id));
         } else {
-            target.style.backgroundColor = 'var(--gray-5)';
             setDislike([...allDislikes, clickedDislike]);
         }
-
         onChoice(allDislikes);
     };
 
@@ -150,17 +137,18 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
         searchChanged('');
     };
 
-    const handleFocus = () => {
-        setFocus(true);
-    };
-
-    const handleBlur = () => {
-        // setFocus(false);
+    const handleClickOnListAndInput = (e: React.MouseEvent) => {
+        const clickedElement = e.target as HTMLElement;
+        if (clickedElement.tagName === 'INPUT' || clickedElement.tagName === 'LI') {
+            setInputFocus(true);
+        } else {
+            setInputFocus(false);
+        }
     };
 
     return (
-        <div>
-            <h4 className="mb-2 h2">What food do you dislike?</h4>
+        <div onClick={handleClickOnListAndInput}>
+            <h4 className="!mb-2 h2">What food do you dislike?</h4>
             <div className="flex h-[400px] lg:h-[300px] flex-col lg:flex-row">
                 <div className="flex w-full flex-col lg:w-1/3">
                     <div className="w-full flex">
@@ -175,39 +163,45 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                                 }
                                 decorationPosition="end"
                                 onChange={searchChanged}
-                                onFocus={handleFocus}
-                                onBlur={handleBlur}
                             />
                             <div className="relative">
                                 <div className="absolute z-1 w-full">
-                                    {searchResult.length !== 0 && isFocus === true && (
+                                    {searchResult.length !== 0 && isInputFocus == true && (
                                         <SearchResultlist
                                             searchResults={[...searchResult]}
                                             clickHandler={handleAddChoice}
+                                            dislikes={allDislikes}
                                         />
                                     )}
                                 </div>
                             </div>
                             <p className="inline-block text-base pt-3">Add this to your dislikes.</p>
                             <div className="flex flex-wrap">
-                                {dislikeRecommendations.map((dislike, i) => (
-                                    <div key={i} className={styles.recommendationsWrapper}>
-                                        <button type="button" onClick={handleAddRecommendation} data-id={dislike.id}>
-                                            {dislike.categoryName}
-                                        </button>
-                                    </div>
+                                {dislikeRecommendations.map((dislike) => (
+                                    <button
+                                        key={dislike.id}
+                                        className="mb-[6px] ml-[6px] border-solid rounded-[50px] border-2 border-green-custom2 bg-white-custom whitespace-nowrap text-[.8rem] hover:bg-green-custom1 py-[5px] px-[6px]"
+                                        type="button"
+                                        onClick={handleAddRecommendation}
+                                        data-id={dislike.id}
+                                    >
+                                        {dislike.categoryName}
+                                    </button>
                                 ))}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className=" h-[280px] overflow-y-auto mt-2 lg:mt-0 lg:ml-8 lg:w-2/3">
-                    <div className="flex flex-wrap mb-2 gap-x-2">
+                    <div className="flex flex-wrap gap-2">
                         {allDislikes.map((dislike, i) => (
-                            <div key={i} className={styles.dislikeWrapper}>
+                            <div
+                                key={i}
+                                className="inline-block border-2 border-solid border-green-custom2 rounded-[50px] bg-green-custom1 overflow-hidden whitespace-nowrap w-max py-[5px] px-[7px]"
+                            >
                                 <span>
-                                    <label className="flex" htmlFor={dislike.name}>
-                                        <p className="inline-block text-base pr-2 max-w-[300px] truncate">
+                                    <label className="flex items-center" htmlFor={dislike.name}>
+                                        <p className="inline-block pr-2 max-w-[300px] truncate text-sm">
                                             {dislike.name.charAt(0).toUpperCase() + dislike.name.slice(1)}
                                         </p>
 
@@ -216,7 +210,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                                             onClick={onDeleteChoice}
                                             data-anchor={dislike.name}
                                         >
-                                            <Image src={cross} className="" alt="cross" width={20} priority />
+                                            <Image src={cross} className="" alt="cross" width={12} priority />
                                         </a>
                                     </label>
                                 </span>
@@ -226,10 +220,10 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button type="button" className="btn-primary-unobtrusive mt-6" data-btn="back" onClick={handleBack}>
+                <button type="button" className="btn-primary-unobtrusive mt-6" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
-                {/* <button
+                <button
                     type="submit"
                     className="btn-primary mt-6"
                     data-btn="next"
@@ -237,15 +231,7 @@ export default function Dislikes({ onBack, onChoice, foodDislikes, handlePrefere
                     data-cy="next-btn"
                 >
                     Next
-                </button> */}
-                <Link
-                    className="btn-primary mt-6"
-                    onClick={handlePreferences}
-                    href={'/weekOverview'}
-                    data-cy="create-weekplan-btn"
-                >
-                    Create Weekplan
-                </Link>
+                </button>
             </div>
         </div>
     );

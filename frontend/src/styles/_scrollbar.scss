@@ -1,0 +1,21 @@
+/* Anpassung der Scrollleiste */
+.scrollable-element {
+    width: 100%;
+    &::-webkit-scrollbar {
+        height: 5px;
+        width: 40%;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--green-dark);
+        border-radius: $border-radius-full;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: var(--green-semi);
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: var(--greeb-light);
+    }
+}

@@ -16,6 +16,7 @@ module.exports = {
                     custom2: '#007370',
                     custom3: '#00A39E',
                     custom4: '#D6E5E3',
+                    custom_super_light: '#F3F7F6',
                 },
                 red: {
                     custom: '#d54444',
@@ -37,6 +38,11 @@ module.exports = {
             },
             boxShadow: {
                 custom: '0px 2px 15px 3px rgba(0,0,0,0.4)',
+            },
+            borderRadius: {
+                custom_xs: '10px',
+                custom_s: '20px',
+                custom_m: '50px',
             },
         },
     },

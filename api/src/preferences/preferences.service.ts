@@ -1,16 +1,17 @@
 import { UserState } from 'src/types/types';
 import { PreferencesDto } from './dto/createPreferences.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class PreferencesService {
     constructor(private prismaService: PrismaService) {}
 
-    async setPreferences(createPreferencesDto: PreferencesDto, user: User) {
+    async setPreferences(createPreferencesDto: PreferencesDto, userId: string) {
         try {
             const ingredientNames = createPreferencesDto.foodDislikes;
+            const wantsLunch = createPreferencesDto.meals.includes(0) ? true : false;
+            const wantsDinner = createPreferencesDto.meals.includes(1) ? true : false;
             const CheckIngredientsPromise = ingredientNames.map(async (item) => {
                 const ingredient = await this.prismaService.ingredient.findUnique({
                     where: {
@@ -19,33 +20,34 @@ export class PreferencesService {
                 });
                 return { id: ingredient.id };
             });
-
-            const ingredientsIds = await Promise.all(CheckIngredientsPromise);
+            const ingredientIds = await Promise.all(CheckIngredientsPromise);
             await this.prismaService.preferences.upsert({
                 where: {
-                    userId: user.userId,
+                    userId: userId,
                 },
                 update: {
                     formOfDiet: createPreferencesDto.formOfDiet,
                     allergens: [...createPreferencesDto.allergens],
-                    foodDislikes: { connect: [...ingredientsIds] },
+                    foodDislikes: { connect: [...ingredientIds] },
                     days: [...createPreferencesDto.days],
-                    meals: [...createPreferencesDto.days],
-                    serving: createPreferencesDto.serving,
+                    wantsDinner: wantsDinner,
+                    wantsLunch: wantsLunch,
+                    servings: createPreferencesDto.servings,
                 },
                 create: {
-                    userId: user.userId,
+                    userId: userId,
                     formOfDiet: createPreferencesDto.formOfDiet,
                     allergens: [...createPreferencesDto.allergens],
-                    foodDislikes: { connect: [...ingredientsIds] },
+                    foodDislikes: { connect: [...ingredientIds] },
                     days: [...createPreferencesDto.days],
-                    meals: [...createPreferencesDto.days],
-                    serving: createPreferencesDto.serving,
+                    wantsDinner: wantsDinner,
+                    wantsLunch: wantsLunch,
+                    servings: createPreferencesDto.servings,
                 },
             });
             await this.prismaService.user.update({
                 where: {
-                    userId: user.userId,
+                    userId: userId,
                 },
                 data: {
                     state: UserState.finished,
@@ -57,15 +59,19 @@ export class PreferencesService {
         }
     }
 
-    async getPreferences(user: User) {
+    async getPreferences(userId: string) {
         try {
             const preferences = await this.prismaService.preferences.findUnique({
                 where: {
-                    userId: user.userId,
+                    userId: userId,
                 },
                 select: {
                     formOfDiet: true,
                     allergens: true,
+                    servings: true,
+                    days: true,
+                    wantsLunch: true,
+                    wantsDinner: true,
                     foodDislikes: {
                         select: {
                             id: true,
@@ -74,7 +80,6 @@ export class PreferencesService {
                     },
                 },
             });
-
             return preferences;
         } catch (error) {
             throw new InternalServerErrorException('Error: Getting the preferences failed');
