@@ -2,8 +2,9 @@ import { WeekplanEntry } from 'src/types/types';
 import { IFormattedWeekplan, IWeekplan, IWeekplanEntry } from './weekplan.interface';
 import { ChangeRecipeDto } from './dto/change-recipe.dto';
 import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
-import { RecipesService } from 'src/recipes/recipes.service';
+import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { PreferencesService } from 'src/preferences/preferences.service';
 import { shuffleArray } from 'src/helpers/converter.utils';
 import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -12,7 +13,8 @@ import { HttpException, HttpStatus, Injectable, InternalServerErrorException } f
 export class WeekplanService {
     constructor(
         private prismaService: PrismaService,
-        private recipeService: RecipesService,
+        private recipeFilterService: RecipesFilterService,
+        private preferencesService: PreferencesService,
         private shoppingListService: ShoppingListService,
     ) {}
 
@@ -94,7 +96,8 @@ export class WeekplanService {
         }
 
         try {
-            const fetchedMealsAndWeekplanPreferences = await this.recipeService.filterByPreferences(userId);
+            const preferences = await this.preferencesService.getPreferences(userId);
+            const fetchedMealsAndWeekplanPreferences = await this.recipeFilterService.filterByQuery(preferences);
             let fetchedMeals = fetchedMealsAndWeekplanPreferences.recipes;
             if (fetchedMeals.length < 14) {
                 fetchedMeals = [...fetchedMeals, ...fetchedMeals];

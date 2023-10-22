@@ -1,8 +1,8 @@
+import { Preferences, RecipesFilterService } from './recipesFilter.service';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { PreferencesService } from 'src/preferences/preferences.service';
 import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
 import { Cache } from 'cache-manager';
-import { Ingredient, Recipe, Step, User } from '@prisma/client';
+import { Recipe, Step } from '@prisma/client';
 import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
@@ -11,7 +11,7 @@ export class RecipesService {
     constructor(
         @Inject(CACHE_MANAGER) private readonly cache: Cache,
         private prismaService: PrismaService,
-        private preferencesService: PreferencesService,
+        private recipeFilterService: RecipesFilterService,
     ) {}
 
     async findById(id: number) {
@@ -78,50 +78,6 @@ export class RecipesService {
             ingredients: recipe.ingredients.map((ingredient) => ({ ...ingredient, name: ingredient.ingredient.name })),
         }));
         await this.cache.set('recipes', recipesFormatted, 0);
-    }
-
-    async filterByPreferences(userId: string) {
-        const possibleDietsMap = new Map([
-            ['vegan', ['vegan']],
-            ['vegetarian', ['vegan', 'vegetarian']],
-            ['pescetarian', ['vegan', 'vegetarian', 'pescetarian']],
-            ['flexitarian', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
-            ['omnivore', ['vegan', 'vegetarian', 'pescetarian', 'omnivore']],
-        ]);
-        const preferences = await this.preferencesService.getPreferences(userId);
-        const { formOfDiet, allergens, days, wantsDinner, wantsLunch } = preferences;
-        const dislikedIngredients = preferences.foodDislikes.map((item: Ingredient) => item.id);
-        try {
-            const recipes = await this.prismaService.recipe.findMany({
-                where: {
-                    formOfDiet: {
-                        in: possibleDietsMap.get(formOfDiet),
-                    },
-                    ingredients: {
-                        every: {
-                            ingredient: {
-                                id: {
-                                    notIn: dislikedIngredients,
-                                },
-                                NOT: {
-                                    allergens: {
-                                        hasSome: allergens,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
-                select: {
-                    id: true,
-                },
-            });
-            console.log('Recipes', recipes);
-
-            return { recipes: recipes, days: days, wantsDinner: wantsDinner, wantsLunch: wantsLunch };
-        } catch (error) {
-            throw new InternalServerErrorException('Error: Filter recipes by preferences failed');
-        }
     }
 
     async createRecipe(
@@ -246,9 +202,9 @@ export class RecipesService {
         return formOfDiet.at(-1) || 'omnivore';
     }
 
-    async getRecommendations(k: number, user: User) {
+    async getRecommendations(k: number, preferances: Preferences) {
         try {
-            let { recipes: fetchedMeals } = await this.filterByPreferences(user.userId);
+            let { recipes: fetchedMeals } = await this.recipeFilterService.filterByQuery(preferances);
 
             if (fetchedMeals.length < k) {
                 fetchedMeals = [
