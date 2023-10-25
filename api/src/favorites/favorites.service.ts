@@ -1,12 +1,11 @@
 import { FavoritesQueries } from './favorites.queries';
 import { AddFavoriteDto } from './dto/add-favorite.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class FavoritesService {
-    constructor(private prismaService: PrismaService, private favoritesQueries: FavoritesQueries) {}
+    constructor(private favoritesQueries: FavoritesQueries) {}
 
     //There could be an issue with this return statement regarding async execution order
     //return probably is triggered before the method e.g. deleteManyFavorites has finished
