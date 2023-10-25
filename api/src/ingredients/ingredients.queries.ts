@@ -3,7 +3,7 @@ import { Ingredient } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export default class IngredientsQueries {
+export class IngredientsQueries {
     constructor(private prismaService: PrismaService) {}
 
     async upsertIngredient(ingredient: Ingredient) {
