@@ -1,12 +1,11 @@
 import { PreferencesQueries } from './preferences.queries';
 import { IPreferences } from './preferences.interface';
 import { PreferencesDto } from './dto/createPreferences.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class PreferencesService {
-    constructor(private prismaService: PrismaService, private preferencesQueries: PreferencesQueries) {}
+    constructor(private preferencesQueries: PreferencesQueries) {}
 
     async setPreferences(createPreferencesDto: PreferencesDto, userId: string) {
         try {

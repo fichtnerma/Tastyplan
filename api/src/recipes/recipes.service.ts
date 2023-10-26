@@ -1,8 +1,8 @@
 import { Preferences, RecipesFilterService } from './recipesFilter.service';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { RecipeQueries } from './recipe.queries';
+import { ExtendetRecipe, RecipeInput } from './recipe.interface';
 import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
 import { Cache } from 'cache-manager';
-import { Recipe, Step } from '@prisma/client';
 import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
@@ -10,69 +10,21 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 export class RecipesService {
     constructor(
         @Inject(CACHE_MANAGER) private readonly cache: Cache,
-        private prismaService: PrismaService,
         private recipeFilterService: RecipesFilterService,
+        private recipeQueires: RecipeQueries,
     ) {}
 
     async findById(id: number) {
         try {
-            const recipe = await this.prismaService.recipe.findUnique({
-                where: {
-                    id: id,
-                },
-                select: {
-                    id: true,
-                    name: true,
-                    description: true,
-                    img: true,
-                    formOfDiet: true,
-                    preparingTime: true,
-                    cookingTime: true,
-                    totalTime: true,
-                    ingredients: {
-                        select: {
-                            id: true,
-                            quantity: true,
-                            unit: true,
-                            ingredient: {
-                                select: {
-                                    name: true,
-                                    id: true,
-                                    categories: true,
-                                },
-                            },
-                        },
-                    },
-                    steps: {
-                        select: {
-                            stepCount: true,
-                            description: true,
-                        },
-                    },
-                },
-            });
-
-            return recipe;
+            return await this.recipeQueires.findUniqueRecipe(id);
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to find recipe by id');
         }
     }
 
     async storeInRedis() {
-        const recipes = await this.prismaService.recipe.findMany({
-            include: {
-                steps: true,
-                ingredients: {
-                    include: {
-                        ingredient: {
-                            select: {
-                                name: true,
-                            },
-                        },
-                    },
-                },
-            },
-        });
+        const recipes = await this.recipeQueires.findManyRecipes();
+
         const recipesFormatted = recipes.map((recipe) => ({
             ...recipe,
             ingredients: recipe.ingredients.map((ingredient) => ({ ...ingredient, name: ingredient.ingredient.name })),
@@ -80,46 +32,18 @@ export class RecipesService {
         await this.cache.set('recipes', recipesFormatted, 0);
     }
 
-    async createRecipe(
-        recipe: Recipe & {
-            cookingTime: string;
-            totalTime: string;
-            prepareTime: string;
-            steps: Array<Step>;
-            ingredients: Array<{ ingredientId: number }>;
-        },
-    ) {
+    async createRecipe(recipe: RecipeInput) {
         console.log('Recipe Id', recipe.id);
 
-        await this.prismaService.recipe.upsert({
-            where: { id: recipe.id },
-            update: {},
-            create: {
-                id: recipe.id,
-                name: recipe.name,
-                img: recipe.img,
-                servings: +recipe.servings || 4,
-                description: recipe.description,
-                cookingTime: convertToTime(recipe.cookingTime) || 0,
-                preparingTime: convertToTime(recipe.prepareTime) || 0,
-                totalTime: convertToTime(recipe.totalTime) || 0,
-                formOfDiet: recipe.formOfDiet || 'omnivore',
-                ingredients: {
-                    createMany: {
-                        data: [...recipe.ingredients],
-                    },
-                },
-                tags: recipe.tags,
-                steps: {
-                    createMany: {
-                        data: recipe.steps.map((step: { stepCount: number; description: string }) => ({
-                            stepCount: +step.stepCount,
-                            description: step.description,
-                        })),
-                    },
-                },
-            },
-        });
+        const extendetRecipe: ExtendetRecipe = {
+            ...recipe,
+            cookingTime: convertToTime(recipe.cookingTime) || 0,
+            preparingTime: convertToTime(recipe.prepareTime) || 0,
+            totalTime: convertToTime(recipe.totalTime) || 0,
+            servings: +recipe.servings || 4,
+            formOfDiet: recipe.formOfDiet || 'omnivore',
+        };
+        await this.recipeQueires.upsertRecipe(extendetRecipe);
     }
 
     async categorizeRecipe(
@@ -220,42 +144,7 @@ export class RecipesService {
 
             const shuffeledMeals = shuffleArray(fetchedMeals);
             const recipeIds = shuffeledMeals.slice(0, k);
-
-            const recipes = await this.prismaService.recipe.findMany({
-                where: {
-                    id: { in: recipeIds.map((object) => object.id) },
-                },
-                select: {
-                    id: true,
-                    name: true,
-                    description: true,
-                    img: true,
-                    formOfDiet: true,
-                    preparingTime: true,
-                    cookingTime: true,
-                    totalTime: true,
-                    ingredients: {
-                        select: {
-                            id: true,
-                            quantity: true,
-                            unit: true,
-                            ingredient: {
-                                select: {
-                                    name: true,
-                                    id: true,
-                                    categories: true,
-                                },
-                            },
-                        },
-                    },
-                    steps: {
-                        select: {
-                            stepCount: true,
-                            description: true,
-                        },
-                    },
-                },
-            });
+            const recipes = await this.recipeQueires.findManyRecipesWithId(recipeIds.map((object) => object.id));
 
             return recipes;
         } catch (error) {
