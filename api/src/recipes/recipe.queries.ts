@@ -80,10 +80,10 @@ export class RecipeQueries {
             },
         });
     }
-    async findManyRecipesWithId(recipeIds:number[]){
-        return  await this.prismaService.recipe.findMany({
+    async findManyRecipesWithId(recipeIds: number[]) {
+        return await this.prismaService.recipe.findMany({
             where: {
-                id: { in: recipeIds.map((object) => object.id) },
+                id: { in: recipeIds },
             },
             select: {
                 id: true,
@@ -116,6 +116,5 @@ export class RecipeQueries {
                 },
             },
         });
-    });
-    
+    }
 }
