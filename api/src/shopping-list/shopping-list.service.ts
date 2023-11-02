@@ -34,7 +34,6 @@ export class ShoppingListService {
         //Deletes existing shoppingList to make sure there is only one per user
         try {
             const existingShoppingList = await this.queryExistingShoppingList(userId);
-
             if (existingShoppingList) {
                 await this.shoppingListQueries.deleteManyShoppingListEntries(existingShoppingList.id);
                 await this.shoppingListQueries.deleteShoppingList(existingShoppingList.id);

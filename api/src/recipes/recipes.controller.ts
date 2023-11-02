@@ -10,7 +10,7 @@ import { ClassSerializerInterceptor, Controller, Get, Param, Req, UseGuards, Use
 export class RecipesController {
     constructor(
         private readonly recipesService: RecipesService,
-        private readonly preferancesService: PreferencesService,
+        private readonly preferencesService: PreferencesService,
     ) {}
 
     @UseGuards(JwtAuthGuard)
@@ -20,7 +20,7 @@ export class RecipesController {
     public async findAll(@Req() request: RequestWithUser) {
         const user = request.user as User;
         const k = 5;
-        const preferences = await this.preferancesService.getPreferences(user.userId);
+        const preferences = await this.preferencesService.getPreferences(user.userId);
         return this.recipesService.getRecommendations(k, preferences);
     }
 

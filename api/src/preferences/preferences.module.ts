@@ -6,6 +6,6 @@ import { Module } from '@nestjs/common';
 @Module({
     providers: [PreferencesService, PreferencesQueries],
     controllers: [PreferencesController],
-    exports: [PreferencesService],
+    exports: [PreferencesService, PreferencesQueries],
 })
 export class PreferencesModule {}

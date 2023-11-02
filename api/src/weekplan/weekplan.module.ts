@@ -7,7 +7,7 @@ import { PreferencesModule } from 'src/preferences/preferences.module';
 import { Module } from '@nestjs/common';
 
 @Module({
-    imports: [RecipesModule, ShoppingListModule, PreferencesModule],
+    imports: [RecipesModule, ShoppingListModule, PreferencesModule, RecipesModule],
     controllers: [WeekplanController],
     providers: [WeekplanService, WeekplanQueries],
 })

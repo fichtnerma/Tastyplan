@@ -6,7 +6,7 @@ import { Module } from '@nestjs/common';
 
 @Module({
     imports: [],
-    exports: [],
+    exports: [UsersQueries, UsersService],
     controllers: [UsersController],
     providers: [UsersService, PrismaService, UsersQueries],
 })

@@ -1,5 +1,5 @@
 import IngredientsSearchService from './ingredientsSearch.service';
-import IngredientsQueries from './ingredients.queries';
+import { IngredientsQueries } from './ingredients.queries';
 import {
     levenshteinMultiWordSimilarity,
     gestaltSimilarity,

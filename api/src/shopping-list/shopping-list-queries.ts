@@ -36,7 +36,7 @@ export class ShoppingListQueries {
     async findFirstShoppingList(userId: string) {
         return await this.prismaService.shoppingList.findFirst({
             where: {
-                userId: userId,
+                userId,
             },
             include: { shoppingListEntries: true },
         });
