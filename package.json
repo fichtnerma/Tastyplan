@@ -8,10 +8,17 @@
     "cypress:open": "cypress open",
     "e2e": "cypress run --browser chrome --headless --reporter junit",
     "browser:web": "start http://localhost:8080",
-    "browser": "npm run browser:web"
+    "browser": "npm run browser:web",
+    "prepare": "is-ci || husky install"
   },
   "devDependencies": {
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
+    "@commitlint/format": "^18.1.0",
+    "conventional-changelog-atom": "^4.0.0",
     "cypress": "^12.13.0",
+    "husky": "^8.0.0",
+    "is-ci": "^3.0.1",
     "typescript": "^5.1.3"
   }
 }
