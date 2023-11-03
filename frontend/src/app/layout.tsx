@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import '@styles/globals.scss';
+import Script from 'next/script';
 import { Metadata } from 'next';
 import { Inter, Bebas_Neue, Zeyada } from '@next/font/google';
 
@@ -10,6 +11,24 @@ const zeyada = Zeyada({ subsets: ['latin'], style: 'normal', weight: '400', vari
 export default function RootLayout({ children }: PropsWithChildren) {
     return (
         <html lang="en">
+            {process.env.NODE_ENV === 'production' && (
+                <>
+                    <Script
+                        strategy="lazyOnload"
+                        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+                    />
+                    <Script strategy="lazyOnload" id="tagmanager">
+                        {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+                    page_path: window.location.pathname,
+                    });
+                `}
+                    </Script>
+                </>
+            )}
             <body className={`${inter.variable} ${bebasNeue.variable} ${zeyada.variable}`}>
                 <main
                     className="overflow-x-hidden"
