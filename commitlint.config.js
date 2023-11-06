@@ -10,7 +10,7 @@ module.exports = {
     "type-empty": [0, "never"],
     "scope-empty": [0, "never"],
     "header-min-length": (parsed) => {
-      if (!commitMessageRegex.test(parsed.raw)) {
+      if (!commitMessageRegex.test(parsed.header)) {
         return [2, "Invalid commit message format!"];
       }
       return [0];
