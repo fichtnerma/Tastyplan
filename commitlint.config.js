@@ -1,0 +1,38 @@
+module.exports = {
+  extends: ["@commitlint/config-conventional"],
+  plugins: [
+    {
+      rules: {
+        "header-regex": (parsed) => {
+          const commitMessageRegex =
+            /^(ci|chore|docs|ticket|feat|fix|perf|refactor|revert|style)\(.+\)=>.+/;
+          const isMatch = commitMessageRegex.test(parsed.raw);
+          console.log("parsed:", parsed);
+          console.log("isMatch:", isMatch);
+          return [isMatch, "Invalid commit message format!"];
+        },
+      },
+    },
+  ],
+  rules: {
+    "header-regex": [2, "always"],
+    "type-enum": [
+      2,
+      "always",
+      [
+        "ci",
+        "chore",
+        "docs",
+        "ticket",
+        "feat",
+        "fix",
+        "perf",
+        "refactor",
+        "revert",
+        "style",
+      ],
+    ],
+    "subject-empty": [0, "never"],
+    "type-empty": [0, "never"],
+  },
+};
