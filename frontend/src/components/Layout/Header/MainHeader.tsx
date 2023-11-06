@@ -67,7 +67,7 @@ export default function MainHeader() {
                                 } ${activeTab === '/weekOverview' && styles.lineShow}`}
                             ></div>
                         </Link>
-                        <Link
+                        {/* <Link
                             href="/shoppingList"
                             onClick={() => setActiveTab('/shoppingList')}
                             className="link shoppingList"
@@ -85,7 +85,7 @@ export default function MainHeader() {
                                     styles.lineHide
                                 } ${activeTab === '/shoppingList' && styles.lineShow}`}
                             ></div>
-                        </Link>
+                        </Link> */}
                         <Link
                             href="/cookbook"
                             onClick={() => setActiveTab('/cookbook')}
