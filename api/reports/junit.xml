@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="10" failures="0" errors="0" time="3.101">
-  <testsuite name="Converter helper" errors="0" failures="0" skipped="0" timestamp="2023-06-01T08:15:50" time="3.022" tests="10">
+<testsuites name="jest tests" tests="10" failures="0" errors="0" time="2.559">
+  <testsuite name="Converter helper" errors="0" failures="0" skipped="0" timestamp="2023-11-06T13:03:51" time="2.487" tests="10">
     <testcase classname="Converter helper-Minute input" name="Converter helper-Minute input" time="0.002">
     </testcase>
     <testcase classname="Converter helper-Hour input" name="Converter helper-Hour input" time="0">

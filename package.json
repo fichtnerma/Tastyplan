@@ -5,7 +5,7 @@
     "containers:dev": "docker-compose up --build -d",
     "dev": "docker-compose up --build -d",
     "setup:dev": "npm run containers:dev",
-    "test:api": "cd api && jest",
+    "test:api": "cd api && npm run test",
     "cypress:open": "cypress open",
     "e2e": "cypress run --browser chrome --headless --reporter junit",
     "browser:web": "start http://localhost:8080",
