@@ -7,6 +7,6 @@ const commitMessage = fs
   .trim();
 
 if (!commitMessageRegex.test(commitMessage)) {
-  console.error("Invalid commit message format!");
+  console.error("Invalid commit message Format!");
   process.exit(1);
 }
