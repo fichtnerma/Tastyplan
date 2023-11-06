@@ -9,7 +9,7 @@ module.exports = {
           const isMatch = commitMessageRegex.test(parsed.raw);
           console.log("parsed:", parsed);
           console.log("isMatch:", isMatch);
-          return [isMatch, "Invalid commit message format!"];
+          return [isMatch, "Invalid commit message Format!"];
         },
       },
     },
