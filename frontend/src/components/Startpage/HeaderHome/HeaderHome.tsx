@@ -93,7 +93,7 @@ function HeaderHome() {
 
             <Link
                 href="#scrollRef"
-                className="col-start-3 row-start-8 text-green-custom2 hover:text-green-custome3 flex justify-center pt-8 z-10 animate-bounce"
+                className="col-start-3 row-start-8 text-green-custom2 hover:text-green-custom3 flex justify-center pt-8 z-10 animate-bounce"
             >
                 <Icon size={100} icon="arrowDownCircle"></Icon>
             </Link>
