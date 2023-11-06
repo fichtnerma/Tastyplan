@@ -1,6 +1,8 @@
 import { SummurizedIngredient } from './shopping-list.interface';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class ShoppingListQueries {
     constructor(private prismaService: PrismaService) {}
     async deleteManyShoppingListEntries(existingShoppingListId: number) {
@@ -18,7 +20,7 @@ export class ShoppingListQueries {
             data: {
                 userId: userId,
                 shoppingListEntries: {
-                    create: { ...summurizedIngredients },
+                    create: summurizedIngredients,
                 },
             },
         });

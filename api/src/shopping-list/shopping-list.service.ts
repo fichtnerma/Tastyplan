@@ -30,10 +30,10 @@ export class ShoppingListService {
             }
         });
         const summurizedIngredients = Object.values(ingredientMap);
-
         //Deletes existing shoppingList to make sure there is only one per user
         try {
             const existingShoppingList = await this.queryExistingShoppingList(userId);
+
             if (existingShoppingList) {
                 await this.shoppingListQueries.deleteManyShoppingListEntries(existingShoppingList.id);
                 await this.shoppingListQueries.deleteShoppingList(existingShoppingList.id);
@@ -55,7 +55,8 @@ export class ShoppingListService {
                 };
             });
             await this.shoppingListQueries.createShoppingList(userId, summurizedIngredientsObject);
-        } catch (erro) {
+        } catch (error) {
+            console.log('Error during shoppingList creation: ', error);
             throw new InternalServerErrorException('Error: Failed to create new shoppinglist');
         }
     }
