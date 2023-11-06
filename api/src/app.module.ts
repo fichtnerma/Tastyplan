@@ -9,16 +9,19 @@ import { PreferencesController } from './preferences/preferences.controller';
 import { InitializerModule } from './initializer/initializer.module';
 import { IngredientsModule } from './ingredients/ingredients.module';
 import { FavoritesModule } from './favorites/favorites.module';
+import { CronjobsModule } from './cronjobs/cronjobs/cronjobs.module';
 import { AuthModule } from './auth/auth.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import * as redisStore from 'cache-manager-redis-store';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
 @Module({
     imports: [
+        ScheduleModule.forRoot(),
         ConfigModule.forRoot({ isGlobal: true }),
         ServeStaticModule.forRoot({
             rootPath: process.env.NODE_ENV === 'development' ? '/app/images' : `${process.cwd()}/dist/images`,
@@ -30,6 +33,7 @@ import { CacheModule } from '@nestjs/cache-manager';
             host: process.env.REDIS_HOST,
             port: process.env.REDIS_PORT,
         }),
+        CronjobsModule,
         IngredientsModule,
         RecipesModule,
         PreferencesModule,
