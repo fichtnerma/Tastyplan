@@ -7,8 +7,6 @@ module.exports = {
           const commitMessageRegex =
             /^(ci|chore|docs|ticket|feat|fix|perf|refactor|revert|style)\(.+\)\s?=>\s?.+/;
           const isMatch = commitMessageRegex.test(parsed.raw);
-          console.log("parsed:", parsed);
-          console.log("isMatch:", isMatch);
           return [isMatch, "Invalid commit message format!"];
         },
       },
