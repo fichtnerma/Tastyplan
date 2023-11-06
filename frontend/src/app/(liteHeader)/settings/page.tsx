@@ -1,31 +1,37 @@
+'use client';
 import React from 'react';
-import Link from 'next/link';
+import PreferencesSettings from '@components/PreferencesSettings/PreferencesSettings';
 
 function Settings() {
+    const lineStyle: React.CSSProperties = {
+        width: '5px',
+        height: '100%',
+        backgroundColor: 'var(--green-light)',
+        position: 'relative',
+        right: '-75%',
+        transform: 'translateX(-50%)',
+        borderRadius: '30px',
+    };
     return (
         <div className="mainContainer">
-            <h1>Settings</h1>
-            <div className="block md:hidden">
-                <div className="mb-10">
-                    <h2>HELP</h2>
-                    <Link href="/company/questions">
-                        <p>Q&A</p>
-                    </Link>
+            <h1 className="text-green-custom2">Settings</h1>
+            <div className="flex">
+                <div className="w-1/5 grid grid-cols-2">
+                    <div className="">
+                        <button className="appearance-none bg-transparent">
+                            <h3 className="hover:text-green-custom3 whitespace-nowrap">User settings</h3>
+                        </button>
+                        <button className="appearance-none bg-transparent">
+                            <h3 className="hover:text-green-custom3">Preferences</h3>
+                        </button>
+                        <button className="appearance-none bg-transparent">
+                            <h3 className="hover:text-green-custom3">Weekplan</h3>
+                        </button>
+                    </div>
+                    <div className="" style={lineStyle}></div>
                 </div>
-                <div className="mb-10">
-                    <h2>Company</h2>
-                    <Link href="/company/aboutUs">
-                        <p>About us</p>
-                    </Link>
-                </div>
-                <div className="mb-10">
-                    <h2>Legal</h2>
-                    <Link href="/legal/privacy">
-                        <p>Privacy Policy</p>
-                    </Link>
-                    <Link href="/legal/impressum">
-                        <p>Imprint</p>
-                    </Link>
+                <div className="w-4/5">
+                    <PreferencesSettings />
                 </div>
             </div>
         </div>
