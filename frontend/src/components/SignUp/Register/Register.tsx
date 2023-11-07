@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import TextInput from '@components/FormInputs/TextInput';
+import ErrorMessage from '@components/common/ErrorMessage';
 import { isEmailValidator, isPasswordValidator } from '@helpers/validations';
 import { fetchWithAuth } from '@helpers/utils';
 import styles from './Register.module.scss';
@@ -15,7 +16,7 @@ interface RegisterProps {
 
 export default function Register({ visible, onSkipRegistration }: RegisterProps) {
     const router = useRouter();
-
+    const [error, setError] = useState('');
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConf, setPasswordConf] = useState('');
@@ -42,6 +43,10 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
 
         if (response.ok) {
             router.push(`/authentication/login`, undefined);
+        } else {
+            if (response.status === 409) {
+                setError('There is already an account with this email address.');
+            }
         }
     };
 
@@ -61,7 +66,15 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
         <div className={`${styles.registerContainer} ${visible && styles.active}`}>
             <form className="px-10 pb-7 flex flex-col gap-4" action="#" onSubmit={handleSubmit}>
                 <h2 className="h1 !mb-0 lg:mb-auto">Register</h2>
-                <TextInput value={mail} validate={isEmailValidator} required onChange={setMail} label="E-Mail" />
+
+                <TextInput
+                    hasError={error != ''}
+                    value={mail}
+                    validate={isEmailValidator}
+                    required
+                    onChange={setMail}
+                    label="E-Mail"
+                />
                 <TextInput
                     value={password}
                     type="password"
@@ -78,6 +91,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
                     onChange={setPasswordConf}
                     label="Repeat Password"
                 />
+                {error && <ErrorMessage>{error}</ErrorMessage>}
                 <div className="flex justify-between">
                     <input
                         type="submit"
