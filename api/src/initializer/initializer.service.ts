@@ -1,6 +1,7 @@
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
+import { convertIngredientAmount } from 'src/helpers/converter.utils';
 import { log } from 'console';
 import { Ingredient, Recipe, Step } from '@prisma/client';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
@@ -141,8 +142,7 @@ export class InitializerService implements OnApplicationBootstrap {
             const ingredientsMapped = recipeMapped.map(
                 (ing: { ingredientId: number; quantity: string; unit: string; condition: string }) => ({
                     ingredientId: ing.ingredientId,
-                    quantity: parseFloat(ing.quantity) || null,
-                    unit: ing.unit,
+                    ...convertIngredientAmount(ing, recipeMapped.servings),
                     condition: ing.condition,
                 }),
             );
