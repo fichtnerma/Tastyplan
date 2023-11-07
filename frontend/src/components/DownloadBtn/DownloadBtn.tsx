@@ -1,11 +1,18 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 let deferredPrompt: undefined | BeforeInstallPromptEvent = undefined;
 
 export default function DownloadBtn() {
+    const [isSupported, setIsSupported] = useState(true);
+
     useEffect(() => {
+        if (!('BeforeInstallPromptEvent' in window)) {
+            setIsSupported(false);
+            return;
+        }
+
         window.addEventListener('beforeinstallprompt', (e: BeforeInstallPromptEvent) => {
             deferredPrompt = e;
         });
@@ -21,9 +28,5 @@ export default function DownloadBtn() {
         }
     };
 
-    return (
-        <>
-            <button onClick={handleInstallClick}>Install TastyPlan</button>
-        </>
-    );
+    return <>{isSupported && <button onClick={handleInstallClick}>Install TastyPlan</button>}</>;
 }

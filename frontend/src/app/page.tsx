@@ -5,7 +5,7 @@ import RecipesHome from '@components/Startpage/Recipes/RecipesHome';
 import HeaderHome from '@components/Startpage/HeaderHome/HeaderHome';
 import Benefits from '@components/Startpage/Benefits/Benefits';
 import Footer from '@components/Footer/Footer';
-import DownloadBtn from '@components/CustomDownloadBtn/CustomDownloadBtn';
+import DownloadBtn from '@components/DownloadBtn/DownloadBtn';
 
 export type Benefit = {
     id: number;
