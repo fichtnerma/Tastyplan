@@ -22,7 +22,6 @@ interface Preferences {
 const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes', 'Weekplan'];
 
 const SetupParentPage = () => {
-    const numberDaysOfWeek = 7;
     const { data: session } = useSession();
     const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
