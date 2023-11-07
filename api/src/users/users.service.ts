@@ -13,14 +13,10 @@ export interface FormatLogin extends Partial<User> {
 export class UsersService {
     constructor(private usersQueries: UsersQueries) {}
     async create(userDto: CreateUserDto): Promise<User> {
-        try {
-            // check if the user exists in the db
-            const userInDb = await this.usersQueries.findFirstUser(userDto.userId);
-            if (userInDb) {
-                throw new HttpException('user_already_exist', HttpStatus.CONFLICT);
-            }
-        } catch (error) {
-            throw new HttpException('finding user for creation failed', HttpStatus.INTERNAL_SERVER_ERROR);
+        // check if the user exists in the db
+        const userInDb = await this.usersQueries.findFirstUser(userDto.userId);
+        if (userInDb) {
+            throw new HttpException('user_already_exist', HttpStatus.CONFLICT);
         }
 
         try {
