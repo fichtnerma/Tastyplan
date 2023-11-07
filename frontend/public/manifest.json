@@ -1,7 +1,7 @@
 {
-    "name": "PWA TastyPlan",
+    "name": "TastyPlan",
     "short_name": "TastyPlan",
-    "description": "A Demo for TastyPlan",
+    "description": "This is the official PWA for TastyPlan",
     "icons": [
         {
             "src": "android-launchericon-144-144.png",

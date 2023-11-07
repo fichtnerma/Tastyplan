@@ -4,10 +4,10 @@ export default function Document() {
     return (
         <Html lang="en">
             <Head>
-                <meta name="application-name" content="PWA Tastyplan" />
+                <meta name="application-name" content="Tastyplan" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-                <meta name="apple-mobile-web-app-title" content="PWA TastyPlan" />
+                <meta name="apple-mobile-web-app-title" content="TastyPlan" />
                 <meta name="description" content="Official PWA for TastyPlan" />
                 <meta name="format-detection" content="telephone=no" />
                 <meta name="mobile-web-app-capable" content="yes" />
@@ -36,14 +36,14 @@ export default function Document() {
 
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:url" content="https://tastyplan.de" />
-                <meta name="twitter:title" content="PWA TastyPlan" />
+                <meta name="twitter:title" content="TastyPlan" />
                 <meta name="twitter:description" content="Official PWA for TastyPlan" />
                 <meta name="twitter:image" content="https://tastyplan.de/icons/android-chrome-192x192.png" />
                 <meta name="twitter:creator" content="@DavidWShadow" />
                 <meta property="og:type" content="website" />
-                <meta property="og:title" content="PWA TastyPlan" />
+                <meta property="og:title" content="TastyPlan" />
                 <meta property="og:description" content="Official PWA for TastyPlan" />
-                <meta property="og:site_name" content="PWA TastyPlan" />
+                <meta property="og:site_name" content="TastyPlan" />
                 <meta property="og:url" content="https://tastyplan.de" />
                 <meta property="og:image" content="https://tastyplan.de/icons/apple-touch-icon.png" />
 
