@@ -51,7 +51,6 @@ const SetupParentPage = () => {
     ]);
 
     const [mealsCheckboxes, setMeals] = useState<CustomSelectionInput[]>([
-        // { id: '7', label: 'Breakfast', checked: false },
         { id: '7', label: 'Lunch', checked: true },
         { id: '8', label: 'Dinner', checked: true },
     ]);
