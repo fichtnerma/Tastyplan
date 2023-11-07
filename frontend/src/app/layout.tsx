@@ -1,17 +1,36 @@
-import { PropsWithChildren } from 'react';
+'use client';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import '@styles/globals.scss';
 import Script from 'next/script';
 import { Metadata } from 'next';
 import { Inter, Bebas_Neue, Zeyada } from '@next/font/google';
+import Banner from '@components/CookieBanner/CookieBanner';
 
 const inter = Inter({ subsets: ['latin'], style: ['normal'], weight: ['200', '400', '700'], variable: '--font-inter' });
 const bebasNeue = Bebas_Neue({ subsets: ['latin'], style: 'normal', weight: '400', variable: '--font-bebas' });
 const zeyada = Zeyada({ subsets: ['latin'], style: 'normal', weight: '400', variable: '--font-zeyada' });
 
 export default function RootLayout({ children }: PropsWithChildren) {
+    const [tastyplanCookiesAccepted, setTastyplanCookiesAccepted] = useState(false);
+    useEffect(() => {
+        function getCookieValue(cookieName: string): boolean {
+            const cookies = document.cookie.split(';');
+            for (const cookie of cookies) {
+                const [name, value] = cookie.split('=');
+                if (name.trim() === cookieName) {
+                    return Boolean(decodeURIComponent(value));
+                }
+            }
+            return false;
+        }
+
+        const cookieValue = getCookieValue('tastyplan-cookiesAccepted');
+        setTastyplanCookiesAccepted(cookieValue);
+    }, []);
+
     return (
         <html lang="en">
-            {process.env.NODE_ENV === 'production' && (
+            {process.env.NODE_ENV === 'production' && tastyplanCookiesAccepted && (
                 <>
                     <Script
                         strategy="lazyOnload"
@@ -38,6 +57,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
                 >
                     {children}
                 </main>
+                <Banner setCookiesAccepted={setTastyplanCookiesAccepted} />
             </body>
         </html>
     );
