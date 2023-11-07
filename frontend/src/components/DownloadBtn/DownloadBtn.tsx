@@ -28,5 +28,13 @@ export default function DownloadBtn() {
         }
     };
 
-    return <>{isSupported && <button onClick={handleInstallClick}>Install TastyPlan</button>}</>;
+    return (
+        <>
+            {isSupported && (
+                <button className="btn-primary" onClick={handleInstallClick}>
+                    Install TastyPlan
+                </button>
+            )}
+        </>
+    );
 }
