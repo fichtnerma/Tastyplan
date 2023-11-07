@@ -9,15 +9,25 @@
     "e2e": "cypress run --browser chrome --headless --reporter junit",
     "browser:web": "start http://localhost:8080",
     "browser": "npm run browser:web",
-    "prepare": "is-ci || husky install"
+    "prepare": "is-ci || husky install",
+    "commit": "git-cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
+    "@commitlint/cz-commitlint": "^18.2.0",
     "@commitlint/format": "^18.1.0",
+    "@commitlint/prompt-cli": "^18.2.0",
+    "commitizen": "^4.3.0",
     "conventional-changelog-atom": "^4.0.0",
     "cypress": "^12.13.0",
     "husky": "^8.0.0",
+    "inquirer": "^8.2.6",
     "is-ci": "^3.0.1",
     "typescript": "^5.1.3"
   }
