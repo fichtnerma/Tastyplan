@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
 import { fetchWithAuth, mapShoppingListToSelection } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
-import { CategorizedIngredients, CustomSelectionInput, CustomSelectionInputGroups } from 'src/types/types';
+import { CategorizedIngredients, CustomCheckboxInput, CustomSelectionInputGroups } from 'src/types/types';
 
 function ShoppingListPage() {
     const { data, error } = useFetchWithAuth<CategorizedIngredients>('/service/shopping-list');
@@ -18,7 +18,7 @@ function ShoppingListPage() {
         }
     }, [data, error]);
 
-    const sendIngredient = async (ingredient: CustomSelectionInput, category: string) => {
+    const sendIngredient = async (ingredient: CustomCheckboxInput, category: string) => {
         if (!data) return;
 
         const foundElement = data[category].find((el) => el.ingredientId + '' === ingredient.id);
@@ -72,7 +72,7 @@ function ShoppingListPage() {
 
     const handleNeededSelect = (id: string) => {
         const filteredNeededIngredients: CustomSelectionInputGroups = {};
-        let foundIngredient: CustomSelectionInput | undefined = undefined;
+        let foundIngredient: CustomCheckboxInput | undefined = undefined;
         let category = '';
 
         for (const [key, ingredients] of Object.entries(neededIngredients)) {
@@ -101,7 +101,7 @@ function ShoppingListPage() {
 
     const handlePresentSelect = (id: string) => {
         const filteredPresentIngredients: CustomSelectionInputGroups = {};
-        let foundIngredient: CustomSelectionInput | undefined = undefined;
+        let foundIngredient: CustomCheckboxInput | undefined = undefined;
         let category = '';
 
         for (const [key, ingredients] of Object.entries(presentIngredients)) {

@@ -1,9 +1,9 @@
-import { CustomSelectionInput } from 'src/types/types';
+import { CustomCheckboxInput } from 'src/types/types';
 import styles from './Radiobutton.module.scss';
 
 type RadiobuttonProps = {
     groupName: string;
-    radioBtn: CustomSelectionInput;
+    radioBtn: CustomCheckboxInput;
     handleChange: (id: string, checked: boolean) => void;
 };
 

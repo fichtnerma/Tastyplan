@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
-import { CustomSelectionInput } from 'src/types/types';
+import { CustomCheckboxInput } from 'src/types/types';
 import styles from './WeekplanConfig.module.scss';
 
 type OnBackFunction = () => void;
@@ -14,9 +14,9 @@ interface WeekplanConfigProps {
     onChoice: OnChoiceFunction;
     servings: number;
     handlePreferences: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
-    daysCheckboxes: CustomSelectionInput[];
+    daysCheckboxes: CustomCheckboxInput[];
     handleDaySelection: OnDaySelectionFunction;
-    mealsCheckboxes: CustomSelectionInput[];
+    mealsCheckboxes: CustomCheckboxInput[];
     handleMealSelection: OnMealSelectionFunction;
 }
 

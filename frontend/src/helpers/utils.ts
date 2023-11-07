@@ -1,5 +1,5 @@
 import { Session } from 'next-auth';
-import { CustomSelectionInput, ShoppingListItem } from 'src/types/types';
+import { CustomCheckboxInput, ShoppingListItem } from 'src/types/types';
 
 export const debounce = (fn: (...params: unknown[]) => unknown, ms = 300) => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -32,13 +32,14 @@ export function fetchWithAuth(url: string, options: RequestInit = { method: 'GET
     });
 }
 
-export function mapShoppingListToSelection(ingredientList: ShoppingListItem[]): CustomSelectionInput[] {
-    const selectionList: CustomSelectionInput[] = ingredientList.map((ingredient) => {
+export function mapShoppingListToSelection(ingredientList: ShoppingListItem[]): CustomCheckboxInput[] {
+    const selectionList: CustomCheckboxInput[] = ingredientList.map((ingredient) => {
         return {
             id: ingredient.ingredientId + '',
             label: `${ingredient?.category === 'Spices' ? '' : ingredient.quantity} ${
                 ingredient?.category === 'Spices' ? '' : ingredient.unit
             } ${ingredient.ingredientName}`,
+            value: ingredient.ingredientName,
             checked: ingredient.isChecked,
         };
     });

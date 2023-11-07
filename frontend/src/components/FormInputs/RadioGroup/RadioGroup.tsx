@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { CustomSelectionInput } from 'src/types/types';
+import { CustomCheckboxInput } from 'src/types/types';
 import RadioButton from '../Radiobutton';
 
 type RadioBtnProps = {
     groupName: string;
-    radioBtns: CustomSelectionInput[];
+    radioBtns: CustomCheckboxInput[];
 };
 
 function RadioGroup({ radioBtns, groupName }: RadioBtnProps) {
