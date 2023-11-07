@@ -9,10 +9,10 @@ variables:
   DOCKER_DRIVER: overlay2
 
 services:
-  - docker:20.10-dind
+  - docker:24.0-dind
 
 .build-rules:
-  image: docker:20.10-dind
+  image: docker:24.0-dind
   stage: build
   rules:
     - if: $CI_COMMIT_REF_NAME == "master"
