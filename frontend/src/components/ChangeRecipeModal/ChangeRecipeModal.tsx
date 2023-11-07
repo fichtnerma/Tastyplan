@@ -10,7 +10,7 @@ type ChangRecipeModalProps = {
     open: boolean;
     setIsOpened: (x: boolean) => void;
     entryId?: string;
-    refresh?: () => void;
+    refresh?: (recipe: Recipe) => void;
     isLunch: boolean;
 };
 
@@ -31,18 +31,18 @@ function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch }: Cha
         }
     }, [open, session, newRecipe]);
 
-    const switchRecipe = (recipeId: number | null) => {
+    const switchRecipe = async (recipeId: number | null) => {
         setIsOpened(false);
         const changedRecipe = { id: recipeId, weekplanEntry: entryId, isLunch: isLunch, isDinner: !isLunch };
-        fetchWithAuth(
+        const recipeRes = await fetchWithAuth(
             '/service/weekplan/changeRecipe',
             { method: 'POST', body: JSON.stringify(changedRecipe) },
             session,
-        ).then(() => {
-            if (refresh) {
-                refresh();
-            }
-        });
+        );
+        const recipe = (await recipeRes.json()) as Recipe;
+        if (refresh) {
+            refresh(recipe);
+        }
     };
 
     return (

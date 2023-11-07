@@ -27,9 +27,9 @@ function RecipeCard({
     smallCard = false,
     switchRecipe,
     entryId,
-    refreshWeekplan,
     isLunch = false,
 }: RecipeCardProps) {
+    const [recipeInfo, setRecipe] = useState<Recipe | undefined>(recipe);
     const [isFavorite, setIsFavorite] = useState(false);
     const [isOpened, setIsOpened] = useState(false);
     const { data: session } = useSession();
@@ -39,16 +39,16 @@ function RecipeCard({
     const mediumCardSize = 'md:!h-[300px] md:!w-[200px] bg-white-custom';
 
     useEffect(() => {
-        const fav = favorites.find((favorit) => favorit.id === recipe?.id);
+        const fav = favorites.find((favorit) => favorit.id === recipeInfo?.id);
         if (fav) setIsFavorite(true);
-    }, [isFavorite, favorites, recipe]);
+    }, [isFavorite, favorites, recipeInfo]);
 
     const handleFavorite = async () => {
-        if (recipe) {
+        if (recipeInfo) {
             if (isFavorite) {
-                remove(recipe.id, session);
+                remove(recipeInfo.id, session);
             } else {
-                add(recipe, session);
+                add(recipeInfo, session);
             }
         }
         setIsFavorite((isFavorite) => !isFavorite);
@@ -58,9 +58,13 @@ function RecipeCard({
         setIsOpened(!isOpened);
     };
 
+    const refreshWeekplan = (recipe: Recipe) => {
+        setRecipe(recipe);
+    };
+
     return (
         <>
-            {recipe ? (
+            {recipeInfo ? (
                 <div
                     className={`${styles.wrapperContainer} ${
                         smallCard ? smallCardSize : mediumCardSize
@@ -91,11 +95,11 @@ function RecipeCard({
                     </div>
                     {switchRecipe ? (
                         <button className="block h-full w-full text-left" onClick={switchRecipe}>
-                            <CardContent recipe={recipe} highlighted={highlighted} smallCard={smallCard} />
+                            <CardContent recipe={recipeInfo} highlighted={highlighted} smallCard={smallCard} />
                         </button>
                     ) : (
-                        <Link className="block h-full" href={`/recipe/${recipe.id}`}>
-                            <CardContent recipe={recipe} highlighted={highlighted} smallCard={smallCard} />
+                        <Link className="block h-full" href={`/recipe/${recipeInfo.id}`}>
+                            <CardContent recipe={recipeInfo} highlighted={highlighted} smallCard={smallCard} />
                         </Link>
                     )}
                 </div>

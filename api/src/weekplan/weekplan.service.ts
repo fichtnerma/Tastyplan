@@ -145,6 +145,7 @@ export class WeekplanService {
                     await this.weekplanQueries.updateWeekplanEntryDinnerWithoutId(+changeRecipeReq.weekplanEntry);
                 }
             }
+            return await this.weekplanQueries.findFirstRecipe(+changeRecipeReq.id);
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to change Recipe for given user');
         }

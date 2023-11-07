@@ -89,4 +89,9 @@ export class WeekplanQueries {
             data: { dinner: { disconnect: true } },
         });
     }
+    async findFirstRecipe(id: number) {
+        return await this.prismaService.recipe.findFirst({
+            where: { id: id },
+        });
+    }
 }
