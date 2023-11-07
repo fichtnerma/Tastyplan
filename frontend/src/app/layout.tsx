@@ -25,7 +25,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 }
 
 export const metadata: Metadata = {
-    title: 'My Page Title',
+    title: 'TastyPlan',
     themeColor: '#D6E5E3',
     manifest: '/manifest.json',
     icons: {
