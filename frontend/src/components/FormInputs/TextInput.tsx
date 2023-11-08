@@ -53,8 +53,6 @@ export default function TextInput({
         }
     };
 
-    console.log(hasError);
-
     return (
         <div>
             <div className={`${errorMessage || hasError ? 'error' : ''} w-full text-input-wrapper relative`}>
