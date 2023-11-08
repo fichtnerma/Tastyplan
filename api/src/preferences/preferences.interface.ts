@@ -4,7 +4,7 @@ export type IPreferences = {
     foodDislikes?: {
         connect: { id: number }[];
     };
-    days?: number[];
+    days?: string[];
     wantsDinner: boolean;
     wantsLunch: boolean;
     servings: number;
