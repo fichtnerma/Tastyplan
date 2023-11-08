@@ -1,8 +1,10 @@
 'use client';
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import WeekplanSettings from '@components/WeekplanSettings/WeekplanSettings';
 import UserSettings from '@components/UserSettings/UserSettings';
 import PreferencesSettings from '@components/PreferencesSettings/PreferencesSettings';
+import { fetchWithAuth } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { APISearchResponse } from 'src/types/types';
 
@@ -17,17 +19,24 @@ interface Preferences {
 
 function Settings() {
     const [selectedSettingOption, setSelectedSettingOption] = useState('user');
+
+    const { data: session } = useSession();
     const { data, error } = useFetchWithAuth('/service/preferences') as unknown as {
         data: Preferences;
         error: unknown;
     };
 
-    // const saveSettings = async (settings: Preferences) => {
-    //     useFetchWithAuth('/service/preferences', {
-    //         method: 'POST',
-    //         body: JSON.stringify(settings),
-    //     });
-    // };
+    const saveSettings = async (settings: Preferences) => {
+        console.log(settings);
+        fetchWithAuth(
+            '/service/preferences',
+            {
+                method: 'POST',
+                body: JSON.stringify(settings),
+            },
+            session,
+        );
+    };
 
     const lineStyle: React.CSSProperties = {
         width: '5px',
@@ -98,9 +107,7 @@ function Settings() {
                                     data.formOfDiet = settings.formOfDiet;
                                     data.allergens = settings.allergens;
                                     data.foodDislikes = settings.foodDislikes;
-                                    // saveSettings(data);
-
-                                    console.log(data);
+                                    saveSettings(data);
                                 }}
                             />
                         )}
