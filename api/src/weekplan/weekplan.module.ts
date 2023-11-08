@@ -10,5 +10,6 @@ import { Module } from '@nestjs/common';
     imports: [RecipesModule, ShoppingListModule, PreferencesModule, RecipesModule],
     controllers: [WeekplanController],
     providers: [WeekplanService, WeekplanQueries],
+    exports: [WeekplanService],
 })
 export class WeekplanModule {}
