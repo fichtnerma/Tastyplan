@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
 import TextInput from '@components/FormInputs/TextInput';
+import DislikeList from '@components/DislikeList/DislikeList';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
 import cross from '../../../public/Icons/kreuz.png';
@@ -110,8 +111,9 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         onChoice(allDislikes);
     };
 
-    const onDeleteChoice = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        const clickedDislike = e.currentTarget.getAttribute('data-anchor');
+    const onDeleteChoice = (dislikeName: string) => {
+        // const clickedDislike = e.currentTarget.getAttribute('data-anchor');
+        const clickedDislike = dislikeName;
         if (!clickedDislike) return;
         setDislike(allDislikes.filter((dislike) => dislike.name !== clickedDislike));
         onChoice(allDislikes);
@@ -193,30 +195,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                     </div>
                 </div>
                 <div className=" h-[280px] overflow-y-auto mt-2 lg:mt-0 lg:ml-8 lg:w-2/3">
-                    <div className="flex flex-wrap gap-2">
-                        {allDislikes.map((dislike, i) => (
-                            <div
-                                key={i}
-                                className="inline-block border-2 border-solid border-green-custom2 rounded-[50px] bg-green-custom1 overflow-hidden whitespace-nowrap w-max py-[5px] px-[7px]"
-                            >
-                                <span>
-                                    <label className="flex items-center" htmlFor={dislike.name}>
-                                        <p className="inline-block pr-2 max-w-[300px] truncate text-sm">
-                                            {dislike.name.charAt(0).toUpperCase() + dislike.name.slice(1)}
-                                        </p>
-
-                                        <a
-                                            className="inline-block cursor-pointer"
-                                            onClick={onDeleteChoice}
-                                            data-anchor={dislike.name}
-                                        >
-                                            <Image src={cross} className="" alt="cross" width={12} priority />
-                                        </a>
-                                    </label>
-                                </span>
-                            </div>
-                        ))}
-                    </div>
+                    <DislikeList dislikes={allDislikes} onDeleteChoice={onDeleteChoice} />
                 </div>
             </div>
             <div className="flex justify-between relative">
