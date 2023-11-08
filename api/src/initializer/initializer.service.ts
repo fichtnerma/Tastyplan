@@ -145,7 +145,7 @@ export class InitializerService implements OnApplicationBootstrap {
                     const convertedIngrAmount = convertIngredientAmount(ing, recipe.servings);
                     return {
                         ingredientId: ing.ingredientId,
-                        quantity: convertedIngrAmount.quantity,
+                        quantity: convertedIngrAmount.quantity || null,
                         unit: convertedIngrAmount.unit,
                         condition: ing.condition,
                     };
