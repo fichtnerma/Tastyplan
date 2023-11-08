@@ -7,6 +7,7 @@ from typing import List, Optional
 class Recipe(BaseModel):
     tags: List[str]
     name: str
+    recipeId: Optional[int] = None
     description: str
     cookingTime: Optional[str] = None
     totalTime: Optional[str] = None

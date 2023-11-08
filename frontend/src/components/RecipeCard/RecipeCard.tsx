@@ -16,7 +16,6 @@ type RecipeCardProps = {
     smallCard?: boolean;
     switchRecipe?: () => void;
     entryId?: string;
-    refreshWeekplan?: () => void;
     isLunch?: boolean;
 };
 

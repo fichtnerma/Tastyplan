@@ -80,7 +80,6 @@ export default function WeekOverview() {
                                 withSwitch={true}
                                 smallCard={false}
                                 entryId={day.id}
-                                refreshWeekplan={refresh}
                                 isLunch={true}
                             />
                         </div>
@@ -92,7 +91,6 @@ export default function WeekOverview() {
                             withSwitch={true}
                             smallCard={false}
                             entryId={day.id}
-                            refreshWeekplan={refresh}
                         />
                     )}
                 </div>
