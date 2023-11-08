@@ -22,6 +22,13 @@ function Settings() {
         error: unknown;
     };
 
+    // const saveSettings = async (settings: Preferences) => {
+    //     useFetchWithAuth('/service/preferences', {
+    //         method: 'POST',
+    //         body: JSON.stringify(settings),
+    //     });
+    // };
+
     const lineStyle: React.CSSProperties = {
         width: '5px',
         height: '100%',
@@ -91,6 +98,8 @@ function Settings() {
                                     data.formOfDiet = settings.formOfDiet;
                                     data.allergens = settings.allergens;
                                     data.foodDislikes = settings.foodDislikes;
+                                    // saveSettings(data);
+
                                     console.log(data);
                                 }}
                             />
