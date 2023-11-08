@@ -12,7 +12,7 @@ export default function DownloadBtn() {
             setIsSupported(false);
             return;
         }
-
+        //@ts-ignore
         window.addEventListener('beforeinstallprompt', (e: BeforeInstallPromptEvent) => {
             deferredPrompt = e;
         });
