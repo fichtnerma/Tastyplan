@@ -216,9 +216,11 @@ export class WeekplanService {
         wantsLunch: boolean,
         wantsDinner: boolean,
     ): WeekplanEntry[] {
-        const week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        const week = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        const today = new Date().getDay();
+        const sortedWeek = [...week.slice(today), ...week.slice(0, today)];
         let recipeCounter = 0;
-        const weekplan = week.map((dayEntry, index) => {
+        const weekplan = sortedWeek.map((dayEntry, index) => {
             const weekplanEntry: WeekplanEntry = {
                 date: new Date(new Date().setDate(new Date().getDate() + index)),
             };
