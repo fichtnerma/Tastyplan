@@ -2,7 +2,12 @@ import { Recipe, Step } from '@prisma/client';
 
 export type ExtendetRecipe = Recipe & {
     steps: Step[];
-    ingredients: { ingredientId: number }[];
+    ingredients: {
+        ingredientId: number;
+        condition: string | null;
+        unit: string | null;
+        quantity: number | null;
+    }[];
 };
 
 //Only purpose is here to get the times in strings

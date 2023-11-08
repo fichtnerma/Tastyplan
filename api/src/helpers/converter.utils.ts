@@ -34,10 +34,16 @@ type IngredientAmount = {
 export function convertIngredientAmount(ingredientAmount: IngredientAmount, servings: number) {
     const { quantity, unit } = ingredientAmount;
 
-    let updated_quantity = parseFloat(quantity) / servings;
+    let updated_quantity = parseFloat(quantity);
+
     let updated_unit = unit;
 
-    if (unit === 'tablespoons' || unit === 'tablespoon') {
+    if (!unit) {
+        updated_unit = null;
+        if (!quantity) updated_quantity = null;
+        else updated_quantity = parseFloat(quantity);
+        return { quantity: updated_quantity, unit: updated_unit };
+    } else if (unit === 'tablespoons' || unit === 'tablespoon') {
         updated_unit = 'tbsp';
         if (updated_quantity < 0.5) {
             updated_quantity = updated_quantity * 3;
@@ -55,9 +61,7 @@ export function convertIngredientAmount(ingredientAmount: IngredientAmount, serv
         updated_quantity = convertOuncesToGrams(updated_quantity);
     }
 
-    updated_quantity = roundToNearest(updated_quantity);
-
-    return { quantity: updated_quantity, unit: updated_unit };
+    return { quantity: roundToNearest(updated_quantity), unit: updated_unit };
 }
 
 const convertTableSpoonsToGrams = (tablespoons: number, density: number) => {
@@ -77,5 +81,7 @@ const convertPoundsToGrams = (pounds: number) => {
 };
 
 const roundToNearest = (num: number) => {
-    return parseFloat((Math.round(num * 4) / 4).toFixed(2));
+    if (num == null) return null;
+    const floored = (Math.round(num * 4) / 4).toFixed(2);
+    return +floored;
 };

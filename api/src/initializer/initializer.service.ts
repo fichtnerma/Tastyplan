@@ -139,12 +139,17 @@ export class InitializerService implements OnApplicationBootstrap {
             });
 
             const recipeMapped = await recipeJson.json();
+
             const ingredientsMapped = recipeMapped.map(
-                (ing: { ingredientId: number; quantity: string; unit: string; condition: string }) => ({
-                    ingredientId: ing.ingredientId,
-                    ...convertIngredientAmount(ing, recipeMapped.servings),
-                    condition: ing.condition,
-                }),
+                (ing: { ingredientId: number; quantity: string; unit: string; condition: string }) => {
+                    const convertedIngrAmount = convertIngredientAmount(ing, recipe.servings);
+                    return {
+                        ingredientId: ing.ingredientId,
+                        quantity: convertedIngrAmount.quantity,
+                        unit: convertedIngrAmount.unit,
+                        condition: ing.condition,
+                    };
+                },
             );
             const ing = await this.prismaService.ingredient.findMany({
                 where: {
