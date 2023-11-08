@@ -20,13 +20,16 @@ export class WeekplanService {
 
     async getCurrentWeekplan(userId: string) {
         try {
-            const weekplans = await this.weekplanQueries.findManyWeekplans(userId);
             const now = new Date();
             now.setHours(0, 0, 0, 0);
+            const weekplans = await this.weekplanQueries.findManyWeekplans(userId);
             const filteredWeekplans = weekplans.filter((plan) => {
-                const start = plan.startDate;
-                const end = plan.endDate;
-                return start <= now && now <= end;
+                if (plan !== undefined && plan !== null) {
+                    const start = plan.startDate;
+                    const end = plan.endDate;
+                    return start <= now && now <= end;
+                }
+                return false;
             });
             return filteredWeekplans[0];
         } catch (error) {

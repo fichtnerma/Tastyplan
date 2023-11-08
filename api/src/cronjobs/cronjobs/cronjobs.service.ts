@@ -1,13 +1,26 @@
+import { CronjobsQueries } from './cronjobs.queries';
+import { WeekplanService } from 'src/weekplan/weekplan.service';
 import { Cron } from '@nestjs/schedule';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CronjobsService {
-    private readonly logger = new Logger(CronjobsService.name);
+    constructor(private weekplanService: WeekplanService, private cronjobsQueries: CronjobsQueries) {}
 
-    @Cron('45 * * * * *')
-    handleCron() {
-        this.logger.debug('Called when the current second is 45');
-        console.log('Cronjob called');
+    @Cron('0 23 * * *')
+    async handleCron() {
+        console.log('##########Cronjob Create Weekplan START##########');
+        const allUsers = await this.cronjobsQueries.findManyUserIds();
+        for (const user of allUsers) {
+            const currentWeekplan = await this.weekplanService.current(user.userId);
+            const expiringDate = new Date();
+            expiringDate.setDate(expiringDate.getDate() + 2);
+            expiringDate.setHours(0, 0, 0, 0);
+            if (currentWeekplan.endDate <= expiringDate) {
+                await this.weekplanService.create(user.userId);
+                console.log('New Weekplan for user: ' + user.userId + ' created');
+            }
+        }
+        console.log('##########Cronjob Create Weekplan END##########');
     }
 }
