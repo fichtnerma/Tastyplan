@@ -6,7 +6,7 @@ export type Preferences = {
     formOfDiet: string;
     allergens: string[];
     servings: number;
-    days: number[];
+    days: string[];
     wantsLunch: boolean;
     wantsDinner: boolean;
     foodDislikes: {

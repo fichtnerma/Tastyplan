@@ -211,16 +211,16 @@ export class WeekplanService {
     }
 
     createWeekplanData(
-        daysPreferences: number[],
+        daysPreferences: string[],
         shuffeledMeals: { id: number }[],
         wantsLunch: boolean,
         wantsDinner: boolean,
     ): WeekplanEntry[] {
-        const week = [0, 1, 2, 3, 4, 5, 6];
+        const week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         let recipeCounter = 0;
-        const weekplan = week.map((dayEntry) => {
+        const weekplan = week.map((dayEntry, index) => {
             const weekplanEntry: WeekplanEntry = {
-                date: new Date(new Date().setDate(new Date().getDate() + dayEntry)),
+                date: new Date(new Date().setDate(new Date().getDate() + index)),
             };
             if (daysPreferences.includes(dayEntry) && wantsLunch) {
                 weekplanEntry.lunchId = shuffeledMeals[recipeCounter]?.id || 1;
