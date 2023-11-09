@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import Image from 'next/image';
-import SearchResultlist from '@components/SearchResultList/SearchResultList';
-import TextInput from '@components/FormInputs/TextInput';
+// import Image from 'next/image';
+// import SearchResultlist from '@components/SearchResultList/SearchResultList';
+// import TextInput from '@components/FormInputs/TextInput';
+import DislikeSearch from '@components/DislikeSearch/DislikeSearch';
 import DislikeList from '@components/DislikeList/DislikeList';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
-import cross from '../../../public/Icons/kreuz.png';
+// import cross from '../../../public/Icons/kreuz.png';
 
 type OnNextFunction = () => void;
 type OnBackFunction = () => void;
@@ -155,7 +156,16 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                 <div className="flex w-full flex-col lg:w-1/3">
                     <div className="w-full flex">
                         <div className="text-input-wrapper w-full">
-                            <TextInput
+                            <DislikeSearch
+                                searchTerm={searchTerm}
+                                searchResult={searchResult}
+                                isInputFocus={isInputFocus}
+                                deleteInput={deleteInput}
+                                searchChanged={searchChanged}
+                                handleAddChoice={handleAddChoice}
+                                allDislikes={allDislikes}
+                            />
+                            {/* <TextInput
                                 placeholder="Search ingredients"
                                 value={searchTerm}
                                 decoration={
@@ -176,7 +186,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                                         />
                                     )}
                                 </div>
-                            </div>
+                            </div> */}
                             <p className="inline-block text-base pt-3">Add this to your dislikes.</p>
                             <div className="flex flex-wrap">
                                 {dislikeRecommendations.map((dislike) => (
