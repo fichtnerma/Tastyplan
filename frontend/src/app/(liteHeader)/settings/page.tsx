@@ -12,8 +12,9 @@ interface Preferences {
     formOfDiet: string;
     allergens: string[];
     foodDislikes: APISearchResponse[];
-    days: number[];
-    meals: number[];
+    days: string[];
+    wantsLunch: boolean;
+    wantsDinner: boolean;
     servings: number;
 }
 
@@ -110,7 +111,26 @@ function Settings() {
                                 }}
                             />
                         )}
-                        {selectedSettingOption === 'weekplan' && <WeekplanSettings />}
+                        {selectedSettingOption === 'weekplan' && (
+                            <WeekplanSettings
+                                days={data.days}
+                                wantsLunch={data.wantsLunch}
+                                wantsDinner={data.wantsDinner}
+                                servings={data.servings}
+                                onSave={(settings: {
+                                    days: string[];
+                                    wantsLunch: boolean;
+                                    wantsDinner: boolean;
+                                    servings: number;
+                                }) => {
+                                    data.days = settings.days;
+                                    data.wantsLunch = settings.wantsLunch;
+                                    data.wantsDinner = settings.wantsDinner;
+                                    data.servings = settings.servings;
+                                    saveSettings(data);
+                                }}
+                            />
+                        )}
                         {selectedSettingOption === 'user' && <UserSettings />}
                     </div>
                 ) : (
