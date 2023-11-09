@@ -7,7 +7,7 @@ import styles from './WeekplanConfig.module.scss';
 type OnBackFunction = () => void;
 type OnChoiceFunction = (servings: number) => void;
 type OnDaySelectionFunction = (id: string) => void;
-type OnMealSelectionFunction = (id: string) => void;
+type OnMealSelectionFunction = (value: string) => void;
 
 interface WeekplanConfigProps {
     onBack: OnBackFunction;

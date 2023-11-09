@@ -5,7 +5,7 @@ import Checkbox from '../Checkbox';
 type CheckboxProps = {
     groupName: string;
     checkboxes: CustomCheckboxInput[];
-    onCheckboxSelect?: (id: string) => void;
+    onCheckboxSelect?: (id: string, value: string, checked: boolean) => void;
     disabled: boolean;
 };
 
@@ -23,13 +23,13 @@ function CheckboxGroup({ checkboxes, groupName, onCheckboxSelect, disabled }: Ch
                     id: selection.id,
                     label: selection.label,
                     value: value,
-                    checked: !checked,
+                    checked: checked,
                 };
             return selection;
         });
         setCheckboxGroup(updatedSelection);
 
-        if (onCheckboxSelect) onCheckboxSelect(id);
+        if (onCheckboxSelect) onCheckboxSelect(id, value, checked);
     };
 
     return (
