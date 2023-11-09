@@ -20,8 +20,8 @@ export class PreferencesService {
                 allergens: [...createPreferencesDto.allergens],
                 foodDislikes: { connect: [...ingredientIds] },
                 days: [...createPreferencesDto.days],
-                wantsLunch: createPreferencesDto.meals.includes('lunch') ? true : false,
-                wantsDinner: createPreferencesDto.meals.includes('dinner') ? true : false,
+                wantsLunch: createPreferencesDto.wantsLunch,
+                wantsDinner: createPreferencesDto.wantsDinner,
                 servings: createPreferencesDto.servings,
             };
             await Promise.all([this.preferencesQueries.upsertPreferences(userId, preferences)]);
