@@ -1,12 +1,8 @@
 import { useState } from 'react';
-// import Image from 'next/image';
-// import SearchResultlist from '@components/SearchResultList/SearchResultList';
-// import TextInput from '@components/FormInputs/TextInput';
 import DislikeSearch from '@components/DislikeSearch/DislikeSearch';
 import DislikeList from '@components/DislikeList/DislikeList';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
-// import cross from '../../../public/Icons/kreuz.png';
 
 type OnNextFunction = () => void;
 type OnBackFunction = () => void;
