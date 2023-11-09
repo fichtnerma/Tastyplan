@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Icon from '@components/Icon/Icon';
 import DislikeSearch from '@components/DislikeSearch/DislikeSearch';
 import DislikeList from '@components/DislikeList/DislikeList';
@@ -29,6 +29,7 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
     const allergensObj = allergens.map((allergen) => {
         return { name: allergen };
     });
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const [selectedDiet, setSelectedDiet] = useState(formOfDiet);
     const [selectedAllergens, setSelectedAllergens] = useState(allergensObj);
     const [selectedDislikes, setSelectedDislikes] = useState(foodDislikes);
@@ -106,6 +107,9 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
         } else {
             setInputFocus(false);
         }
+        if (dropDownState && !dropdownRef.current?.contains(clickedElement)) {
+            setDropDownState(false);
+        }
     };
 
     const handleAddChoice = (e: React.MouseEvent) => {
@@ -149,7 +153,7 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                     </div>
                 </div>
                 {dropDownState == true && (
-                    <div className=" rounded-2xl">
+                    <div ref={dropdownRef} className="rounded-2xl">
                         {foodDietPreferences.map((preference) => (
                             <p
                                 key={preference.food}
