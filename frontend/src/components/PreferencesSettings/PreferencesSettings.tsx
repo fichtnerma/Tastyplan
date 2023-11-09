@@ -185,6 +185,22 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
         }
     };
 
+    const handleAddIntolerance = (e: React.MouseEvent) => {
+        const target = e.target as HTMLButtonElement;
+        const clickedIntolName = target.getAttribute('data-id');
+        if (!clickedIntolName) return;
+
+        const clickedAllergen = canBeSelectedIntolerances.find((intol) => intol.name === clickedIntolName);
+
+        if (clickedAllergen) {
+            setSelectedAllergens([...selectedAllergens, { name: clickedAllergen.name }]);
+            const updatedIntolerances = canBeSelectedIntolerances.filter(
+                (intol) => intol.name !== clickedAllergen.name,
+            );
+            setCanBeSelectedIntolerances(updatedIntolerances);
+        }
+    };
+
     return (
         <div className="pt-6" onClick={handleClickOnListAndInput}>
             <h5>Your Food Lifestyle</h5>
