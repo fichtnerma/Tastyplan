@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react';
 import '@styles/globals.scss';
 import { Metadata } from 'next';
 import { Inter, Bebas_Neue, Zeyada } from '@next/font/google';
+import CookieWrapper from '@components/CookieBanner/CookieWrapper';
 
 const inter = Inter({ subsets: ['latin'], style: ['normal'], weight: ['200', '400', '700'], variable: '--font-inter' });
 const bebasNeue = Bebas_Neue({ subsets: ['latin'], style: 'normal', weight: '400', variable: '--font-bebas' });
@@ -19,13 +20,14 @@ export default function RootLayout({ children }: PropsWithChildren) {
                 >
                     {children}
                 </main>
+                <CookieWrapper />
             </body>
         </html>
     );
 }
 
 export const metadata: Metadata = {
-    title: 'My Page Title',
+    title: 'TastyPlan',
     themeColor: '#D6E5E3',
     manifest: '/manifest.json',
     icons: {

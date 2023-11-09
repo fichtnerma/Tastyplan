@@ -30,7 +30,7 @@ function Steps() {
                 height: 506,
             },
             foodimg: {
-                class: 'absolute top-[-15rem] right-[-35rem] 2xl:right-[-55rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]',
+                class: 'absolute top-[-15rem] right-[-35rem] 2xl:right-[-55rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]  hover:scale-110 transition-all',
                 src: '/Landingpage/FoodItems/Brokkoli.svg',
                 width: 451,
                 height: 506,
@@ -53,7 +53,7 @@ function Steps() {
                 height: 291,
             },
             foodimg: {
-                class: 'absolute top-[-10rem] left-[-30rem] 2xl:left-[-50rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]',
+                class: 'absolute top-[-10rem] left-[-30rem] 2xl:left-[-50rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]  hover:scale-110 transition-all',
                 src: '/Landingpage/FoodItems/Lauch.svg',
                 width: 451,
                 height: 506,
@@ -76,7 +76,7 @@ function Steps() {
                 height: 291,
             },
             foodimg: {
-                class: 'absolute top-[-10rem] right-[-31rem] 2xl:right-[-51rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]',
+                class: 'absolute top-[-10rem] right-[-31rem] 2xl:right-[-51rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]  hover:scale-110 transition-all',
                 src: '/Landingpage/FoodItems/Kaese.svg',
                 width: 451,
                 height: 506,
@@ -99,7 +99,7 @@ function Steps() {
                 height: 0,
             },
             foodimg: {
-                class: 'absolute top-[-15rem] left-[-31rem] 2xl:left-[-51rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]',
+                class: 'absolute top-[-15rem] left-[-31rem] 2xl:left-[-51rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]  hover:scale-110 transition-all',
                 src: '/Landingpage/FoodItems/Fisch.svg',
                 width: 451,
                 height: 506,

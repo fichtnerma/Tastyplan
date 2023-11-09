@@ -8,21 +8,21 @@ import Intolerances from '@components/Intolerances/Intolerances';
 import FoodLifestyle from '@components/FoodLifestyle/FoodLifestyle';
 import Dislikes from '@components/Dislikes/Dislikes';
 import { fetchWithAuth } from '@helpers/utils';
-import { APISearchResponse, CustomSelectionInput } from 'src/types/types';
+import { APISearchResponse, CustomCheckboxInput } from 'src/types/types';
 
 interface Preferences {
     formOfDiet: string;
     allergens: string[];
     foodDislikes: APISearchResponse[];
-    days: number[];
-    meals: number[];
+    days: string[];
+    wantsLunch: boolean;
+    wantsDinner: boolean;
     servings: number;
 }
 
 const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes', 'Weekplan'];
 
 const SetupParentPage = () => {
-    const numberDaysOfWeek = 7;
     const { data: session } = useSession();
     const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
@@ -31,29 +31,30 @@ const SetupParentPage = () => {
         formOfDiet: '',
         allergens: [],
         foodDislikes: [],
-        days: [0, 1, 2, 3, 4, 5, 6],
-        meals: [0, 1],
+        days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
+        wantsLunch: true,
+        wantsDinner: true,
         servings: 1,
     });
 
-    const [daysCheckboxes, setDays] = useState<CustomSelectionInput[]>([
+    const [daysCheckboxes, setDays] = useState<CustomCheckboxInput[]>([
         {
             id: '0',
             label: 'Monday',
             checked: true,
+            value: 'monday',
         },
-        { id: '1', label: 'Tuesday', checked: true },
-        { id: '2', label: 'Wednesday', checked: true },
-        { id: '3', label: 'Thursday', checked: true },
-        { id: '4', label: 'Friday', checked: true },
-        { id: '5', label: 'Saturday', checked: true },
-        { id: '6', label: 'Sunday', checked: true },
+        { id: '1', label: 'Tuesday', checked: true, value: 'tuesday' },
+        { id: '2', label: 'Wednesday', checked: true, value: 'wednesday' },
+        { id: '3', label: 'Thursday', checked: true, value: 'thursday' },
+        { id: '4', label: 'Friday', checked: true, value: 'friday' },
+        { id: '5', label: 'Saturday', checked: true, value: 'saturday' },
+        { id: '6', label: 'Sunday', checked: true, value: 'sunday' },
     ]);
 
-    const [mealsCheckboxes, setMeals] = useState<CustomSelectionInput[]>([
-        // { id: '7', label: 'Breakfast', checked: false },
-        { id: '7', label: 'Lunch', checked: true },
-        { id: '8', label: 'Dinner', checked: true },
+    const [mealsCheckboxes, setMealsCheckboxes] = useState<CustomCheckboxInput[]>([
+        { id: '7', label: 'Lunch', checked: true, value: 'lunch' },
+        { id: '8', label: 'Dinner', checked: true, value: 'dinner' },
     ]);
 
     const handleNextStep = () => {
@@ -73,31 +74,26 @@ const SetupParentPage = () => {
         const prefTemp = { ...preferences };
         const clickedDay = daysTemp.find((day) => day.id === id);
         if (!clickedDay) return;
-        if (prefTemp.days.includes(parseInt(clickedDay?.id))) {
+        if (prefTemp.days.includes(clickedDay.value)) {
             clickedDay.checked = false;
-            prefTemp.days = prefTemp.days.filter((dayT) => dayT !== parseInt(clickedDay.id));
+            prefTemp.days = prefTemp.days.filter((dayT) => dayT !== clickedDay.value);
         } else {
             clickedDay.checked = true;
-            prefTemp.days.push(parseInt(clickedDay.id));
+            prefTemp.days.push(clickedDay.value);
         }
         setDays(daysTemp);
         setPreferences(prefTemp);
     };
 
-    const handleMealSelection = (id: string) => {
-        const mealsTemp = [...mealsCheckboxes];
-        const prefTemp = { ...preferences };
-        const clickedMeal = mealsTemp.find((meal) => meal.id === id);
-        if (!clickedMeal) return;
-        if (prefTemp.meals.includes(parseInt(clickedMeal?.id) - numberDaysOfWeek)) {
-            clickedMeal.checked = false;
-            prefTemp.meals = prefTemp.meals.filter((mealT) => mealT !== parseInt(clickedMeal.id) - numberDaysOfWeek);
-        } else {
-            clickedMeal.checked = true;
-            prefTemp.meals.push(parseInt(clickedMeal.id) - numberDaysOfWeek);
-        }
-        setMeals(mealsTemp);
-        setPreferences(prefTemp);
+    const handleMealSelection = (id: string, value: string, checked: boolean) => {
+        const mealsCheckboxesTemp = [...mealsCheckboxes];
+        const preferencesTemp = { ...preferences };
+        if (value === 'lunch') preferencesTemp.wantsLunch = checked;
+        if (value === 'dinner') preferencesTemp.wantsDinner = checked;
+        setPreferences(preferencesTemp);
+        const foundMealCheckbox = mealsCheckboxesTemp.find((el) => el.value === value);
+        if (foundMealCheckbox) foundMealCheckbox.checked = checked;
+        setMealsCheckboxes(mealsCheckboxesTemp);
     };
 
     const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
@@ -152,7 +148,8 @@ const SetupParentPage = () => {
                                         allergens: preferences.allergens,
                                         foodDislikes: preferences.foodDislikes,
                                         days: preferences.days,
-                                        meals: preferences.meals,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: preferences.servings,
                                     });
                                 }}
@@ -169,7 +166,8 @@ const SetupParentPage = () => {
                                         allergens: allergens,
                                         foodDislikes: preferences.foodDislikes,
                                         days: preferences.days,
-                                        meals: preferences.meals,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: preferences.servings,
                                     });
                                 }}
@@ -184,7 +182,8 @@ const SetupParentPage = () => {
                                         allergens: preferences.allergens,
                                         foodDislikes: foodDislikes,
                                         days: preferences.days,
-                                        meals: preferences.meals,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: preferences.servings,
                                     });
                                 }}
@@ -201,7 +200,8 @@ const SetupParentPage = () => {
                                         allergens: preferences.allergens,
                                         foodDislikes: preferences.foodDislikes,
                                         days: preferences.days,
-                                        meals: preferences.meals,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: servings,
                                     });
                                 }}

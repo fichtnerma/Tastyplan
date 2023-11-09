@@ -1,12 +1,15 @@
 import { WeekplanService } from './weekplan.service';
+import { WeekplanQueries } from './weekplan.queries';
 import { WeekplanController } from './weekplan.controller';
 import { ShoppingListModule } from 'src/shopping-list/shopping-list.module';
 import { RecipesModule } from 'src/recipes/recipes.module';
+import { PreferencesModule } from 'src/preferences/preferences.module';
 import { Module } from '@nestjs/common';
 
 @Module({
-    imports: [RecipesModule, ShoppingListModule],
+    imports: [RecipesModule, ShoppingListModule, PreferencesModule, RecipesModule],
     controllers: [WeekplanController],
-    providers: [WeekplanService],
+    providers: [WeekplanService, WeekplanQueries],
+    exports: [WeekplanService],
 })
 export class WeekplanModule {}

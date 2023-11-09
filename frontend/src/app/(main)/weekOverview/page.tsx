@@ -29,7 +29,7 @@ export default function WeekOverview() {
 
     const generateNewWeek = async () => {
         const weekplanRes = await fetchWithAuth(
-            '/service/weekplan/create',
+            '/service/weekplan/regenerate',
             {
                 method: 'POST',
             },

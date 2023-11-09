@@ -30,22 +30,22 @@ export default function Footer() {
                             <div className="flex gap-10 pt-5">
                                 <div>
                                     <h4>HELP</h4>
-                                    <Link className="p" href="/company/questions">
+                                    <Link className="p hover:text-green-custom3" href="/company/questions">
                                         Q&A
                                     </Link>
                                 </div>
                                 <div>
                                     <h4>Company</h4>
-                                    <Link className="p" href="/company/aboutUs">
+                                    <Link className="p hover:text-green-custom3" href="/company/aboutUs">
                                         About us
                                     </Link>
                                 </div>
                                 <div className="flex flex-col">
                                     <h4>Legal</h4>
-                                    <Link className="p" href="/legal/privacy">
+                                    <Link className="p hover:text-green-custom3" href="/legal/privacy">
                                         Privacy Policy
                                     </Link>
-                                    <Link className="p" href="/legal/impressum">
+                                    <Link className="p hover:text-green-custom3" href="/legal/impressum">
                                         Imprint
                                     </Link>
                                 </div>

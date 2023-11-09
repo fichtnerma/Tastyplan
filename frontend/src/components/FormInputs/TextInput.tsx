@@ -4,6 +4,7 @@ import { isRequiredValidator } from '@helpers/validations';
 interface TextInputProps {
     label?: string;
     placeholder?: string;
+    hasError?: boolean;
     type?: string;
     value: string;
     required?: boolean;
@@ -23,6 +24,7 @@ export default function TextInput({
     decoration,
     decorationPosition = 'start',
     onChange,
+    hasError = false,
     value,
     required,
     onFocus,
@@ -53,7 +55,7 @@ export default function TextInput({
 
     return (
         <div>
-            <div className={`${errorMessage ? 'error' : ''} w-full text-input-wrapper relative`}>
+            <div className={`${errorMessage || hasError ? 'error' : ''} w-full text-input-wrapper relative`}>
                 {decoration ? (
                     <div className={`absolute bottom-2 ${isAtStart ? 'left-2' : 'right-2'}`}>{decoration}</div>
                 ) : null}

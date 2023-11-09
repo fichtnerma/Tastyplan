@@ -1,7 +1,7 @@
 import { UserState } from 'src/types/types';
+import { UsersQueries } from './users.queries';
 import { CreateGuestDto, CreateUserDto, LoginUserDto, Role, UpdatePasswordDto } from './dto/create-user.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { compare, hash } from 'bcrypt';
+import { compare } from 'bcrypt';
 import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
@@ -11,75 +11,44 @@ export interface FormatLogin extends Partial<User> {
 
 @Injectable()
 export class UsersService {
-    constructor(private prismaService: PrismaService) {}
-
+    constructor(private usersQueries: UsersQueries) {}
     async create(userDto: CreateUserDto): Promise<User> {
-        try {
-            // check if the user exists in the db
-            const userInDb = await this.prismaService.user.findFirst({
-                where: { userId: userDto.userId },
-            });
-            if (userInDb) {
-                throw new HttpException('user_already_exist', HttpStatus.CONFLICT);
-            }
-        } catch (error) {
-            throw new HttpException('finding user for creation failed', HttpStatus.INTERNAL_SERVER_ERROR);
+        // check if the user exists in the db
+        const userInDb = await this.usersQueries.findFirstUser(userDto.userId);
+        if (userInDb) {
+            throw new HttpException('user_already_exist', HttpStatus.CONFLICT);
         }
 
         try {
-            const user = await this.prismaService.user.create({
-                data: {
-                    ...userDto,
-                    role: Role.USER,
-                    state: UserState.registration,
-                    password: await hash(userDto.password, 10),
-                },
-            });
-
-            return user;
+            return await this.usersQueries.createUser(userDto, Role.USER, UserState.registration, userDto.password);
         } catch (error) {
             throw new HttpException('creating user failed', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     async createFromGuest(guest: User, userDto: CreateUserDto): Promise<User> {
-        const userInDb = await this.prismaService.user.findFirst({
-            where: { id: guest.id },
-        });
+        const userInDb = await this.usersQueries.findFirstGuestUser(guest.id);
         if (!userInDb) {
             throw new HttpException('unable to convert guest user', HttpStatus.CONFLICT);
         }
-        const user = await this.prismaService.user.update({
-            where: { id: userInDb.id },
-            data: {
-                ...userDto,
-                role: Role.USER,
-                state: UserState.finished,
-                password: await hash(userDto.password, 10),
-            },
-        });
-
-        return user;
+        return await this.usersQueries.updateUser(
+            userInDb.id,
+            userDto,
+            Role.USER,
+            UserState.finished,
+            userDto.password,
+        );
     }
     async createGuest(createGuestDto: CreateGuestDto): Promise<User> {
         try {
-            const user = await this.prismaService.user.create({
-                data: {
-                    ...createGuestDto,
-                    role: Role.GUEST,
-                },
-            });
-
-            return user;
+            return await this.usersQueries.createGuestUser(createGuestDto, Role.GUEST);
         } catch (error) {
             throw new HttpException('creating guest failed', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     async updatePassword(payload: UpdatePasswordDto, id: string): Promise<User> {
-        const user = await this.prismaService.user.findUnique({
-            where: { id },
-        });
+        const user = await this.usersQueries.findUniqueUser(id);
         if (!user) {
             throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
         }
@@ -88,18 +57,12 @@ export class UsersService {
         if (!areEqual) {
             throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
         }
-        return await this.prismaService.user.update({
-            where: { id },
-            data: { password: await hash(payload.new_password, 10) },
-        });
+        return await this.usersQueries.updateUserPassword(payload.new_password, id);
     }
 
     async findByLogin({ userId, password }: LoginUserDto): Promise<FormatLogin> {
         try {
-            const user = await this.prismaService.user.findFirst({
-                where: { userId },
-            });
-
+            const user = await this.usersQueries.findFirstUser(userId);
             if (!user) {
                 throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
             }
@@ -122,9 +85,7 @@ export class UsersService {
     //use by auth module to get user in database
     async findByPayload({ userId }: { userId: string }): Promise<User> {
         try {
-            return await this.prismaService.user.findFirst({
-                where: { userId },
-            });
+            return await this.usersQueries.findFirstUser(userId);
         } catch (error) {
             throw new HttpException('finding user by payload failed', HttpStatus.INTERNAL_SERVER_ERROR);
         }

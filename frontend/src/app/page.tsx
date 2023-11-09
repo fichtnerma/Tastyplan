@@ -5,6 +5,7 @@ import RecipesHome from '@components/Startpage/Recipes/RecipesHome';
 import HeaderHome from '@components/Startpage/HeaderHome/HeaderHome';
 import Benefits from '@components/Startpage/Benefits/Benefits';
 import Footer from '@components/Footer/Footer';
+import DownloadBtn from '@components/DownloadBtn/DownloadBtn';
 
 export type Benefit = {
     id: number;
@@ -39,7 +40,8 @@ export default function HomePage() {
                         </div>
                     </div>
                 </div>
-                <div className="pt-20 md:pt-10 lg:pt-60">
+                <DownloadBtn />
+                <div className="pt-5 lg:pt-20">
                     <h2 className="mb-10">But why Meal Planning?</h2>
                     <Benefits />
                 </div>

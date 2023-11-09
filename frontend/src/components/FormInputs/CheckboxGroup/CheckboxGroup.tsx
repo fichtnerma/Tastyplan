@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { CustomSelectionInput } from 'src/types/types';
+import { CustomCheckboxInput } from 'src/types/types';
 import Checkbox from '../Checkbox';
 
 type CheckboxProps = {
     groupName: string;
-    checkboxes: CustomSelectionInput[];
-    onCheckboxSelect?: (id: string) => void;
+    checkboxes: CustomCheckboxInput[];
+    onCheckboxSelect?: (id: string, value: string, checked: boolean) => void;
     disabled: boolean;
 };
 
@@ -16,19 +16,20 @@ function CheckboxGroup({ checkboxes, groupName, onCheckboxSelect, disabled }: Ch
         setCheckboxGroup(checkboxes);
     }, [checkboxes]);
 
-    const handleGroupChange = (id: string, checked: boolean) => {
+    const handleGroupChange = (id: string, value: string, checked: boolean) => {
         const updatedSelection = [...checkboxGroup].map((selection) => {
             if (selection.id === id)
                 return {
                     id: selection.id,
                     label: selection.label,
-                    checked: !checked,
+                    value: value,
+                    checked: checked,
                 };
             return selection;
         });
         setCheckboxGroup(updatedSelection);
 
-        if (onCheckboxSelect) onCheckboxSelect(id);
+        if (onCheckboxSelect) onCheckboxSelect(id, value, checked);
     };
 
     return (

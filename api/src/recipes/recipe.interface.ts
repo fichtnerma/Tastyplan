@@ -1,15 +1,19 @@
-import { ISteps } from 'src/types/types';
-import { IIngredient } from 'src/ingredients/ingredient.interface';
+import { Recipe, Step } from '@prisma/client';
 
-export interface IRecipe {
-    id: number;
-    name: string;
-    description: string;
-    ingredients: IIngredient[];
-    steps: ISteps[];
-    img: string;
-    difficulty: string;
-    preparingTime: number;
-    cookingTime: number;
-    formOfDiet: string;
-}
+export type ExtendetRecipe = Recipe & {
+    steps: Step[];
+    ingredients: {
+        ingredientId: number;
+        condition: string | null;
+        unit: string | null;
+        quantity: number | null;
+    }[];
+};
+
+//Only purpose is here to get the times in strings
+//Defenietly not the best way to do it
+export type RecipeInput = ExtendetRecipe & {
+    cookingTime: string;
+    totalTime: string;
+    prepareTime: string;
+};

@@ -1,3 +1,4 @@
+import { WeekplanEntry } from 'src/types/types';
 import { Recipe, Weekplan } from '@prisma/client';
 
 export type IWeekplan = Weekplan & {
@@ -16,4 +17,13 @@ export type IFormattedWeekplan = Pick<Weekplan, 'startDate' | 'endDate' | 'hasLu
         lunch: Pick<Recipe, 'id' | 'name' | 'img' | 'preparingTime' | 'cookingTime' | 'formOfDiet'>;
         dinner: Pick<Recipe, 'id' | 'name' | 'img' | 'preparingTime' | 'cookingTime' | 'formOfDiet'>;
     }[];
+};
+
+export type CreateWeekplan = {
+    userId: string;
+    startDate: Date;
+    endDate: Date;
+    hasLunch: boolean;
+    hasDinner: boolean;
+    weekplanEntry: WeekplanEntry[];
 };

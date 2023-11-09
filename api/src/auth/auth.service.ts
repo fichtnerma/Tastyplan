@@ -27,6 +27,7 @@ export class AuthService {
             };
         }
     }
+
     async convertGuestToUser(user: User, userDto: CreateUserDto): Promise<RegistrationStatus> {
         let status: RegistrationStatus = {
             success: true,
@@ -43,19 +44,13 @@ export class AuthService {
         return status;
     }
     async register(userDto: CreateUserDto): Promise<RegistrationStatus> {
-        let status: RegistrationStatus = {
+        const status: RegistrationStatus = {
             success: true,
             message: 'ACCOUNT_CREATE_SUCCESS',
         };
 
-        try {
-            status.data = await this.usersService.create(userDto);
-        } catch (err) {
-            status = {
-                success: false,
-                message: err,
-            };
-        }
+        status.data = await this.usersService.create(userDto);
+
         return status;
     }
 
