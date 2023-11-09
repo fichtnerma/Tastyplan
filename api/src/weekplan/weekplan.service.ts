@@ -93,6 +93,7 @@ export class WeekplanService {
     async create(userId: string) {
         let weekplanStartDate = new Date();
         let weekplanEndDate = new Date();
+        let recommendedMeals = [];
         try {
             const existingWeekplan = await this.queryExistingWeekplan(userId);
             if (existingWeekplan) {
@@ -105,6 +106,23 @@ export class WeekplanService {
                 endDate.setDate(endDate.getDate() + 8);
                 endDate.setHours(0, 0, 0, 0);
                 weekplanEndDate = endDate;
+                const recipesFromHistory: Array<number> = existingWeekplan.weekplanEntry.reduce(
+                    (currentEntries, entry) => {
+                        if (entry.dinnerId) {
+                            currentEntries.push(entry.dinnerId);
+                        }
+                        if (entry.lunchId) {
+                            currentEntries.push(entry.lunchId);
+                        }
+                        return currentEntries;
+                    },
+                    [],
+                );
+                const recommendedMealsRes = await fetch(`${process.env.RECOMMENDER_URL}/recommend`, {
+                    method: 'POST',
+                    body: JSON.stringify({ userId, recipesFromHistory }),
+                });
+                recommendedMeals = await recommendedMealsRes.json();
             } else {
                 const startDate = new Date();
                 startDate.setHours(0, 0, 0, 0);
@@ -118,7 +136,7 @@ export class WeekplanService {
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to create new Weekplan dates');
         }
-        await this.createWeakplan(userId, weekplanStartDate, weekplanEndDate);
+        await this.createWeakplan(userId, weekplanStartDate, weekplanEndDate, recommendedMeals);
     }
 
     async regenerate(userId: string) {
@@ -134,11 +152,19 @@ export class WeekplanService {
         return await this.createWeakplan(userId, currentWeekplan.startDate, currentWeekplan.endDate);
     }
 
-    async createWeakplan(userId: string, weekplanStartDate: Date, weekplanEndDate: Date) {
+    async createWeakplan(
+        userId: string,
+        weekplanStartDate: Date,
+        weekplanEndDate: Date,
+        recommendedMeals: Array<number> = [],
+    ) {
         try {
             const preferences = await this.preferencesService.getPreferences(userId);
             const fetchedMealsAndWeekplanPreferences = await this.recipeFilterService.filterByQuery(preferences);
             let fetchedMeals = fetchedMealsAndWeekplanPreferences.recipes;
+            if (recommendedMeals.length > 0) {
+                fetchedMeals = recommendedMeals.map((id: number) => ({ id }));
+            }
             if (fetchedMeals.length < 14) {
                 fetchedMeals = [...fetchedMeals, ...fetchedMeals];
             }

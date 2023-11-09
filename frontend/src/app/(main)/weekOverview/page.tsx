@@ -6,6 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import 'swiper/swiper-bundle.css';
 import RecipeCard from '@components/RecipeCard/RecipeCard';
+import Icon from '@components/Icon/Icon';
 import { fetchWithAuth } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { Role, Weekplan, WeekplanEntry } from 'src/types/types';
@@ -105,7 +106,7 @@ export default function WeekOverview() {
             {data && !error ? (
                 <div className={`mainContainer ${styles.container}`}>
                     <div className="flex justify-between">
-                        <h1 className="">{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Weekplan</h1>
+                        <h1 className="mb-0">{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Weekplan</h1>
                         <div className="sm:mt-4">
                             <button
                                 className="btn-primary rounded-full btn-small"
@@ -116,7 +117,24 @@ export default function WeekOverview() {
                             </button>
                         </div>
                     </div>
-                    <div className="flex">
+                    <div className="text-2xl md:text-2xl font-extrabold mb-4 text-gray-custom6">
+                        <button disabled>
+                            <Icon icon="chevronLeft" size={15} />
+                        </button>
+                        {new Date(weekplan?.weekplanEntry[0].date).toLocaleDateString('de-DE', {
+                            day: '2-digit',
+                            month: '2-digit',
+                        })}{' '}
+                        -{' '}
+                        {new Date(weekplan?.weekplanEntry[6].date).toLocaleDateString('de-DE', {
+                            day: '2-digit',
+                            month: '2-digit',
+                        })}
+                        <button disabled>
+                            <Icon icon="chevronRight" size={15} />
+                        </button>
+                    </div>
+                    <div className="block">
                         {/* Mobile */}
                         {weekplan.hasLunch && (
                             <div className="sm:hidden w-full">
