@@ -26,20 +26,20 @@ import { MailerModule } from '@nestjs-modules/mailer';
     imports: [
         MailerModule.forRoot({
             transport: {
-                host: 'smtp.example.com',
-                port: 465,
-                secure: false,
+                service: 'gmail',
+                host: 'smtp.gmail.com',
+                port: 587,
                 auth: {
-                    user: 'hannes.eckelt@gmail.com',
-                    pass: 'passwort123456!',
+                    user: 'tastyplansalzburg@gmail.com',
+                    pass: 'eblsczadxufcvizi',
                 },
             },
             defaults: {
-                from: '"nest-modules" <modules@nestjs.com>',
+                from: '"TastyPlan" contact@tastyplan.de',
             },
             template: {
                 dir: process.cwd() + '/template/',
-                adapter: new HandlebarsAdapter(), // or new PugAdapter()
+                adapter: new HandlebarsAdapter(),
                 options: {
                     strict: true,
                 },

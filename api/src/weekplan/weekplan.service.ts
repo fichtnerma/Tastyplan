@@ -125,7 +125,6 @@ export class WeekplanService {
 
     async regenerate(userId: string) {
         console.log('WEEKPLAN: Before sending mail');
-        await this.mailService.sendUserConfirmation();
         const currentWeekplan = await this.getCurrentWeekplan(userId);
         try {
             if (currentWeekplan) {

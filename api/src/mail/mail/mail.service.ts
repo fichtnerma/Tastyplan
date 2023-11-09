@@ -5,14 +5,13 @@ import { MailerService } from '@nestjs-modules/mailer';
 export class MailService {
     constructor(private readonly mailerService: MailerService) {}
 
-    async sendUserConfirmation() {
-        console.log('MAIL SERVICE: Sending user confirmation email...');
+    async sendResetPasswordMail(email: string) {
         await this.mailerService.sendMail({
-            to: 'hannes.eckelt@t-online.de', // list of receivers
-            from: 'noreply@hello.com', // sender address
-            subject: 'Welcome to Hello.com ✔', // Subject line
-            text: `Hello Hannes, thank you for registering on our site.`, // plaintext body
-            html: `<b>Hello hannes</b><p>Thank you for registering on our site.</p>`, // HTML body content
+            to: email, // list of receivers
+            from: 'contact@tastyplan.com', // sender address
+            subject: 'Reset your TastyPlan password ✔', // Subject line
+            text: `Hello, you tried to reset your password.`, // plaintext body
+            html: `<b>Hello, </b><p>you tried to reset your password.</p>`, // HTML body content
         });
     }
 }

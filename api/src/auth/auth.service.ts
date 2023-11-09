@@ -1,7 +1,8 @@
 import { JwtToken } from 'src/types/types';
 import { JwtPayload } from './jwt.strategy';
 import { FormatLogin, UsersService } from 'src/users/users.service';
-import { CreateGuestDto, CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
+import { CreateGuestDto, CreateUserDto, LoginUserDto, ResetPasswortDto } from 'src/users/dto/create-user.dto';
+import { MailService } from 'src/mail/mail/mail.service';
 import { User } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
@@ -13,7 +14,11 @@ type LoginReturnType = {
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly jwtService: JwtService, private readonly usersService: UsersService) {}
+    constructor(
+        private readonly jwtService: JwtService,
+        private readonly usersService: UsersService,
+        private mailService: MailService,
+    ) {}
 
     async continueAsGuest(createGuestDto: CreateGuestDto) {
         try {
@@ -79,6 +84,19 @@ export class AuthService {
             throw new HttpException('INVALID_TOKEN', HttpStatus.UNAUTHORIZED);
         }
         return user;
+    }
+
+    async resetPassword(resetPasswortDto: ResetPasswortDto) {
+        const user = await this.usersService.resetPassword(resetPasswortDto.email);
+        if (!user) {
+            throw new HttpException('INVALID_EMAIL', HttpStatus.UNAUTHORIZED);
+        }
+        try {
+            this.mailService.sendResetPasswordMail(resetPasswortDto.email);
+        } catch (error) {
+            console.error('Failed to send email:', error);
+            throw new HttpException('SEND_EMAIL_FAILED', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
 
