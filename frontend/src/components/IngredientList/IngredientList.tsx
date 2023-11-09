@@ -6,6 +6,13 @@ type IngredientListProps = {
     ingredients: Array<Ingredient>;
 };
 
+const unitShorteningMap = new Map([
+    ['teaspoon', 'tsp'],
+    ['teaspoons', 'tsp'],
+    ['tablespoon', 'tbsp'],
+    ['tablespoons', 'tbsp'],
+]);
+
 function IngredientList({ ingredients }: IngredientListProps) {
     const [portion, setPortion] = useState(1);
 
@@ -21,20 +28,7 @@ function IngredientList({ ingredients }: IngredientListProps) {
     };
 
     const truncateUnit = (unit: string) => {
-        let truncatedUnit = '';
-
-        switch (unit) {
-            case 'teaspoon':
-                truncatedUnit = 'tsp';
-                break;
-            case 'tablespoon':
-                truncatedUnit = 'tbsp';
-                break;
-            default:
-                break;
-        }
-
-        return truncatedUnit;
+        return unitShorteningMap.has(unit) ? unitShorteningMap.get(unit) : unit;
     };
 
     return (
