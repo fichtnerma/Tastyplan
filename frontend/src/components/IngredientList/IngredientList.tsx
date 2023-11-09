@@ -32,7 +32,7 @@ function IngredientList({ ingredients }: IngredientListProps) {
     };
 
     return (
-        <div className="mb-8 lg:py-6 lg:mb-0 lg:bg-green-custom4/30 lg:rounded-tl-[30px] lg:rounded-bl-[30px]">
+        <div className="mb-8 lg:w-[420px] lg:py-6 lg:mb-0 lg:bg-green-custom4/30 lg:rounded-tl-[30px] lg:rounded-bl-[30px]">
             <div className="flex justify-between px-6 mb-6 lg:flex-col lg:px-8 lg:mb-8">
                 <div className="flex items-center">
                     <button
