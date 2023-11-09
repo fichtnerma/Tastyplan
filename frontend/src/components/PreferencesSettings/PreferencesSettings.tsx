@@ -160,6 +160,28 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
         }
     };
 
+    const handleClickOnListAndInput = (e: React.MouseEvent) => {
+        const clickedElement = e.target as HTMLElement;
+        if (clickedElement.tagName === 'INPUT' || clickedElement.tagName === 'LI') {
+            setInputFocus(true);
+        } else {
+            setInputFocus(false);
+        }
+    };
+
+    const handleAddChoice = (e: React.MouseEvent) => {
+        const target = e.target as HTMLButtonElement;
+        const id = target.getAttribute('data-dislike-id');
+        const name = target.getAttribute('data-dislike-name');
+        if (!id || !name) return;
+        const clickedDislike = { id: +id, name } as APISearchResponse;
+        if (selectedDislikes.find((dislike) => dislike.id === clickedDislike.id)) {
+            setSelectedDislikes(selectedDislikes.filter((dislike) => dislike.id !== clickedDislike.id));
+        } else {
+            setSelectedDislikes([...selectedDislikes, clickedDislike]);
+        }
+    };
+
     return (
         <div className="pt-6" onClick={handleClickOnListAndInput}>
             <h5>Your Food Lifestyle</h5>
