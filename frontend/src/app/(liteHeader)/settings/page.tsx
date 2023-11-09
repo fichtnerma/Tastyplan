@@ -27,7 +27,6 @@ function Settings() {
     };
 
     const saveSettings = async (settings: Preferences) => {
-        console.log(settings);
         fetchWithAuth(
             '/service/preferences',
             {
