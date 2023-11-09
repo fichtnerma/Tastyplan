@@ -124,20 +124,21 @@ export class RecipesService {
         return formOfDiet.at(-1) || 'omnivore';
     }
 
-    async getRecommendations(k: number, preferances: Preferences) {
+    async getRecommendations(k: number, preferances: Preferences, id: string) {
         try {
-            let { recipes: fetchedMeals } = await this.recipeFilterService.filterByQuery(preferances);
+            let recommendedRecipeIds;
+            if (id) {
+                const recommendedRecipeRes = await fetch(`${process.env.RECOMMENDER_URL}/recommend/${id}?k=${k * 4}`);
+                recommendedRecipeIds = (await recommendedRecipeRes.json())[0];
+            }
+
+            let { recipes: fetchedMeals } = await this.recipeFilterService.filterByQuery(
+                preferances,
+                recommendedRecipeIds || undefined,
+            );
 
             if (fetchedMeals.length < k) {
-                fetchedMeals = [
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                    ...fetchedMeals,
-                ];
+                fetchedMeals = [...fetchedMeals, ...fetchedMeals, ...fetchedMeals, ...fetchedMeals];
             }
 
             const shuffeledMeals = shuffleArray(fetchedMeals);
@@ -146,6 +147,8 @@ export class RecipesService {
 
             return recipes;
         } catch (error) {
+            console.log(error);
+
             throw new InternalServerErrorException('Error: no k random recipes could be created');
         }
     }

@@ -58,7 +58,7 @@ function RecipeCard({
         setIsOpened(!isOpened);
     };
 
-    const refreshWeekplan = (recipe: Recipe) => {
+    const refreshWeekplan = (recipe: Recipe | undefined) => {
         setRecipe(recipe);
     };
 
@@ -117,6 +117,7 @@ function RecipeCard({
 
             <ChangeRecipeModal
                 open={isOpened}
+                recipeId={recipeInfo?.id}
                 setIsOpened={setIsOpened}
                 entryId={entryId}
                 refresh={refreshWeekplan}

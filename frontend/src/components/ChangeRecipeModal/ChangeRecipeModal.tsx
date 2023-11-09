@@ -10,11 +10,12 @@ type ChangRecipeModalProps = {
     open: boolean;
     setIsOpened: (x: boolean) => void;
     entryId?: string;
-    refresh?: (recipe: Recipe) => void;
+    refresh?: (recipe: Recipe | undefined) => void;
     isLunch: boolean;
+    recipeId?: number;
 };
 
-function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch }: ChangRecipeModalProps) {
+function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch, recipeId }: ChangRecipeModalProps) {
     const [newRecipe, setNewRecipe] = useState(false);
     const [recipes, setRecipes] = useState<Array<Recipe>>([]);
     const { data: session } = useSession();
@@ -22,14 +23,14 @@ function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch }: Cha
     useEffect(() => {
         async function getRecipes() {
             setRecipes([]);
-            const data = await fetchWithAuth('/service/recipes/recommend', { method: 'GET' }, session);
+            const data = await fetchWithAuth(`/service/recipes/recommend/${recipeId}`, { method: 'GET' }, session);
             const recipesData = (await data.json()) as Array<Recipe>;
             setRecipes(recipesData);
         }
         if (open) {
             getRecipes();
         }
-    }, [open, session, newRecipe]);
+    }, [open, session, newRecipe, recipeId]);
 
     const switchRecipe = async (recipeId: number | null) => {
         setIsOpened(false);
@@ -39,7 +40,11 @@ function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch }: Cha
             { method: 'POST', body: JSON.stringify(changedRecipe) },
             session,
         );
-        const recipe = (await recipeRes.json()) as Recipe;
+        let recipe: Recipe | undefined = undefined;
+        try {
+            recipe = await recipeRes.json();
+        } catch (e) {}
+
         if (refresh) {
             refresh(recipe);
         }
