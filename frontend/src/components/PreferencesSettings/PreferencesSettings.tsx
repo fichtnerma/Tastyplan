@@ -167,6 +167,9 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
         } else {
             setInputFocus(false);
         }
+        if (dropDownState && !dropdownRef.current?.contains(clickedElement)) {
+            setDropDownState(false);
+        }
     };
 
     const handleAddChoice = (e: React.MouseEvent) => {
