@@ -15,8 +15,8 @@ interface Preferences {
     allergens: string[];
     foodDislikes: APISearchResponse[];
     days: string[];
-    hasLunch: boolean;
-    hasDinner: boolean;
+    wantsLunch: boolean;
+    wantsDinner: boolean;
     servings: number;
 }
 
@@ -32,8 +32,8 @@ const SetupParentPage = () => {
         allergens: [],
         foodDislikes: [],
         days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-        hasLunch: true,
-        hasDinner: true,
+        wantsLunch: true,
+        wantsDinner: true,
         servings: 1,
     });
 
@@ -88,8 +88,8 @@ const SetupParentPage = () => {
     const handleMealSelection = (id: string, value: string, checked: boolean) => {
         const mealsCheckboxesTemp = [...mealsCheckboxes];
         const preferencesTemp = { ...preferences };
-        if (value === 'lunch') preferencesTemp.hasLunch = checked;
-        if (value === 'dinner') preferencesTemp.hasDinner = checked;
+        if (value === 'lunch') preferencesTemp.wantsLunch = checked;
+        if (value === 'dinner') preferencesTemp.wantsDinner = checked;
         setPreferences(preferencesTemp);
         const foundMealCheckbox = mealsCheckboxesTemp.find((el) => el.value === value);
         if (foundMealCheckbox) foundMealCheckbox.checked = checked;
@@ -148,8 +148,8 @@ const SetupParentPage = () => {
                                         allergens: preferences.allergens,
                                         foodDislikes: preferences.foodDislikes,
                                         days: preferences.days,
-                                        hasLunch: preferences.hasLunch,
-                                        hasDinner: preferences.hasDinner,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: preferences.servings,
                                     });
                                 }}
@@ -166,8 +166,8 @@ const SetupParentPage = () => {
                                         allergens: allergens,
                                         foodDislikes: preferences.foodDislikes,
                                         days: preferences.days,
-                                        hasLunch: preferences.hasLunch,
-                                        hasDinner: preferences.hasDinner,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: preferences.servings,
                                     });
                                 }}
@@ -182,8 +182,8 @@ const SetupParentPage = () => {
                                         allergens: preferences.allergens,
                                         foodDislikes: foodDislikes,
                                         days: preferences.days,
-                                        hasLunch: preferences.hasLunch,
-                                        hasDinner: preferences.hasDinner,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: preferences.servings,
                                     });
                                 }}
@@ -200,8 +200,8 @@ const SetupParentPage = () => {
                                         allergens: preferences.allergens,
                                         foodDislikes: preferences.foodDislikes,
                                         days: preferences.days,
-                                        hasLunch: preferences.hasLunch,
-                                        hasDinner: preferences.hasDinner,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: servings,
                                     });
                                 }}

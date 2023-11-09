@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class PreferencesDto {
     @IsString()
@@ -15,8 +15,11 @@ export class PreferencesDto {
     @IsArray()
     days: string[];
 
-    @IsArray()
-    meals: string[];
+    @IsBoolean()
+    wantsLunch: boolean;
+
+    @IsBoolean()
+    wantsDinner: boolean;
 
     @IsNumber()
     servings: number;
