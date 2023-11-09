@@ -2,9 +2,8 @@
 
 import React, { useState } from 'react';
 import TextInput from '@components/FormInputs/TextInput';
-import ErrorMessage from '@components/common/ErrorMessage';
 
-const sendResetMailPage = () => {
+const SendResetMailPage = () => {
     const [email, setEMail] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState('');
 
@@ -48,4 +47,4 @@ const sendResetMailPage = () => {
     );
 };
 
-export default sendResetMailPage;
+export default SendResetMailPage;
