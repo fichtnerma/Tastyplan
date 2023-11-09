@@ -15,7 +15,8 @@ interface Preferences {
     allergens: string[];
     foodDislikes: APISearchResponse[];
     days: string[];
-    meals: string[];
+    wantsLunch: boolean;
+    wantsDinner: boolean;
     servings: number;
 }
 
@@ -31,7 +32,8 @@ const SetupParentPage = () => {
         allergens: [],
         foodDislikes: [],
         days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-        meals: ['lunch', 'dinner'],
+        wantsLunch: true,
+        wantsDinner: true,
         servings: 1,
     });
 
@@ -50,7 +52,7 @@ const SetupParentPage = () => {
         { id: '6', label: 'Sunday', checked: true, value: 'sunday' },
     ]);
 
-    const [mealsCheckboxes, setMeals] = useState<CustomCheckboxInput[]>([
+    const [mealsCheckboxes, setMealsCheckboxes] = useState<CustomCheckboxInput[]>([
         { id: '7', label: 'Lunch', checked: true, value: 'lunch' },
         { id: '8', label: 'Dinner', checked: true, value: 'dinner' },
     ]);
@@ -83,20 +85,15 @@ const SetupParentPage = () => {
         setPreferences(prefTemp);
     };
 
-    const handleMealSelection = (id: string) => {
-        const mealsTemp = [...mealsCheckboxes];
-        const prefTemp = { ...preferences };
-        const clickedMeal = mealsTemp.find((meal) => meal.id === id);
-        if (!clickedMeal) return;
-        if (prefTemp.meals.includes(clickedMeal.value)) {
-            clickedMeal.checked = false;
-            prefTemp.meals = prefTemp.meals.filter((mealT) => mealT !== clickedMeal.value);
-        } else {
-            clickedMeal.checked = true;
-            prefTemp.meals.push(clickedMeal.value);
-        }
-        setMeals(mealsTemp);
-        setPreferences(prefTemp);
+    const handleMealSelection = (id: string, value: string, checked: boolean) => {
+        const mealsCheckboxesTemp = [...mealsCheckboxes];
+        const preferencesTemp = { ...preferences };
+        if (value === 'lunch') preferencesTemp.wantsLunch = checked;
+        if (value === 'dinner') preferencesTemp.wantsDinner = checked;
+        setPreferences(preferencesTemp);
+        const foundMealCheckbox = mealsCheckboxesTemp.find((el) => el.value === value);
+        if (foundMealCheckbox) foundMealCheckbox.checked = checked;
+        setMealsCheckboxes(mealsCheckboxesTemp);
     };
 
     const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
@@ -151,7 +148,8 @@ const SetupParentPage = () => {
                                         allergens: preferences.allergens,
                                         foodDislikes: preferences.foodDislikes,
                                         days: preferences.days,
-                                        meals: preferences.meals,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: preferences.servings,
                                     });
                                 }}
@@ -168,7 +166,8 @@ const SetupParentPage = () => {
                                         allergens: allergens,
                                         foodDislikes: preferences.foodDislikes,
                                         days: preferences.days,
-                                        meals: preferences.meals,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: preferences.servings,
                                     });
                                 }}
@@ -183,7 +182,8 @@ const SetupParentPage = () => {
                                         allergens: preferences.allergens,
                                         foodDislikes: foodDislikes,
                                         days: preferences.days,
-                                        meals: preferences.meals,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: preferences.servings,
                                     });
                                 }}
@@ -200,7 +200,8 @@ const SetupParentPage = () => {
                                         allergens: preferences.allergens,
                                         foodDislikes: preferences.foodDislikes,
                                         days: preferences.days,
-                                        meals: preferences.meals,
+                                        wantsLunch: preferences.wantsLunch,
+                                        wantsDinner: preferences.wantsDinner,
                                         servings: servings,
                                     });
                                 }}

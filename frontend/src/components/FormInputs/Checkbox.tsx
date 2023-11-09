@@ -17,7 +17,8 @@ function Checkbox({ groupName, customCheckbox, handleChange, disabled }: Checkbo
                 id={customCheckbox.id}
                 value={customCheckbox.value}
                 onChange={() => {
-                    if (!disabled) return handleChange(customCheckbox.id, customCheckbox.value, customCheckbox.checked);
+                    if (!disabled)
+                        return handleChange(customCheckbox.id, customCheckbox.value, !customCheckbox.checked);
                 }}
                 checked={disabled ? true : customCheckbox.checked}
                 disabled={disabled}

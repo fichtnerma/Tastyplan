@@ -37,7 +37,7 @@ export class PreferencesQueries {
             },
         });
     }
-    async findUniqueUser(userId: string) {
+    async findUniquePreferences(userId: string) {
         return await this.prismaService.preferences.findUnique({
             where: {
                 userId: userId,

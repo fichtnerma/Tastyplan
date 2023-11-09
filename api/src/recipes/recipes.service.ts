@@ -33,9 +33,7 @@ export class RecipesService {
     }
 
     async createRecipe(recipe: RecipeInput) {
-        console.log('Recipe Id', recipe.id);
-
-        const extendetRecipe: ExtendetRecipe = {
+        const extendedRecipe: ExtendetRecipe = {
             ...recipe,
             cookingTime: convertToTime(recipe.cookingTime) || 0,
             preparingTime: convertToTime(recipe.prepareTime) || 0,
@@ -43,7 +41,7 @@ export class RecipesService {
             servings: +recipe.servings || 4,
             formOfDiet: recipe.formOfDiet || 'omnivore',
         };
-        await this.recipeQueires.upsertRecipe(extendetRecipe);
+        await this.recipeQueires.upsertRecipe(extendedRecipe);
     }
 
     async categorizeRecipe(

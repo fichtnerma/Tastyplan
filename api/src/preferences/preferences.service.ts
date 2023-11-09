@@ -20,8 +20,8 @@ export class PreferencesService {
                 allergens: [...createPreferencesDto.allergens],
                 foodDislikes: { connect: [...ingredientIds] },
                 days: [...createPreferencesDto.days],
-                wantsDinner: createPreferencesDto.meals.includes(1) ? true : false,
-                wantsLunch: createPreferencesDto.meals.includes(0) ? true : false,
+                wantsLunch: createPreferencesDto.wantsLunch,
+                wantsDinner: createPreferencesDto.wantsDinner,
                 servings: createPreferencesDto.servings,
             };
             await Promise.all([this.preferencesQueries.upsertPreferences(userId, preferences)]);
@@ -33,7 +33,7 @@ export class PreferencesService {
 
     async getPreferences(userId: string) {
         try {
-            return await this.preferencesQueries.findUniqueUser(userId);
+            return await this.preferencesQueries.findUniquePreferences(userId);
         } catch (error) {
             throw new InternalServerErrorException('Error: Getting the preferences failed');
         }
