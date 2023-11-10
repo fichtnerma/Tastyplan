@@ -19,7 +19,7 @@ const SendResetMailPage = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const res = await fetch('/service/auth/reset-password', {
+        const res = await fetch('/service/auth/request-reset-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
