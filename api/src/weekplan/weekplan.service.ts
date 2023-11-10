@@ -5,6 +5,7 @@ import { ChangeRecipeDto } from './dto/change-recipe.dto';
 import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
+import { MailService } from 'src/mail/mail/mail.service';
 import { shuffleArray } from 'src/helpers/converter.utils';
 import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -16,6 +17,7 @@ export class WeekplanService {
         private preferencesService: PreferencesService,
         private shoppingListService: ShoppingListService,
         private weekplanQueries: WeekplanQueries,
+        private mailService: MailService,
     ) {}
 
     async getCurrentWeekplan(userId: string) {
@@ -140,6 +142,7 @@ export class WeekplanService {
     }
 
     async regenerate(userId: string) {
+        console.log('WEEKPLAN: Before sending mail');
         const currentWeekplan = await this.getCurrentWeekplan(userId);
         try {
             if (currentWeekplan) {

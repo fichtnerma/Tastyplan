@@ -62,4 +62,10 @@ export class UsersQueries {
             data: { password: await hash(newPassword, 10) },
         });
     }
+
+    async findUniqueUserByEmail(email: string) {
+        return await this.prismaService.user.findUnique({
+            where: { userId: email },
+        });
+    }
 }
