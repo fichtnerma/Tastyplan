@@ -3,15 +3,18 @@
 import React, { useState } from 'react';
 import TextInput from '@components/FormInputs/TextInput';
 
+type SendMailData = {
+    message: string;
+};
+
 const SendResetMailPage = () => {
     const [email, setEMail] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState('');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('submit');
 
-        const res = await fetch('/api/auth/reset-password', {
+        const res = await fetch('/service/auth/reset-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,9 +27,14 @@ const SendResetMailPage = () => {
             return;
         }
 
-        setFeedbackMessage('Mail does not exist');
+        if (res.status === 401) {
+            setFeedbackMessage('Mail does not exist');
+            return;
+        }
 
-        console.log(res);
+        const data = (await res.json()) as SendMailData;
+
+        setFeedbackMessage(data.message);
     };
 
     return (
@@ -39,7 +47,7 @@ const SendResetMailPage = () => {
                 >
                     <h2 className="h1 w-full text-left">Reset your password</h2>
                     <TextInput value={email} required onChange={setEMail} label="E-Mail" />
-                    {feedbackMessage && <p className="text-sm text-red-400">{feedbackMessage}</p>}
+                    {feedbackMessage && <p className="text-sm text-red-400 mt-1">{feedbackMessage}</p>}
                     <input className="btn-primary mt-4" type="submit" />
                 </form>
             </div>
