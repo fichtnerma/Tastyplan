@@ -56,9 +56,10 @@ export class UsersQueries {
             where: { id },
         });
     }
-    async updateUserPassword(newPassword: string, id: string) {
+    async updateUserPassword(userId: string, newPassword: string) {
+        console.log('userId', userId, 'newPassword', newPassword);
         return await this.prismaService.user.update({
-            where: { id },
+            where: { userId },
             data: { password: await hash(newPassword, 10) },
         });
     }

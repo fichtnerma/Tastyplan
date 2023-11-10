@@ -48,7 +48,7 @@ export class UsersService {
     }
 
     async updatePassword(userId: string, password: string) {
-        return await this.usersQueries.updateUserPassword(password, userId);
+        return await this.usersQueries.updateUserPassword(userId, password);
     }
 
     async findByLogin({ userId, password }: LoginUserDto): Promise<FormatLogin> {

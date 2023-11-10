@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import TextInput from '@components/FormInputs/TextInput';
 import { isPasswordValidator } from '@helpers/validations';
-import { redirect, useSearchParams } from 'next/navigation';
 
 type FeedbackMessage = {
     text: string;
@@ -13,6 +13,7 @@ type FeedbackMessage = {
 const SetNewPassword = () => {
     const searchParams = useSearchParams();
     const token = searchParams?.get('token');
+    const router = useRouter();
 
     const [password, setPassword] = useState('');
     const [passwordConf, setPasswordConf] = useState('');
@@ -31,7 +32,7 @@ const SetNewPassword = () => {
             return;
         }
 
-        const res = await fetch('/service/auth/reset-password', {
+        const res = await fetch('/service/auth/set-new-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ const SetNewPassword = () => {
         });
 
         if (res.ok) {
-            redirect('authentication/login');
+            router.push('/authentication/login');
         }
 
         if (res.status === 401) {
