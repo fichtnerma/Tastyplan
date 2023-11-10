@@ -1,7 +1,7 @@
 'use client';
 
-import React, { use, useState } from 'react';
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import React, { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import TextInput from '@components/FormInputs/TextInput';
 import { isPasswordValidator } from '@helpers/validations';
 
