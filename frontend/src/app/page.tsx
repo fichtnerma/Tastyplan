@@ -3,9 +3,9 @@ import Image from 'next/image';
 import Steps from '@components/Startpage/Steps/Steps';
 import RecipesHome from '@components/Startpage/Recipes/RecipesHome';
 import HeaderHome from '@components/Startpage/HeaderHome/HeaderHome';
+import Download from '@components/Startpage/Download/Download';
 import Benefits from '@components/Startpage/Benefits/Benefits';
 import Footer from '@components/Footer/Footer';
-import DownloadBtn from '@components/DownloadBtn/DownloadBtn';
 
 export type Benefit = {
     id: number;
@@ -40,7 +40,7 @@ export default function HomePage() {
                         </div>
                     </div>
                 </div>
-                <DownloadBtn />
+
                 <div className="pt-5 lg:pt-20">
                     <h2 className="mb-10">But why Meal Planning?</h2>
                     <Benefits />
@@ -69,18 +69,26 @@ export default function HomePage() {
                         height="54"
                     ></Image>
                 </Link>
-
+            </div>
+            <div className="w-full ml-auto mr-auto p-6 lg:p-14">
                 <RecipesHome />
-
-                <div className="text-right relative my-10">
+            </div>
+            <div className="w-full max-w-[1600px] ml-auto mr-auto p-6 lg:p-14">
+                {/* <div className="text-right relative my-10">
                     <h2 className="leading-none mb-0 z-10 relative">Good Food</h2>
                     <h2 className="leading-none mt-0 z-10 relative">Good Mood</h2>
                     <div className="bg-green-custom1  w-40 md:w-60 lg:w-80 h-10 md:h-14 lg:h-20 absolute right-[-1rem] top-2 md:top-4 lg:top-6"></div>
+                </div> */}
+                <div id="downloadSection">
+                    <Download />
                 </div>
 
-                <div className="my-20 flex justify-center">
+                <p className={`h5 !font-zeyada text-green-custom2  text-center mt-16 !mb-1 mx-auto`}>
+                    or just start right away
+                </p>
+                <div className="mb-20  flex justify-center">
                     <Link href="/authentication/registration" data-cy="start-planning-btn" className="btn-primary">
-                        Start Planning
+                        Create Weekplan
                     </Link>
                 </div>
             </div>

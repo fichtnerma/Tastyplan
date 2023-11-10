@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsEmail } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
@@ -46,6 +46,16 @@ export class UpdatePasswordDto {
     @IsNotEmpty()
     @ApiProperty()
     old_password: string;
+}
+
+export class RequestResetPasswortDto {
+    @IsEmail()
+    email: string;
+}
+
+export class ResetPasswordDto {
+    token: string;
+    password: string;
 }
 
 export enum Role {

@@ -1,6 +1,6 @@
 import { UserState } from 'src/types/types';
 import { UsersQueries } from './users.queries';
-import { CreateGuestDto, CreateUserDto, LoginUserDto, Role, UpdatePasswordDto } from './dto/create-user.dto';
+import { CreateGuestDto, CreateUserDto, LoginUserDto, Role } from './dto/create-user.dto';
 import { compare } from 'bcrypt';
 import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
@@ -47,17 +47,8 @@ export class UsersService {
         }
     }
 
-    async updatePassword(payload: UpdatePasswordDto, id: string): Promise<User> {
-        const user = await this.usersQueries.findUniqueUser(id);
-        if (!user) {
-            throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
-        }
-        // compare passwords
-        const areEqual = await compare(payload.old_password, user.password);
-        if (!areEqual) {
-            throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
-        }
-        return await this.usersQueries.updateUserPassword(payload.new_password, id);
+    async updatePassword(userId: string, password: string) {
+        return await this.usersQueries.updateUserPassword(userId, password);
     }
 
     async findByLogin({ userId, password }: LoginUserDto): Promise<FormatLogin> {
@@ -89,5 +80,9 @@ export class UsersService {
         } catch (error) {
             throw new HttpException('finding user by payload failed', HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    async resetPassword(email: string) {
+        return await this.usersQueries.findUniqueUserByEmail(email);
     }
 }

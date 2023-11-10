@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+// import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { CustomSVG } from 'src/types/types';
 import styles from './Steps.module.scss';
@@ -25,8 +26,8 @@ function Steps() {
             },
             svg: {
                 class: 'absolute top-[20rem] right-[-31rem] z-10',
-                src: '/Curves/curve1.svg',
-                width: 451,
+                src: '/Curves/curve1.svg#animated-svg1',
+                width: 501,
                 height: 506,
             },
             foodimg: {
@@ -38,7 +39,7 @@ function Steps() {
         },
         {
             id: 2,
-            desc: "Once you've set up your account, Tastyplan will generate a weekly meal plan for you, complete with recipes and a shopping list.",
+            desc: 'Tastyplan will generate a weekly meal plan for you, complete with recipes and a shopping list.',
             class: 'relative flex items-center max-w-[764px] ml-auto mb-[5rem] lg:mb-[22rem]',
             image: {
                 class: `col-start-2 col-span-8 row-span-8 drop-shadow-md ${styles.image}`,
@@ -47,8 +48,8 @@ function Steps() {
                 height: 800,
             },
             svg: {
-                class: 'absolute top-[58rem] right-[36rem] z-10',
-                src: '/Curves/curve2.svg',
+                class: 'absolute top-[37rem] right-[26rem] z-10',
+                src: '/Curves/curve2.svg#animated-svg2',
                 width: 814,
                 height: 291,
             },
@@ -70,10 +71,10 @@ function Steps() {
                 height: 800,
             },
             svg: {
-                class: 'absolute top-[43rem] right-[-25rem]',
-                src: '/Curves/curve3.svg',
-                width: 814,
-                height: 291,
+                class: 'absolute top-[32rem] right-[-28rem]',
+                src: '/Curves/curve3.svg#animated-svg3',
+                width: 1014,
+                height: 491,
             },
             foodimg: {
                 class: 'absolute top-[-10rem] right-[-31rem] 2xl:right-[-51rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]  hover:scale-110 transition-all',
@@ -106,6 +107,44 @@ function Steps() {
             },
         },
     ];
+
+    // useEffect(() => {
+    //     // Get a reference to the <path>
+    //     const svgContainers = document.querySelectorAll('#svg-container') as NodeListOf<SVGSVGElement>;
+
+    //     svgContainers.forEach((svgContainer) => {
+    //         const paths = svgContainer.querySelectorAll('#animated-path') as NodeListOf<SVGPathElement>;
+
+    //         paths.forEach((path) => {
+    //             const pathLength = path.getTotalLength();
+
+    //             path.style.strokeDasharray = pathLength + ' ' + pathLength;
+
+    //             path.style.strokeDashoffset = pathLength.toString();
+
+    //             path.getBoundingClientRect();
+
+    //             window.addEventListener('scroll', function () {
+    //                 const containerRect = svgContainer.getBoundingClientRect();
+    //                 const containerScrollTop = window.scrollY - containerRect.top;
+    //                 const containerHeight = window.scrollY + containerRect.height;
+
+    //                 const scrollPercentage = containerScrollTop / containerHeight;
+
+    //                 const drawLength = pathLength * scrollPercentage;
+
+    //                 path.style.strokeDashoffset = (pathLength - drawLength).toString();
+
+    //                 if (scrollPercentage >= 0.99) {
+    //                     path.style.strokeDasharray = 'none';
+    //                 } else {
+    //                     path.style.strokeDasharray = (pathLength + ' ' + pathLength).toString();
+    //                 }
+    //             });
+    //         });
+    //     });
+    // }, []);
+
     return (
         <div className={styles.steps}>
             <div className="flex flex-col w-full mx-auto my-0">
@@ -129,21 +168,18 @@ function Steps() {
                             )}
                         </div>
                         <div className="hidden lg:block">
-                            {step.svg.src !== '' && (
-                                <Image
-                                    src={step.svg.src}
-                                    alt="curve"
-                                    width={step.svg.width}
-                                    height={step.svg.height}
-                                    loading="lazy"
-                                    className={step.svg.class}
-                                />
-                            )}
+                            <div id="svg-container" className={step.svg.class}>
+                                {step.svg.src !== '' && (
+                                    <svg width={step.svg.width} height={step.svg.height}>
+                                        <use href={step.svg.src} />
+                                    </svg>
+                                )}
+                            </div>
                         </div>
-                        <div className="hidden lg:block">
+                        {/* <div className="hidden lg:block">
                             {step.foodimg.src !== '' && (
                                 <Image
-                                    src={step.foodimg.src}
+                                    src={step.foodimg.src.toString()}
                                     alt="curve"
                                     width={step.foodimg.width}
                                     height={step.foodimg.height}
@@ -151,7 +187,7 @@ function Steps() {
                                     className={step.foodimg.class}
                                 />
                             )}
-                        </div>
+                        </div> */}
                     </div>
                 ))}
             </div>
