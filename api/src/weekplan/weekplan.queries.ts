@@ -58,6 +58,29 @@ export class WeekplanQueries {
             include: { weekplanEntry: true },
         });
     }
+
+    async findWeekplanByDate(date: Date, userId: string) {
+        return await this.prismaService.weekplan.findFirst({
+            where: {
+                userId: userId,
+                startDate: {
+                    lte: new Date(date),
+                },
+                endDate: {
+                    gte: new Date(date),
+                },
+            },
+            include: {
+                weekplanEntry: {
+                    include: {
+                        lunch: true,
+                        dinner: true,
+                    },
+                },
+            },
+        });
+    }
+
     async findFirstWeekplanEntry(weekplanId: number, userId: string) {
         return await this.prismaService.weekplanEntry.findFirst({
             where: { id: weekplanId, weekplan: { userId: userId } },
