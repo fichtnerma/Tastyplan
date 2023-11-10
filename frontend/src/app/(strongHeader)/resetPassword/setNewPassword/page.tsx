@@ -36,7 +36,7 @@ const SetNewPassword = () => {
         <div className="lg:w-screen lg:h-[90vh] lg:flex lg:justify-center lg:items-center lg:bg-green-custom1">
             <div className="w-full h-full bg-white-custom lg:relative lg:w-2/3 lg:max-w-[1700px] lg:h-3/4 lg:max-h-[600px] lg:rounded-[20px] lg:overflow-hidden">
                 <form
-                    className="px-10 pt-5 flex items-stretch flex-col lg:h-[90vh] lg:pt-10"
+                    className="px-10 pt-5 flex items-stretch gap-4 flex-col lg:h-[90vh] lg:pt-10"
                     action="#"
                     onSubmit={handleSubmit}
                 >
