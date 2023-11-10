@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import TextInput from '@components/FormInputs/TextInput';
 import { isPasswordValidator } from '@helpers/validations';
-import { redirect, useSearchParams } from 'next/navigation';
 
 type FeedbackMessage = {
     text: string;
@@ -11,9 +10,6 @@ type FeedbackMessage = {
 };
 
 const SetNewPassword = () => {
-    const searchParams = useSearchParams();
-    const token = searchParams?.get('token');
-
     const [password, setPassword] = useState('');
     const [passwordConf, setPasswordConf] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState<undefined | FeedbackMessage>(undefined);
@@ -26,27 +22,14 @@ const SetNewPassword = () => {
             return;
         }
 
-        if (!token) {
-            setFeedbackMessage({ text: 'no token set', color: '#ef4444' });
-            return;
-        }
-
         const res = await fetch('/service/auth/reset-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ password: password, token: token }),
+            body: JSON.stringify({ password: password }),
         });
-
-        if (res.ok) {
-            redirect('authentication/login');
-        }
-
-        if (res.status === 401) {
-            setFeedbackMessage({ text: 'reset failed', color: '#ef4444' });
-            return;
-        }
+        console.log('handle submit');
     };
 
     return (
