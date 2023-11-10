@@ -183,17 +183,19 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                             {foodDietPreferences.find((preference) => preference.food === selectedDiet)?.description}
                         </p>
                     </label>
-                    <div className="z-[2] cursor-pointer pb-1">
+                    <button className="z-[2] cursor-pointer pb-1" onClick={handleDropDownState}>
                         <Icon size={50} icon="arrowDownCircle"></Icon>
-                    </div>
+                    </button>
                 </div>
                 {dropDownState == true && (
                     <div ref={dropdownRef} className="rounded-2xl">
                         {foodDietPreferences.map((preference) => (
                             <p
                                 key={preference.food}
-                                className={`cursor-pointer capitalize hover:bg-gray-custom2 pl-6 border-gray-custom2 border-b last:border-none last:rounded-b-2xl first:rounded-t-2xl ${
-                                    preference.food == selectedDiet ? 'bg-gray-custom2' : 'bg-green-custom1'
+                                className={`cursor-pointer capitalize hover:bg-green-custom2 hover:text-white-custom pl-6 border-gray-custom2 border-b last:border-none last:rounded-b-2xl first:rounded-t-2xl ${
+                                    preference.food == selectedDiet
+                                        ? 'bg-green-custom2 text-white-custom'
+                                        : 'bg-green-custom1 text-black'
                                 }`}
                                 onClick={() => {
                                     setSelectedDiet(preference.food);
@@ -208,7 +210,11 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
             </div>
             <h5>Your Intolerances</h5>
             <div className="pb-4 pl-8">
-                <DislikeList dislikes={selectedAllergens} onDeleteChoice={onDeleteAllergen}></DislikeList>
+                {selectedAllergens.length == 0 ? (
+                    <p className="">You don't have any intolerances.</p>
+                ) : (
+                    <DislikeList dislikes={selectedAllergens} onDeleteChoice={onDeleteAllergen}></DislikeList>
+                )}
             </div>
             <div
                 className="w-5/6 pb-4"
@@ -241,7 +247,11 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
             )}
             <h5>Your Food Dislikes</h5>
             <div className="pb-4 pl-8">
-                <DislikeList dislikes={selectedDislikes} onDeleteChoice={onDeleteDislike}></DislikeList>
+                {selectedDislikes.length == 0 ? (
+                    <p className="">You don't have any dislikes.</p>
+                ) : (
+                    <DislikeList dislikes={selectedDislikes} onDeleteChoice={onDeleteDislike}></DislikeList>
+                )}
             </div>
             <div
                 className="w-5/6"
