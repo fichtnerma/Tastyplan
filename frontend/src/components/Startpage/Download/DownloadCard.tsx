@@ -70,7 +70,7 @@ function DownloadCard({ cardId }: DownloadCardProps) {
                     backgroundBlendMode: 'overlay',
                 }}
             >
-                <h3>{heading}</h3>
+                <h3 className="">{heading}</h3>
                 <p>{desc}</p>
                 <div className="grid grid-cols-4 relative items-center justify-items-center mt-5">
                     {image1 && (
