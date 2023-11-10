@@ -22,7 +22,7 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
     const [selectedWantsDinner, setSelectedWantsDinner] = useState<boolean>(wantsDinner);
     const [selectedServings, setSelectedServings] = useState<number>(servings);
 
-    const [daysCheckboxes, setDays] = useState<CustomCheckboxInput[]>([
+    const initialBoxes = [
         {
             id: '0',
             label: 'Monday',
@@ -35,7 +35,9 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
         { id: '4', label: 'Friday', checked: true, value: 'friday' },
         { id: '5', label: 'Saturday', checked: true, value: 'saturday' },
         { id: '6', label: 'Sunday', checked: true, value: 'sunday' },
-    ]);
+    ].map((box) => ({ ...box, checked: selectedDays.includes(box.value) }));
+
+    const [daysCheckboxes, setDays] = useState<CustomCheckboxInput[]>(initialBoxes);
 
     const handleDaySelection = (id: string) => {
         const daysTemp = [...daysCheckboxes];
