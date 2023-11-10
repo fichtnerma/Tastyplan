@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
 import { CustomCheckboxInput } from 'src/types/types';
+import styles from '../WeekplanConfig//WeekplanConfig.module.scss';
 
 type OnSaveFunction = (preferences: {
     days: string[];
@@ -21,7 +22,6 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
     const [selectedWantsLunch, setSelectedWantsLunch] = useState<boolean>(wantsLunch);
     const [selectedWantsDinner, setSelectedWantsDinner] = useState<boolean>(wantsDinner);
     const [selectedServings, setSelectedServings] = useState<number>(servings);
-    console.log(selectedWantsLunch, selectedWantsDinner);
 
     const initialDayBoxes = [
         {
@@ -88,6 +88,15 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
         setMealsCheckboxes(mealsCheckboxesTemp);
     };
 
+    const increasePortion = () => {
+        setSelectedServings(selectedServings + 1);
+    };
+
+    const decreasePortion = () => {
+        if (servings > 1) {
+            setSelectedServings(selectedServings - 1);
+        }
+    };
     return (
         <div className="pt-6">
             <h5>On what days do you want to cook?</h5>
@@ -108,10 +117,32 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
                     disabled={false}
                 />
             </div>
+            <h5 className="mt-8 lg:mt-4 mb-2">How many servings?</h5>
+            <div className="flex pl-8">
+                <button
+                    type="button"
+                    className={`btn-primary ${styles.btnPortion}`}
+                    onClick={decreasePortion}
+                    data-cy="decrease-serving-btn"
+                >
+                    -
+                </button>
+                <p id="portion" data-cy="portion-amount" className="text-base w-10 text-center">
+                    {selectedServings}
+                </p>
+                <button
+                    type="button"
+                    className={`btn-primary ${styles.btnPortion} mr-5`}
+                    onClick={increasePortion}
+                    data-cy="increase-serving-btn"
+                >
+                    +
+                </button>
+            </div>
             <div>
                 <button
                     type="submit"
-                    className="btn-primary float-right mt-20"
+                    className="btn-primary float-right"
                     data-btn="next"
                     onClick={() => {
                         onSave({
