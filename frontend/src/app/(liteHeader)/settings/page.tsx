@@ -19,7 +19,7 @@ interface Preferences {
 }
 
 function Settings() {
-    const [selectedSettingOption, setSelectedSettingOption] = useState('user');
+    const [selectedSettingOption, setSelectedSettingOption] = useState('preferences');
 
     const { data: session } = useSession();
     const { data, error } = useFetchWithAuth('/service/preferences') as unknown as {
@@ -55,18 +55,6 @@ function Settings() {
                     <div className="">
                         <button
                             className="appearance-none bg-transparent"
-                            onClick={() => setSelectedSettingOption('user')}
-                        >
-                            <h3
-                                className={`hover:text-green-custom3 whitespace-nowrap ${
-                                    selectedSettingOption === 'user' ? 'text-green-custom3' : ''
-                                }`}
-                            >
-                                User settings
-                            </h3>
-                        </button>
-                        <button
-                            className="appearance-none bg-transparent"
                             onClick={() => setSelectedSettingOption('preferences')}
                         >
                             <h3
@@ -87,6 +75,18 @@ function Settings() {
                                 }`}
                             >
                                 Weekplan
+                            </h3>
+                        </button>
+                        <button
+                            className="appearance-none bg-transparent"
+                            onClick={() => setSelectedSettingOption('user')}
+                        >
+                            <h3
+                                className={`hover:text-green-custom3 whitespace-nowrap ${
+                                    selectedSettingOption === 'user' ? 'text-green-custom3' : ''
+                                }`}
+                            >
+                                User settings
                             </h3>
                         </button>
                     </div>
