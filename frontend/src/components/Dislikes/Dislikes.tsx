@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import Image from 'next/image';
-import SearchResultlist from '@components/SearchResultList/SearchResultList';
-import TextInput from '@components/FormInputs/TextInput';
+import DislikeSearch from '@components/DislikeSearch/DislikeSearch';
+import DislikeList from '@components/DislikeList/DislikeList';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
-import cross from '../../../public/Icons/kreuz.png';
 
 type OnNextFunction = () => void;
 type OnBackFunction = () => void;
@@ -110,8 +108,9 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         onChoice(allDislikes);
     };
 
-    const onDeleteChoice = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        const clickedDislike = e.currentTarget.getAttribute('data-anchor');
+    const onDeleteChoice = (dislikeName: string) => {
+        // const clickedDislike = e.currentTarget.getAttribute('data-anchor');
+        const clickedDislike = dislikeName;
         if (!clickedDislike) return;
         setDislike(allDislikes.filter((dislike) => dislike.name !== clickedDislike));
         onChoice(allDislikes);
@@ -153,28 +152,15 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                 <div className="flex w-full flex-col lg:w-1/3">
                     <div className="w-full flex">
                         <div className="text-input-wrapper w-full">
-                            <TextInput
-                                placeholder="Search ingredients"
-                                value={searchTerm}
-                                decoration={
-                                    <button type="button" onClick={deleteInput}>
-                                        <Image src={cross} className="pr-1" alt="cross" width={20} priority />
-                                    </button>
-                                }
-                                decorationPosition="end"
-                                onChange={searchChanged}
+                            <DislikeSearch
+                                searchTerm={searchTerm}
+                                searchResult={searchResult}
+                                isInputFocus={isInputFocus}
+                                deleteInput={deleteInput}
+                                searchChanged={searchChanged}
+                                handleAddChoice={handleAddChoice}
+                                allDislikes={allDislikes}
                             />
-                            <div className="relative">
-                                <div className="absolute z-1 w-full">
-                                    {searchResult.length !== 0 && isInputFocus == true && (
-                                        <SearchResultlist
-                                            searchResults={[...searchResult]}
-                                            clickHandler={handleAddChoice}
-                                            dislikes={allDislikes}
-                                        />
-                                    )}
-                                </div>
-                            </div>
                             <p className="inline-block text-base pt-3">Add this to your dislikes.</p>
                             <div className="flex flex-wrap">
                                 {dislikeRecommendations.map((dislike) => (
@@ -193,30 +179,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                     </div>
                 </div>
                 <div className=" h-[280px] overflow-y-auto mt-2 lg:mt-0 lg:ml-8 lg:w-2/3">
-                    <div className="flex flex-wrap gap-2">
-                        {allDislikes.map((dislike, i) => (
-                            <div
-                                key={i}
-                                className="inline-block border-2 border-solid border-green-custom2 rounded-[50px] bg-green-custom1 overflow-hidden whitespace-nowrap w-max py-[5px] px-[7px]"
-                            >
-                                <span>
-                                    <label className="flex items-center" htmlFor={dislike.name}>
-                                        <p className="inline-block pr-2 max-w-[300px] truncate text-sm">
-                                            {dislike.name.charAt(0).toUpperCase() + dislike.name.slice(1)}
-                                        </p>
-
-                                        <a
-                                            className="inline-block cursor-pointer"
-                                            onClick={onDeleteChoice}
-                                            data-anchor={dislike.name}
-                                        >
-                                            <Image src={cross} className="" alt="cross" width={12} priority />
-                                        </a>
-                                    </label>
-                                </span>
-                            </div>
-                        ))}
-                    </div>
+                    <DislikeList dislikes={allDislikes} onDeleteChoice={onDeleteChoice} />
                 </div>
             </div>
             <div className="flex justify-between relative">
