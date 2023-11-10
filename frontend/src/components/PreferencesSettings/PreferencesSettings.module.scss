@@ -1,0 +1,18 @@
+.choiceWrapper {
+    &:hover {
+        label {
+            background-color: var(--green-light);
+            color: var(--white);
+            border-color: var(--green-light);
+        }
+    }
+}
+
+.customInput:checked + .customLabel {
+    background-color: var(--green-dark);
+    color: var(--white);
+    border: none;
+    p {
+        color: var(--white);
+    }
+}

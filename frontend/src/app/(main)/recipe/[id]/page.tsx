@@ -20,13 +20,13 @@ export default async function DetailRecipe({ params: { id } }: { params: { id: s
 
     return (
         <div className="mainContainer">
-            <div className="flex mb-4 px-6 lg:px-0 lg:pr-6">
+            <div className="flex mb-4 px-6 lg:px-0">
                 <h1 className="h2 w-3/4 text-green-custom2 !mb-0">{recipe?.name}</h1>
                 <FavoriteButton recipe={recipe} />
             </div>
-            <div>
-                <div className="lg:grid lg:grid-cols-3 lg:gap-[5rem] lg:mb-10 xl:mb-20">
-                    <div className="relative mb-10 lg:col-span-2 lg:mb-0 lg:h-fit lg:max-w-[1000px]">
+            <div className="lg:grid lg:grid-cols-2 lg:mb-10 xl:mb-20">
+                <div className="flex justify-center mb-10">
+                    <div className="relative max-w-[400px] lg:col-span-2 lg:mb-0 lg:h-fit lg:max-w-[700px]">
                         <div className={styles.gradientBox}></div>
                         <Image
                             src={`/service/images/${recipe?.img}`}
@@ -40,18 +40,18 @@ export default async function DetailRecipe({ params: { id } }: { params: { id: s
                             <IconList icons={icons} />
                         </div>
                     </div>
-                    <div className="lg:col-span-1">
-                        <IngredientList ingredients={recipe?.ingredients} />
-                    </div>
                 </div>
-                <div className="mb-8 lg:grid lg:grid-cols-3 lg:mb-28">
-                    <div className="px-4 lg:col-span-2 lg:px-0">
-                        <RecipeSteps recipe={recipe} />
-                    </div>
+                <div className="lg:col-span-1 lg:ml-[auto] lg:mr-[0]">
+                    <IngredientList ingredients={recipe?.ingredients} />
                 </div>
-                <div>
-                    <h3 className="text-center text-green-custom2">Well done!</h3>
+            </div>
+            <div className="mb-8 lg:grid lg:grid-cols-3 lg:mb-28">
+                <div className="px-4 lg:col-span-2 lg:px-0">
+                    <RecipeSteps recipe={recipe} />
                 </div>
+            </div>
+            <div>
+                <h3 className="text-center text-green-custom2">Well done!</h3>
             </div>
         </div>
     );

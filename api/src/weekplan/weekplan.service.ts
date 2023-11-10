@@ -5,6 +5,7 @@ import { ChangeRecipeDto } from './dto/change-recipe.dto';
 import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
+import { MailService } from 'src/mail/mail/mail.service';
 import { shuffleArray } from 'src/helpers/converter.utils';
 import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -16,6 +17,7 @@ export class WeekplanService {
         private preferencesService: PreferencesService,
         private shoppingListService: ShoppingListService,
         private weekplanQueries: WeekplanQueries,
+        private mailService: MailService,
     ) {}
 
     async getCurrentWeekplan(userId: string) {
@@ -90,6 +92,57 @@ export class WeekplanService {
         return formattedWeekPlan;
     }
 
+    async findByDate(userId: string, date: Date) {
+        const weekplan = await this.weekplanQueries.findWeekplanByDate(date, userId);
+        if (!weekplan) {
+            const endDate = new Date(date);
+            endDate.setDate(endDate.getDate() + 6);
+            return {
+                startDate: date,
+                endDate: endDate,
+            };
+        }
+        return this.formatWeekPlan(weekplan);
+    }
+
+    async createFutureWeekplan(userId: string, startDate: Date, shouldReplace = false) {
+        const prevStartDate = new Date(startDate);
+        prevStartDate.setDate(prevStartDate.getDate() - 7);
+        const previousWeekplan = await this.weekplanQueries.findWeekplanByDate(prevStartDate, userId);
+        const existingWeekplan = await this.weekplanQueries.findWeekplanByDate(startDate, userId);
+        if (existingWeekplan) {
+            if (!shouldReplace) {
+                throw new HttpException('Error: Weekplan for this date already exists!', HttpStatus.BAD_REQUEST);
+            } else {
+                await this.weekplanQueries.deleteManyWeekplanEntries(existingWeekplan.id);
+                await this.weekplanQueries.deleteWeekplan(existingWeekplan.id);
+            }
+        }
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + 6);
+        endDate.setHours(0, 0, 0, 0);
+        let recommendedMeals = [];
+        if (previousWeekplan) {
+            const recipesFromHistory: Array<number> = previousWeekplan.weekplanEntry.reduce((currentEntries, entry) => {
+                if (entry.dinnerId) {
+                    currentEntries.push(entry.dinnerId);
+                }
+                if (entry.lunchId) {
+                    currentEntries.push(entry.lunchId);
+                }
+                return currentEntries;
+            }, []);
+            const recommendedMealsRes = await fetch(`${process.env.RECOMMENDER_URL}/recommend`, {
+                method: 'POST',
+                body: JSON.stringify({ userId, recipesFromHistory }),
+            });
+            recommendedMeals = await recommendedMealsRes.json();
+        }
+        const weekplan = await this.createWeakplan(userId, startDate, endDate, recommendedMeals);
+
+        return weekplan;
+    }
+
     async create(userId: string) {
         let weekplanStartDate = new Date();
         let weekplanEndDate = new Date();
@@ -99,12 +152,7 @@ export class WeekplanService {
                 const startDate = new Date();
                 startDate.setDate(startDate.getDate() + 2);
                 startDate.setHours(0, 0, 0, 0);
-                weekplanStartDate = startDate;
-
-                const endDate = new Date();
-                endDate.setDate(endDate.getDate() + 8);
-                endDate.setHours(0, 0, 0, 0);
-                weekplanEndDate = endDate;
+                this.createFutureWeekplan(userId, startDate);
             } else {
                 const startDate = new Date();
                 startDate.setHours(0, 0, 0, 0);
@@ -122,6 +170,7 @@ export class WeekplanService {
     }
 
     async regenerate(userId: string) {
+        console.log('WEEKPLAN: Before sending mail');
         const currentWeekplan = await this.getCurrentWeekplan(userId);
         try {
             if (currentWeekplan) {
@@ -134,11 +183,19 @@ export class WeekplanService {
         return await this.createWeakplan(userId, currentWeekplan.startDate, currentWeekplan.endDate);
     }
 
-    async createWeakplan(userId: string, weekplanStartDate: Date, weekplanEndDate: Date) {
+    async createWeakplan(
+        userId: string,
+        weekplanStartDate: Date,
+        weekplanEndDate: Date,
+        recommendedMeals: Array<number> = [],
+    ) {
         try {
             const preferences = await this.preferencesService.getPreferences(userId);
             const fetchedMealsAndWeekplanPreferences = await this.recipeFilterService.filterByQuery(preferences);
             let fetchedMeals = fetchedMealsAndWeekplanPreferences.recipes;
+            if (recommendedMeals.length > 0) {
+                fetchedMeals = recommendedMeals.map((id: number) => ({ id }));
+            }
             if (fetchedMeals.length < 14) {
                 fetchedMeals = [...fetchedMeals, ...fetchedMeals];
             }
@@ -215,14 +272,17 @@ export class WeekplanService {
         shuffeledMeals: { id: number }[],
         wantsLunch: boolean,
         wantsDinner: boolean,
+        startDate: Date = new Date(),
     ): WeekplanEntry[] {
         const week = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-        const today = new Date().getDay();
+        const today = startDate.getDay();
         const sortedWeek = [...week.slice(today), ...week.slice(0, today)];
         let recipeCounter = 0;
         const weekplan = sortedWeek.map((dayEntry, index) => {
+            const entryDay = new Date(new Date().setDate(startDate.getDate() + index));
+
             const weekplanEntry: WeekplanEntry = {
-                date: new Date(new Date().setDate(new Date().getDate() + index)),
+                date: entryDay,
             };
             if (daysPreferences.includes(dayEntry) && wantsLunch) {
                 weekplanEntry.lunchId = shuffeledMeals[recipeCounter]?.id || 1;

@@ -1,4 +1,5 @@
 import { WeekplanService } from './weekplan.service';
+import { CreateByDateDto } from './dto/create-by-date.dto';
 import { ChangeRecipeDto } from './dto/change-recipe.dto';
 import { RequestWithUser } from 'src/users/users.controller';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -9,6 +10,7 @@ import {
     ClassSerializerInterceptor,
     Controller,
     Get,
+    Param,
     Post,
     Req,
     UseGuards,
@@ -31,10 +33,32 @@ export class WeekplanController {
     @UseGuards(JwtAuthGuard)
     @ApiSecurity('access-key')
     @UseInterceptors(ClassSerializerInterceptor)
+    @Get(':date')
+    findByStartDate(@Param() date: { date: Date }, @Req() request: RequestWithUser) {
+        const user = request.user as User;
+
+        return this.weekplanService.findByDate(user.userId, date.date);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @ApiSecurity('access-key')
+    @UseInterceptors(ClassSerializerInterceptor)
     @Post('/create')
     create(@Req() request: RequestWithUser) {
         const user = request.user as User;
         return this.weekplanService.create(user.userId);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @ApiSecurity('access-key')
+    @UseInterceptors(ClassSerializerInterceptor)
+    @Post('/createForDate')
+    createForDate(@Req() request: RequestWithUser, @Body() createByDateDto: CreateByDateDto) {
+        const user = request.user as User;
+        const dateObj = new Date(createByDateDto.date);
+        console.log({ createByDateDto });
+
+        return this.weekplanService.createFutureWeekplan(user.userId, dateObj, createByDateDto.shouldReplace);
     }
 
     @UseGuards(JwtAuthGuard)

@@ -65,7 +65,7 @@ export default function Login({ visible }: LoginProps) {
                 />
                 {error && <ErrorMessage>{error}</ErrorMessage>}
                 <div className="flex flex-col items-center mt-6 lg:items-start">
-                    <Link href="#" className="btn-tertiary mb-6">
+                    <Link href="/resetPassword/sendResetMail" className="btn-tertiary mb-6">
                         Forgot your password?
                     </Link>
                     <input type="submit" className="btn-primary" value="Sign in" disabled={!loginEnabled()} />

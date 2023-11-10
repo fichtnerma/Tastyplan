@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Icon from '@components/Icon/Icon';
 import { CustomSVG } from 'src/types/types';
+import styles from './HeaderHome.module.scss';
 
 type FoodImages = {
     id: number;
@@ -57,9 +58,40 @@ function HeaderHome() {
                 <h1 className="text-green-custom2 leading-none">Planning</h1>
                 <h2 className="h5 !mb-0">- Tastyplan's AI will delight</h2>
                 <h2 className="h5">your taste buds</h2>
-                <Link href="/authentication/registration" data-cy="start-planning-btn" className="btn-primary">
-                    Start Planning
-                </Link>
+                <div>
+                    <div className="flex flex-col items-center w-fit">
+                        <Link
+                            href="/authentication/registration"
+                            data-cy="start-planning-btn"
+                            className="btn-primary btn-big mt-5"
+                        >
+                            Create Weekplan
+                        </Link>
+                        <div className={styles.underline}>
+                            <div className="absolute w-0 h-0 overflow-hidden">
+                                <svg viewBox="0 0 400 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        id="svg_line"
+                                        d="m 1.986,8.91 c 55.429038,4.081 111.58111,5.822 167.11781,2.867 22.70911,-1.208 45.39828,-0.601 68.126,-0.778 28.38173,-0.223 56.76079,-1.024 85.13721,-1.33 24.17379,-0.261 48.42731,0.571 72.58115,0.571"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <div className="flex mt-4 ">
+                                <span className="h5 !font-zeyada pr-2">or</span>
+                                <section className={`${styles.linkSvgline}`}>
+                                    <a href="#downloadSection">
+                                        <span className="h5 !font-zeyada text-green-custom2 hover:text-green-custom3">
+                                            download it now!
+                                        </span>
+                                        <svg className={styles.linkSvgline}>
+                                            <use xlinkHref="#svg_line"></use>
+                                        </svg>
+                                    </a>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="col-span-5 row-span-3 row-start-5 lg:col-span-3 lg:row-span-6 lg:col-start-3 lg:row-start-2 lg:ml-[-3rem] mt-0 md:mt-[-2rem] relative">
                 <div className="grid grid-cols-4 grid-rows-1 gap-4 lg:gap-12 h-full">
@@ -84,7 +116,6 @@ function HeaderHome() {
                             alt=""
                             width={img.image.width}
                             height={img.image.height}
-                            loading="lazy"
                             className={img.image.class}
                         />
                     </div>

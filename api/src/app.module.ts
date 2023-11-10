@@ -6,6 +6,7 @@ import { RecipesModule } from './recipes/recipes.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PreferencesModule } from './preferences/preferences.module';
 import { PreferencesController } from './preferences/preferences.controller';
+import { MailModule } from './mail/mail/mail.module';
 import { InitializerModule } from './initializer/initializer.module';
 import { IngredientsModule } from './ingredients/ingredients.module';
 import { FavoritesModule } from './favorites/favorites.module';
@@ -19,8 +20,31 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { MailerModule } from '@nestjs-modules/mailer';
 @Module({
     imports: [
+        MailerModule.forRoot({
+            transport: {
+                service: 'gmail',
+                host: 'smtp.gmail.com',
+                port: 587,
+                auth: {
+                    user: 'tastyplansalzburg@gmail.com',
+                    pass: 'eblsczadxufcvizi',
+                },
+            },
+            defaults: {
+                from: '"TastyPlan" contact@tastyplan.de',
+            },
+            template: {
+                dir: process.cwd() + '/template/',
+                adapter: new HandlebarsAdapter(),
+                options: {
+                    strict: true,
+                },
+            },
+        }),
         ScheduleModule.forRoot(),
         ConfigModule.forRoot({ isGlobal: true }),
         ServeStaticModule.forRoot({
@@ -45,6 +69,7 @@ import { CacheModule } from '@nestjs/cache-manager';
         ShoppingListModule,
         InitializerModule,
         FavoritesModule,
+        MailModule,
     ],
     controllers: [AppController, PreferencesController],
     providers: [AppService],

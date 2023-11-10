@@ -6,6 +6,13 @@ type IngredientListProps = {
     ingredients: Array<Ingredient>;
 };
 
+const unitShorteningMap = new Map([
+    ['teaspoon', 'tsp'],
+    ['teaspoons', 'tsp'],
+    ['tablespoon', 'tbsp'],
+    ['tablespoons', 'tbsp'],
+]);
+
 function IngredientList({ ingredients }: IngredientListProps) {
     const [portion, setPortion] = useState(1);
 
@@ -21,24 +28,11 @@ function IngredientList({ ingredients }: IngredientListProps) {
     };
 
     const truncateUnit = (unit: string) => {
-        let truncatedUnit = '';
-
-        switch (unit) {
-            case 'teaspoon':
-                truncatedUnit = 'tsp';
-                break;
-            case 'tablespoon':
-                truncatedUnit = 'tbsp';
-                break;
-            default:
-                break;
-        }
-
-        return truncatedUnit;
+        return unitShorteningMap.has(unit) ? unitShorteningMap.get(unit) : unit;
     };
 
     return (
-        <div className="mb-8 lg:py-6 lg:mb-0 lg:bg-green-custom4/30 lg:rounded-tl-[30px] lg:rounded-bl-[30px]">
+        <div className="mb-8 lg:w-[420px] lg:py-6 lg:mb-0 lg:bg-green-custom4/30 lg:rounded-tl-[30px] lg:rounded-bl-[30px]">
             <div className="flex justify-between px-6 mb-6 lg:flex-col lg:px-8 lg:mb-8">
                 <div className="flex items-center">
                     <button
