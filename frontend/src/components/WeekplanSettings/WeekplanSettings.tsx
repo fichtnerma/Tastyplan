@@ -21,8 +21,9 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
     const [selectedWantsLunch, setSelectedWantsLunch] = useState<boolean>(wantsLunch);
     const [selectedWantsDinner, setSelectedWantsDinner] = useState<boolean>(wantsDinner);
     const [selectedServings, setSelectedServings] = useState<number>(servings);
+    console.log(selectedWantsLunch, selectedWantsDinner);
 
-    const initialBoxes = [
+    const initialDayBoxes = [
         {
             id: '0',
             label: 'Monday',
@@ -37,7 +38,14 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
         { id: '6', label: 'Sunday', checked: true, value: 'sunday' },
     ].map((box) => ({ ...box, checked: selectedDays.includes(box.value) }));
 
-    const [daysCheckboxes, setDays] = useState<CustomCheckboxInput[]>(initialBoxes);
+    const initialMealBoxes = [
+        { id: '7', label: 'Lunch', checked: selectedWantsLunch, value: 'lunch' },
+        { id: '8', label: 'Dinner', checked: selectedWantsDinner, value: 'dinner' },
+    ];
+
+    const [mealsCheckboxes, setMealsCheckboxes] = useState<CustomCheckboxInput[]>(initialMealBoxes);
+
+    const [daysCheckboxes, setDays] = useState<CustomCheckboxInput[]>(initialDayBoxes);
 
     const handleDaySelection = (id: string) => {
         const daysTemp = [...daysCheckboxes];
@@ -55,14 +63,48 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
         setDays(daysTemp);
     };
 
+    const handleMealSelection = (id: string, value: string, checked: boolean) => {
+        // hier ist das Problem, dass checked verkehrt ist. Also wenn die Box gecheckt ist, ist checked false und umgekehrt.
+        const mealsCheckboxesTemp = [...mealsCheckboxes];
+        const foundMealCheckbox = mealsCheckboxesTemp.find((el) => el.value === value);
+        if (foundMealCheckbox) {
+            if (checked && value === 'lunch') {
+                setSelectedWantsLunch(true);
+                foundMealCheckbox.checked = true;
+            }
+            if (checked && value === 'dinner') {
+                setSelectedWantsDinner(true);
+                foundMealCheckbox.checked = true;
+            }
+            if (!checked && value === 'lunch') {
+                setSelectedWantsLunch(false);
+                foundMealCheckbox.checked = false;
+            }
+            if (!checked && value === 'dinner') {
+                setSelectedWantsDinner(false);
+                foundMealCheckbox.checked = false;
+            }
+        }
+        setMealsCheckboxes(mealsCheckboxesTemp);
+    };
+
     return (
         <div className="pt-6">
             <h5>On what days do you want to cook?</h5>
-            <div className="pl-8">
+            <div className="pl-8 pb-8">
                 <CheckboxGroup
                     checkboxes={daysCheckboxes}
                     groupName="days"
                     onCheckboxSelect={handleDaySelection}
+                    disabled={false}
+                />
+            </div>
+            <h5 className="mt-8 lg:mt-0 mb-2">What meals do you want to cook?</h5>
+            <div className="pl-8 pb-8">
+                <CheckboxGroup
+                    checkboxes={mealsCheckboxes}
+                    groupName="meals"
+                    onCheckboxSelect={handleMealSelection}
                     disabled={false}
                 />
             </div>
