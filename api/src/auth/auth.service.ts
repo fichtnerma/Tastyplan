@@ -1,7 +1,7 @@
 import { JwtToken } from 'src/types/types';
 import { JwtPayload } from './jwt.strategy';
 import { FormatLogin, UsersService } from 'src/users/users.service';
-import { CreateGuestDto, CreateUserDto, LoginUserDto, ResetPasswortDto } from 'src/users/dto/create-user.dto';
+import { CreateGuestDto, CreateUserDto, LoginUserDto, RequestResetPasswortDto } from 'src/users/dto/create-user.dto';
 import { MailService } from 'src/mail/mail/mail.service';
 import { User } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
@@ -86,13 +86,16 @@ export class AuthService {
         return user;
     }
 
-    async resetPassword(resetPasswortDto: ResetPasswortDto) {
+    async requestResetPassword(resetPasswortDto: RequestResetPasswortDto) {
         const user = await this.usersService.resetPassword(resetPasswortDto.email);
         if (!user) {
             throw new HttpException('INVALID_EMAIL', HttpStatus.UNAUTHORIZED);
         }
         try {
-            this.mailService.sendResetPasswordMail(resetPasswortDto.email);
+            const payload = { userId: resetPasswortDto.email };
+            const token = this.jwtService.sign(payload, { expiresIn: '1h' });
+            const resetLink = `${process.env.BASE_URL}/reset-password?token=${token}`;
+            this.mailService.sendResetPasswordMail(resetPasswortDto.email, resetLink);
         } catch (error) {
             console.error('Failed to send email:', error);
             throw new HttpException('SEND_EMAIL_FAILED', HttpStatus.INTERNAL_SERVER_ERROR);

@@ -48,9 +48,14 @@ export class UpdatePasswordDto {
     old_password: string;
 }
 
-export class ResetPasswortDto {
+export class RequestResetPasswortDto {
     @IsEmail()
     email: string;
+}
+
+export class ResetPasswordDto {
+    token: string;
+    password: string;
 }
 
 export enum Role {

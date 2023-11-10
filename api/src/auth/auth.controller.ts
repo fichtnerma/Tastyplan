@@ -1,6 +1,6 @@
 import { OptionalAuthGuard } from './jwt-auth.guard';
 import { AuthService, RegistrationStatus } from './auth.service';
-import { CreateGuestDto, CreateUserDto, LoginUserDto, ResetPasswortDto } from 'src/users/dto/create-user.dto';
+import { CreateGuestDto, CreateUserDto, LoginUserDto, RequestResetPasswortDto, ResetPasswordDto } from 'src/users/dto/create-user.dto';
 import { Request, Response } from 'express';
 import { User } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
@@ -49,10 +49,10 @@ export class AuthController {
         return response.sendStatus(HttpStatus.OK);
     }
 
-    @Post('reset-password')
-    public async resetPassword(@Body() resetPasswortDto: ResetPasswortDto, @Res() response: Response) {
+    @Post('request-reset-password')
+    public async requestResetPassword(@Body() resetResetPasswortDto: RequestResetPasswortDto, @Res() response: Response) {
         try {
-            await this.authService.resetPassword(resetPasswortDto);
+            await this.authService.requestResetPassword(resetResetPasswortDto);
             return response.sendStatus(HttpStatus.OK);
         } catch (error) {
             if (error instanceof HttpException) {
@@ -61,4 +61,7 @@ export class AuthController {
             return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'An unexpected error occurred' });
         }
     }
+    @Post('set-new-password')
+    public async setNewPassword(@Body() resetPasswortDto: ResetPasswordDto, @Res() response: Response)
+
 }
