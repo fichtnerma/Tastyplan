@@ -1,5 +1,6 @@
 $btn-font-size: clamp(1rem, 2vw, 1.2rem);
 $btn-font-size-small: clamp(0.6rem, 1.2vw, 0.8rem);
+$btn-font-size-big: clamp(1.5rem, 2.2vw, 1.75rem);
 $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
 
 .btn {
@@ -75,7 +76,28 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
     }
 }
 
+.btn-quaternary {
+    @extend .btn;
+    color: var(--white);
+    // border: 1px solid var(--green-dark);
+    background-color: var(--black);
+    border-radius: 10px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+    @apply px-14;
+    margin-top: 20px;
+
+    &:hover {
+        color: var(--white);
+        background-color: var(--green-semi);
+    }
+}
+
 .btn-small {
     font-size: $btn-font-size-small;
     @apply px-4;
+}
+
+.btn-big {
+    font-size: $btn-font-size-big;
+    @apply px-8;
 }

@@ -31,8 +31,8 @@ export default function DownloadBtn() {
     return (
         <>
             {isSupported && (
-                <button className="btn-primary" onClick={handleInstallClick}>
-                    Install TastyPlan
+                <button className="btn-quaternary" onClick={handleInstallClick}>
+                    Desktop App
                 </button>
             )}
         </>
