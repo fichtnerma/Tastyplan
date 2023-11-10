@@ -7,9 +7,14 @@ type SendMailData = {
     message: string;
 };
 
+type FeedbackMessage = {
+    text: string;
+    color: string;
+};
+
 const SendResetMailPage = () => {
     const [email, setEMail] = useState('');
-    const [feedbackMessage, setFeedbackMessage] = useState('');
+    const [feedbackMessage, setFeedbackMessage] = useState<undefined | FeedbackMessage>(undefined);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -23,18 +28,17 @@ const SendResetMailPage = () => {
         });
 
         if (res.ok) {
-            setFeedbackMessage('Look into your mails');
+            setFeedbackMessage({ text: 'look into your mails', color: '#84cc16' });
             return;
         }
 
         if (res.status === 401) {
-            setFeedbackMessage('Mail does not exist');
+            setFeedbackMessage({ text: 'mail does not exist', color: '#ef4444' });
             return;
         }
 
         const data = (await res.json()) as SendMailData;
-
-        setFeedbackMessage(data.message);
+        setFeedbackMessage({ text: data.message, color: '#ef4444' });
     };
 
     return (
@@ -47,7 +51,11 @@ const SendResetMailPage = () => {
                 >
                     <h2 className="h1 w-full text-left">Reset your password</h2>
                     <TextInput value={email} required onChange={setEMail} label="E-Mail" />
-                    {feedbackMessage && <p className="text-sm text-red-400 mt-1">{feedbackMessage}</p>}
+                    {feedbackMessage && (
+                        <p className="text-sm mt-1" style={{ color: feedbackMessage.color }}>
+                            {feedbackMessage.text}
+                        </p>
+                    )}
                     <input className="btn-primary mt-4" type="submit" />
                 </form>
             </div>
