@@ -51,7 +51,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="mt-40 mb-20 flex justify-center">
-                    <Link href="/authentication/registration" data-cy="start-planning-btn" className="btn-primary">
+                    <Link href="/authentication/registration" className="btn-primary">
                         Start Planning
                     </Link>
                 </div>
@@ -86,8 +86,8 @@ export default function HomePage() {
                 <p className={`h5 !font-zeyada text-green-custom2  text-center mt-16 !mb-1 mx-auto`}>
                     or just start right away
                 </p>
-                <div className="mb-20  flex justify-center">
-                    <Link href="/authentication/registration" data-cy="start-planning-btn" className="btn-primary">
+                <div className="mb-20 flex justify-center">
+                    <Link href="/authentication/registration" className="btn-primary">
                         Create Weekplan
                     </Link>
                 </div>

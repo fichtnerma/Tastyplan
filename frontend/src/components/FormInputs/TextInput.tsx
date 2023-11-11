@@ -68,6 +68,7 @@ export default function TextInput({
                         isAtEnd ? 'pr-9' : 'pr-4'
                     } h-10 w-full border-gray-700 rounded-xl`}
                     type={type}
+                    data-cy={`${label}-text-input`.toLowerCase()}
                     placeholder={placeholder}
                     value={value}
                     onBlur={onBlur ? onBlur : handleBlur}
