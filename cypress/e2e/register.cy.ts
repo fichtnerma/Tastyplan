@@ -11,7 +11,10 @@ describe("Authentication", () => {
     cy.dataCy("e-mail-register").should("exist").type(randomEmail);
     cy.dataCy("password-register").should("exist").type("123456");
     cy.dataCy("repeat-password-register").should("exist").type("123456");
-    cy.dataCy("register").should("exist").click();
+    cy.dataCy("submit-register")
+      .should("exist")
+      .should("not.be.disabled")
+      .click();
     cy.wait("@registerUser");
   });
   it("Login registered user", () => {
