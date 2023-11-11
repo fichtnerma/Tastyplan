@@ -74,6 +74,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
                     required
                     onChange={setMail}
                     label="E-Mail"
+                    cypressID="e-mail-register"
                 />
                 <TextInput
                     value={password}
@@ -82,6 +83,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
                     validate={isPasswordValidator}
                     onChange={setPassword}
                     label="Password"
+                    cypressID="password-register"
                 />
                 <TextInput
                     value={passwordConf}
@@ -90,6 +92,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
                     validate={isPasswordValidator}
                     onChange={setPasswordConf}
                     label="Repeat Password"
+                    cypressID="repeat-password-register"
                 />
                 {error && <ErrorMessage>{error}</ErrorMessage>}
                 <div className="flex justify-between">

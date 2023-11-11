@@ -1,23 +1,26 @@
 import { getRandomEmail } from "../support/utils";
 
+const randomEmail = getRandomEmail();
+
 describe("Authentication", () => {
   it("Register a new user", () => {
-    //Landing page
-    cy.visit("/");
-    cy.dataCy("start-planning-btn").click();
+    cy.visit("/authentication/registration");
 
-    //Register page
-    const randomEmail = getRandomEmail();
+    cy.intercept("POST", "service/auth/register").as("registerUser");
     cy.wait(500); //Wait for animation to take place
-    cy.dataCy("e-mail-text-input").type(randomEmail);
-    cy.dataCy("password-text-input").type("123456");
-    cy.dataCy("repeat password-text-input").type("123456");
-    cy.dataCy("register").click();
-    cy.intercept("POST", "/service/auth/register").as("registerUser");
+    cy.dataCy("e-mail-register").should("exist").type(randomEmail);
+    cy.dataCy("password-register").should("exist").type("123456");
+    cy.dataCy("repeat-password-register").should("exist").type("123456");
+    cy.dataCy("register").should("exist").click();
     cy.wait("@registerUser");
+  });
+  it("Login registered user", () => {
+    cy.visit("/authentication/login");
 
-    //Login page
-    cy.dataCy("e-mail-text-input").type(randomEmail);
-    cy.dataCy("password-text-input").type("123456");
+    cy.intercept("GET", "*/auth/*").as("loginUser");
+    cy.dataCy("e-mail-login").should("exist").type(randomEmail);
+    cy.dataCy("password-login").should("exist").type("123456");
+    cy.dataCy("submit-login").should("exist").should("not.be.disabled").click();
+    cy.wait("@loginUser");
   });
 });

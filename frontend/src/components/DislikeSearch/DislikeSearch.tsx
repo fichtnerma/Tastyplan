@@ -37,6 +37,7 @@ function DislikeSearch({
                     }
                     decorationPosition="end"
                     onChange={searchChanged}
+                    cypressID="search-ingredients"
                 />
                 <div className="relative">
                     <div className="absolute z-1 w-full">

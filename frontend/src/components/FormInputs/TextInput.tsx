@@ -14,6 +14,7 @@ interface TextInputProps {
     onChange?: (value: string) => void;
     onFocus?: () => void;
     onBlur?: () => void;
+    cypressID: string;
 }
 
 export default function TextInput({
@@ -29,6 +30,7 @@ export default function TextInput({
     required,
     onFocus,
     onBlur,
+    cypressID,
 }: TextInputProps) {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
     const isAtStart = decoration && decorationPosition == 'start';
@@ -68,12 +70,12 @@ export default function TextInput({
                         isAtEnd ? 'pr-9' : 'pr-4'
                     } h-10 w-full border-gray-700 rounded-xl`}
                     type={type}
-                    data-cy={`${label}-text-input`.toLowerCase()}
                     placeholder={placeholder}
                     value={value}
                     onBlur={onBlur ? onBlur : handleBlur}
                     onChange={handleTextChange}
                     onFocus={onFocus}
+                    data-cy={cypressID}
                 />
             </div>
             <span className={`${errorMessage ? '' : 'hidden'} errorMessage`}>{errorMessage}</span>
