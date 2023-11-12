@@ -18,6 +18,7 @@ type RecipeCardProps = {
     entryId?: string;
     refreshWeekplan?: () => void;
     isLunch?: boolean;
+    day?: number;
 };
 
 function RecipeCard({
@@ -28,6 +29,7 @@ function RecipeCard({
     switchRecipe,
     entryId,
     isLunch = false,
+    day,
 }: RecipeCardProps) {
     const [recipeInfo, setRecipe] = useState<Recipe | undefined>(recipe);
     const [isFavorite, setIsFavorite] = useState(false);
@@ -111,7 +113,9 @@ function RecipeCard({
                     <div className="">
                         <Icon size={50} icon="addCircle"></Icon>
                     </div>
-                    <h5 className="text-inherit pt-5 m-0">add recipe</h5>
+                    <h5 className="text-inherit pt-5 m-0" data-cy={`${day && day + ''}-add-recipe`}>
+                        add recipe
+                    </h5>
                 </button>
             )}
 
