@@ -31,7 +31,7 @@ function DislikeSearch({
                     placeholder="Search ingredients"
                     value={searchTerm}
                     decoration={
-                        <button type="button" onClick={deleteInput}>
+                        <button type="button" onClick={deleteInput} data-cy="clear-search-input">
                             <Image src={cross} className="pr-1" alt="cross" width={20} priority />
                         </button>
                     }
