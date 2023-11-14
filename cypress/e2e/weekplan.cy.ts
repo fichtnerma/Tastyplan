@@ -1,3 +1,5 @@
+import { authDynamicUser } from "../support/utils";
+
 const searchTermTomato = "tomato";
 const searchTermOnion = "onion";
 
@@ -64,17 +66,6 @@ describe("Weekplan", () => {
   });
 
   it("User should be able to add a recipe to an empty card", () => {
-    //Landingpage
-    cy.visit("/");
-    cy.dataCy("start-planning-btn").click();
-
-    //Login
-    cy.dataCy("continue-as-guest-btn").click();
-    cy.dataCy("decline-cookies-btn").click();
-    cy.intercept("GET", "/setup").as("login");
-    cy.wait("@login");
-
-    cy.visit("/weekOverview");
-    cy.dataCy("0-add-recipe-btn").click();
+    authDynamicUser();
   });
 });

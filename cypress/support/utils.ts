@@ -12,3 +12,28 @@ export function getRandomEmail(): string {
 
   return randomNameWithUuid;
 }
+
+export function authDynamicUser() {
+  const randomMail = getRandomEmail();
+  console.log(randomMail);
+  cy.request({
+    method: "POST",
+    url: "service/auth/register",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      userId: randomMail,
+      password: "1234567",
+      role: "user",
+    }),
+  }).then(() => {
+    cy.request({
+      method: "POST",
+      url: "/api/auth/signin",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: randomMail,
+        password: "1234567",
+      }),
+    }).then((resp) => {});
+  });
+}
