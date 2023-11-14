@@ -8,61 +8,59 @@ describe("Weekplan", () => {
     cy.dataCy("start-planning-btn").click();
 
     //Login
-    cy.dataCy("continue-as-guest-btn").should("exist").click();
-    cy.dataCy("decline-cookies-btn").should("exist").click();
+    cy.dataCy("continue-as-guest-btn").click();
+    cy.dataCy("decline-cookies-btn").click();
     cy.intercept("GET", "/setup").as("login");
     cy.wait("@login");
 
     //Select food lifestyle
-    cy.dataCy("vegan-radio-btn").should("exist").click({ force: true });
+    cy.dataCy("vegan-radio-btn").click({ force: true });
 
     //Select intolerances
-    cy.dataCy("peanut-checkbox").should("exist").check();
-    cy.dataCy("walnut-checkbox").should("exist").check();
-    cy.dataCy("mustard-checkbox").should("exist").check();
-    cy.dataCy("next-btn").should("exist").click();
+    cy.dataCy("peanut-checkbox").check();
+    cy.dataCy("walnut-checkbox").check();
+    cy.dataCy("mustard-checkbox").check();
+    cy.dataCy("next-btn").click();
 
     //Select dislikes
     cy.dataCy("search-ingredients")
-      .should("exist")
-      .type(searchTermTomato, { delay: 200 });
+    .type(searchTermTomato, { delay: 200 });
     cy.wait(200);
-    cy.dataCy("item-number-1").should("exist").click();
+    cy.dataCy("item-number-1").click();
 
-    cy.dataCy("clear-search-input").should("exist").click();
+    cy.dataCy("clear-search-input").click();
 
     cy.dataCy("search-ingredients")
-      .should("exist")
-      .type(searchTermOnion, { delay: 200 });
+    .type(searchTermOnion, { delay: 200 });
     cy.wait(200);
-    cy.dataCy("item-number-1").should("exist").click();
-    cy.dataCy("selected-dislike-text-onion").should("exist").click();
+    cy.dataCy("item-number-1").click();
+    cy.dataCy("selected-dislike-text-onion").click();
 
     //Remove one item from chiplist
-    cy.dataCy("remove-onion").should("exist").click();
+    cy.dataCy("remove-onion").click();
 
-    cy.dataCy("next-btn").should("exist").click();
+    cy.dataCy("next-btn").click();
 
     //Adjust weekplan
 
     //Select cooking days
-    cy.dataCy("days-Monday-checkbox").should("exist").click();
-    cy.dataCy("days-Thursday-checkbox").should("exist").click();
-    cy.dataCy("days-Sunday-checkbox").should("exist").click();
+    cy.dataCy("days-Monday-checkbox").click();
+    cy.dataCy("days-Thursday-checkbox").click();
+    cy.dataCy("days-Sunday-checkbox").click();
 
     //Select meals
-    cy.dataCy("meals-Dinner-checkbox").should("exist").click();
+    cy.dataCy("meals-Dinner-checkbox").click();
 
     //Increase Servings
     for (let i = 0; i < 3; i++) {
-      cy.dataCy("increase-serving-btn").should("exist").click();
+      cy.dataCy("increase-serving-btn").click();
     }
-    cy.dataCy("decrease-serving-btn").should("exist").click();
-    cy.dataCy("portion-amount").should("exist").should("have.text", "3");
+    cy.dataCy("decrease-serving-btn").click();
+    cy.dataCy("portion-amount").should("have.text", "3");
 
     //Create Weekplan
     cy.intercept("POST", "/service/weekplan/create").as("createWeekplan");
-    cy.dataCy("create-weekplan-btn").should("exist").click();
+    cy.dataCy("create-weekplan-btn").click();
     cy.wait("@createWeekplan");
 
     //Check if deselected days have an empty recipe card
@@ -77,12 +75,12 @@ describe("Weekplan", () => {
     cy.dataCy("start-planning-btn").click();
 
     //Login
-    cy.dataCy("continue-as-guest-btn").should("exist").click();
-    cy.dataCy("decline-cookies-btn").should("exist").click();
+    cy.dataCy("continue-as-guest-btn").click();
+    cy.dataCy("decline-cookies-btn").click();
     cy.intercept("GET", "/setup").as("login");
     cy.wait("@login");
 
     cy.visit("/weekOverview");
-    cy.dataCy("0-add-recipe-btn").should("exist").click();
+    cy.dataCy("0-add-recipe-btn").click();
   });
 });

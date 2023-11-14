@@ -8,11 +8,11 @@ describe("Authentication", () => {
 
     cy.intercept("POST", "service/auth/register").as("registerUser");
     cy.wait(500); //Wait for animation to take place
-    cy.dataCy("e-mail-register").should("exist").type(randomEmail);
-    cy.dataCy("password-register").should("exist").type("123456");
-    cy.dataCy("repeat-password-register").should("exist").type("123456");
+    cy.dataCy("e-mail-register").type(randomEmail);
+    cy.dataCy("password-register").type("123456");
+    cy.dataCy("repeat-password-register").type("123456");
     cy.dataCy("submit-register")
-      .should("exist")
+
       .should("not.be.disabled")
       .click();
     cy.wait("@registerUser");
@@ -21,9 +21,9 @@ describe("Authentication", () => {
     cy.visit("/authentication/login");
 
     cy.intercept("GET", "*/auth/*").as("loginUser");
-    cy.dataCy("e-mail-login").should("exist").type(randomEmail);
-    cy.dataCy("password-login").should("exist").type("123456");
-    cy.dataCy("submit-login").should("exist").should("not.be.disabled").click();
+    cy.dataCy("e-mail-login").type(randomEmail);
+    cy.dataCy("password-login").type("123456");
+    cy.dataCy("submit-login").should("not.be.disabled").click();
     cy.wait("@loginUser");
   });
 });
