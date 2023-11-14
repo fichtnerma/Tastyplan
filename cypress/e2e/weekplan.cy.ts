@@ -3,14 +3,12 @@ const searchTermOnion = "onion";
 
 describe("Weekplan", () => {
   it("User should be able to setup his first weekplan", () => {
-    //Landingpage
-    cy.visit("/");
-    cy.dataCy("start-planning-btn").click();
-
     //Login
+    cy.visit("/authentication/registration");
+    cy.wait(500); //Wait for animation to take place
+    cy.intercept("GET", "/setup").as("login");
     cy.dataCy("continue-as-guest-btn").click();
     cy.dataCy("decline-cookies-btn").click();
-    cy.intercept("GET", "/setup").as("login");
     cy.wait("@login");
 
     //Select food lifestyle
@@ -23,15 +21,13 @@ describe("Weekplan", () => {
     cy.dataCy("next-btn").click();
 
     //Select dislikes
-    cy.dataCy("search-ingredients")
-    .type(searchTermTomato, { delay: 200 });
+    cy.dataCy("search-ingredients").type(searchTermTomato, { delay: 200 });
     cy.wait(200);
     cy.dataCy("item-number-1").click();
 
     cy.dataCy("clear-search-input").click();
 
-    cy.dataCy("search-ingredients")
-    .type(searchTermOnion, { delay: 200 });
+    cy.dataCy("search-ingredients").type(searchTermOnion, { delay: 200 });
     cy.wait(200);
     cy.dataCy("item-number-1").click();
     cy.dataCy("selected-dislike-text-onion").click();
@@ -40,8 +36,6 @@ describe("Weekplan", () => {
     cy.dataCy("remove-onion").click();
 
     cy.dataCy("next-btn").click();
-
-    //Adjust weekplan
 
     //Select cooking days
     cy.dataCy("days-Monday-checkbox").click();
