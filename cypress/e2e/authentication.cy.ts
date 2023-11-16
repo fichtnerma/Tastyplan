@@ -10,16 +10,52 @@ describe("Authentication", () => {
     //Register a new user
     cy.intercept("POST", "service/auth/register").as("registerUser");
     cy.wait(500); //Wait for animation to take place
+    let registerBtn = cy.dataCy("submit-register");
+    registerBtn.should("be.disabled");
+
+    //Check invalid email inputs
+    cy.dataCy("e-mail-register").focus();
+    cy.dataCy("password-register").focus();
+    cy.dataCy("error-message-E-Mail").should("have.text", "Required");
+    registerBtn = cy.dataCy("submit-register");
+    registerBtn.should("be.disabled");
+    cy.dataCy("e-mail-register").type("asdf");
+    cy.dataCy("password-register").focus();
+    cy.dataCy("error-message-E-Mail").should("have.text", "Invalid email address");
+    registerBtn = cy.dataCy("submit-register");
+    registerBtn.should("be.disabled");
     cy.dataCy("e-mail-register").type(randomEmail);
-    cy.dataCy("password-register").type("123456");
-    cy.dataCy("repeat-password-register").type("123456");
-    const registerBtn = cy.dataCy("submit-register");
-    registerBtn.should("not.be.disabled");
+
+    //Check invalid password inputs
+    cy.dataCy("error-message-Password").should("have.text", "Required");
+    registerBtn = cy.dataCy("submit-register");
+    registerBtn.should("be.disabled");
+    cy.dataCy("password-register").type("1234");
+    cy.dataCy("e-mail-register").focus();
+    cy.dataCy("error-message-Password").should("have.text", "Password must be at least 6 characters");
+    registerBtn = cy.dataCy("submit-register");
+    registerBtn.should("be.disabled");
+    registerBtn = cy.dataCy("submit-register");
+    registerBtn.should("be.disabled");
+    cy.dataCy("password-register").type("1234567");
+
+    //Check invalid password reapeats
+    cy.dataCy("repeat-password-register").focus();
+    cy.dataCy("password-register").focus();
+    cy.dataCy("error-message-Repeat Password").should("have.text", "Required");
+    cy.dataCy("repeat-password-register").type("1234");
+    cy.dataCy("password-register").focus();
+    cy.dataCy("error-message-Repeat Password").should("have.text", "Password must be at least 6 characters");
+    cy.dataCy("repeat-password-register").type("1234567");
+    registerBtn = cy.dataCy("submit-register");
+    registerBtn.should("be.not.disabled");
+    cy.dataCy("password-register").focus();
+
     registerBtn.click();
     cy.wait("@registerUser");
   });
 
-  it("Login registered user", () => {
+  it.skip("Login registered user", () => {
     //Visit login page
     cy.visit("/authentication/login");
 

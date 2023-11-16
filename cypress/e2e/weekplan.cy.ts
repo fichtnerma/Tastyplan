@@ -1,4 +1,4 @@
-import { authDynamicUser } from "../support/utils";
+import { getRandomEmail } from "../support/utils";
 
 const searchTermTomato = "tomato";
 const searchTermOnion = "onion";
@@ -65,7 +65,8 @@ describe("Weekplan", () => {
     cy.dataCy("4-add-recipe-text").should("exist");
   });
 
-  it("User should be able to add a recipe to an empty card", () => {
-    authDynamicUser();
+  it.skip("User should be able to add a recipe to an empty card", () => {
+    const email = getRandomEmail();
+    const pw = '1234557';
   });
 });

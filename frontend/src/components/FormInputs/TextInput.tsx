@@ -78,7 +78,9 @@ export default function TextInput({
                     data-cy={cypressID}
                 />
             </div>
-            <span className={`${errorMessage ? '' : 'hidden'} errorMessage`}>{errorMessage}</span>
+            <span className={`${errorMessage ? '' : 'hidden'} errorMessage`} data-cy={`error-message-${label}`}>
+                {errorMessage}
+            </span>
         </div>
     );
 }
