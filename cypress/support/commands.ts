@@ -5,15 +5,19 @@ declare namespace Cypress {
      * @example cy.dataCy('greeting', { timeout: 50000 })
      */
     dataCy(value: string, timeout?: number): Chainable<Element>;
-    loginDynamicUser(email: string, pw: string, timeout?: number): Chainable<Element>;
+    loginDynamicUser(
+      email: string,
+      pw: string,
+      timeout?: number
+    ): Chainable<Element>;
   }
 }
 
-Cypress.Commands.add('dataCy', (value, timeout) => {
+Cypress.Commands.add("dataCy", (value, timeout) => {
   cy.get(`[data-cy="${value}"]`, { timeout });
 });
 
-Cypress.Commands.add('loginDynamicUser', (email: string, pw: string) => {
+Cypress.Commands.add("loginDynamicUser", (email: string, pw: string) => {
   const registerUser = () => {
     return cy.request({
       method: "POST",
@@ -26,34 +30,19 @@ Cypress.Commands.add('loginDynamicUser', (email: string, pw: string) => {
       }),
     });
   };
-
-  const signInAndGetToken = () => {
-    return cy.request({
-      method: "POST",
-      url: "http://localhost:8080/api/auth/signin/credentials",
-      form: true,
-      body: {
-        userId: email,
-        password: pw,
-      },
-      followRedirect: false,
-    }).then((response) => {
-      const redirectUrl = response.headers.location;
-      if (redirectUrl) {
-        const urlPort8080 = redirectUrl.toString().replace('3000', '8080');
-        console.log(urlPort8080)
-        return cy.request("GET", urlPort8080);
-      } else {
-        throw new Error("Redirect URL not found");
-      }
-    });
-  };
-
   registerUser().then(() => {
-    signInAndGetToken().then((response) => {
-      expect(response.status).to.equal(200);
+    cy.visit("/authentication/login");
+
+    //Login newly created user
+    cy.dataCy("e-mail-login").type(email);
+    cy.dataCy("password-login").type(pw);
+    const loginBtn = cy.dataCy("submit-login");
+    loginBtn.should("not.be.disabled");
+    cy.intercept("GET", "*/auth/session").as("loginUser");
+    loginBtn.click();
+    cy.wait("@loginUser").then((interception) => {
+      console.log(interception.response.body.user.token.Authorization)
+      cy.setCookie('token', interception.response.body.user.token.Authorization)
     });
-  });
+  })
 });
-
-
