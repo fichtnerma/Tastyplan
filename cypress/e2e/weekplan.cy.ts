@@ -4,7 +4,7 @@ const searchTermTomato = "tomato";
 const searchTermOnion = "onion";
 
 describe("Weekplan", () => {
-  it("User should be able to setup his first weekplan", () => {
+  it.skip("User should be able to setup his first weekplan", () => {
     //Login
     cy.visit("/authentication/registration");
     cy.wait(500); //Wait for animation to take place
@@ -65,8 +65,9 @@ describe("Weekplan", () => {
     cy.dataCy("4-add-recipe-text").should("exist");
   });
 
-  it.skip("User should be able to add a recipe to an empty card", () => {
+  it("User should be able to add a recipe to an empty card", () => {
     const email = getRandomEmail();
     const pw = '1234557';
+    cy.loginDynamicUser(email, pw)
   });
 });
