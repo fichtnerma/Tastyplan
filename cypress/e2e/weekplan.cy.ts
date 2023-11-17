@@ -2,8 +2,13 @@ import { getRandomEmail } from "../support/utils";
 
 const searchTermTomato = "tomato";
 const searchTermOnion = "onion";
+const randomMail = getRandomEmail();
+const pw = "1234567";
 
 describe("Weekplan", () => {
+  beforeEach(() => {
+    cy.loginDynamicUser(randomMail, pw);
+  });
   it.skip("User should be able to setup his first weekplan", () => {
     //Login
     cy.visit("/authentication/registration");
@@ -66,8 +71,36 @@ describe("Weekplan", () => {
   });
 
   it("User should be able to add a recipe to an empty card", () => {
-    const email = getRandomEmail();
-    const pw = '1234557';
-    cy.loginDynamicUser(email, pw)
+    cy.intercept("/service/*", (req) => {
+      req.headers["authorization"] = `Bearer ${Cypress.env("token")}`;
+    }).as("createWeekplan");
+
+    cy.request({
+      method: "POST",
+      url: "/service/preferences",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cypress.env("token")}`,
+      },
+      body: JSON.stringify({
+        allergens: [],
+        days: [
+          "monday",
+          "tuesday",
+          "wednesday",
+          "thursday",
+          "friday",
+          "saturday",
+          "sunday",
+        ],
+        foodDislikes: [],
+        formOfDiet: "vegetarian",
+        servings: 1,
+        wantsDinner: true,
+        wantsLunch: true,
+      }),
+    }).then(() => {
+      cy.visit("weekOverview");
+    });
   });
 });

@@ -8,7 +8,7 @@ declare namespace Cypress {
     loginDynamicUser(
       email: string,
       pw: string,
-      timeout?: number
+      timeout?: number,
     ): Chainable<Element>;
   }
 }
@@ -41,8 +41,10 @@ Cypress.Commands.add("loginDynamicUser", (email: string, pw: string) => {
     cy.intercept("GET", "*/auth/session").as("loginUser");
     loginBtn.click();
     cy.wait("@loginUser").then((interception) => {
-      console.log(interception.response.body.user.token.Authorization)
-      cy.setCookie('token', interception.response.body.user.token.Authorization)
+      console.log(interception.response.body.user.token.Authorization);
+      const bearerValue = interception.response.body.user.token.Authorization;
+      cy.setCookie("token", bearerValue);
+      Cypress.env("token", bearerValue);
     });
-  })
+  });
 });
