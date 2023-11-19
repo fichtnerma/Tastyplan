@@ -213,6 +213,7 @@ export class WeekplanService {
                     shuffeledMeals,
                     fetchedMealsAndWeekplanPreferences.wantsLunch,
                     fetchedMealsAndWeekplanPreferences.wantsDinner,
+                    weekplanStartDate,
                 ),
             };
             const createdWeekplan = await this.weekplanQueries.createWeekplan(weekplan);
