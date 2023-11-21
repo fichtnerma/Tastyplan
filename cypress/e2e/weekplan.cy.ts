@@ -2,11 +2,20 @@ import { getRandomEmail } from "../support/utils";
 
 const searchTermTomato = "tomato";
 const searchTermOnion = "onion";
-const randomMail = getRandomEmail();
 const pw = "1234567";
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 describe("Weekplan", () => {
   beforeEach(() => {
+    const randomMail = getRandomEmail();
     cy.loginDynamicUser(randomMail, pw);
   });
   it.skip("User should be able to setup his first weekplan", () => {
@@ -65,9 +74,9 @@ describe("Weekplan", () => {
     cy.wait("@createWeekplan");
 
     //Check if deselected days have an empty recipe card
-    cy.dataCy("0-add-recipe-text").should("exist");
-    cy.dataCy("1-add-recipe-text").should("exist");
-    cy.dataCy("4-add-recipe-text").should("exist");
+    cy.dataCy(`${days.indexOf("Monday")}-add-recipe-text`).should("exist");
+    cy.dataCy(`${days.indexOf("Thursday")}-add-recipe-text`).should("exist");
+    cy.dataCy(`${days.indexOf("Sunday")}-add-recipe-text`).should("exist");
   });
 
   it("User should be able to add a recipe to an empty card", () => {
@@ -75,32 +84,44 @@ describe("Weekplan", () => {
       req.headers["authorization"] = `Bearer ${Cypress.env("token")}`;
     }).as("createWeekplan");
 
-    cy.request({
-      method: "POST",
-      url: "/service/preferences",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cypress.env("token")}`,
-      },
-      body: JSON.stringify({
-        allergens: [],
-        days: [
-          "monday",
-          "tuesday",
-          "wednesday",
-          "thursday",
-          "friday",
-          "saturday",
-          "sunday",
-        ],
-        foodDislikes: [],
-        formOfDiet: "vegetarian",
-        servings: 1,
-        wantsDinner: true,
-        wantsLunch: true,
-      }),
-    }).then(() => {
-      cy.visit("weekOverview");
+    //Select food lifestyle
+    cy.dataCy("vegan-radio-btn").click({ force: true });
+    cy.dataCy("decline-cookies-btn").click();
+    cy.dataCy("next-btn").click();
+    cy.dataCy("next-btn").click();
+
+    //Deselect cooking days
+    days.forEach((day) => {
+      cy.dataCy(`days-${day}-checkbox`).click();
     });
+
+    //Deselect meals
+    cy.dataCy("meals-Dinner-checkbox").click();
+
+    //Create Weekplan
+    cy.intercept("POST", "/service/weekplan/create").as("createWeekplan");
+    cy.dataCy("create-weekplan-btn").click();
+    cy.wait("@createWeekplan");
+
+    //Add recipe to empty card
+    var currentDate = new Date();
+    console.log(
+      `${
+        currentDate.getDate() +
+        "/" +
+        (currentDate.getMonth() + 1) +
+        "/" +
+        currentDate.getFullYear()
+      }-add-recipe-btn`,
+    );
+    cy.dataCy(
+      `${
+        currentDate.getDate() +
+        "/" +
+        (currentDate.getMonth() + 1) +
+        "/" +
+        currentDate.getFullYear()
+      }-add-recipe-btn`,
+    ).click();
   });
 });

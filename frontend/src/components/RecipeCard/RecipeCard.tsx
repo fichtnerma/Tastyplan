@@ -109,12 +109,20 @@ function RecipeCard({
                 <button
                     className="flex justify-center flex-col rounded-custom_s relative w-full h-[225px] sm:h-[160px] md:!h-[300px] md:!w-[200px] bg-green-custom4 items-center hover:bg-green-custom_super_light text-green-custom2 hover:text-green-custom3"
                     onClick={openModal}
-                    data-cy={`${day && day + ''}-add-recipe-btn`}
+                    data-cy={`${
+                        day && new Date().getDate() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getFullYear()
+                    }-add-recipe-btn`}
                 >
                     <div className="">
                         <Icon size={50} icon="addCircle"></Icon>
                     </div>
-                    <h5 className="text-inherit pt-5 m-0" data-cy={`${day && day + ''}-add-recipe-text`}>
+                    <h5
+                        className="text-inherit pt-5 m-0"
+                        data-cy={`${
+                            day &&
+                            new Date().getDate() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getFullYear()
+                        }-add-recipe-text`}
+                    >
                         add recipe
                     </h5>
                 </button>
