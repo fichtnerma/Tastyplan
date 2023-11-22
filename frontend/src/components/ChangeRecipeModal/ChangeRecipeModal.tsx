@@ -81,6 +81,7 @@ function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch, recip
                             onClick={() => {
                                 setNewRecipe(!newRecipe);
                             }}
+                            data-cy="exchange-recipes-btn"
                         >
                             <Icon size={40} icon="switch"></Icon>
                         </button>

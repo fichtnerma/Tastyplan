@@ -29,7 +29,6 @@ function RecipeCard({
     switchRecipe,
     entryId,
     isLunch = false,
-    day,
 }: RecipeCardProps) {
     const [recipeInfo, setRecipe] = useState<Recipe | undefined>(recipe);
     const [isFavorite, setIsFavorite] = useState(false);
@@ -62,18 +61,6 @@ function RecipeCard({
 
     const refreshWeekplan = (recipe: Recipe | undefined) => {
         setRecipe(recipe);
-    };
-
-    const getDateOfDay = (weekday: number) => {
-        const currentDate = new Date();
-
-        let daysDifference = weekday - currentDate.getDay();
-        if (daysDifference < 0) daysDifference += 7;
-
-        const desiredDate = new Date(currentDate);
-        desiredDate.setDate(currentDate.getDate() + daysDifference);
-
-        return `${desiredDate.getDate()}/${desiredDate.getMonth() + 1}/${desiredDate.getFullYear()}`;
     };
 
     return (
@@ -125,23 +112,12 @@ function RecipeCard({
                 <button
                     className="flex justify-center flex-col rounded-custom_s relative w-full h-[225px] sm:h-[160px] md:!h-[300px] md:!w-[200px] bg-green-custom4 items-center hover:bg-green-custom_super_light text-green-custom2 hover:text-green-custom3"
                     onClick={openModal}
-                    data-cy={
-                        day !== undefined &&
-                        day >= 0 &&
-                        `${getDateOfDay(day)}-add-recipe-btn-${isLunch ? 'lunch' : 'dinner'}`
-                    }
+                    data-cy={`add-recipe-btn-${isLunch ? 'lunch' : 'dinner'}`}
                 >
                     <div className="">
                         <Icon size={50} icon="addCircle"></Icon>
                     </div>
-                    <h5
-                        className="text-inherit pt-5 m-0"
-                        data-cy={
-                            day !== undefined &&
-                            day >= 0 &&
-                            `${getDateOfDay(day)}-add-recipe-text-${isLunch ? 'lunch' : 'dinner'}`
-                        }
-                    >
+                    <h5 className="text-inherit pt-5 m-0" data-cy={`add-recipe-text-${isLunch ? 'lunch' : 'dinner'}`}>
                         add recipe
                     </h5>
                 </button>

@@ -104,16 +104,23 @@ describe("Weekplan", () => {
     cy.wait("@createWeekplan");
 
     //Add recipe to empty card
-    var currentDate = new Date();
-    cy.dataCy(
-      `${
-        currentDate.getDate() +
-        "/" +
-        (currentDate.getMonth() + 1) +
-        "/" +
-        currentDate.getFullYear()
-      }-add-recipe-btn-lunch`,
-    ).click({ multiple: true, force: true });
-    cy.dataCy("choose-recipe-btn").first().click({ force: true });
+    cy.intercept("*/recipes/recommend/*").as("recommendations");
+    cy.intercept("*/weekplan//*").as("createWeekplan");
+    cy.dataCy("add-recipe-btn-lunch").first().click({ force: true });
+    cy.wait("@recommendations");
+    cy.intercept("*/weekplan/changeRecipe").as("changeRecipe");
+    cy.wait(500);
+    cy.dataCy("choose-recipe-btn")
+      .first()
+      .trigger("mouseover", { force: true })
+      .click({ force: true });
+    cy.wait("@changeRecipe");
+    cy.visit("/weekOverview");
+    cy.wait("@createWeekplan");
+
+    //Get new recommendations
+    cy.intercept("*/recipes/recommend/*").as("recommendations");
+    cy.wait("@recommendations");
+    cy.dataCy("exchange-recipes-btn").next().click({ force: true });
   });
 });
