@@ -105,15 +105,6 @@ describe("Weekplan", () => {
 
     //Add recipe to empty card
     var currentDate = new Date();
-    console.log(
-      `${
-        currentDate.getDate() +
-        "/" +
-        (currentDate.getMonth() + 1) +
-        "/" +
-        currentDate.getFullYear()
-      }-add-recipe-btn`,
-    );
     cy.dataCy(
       `${
         currentDate.getDate() +
@@ -121,7 +112,8 @@ describe("Weekplan", () => {
         (currentDate.getMonth() + 1) +
         "/" +
         currentDate.getFullYear()
-      }-add-recipe-btn`,
-    ).click();
+      }-add-recipe-btn-lunch`,
+    ).click({ multiple: true, force: true });
+    cy.dataCy("choose-recipe-btn").first().click({ force: true });
   });
 });

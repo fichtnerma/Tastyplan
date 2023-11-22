@@ -64,6 +64,18 @@ function RecipeCard({
         setRecipe(recipe);
     };
 
+    const getDateOfDay = (weekday: number) => {
+        const currentDate = new Date();
+
+        let daysDifference = weekday - currentDate.getDay();
+        if (daysDifference < 0) daysDifference += 7;
+
+        const desiredDate = new Date(currentDate);
+        desiredDate.setDate(currentDate.getDate() + daysDifference);
+
+        return `${desiredDate.getDate()}/${desiredDate.getMonth() + 1}/${desiredDate.getFullYear()}`;
+    };
+
     return (
         <>
             {recipeInfo ? (
@@ -96,7 +108,11 @@ function RecipeCard({
                         <Icon size={18} icon="switch"></Icon>
                     </div>
                     {switchRecipe ? (
-                        <button className="block h-full w-full text-left" onClick={switchRecipe}>
+                        <button
+                            className="block h-full w-full text-left"
+                            onClick={switchRecipe}
+                            data-cy={'choose-recipe-btn'}
+                        >
                             <CardContent recipe={recipeInfo} highlighted={highlighted} smallCard={smallCard} />
                         </button>
                     ) : (
@@ -109,19 +125,22 @@ function RecipeCard({
                 <button
                     className="flex justify-center flex-col rounded-custom_s relative w-full h-[225px] sm:h-[160px] md:!h-[300px] md:!w-[200px] bg-green-custom4 items-center hover:bg-green-custom_super_light text-green-custom2 hover:text-green-custom3"
                     onClick={openModal}
-                    data-cy={`${
-                        day && new Date().getDate() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getFullYear()
-                    }-add-recipe-btn`}
+                    data-cy={
+                        day !== undefined &&
+                        day >= 0 &&
+                        `${getDateOfDay(day)}-add-recipe-btn-${isLunch ? 'lunch' : 'dinner'}`
+                    }
                 >
                     <div className="">
                         <Icon size={50} icon="addCircle"></Icon>
                     </div>
                     <h5
                         className="text-inherit pt-5 m-0"
-                        data-cy={`${
-                            day &&
-                            new Date().getDate() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getFullYear()
-                        }-add-recipe-text`}
+                        data-cy={
+                            day !== undefined &&
+                            day >= 0 &&
+                            `${getDateOfDay(day)}-add-recipe-text-${isLunch ? 'lunch' : 'dinner'}`
+                        }
                     >
                         add recipe
                     </h5>
