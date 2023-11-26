@@ -1,8 +1,10 @@
 import { PropsWithChildren } from 'react';
 import '@styles/globals.scss';
+import React from 'react';
 import { Metadata } from 'next';
 import { Inter, Bebas_Neue, Zeyada } from '@next/font/google';
 import CookieWrapper from '@components/CookieBanner/CookieWrapper';
+import reportAccessibility from '../helpers/reportAccessibility';
 
 const inter = Inter({ subsets: ['latin'], style: ['normal'], weight: ['200', '400', '700'], variable: '--font-inter' });
 const bebasNeue = Bebas_Neue({ subsets: ['latin'], style: 'normal', weight: '400', variable: '--font-bebas' });
@@ -36,3 +38,5 @@ export const metadata: Metadata = {
         apple: { url: '/icon.png' },
     },
 };
+
+reportAccessibility(React);
