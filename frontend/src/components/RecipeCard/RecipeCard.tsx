@@ -83,17 +83,18 @@ function RecipeCard({
                         <Icon size={18} icon="heart"></Icon>
                     </div>
 
-                    <div
+                    <button
                         className={`justify-end ${highlighted ? styles.icon__highlighted : styles.icon__notHighlighted}
-                    ${withSwitch ? 'block' : 'hidden'}
-            
-                    flex p-1 top-[10px] text-white-custom right-10 rounded-full cursor-pointer absolute z-10 bg-green-custom2  transition-all duration-600 ease-in-out ${
-                        styles.icon
-                    }`}
+                    ${
+                        withSwitch ? 'block' : 'hidden'
+                    } flex p-1 top-[10px] text-white-custom right-10 rounded-full cursor-pointer absolute z-10 bg-green-custom2  transition-all duration-600 ease-in-out ${
+                            styles.icon
+                        }`}
                         onClick={openModal}
+                        data-cy="get-new-recommendations-btn"
                     >
                         <Icon size={18} icon="switch"></Icon>
-                    </div>
+                    </button>
                     {switchRecipe ? (
                         <button
                             className="block h-full w-full text-left"

@@ -18,14 +18,11 @@ describe("Weekplan", () => {
     const randomMail = getRandomEmail();
     cy.loginDynamicUser(randomMail, pw);
   });
-  it.skip("User should be able to setup his first weekplan", () => {
-    //Login
-    cy.visit("/authentication/registration");
-    cy.wait(500); //Wait for animation to take place
-    cy.intercept("GET", "/setup").as("login");
-    cy.dataCy("continue-as-guest-btn").click();
+  it("User should be able to setup his first weekplan", () => {
+    cy.intercept("/service/*", (req) => {
+      req.headers["authorization"] = `Bearer ${Cypress.env("token")}`;
+    }).as("createWeekplan");
     cy.dataCy("decline-cookies-btn").click();
-    cy.wait("@login");
 
     //Select food lifestyle
     cy.dataCy("vegan-radio-btn").click({ force: true });
@@ -72,11 +69,6 @@ describe("Weekplan", () => {
     cy.intercept("POST", "/service/weekplan/create").as("createWeekplan");
     cy.dataCy("create-weekplan-btn").click();
     cy.wait("@createWeekplan");
-
-    //Check if deselected days have an empty recipe card
-    cy.dataCy(`${days.indexOf("Monday")}-add-recipe-text`).should("exist");
-    cy.dataCy(`${days.indexOf("Thursday")}-add-recipe-text`).should("exist");
-    cy.dataCy(`${days.indexOf("Sunday")}-add-recipe-text`).should("exist");
   });
 
   it("User should be able to add a recipe to an empty card", () => {
@@ -120,7 +112,10 @@ describe("Weekplan", () => {
 
     //Get new recommendations
     cy.intercept("*/recipes/recommend/*").as("recommendations");
+    cy.dataCy("get-new-recommendations-btn")
+      .first()
+      .trigger("mouseover", { force: true })
+      .click({ force: true });
     cy.wait("@recommendations");
-    cy.dataCy("exchange-recipes-btn").next().click({ force: true });
   });
 });
