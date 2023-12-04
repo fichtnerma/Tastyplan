@@ -14,7 +14,6 @@ const addRecipePage = () => {
 
     return (
         <div>
-            <h1>Add Recipe</h1>
             <ProgressBar
                 stepNames={stepNames}
                 activeStep={currentStep}
@@ -22,9 +21,9 @@ const addRecipePage = () => {
                 onClick={handleProgBarClick}
             />
             <AddRecipeWizard />
-            <div>
-                <button>back</button>
-                <button>next</button>
+            <div className="flex">
+                <button className="btn-primary">back</button>
+                <button className="btn-primary">next</button>
             </div>
         </div>
     );
