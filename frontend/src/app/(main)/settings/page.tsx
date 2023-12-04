@@ -1,12 +1,14 @@
 'use client';
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { ToastContainer, toast } from 'react-toastify';
 import WeekplanSettings from '@components/WeekplanSettings/WeekplanSettings';
 import UserSettings from '@components/UserSettings/UserSettings';
 import PreferencesSettings from '@components/PreferencesSettings/PreferencesSettings';
 import { fetchWithAuth } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { APISearchResponse } from 'src/types/types';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Preferences {
     formOfDiet: string;
@@ -160,11 +162,25 @@ function Settings() {
                                 data-btn="next"
                                 onClick={() => {
                                     if (settings !== undefined) saveSettings(settings);
+                                    toast.success('Settings saved!');
                                 }}
                                 data-cy="next-btn"
                             >
                                 Save
                             </button>
+                            <ToastContainer
+                                position="bottom-center"
+                                autoClose={2000}
+                                limit={1}
+                                hideProgressBar
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="colored"
+                            />
                         </div>
                     </div>
                 ) : (
