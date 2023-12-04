@@ -5,6 +5,10 @@ import TextInput from '@components/FormInputs/TextInput';
 const AddNameAndImage = () => {
     const [name, setName] = useState('');
 
+    const handleUploadedImgChange = (img: File) => {
+        console.log(img);
+    };
+
     return (
         <fieldset>
             <legend className="h1">Add name and image</legend>
@@ -13,7 +17,7 @@ const AddNameAndImage = () => {
             <label className="block mt-5 mb-1" htmlFor="image">
                 Add an Image (optional)
             </label>
-            <ImgDragAndDrop />
+            <ImgDragAndDrop onUploadedImgChange={handleUploadedImgChange} />
         </fieldset>
     );
 };

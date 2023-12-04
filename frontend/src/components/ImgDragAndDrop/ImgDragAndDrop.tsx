@@ -27,7 +27,11 @@ type UploadedImg = {
     preview: string;
 };
 
-const ImgDragAndDrop = () => {
+type ImgDragAndDropProps = {
+    onUploadedImgChange: (img: File) => void;
+};
+
+const ImgDragAndDrop = ({ onUploadedImgChange }: ImgDragAndDropProps) => {
     const [uploadedImg, setUploadedImg] = useState<UploadedImg | undefined>(undefined);
 
     const focusedStyle = {
@@ -48,6 +52,7 @@ const ImgDragAndDrop = () => {
         multiple: false,
         onDrop: (acceptedFiles: File[]) => {
             setUploadedImg({ file: acceptedFiles[0], preview: URL.createObjectURL(acceptedFiles[0]) });
+            onUploadedImgChange(acceptedFiles[0]);
         },
     });
 
