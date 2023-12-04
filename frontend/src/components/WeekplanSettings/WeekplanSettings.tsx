@@ -143,9 +143,9 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onChoice }:
         }
     };
     return (
-        <div className="pt-6">
+        <div className="lg:pt-6">
             <h5 className="mb-3">On what days do you want to cook?</h5>
-            <div className="pl-8 pb-4">
+            <div className="lg:pl-8 pb-4">
                 <CheckboxGroup
                     checkboxes={daysCheckboxes}
                     groupName="days"
@@ -153,8 +153,8 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onChoice }:
                     disabled={false}
                 />
             </div>
-            <h5 className="mt-8 lg:mt-0 mb-3">What meals do you want to cook?</h5>
-            <div className="pl-8 pb-4">
+            <h5 className="mb-3">What meals do you want to cook?</h5>
+            <div className="lg:pl-8 pb-4">
                 <CheckboxGroup
                     checkboxes={mealsCheckboxes}
                     groupName="meals"
@@ -162,8 +162,8 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onChoice }:
                     disabled={false}
                 />
             </div>
-            <h5 className="mt-8 lg:mt-0 mb-3">How many servings?</h5>
-            <div className="flex pl-8">
+            <h5 className="lg:mt-0l mb-3">How many servings?</h5>
+            <div className="flex lg:pl-8">
                 <button
                     type="button"
                     className={`btn-primary !flex justify-center items-center  ${styles.btnPortion}`}

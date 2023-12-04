@@ -65,9 +65,9 @@ function Settings() {
     return (
         <div className="mainContainer">
             <h1 className="text-green-custom2">Settings</h1>
-            <div className="flex">
-                <div className="w-1/5 grid grid-cols-2">
-                    <div className="">
+            <div className="lg:flex inline">
+                <div className="lg:w-1/5 lg:grid lg:grid-cols-2">
+                    <div className="flex justify-between lg:block">
                         <button
                             className="appearance-none bg-transparent"
                             onClick={() => setSelectedSettingOption('preferences')}
@@ -105,10 +105,10 @@ function Settings() {
                             </h3>
                         </button>
                     </div>
-                    <div className="" style={lineStyle}></div>
+                    <div className="hidden lg:block" style={lineStyle}></div>
                 </div>
                 {!error && data ? (
-                    <div className="w-4/5">
+                    <div className="lg:w-4/5">
                         {selectedSettingOption === 'preferences' && settings ? (
                             <PreferencesSettings
                                 formOfDiet={settings.formOfDiet}

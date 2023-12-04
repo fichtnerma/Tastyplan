@@ -179,9 +179,9 @@ export default function PreferencesSettings({
     };
 
     return (
-        <div className="pt-6" onClick={handleClickOnListAndInput}>
+        <div className="lg:pt-6" onClick={handleClickOnListAndInput}>
             <h5 className="mb-3">Your Food Lifestyle</h5>
-            <div className="w-1/3 pb-6 pl-8">
+            <div className="lg:w-1/3 lg:pb-6 pb-4 lg:pl-8">
                 <div
                     className={`flex justify-end items-center relative pr-5 h-[60px] lg:h-[60px] xl:h-[60px] ${styles.choiceWrapper}`}
                 >
@@ -233,7 +233,7 @@ export default function PreferencesSettings({
                 )}
             </div>
             <h5 className="mb-3">Your Intolerances</h5>
-            <div className="pb-4 pl-8">
+            <div className="lg:pb-6 pb-4 lg:pl-8">
                 {selectedAllergens.length == 0 ? (
                     <p className="">You don't have any intolerances.</p>
                 ) : (
@@ -241,12 +241,12 @@ export default function PreferencesSettings({
                 )}
             </div>
             <div
-                className="w-5/6 pb-4"
+                className="lg:w-5/6 lg:pb-4"
                 style={{
                     color: 'var(--green-dark)',
                 }}
             >
-                <button className="pl-8" onClick={handleAllergensState}>
+                <button className="lg:pl-8 pb-2" onClick={handleAllergensState}>
                     {addAllergens == true ? (
                         <Icon size={34} icon="minusCircle"></Icon>
                     ) : (
@@ -255,7 +255,7 @@ export default function PreferencesSettings({
                 </button>
             </div>
             {addAllergens == true && (
-                <div className="pb-8 pl-8">
+                <div className="lg:pb-8 lg:pl-8 pb-4">
                     {canBeSelectedIntolerances.map((intol) => (
                         <button
                             key={intol.name}
@@ -270,7 +270,7 @@ export default function PreferencesSettings({
                 </div>
             )}
             <h5 className="mb-3">Your Food Dislikes</h5>
-            <div className="pb-4 pl-8">
+            <div className="lg:pb-6 pb-4 lg:pl-8">
                 {selectedDislikes.length == 0 ? (
                     <p className="">You don't have any dislikes.</p>
                 ) : (
@@ -278,12 +278,12 @@ export default function PreferencesSettings({
                 )}
             </div>
             <div
-                className="w-5/6"
+                className="lg:w-5/6"
                 style={{
                     color: 'var(--green-dark)',
                 }}
             >
-                <button className="pl-8 pb-4" onClick={handleDislikesState}>
+                <button className="lg:pl-8 lg:pb-4" onClick={handleDislikesState}>
                     {addDislikes == true ? (
                         <Icon size={34} icon="minusCircle"></Icon>
                     ) : (
@@ -292,7 +292,7 @@ export default function PreferencesSettings({
                 </button>
             </div>
             {addDislikes == true && (
-                <div className="pl-8 w-1/3">
+                <div className="lg:pl-8 lg:w-1/3 pb-8">
                     <DislikeSearch
                         searchTerm={searchTerm}
                         searchResult={searchResult}
