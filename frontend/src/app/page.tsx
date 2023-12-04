@@ -40,11 +40,15 @@ export default function HomePage() {
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div className="pt-5 lg:pt-20">
+            <div className="py-10 lg:py-20 bg-green-custom1 w-full ml-auto mr-auto p-6 lg:p-14">
+                <div className="w-full max-w-[1600px] ml-auto mr-auto p-6 lg:p-14">
                     <h2 className="mb-10">But why Meal Planning?</h2>
                     <Benefits />
                 </div>
+            </div>
+            <div className="w-full max-w-[1600px] ml-auto mr-auto p-6 lg:p-14">
                 <div className="pt-10 lg:pt-40 w-full">
                     <h2 className="mb-8 lg:mb-24">How Does Tastyplan work?</h2>
                     <Steps />

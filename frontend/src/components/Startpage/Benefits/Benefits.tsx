@@ -35,19 +35,26 @@ function Benefits() {
         },
     ];
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gird-rows-1 sm:grid-rows-2 lg:grid-rows-1 gab-4 w-full">
+        <div className="flex h-fit md:min-h-[700px] lg:min-h-[900px] xl:min-h-[500px] overflow-x-scroll md:overflow-visible md:grid md:grid-cols-2 xl:grid-cols-4 md:grid-rows-2 xl:grid-rows-1 md:gap-4 md:w-full">
             {benefits.map((benefit) => (
-                <div key={benefit.id} className=" p-2 rounded-2xl pb-10 lg:pb-0">
-                    <h3 className="h4 text-green-custom2 mb-8 h-8 lg:h-28">{benefit.heading}</h3>
-                    <Image
-                        className="mb-2 lg:mb-10 mx-auto h-[80px] lg:h-[120px] w-[80px] lg:w-[120px]"
-                        src={benefit.icon}
-                        alt="icon"
-                        width={120}
-                        height={120}
-                        loading="lazy"
-                    />
-                    <p className="">{benefit.desc}</p>
+                <div
+                    key={benefit.id}
+                    className="group basis-[200px] p-5 md:w-full grow-0 shrink-0 rounded-2xl md:h-[160px] lg:h-[240px] md:hover:h-[260px] lg:hover:h-[340px] bg-white-custom mr-5 md:mr-0 drop-shadow mt-[80px] transition-all ease-in-out duration-700"
+                >
+                    <div className="relative top-[-60px] drop-shadow w-[200px] md:w-full bg-green-custom3 p-5 rounded-2xl flex mx-auto z-10 h-fit">
+                        <h3 className="h4 text-black !mb-0">{benefit.heading}</h3>
+                        <Image
+                            className="my-4 lg:mb-10 mt-10 mx-auto h-[80px] lg:h-[120px] w-[80px] lg:w-[120px]"
+                            src={benefit.icon}
+                            alt="icon"
+                            width={120}
+                            height={120}
+                            loading="lazy"
+                        />
+                    </div>
+                    <p className="leading-tight mt-[-40px] md:mt-[-130px] md:group-hover:mt-[-40px] md:opacity-0 md:group-hover:opacity-100 transition-all duration-700 ease-in-out">
+                        {benefit.desc}
+                    </p>
                 </div>
             ))}
         </div>
