@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Icon from '@components/Icon/Icon';
 import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
 import { CustomCheckboxInput } from 'src/types/types';
 import styles from '../WeekplanConfig//WeekplanConfig.module.scss';
@@ -121,22 +122,22 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
             <div className="flex pl-8">
                 <button
                     type="button"
-                    className={`btn-primary ${styles.btnPortion}`}
+                    className={`btn-primary !flex justify-center items-center  ${styles.btnPortion}`}
                     onClick={decreasePortion}
                     data-cy="decrease-serving-btn"
                 >
-                    -
+                    <Icon icon="minus" size={19} />
                 </button>
                 <p id="portion" data-cy="portion-amount" className="text-base w-10 text-center">
                     {selectedServings}
                 </p>
                 <button
                     type="button"
-                    className={`btn-primary ${styles.btnPortion} mr-5`}
+                    className={`btn-primary !flex justify-center items-center  ${styles.btnPortion} mr-5`}
                     onClick={increasePortion}
                     data-cy="increase-serving-btn"
                 >
-                    +
+                    <Icon icon="plus" size={19} />
                 </button>
             </div>
             <div>
