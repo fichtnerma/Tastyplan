@@ -4,7 +4,7 @@ import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
 import { CustomCheckboxInput } from 'src/types/types';
 import styles from '../WeekplanConfig//WeekplanConfig.module.scss';
 
-type OnSaveFunction = (preferences: {
+type OnChoiceFunction = (preferences: {
     days: string[];
     wantsLunch: boolean;
     wantsDinner: boolean;
@@ -15,10 +15,10 @@ type WeekplanSettingsProps = {
     wantsLunch: boolean;
     wantsDinner: boolean;
     servings: number;
-    onSave: OnSaveFunction;
+    onChoice: OnChoiceFunction;
 };
 
-function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: WeekplanSettingsProps) {
+function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onChoice }: WeekplanSettingsProps) {
     const [selectedDays, setSelectedDays] = useState<string[]>(days);
     const [selectedWantsLunch, setSelectedWantsLunch] = useState<boolean>(wantsLunch);
     const [selectedWantsDinner, setSelectedWantsDinner] = useState<boolean>(wantsDinner);
@@ -62,6 +62,12 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
         }
         setSelectedDays(prefTemp);
         setDays(daysTemp);
+        onChoice({
+            days: prefTemp,
+            wantsLunch: selectedWantsLunch,
+            wantsDinner: selectedWantsDinner,
+            servings: selectedServings,
+        });
     };
 
     const handleMealSelection = (id: string, value: string, checked: boolean) => {
@@ -72,30 +78,68 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
             if (checked && value === 'lunch') {
                 setSelectedWantsLunch(true);
                 foundMealCheckbox.checked = true;
+                onChoice({
+                    days: selectedDays,
+                    wantsLunch: true,
+                    wantsDinner: selectedWantsDinner,
+                    servings: selectedServings,
+                });
             }
             if (checked && value === 'dinner') {
                 setSelectedWantsDinner(true);
                 foundMealCheckbox.checked = true;
+                onChoice({
+                    days: selectedDays,
+                    wantsLunch: selectedWantsLunch,
+                    wantsDinner: true,
+                    servings: selectedServings,
+                });
             }
             if (!checked && value === 'lunch') {
                 setSelectedWantsLunch(false);
                 foundMealCheckbox.checked = false;
+                onChoice({
+                    days: selectedDays,
+                    wantsLunch: false,
+                    wantsDinner: selectedWantsDinner,
+                    servings: selectedServings,
+                });
             }
             if (!checked && value === 'dinner') {
                 setSelectedWantsDinner(false);
                 foundMealCheckbox.checked = false;
+                onChoice({
+                    days: selectedDays,
+                    wantsLunch: selectedWantsLunch,
+                    wantsDinner: false,
+                    servings: selectedServings,
+                });
             }
         }
         setMealsCheckboxes(mealsCheckboxesTemp);
     };
 
     const increasePortion = () => {
+        const servingsNew = servings + 1;
         setSelectedServings(selectedServings + 1);
+        onChoice({
+            days: selectedDays,
+            wantsLunch: selectedWantsLunch,
+            wantsDinner: selectedWantsDinner,
+            servings: servingsNew,
+        });
     };
 
     const decreasePortion = () => {
         if (servings > 1) {
-            setSelectedServings(selectedServings - 1);
+            const servingsNew = servings - 1;
+            setSelectedServings(servingsNew);
+            onChoice({
+                days: selectedDays,
+                wantsLunch: selectedWantsLunch,
+                wantsDinner: selectedWantsDinner,
+                servings: servingsNew,
+            });
         }
     };
     return (
@@ -140,7 +184,7 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
                     <Icon icon="plus" size={19} />
                 </button>
             </div>
-            <div>
+            {/* <div>
                 <button
                     type="submit"
                     className="btn-primary float-right"
@@ -157,7 +201,7 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onSave }: W
                 >
                     Save
                 </button>
-            </div>
+            </div> */}
         </div>
     );
 }

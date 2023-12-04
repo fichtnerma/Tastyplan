@@ -6,7 +6,7 @@ import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
 import styles from './PreferencesSettings.module.scss';
 
-type OnSaveFunction = (preferences: {
+type OnChoiceFunction = (preferences: {
     formOfDiet: string;
     allergens: string[];
     foodDislikes: APISearchResponse[];
@@ -15,10 +15,15 @@ type PreferencesSettingsProps = {
     formOfDiet: string;
     allergens: string[];
     foodDislikes: APISearchResponse[];
-    onSave: OnSaveFunction;
+    onChoice: OnChoiceFunction;
 };
 
-export default function PreferencesSettings({ formOfDiet, allergens, foodDislikes, onSave }: PreferencesSettingsProps) {
+export default function PreferencesSettings({
+    formOfDiet,
+    allergens,
+    foodDislikes,
+    onChoice,
+}: PreferencesSettingsProps) {
     const foodDietPreferences = [
         { food: 'vegan', description: 'You dont eat any kind of animal products' },
         { food: 'vegetarian', description: 'You dont eat any meat and fish' },
@@ -108,15 +113,22 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
         const clickedDislike = dislikeName;
         if (!clickedDislike) return;
         const allDislikes = selectedDislikes;
-        setSelectedDislikes(allDislikes.filter((dislike) => dislike.name !== clickedDislike));
+        const newDislikes = allDislikes.filter((dislike) => dislike.name !== clickedDislike);
+        setSelectedDislikes(newDislikes);
+
+        const allergensType = selectedAllergens.map((allergen) => allergen.name);
+        onChoice({ formOfDiet: selectedDiet, allergens: allergensType, foodDislikes: newDislikes });
     };
 
     const onDeleteAllergen = (allergenName: string) => {
         const clickedAllergen = allergenName;
         if (!clickedAllergen) return;
         const allAllergens = selectedAllergens;
-        setSelectedAllergens(allAllergens.filter((allergen) => allergen.name !== clickedAllergen));
+        const allergensNew = allAllergens.filter((allergen) => allergen.name !== clickedAllergen);
+        setSelectedAllergens(allergensNew);
         setCanBeSelectedIntolerances([...canBeSelectedIntolerances, { name: clickedAllergen }]);
+        const allergensType = allergensNew.map((allergen) => allergen.name);
+        onChoice({ formOfDiet: selectedDiet, allergens: allergensType, foodDislikes: selectedDislikes });
     };
 
     const handleClickOnListAndInput = (e: React.MouseEvent) => {
@@ -138,9 +150,13 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
         if (!id || !name) return;
         const clickedDislike = { id: +id, name } as APISearchResponse;
         if (selectedDislikes.find((dislike) => dislike.id === clickedDislike.id)) {
-            setSelectedDislikes(selectedDislikes.filter((dislike) => dislike.id !== clickedDislike.id));
+            const newDislikes = selectedDislikes.filter((dislike) => dislike.id !== clickedDislike.id);
+            setSelectedDislikes(newDislikes);
+            onChoice({ formOfDiet: selectedDiet, allergens: allergens, foodDislikes: newDislikes });
         } else {
-            setSelectedDislikes([...selectedDislikes, clickedDislike]);
+            const newDislikes = [...selectedDislikes, clickedDislike];
+            setSelectedDislikes(newDislikes);
+            onChoice({ formOfDiet: selectedDiet, allergens: allergens, foodDislikes: newDislikes });
         }
     };
 
@@ -148,15 +164,17 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
         const target = e.target as HTMLButtonElement;
         const clickedIntolName = target.getAttribute('data-id');
         if (!clickedIntolName) return;
-
         const clickedAllergen = canBeSelectedIntolerances.find((intol) => intol.name === clickedIntolName);
-
         if (clickedAllergen) {
-            setSelectedAllergens([...selectedAllergens, { name: clickedAllergen.name }]);
+            const allergensNew = [...selectedAllergens, { name: clickedAllergen.name }];
+            setSelectedAllergens(allergensNew);
             const updatedIntolerances = canBeSelectedIntolerances.filter(
                 (intol) => intol.name !== clickedAllergen.name,
             );
             setCanBeSelectedIntolerances(updatedIntolerances);
+
+            const allergensType = allergensNew.map((allergen) => allergen.name);
+            onChoice({ formOfDiet: selectedDiet, allergens: allergensType, foodDislikes: selectedDislikes });
         }
     };
 
@@ -200,6 +218,12 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                                 onClick={() => {
                                     setSelectedDiet(preference.food);
                                     setDropDownState(false);
+                                    const allergensType = selectedAllergens.map((allergen) => allergen.name);
+                                    onChoice({
+                                        formOfDiet: preference.food,
+                                        allergens: allergensType,
+                                        foodDislikes: selectedDislikes,
+                                    });
                                 }}
                             >
                                 {preference.food}
@@ -280,24 +304,6 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                     />
                 </div>
             )}
-            <div>
-                <button
-                    type="submit"
-                    className="btn-primary float-right mt-20"
-                    data-btn="next"
-                    onClick={() => {
-                        const allergensType = selectedAllergens.map((allergen) => allergen.name);
-                        onSave({
-                            formOfDiet: selectedDiet,
-                            allergens: allergensType,
-                            foodDislikes: selectedDislikes,
-                        });
-                    }}
-                    data-cy="next-btn"
-                >
-                    Save
-                </button>
-            </div>
         </div>
     );
 }

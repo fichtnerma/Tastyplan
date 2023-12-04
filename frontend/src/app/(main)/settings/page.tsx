@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import WeekplanSettings from '@components/WeekplanSettings/WeekplanSettings';
 import UserSettings from '@components/UserSettings/UserSettings';
@@ -20,12 +20,29 @@ interface Preferences {
 
 function Settings() {
     const [selectedSettingOption, setSelectedSettingOption] = useState('preferences');
+    const [settings, setSettings] = useState<Preferences>();
+
+    useEffect(() => {
+        console.log(settings);
+    }, [settings]);
 
     const { data: session } = useSession();
     const { data, error } = useFetchWithAuth('/service/preferences') as unknown as {
         data: Preferences;
         error: unknown;
     };
+
+    if (data && !settings) {
+        setSettings({
+            formOfDiet: data.formOfDiet,
+            allergens: data.allergens,
+            foodDislikes: data.foodDislikes,
+            days: data.days,
+            wantsLunch: data.wantsLunch,
+            wantsDinner: data.wantsDinner,
+            servings: data.servings,
+        });
+    }
 
     const saveSettings = async (settings: Preferences) => {
         fetchWithAuth(
@@ -94,44 +111,65 @@ function Settings() {
                 </div>
                 {!error && data ? (
                     <div className="w-4/5">
-                        {selectedSettingOption === 'preferences' && (
+                        {selectedSettingOption === 'preferences' && settings ? (
                             <PreferencesSettings
-                                formOfDiet={data.formOfDiet}
-                                allergens={data.allergens}
-                                foodDislikes={data.foodDislikes}
-                                onSave={(settings: {
+                                formOfDiet={settings.formOfDiet}
+                                allergens={settings.allergens}
+                                foodDislikes={settings.foodDislikes}
+                                onChoice={(setting: {
                                     formOfDiet: string;
                                     allergens: string[];
                                     foodDislikes: APISearchResponse[];
                                 }) => {
-                                    data.formOfDiet = settings.formOfDiet;
-                                    data.allergens = settings.allergens;
-                                    data.foodDislikes = settings.foodDislikes;
-                                    saveSettings(data);
+                                    setSettings({
+                                        ...settings,
+                                        formOfDiet: setting.formOfDiet,
+                                        allergens: setting.allergens,
+                                        foodDislikes: setting.foodDislikes,
+                                    });
                                 }}
                             />
+                        ) : (
+                            <div></div>
                         )}
-                        {selectedSettingOption === 'weekplan' && (
+                        {selectedSettingOption === 'weekplan' && settings ? (
                             <WeekplanSettings
-                                days={data.days}
-                                wantsLunch={data.wantsLunch}
-                                wantsDinner={data.wantsDinner}
-                                servings={data.servings}
-                                onSave={(settings: {
+                                days={settings.days}
+                                wantsLunch={settings.wantsLunch}
+                                wantsDinner={settings.wantsDinner}
+                                servings={settings.servings}
+                                onChoice={(setting: {
                                     days: string[];
                                     wantsLunch: boolean;
                                     wantsDinner: boolean;
                                     servings: number;
                                 }) => {
-                                    data.days = settings.days;
-                                    data.wantsLunch = settings.wantsLunch;
-                                    data.wantsDinner = settings.wantsDinner;
-                                    data.servings = settings.servings;
-                                    saveSettings(data);
+                                    setSettings({
+                                        ...settings,
+                                        days: setting.days,
+                                        wantsLunch: setting.wantsLunch,
+                                        wantsDinner: setting.wantsDinner,
+                                        servings: setting.servings,
+                                    });
                                 }}
                             />
+                        ) : (
+                            <div></div>
                         )}
                         {selectedSettingOption === 'user' && <UserSettings />}
+                        <div>
+                            <button
+                                type="submit"
+                                className="btn-primary float-right"
+                                data-btn="next"
+                                onClick={() => {
+                                    if (settings !== undefined) saveSettings(settings);
+                                }}
+                                data-cy="next-btn"
+                            >
+                                Save
+                            </button>
+                        </div>
                     </div>
                 ) : (
                     <div>loading . . .</div>
