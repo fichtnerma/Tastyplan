@@ -180,8 +180,8 @@ export default function PreferencesSettings({
 
     return (
         <div className="pt-6" onClick={handleClickOnListAndInput}>
-            <h5>Your Food Lifestyle</h5>
-            <div className="w-1/3 pb-12 pl-8">
+            <h5 className="mb-3">Your Food Lifestyle</h5>
+            <div className="w-1/3 pb-6 pl-8">
                 <div
                     className={`flex justify-end items-center relative pr-5 h-[60px] lg:h-[60px] xl:h-[60px] ${styles.choiceWrapper}`}
                 >
@@ -232,7 +232,7 @@ export default function PreferencesSettings({
                     </div>
                 )}
             </div>
-            <h5>Your Intolerances</h5>
+            <h5 className="mb-3">Your Intolerances</h5>
             <div className="pb-4 pl-8">
                 {selectedAllergens.length == 0 ? (
                     <p className="">You don't have any intolerances.</p>
@@ -269,7 +269,7 @@ export default function PreferencesSettings({
                     ))}
                 </div>
             )}
-            <h5>Your Food Dislikes</h5>
+            <h5 className="mb-3">Your Food Dislikes</h5>
             <div className="pb-4 pl-8">
                 {selectedDislikes.length == 0 ? (
                     <p className="">You don't have any dislikes.</p>

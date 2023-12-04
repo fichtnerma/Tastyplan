@@ -144,8 +144,8 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onChoice }:
     };
     return (
         <div className="pt-6">
-            <h5>On what days do you want to cook?</h5>
-            <div className="pl-8 pb-8">
+            <h5 className="mb-3">On what days do you want to cook?</h5>
+            <div className="pl-8 pb-4">
                 <CheckboxGroup
                     checkboxes={daysCheckboxes}
                     groupName="days"
@@ -153,8 +153,8 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onChoice }:
                     disabled={false}
                 />
             </div>
-            <h5 className="mt-8 lg:mt-0 mb-2">What meals do you want to cook?</h5>
-            <div className="pl-8 pb-8">
+            <h5 className="mt-8 lg:mt-0 mb-3">What meals do you want to cook?</h5>
+            <div className="pl-8 pb-4">
                 <CheckboxGroup
                     checkboxes={mealsCheckboxes}
                     groupName="meals"
@@ -162,7 +162,7 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onChoice }:
                     disabled={false}
                 />
             </div>
-            <h5 className="mt-8 lg:mt-4 mb-2">How many servings?</h5>
+            <h5 className="mt-8 lg:mt-0 mb-3">How many servings?</h5>
             <div className="flex pl-8">
                 <button
                     type="button"
@@ -184,24 +184,6 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onChoice }:
                     <Icon icon="plus" size={19} />
                 </button>
             </div>
-            {/* <div>
-                <button
-                    type="submit"
-                    className="btn-primary float-right"
-                    data-btn="next"
-                    onClick={() => {
-                        onSave({
-                            days: selectedDays,
-                            wantsLunch: selectedWantsLunch,
-                            wantsDinner: selectedWantsDinner,
-                            servings: selectedServings,
-                        });
-                    }}
-                    data-cy="next-btn"
-                >
-                    Save
-                </button>
-            </div> */}
         </div>
     );
 }

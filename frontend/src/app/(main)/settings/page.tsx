@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import WeekplanSettings from '@components/WeekplanSettings/WeekplanSettings';
 import UserSettings from '@components/UserSettings/UserSettings';
@@ -21,10 +21,6 @@ interface Preferences {
 function Settings() {
     const [selectedSettingOption, setSelectedSettingOption] = useState('preferences');
     const [settings, setSettings] = useState<Preferences>();
-
-    useEffect(() => {
-        console.log(settings);
-    }, [settings]);
 
     const { data: session } = useSession();
     const { data, error } = useFetchWithAuth('/service/preferences') as unknown as {
