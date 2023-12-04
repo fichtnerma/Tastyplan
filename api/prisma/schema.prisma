@@ -44,6 +44,8 @@ model Recipe {
     lunchEntries  WeekplanEntry[]        @relation(name: "WeekplanEntry_lunch")
     dinnerEntries WeekplanEntry[]        @relation(name: "WeekplanEntry_dinner")
     Favorites     Favorites[]
+    userId        String?
+    user          User?                  @relation(fields: [userId], references: [userId], onDelete: SetNull, onUpdate: Cascade)
 }
 
 model IngredientWithAmount {
@@ -78,6 +80,7 @@ model User {
     Preferences  Preferences[]
     ShoppingList ShoppingList[]
     Favorites    Favorites[]
+    Recipe       Recipe[]
 }
 
 model Preferences {
