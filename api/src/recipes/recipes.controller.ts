@@ -35,9 +35,12 @@ export class RecipesController {
         return this.recipesService.getRecommendations(k, preferences, id);
     }
 
+    @UseGuards(JwtAuthGuard)
+    @ApiSecurity('access-key')
+    @UseInterceptors(ClassSerializerInterceptor)
     @Get('/tags')
-    async getTags() {
-        return this.recipesSearchService.getTags();
+    getRecipeTags() {
+        return this.recipesService.getRecipeTags();
     }
 
     @Get(':id')
