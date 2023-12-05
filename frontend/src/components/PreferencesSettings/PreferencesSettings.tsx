@@ -292,7 +292,7 @@ export default function PreferencesSettings({
                 </button>
             </div>
             {addDislikes == true && (
-                <div className="lg:pl-8 lg:w-1/3 pb-40">
+                <div className="lg:pl-8 lg:w-1/3 lg:pb-40 pb-8">
                     <DislikeSearch
                         searchTerm={searchTerm}
                         searchResult={searchResult}

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { ToastContainer, toast } from 'react-toastify';
 import WeekplanSettings from '@components/WeekplanSettings/WeekplanSettings';
-import UserSettings from '@components/UserSettings/UserSettings';
+// import UserSettings from '@components/UserSettings/UserSettings';
 import PreferencesSettings from '@components/PreferencesSettings/PreferencesSettings';
 import { fetchWithAuth } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
@@ -67,7 +67,7 @@ function Settings() {
             <h1 className="text-green-custom2">Settings</h1>
             <div className="lg:flex inline">
                 <div className="lg:w-1/5 lg:grid lg:grid-cols-2">
-                    <div className="flex justify-between lg:block">
+                    <div className="flex gap-10 lg:block">
                         <button
                             className="appearance-none bg-transparent"
                             onClick={() => setSelectedSettingOption('preferences')}
@@ -92,7 +92,7 @@ function Settings() {
                                 Weekplan
                             </h3>
                         </button>
-                        <button
+                        {/* <button
                             className="appearance-none bg-transparent"
                             onClick={() => setSelectedSettingOption('user')}
                         >
@@ -103,7 +103,7 @@ function Settings() {
                             >
                                 User settings
                             </h3>
-                        </button>
+                        </button> */}
                     </div>
                     <div className="hidden lg:block" style={lineStyle}></div>
                 </div>
@@ -154,7 +154,7 @@ function Settings() {
                         ) : (
                             <div></div>
                         )}
-                        {selectedSettingOption === 'user' && <UserSettings />}
+                        {/* {selectedSettingOption === 'user' && <UserSettings />} */}
                         <div>
                             <button
                                 type="submit"
