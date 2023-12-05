@@ -1,9 +1,59 @@
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import Select, { CSSObjectWithLabel, GroupBase, OptionProps, Options } from 'react-select';
 import Icon from '@components/Icon/Icon';
+import { fetchWithAuth } from '@helpers/utils';
+import styles from './Keyfacts.module.scss';
 
+type SelectOption = {
+    value: string;
+    label: string;
+};
+
+const selectOptions = [
+    { value: 'vegetarian', label: 'Vegatarian' },
+    { value: 'vegan', label: 'Vegan' },
+    { value: 'pescetarian', label: 'Pescetarian' },
+    { value: 'omnivore', label: 'Omnivore' },
+];
+
+const selectStyleOptions = {
+    control: (baseStyles: CSSObjectWithLabel) => ({
+        ...baseStyles,
+        borderWidth: 2,
+        borderColor: '#007370',
+    }),
+    option: (
+        baseStyles: CSSObjectWithLabel,
+        state: OptionProps<{ value: string; label: string }, false, GroupBase<{ value: string; label: string }>>,
+    ) => ({
+        ...baseStyles,
+        backgroundColor: state.isSelected ? '#007370' : '#fffffa',
+        color: state.isSelected ? '#fffffa' : '#7D7D7D',
+        ':active': {
+            backgroundColor: '#00A39E',
+            color: '#fffffa',
+        },
+    }),
+};
 const Keyfacts = () => {
     const [cookingTime, setCookingTime] = useState(0);
     const [servings, setServings] = useState(1);
+    const [selectedOption, setSelectedOption] = useState<SelectOption | null>(null);
+    const { data: session } = useSession();
+
+    const loadTags = async () => {
+        const res = await fetchWithAuth(
+            '/service/recipes/tags',
+            {
+                method: 'GET',
+            },
+            session,
+        );
+
+        const value = await res.json();
+        console.log(value);
+    };
     return (
         <fieldset>
             <legend className="h1">Add the key facts</legend>
@@ -42,8 +92,19 @@ const Keyfacts = () => {
                         <Icon icon="plus" size={19} />
                     </button>
                 </div>
-                <div>
-                    <label htmlFor="">Set the diet</label>
+                <div className={styles.SelectionWrapper}>
+                    <label htmlFor="foodLifeStyle">Set the diet</label>
+                    <Select
+                        name="foodLifeStyle"
+                        defaultValue={selectOptions[0]}
+                        onChange={setSelectedOption}
+                        options={selectOptions}
+                        styles={selectStyleOptions}
+                    />
+                </div>
+                <div className={styles.SelectionWrapper}>
+                    <label htmlFor="foodLifeStyle">Add some tags</label>
+                    <Select name="tags" styles={selectStyleOptions} />
                 </div>
             </div>
         </fieldset>

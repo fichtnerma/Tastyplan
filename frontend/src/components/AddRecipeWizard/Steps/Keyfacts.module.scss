@@ -1,0 +1,7 @@
+.SelectionWrapper {
+    input {
+        &:focus-visible {
+            box-shadow: unset !important;
+        }
+    }
+}
