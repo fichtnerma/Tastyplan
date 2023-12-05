@@ -32,24 +32,24 @@ export default function PreferencesSettings({
         { food: 'pescetarian', description: 'You only eat fish from all animal products' },
     ];
     const allIntolerances = [
-        { name: 'peanuts' },
-        { name: 'hazelnut' },
-        { name: 'walnuts' },
-        { name: 'other nuts' },
-        { name: 'lactose' },
-        { name: 'gluten' },
-        { name: 'eggs' },
-        { name: 'shellfish' },
-        { name: 'fish' },
-        { name: 'soy' },
         { name: 'celery' },
-        { name: 'mustard' },
-        { name: 'sesame' },
-        { name: 'sulfur dioxide' },
+        { name: 'eggs' },
+        { name: 'fish' },
+        { name: 'gluten' },
+        { name: 'hazelnut' },
+        { name: 'lactose' },
         { name: 'lupine' },
         { name: 'mollusk' },
+        { name: 'mustard' },
+        { name: 'other nuts' },
+        { name: 'peanuts' },
+        { name: 'sesame' },
+        { name: 'shellfish' },
+        { name: 'soy' },
+        { name: 'sulfur dioxide' },
+        { name: 'walnuts' },
     ];
-    const allergensObj = allergens.map((allergen) => {
+    const allergensObj = allergens.sort().map((allergen) => {
         return { name: allergen };
     });
     const filteredIntolerances = allIntolerances.filter((intolerance) =>
@@ -58,7 +58,9 @@ export default function PreferencesSettings({
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [selectedDiet, setSelectedDiet] = useState(formOfDiet);
     const [selectedAllergens, setSelectedAllergens] = useState(allergensObj);
-    const [selectedDislikes, setSelectedDislikes] = useState(foodDislikes);
+    const [selectedDislikes, setSelectedDislikes] = useState(
+        foodDislikes.slice().sort((a, b) => a.name.localeCompare(b.name)),
+    );
     const [dropDownState, setDropDownState] = useState(false);
     const [addAllergens, setAddAllergens] = useState(false);
     const [addDislikes, setAddDislikes] = useState(false);
@@ -126,7 +128,10 @@ export default function PreferencesSettings({
         const allAllergens = selectedAllergens;
         const allergensNew = allAllergens.filter((allergen) => allergen.name !== clickedAllergen);
         setSelectedAllergens(allergensNew);
-        setCanBeSelectedIntolerances([...canBeSelectedIntolerances, { name: clickedAllergen }]);
+        const sortedCanBeSelectedIntolerances = [...canBeSelectedIntolerances, { name: clickedAllergen }]
+            .slice()
+            .sort((a, b) => a.name.localeCompare(b.name));
+        setCanBeSelectedIntolerances(sortedCanBeSelectedIntolerances);
         const allergensType = allergensNew.map((allergen) => allergen.name);
         onChoice({ formOfDiet: selectedDiet, allergens: allergensType, foodDislikes: selectedDislikes });
     };
@@ -154,7 +159,9 @@ export default function PreferencesSettings({
             setSelectedDislikes(newDislikes);
             onChoice({ formOfDiet: selectedDiet, allergens: allergens, foodDislikes: newDislikes });
         } else {
-            const newDislikes = [...selectedDislikes, clickedDislike];
+            const newDislikes = [...selectedDislikes, clickedDislike]
+                .slice()
+                .sort((a, b) => a.name.localeCompare(b.name));
             setSelectedDislikes(newDislikes);
             onChoice({ formOfDiet: selectedDiet, allergens: allergens, foodDislikes: newDislikes });
         }
@@ -166,7 +173,9 @@ export default function PreferencesSettings({
         if (!clickedIntolName) return;
         const clickedAllergen = canBeSelectedIntolerances.find((intol) => intol.name === clickedIntolName);
         if (clickedAllergen) {
-            const allergensNew = [...selectedAllergens, { name: clickedAllergen.name }];
+            const allergensNew = [...selectedAllergens, { name: clickedAllergen.name }]
+                .slice()
+                .sort((a, b) => a.name.localeCompare(b.name));
             setSelectedAllergens(allergensNew);
             const updatedIntolerances = canBeSelectedIntolerances.filter(
                 (intol) => intol.name !== clickedAllergen.name,
@@ -256,7 +265,7 @@ export default function PreferencesSettings({
             </div>
             {addAllergens == true && (
                 <div className="lg:pb-8 lg:pl-8 pb-4">
-                    {canBeSelectedIntolerances.map((intol) => (
+                    {canBeSelectedIntolerances.sort().map((intol) => (
                         <button
                             key={intol.name}
                             className="min-w-[70px] capitalize mb-[6px] ml-[6px] border-solid rounded-[50px] border-2 border-green-custom2 bg-white-custom whitespace-nowrap text-[.8rem] hover:bg-green-custom1 py-[5px] px-[6px]"
