@@ -41,8 +41,8 @@ const DialogModal = ({ isOpened, onClose, children, classNames }: Props) => {
             className={`rounded-custom_s max overflow-hidden ${styles.modal}`}
         >
             <div className={`${classNames}`}>
-                <div className=" col-start-2 row-start-1 relative h-6 w-full col-span-2">
-                    <button onClick={handleClose} className="right-0 top-1 absolute text-green-custom2">
+                <div className="relative h-6 w-full flex justify-end">
+                    <button onClick={handleClose} className=" text-green-custom2">
                         <Icon size={20} icon="close" />
                     </button>
                 </div>

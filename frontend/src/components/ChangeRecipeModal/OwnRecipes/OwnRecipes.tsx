@@ -21,11 +21,11 @@ export default function OwnRecipeSection() {
     return (
         <div className="pt-6">
             <h4 className="h3 text-start w-full !mb-0 !sm:mb-1">Found Recipes</h4>
-            <div className="grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 lg:grid-cols-6 lg:grid-rows-1 gap-4 lg:min-w-[980px] lg:min-h-[325px] pt-5 pb-20">
+            <div className="recipeCardGrid">
                 {recipes &&
                     recipes.map((recipeInfo: Recipe) => {
                         return (
-                            <div key={recipeInfo.id}>
+                            <div className="recipeCardWrapper" key={recipeInfo.id}>
                                 <RecipeCard
                                     recipe={recipeInfo}
                                     highlighted={false}

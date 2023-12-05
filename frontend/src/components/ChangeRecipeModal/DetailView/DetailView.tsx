@@ -26,14 +26,14 @@ export default function DetailView() {
     }, [currentRecipeId, session]);
     return (
         <>
-            <button className="col-start-1 row-start-1 h-fit w-fit" onClick={hideDetailView}>
+            <button className="h-fit w-fit absolute" onClick={hideDetailView}>
                 <Icon classNames="inline-flex mr-2" size={16} icon="arrowBack" />
                 Back
             </button>
             {recipe && (
-                <section className="col-span-full row-start-2 w-full h-full overflow-y-auto">
-                    <div className="flex flex-col sm:flex:row gap-6">
-                        <div className="w-full">
+                <section className=" w-full h-full overflow-y-auto">
+                    <div className="flex flex-col sm:flex-row sm:flex:row gap-6">
+                        <div className="w-full sm:w-1/2">
                             <div className="h-96 w-full relative overflow-hidden rounded-[30px]">
                                 <Image
                                     src={`/service/images/${recipe.img}`}
@@ -72,7 +72,7 @@ export default function DetailView() {
                                 </span>
                             </div>
                         </div>
-                        <div className="w-full">
+                        <div className="w-full sm:w-1/2">
                             <span className="h3 hidden sm:block">{recipe.name}</span>
                             <ul className="flex-col gap-2 px-2">
                                 {recipe.ingredients.map((ingredient) => (

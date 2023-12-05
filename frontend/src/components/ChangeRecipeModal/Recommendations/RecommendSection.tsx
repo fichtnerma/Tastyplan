@@ -27,7 +27,7 @@ export default function RecommendSection({ isActive, recipeId }: RecommendSectio
     return (
         <>
             <div className="flex justify-start items-center pt-4 text-black ">
-                <h4 className="h4 text-center !mb-0 !sm:mb-1">Recommended recipes</h4>
+                <h4 className="h4 text-center !mb-0 !sm:mb-1">Recipes for you</h4>
                 <button
                     className="px-3 h:4 sm:h-10 hover:text-green-custom2  z-10"
                     onClick={() => {
@@ -38,11 +38,11 @@ export default function RecommendSection({ isActive, recipeId }: RecommendSectio
                 </button>
             </div>
 
-            <div className="grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 lg:grid-cols-6 lg:grid-rows-1 gap-4 lg:min-w-[980px] lg:min-h-[325px] pt-5 pb-20">
+            <div className="recipeCardGrid">
                 {recipes &&
                     recipes.map((recipeInfo: Recipe) => {
                         return (
-                            <div key={recipeInfo.id}>
+                            <div className="recipeCardWrapper" key={recipeInfo.id}>
                                 <RecipeCard
                                     recipe={recipeInfo}
                                     highlighted={false}

@@ -2,17 +2,13 @@
 
 .modal {
     overflow: hidden;
-    min-width: 100vw;
-        max-width: 100vw;
-        min-height: 95vh;
-        max-height: 95vh;
+        width: 100vw;
+        height: 95vh;
         margin-bottom: 0;
 
     @screen sm {
-        min-width: min(80vw, 1180px);
-        max-width: min(80vw, 1180px);
-        min-height: 80vh;
-        max-height: 80vh;
+        width: min(80vw, 1180px);
+        height: 80vh;
         margin-bottom: auto;
     }
 }

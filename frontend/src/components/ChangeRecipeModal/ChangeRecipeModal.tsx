@@ -82,7 +82,7 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
 
     return (
         <DialogModal
-            classNames="bg-green-custom-super-light grid max-h-[90vh] min-h-[90vh] sm:max-h-[76vh] sm:min-h-[76vh] grid-rows-[1fr_auto] gap-y-4 grid-cols-2"
+            classNames="bg-green-custom-super-light flex flex-col h-full gap-y-4"
             isOpened={open}
             onClose={() => setIsOpened(false)}
         >
@@ -90,7 +90,7 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
                 {mode.at(-1) === 'isDetail' ? (
                     <DetailView />
                 ) : (
-                    <div className="col-span-full row-start-2 w-5/6 m-auto">
+                    <div className="w-[95%] sm:w-5/6 m-auto">
                         <h3 className="h2 text-start text-green-custom2 z-10 relative">Choose a new recipe</h3>
                         <div className="flex gap-3 justify-between flex-col sm:flex-row">
                             <div className="flex sm:gap-4 gap-2">
@@ -132,16 +132,20 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
                                 <Icon icon="search" size={18} />
                             </div>
                         </div>
-                        <div className="min-h-[80vh]">
+                        <div className="">
                             {mode.at(-1) === 'recommend' && <RecommendSection recipeId={recipeId} isActive={open} />}
                             {mode.at(-1) === 'favorite' && <FavoritesSection />}
                             {mode.at(-1) === 'search' && <SearchSection searchQuery={searchQuery} />}
                             {mode.at(-1) === 'own' && <OwnRecipeSection />}
                         </div>
 
-                        <div className="flex justify-end place-content-between pb-5">
-                            <button onClick={() => switchRecipe(undefined)} className="btn-primary  btn-small">
-                                No recipe for this mealtime
+                        <div className="absolute bottom-0 flex justify-end place-content-between pb-5">
+                            <button
+                                onClick={() => switchRecipe(undefined)}
+                                className="btn-primary  btn-small !text-[0.8rem] z-50"
+                            >
+                                <Icon classNames="inline mr-2 w-[1em] h-[1em]" icon="dotted-square" />
+                                No recipe for this time
                             </button>
                         </div>
                     </div>

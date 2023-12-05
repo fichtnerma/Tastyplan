@@ -11,11 +11,11 @@ export default function FavoritesSection() {
                 <h4 className="h4 text-center !mb-1 text-black">Favorites</h4>
             </div>
 
-            <div className="grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 lg:grid-cols-6 lg:grid-rows-1 gap-4 lg:min-w-[980px] lg:min-h-[325px] pt-5 pb-20">
+            <div className="recipeCardGrid">
                 {favorites &&
                     favorites.map((recipeInfo: Recipe) => {
                         return (
-                            <div key={recipeInfo.id}>
+                            <div className="recipeCardWrapper" key={recipeInfo.id}>
                                 <RecipeCard
                                     recipe={recipeInfo}
                                     highlighted={false}

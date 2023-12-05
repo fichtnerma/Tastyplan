@@ -165,3 +165,11 @@ input[type='submit'] {
     border-radius: 10px;
     border: 2px solid #fff;
   }
+
+.recipeCardGrid {
+    @apply overflow-y-auto overflow-x-hidden flex flex-row flex-wrap gap-[2%] lg:min-w-[980px] h-[69vh] sm:h-[52vh] lg:min-h-[325px] pt-5 pb-20;
+}
+
+.recipeCardWrapper {
+    @apply w-[48%] lg:w-[15%] sm:w-[30%];
+}
