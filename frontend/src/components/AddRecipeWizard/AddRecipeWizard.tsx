@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Keyfacts from './Steps/Keyfacts';
 import AddNameAndImage from './Steps/AddNameAndImage';
+import AddIngredients from './Steps/AddIngredients';
 
 type CustomRecipe = {
     name: string;
@@ -31,7 +32,7 @@ const AddRecipeWizard = ({ stepNr }: AddRecipeWizardProps) => {
             case 2:
                 return <Keyfacts />;
             case 3:
-                break;
+                return <AddIngredients />;
             default:
                 return <AddNameAndImage onNameChange={handleNameChange} onUploadedImgChange={onUploadedImgChange} />;
         }
