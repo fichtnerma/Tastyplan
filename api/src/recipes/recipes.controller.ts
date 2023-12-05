@@ -41,7 +41,7 @@ export class RecipesController {
     }
 
     @Get('')
-    async getRecipess(@Query('search') search: string) {
+    async getRecipes(@Query('search') search: string) {
         if (search) {
             return this.recipesSearchService.search(search);
         }

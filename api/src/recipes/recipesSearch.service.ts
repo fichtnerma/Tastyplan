@@ -1,3 +1,4 @@
+import { FilterRecipeDto } from './dto/filter-recipe.dto';
 import { Recipe } from '@prisma/client';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
@@ -31,6 +32,14 @@ export class RecipesSearchService {
             body: {
                 id: recipe.id,
                 name: recipe.name,
+                img: recipe.img,
+                description: recipe.description,
+                formOfDiet: recipe.formOfDiet,
+                preparingTime: recipe.preparingTime,
+                cookingTime: recipe.cookingTime,
+                totalTime: recipe.totalTime,
+                servings: recipe.servings,
+                tags: recipe.tags,
             },
         });
     }
@@ -57,6 +66,34 @@ export class RecipesSearchService {
                     },
                 },
             },
+        });
+        const hits = body.hits.hits;
+        return hits.map((item) => item._source);
+    }
+
+    async filter(filterOptions: FilterRecipeDto) {
+        const { formOfDiet } = filterOptions;
+        const { body } = await this.elasticsearchService.search<RecipeSearchResult>({
+            index: this.index,
+            body: {
+                query: {
+                    bool: {
+                        must: [
+                            {
+                                match: {
+                                    formOfDiet: formOfDiet,
+                                },
+                            },
+                            {
+                                match: {
+                                    tags: 'breakfast',
+                                },
+                            },
+                        ],
+                    },
+                },
+            },
+            size: 10,
         });
         const hits = body.hits.hits;
         return hits.map((item) => item._source);

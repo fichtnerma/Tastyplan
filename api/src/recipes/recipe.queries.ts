@@ -59,7 +59,7 @@ export class RecipeQueries {
         });
     }
     async upsertRecipe(recipe: ExtendetRecipe) {
-        await this.prismaService.recipe.upsert({
+        return await this.prismaService.recipe.upsert({
             where: { id: recipe.id },
             update: {},
             create: {

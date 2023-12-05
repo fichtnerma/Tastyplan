@@ -53,6 +53,10 @@ a {
         box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
     }
 }
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
 
 .custom-focus {
     &:focus {
@@ -137,3 +141,27 @@ input[type='submit'] {
         padding-top: 6rem;
     }
 }
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: var(--green-dark) transparent;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  *::-webkit-scrollbar-track {
+    // background: transparent;
+    background-color: var(--gray-light);
+    border-radius: 10px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--green-dark);
+    border-radius: 10px;
+    border: 2px solid #fff;
+  }

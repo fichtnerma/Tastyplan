@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import RecipeCard from '@components/RecipeCard/RecipeCard';
 import Icon from '@components/Icon/Icon';
 import DialogModal from '@components/DialogModal/DialogModal';
 import { fetchWithAuth } from '@helpers/utils';
+import { SwitchRecipeContext, SwitchRecipeContextType } from '@hooks/useSwitchRecipeContext';
 import { Recipe } from 'src/types/types';
+import SearchSection from './Search/SearchSection';
+import RecommendSection from './Recommendations/RecommendSection';
+import OwnRecipeSection from './OwnRecipes/OwnRecipes';
+import FavoritesSection from './Favorites/FavoritesSection';
+import DetailView from './DetailView/DetailView';
 
 type ChangRecipeModalProps = {
     open: boolean;
@@ -15,24 +20,15 @@ type ChangRecipeModalProps = {
     recipeId?: number;
 };
 
-function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch, recipeId }: ChangRecipeModalProps) {
-    const [newRecipe, setNewRecipe] = useState(false);
-    const [recipes, setRecipes] = useState<Array<Recipe>>([]);
+type ChangeMode = 'recommend' | 'favorite' | 'own' | 'search' | 'isDetail';
+
+export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch, recipeId }: ChangRecipeModalProps) {
+    const [mode, setMode] = useState<ChangeMode[]>(['recommend']);
+    const [currentRecipeId, setCurrentRecipeId] = useState<number | undefined>(recipeId);
+    const [searchQuery, setSearchQuery] = useState('');
     const { data: session } = useSession();
 
-    useEffect(() => {
-        async function getRecipes() {
-            setRecipes([]);
-            const data = await fetchWithAuth(`/service/recipes/recommend/${recipeId}`, { method: 'GET' }, session);
-            const recipesData = (await data.json()) as Array<Recipe>;
-            setRecipes(recipesData);
-        }
-        if (open) {
-            getRecipes();
-        }
-    }, [open, session, newRecipe, recipeId]);
-
-    const switchRecipe = async (recipeId: number | null) => {
+    const switchRecipe = async (recipeId: number | undefined) => {
         setIsOpened(false);
         const changedRecipe = { id: recipeId, weekplanEntry: entryId, isLunch: isLunch, isDinner: !isLunch };
         const recipeRes = await fetchWithAuth(
@@ -50,44 +46,108 @@ function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch, recip
         }
     };
 
+    const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const switchMode = (changedMode: ChangeMode) => {
+        if (mode.at(-1) !== changedMode) {
+            pushMode(changedMode);
+        }
+    };
+
+    const pushMode = (changedMode: ChangeMode) => {
+        if (mode.length < 2) {
+            setMode([...mode, changedMode]);
+        } else {
+            setMode([...mode.slice(1), changedMode]);
+        }
+    };
+
+    const showDetailView = (recipeId: number | undefined) => {
+        pushMode('isDetail');
+        setCurrentRecipeId(recipeId);
+    };
+    const hideDetailView = () => {
+        pushMode(mode.at(-2) as ChangeMode);
+        setCurrentRecipeId(undefined);
+    };
+
+    const switchRecipeContext: SwitchRecipeContextType = {
+        switchRecipe,
+        showDetailView,
+        hideDetailView,
+        currentRecipeId,
+    };
+
     return (
-        <>
-            <DialogModal
-                title="Choose a new recipe"
-                buttonClose="I take the original recipe"
-                buttonProceed="No recipe for this mealtime"
-                isOpened={open}
-                onProceed={() => switchRecipe(null)}
-                onClose={() => setIsOpened(false)}
-            >
-                <>
-                    <div className="grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 lg:grid-cols-6 lg:grid-rows-1 gap-4 lg:min-w-[980px] lg:min-h-[325px] pt-5 pb-20">
-                        {recipes &&
-                            recipes.map((recipeInfo: Recipe) => {
-                                return (
-                                    <div key={recipeInfo.id}>
-                                        <RecipeCard
-                                            recipe={recipeInfo}
-                                            highlighted={false}
-                                            withSwitch={false}
-                                            smallCard={true}
-                                            switchRecipe={() => switchRecipe(recipeInfo.id)}
-                                        />
-                                    </div>
-                                );
-                            })}
-                        <button
-                            className="m-auto text-green-custom2 px-5 hover:text-green-custom3 relative z-10"
-                            onClick={() => {
-                                setNewRecipe(!newRecipe);
-                            }}
-                        >
-                            <Icon size={40} icon="switch"></Icon>
-                        </button>
+        <DialogModal
+            classNames="bg-green-custom-super-light grid max-h-[90vh] min-h-[90vh] sm:max-h-[76vh] sm:min-h-[76vh] grid-rows-[1fr_auto] gap-y-4 grid-cols-2"
+            isOpened={open}
+            onClose={() => setIsOpened(false)}
+        >
+            <SwitchRecipeContext.Provider value={switchRecipeContext}>
+                {mode.at(-1) === 'isDetail' ? (
+                    <DetailView />
+                ) : (
+                    <div className="col-span-full row-start-2 w-5/6 m-auto">
+                        <h3 className="h2 text-start text-green-custom2 z-10 relative">Choose a new recipe</h3>
+                        <div className="flex gap-3 justify-between flex-col sm:flex-row">
+                            <div className="flex sm:gap-4 gap-2">
+                                <button
+                                    onClick={() => switchMode('recommend')}
+                                    className={`btn badge ${
+                                        mode.at(-1) === 'recommend' && 'active'
+                                    } background badge-lg`}
+                                >
+                                    Recommendations
+                                </button>
+                                <button
+                                    onClick={() => switchMode('favorite')}
+                                    className={`btn badge ${
+                                        mode.at(-1) === 'favorite' && 'active'
+                                    } background badge-lg`}
+                                >
+                                    Favorites
+                                </button>
+                                <button
+                                    onClick={() => switchMode('own')}
+                                    className={`btn badge ${mode.at(-1) === 'own' && 'active'} background badge-lg`}
+                                >
+                                    Own Recipes
+                                </button>
+                            </div>
+                            <div
+                                className={`badge ${
+                                    mode.at(-1) === 'search' && 'active'
+                                } background justify-self-end badge-lg order-first sm:order-none w-full sm:w-fit`}
+                            >
+                                <input
+                                    onClick={() => switchMode('search')}
+                                    className="w-full bg-transparent border-none focus:ring-0 focus:border-transparent"
+                                    onChange={handleSearchInput}
+                                    placeholder="Search by recipe name"
+                                    value={searchQuery}
+                                />{' '}
+                                <Icon icon="search" size={18} />
+                            </div>
+                        </div>
+                        <div className="min-h-[80vh]">
+                            {mode.at(-1) === 'recommend' && <RecommendSection recipeId={recipeId} isActive={open} />}
+                            {mode.at(-1) === 'favorite' && <FavoritesSection />}
+                            {mode.at(-1) === 'search' && <SearchSection searchQuery={searchQuery} />}
+                            {mode.at(-1) === 'own' && <OwnRecipeSection />}
+                        </div>
+
+                        <div className="flex justify-end place-content-between pb-5">
+                            <button onClick={() => switchRecipe(undefined)} className="btn-primary  btn-small">
+                                No recipe for this mealtime
+                            </button>
+                        </div>
                     </div>
-                </>
-            </DialogModal>
-        </>
+                )}
+            </SwitchRecipeContext.Provider>
+        </DialogModal>
     );
 }
 
