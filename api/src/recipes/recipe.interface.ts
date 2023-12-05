@@ -1,6 +1,6 @@
 import { Recipe, Step } from '@prisma/client';
 
-export type ExtendetRecipe = Recipe & {
+export type ExtendetRecipe = Omit<Recipe, 'id'> & {
     steps: Step[];
     ingredients: {
         ingredientId: number;

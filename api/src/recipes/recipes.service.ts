@@ -35,7 +35,7 @@ export class RecipesService {
         await this.cache.set('recipes', recipesFormatted, 0);
     }
 
-    async createRecipe(recipe: RecipeInput) {
+    async createRecipe(recipe: RecipeInput, recipeId: number) {
         const extendedRecipe: ExtendetRecipe = {
             ...recipe,
             cookingTime: convertToTime(recipe.cookingTime) || 0,
@@ -44,7 +44,7 @@ export class RecipesService {
             servings: +recipe.servings || 4,
             formOfDiet: recipe.formOfDiet || 'omnivore',
         };
-        await this.recipeQueries.upsertRecipe(extendedRecipe);
+        await this.recipeQueires.upsertRecipe(extendedRecipe, recipeId);
     }
 
     async categorizeRecipe(

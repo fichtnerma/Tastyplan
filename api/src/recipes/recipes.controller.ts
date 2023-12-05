@@ -6,6 +6,7 @@ import { PreferencesService } from 'src/preferences/preferences.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from '@prisma/client';
 import { ApiSecurity } from '@nestjs/swagger';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import {
     Body,
     ClassSerializerInterceptor,
@@ -48,7 +49,17 @@ export class RecipesController {
 
     @Post('/create')
     async postRecipe(@Req() request: RequestWithUser, @Body() postRecipeDto: PostRecipeDto) {
-        return await this.recipesService.postRecipe(postRecipeDto);
+        try {
+            return await this.recipesService.postRecipe(postRecipeDto);
+        } catch (error) {
+            throw new HttpException(
+                {
+                    status: HttpStatus.INTERNAL_SERVER_ERROR,
+                    error: 'ERROR: Creating recipe failed!',
+                },
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
     }
 
     @Get(':id')

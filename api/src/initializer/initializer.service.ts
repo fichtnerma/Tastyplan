@@ -40,8 +40,8 @@ export class InitializerService implements OnApplicationBootstrap {
         if (shouldUpdate) {
             for await (const recipe of this.syncRecipes(recipes)) {
                 console.log('Recipe to save: ', recipe.name, 'with index: ', recipe.id);
-
-                await this.recipeService.createRecipe(recipe);
+                const { id, ...recipeWithoutId } = recipe;
+                await this.recipeService.createRecipe(recipeWithoutId, id);
             }
         }
         const allRecipes = await this.prismaService.recipe.findMany({});

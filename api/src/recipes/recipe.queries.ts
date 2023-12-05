@@ -58,9 +58,9 @@ export class RecipeQueries {
             },
         });
     }
-    async upsertRecipe(recipe: ExtendetRecipe) {
-        return await this.prismaService.recipe.upsert({
-            where: { id: recipe.id },
+    async upsertRecipe(recipe: ExtendetRecipe, recipeId: number) {
+        await this.prismaService.recipe.upsert({
+            where: { id: recipeId },
             update: {},
             create: {
                 ...recipe,
@@ -128,7 +128,7 @@ export class RecipeQueries {
                 formOfDiet: recipe.formOfDiet,
                 ingredients: {
                     createMany: {
-                        data: [...recipe.ingredients],
+                        data: recipe.ingredients || [],
                     },
                 },
                 steps: {
@@ -138,9 +138,6 @@ export class RecipeQueries {
                 },
                 userId: recipe.userId || undefined,
             };
-            console.log('These are the recipe data', recipeData);
-            console.log('Stps ID', recipe.steps);
-            console.log('Ingredients ID', recipe.ingredients);
             return await this.prismaService.recipe.create({
                 data: recipeData,
             });
