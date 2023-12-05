@@ -1,7 +1,8 @@
 import { RecipesSearchService } from './recipesSearch.service';
 import { Preferences, RecipesFilterService } from './recipesFilter.service';
 import { RecipeQueries } from './recipe.queries';
-import { ExtendetRecipe, RecipeInput } from './recipe.interface';
+import { ExtendetRecipe, RecipeInput, CreateRecipeInput } from './recipe.interface';
+import { PostRecipeDto } from './dto/post-recipe.dto';
 import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
 import { Cache } from 'cache-manager';
 import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -155,7 +156,11 @@ export class RecipesService {
             throw new InternalServerErrorException('Error: no k random recipes could be created');
         }
     }
-    async getRecipeTags() {
+    async postRecipe(postRecipeDto: PostRecipeDto) {
+        const createRecipeInput: CreateRecipeInput = { ...postRecipeDto };
+        return this.recipeQueires.createRecipe(createRecipeInput);
+    }
+    getRecipeTags() {
         const tags = [
             'african',
             'appetizers and snacks',

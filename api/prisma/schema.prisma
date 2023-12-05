@@ -34,7 +34,7 @@ model Recipe {
     img           String?
     description   String?
     cookingTime   Int?
-    preparingTime Int
+    preparingTime Int?
     totalTime     Int
     servings      Int
     tags          String[]
@@ -45,7 +45,7 @@ model Recipe {
     dinnerEntries WeekplanEntry[]        @relation(name: "WeekplanEntry_dinner")
     Favorites     Favorites[]
     userId        String?
-    user          User?                  @relation(fields: [userId], references: [userId], onDelete: SetNull, onUpdate: Cascade)
+    user          User?                  @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
 }
 
 model IngredientWithAmount {

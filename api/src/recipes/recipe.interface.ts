@@ -4,16 +4,36 @@ export type ExtendetRecipe = Recipe & {
     steps: Step[];
     ingredients: {
         ingredientId: number;
-        condition: string | null;
-        unit: string | null;
-        quantity: number | null;
+        condition?: string | null;
+        unit?: string | null;
+        quantity?: number | null;
     }[];
 };
 
 //Only purpose is here to get the times in strings
 //Defenietly not the best way to do it
 export type RecipeInput = ExtendetRecipe & {
-    cookingTime: string;
+    cookingTime?: string;
     totalTime: string;
-    prepareTime: string;
+    prepareTime?: string;
+};
+
+export type CreateRecipeInput = {
+    name: string;
+    img?: string;
+    totalTime?: number;
+    servings: number;
+    tags?: string[];
+    formOfDiet: string;
+    ingredients?: {
+        ingredientId: number;
+        condition?: string | null;
+        unit?: string | null;
+        quantity?: number | null;
+    }[];
+    steps?: {
+        description: string;
+        stepCount: number;
+    }[];
+    userId?: string | null;
 };
