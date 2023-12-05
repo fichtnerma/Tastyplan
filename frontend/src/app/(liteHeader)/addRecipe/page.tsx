@@ -5,12 +5,8 @@ import AddRecipeWizard from '@components/AddRecipeWizard/AddRecipeWizard';
 
 const stepNames = ['Name and Image', 'Key Facts', 'Steps'];
 
-const addRecipePage = () => {
+const AddRecipePage = () => {
     const [currentStep, setCurrentStep] = useState(1);
-
-    const handleProgBarClick = (elementName: string) => {
-        console.log(elementName);
-    };
 
     return (
         <div className="flex flex-col h-[90vh] px-4 pt-7 pb-4">
@@ -18,16 +14,24 @@ const addRecipePage = () => {
                 stepNames={stepNames}
                 activeStep={currentStep}
                 foodLifeStyleSelected={false}
-                onClick={handleProgBarClick}
+                onClick={() => setCurrentStep(currentStep + 1)}
             />
             <br />
-            <AddRecipeWizard />
+            <AddRecipeWizard stepNr={currentStep} />
             <div className="flex justify-between mt-auto">
-                <button className="btn-primary">back</button>
-                <button className="btn-primary">next</button>
+                <button
+                    className="btn-primary"
+                    disabled={currentStep === 1}
+                    onClick={() => setCurrentStep(currentStep - 1)}
+                >
+                    back
+                </button>
+                <button className="btn-primary" onClick={() => setCurrentStep(currentStep + 1)}>
+                    next
+                </button>
             </div>
         </div>
     );
 };
 
-export default addRecipePage;
+export default AddRecipePage;
