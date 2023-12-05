@@ -3,10 +3,14 @@ import { useState } from 'react';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
 import AddRecipeWizard from '@components/AddRecipeWizard/AddRecipeWizard';
 
-const stepNames = ['Name and Image', 'Key Facts', 'Steps'];
+const stepNames = ['Name and Image', 'Key Facts', 'Add Ingredients', 'Steps'];
 
 const AddRecipePage = () => {
     const [currentStep, setCurrentStep] = useState(1);
+
+    const sendData = async () => {
+        console.log('send Data');
+    };
 
     return (
         <div className="flex flex-col h-[90vh] px-4 pt-7 pb-4">
@@ -26,9 +30,15 @@ const AddRecipePage = () => {
                 >
                     back
                 </button>
-                <button className="btn-primary" onClick={() => setCurrentStep(currentStep + 1)}>
-                    next
-                </button>
+                {currentStep !== stepNames.length ? (
+                    <button className="btn-primary" onClick={() => setCurrentStep(currentStep + 1)}>
+                        next
+                    </button>
+                ) : (
+                    <button className="btn-primary" onClick={sendData}>
+                        create recipe
+                    </button>
+                )}
             </div>
         </div>
     );

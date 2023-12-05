@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import Select, { CSSObjectWithLabel, GroupBase, OptionProps, Options } from 'react-select';
+import Select, { CSSObjectWithLabel, GroupBase, OptionProps } from 'react-select';
 import Icon from '@components/Icon/Icon';
 import { fetchWithAuth } from '@helpers/utils';
 import styles from './Keyfacts.module.scss';
@@ -36,7 +36,13 @@ const selectStyleOptions = {
         },
     }),
 };
-const Keyfacts = () => {
+
+type KeyfactsProps = {
+    onCookingTime: (cookingTime: number) => void;
+    onServings: (servings: number) => void;
+    onFoodLifestyle: (lifestyle: string) => void;
+};
+const Keyfacts = ({ onCookingTime, onServings, onFoodLifestyle }: KeyfactsProps) => {
     const [cookingTime, setCookingTime] = useState(0);
     const [servings, setServings] = useState(1);
     const [selectedOption, setSelectedOption] = useState<SelectOption | null>(null);
@@ -54,6 +60,23 @@ const Keyfacts = () => {
         const value = await res.json();
         console.log(value);
     };
+
+    const handleCookingTimeChange = (cookingTime: number) => {
+        setCookingTime(cookingTime);
+        onCookingTime(cookingTime);
+    };
+
+    const handleServingsChange = (servings: number) => {
+        setServings(servings);
+        onServings(servings);
+    };
+
+    const handleSelectionChange = (selectedOption: SelectOption) => {
+        console.log(selectedOption);
+        setSelectedOption(selectedOption);
+        onFoodLifestyle(selectedOption.value);
+    };
+
     return (
         <fieldset>
             <legend className="h1">Add the key facts</legend>
@@ -64,7 +87,7 @@ const Keyfacts = () => {
                     type="number"
                     name="cookingTime"
                     value={cookingTime}
-                    onChange={(e) => setCookingTime(parseInt(e.target.value))}
+                    onChange={(e) => handleCookingTimeChange(parseInt(e.target.value))}
                     required
                     min={0}
                 />
@@ -77,7 +100,7 @@ const Keyfacts = () => {
                     <button
                         type="button"
                         className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0"
-                        onClick={() => setServings(servings - 1)}
+                        onClick={() => handleServingsChange(servings - 1)}
                     >
                         <Icon icon="minus" size={19} />
                     </button>
@@ -87,7 +110,7 @@ const Keyfacts = () => {
                     <button
                         type="button"
                         className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0 mr-5"
-                        onClick={() => setServings(servings + 1)}
+                        onClick={() => handleServingsChange(servings + 1)}
                     >
                         <Icon icon="plus" size={19} />
                     </button>
@@ -97,7 +120,7 @@ const Keyfacts = () => {
                     <Select
                         name="foodLifeStyle"
                         defaultValue={selectOptions[0]}
-                        onChange={setSelectedOption}
+                        onChange={handleSelectionChange}
                         options={selectOptions}
                         styles={selectStyleOptions}
                     />

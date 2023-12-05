@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import TextInput from '@components/FormInputs/TextInput';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
 
@@ -12,13 +13,16 @@ const AddIngredients = () => {
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [amount, setAmount] = useState(1);
+    const [unit, setUnit] = useState('');
 
-    console.log(searchResult);
+    const searchChanged = (value: string) => {
+        setSearchTerm(() => value);
+        const debouncedHandler = debounce(() => handleSearch(value), 250);
+        debouncedHandler();
+    };
 
     const handleSearch = async (searchTerm: string) => {
-        setSearchTerm(() => searchTerm);
-        const debouncedHandler = debounce(() => handleSearch(searchTerm), 250);
-        debouncedHandler();
         const res = await fetch(`/service/ingredients?search=${searchTerm}`);
         if (!res.ok) {
             return;
@@ -32,18 +36,20 @@ const AddIngredients = () => {
             <legend className="h1">Add ingredients</legend>
             <div>list</div>
             <div>
-                <div>
+                <TextInput label="Ingredient" value={searchTerm} onChange={searchChanged} />
+                <div className="flex flex-col">
                     <label htmlFor="amount">Amount</label>
-                    <input type="text" name="amount" id="amount" />
+                    <input
+                        className="border-2 border-green-custom2"
+                        type="number"
+                        name="amount"
+                        id="amount"
+                        min={0}
+                        value={amount}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAmount(+e.target.value)}
+                    />
                 </div>
-                <div>
-                    <label htmlFor="ingredient">Ingredient</label>
-                    <input type="text" name="ingredient" id="ingredient" onChange={handleSearch} />
-                </div>
-                <div>
-                    <label htmlFor="unit">Unit</label>
-                    <input type="text" name="unit" id="unit" />
-                </div>
+                <TextInput label="Unit" value={unit} onChange={setUnit} />
             </div>
         </fieldset>
     );
