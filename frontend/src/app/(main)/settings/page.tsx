@@ -23,6 +23,7 @@ interface Preferences {
 function Settings() {
     const [selectedSettingOption, setSelectedSettingOption] = useState('preferences');
     const [settings, setSettings] = useState<Preferences>();
+    const [oldSettings, setOldSettings] = useState<Preferences>();
 
     const { data: session } = useSession();
     const { data, error } = useFetchWithAuth('/service/preferences') as unknown as {
@@ -32,6 +33,15 @@ function Settings() {
 
     if (data && !settings) {
         setSettings({
+            formOfDiet: data.formOfDiet,
+            allergens: data.allergens,
+            foodDislikes: data.foodDislikes,
+            days: data.days,
+            wantsLunch: data.wantsLunch,
+            wantsDinner: data.wantsDinner,
+            servings: data.servings,
+        });
+        setOldSettings({
             formOfDiet: data.formOfDiet,
             allergens: data.allergens,
             foodDislikes: data.foodDislikes,
@@ -51,6 +61,7 @@ function Settings() {
             },
             session,
         );
+        setOldSettings(settings);
     };
 
     const lineStyle: React.CSSProperties = {
@@ -164,6 +175,7 @@ function Settings() {
                                     if (settings !== undefined) saveSettings(settings);
                                     toast.success('Settings saved!');
                                 }}
+                                disabled={JSON.stringify(settings) === JSON.stringify(oldSettings)}
                                 data-cy="next-btn"
                             >
                                 Save
