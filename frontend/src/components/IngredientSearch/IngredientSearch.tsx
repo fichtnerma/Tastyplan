@@ -1,16 +1,21 @@
+import { useState } from 'react';
 import AsyncSelect from 'react-select/async';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
-import { useState } from 'react';
 
-type SelectOption = {
+export type SelectOption = {
     id: number;
     value: string;
     label: string;
 };
 
-const IngredientSearch = () => {
+type IngredientSearchProps = {
+    onSelectOption: (ingredients: SelectOption) => void;
+};
+
+const IngredientSearch = ({ onSelectOption }: IngredientSearchProps) => {
     const [searchResult, setSearchResult] = useState<SelectOption[]>([]);
+    const [selecedOption, setSelectedOption] = useState<SelectOption>();
 
     const handleSearch = async (searchTerm: string) => {
         const res = await fetch(`/service/ingredients?search=${searchTerm}`);
@@ -36,13 +41,14 @@ const IngredientSearch = () => {
         callback(searchResult);
     };
 
+    const handleSelectionChange = (option: SelectOption) => {
+        setSelectedOption(option);
+        onSelectOption(option);
+    };
+
     return (
         <div>
-            <AsyncSelect
-                name="ingredients"
-                loadOptions={loadOptions}
-                isMulti={true}
-            />
+            <AsyncSelect name="ingredients" onChange={handleSelectionChange} loadOptions={loadOptions} />
         </div>
     );
 };

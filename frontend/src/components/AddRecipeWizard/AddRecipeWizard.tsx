@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Ingredient } from 'src/types/types';
 import Keyfacts from './Steps/Keyfacts';
 import AddSteps, { CustomStep } from './Steps/AddSteps';
@@ -8,6 +8,7 @@ import AddIngredients from './Steps/AddIngredients';
 type CustomRecipe = {
     name: string;
     imageFile: File | undefined;
+    ingredients: Ingredient[];
     cookingTime: number;
     servings: number;
     foodLifestyle: string;
@@ -22,10 +23,15 @@ const AddRecipeWizard = ({ stepNr }: AddRecipeWizardProps) => {
     const [customRecipe, setCustomeRecipe] = useState<CustomRecipe>({
         name: '',
         imageFile: undefined,
+        ingredients: [],
         cookingTime: 10,
         servings: 1,
         foodLifestyle: 'vegetarian',
         steps: [],
+    });
+
+    useEffect(() => {
+        console.log(customRecipe);
     });
 
     const handleNameChange = (name: string) => {
@@ -58,8 +64,10 @@ const AddRecipeWizard = ({ stepNr }: AddRecipeWizardProps) => {
         setCustomeRecipe(currentRecipe);
     };
 
-    const handleAddIngredient = (ingredients: Ingredient[]) => {
-        console.log('add ingredient');
+    const handleAddIngredient = (ingredient: Ingredient) => {
+        const currentRecipe = { ...customRecipe };
+        currentRecipe.ingredients.push(ingredient);
+        setCustomeRecipe(currentRecipe);
     };
 
     const handleAddSteps = (steps: CustomStep[]) => {

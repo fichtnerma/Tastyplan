@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import IngredientSearch, { SelectOption } from '@components/IngredientSearch/IngredientSearch';
 import TextInput from '@components/FormInputs/TextInput';
+import { debounce } from '@helpers/utils';
+import { APISearchResponse } from 'src/types/types';
 import { Ingredient } from 'src/types/types';
 
 type AddIngredientsProps = {
@@ -13,10 +15,10 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
     const [unit, setUnit] = useState('');
 
     const handleAddIngredient = () => {
-        if (selectedOption === undefined) return;
+        console.log('handleAddIngredient');
         onAddIngredient({
-            id: selectedOption.id,
-            ingredient: { name: selectedOption.value },
+            id: selectedOption?.id,
+            ingredient: { name: selectedOption?.value },
             quantity: amount,
             unit,
         });
