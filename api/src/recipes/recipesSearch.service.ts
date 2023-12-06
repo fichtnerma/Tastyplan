@@ -12,6 +12,17 @@ export interface RecipeSearchResult {
     };
 }
 
+export interface RecipeSearchResultWithAggregations extends RecipeSearchResult {
+    aggregations: {
+        tags: {
+            buckets: Array<{
+                key: string;
+                doc_count: number;
+            }>;
+        };
+    };
+}
+
 export interface RecipeSearchBody {
     id: number;
     name: string;
@@ -43,15 +54,23 @@ export class RecipesSearchService {
             },
         });
     }
-    async createIndex(recipes: Recipe[]) {
-        try {
-            await this.elasticsearchService.indices.create({ index: this.index });
-            const body = recipes.flatMap((ingredient) => [
-                { index: { _index: this.index } },
-                { id: ingredient.id, name: ingredient.name },
-            ]);
-            return await this.elasticsearchService.bulk({ refresh: true, body });
-        } catch (error) {}
+
+    async getTags() {
+        const { body } = await this.elasticsearchService.search<RecipeSearchResultWithAggregations>({
+            index: this.index,
+            size: 0,
+            body: {
+                aggs: {
+                    tags: {
+                        terms: {
+                            field: 'tags.keyword',
+                            size: 1000,
+                        },
+                    },
+                },
+            },
+        });
+        return body.aggregations.tags.buckets.map((bucket) => bucket.key);
     }
 
     async search(text: string) {
