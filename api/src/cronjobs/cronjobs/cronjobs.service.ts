@@ -17,8 +17,12 @@ export class CronjobsService {
             expiringDate.setDate(expiringDate.getDate() + 2);
             expiringDate.setHours(0, 0, 0, 0);
             if (currentWeekplan.endDate <= expiringDate) {
-                await this.weekplanService.create(user.userId);
-                console.log('New Weekplan for user: ' + user.userId + ' created');
+                try {
+                    await this.weekplanService.create(user.userId);
+                    console.log('New Weekplan for user: ' + user.userId + ' created');
+                } catch (error) {
+                    console.log('Error creating new Weekplan for user: ' + user.userId + ' ' + error);
+                }
             }
         }
         console.log('##########Cronjob Create Weekplan END##########');
