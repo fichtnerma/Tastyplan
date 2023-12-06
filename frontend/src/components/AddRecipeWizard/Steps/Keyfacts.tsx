@@ -72,7 +72,6 @@ const Keyfacts = ({ onCookingTime, onServings, onFoodLifestyle }: KeyfactsProps)
     };
 
     const handleSelectionChange = (selectedOption: SelectOption) => {
-        console.log(selectedOption);
         setSelectedOption(selectedOption);
         onFoodLifestyle(selectedOption.value);
     };

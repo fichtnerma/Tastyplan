@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import IngredientSearch from '@components/IngredientSearch/IngredientSearch';
 import TextInput from '@components/FormInputs/TextInput';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
@@ -12,6 +13,7 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isInputFocus, setInputFocus] = useState(false);
     const [amount, setAmount] = useState(1);
     const [unit, setUnit] = useState('');
 
@@ -38,8 +40,8 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
         <fieldset>
             <legend className="h1">Add ingredients</legend>
             <div>list</div>
+            <IngredientSearch />
             <div className="mb-5">
-                <TextInput label="Ingredient" value={searchTerm} onChange={searchChanged} />
                 <div className="flex flex-col my-3">
                     <label htmlFor="amount">Amount</label>
                     <input
