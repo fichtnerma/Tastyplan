@@ -1,3 +1,4 @@
+import { RecipesSearchService } from './recipesSearch.service';
 import { Preferences, RecipesFilterService } from './recipesFilter.service';
 import { RecipeQueries } from './recipe.queries';
 import { ExtendetRecipe, RecipeInput } from './recipe.interface';
@@ -11,19 +12,20 @@ export class RecipesService {
     constructor(
         @Inject(CACHE_MANAGER) private readonly cache: Cache,
         private recipeFilterService: RecipesFilterService,
-        private recipeQueires: RecipeQueries,
+        private recipeSearchService: RecipesSearchService,
+        private recipeQueries: RecipeQueries,
     ) {}
 
     async findById(id: number) {
         try {
-            return await this.recipeQueires.findUniqueRecipe(id);
+            return await this.recipeQueries.findUniqueRecipe(id);
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to find recipe by id');
         }
     }
 
     async storeInRedis() {
-        const recipes = await this.recipeQueires.findManyRecipes();
+        const recipes = await this.recipeQueries.findManyRecipes();
 
         const recipesFormatted = recipes.map((recipe) => ({
             ...recipe,
@@ -41,7 +43,8 @@ export class RecipesService {
             servings: +recipe.servings || 4,
             formOfDiet: recipe.formOfDiet || 'omnivore',
         };
-        await this.recipeQueires.upsertRecipe(extendedRecipe);
+        const savedRecipe = await this.recipeQueries.upsertRecipe(extendedRecipe);
+        await this.recipeSearchService.indexRecipe(savedRecipe);
     }
 
     async categorizeRecipe(
@@ -143,7 +146,7 @@ export class RecipesService {
 
             const shuffeledMeals = shuffleArray(fetchedMeals);
             const recipeIds = shuffeledMeals.slice(0, k);
-            const recipes = await this.recipeQueires.findManyRecipesWithId(recipeIds.map((object) => object.id));
+            const recipes = await this.recipeQueries.findManyRecipesWithId(recipeIds.map((object) => object.id));
 
             return recipes;
         } catch (error) {

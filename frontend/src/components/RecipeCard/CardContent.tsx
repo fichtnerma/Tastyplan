@@ -23,7 +23,7 @@ function CardContent({ recipe, highlighted = false, smallCard = false }: CardCon
 
     return (
         <>
-            <div className={` w-full h-full absolute rounded-custom_s ${styles.foodBox}`}>
+            <div className={`w-full h-full absolute rounded-custom_s ${styles.foodBox}`}>
                 <Image
                     src={`/service/images/${recipe.img}`}
                     width={200}
@@ -52,7 +52,7 @@ function CardContent({ recipe, highlighted = false, smallCard = false }: CardCon
                                     color: highlighted ? 'var(--white)' : 'var(--black)',
                                 }}
                             >
-                                {recipe.name}
+                                <span className={styles.recipeTitle}>{recipe.name}</span>
                             </div>
                         </div>
                     </div>

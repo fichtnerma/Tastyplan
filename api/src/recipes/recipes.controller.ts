@@ -35,13 +35,18 @@ export class RecipesController {
         return this.recipesService.getRecommendations(k, preferences, id);
     }
 
+    @Get('/tags')
+    async getTags() {
+        return this.recipesSearchService.getTags();
+    }
+
     @Get(':id')
     public findOne(@Param('id') id: string) {
         return this.recipesService.findById(+id);
     }
 
     @Get('')
-    async getRecipess(@Query('search') search: string) {
+    async getRecipes(@Query('search') search: string) {
         if (search) {
             return this.recipesSearchService.search(search);
         }
