@@ -25,11 +25,11 @@ export default function PreferencesSettings({
     onChoice,
 }: PreferencesSettingsProps) {
     const foodDietPreferences = [
-        { food: 'vegan', description: 'You dont eat any kind of animal products' },
-        { food: 'vegetarian', description: 'You dont eat any meat and fish' },
-        { food: 'omnivore', description: 'You eat all animal products' },
-        { food: 'flexitarian', description: 'You rarely eat all animal products' },
-        { food: 'pescetarian', description: 'You only eat fish from all animal products' },
+        { food: 'vegan', description: 'You dont eat any kind of animal products', icon: 'Vegan-color' },
+        { food: 'vegetarian', description: 'You dont eat any meat and fish', icon: 'Vegetarisch-color' },
+        { food: 'omnivore', description: 'You eat all animal products', icon: 'Omnivor-color' },
+        { food: 'flexitarian', description: 'You rarely eat all animal products', icon: 'Flexitarisch-color' },
+        { food: 'pescetarian', description: 'You only eat fish from all animal products', icon: 'Pescetarisch-color' },
     ];
     const allIntolerances = [
         { name: 'celery' },
@@ -190,10 +190,18 @@ export default function PreferencesSettings({
     return (
         <div className="lg:pt-6" onClick={handleClickOnListAndInput}>
             <h5 className="mb-3">Your Food Lifestyle</h5>
-            <div className="lg:w-1/3 lg:pb-6 pb-4 lg:pl-8">
+            <div className="lg:w-1/2 lg:pb-6 pb-4 lg:pl-8">
                 <div
-                    className={`flex justify-end items-center relative pr-5 h-[60px] lg:h-[60px] xl:h-[60px] ${styles.choiceWrapper}`}
+                    className={`flex justify-between items-center relative pr-5 h-[60px] lg:h-[60px] xl:h-[60px] ${styles.choiceWrapper}`}
                 >
+                    <div className="pl-2 z-[2]">
+                        <Icon
+                            size={50}
+                            icon={
+                                foodDietPreferences.find((preference) => preference.food === selectedDiet)?.icon || ''
+                            }
+                        ></Icon>
+                    </div>
                     <input
                         className={`absolute top-0 right-0 bottom-0 left-0 cursor:pointer opacity=[.01] z-[-1] w-full h-full rounded-2xl hover:cursor-pointer custom-focus ${styles.customInput}`}
                         type="radio"
@@ -205,8 +213,8 @@ export default function PreferencesSettings({
                         className={`absolute top-0 right-0 bottom-0 left-0 hover:cursor-pointer flex flex-col items-left justify-center border-2 border-solid border-green-custom1 rounded-2xl z-[1] font-medium text-[1.13rem] leading-7 pl-6 col-start-1 ${styles.customLabel}`}
                         onClick={handleDropDownState}
                     >
-                        <p className="capitalize">{selectedDiet}</p>
-                        <p className="text-xs lg:max-w-[170px] xl:max-w-[unset]">
+                        <p className="capitalize ml-12">{selectedDiet}</p>
+                        <p className="ml-12 text-xs lg:max-w-[170px] xl:max-w-[unset]">
                             {foodDietPreferences.find((preference) => preference.food === selectedDiet)?.description}
                         </p>
                     </label>
