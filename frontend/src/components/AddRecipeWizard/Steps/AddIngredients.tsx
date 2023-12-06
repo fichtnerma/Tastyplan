@@ -2,14 +2,13 @@ import { useState } from 'react';
 import TextInput from '@components/FormInputs/TextInput';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
+import { Ingredient } from 'src/types/types';
 
-type Ingredient = {
-    name: string;
-    amount: number;
-    unit: string;
+type AddIngredientsProps = {
+    onAddIngredient: (ingredients: Ingredient[]) => void;
 };
 
-const AddIngredients = () => {
+const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
     const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -31,13 +30,17 @@ const AddIngredients = () => {
         setSearchResult([...data]);
     };
 
+    const handleAddIngredient = () => {
+        console.log('handleAddIngredient');
+    };
+
     return (
         <fieldset>
             <legend className="h1">Add ingredients</legend>
             <div>list</div>
-            <div>
+            <div className="mb-5">
                 <TextInput label="Ingredient" value={searchTerm} onChange={searchChanged} />
-                <div className="flex flex-col">
+                <div className="flex flex-col my-3">
                     <label htmlFor="amount">Amount</label>
                     <input
                         className="border-2 border-green-custom2"
@@ -51,6 +54,9 @@ const AddIngredients = () => {
                 </div>
                 <TextInput label="Unit" value={unit} onChange={setUnit} />
             </div>
+            <button className="btn-primary" onClick={handleAddIngredient} disabled={unit.length === 0 || amount === 0}>
+                Add ingredient
+            </button>
         </fieldset>
     );
 };

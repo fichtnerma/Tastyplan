@@ -4,21 +4,22 @@ import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } 
 import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
 import TextInput from '@components/FormInputs/TextInput';
 
-type Step = {
+export type CustomStep = {
     id: string;
     title: string;
     description: string;
 };
 
-const stepDummies: Step[] = [
+const stepDummies: CustomStep[] = [
     { id: self.crypto.randomUUID(), title: 'Step 1', description: 'This is step 1' },
     { id: self.crypto.randomUUID(), title: 'Step 2', description: 'This is Step 2' },
     { id: self.crypto.randomUUID(), title: 'Step 3', description: 'This is Step 3' },
 ];
 
 type SortableStepProps = {
-    step: Step;
+    step: CustomStep;
 };
+
 const SortableStep = ({ step }: SortableStepProps) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: step.id });
     const style = {
@@ -45,10 +46,14 @@ const SortableStep = ({ step }: SortableStepProps) => {
         </li>
     );
 };
-const AddSteps = () => {
-    const [steps, setSteps] = useState<Step[]>(stepDummies);
+
+type AddStepsProps = {
+    onAddSteps: (steps: CustomStep[]) => void;
+};
+const AddSteps = ({ onAddSteps }: AddStepsProps) => {
+    const [steps, setSteps] = useState<CustomStep[]>(stepDummies);
     const [isNewStep, setIsNewStep] = useState(false);
-    const [newStep, setNewStep] = useState<Step>({ id: '', title: '', description: '' });
+    const [newStep, setNewStep] = useState<CustomStep>({ id: '', title: '', description: '' });
     const onDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
         if (active.id === over?.id) {
@@ -82,16 +87,17 @@ const AddSteps = () => {
         currentSteps.push(step);
         setSteps(currentSteps);
         setIsNewStep(false);
+        onAddSteps(currentSteps);
     };
 
     return (
-        <fieldset>
+        <fieldset className="mb-5 lg:mb-0">
             <legend className="h1">Add the Steps</legend>
             <div className="p-5 bg-green-custom4 rounded-[30px]">
-                <ol className="">
+                <ol className="lg:block lg:max-h-[300px] lg:overflow-y-auto lg:overflow-x-hidden">
                     <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
                         <SortableContext
-                            items={steps.map((step: Step) => step.id)}
+                            items={steps.map((step: CustomStep) => step.id)}
                             strategy={verticalListSortingStrategy}
                         >
                             {steps.map((step) => (
@@ -104,16 +110,19 @@ const AddSteps = () => {
                     <button onClick={() => setIsNewStep(true)}>Add new step</button>
                 ) : (
                     <div className="flex justify-between">
-                        <div className="flex flex-col">
+                        <div className="flex flex-col lg:flex-row lg:gap-2">
                             <TextInput required value={newStep.title} onChange={handleTitleChange} label="Title" />
-                            <label htmlFor="stepDesc">Description</label>
-                            <textarea
-                                className="mt-5"
-                                name="stepDesc"
-                                id="stepDesc"
-                                value={newStep.description}
-                                onChange={handleDescriptionChange}
-                            ></textarea>
+                            <div className="flex flex-col">
+                                <label className="mb-5 lg:mb-1" htmlFor="stepDesc">
+                                    Description
+                                </label>
+                                <textarea
+                                    name="stepDesc"
+                                    id="stepDesc"
+                                    value={newStep.description}
+                                    onChange={handleDescriptionChange}
+                                ></textarea>
+                            </div>
                         </div>
                         <button onClick={handleNewStep}>+</button>
                     </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Ingredient } from 'src/types/types';
 import Keyfacts from './Steps/Keyfacts';
-import AddSteps from './Steps/AddSteps';
+import AddSteps, { CustomStep } from './Steps/AddSteps';
 import AddNameAndImage from './Steps/AddNameAndImage';
 import AddIngredients from './Steps/AddIngredients';
 
@@ -10,6 +11,7 @@ type CustomRecipe = {
     cookingTime: number;
     servings: number;
     foodLifestyle: string;
+    steps: CustomStep[];
 };
 
 type AddRecipeWizardProps = {
@@ -23,6 +25,7 @@ const AddRecipeWizard = ({ stepNr }: AddRecipeWizardProps) => {
         cookingTime: 10,
         servings: 1,
         foodLifestyle: 'vegetarian',
+        steps: [],
     });
 
     const handleNameChange = (name: string) => {
@@ -55,6 +58,16 @@ const AddRecipeWizard = ({ stepNr }: AddRecipeWizardProps) => {
         setCustomeRecipe(currentRecipe);
     };
 
+    const handleAddIngredient = (ingredients: Ingredient[]) => {
+        console.log('add ingredient');
+    };
+
+    const handleAddSteps = (steps: CustomStep[]) => {
+        const currentRecipe = { ...customRecipe };
+        currentRecipe.steps = steps;
+        setCustomeRecipe(currentRecipe);
+    };
+
     const renderStep = (stepNumber: number) => {
         switch (stepNumber) {
             case 2:
@@ -66,9 +79,9 @@ const AddRecipeWizard = ({ stepNr }: AddRecipeWizardProps) => {
                     />
                 );
             case 3:
-                return <AddIngredients />;
+                return <AddIngredients onAddIngredient={handleAddIngredient} />;
             case 4:
-                return <AddSteps />;
+                return <AddSteps onAddSteps={handleAddSteps} />;
             default:
                 return <AddNameAndImage onNameChange={handleNameChange} onUploadedImgChange={onUploadedImgChange} />;
         }
