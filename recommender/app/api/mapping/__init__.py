@@ -19,6 +19,7 @@ class Mapping():
             similarIngr = findSimilarIngredient(ingredients, mappable_ingr)
             # create object with similar ingredient and its quantity
             mappedIngr = {
+                'name': similarIngr['name'],
                 'ingredientId': similarIngr['ingredientId'],
                 'condition': similarIngr['condition'],
                 'quantity': mappable_ingr.quantity,

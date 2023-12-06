@@ -59,6 +59,7 @@ export class RecipesService {
         const omnivoreSubCategories = [
             'Boiled sausage products',
             'Raw sausage products',
+            'Meat Stews',
             'Cooked sausages',
             'Veal,meat and offal',
             'Wild',
