@@ -1,5 +1,7 @@
 import { MouseEvent, useEffect, useRef } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import Icon from '@components/Icon/Icon';
+import { SwipeConfig } from '@helpers/SwipeConfig';
 import styles from './DialogModal.module.scss';
 
 const isClickInsideRectangle = (e: MouseEvent, element: HTMLElement) => {
@@ -31,6 +33,21 @@ const DialogModal = ({ isOpened, onClose, children, classNames }: Props) => {
         }
     }, [isOpened]);
 
+    const handlers = useSwipeable({
+        onSwipedDown: (eventData) => {
+            if (ref.current) {
+                if (eventData.deltaY > 250) handleClose();
+                ref.current.style.transform = `translateY(0px)`;
+            }
+        },
+        onSwiping: (eventData) => {
+            if (eventData.dir === 'Down' && ref.current) {
+                ref.current.style.transform = `translateY(${eventData.deltaY}px)`;
+            }
+        },
+        ...SwipeConfig,
+    });
+
     return (
         <dialog
             ref={ref}
@@ -40,6 +57,9 @@ const DialogModal = ({ isOpened, onClose, children, classNames }: Props) => {
             }
             className={`rounded-custom_s max overflow-hidden ${styles.modal}`}
         >
+            <div {...handlers} className="flex sm:hidden absolute justify-center w-full top-1">
+                <div className="w-20 rounded-md h-1 bg-black"></div>
+            </div>
             <div className={`${classNames}`}>
                 <div className="relative h-6 w-full flex justify-end">
                     <button onClick={handleClose} className=" text-green-custom2">

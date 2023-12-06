@@ -37,22 +37,30 @@ export class RecipesSearchService {
         private readonly elasticsearchService: ElasticsearchService,
     ) {}
 
-    async indexRecipe(recipe: Recipe) {
-        return this.elasticsearchService.index({
-            index: this.index,
-            body: {
-                id: recipe.id,
-                name: recipe.name,
-                img: recipe.img,
-                description: recipe.description,
-                formOfDiet: recipe.formOfDiet,
-                preparingTime: recipe.preparingTime,
-                cookingTime: recipe.cookingTime,
-                totalTime: recipe.totalTime,
-                servings: recipe.servings,
-                tags: recipe.tags,
-            },
-        });
+    async indexRecipes(recipes: Recipe[]) {
+        try {
+            const indexExists = await this.elasticsearchService.indices.exists({ index: this.index });
+            if (indexExists.body.valueOf()) await this.elasticsearchService.indices.delete({ index: this.index });
+            await this.elasticsearchService.indices.create({ index: this.index });
+            const body = recipes.flatMap((recipe) => [
+                { index: { _index: this.index } },
+                {
+                    id: recipe.id,
+                    name: recipe.name,
+                    img: recipe.img,
+                    description: recipe.description,
+                    formOfDiet: recipe.formOfDiet,
+                    preparingTime: recipe.preparingTime,
+                    cookingTime: recipe.cookingTime,
+                    totalTime: recipe.totalTime,
+                    servings: recipe.servings,
+                    tags: recipe.tags,
+                },
+            ]);
+            return await this.elasticsearchService.bulk({ refresh: true, body });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async getTags() {

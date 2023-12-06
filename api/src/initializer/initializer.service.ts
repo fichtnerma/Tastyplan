@@ -45,9 +45,7 @@ export class InitializerService implements OnApplicationBootstrap {
             }
         }
         const allRecipes = await this.prismaService.recipe.findMany({});
-        allRecipes.forEach(async (recipe) => {
-            await this.recipeSearchService.indexRecipe(recipe);
-        });
+        await this.recipeSearchService.indexRecipes(allRecipes);
         await this.recipeService.storeInRedis();
         await fetch(`${process.env.RECOMMENDER_URL}/initalize`, { method: 'GET' });
     }
