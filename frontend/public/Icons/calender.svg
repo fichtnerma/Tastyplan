@@ -1,16 +1,8 @@
-<svg id="calender" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43.72 46.67"
-  stroke="currentColor">
-  <line x1="1.04" y1="12.74" x2="42.77" y2="12.74"
-    style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
-  <path
-    d="m37.34,3.95h2.59c1.54,0,2.79,1.25,2.79,2.78v36.16c0,1.54-1.25,2.78-2.79,2.78H3.78c-1.54,0-2.78-1.25-2.78-2.78V6.73c0-1.54,1.25-2.78,2.78-2.78h2.64"
-    style="fill: none; stroke-linecap: round; stroke-miterlimit: 10; stroke-width: 2px;" />
-  <line x1="13.57" y1="3.95" x2="30.23" y2="3.95"
-    style="fill: none; stroke-linecap: round; stroke-miterlimit: 10; stroke-width: 2px;" />
-  <path
-    d="m11.97,2.99v1.93c0,1.1-.89,1.99-1.99,1.99s-1.99-.89-1.99-1.99v-1.93c0-1.1.89-1.99,1.99-1.99.55,0,1.04.22,1.4.58s.58.86.58,1.4h0Z"
-    style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
-  <path
-    d="m35.77,2.99v1.93c0,1.1-.89,1.99-1.99,1.99s-1.99-.89-1.99-1.99v-1.93c0-1.1.89-1.99,1.99-1.99.55,0,1.05.22,1.41.58s.58.86.58,1.4h0Z"
-    style="fill: none; stroke-miterlimit: 10; stroke-width: 2px;" />
+<svg xmlns="http://www.w3.org/2000/svg" id="calender" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+  <path d="M16 3l0 4" />
+  <path d="M8 3l0 4" />
+  <path d="M4 11l16 0" />
+  <path d="M8 15h2v2h-2z" />
 </svg>

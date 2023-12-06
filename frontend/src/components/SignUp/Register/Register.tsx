@@ -100,7 +100,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
                         disabled={!registerEnabled()}
                     />
                     <button onClick={onSkipRegistration} className="btn-tertiary" data-cy="continue-as-guest-btn">
-                        Continue as guest
+                        Later
                     </button>
                 </div>
                 <div className="flex flex-col items-center lg:hidden">

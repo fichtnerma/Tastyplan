@@ -1,15 +1,5 @@
-<svg id="totaltime" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.7 46.68"
-  stroke="currentColor">
-  <path d="m20.5,45.5C10.06,44.17,1.87,35.65,1.07,25.06c.82,10.52,9.06,19.1,19.43,20.44Z"
-    style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
-  <path d="m1.07,21.62C1.87,11.03,10.06,2.51,20.5,1.18,10.13,2.52,1.89,11.1,1.07,21.62Z"
-    style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
-  <path d="m20.51,45.5c.37.05.74.08,1.11.11-.37-.03-.75-.07-1.11-.11Z" />
-  <path d="m21.62,1.07c-.37.03-.74.07-1.11.11.37-.05.74-.08,1.11-.11Z" />
-  <path d="m25.83,45.54c3.09-.35,6.05-1.33,8.71-2.87-2.61,1.52-5.57,2.53-8.71,2.87Z" />
-  <path
-    d="m23.34,1c-.58,0-1.15.02-1.72.07-.37.03-.74.07-1.11.11h0C10.13,2.52,1.89,11.1,1.07,21.62c-.04.57-.07,1.14-.07,1.72s.02,1.15.07,1.72c.82,10.52,9.06,19.1,19.43,20.44h0c.37.05.74.08,1.11.11.57.04,1.14.07,1.72.07h.63c.21,0,.42-.01.62-.03.2,0,.41-.03.61-.04h.03c.2-.02.4-.04.6-.06,3.09-.35,6.05-1.33,8.71-2.87.18-.1.35-.21.53-.32.17-.1.35-.22.52-.33.17-.11.33-.22.5-.34h.02c.15-.11.3-.22.45-.33.52-.38,1.02-.78,1.5-1.2.15-.13.3-.27.45-.41s.3-.28.45-.43c.15-.14.29-.29.44-.44s.29-.3.43-.45.28-.31.42-.47.27-.32.41-.48c3.15-3.85,5.04-8.77,5.04-14.13,0-12.34-10-22.34-22.34-22.34h-.02Z"
-    style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
-  <polyline points="23.34 3.93 23.34 23.34 33.08 31.06"
-    style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" />
+<svg xmlns="http://www.w3.org/2000/svg" id="totaltime" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+  <path d="M12 7v5l3 3" />
 </svg>

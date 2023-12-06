@@ -1,3 +1,4 @@
+import { RecipesSearchService } from 'src/recipes/recipesSearch.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
@@ -29,6 +30,7 @@ export class InitializerService implements OnApplicationBootstrap {
         private prismaService: PrismaService,
         private recipeService: RecipesService,
         private ingredientService: IngredientsService,
+        private recipeSearchService: RecipesSearchService,
     ) {}
     dataUrl = `${process.cwd()}/dist/initializer/data`;
     async onApplicationBootstrap() {
@@ -42,6 +44,8 @@ export class InitializerService implements OnApplicationBootstrap {
                 await this.recipeService.createRecipe(recipe);
             }
         }
+        const allRecipes = await this.prismaService.recipe.findMany({});
+        await this.recipeSearchService.indexRecipes(allRecipes);
         await this.recipeService.storeInRedis();
         await fetch(`${process.env.RECOMMENDER_URL}/initalize`, { method: 'GET' });
     }

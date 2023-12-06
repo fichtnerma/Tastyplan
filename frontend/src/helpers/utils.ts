@@ -17,7 +17,7 @@ export function getFormOfDietIcon(formOfDiet: string | undefined) {
     } else if (formOfDiet == 'pescetarian') {
         return 'pescetarian';
     } else {
-        return 'omnivor';
+        return 'omnivore';
     }
 }
 
