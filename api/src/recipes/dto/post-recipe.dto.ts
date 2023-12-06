@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsArray, IsInt, IsNotEmpty, ValidateNested, IsNumber } from 'class-validator';
+import { IsArray, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class IngredientDto {
@@ -27,10 +27,6 @@ class StepDto {
 export class PostRecipeDto {
     @IsString()
     name: string;
-
-    @IsOptional()
-    @IsString()
-    img?: string;
 
     @IsOptional()
     @IsInt()

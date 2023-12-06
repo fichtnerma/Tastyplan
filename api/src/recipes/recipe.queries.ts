@@ -138,6 +138,7 @@ export class RecipeQueries {
                 },
                 userId: recipe.userId || undefined,
             };
+            console.log('QUERIES recipeData: ', recipeData);
             return await this.prismaService.recipe.create({
                 data: recipeData,
             });

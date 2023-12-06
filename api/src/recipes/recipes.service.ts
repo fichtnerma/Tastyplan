@@ -1,10 +1,13 @@
 import { RecipesSearchService } from './recipesSearch.service';
 import { Preferences, RecipesFilterService } from './recipesFilter.service';
 import { RecipeQueries } from './recipe.queries';
-import { ExtendetRecipe, RecipeInput, CreateRecipeInput } from './recipe.interface';
+import { CreateRecipeInput, ExtendetRecipe, RecipeInput } from './recipe.interface';
 import { PostRecipeDto } from './dto/post-recipe.dto';
 import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
+import * as sharp from 'sharp';
+import * as path from 'path';
 import { Cache } from 'cache-manager';
+import { S3 } from 'aws-sdk';
 import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
@@ -156,9 +159,96 @@ export class RecipesService {
             throw new InternalServerErrorException('Error: no k random recipes could be created');
         }
     }
-    async postRecipe(postRecipeDto: PostRecipeDto) {
-        const createRecipeInput: CreateRecipeInput = { ...postRecipeDto };
-        return this.recipeQueires.createRecipe(createRecipeInput);
+    async postRecipe(postRecipeDto: PostRecipeDto, file: Express.Multer.File) {
+        let imgPath = '';
+        if (file) {
+            file.buffer = await this.resizeAndCropImage(file);
+            imgPath = await this.uploadImageToS3(file);
+        } else {
+            imgPath = 'RecipeStockImage.jpg';
+        }
+        const createRecipeInput: CreateRecipeInput = { ...postRecipeDto, img: imgPath };
+
+        try {
+            const result = await this.recipeQueires.createRecipe(createRecipeInput);
+            return result;
+        } catch (error) {
+            console.log('Error saving to DB: ', error);
+            if (file) {
+                await this.deleteImageFromS3(file.originalname);
+                console.log('Cleanup deletion successful');
+            }
+            throw new InternalServerErrorException('Error saving to DB');
+        }
+    }
+
+    async uploadImageToS3(file: Express.Multer.File) {
+        // Create a new instance of S3
+        const s3 = new S3({
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            region: process.env.AWS_REGION,
+        });
+
+        // Change the file extension to .png
+        const fileName = path.parse(file.originalname).name + '.png';
+
+        // Set up the parameters for the S3 upload
+        const uploadParams = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: fileName,
+            Body: file.buffer,
+            ContentType: 'image/png',
+            ACL: 'public-read', // Make the file publicly accessible
+        };
+
+        try {
+            const data = await s3.upload(uploadParams).promise();
+            return data.Location;
+        } catch (error) {
+            console.log('Error uploading file: ', error);
+            throw new InternalServerErrorException('Error uploading file');
+        }
+    }
+
+    async deleteImageFromS3(key: string) {
+        const s3 = new S3({
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            region: process.env.AWS_REGION,
+        });
+
+        const deleteParams = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: key,
+        };
+
+        try {
+            await s3.deleteObject(deleteParams).promise();
+            console.log(`File deleted successfully`);
+        } catch (error) {
+            console.log('Error deleting file: ', error);
+            throw new InternalServerErrorException('Error deleting file');
+        }
+    }
+
+    async resizeAndCropImage(file: Express.Multer.File): Promise<Buffer> {
+        try {
+            const image = sharp(file.buffer);
+            const metadata = await image.metadata();
+            const size = Math.min(metadata.width!, metadata.height!);
+            const left = (metadata.width! - size) / 2;
+            const top = (metadata.height! - size) / 2;
+
+            const resizedImage = await image
+                .extract({ left: Math.round(left), top: Math.round(top), width: size, height: size }) // crop image
+                .resize(1024, 1024) // resize image
+                .png() // convert to png
+                .toBuffer(); // convert to buffer
+            return resizedImage;
+        } catch (error) {
+            console.log('Error resizing image: ', error);
+        }
     }
     getRecipeTags() {
         const tags = [
