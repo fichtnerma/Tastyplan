@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import Async, { useSelect } from 'react-select/async';
-import Select, { CSSObjectWithLabel, GroupBase, OptionProps } from 'react-select';
+import AsyncSelect from 'react-select/async';
 import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
+import { useState } from 'react';
 
 type SelectOption = {
     id: number;
@@ -11,11 +10,7 @@ type SelectOption = {
 };
 
 const IngredientSearch = () => {
-    const [selectedOptions, setSelectedOptions] = useState<APISearchResponse>([]);
-    const [options, setOptions] = useState<SelectOption[]>([]);
-    const [selectedOption, setSelectedOption] = useState<SelectOption | null>(null);
-    const [searchResult, setSearchResult] = useState<APISearchResponse[]>([]);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResult, setSearchResult] = useState<SelectOption[]>([]);
 
     const handleSearch = async (searchTerm: string) => {
         const res = await fetch(`/service/ingredients?search=${searchTerm}`);
@@ -23,33 +18,29 @@ const IngredientSearch = () => {
             return;
         }
         const data = (await res.json()) as unknown as APISearchResponse[];
-        console.log(data);
-        const newOptions: SelectOption[] = data.map((item) => {
-            return {
-                id: item.id,
-                value: item.name.toUpperCase(),
-                label: item.name,
-            };
-        });
-
-        setOptions(newOptions);
+        const newOptions: SelectOption[] = data.map((item) => ({
+            id: item.id,
+            value: item.name.toUpperCase(),
+            label: item.name,
+        }));
+        setSearchResult(newOptions);
     };
 
     const searchChanged = (value: string) => {
-        setSearchTerm(() => value);
         const debouncedHandler = debounce(() => handleSearch(value), 250);
         debouncedHandler();
     };
-    const loadOptions = (inputValue: string, callback: (options: SelectOption[])) => {
-      callback(searchChanged(inputValue));
-  };
+
+    const loadOptions = (inputValue: string, callback: (options: SelectOption[]) => void) => {
+        searchChanged(inputValue);
+        callback(searchResult);
+    };
+
     return (
         <div>
             <AsyncSelect
                 name="ingredients"
-                onChange={handleSelectionChange}
-                onInputChange={handleInputChange}
-                options={searchResult}
+                loadOptions={loadOptions}
                 isMulti={true}
             />
         </div>
