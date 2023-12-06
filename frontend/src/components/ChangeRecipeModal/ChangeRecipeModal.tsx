@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { useSwipeable } from 'react-swipeable';
 import Icon from '@components/Icon/Icon';
 import DialogModal from '@components/DialogModal/DialogModal';
 import { fetchWithAuth } from '@helpers/utils';
+import { SwipeConfig } from '@helpers/SwipeConfig';
 import { SwitchRecipeContext, SwitchRecipeContextType } from '@hooks/useSwitchRecipeContext';
 import { Recipe } from 'src/types/types';
 import SearchSection from './Search/SearchSection';
@@ -22,7 +24,10 @@ type ChangRecipeModalProps = {
 
 type ChangeMode = 'recommend' | 'favorite' | 'own' | 'search' | 'isDetail';
 
+const ModeOrder: ChangeMode[] = ['recommend', 'favorite', 'own'];
+
 export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch, recipeId }: ChangRecipeModalProps) {
+    const ref = useRef<HTMLDivElement>(null);
     const [mode, setMode] = useState<ChangeMode[]>(['recommend']);
     const [currentRecipeId, setCurrentRecipeId] = useState<number | undefined>(recipeId);
     const [searchQuery, setSearchQuery] = useState('');
@@ -79,6 +84,36 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
         hideDetailView,
         currentRecipeId,
     };
+    const handlers = useSwipeable({
+        onSwiped: (eventData) => {
+            if (ref.current) {
+                if (eventData.deltaX > 50) {
+                    const currentMode = mode.at(-1);
+                    if (!currentMode) return;
+                    const currentIndex = ModeOrder.indexOf(currentMode);
+                    const newIndex = currentIndex - 1 < 0 ? ModeOrder.length - 1 : currentIndex - 1;
+                    setMode([...mode.slice(0, -1), ModeOrder[newIndex]]);
+                }
+                if (eventData.deltaX < -50) {
+                    const currentMode = mode.at(-1);
+                    if (!currentMode) return;
+                    const currentIndex = ModeOrder.indexOf(currentMode);
+                    const newIndex = currentIndex + 1 > ModeOrder.length - 1 ? 0 : currentIndex + 1;
+                    setMode([...mode.slice(0, -1), ModeOrder[newIndex]]);
+                }
+                ref.current.style.transform = `translateX(0px)`;
+            }
+        },
+        onSwiping: (eventData) => {
+            if (eventData.dir === 'Left' && ref.current) {
+                ref.current.style.transform = `translateX(${eventData.deltaX}px)`;
+            }
+            if (eventData.dir === 'Right' && ref.current) {
+                ref.current.style.transform = `translateX(${eventData.deltaX}px)`;
+            }
+        },
+        ...SwipeConfig,
+    });
 
     return (
         <DialogModal
@@ -92,7 +127,7 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
                 ) : (
                     <div className="w-[95%] sm:w-5/6 m-auto">
                         <h3 className="h2 text-start text-green-custom2 z-10 relative">Choose a new recipe</h3>
-                        <div className="flex gap-3 justify-between flex-col sm:flex-row">
+                        <div {...handlers} className="flex gap-3 justify-between flex-col sm:flex-row">
                             <div className="flex sm:gap-4 gap-2">
                                 <button
                                     onClick={() => switchMode('recommend')}
@@ -132,7 +167,7 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
                                 <Icon icon="search" size={18} />
                             </div>
                         </div>
-                        <div className="">
+                        <div ref={ref} className="">
                             {mode.at(-1) === 'recommend' && <RecommendSection recipeId={recipeId} isActive={open} />}
                             {mode.at(-1) === 'favorite' && <FavoritesSection />}
                             {mode.at(-1) === 'search' && <SearchSection searchQuery={searchQuery} />}

@@ -43,8 +43,7 @@ export class RecipesService {
             servings: +recipe.servings || 4,
             formOfDiet: recipe.formOfDiet || 'omnivore',
         };
-        const savedRecipe = await this.recipeQueries.upsertRecipe(extendedRecipe);
-        await this.recipeSearchService.indexRecipe(savedRecipe);
+        await this.recipeQueries.upsertRecipe(extendedRecipe);
     }
 
     async categorizeRecipe(
