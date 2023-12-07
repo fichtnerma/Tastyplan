@@ -36,7 +36,7 @@ function RecipeCard({
     const __swRecipeContext = useSwitchRecipeContext();
 
     const smallCardSize = 'md:!h-[225px] md:!w-[150px] bg-green-custom_super_light';
-    const mediumCardSize = 'md:!h-[300px] md:!w-[200px] bg-white-custom';
+    const mediumCardSize = 'md:!h-[300px] md:!w-[200px] bg-white-custom min-w-[150px]';
 
     useEffect(() => {
         const fav = favorites.find((favorit) => favorit.id === recipeInfo?.id);
