@@ -10,7 +10,7 @@ export const debounce = (fn: (...params: unknown[]) => unknown, ms = 300) => {
 };
 
 export function getFormOfDietIcon(formOfDiet: string | undefined) {
-    if (formOfDiet == 'vegetarisch') {
+    if (formOfDiet == 'vegetarian') {
         return 'vegetarian';
     } else if (formOfDiet == 'vegan') {
         return 'vegan';
@@ -19,6 +19,14 @@ export function getFormOfDietIcon(formOfDiet: string | undefined) {
     } else {
         return 'omnivore';
     }
+}
+
+export function calculateMinutesToHours(minutes: number) {
+    const hours = Math.floor(minutes / 60);
+    const min = minutes % 60;
+    const hoursString = hours > 0 ? hours + ' h' : '';
+    const minString = min > 0 ? min + ' min' : '';
+    return hoursString + ' ' + minString;
 }
 
 export function fetchWithAuth(url: string, options: RequestInit = { method: 'GET' }, session: Session | null) {

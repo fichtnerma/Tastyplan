@@ -16,9 +16,8 @@
                 background-color: transparent;
             }
             .icon__inverted {
-                    color: #fff;
-                    background-color: var(--green-semi);
-
+                color: #fff;
+                background-color: var(--green-semi);
             }
 
             .icon__highlighted {
@@ -63,13 +62,21 @@
 }
 
 .weekplanBox {
-    background: linear-gradient(rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
+    background: linear-gradient(rgba(255, 255, 255, 0) 50%, var(--green-light) 90%);
     transition: all 0.8s;
+
+    @screen md {
+        background: linear-gradient(rgba(255, 255, 255, 0) 60%, var(--green-light) 90%);
+    }
 }
 
 .weekplanBoxToday {
     transition: background-color 0.8s;
-    background: linear-gradient(rgba(255, 255, 255, 0) 60%, var(--green-dark) 90%);
+    background: linear-gradient(rgba(255, 255, 255, 0) 50%, var(--green-dark) 90%);
+
+    @screen md {
+        background: linear-gradient(rgba(255, 255, 255, 0) 60%, var(--green-dark) 90%);
+    }
 }
 
 .icon__favorite {
@@ -78,7 +85,7 @@
 
 .recipeTitle {
     display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
