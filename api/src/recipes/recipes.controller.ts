@@ -85,10 +85,17 @@ export class RecipesController {
                 ...rawStringCreateRecipeDto,
                 totalTime: parseInt(rawStringCreateRecipeDto.totalTime),
                 servings: parseInt(rawStringCreateRecipeDto.servings),
-                tags: JSON.parse(rawStringCreateRecipeDto.tags),
+                //tags: JSON.parse(rawStringCreateRecipeDto.tags),
                 ingredients: JSON.parse(rawStringCreateRecipeDto.ingredients),
                 steps: JSON.parse(rawStringCreateRecipeDto.steps),
             };
+            console.log('postRecipeDto', postRecipeDto);
+            //const totalTime = parseInt(rawStringCreateRecipeDto.totalTime);
+            //const servings = parseInt(rawStringCreateRecipeDto.servings);
+            //const tags = JSON.parse(rawStringCreateRecipeDto.tags);
+            //const ingredients = JSON.parse(rawStringCreateRecipeDto.ingredients);
+            //const steps = JSON.parse(rawStringCreateRecipeDto.steps);
+
             // Transform the plain object to an instance of the class
             const recipe = plainToClass(PostRecipeDto, postRecipeDto);
             // Validate the transformed object
@@ -108,6 +115,7 @@ export class RecipesController {
             if (error instanceof HttpException) {
                 throw error;
             } else {
+                console.log('error', error);
                 throw new HttpException(
                     {
                         status: HttpStatus.INTERNAL_SERVER_ERROR,

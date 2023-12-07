@@ -6,12 +6,13 @@ import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
 export type CustomStep = {
     id: string;
     description: string;
+    stepCount: number;
 };
 
 const stepDummies: CustomStep[] = [
-    { id: self.crypto.randomUUID(), description: 'This is step 1' },
-    { id: self.crypto.randomUUID(), description: 'This is Step 2' },
-    { id: self.crypto.randomUUID(), description: 'This is Step 3' },
+    { id: self.crypto.randomUUID(), description: 'This is step 1', stepCount: 1 },
+    { id: self.crypto.randomUUID(), description: 'This is Step 2', stepCount: 2 },
+    { id: self.crypto.randomUUID(), description: 'This is Step 3', stepCount: 3 },
 ];
 
 type SortableStepProps = {
@@ -52,7 +53,7 @@ type AddStepsProps = {
 const AddSteps = ({ onAddSteps }: AddStepsProps) => {
     const [steps, setSteps] = useState<CustomStep[]>(stepDummies);
     const [isNewStep, setIsNewStep] = useState(false);
-    const [newStep, setNewStep] = useState<CustomStep>({ id: '', description: '' });
+    const [newStep, setNewStep] = useState<CustomStep>({ id: '', description: '', stepCount: 0 });
     const onDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
         if (active.id === over?.id) {

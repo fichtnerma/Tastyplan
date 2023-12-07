@@ -22,7 +22,12 @@ const AddRecipePage = () => {
 
         for (const key in newRecipe) {
             if (key === 'steps') {
-                form_data.append(key, JSON.stringify(newRecipe[key]));
+                const steps = [...newRecipe[key]];
+                const modfiedSteps = steps.map((step) => {
+                    const { id, ...rest } = step;
+                    return rest;
+                });
+                form_data.append(key, JSON.stringify(modfiedSteps));
             } else if (key === 'ingredients') {
                 const ingredients = [...newRecipe[key]];
                 const modifiedIngredients = ingredients.map(({ id, ingredient, ...rest }) => ({
@@ -41,17 +46,13 @@ const AddRecipePage = () => {
             console.log(value);
         }
 
-        const res = await fetchWithAuth(
-            '/service/recipes/create',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                body: form_data,
+        const res = await fetch('/service/recipes/create', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${session?.user.token}`,
             },
-            session,
-        );
+            body: form_data,
+        });
         console.log(newRecipe);
     };
 

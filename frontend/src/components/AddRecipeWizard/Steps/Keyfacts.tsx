@@ -38,12 +38,12 @@ const selectStyleOptions = {
 };
 
 type KeyfactsProps = {
-    onCookingTime: (cookingTime: number) => void;
+    onTotalTime: (totalTime: number) => void;
     onServings: (servings: number) => void;
     onFoodLifestyle: (lifestyle: string) => void;
 };
-const Keyfacts = ({ onCookingTime, onServings, onFoodLifestyle }: KeyfactsProps) => {
-    const [cookingTime, setCookingTime] = useState(0);
+const Keyfacts = ({ onTotalTime: onCookingTime, onServings, onFoodLifestyle }: KeyfactsProps) => {
+    const [totalTime, setTotalTime] = useState(0);
     const [servings, setServings] = useState(1);
     const [selectedOption, setSelectedOption] = useState<SelectOption | null>(null);
     const { data: session } = useSession();
@@ -62,7 +62,7 @@ const Keyfacts = ({ onCookingTime, onServings, onFoodLifestyle }: KeyfactsProps)
     };
 
     const handleCookingTimeChange = (cookingTime: number) => {
-        setCookingTime(cookingTime);
+        setTotalTime(cookingTime);
         onCookingTime(cookingTime);
     };
 
@@ -85,7 +85,7 @@ const Keyfacts = ({ onCookingTime, onServings, onFoodLifestyle }: KeyfactsProps)
                     className="border-2 border-green-custom2"
                     type="number"
                     name="cookingTime"
-                    value={cookingTime}
+                    value={totalTime}
                     onChange={(e) => handleCookingTimeChange(parseInt(e.target.value))}
                     required
                     min={0}

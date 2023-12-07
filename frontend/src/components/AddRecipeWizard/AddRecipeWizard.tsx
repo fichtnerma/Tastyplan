@@ -9,7 +9,7 @@ export type CustomRecipe = {
     name: string;
     image: File | undefined;
     ingredients: Ingredient[];
-    cookingTime: number;
+    totalTime: number;
     servings: number;
     formOfDiet: string;
     steps: CustomStep[];
@@ -25,7 +25,7 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
         name: '',
         image: undefined,
         ingredients: [],
-        cookingTime: 10,
+        totalTime: 10,
         servings: 1,
         formOfDiet: 'vegetarian',
         steps: [],
@@ -45,9 +45,9 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
         onNewRecipe(currentRecipe);
     };
 
-    const handleCookingTimeChange = (time: number) => {
+    const handleTotalTimeChange = (time: number) => {
         const currentRecipe = { ...customRecipe };
-        currentRecipe.cookingTime = time;
+        currentRecipe.totalTime = time;
         setCustomeRecipe(currentRecipe);
         onNewRecipe(currentRecipe);
     };
@@ -85,7 +85,7 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
             case 2:
                 return (
                     <Keyfacts
-                        onCookingTime={handleCookingTimeChange}
+                        onTotalTime={handleTotalTimeChange}
                         onServings={handleServingsChange}
                         onFoodLifestyle={handleFoodLifestyleChange}
                     />
