@@ -6,6 +6,7 @@ import WeekplanSettings from '@components/WeekplanSettings/WeekplanSettings';
 // import UserSettings from '@components/UserSettings/UserSettings';
 import PreferencesSettings from '@components/PreferencesSettings/PreferencesSettings';
 import { fetchWithAuth } from '@helpers/utils';
+import useUnsavedChangesWarning from '@hooks/useUnsavedChangesWarning';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { APISearchResponse } from 'src/types/types';
 import 'react-toastify/dist/ReactToastify.css';
@@ -30,6 +31,8 @@ function Settings() {
         data: Preferences;
         error: unknown;
     };
+
+    useUnsavedChangesWarning(JSON.stringify(settings) !== JSON.stringify(oldSettings));
 
     if (data && !settings) {
         setSettings({
@@ -84,8 +87,10 @@ function Settings() {
                             onClick={() => setSelectedSettingOption('preferences')}
                         >
                             <h3
-                                className={`hover:text-green-custom3 ${
-                                    selectedSettingOption === 'preferences' ? 'text-green-custom3' : ''
+                                className={`hover:text-green-custom3 mb-8 ${
+                                    selectedSettingOption === 'preferences'
+                                        ? 'text-green-custom3 underline underline-offset-4 lg:no-underline'
+                                        : ''
                                 }`}
                             >
                                 Preferences
@@ -96,8 +101,10 @@ function Settings() {
                             onClick={() => setSelectedSettingOption('weekplan')}
                         >
                             <h3
-                                className={`hover:text-green-custom3 ${
-                                    selectedSettingOption === 'weekplan' ? 'text-green-custom3' : ''
+                                className={`hover:text-green-custom3 mb-8 ${
+                                    selectedSettingOption === 'weekplan'
+                                        ? 'text-green-custom3 underline underline-offset-4 lg:no-underline'
+                                        : ''
                                 }`}
                             >
                                 Weekplan
