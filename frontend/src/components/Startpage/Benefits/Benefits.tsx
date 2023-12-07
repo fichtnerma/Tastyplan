@@ -39,9 +39,9 @@ function Benefits() {
             {benefits.map((benefit) => (
                 <div
                     key={benefit.id}
-                    className="group basis-[200px] p-5 md:w-full grow-0 shrink-0 rounded-2xl md:h-[160px] lg:h-[240px] md:hover:h-[260px] lg:hover:h-[340px] bg-white-custom mr-5 md:mr-0 drop-shadow mt-[80px] transition-all ease-in-out duration-700"
+                    className="group basis-[200px] p-5 md:w-full grow-0 shrink-0 rounded-2xl md:h-[160px] lg:h-[240px] md:hover:h-[260px] lg:hover:h-[400px] bg-white-custom mr-5 md:mr-0 drop-shadow mt-[80px] transition-all ease-in-out duration-700"
                 >
-                    <div className="relative top-[-60px] drop-shadow w-[200px] md:w-full bg-green-custom3 p-5 rounded-2xl flex mx-auto z-10 h-fit">
+                    <div className="relative top-[-60px] drop-shadow w-[200px] md:w-full bg-green-custom_super_light p-5 rounded-2xl flex mx-auto z-10 h-fit">
                         <h3 className="h4 text-black !mb-0">{benefit.heading}</h3>
                         <Image
                             className="my-4 lg:mb-10 mt-10 mx-auto h-[80px] lg:h-[120px] w-[80px] lg:w-[120px]"
