@@ -57,7 +57,11 @@ export default function MainHeader() {
                             onClick={() => setActiveTab('/weekOverview')}
                             className={`link weekOverview ${activeTab === '/weekOverview' ? styles.active : ''}`}
                         >
-                            <div className={`flex gap-2 items-center ${styles.weekplan}`}>
+                            <div
+                                className={`flex gap-2 items-center ${
+                                    activeTab === '/weekOverview' ? 'fill-green-custom2' : 'fill-none'
+                                } ${styles.weekplan}`}
+                            >
                                 <Icon size={25} icon="calender"></Icon>
                                 <p className="hidden md:block">Weekplan</p>
                             </div>
@@ -91,7 +95,11 @@ export default function MainHeader() {
                             onClick={() => setActiveTab('/cookbook')}
                             className={`link cookbook ${activeTab === '/cookbook' ? styles.active : ''}`}
                         >
-                            <div className={`flex gap-2 items-center fill-none ${styles.cookbook}`}>
+                            <div
+                                className={`flex gap-2 items-center ${
+                                    activeTab === '/cookbook' ? 'fill-green-custom2' : 'fill-none'
+                                }  ${styles.cookbook}`}
+                            >
                                 <Icon size={25} icon="heart"></Icon>
                                 <p className="hidden md:block">Cookbook</p>
                             </div>

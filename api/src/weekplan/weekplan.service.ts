@@ -76,6 +76,7 @@ export class WeekplanService {
                     img: entry.lunch.img,
                     preparingTime: entry.lunch.preparingTime,
                     cookingTime: entry.lunch.cookingTime,
+                    totalTime: entry.lunch.totalTime,
                     formOfDiet: entry.lunch.formOfDiet,
                 },
                 dinner: entry.dinner && {
@@ -84,6 +85,7 @@ export class WeekplanService {
                     img: entry.dinner.img,
                     preparingTime: entry.dinner.preparingTime,
                     cookingTime: entry.dinner.cookingTime,
+                    totalTime: entry.dinner.totalTime,
                     formOfDiet: entry.dinner.formOfDiet,
                 },
             })),

@@ -1,4 +1,4 @@
-import { ExtendetRecipe } from './recipe.interface';
+import { CreateRecipeInput, ExtendetRecipe } from './recipe.interface';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 
@@ -58,9 +58,9 @@ export class RecipeQueries {
             },
         });
     }
-    async upsertRecipe(recipe: ExtendetRecipe) {
+    async upsertRecipe(recipe: ExtendetRecipe, recipeId: number) {
         await this.prismaService.recipe.upsert({
-            where: { id: recipe.id },
+            where: { id: recipeId },
             update: {},
             create: {
                 ...recipe,
@@ -116,5 +116,32 @@ export class RecipeQueries {
                 },
             },
         });
+    }
+    async createRecipe(recipe: CreateRecipeInput) {
+        if (recipe.userId) {
+            const recipeData = {
+                name: recipe.name,
+                img: recipe.img || undefined,
+                totalTime: recipe.totalTime || undefined,
+                servings: recipe.servings,
+                tags: recipe.tags || undefined,
+                formOfDiet: recipe.formOfDiet,
+                ingredients: {
+                    createMany: {
+                        data: recipe.ingredients || [],
+                    },
+                },
+                steps: {
+                    createMany: {
+                        data: recipe.steps || [],
+                    },
+                },
+                userId: recipe.userId || undefined,
+            };
+            console.log('QUERIES recipeData: ', recipeData);
+            return await this.prismaService.recipe.create({
+                data: recipeData,
+            });
+        }
     }
 }

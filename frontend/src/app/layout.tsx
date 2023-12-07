@@ -11,7 +11,9 @@ const zeyada = Zeyada({ subsets: ['latin'], style: 'normal', weight: '400', vari
 export default function RootLayout({ children }: PropsWithChildren) {
     return (
         <html lang="en">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <body className={`${inter.variable} ${bebasNeue.variable} ${zeyada.variable}`}>
+                {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? <CookieWrapper /> : null}
                 <main
                     className="overflow-x-hidden"
                     style={{
@@ -20,7 +22,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
                 >
                     {children}
                 </main>
-                <CookieWrapper />
             </body>
         </html>
     );
