@@ -53,7 +53,7 @@ a {
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-dark-rgb);
     }
 }
 dialog::backdrop {
@@ -67,7 +67,7 @@ dialog::backdrop {
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-dark-rgb);
     }
 }
 
@@ -77,7 +77,7 @@ input {
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-dark-rgb);
     }
 }
 
@@ -87,7 +87,7 @@ button {
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-dark-rgb);
     }
     &:disabled {
         cursor: not-allowed;
@@ -146,28 +146,28 @@ input[type='submit'] {
 }
 
 /* ===== Scrollbar CSS ===== */
-  /* Firefox */
-  * {
+/* Firefox */
+* {
     scrollbar-width: auto;
     scrollbar-color: var(--green-dark) transparent;
-  }
+}
 
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
     width: 12px;
-  }
+}
 
-  *::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
     // background: transparent;
     background-color: var(--gray-light);
     border-radius: 10px;
-  }
+}
 
-  *::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
     background-color: var(--green-dark);
     border-radius: 10px;
     border: 2px solid #fff;
-  }
+}
 
 .recipeCardGrid {
     @apply overflow-y-auto overflow-x-hidden flex flex-row flex-wrap gap-[2%] lg:min-w-[980px] h-[69vh] sm:h-[52vh] lg:min-h-[325px] pt-5 pb-20;
@@ -175,4 +175,9 @@ input[type='submit'] {
 
 .recipeCardWrapper {
     @apply w-[48%] lg:w-[15%] sm:w-[30%];
+}
+
+// Swiper custom elements
+.swiper-pagination {
+    --swiper-pagination-color: var(--green-dark);
 }

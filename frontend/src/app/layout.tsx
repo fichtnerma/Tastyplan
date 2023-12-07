@@ -13,6 +13,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <html lang="en">
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <body className={`${inter.variable} ${bebasNeue.variable} ${zeyada.variable}`}>
+                {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? <CookieWrapper /> : null}
                 <main
                     className="overflow-x-hidden"
                     style={{
@@ -21,7 +22,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
                 >
                     {children}
                 </main>
-                {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? <CookieWrapper /> : null}
             </body>
         </html>
     );

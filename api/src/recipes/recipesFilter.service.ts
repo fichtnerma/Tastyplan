@@ -58,6 +58,7 @@ export class RecipesFilterService {
                             },
                         },
                     },
+                    userId: null,
                 },
                 select: {
                     id: true,

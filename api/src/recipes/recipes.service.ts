@@ -1,7 +1,9 @@
+import { RecipesUploadImageService } from './recipesUploadImage.service';
 import { RecipesSearchService } from './recipesSearch.service';
 import { Preferences, RecipesFilterService } from './recipesFilter.service';
 import { RecipeQueries } from './recipe.queries';
-import { ExtendetRecipe, RecipeInput } from './recipe.interface';
+import { CreateRecipeInput, ExtendetRecipe, RecipeInput } from './recipe.interface';
+import { PostRecipeDto } from './dto/post-recipe.dto';
 import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
 import { Cache } from 'cache-manager';
 import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -14,6 +16,7 @@ export class RecipesService {
         private recipeFilterService: RecipesFilterService,
         private recipeSearchService: RecipesSearchService,
         private recipeQueries: RecipeQueries,
+        private recipesUploadImageService: RecipesUploadImageService,
     ) {}
 
     async findById(id: number) {
@@ -34,7 +37,7 @@ export class RecipesService {
         await this.cache.set('recipes', recipesFormatted, 0);
     }
 
-    async createRecipe(recipe: RecipeInput) {
+    async createRecipe(recipe: RecipeInput, recipeId: number) {
         const extendedRecipe: ExtendetRecipe = {
             ...recipe,
             cookingTime: convertToTime(recipe.cookingTime) || 0,
@@ -43,7 +46,7 @@ export class RecipesService {
             servings: +recipe.servings || 4,
             formOfDiet: recipe.formOfDiet || 'omnivore',
         };
-        await this.recipeQueries.upsertRecipe(extendedRecipe);
+        await this.recipeQueries.upsertRecipe(extendedRecipe, recipeId);
     }
 
     async categorizeRecipe(
@@ -154,5 +157,31 @@ export class RecipesService {
 
             throw new InternalServerErrorException('Error: no k random recipes could be created');
         }
+    }
+    async postRecipe(postRecipeDto: PostRecipeDto, file: Express.Multer.File) {
+        let imgPath = '';
+        if (file) {
+            file.buffer = await this.recipesUploadImageService.resizeAndCropImage(file);
+            imgPath = await this.recipesUploadImageService.uploadImageToS3(file);
+        } else {
+            imgPath = 'RecipeStockImage.jpg';
+        }
+        const createRecipeInput: CreateRecipeInput = { ...postRecipeDto, img: imgPath };
+
+        try {
+            const result = await this.recipeQueries.createRecipe(createRecipeInput);
+            return result;
+        } catch (error) {
+            console.log('Error saving to DB: ', error);
+            if (file) {
+                await this.recipesUploadImageService.deleteImageFromS3(file.originalname);
+                console.log('Cleanup deletion successful');
+            }
+            throw new InternalServerErrorException('Error saving to DB');
+        }
+    }
+
+    async getRecipeTags() {
+        return await this.recipeSearchService.getTags();
     }
 }

@@ -4,6 +4,7 @@ import { isRequiredValidator } from '@helpers/validations';
 interface TextInputProps {
     label?: string;
     placeholder?: string;
+    id?: string;
     hasError?: boolean;
     type?: string;
     value: string;
@@ -21,6 +22,7 @@ export default function TextInput({
     placeholder,
     type = 'text',
     validate,
+    id,
     decoration,
     decorationPosition = 'start',
     onChange,
@@ -59,7 +61,7 @@ export default function TextInput({
                 {decoration ? (
                     <div className={`absolute bottom-2 ${isAtStart ? 'left-2' : 'right-2'}`}>{decoration}</div>
                 ) : null}
-                <label htmlFor="text-input">
+                <label htmlFor={id}>
                     {label}
                     {required ? ' *' : ''}
                 </label>
@@ -68,6 +70,7 @@ export default function TextInput({
                         isAtEnd ? 'pr-9' : 'pr-4'
                     } h-10 w-full border-gray-700 rounded-xl`}
                     type={type}
+                    id={id}
                     placeholder={placeholder}
                     value={value}
                     onBlur={onBlur ? onBlur : handleBlur}

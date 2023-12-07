@@ -39,7 +39,7 @@ export default function HomePage() {
                                         mouth-watering recipes, you'll never get bored with your meals.
                                     </p>
                                     <Link
-                                        className="flex mt-5"
+                                        className="flex mt-5 w-fit"
                                         href="https://www.producthunt.com/posts/tastyplan?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-tastyplan"
                                         target="_blank"
                                     >

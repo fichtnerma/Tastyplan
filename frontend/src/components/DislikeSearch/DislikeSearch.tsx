@@ -1,9 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
+import Icon from '@components/Icon/Icon';
 import TextInput from '@components/FormInputs/TextInput';
 import { APISearchResponse } from 'src/types/types';
-import cross from '../../../public/Icons/kreuz.png';
 
 type DislikeSearchProps = {
     searchTerm: string;
@@ -32,7 +31,7 @@ function DislikeSearch({
                     value={searchTerm}
                     decoration={
                         <button type="button" onClick={deleteInput}>
-                            <Image src={cross} className="pr-1" alt="cross" width={20} priority />
+                            {searchTerm == '' ? <Icon size={20} icon="search" /> : <Icon size={20} icon="close" />}
                         </button>
                     }
                     decorationPosition="end"

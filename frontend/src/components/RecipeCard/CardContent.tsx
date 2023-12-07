@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Icon from '@components/Icon/Icon';
-import { getFormOfDietIcon } from '@helpers/utils';
+import { calculateMinutesToHours, getFormOfDietIcon, getImageRessourcePath } from '@helpers/utils';
 import { Recipe } from 'src/types/types';
 import styles from './RecipeCard.module.scss';
 
@@ -13,19 +13,11 @@ type CardContentProps = {
 };
 
 function CardContent({ recipe, highlighted = false, smallCard = false }: CardContentProps) {
-    const totalTime = recipe.cookingTime
-        ? recipe.preparingTime
-            ? recipe.cookingTime + recipe.preparingTime
-            : recipe.cookingTime
-        : recipe.preparingTime
-        ? recipe.preparingTime
-        : 0;
-
     return (
         <>
             <div className={`w-full h-full absolute rounded-custom_s ${styles.foodBox}`}>
                 <Image
-                    src={`/service/images/${recipe.img}`}
+                    src={getImageRessourcePath(recipe.img)}
                     width={200}
                     height={200}
                     alt="Food Img"
@@ -52,6 +44,39 @@ function CardContent({ recipe, highlighted = false, smallCard = false }: CardCon
                                     color: highlighted ? 'var(--white)' : 'var(--black)',
                                 }}
                             >
+                                <div
+                                    className={`w-[240px] md:hidden flex gap-2 pb-1`}
+                                    style={{
+                                        color: highlighted ? 'var(--white)' : 'var(--black)',
+                                    }}
+                                >
+                                    {recipe.formOfDiet !== null && (
+                                        <div className="flex flex-row gap-x-1">
+                                            <Icon size={15} icon={getFormOfDietIcon(recipe?.formOfDiet)}></Icon>
+                                            <p
+                                                className="text-xs text-center my-auto"
+                                                style={{
+                                                    color: highlighted ? 'var(--white)' : 'var(--black)',
+                                                }}
+                                            >
+                                                {recipe.formOfDiet}
+                                            </p>
+                                        </div>
+                                    )}
+                                    {recipe.totalTime !== (null || 0) && (
+                                        <div className="flex flex-row gap-x-1">
+                                            <Icon size={15} icon="totaltime"></Icon>
+                                            <p
+                                                className=" text-xs my-auto text-center"
+                                                style={{
+                                                    color: highlighted ? 'var(--white)' : 'var(--black)',
+                                                }}
+                                            >
+                                                {calculateMinutesToHours(recipe.totalTime)}
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
                                 <span className={styles.recipeTitle}>{recipe.name}</span>
                             </div>
                         </div>
@@ -75,7 +100,7 @@ function CardContent({ recipe, highlighted = false, smallCard = false }: CardCon
                                 </p>
                             </div>
                         )}
-                        {totalTime !== (null || 0) && (
+                        {recipe.totalTime !== (null || 0) && (
                             <div className="flex flex-row gap-x-2 mt-4">
                                 <Icon size={20} icon="totaltime"></Icon>
                                 <p
@@ -84,7 +109,7 @@ function CardContent({ recipe, highlighted = false, smallCard = false }: CardCon
                                         color: highlighted ? 'var(--white)' : 'var(--black)',
                                     }}
                                 >
-                                    {totalTime} min
+                                    {calculateMinutesToHours(recipe.totalTime)}
                                 </p>
                             </div>
                         )}
