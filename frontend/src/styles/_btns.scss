@@ -1,6 +1,6 @@
 $btn-font-size: clamp(1rem, 2vw, 1.2rem);
-$btn-font-size-small: clamp(0.6rem, 1.2vw, 0.8rem);
-$btn-font-size-big: clamp(1.5rem, 2.2vw, 1.75rem);
+$btn-font-size-small: clamp(0.9rem, 1.2vw, 0.8rem);
+$btn-font-size-big: clamp(1.2rem, 2.2vw, 1.75rem);
 $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
 
 .btn {
@@ -95,13 +95,29 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
 }
 
 .btn-small {
+    @extend .btn;
     font-size: $btn-font-size-small;
     @apply px-4;
 }
 
 .btn-big {
+    @extend .btn;
     font-size: $btn-font-size-big;
     @apply px-8;
+}
+
+
+.btn-create-weekplan {
+    @extend .btn-big;
+    color: var(--white);
+    background-color: var(--orange);
+    line-height: 1;
+    z-index: 20;
+    @apply py-4;
+
+    &:hover {
+        background-color: var(--orange-lighter);
+    }
 }
 
 .badge {
@@ -149,3 +165,4 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
         }
     }
 }
+
