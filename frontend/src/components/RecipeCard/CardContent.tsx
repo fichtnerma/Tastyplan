@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Icon from '@components/Icon/Icon';
-import { calculateMinutesToHours, getFormOfDietIcon } from '@helpers/utils';
+import { calculateMinutesToHours, getFormOfDietIcon, getImageRessourcePath } from '@helpers/utils';
 import { Recipe } from 'src/types/types';
 import styles from './RecipeCard.module.scss';
 
@@ -17,7 +17,7 @@ function CardContent({ recipe, highlighted = false, smallCard = false }: CardCon
         <>
             <div className={`w-full h-full absolute rounded-custom_s ${styles.foodBox}`}>
                 <Image
-                    src={`/service/images/${recipe.img}`}
+                    src={getImageRessourcePath(recipe.img)}
                     width={200}
                     height={200}
                     alt="Food Img"
