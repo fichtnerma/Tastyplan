@@ -2,7 +2,7 @@ import Image from 'next/image';
 import RecipeSteps from '@components/RecipeSteps/RecipeSteps';
 import IngredientList from '@components/IngredientList/IngredientList';
 import IconList from '@components/IconList/IconList';
-import { calculateMinutesToHours, getFormOfDietIcon } from '@helpers/utils';
+import { calculateMinutesToHours, getFormOfDietIcon, getImageRessourcePath } from '@helpers/utils';
 import { Recipe } from 'src/types/types';
 import styles from '@styles/DetailRecipe.module.scss';
 import FavoriteButton from './FavoriteButton';
@@ -37,7 +37,7 @@ export default async function DetailRecipe({ params: { id } }: { params: { id: s
                     <div className="relative max-w-[400px] lg:col-span-2 lg:mb-0 lg:h-fit lg:max-w-[700px]">
                         <div className={styles.gradientBox}></div>
                         <Image
-                            src={`/service/images/${recipe?.img}`}
+                            src={getImageRessourcePath(recipe.img)}
                             alt={'Pancakes Bild'}
                             width={400}
                             height={400}
