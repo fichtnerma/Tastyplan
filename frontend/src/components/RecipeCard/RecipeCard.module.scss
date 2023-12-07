@@ -15,6 +15,11 @@
             .icon {
                 background-color: transparent;
             }
+            .icon__inverted {
+                    color: #fff;
+                    background-color: var(--green-semi);
+
+            }
 
             .icon__highlighted {
                 color: #fff;
@@ -69,4 +74,11 @@
 
 .icon__favorite {
     fill: var(--white);
+}
+
+.recipeTitle {
+    display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
 }

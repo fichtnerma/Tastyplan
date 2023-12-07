@@ -1,3 +1,4 @@
+import { RecipesSearchService } from 'src/recipes/recipesSearch.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
@@ -29,6 +30,7 @@ export class InitializerService implements OnApplicationBootstrap {
         private prismaService: PrismaService,
         private recipeService: RecipesService,
         private ingredientService: IngredientsService,
+        private recipeSearchService: RecipesSearchService,
     ) {}
     dataUrl = `${process.cwd()}/dist/initializer/data`;
     async onApplicationBootstrap() {
@@ -42,6 +44,8 @@ export class InitializerService implements OnApplicationBootstrap {
                 await this.recipeService.createRecipe(recipe);
             }
         }
+        const allRecipes = await this.prismaService.recipe.findMany({});
+        await this.recipeSearchService.indexRecipes(allRecipes);
         await this.recipeService.storeInRedis();
         await fetch(`${process.env.RECOMMENDER_URL}/initalize`, { method: 'GET' });
     }
@@ -131,6 +135,7 @@ export class InitializerService implements OnApplicationBootstrap {
     }
 
     async prepareRecipeData(recipe: RecipeWithIngredients, index: number) {
+        const recipeIngMapping: unknown[] = [];
         try {
             const recipeJson = await fetch(`${process.env.RECOMMENDER_URL}/mapping`, {
                 method: 'POST',
@@ -139,6 +144,18 @@ export class InitializerService implements OnApplicationBootstrap {
             });
 
             const recipeMapped = await recipeJson.json();
+
+            for (let index = 0; index < recipe.ingredients.length; index++) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const ing = recipe.ingredients[index] as any;
+                const mapped = recipeMapped[index];
+                const mappedIng = {
+                    ingredient: ing.name,
+                    mapped: mapped.name,
+                };
+
+                recipeIngMapping.push(mappedIng);
+            }
 
             const ingredientsMapped = recipeMapped.map(
                 (ing: { ingredientId: number; quantity: string; unit: string; condition: string }) => {

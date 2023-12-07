@@ -21,7 +21,8 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
 
     &:hover {
         background-color: var(--green-semi);
-
+        color: var(--white);
+        border-color: var(--green-semi);
         &:disabled {
             cursor: not-allowed;
         }
@@ -45,6 +46,7 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
     @extend .btn;
     color: var(--white);
     background-color: var(--green-dark);
+    
 }
 
 .btn-primary-unobtrusive {
@@ -104,6 +106,7 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
     @apply px-8;
 }
 
+
 .btn-create-weekplan {
     @extend .btn-big;
     color: var(--white);
@@ -116,3 +119,50 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
         background-color: var(--orange-lighter);
     }
 }
+
+.badge {
+    padding: 0.4em 0.75em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    font-weight: 500;
+    color: var(--green-dark);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--green-dark);
+    border-radius: 1.9rem;
+    background-color: transparent;
+    &.badge-lg {
+        height: 1.6rem;
+        font-size: 0.8rem;
+        line-height: 1.4rem;
+        padding-left: 0.588rem;
+        padding-right: 0.588rem;
+        @screen sm {
+            height: 1.8rem;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            padding-left: 0.688rem;
+            padding-right: 0.688rem;
+        }
+    }
+    &.badge-sm {
+        height: 1.5rem;
+        border-radius: 0.4rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        padding-inline: 0.25rem;
+    }
+    &.active:not(div) {
+        background-color: var(--green-dark);
+        color: var(--white);
+        &:hover {
+            background-color: var(--green-semi);
+        }
+    }
+}
+

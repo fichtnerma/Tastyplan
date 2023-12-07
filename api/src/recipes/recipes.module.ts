@@ -10,7 +10,7 @@ import { Module } from '@nestjs/common';
 
 @Module({
     imports: [IngredientsModule, PreferencesModule, SearchModule],
-    exports: [RecipesService, RecipesFilterService, RecipeQueries],
+    exports: [RecipesService, RecipesFilterService, RecipesSearchService, RecipeQueries],
     controllers: [RecipesController],
     providers: [RecipesService, RecipesFilterService, RecipeQueries, RecipesSearchService],
 })
