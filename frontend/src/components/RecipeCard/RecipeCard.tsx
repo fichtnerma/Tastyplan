@@ -74,7 +74,7 @@ function RecipeCard({
                         <div
                             className={`justify-end flex p-1 top-[10px] text-green-custom3 right-2 rounded-full cursor-pointer absolute fill-none z-10 bg-white-custom 
                     transition-all duration-600 ease-in-out hover:bg-green-custom3 hover:text-white-custom ${styles.icon__inverted}`}
-                            onClick={() => handleFavorite()}
+                            onClick={() => __swRecipeContext.switchRecipe(recipeInfo.id)}
                         >
                             <Icon size={18} icon="check"></Icon>
                         </div>
