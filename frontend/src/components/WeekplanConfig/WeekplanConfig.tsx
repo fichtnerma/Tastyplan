@@ -49,7 +49,7 @@ export default function WeekplanConfig({
     return (
         <>
             <h4 className="!mb-2 h2">Adjust your weekplan</h4>
-            <div className="h-[400px] lg:h-[300px] overflow-y-auto grid grid-cols-1 lg:grid-cols-2">
+            <div className="h-[400px] lg:h-[300px] overflow-y-auto lg:overflow-y-hidden grid grid-cols-1 lg:grid-cols-2">
                 <div>
                     <h5 className="mb-2">On what days do you want to cook?</h5>
                     <CheckboxGroup

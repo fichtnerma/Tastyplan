@@ -1,6 +1,5 @@
-import Image from 'next/image';
+import Icon from '@components/Icon/Icon';
 import { APISearchResponse } from 'src/types/types';
-import cross from '../../../public/Icons/kreuz.png';
 
 type DislikeListProps = {
     dislikes: APISearchResponse[] | Allergen[];
@@ -26,11 +25,11 @@ export default function DislikeList({ dislikes, onDeleteChoice }: DislikeListPro
                             </p>
 
                             <a
-                                className="inline-block cursor-pointer"
+                                className="cursor-pointer"
                                 onClick={() => onDeleteChoice(dislike.name)}
                                 data-anchor={dislike.name}
                             >
-                                <Image src={cross} className="" alt="cross" width={12} priority />
+                                <Icon icon="close"></Icon>
                             </a>
                         </label>
                     </span>
