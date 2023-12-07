@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
 import AddRecipeWizard, { CustomRecipe } from '@components/AddRecipeWizard/AddRecipeWizard';
-import { fetchWithAuth, fetchWithAuthFormData } from '@helpers/utils';
+import { fetchWithAuth } from '@helpers/utils';
 
 const stepNames = ['Name and Image', 'Key Facts', 'Add Ingredients', 'Steps'];
 
@@ -21,9 +21,26 @@ const AddRecipePage = () => {
         const form_data = new FormData();
 
         for (const key in newRecipe) {
-            form_data.append(key, newRecipe[key]);
+            if (key === 'steps') {
+                form_data.append(key, JSON.stringify(newRecipe[key]));
+            } else if (key === 'ingredients') {
+                const ingredients = [...newRecipe[key]];
+                const modifiedIngredients = ingredients.map(({ id, ingredient, ...rest }) => ({
+                    ingredientId: id,
+                    ...rest,
+                }));
+                form_data.append(key, JSON.stringify(modifiedIngredients));
+            } else {
+                form_data.append(key, newRecipe[key]);
+            }
         }
-        form_data.append('useId', session?.user.id);
+
+        form_data.append('userId', session?.user.userId);
+
+        for (const value of form_data.values()) {
+            console.log(value);
+        }
+
         const res = await fetchWithAuth(
             '/service/recipes/create',
             {

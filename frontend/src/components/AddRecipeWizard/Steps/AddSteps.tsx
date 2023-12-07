@@ -2,25 +2,24 @@ import React, { useState } from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
-import TextInput from '@components/FormInputs/TextInput';
 
 export type CustomStep = {
     id: string;
-    title: string;
     description: string;
 };
 
 const stepDummies: CustomStep[] = [
-    { id: self.crypto.randomUUID(), title: 'Step 1', description: 'This is step 1' },
-    { id: self.crypto.randomUUID(), title: 'Step 2', description: 'This is Step 2' },
-    { id: self.crypto.randomUUID(), title: 'Step 3', description: 'This is Step 3' },
+    { id: self.crypto.randomUUID(), description: 'This is step 1' },
+    { id: self.crypto.randomUUID(), description: 'This is Step 2' },
+    { id: self.crypto.randomUUID(), description: 'This is Step 3' },
 ];
 
 type SortableStepProps = {
     step: CustomStep;
+    index: number;
 };
 
-const SortableStep = ({ step }: SortableStepProps) => {
+const SortableStep = ({ step, index }: SortableStepProps) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: step.id });
     const style = {
         transition,
@@ -35,7 +34,7 @@ const SortableStep = ({ step }: SortableStepProps) => {
             {...listeners}
         >
             <div>
-                <h2 className="!mb-0">{step.title}</h2>
+                <h2 className="!mb-0">Step {index + 1}</h2>
                 <p>{step.description}</p>
             </div>
             <div className="h-6 w-8">
@@ -53,7 +52,7 @@ type AddStepsProps = {
 const AddSteps = ({ onAddSteps }: AddStepsProps) => {
     const [steps, setSteps] = useState<CustomStep[]>(stepDummies);
     const [isNewStep, setIsNewStep] = useState(false);
-    const [newStep, setNewStep] = useState<CustomStep>({ id: '', title: '', description: '' });
+    const [newStep, setNewStep] = useState<CustomStep>({ id: '', description: '' });
     const onDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
         if (active.id === over?.id) {
@@ -70,12 +69,6 @@ const AddSteps = ({ onAddSteps }: AddStepsProps) => {
             return reorderedSteps;
         });
         onAddSteps(newSteps);
-    };
-
-    const handleTitleChange = (newTitle: string) => {
-        const step = { ...newStep };
-        step.title = newTitle;
-        setNewStep(step);
     };
 
     const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -105,8 +98,8 @@ const AddSteps = ({ onAddSteps }: AddStepsProps) => {
                             items={steps.map((step: CustomStep) => step.id)}
                             strategy={verticalListSortingStrategy}
                         >
-                            {steps.map((step) => (
-                                <SortableStep key={step.id} step={step} />
+                            {steps.map((step, index) => (
+                                <SortableStep key={step.id} step={step} index={index} />
                             ))}
                         </SortableContext>
                     </DndContext>
@@ -116,7 +109,6 @@ const AddSteps = ({ onAddSteps }: AddStepsProps) => {
                 ) : (
                     <div className="flex justify-between">
                         <div className="flex flex-col lg:flex-row lg:gap-2">
-                            <TextInput required value={newStep.title} onChange={handleTitleChange} label="Title" />
                             <div className="flex flex-col">
                                 <label className="mb-5 lg:mb-1" htmlFor="stepDesc">
                                     Description

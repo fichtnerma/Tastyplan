@@ -43,8 +43,8 @@ export type IconMetaData = {
 };
 
 export type Ingredient = {
-    id: number;
-    ingredient: { name: string };
+    id?: number;
+    ingredient?: { name: string };
     quantity: number;
     unit: string;
 };
