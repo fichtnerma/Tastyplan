@@ -8,7 +8,7 @@ export default function Footer() {
         <>
             <div className={`w-full ${styles.container}`}>
                 <div className="h-[10vh]"></div>
-                <div className="hidden md:block ">
+                <div className=" ">
                     <div className={styles.shape}>
                         <svg
                             data-name="Layer 1"
@@ -26,7 +26,7 @@ export default function Footer() {
                         className={`flex pb-10 ${styles.footerContainer} `}
                         style={{ backgroundColor: 'var(--green-light)' }}
                     >
-                        <div className="flex container relative mx-auto">
+                        <div className="flex flex-col-reverse md:flex-row container relative mx-auto">
                             <div className="flex gap-10 pt-5">
                                 <div>
                                     <h4>HELP</h4>
@@ -50,7 +50,7 @@ export default function Footer() {
                                     </Link>
                                 </div>
                             </div>
-                            <div className="right-14 absolute mt-16">
+                            <div className="md:absolute right-14  md:mt-16 justify-center flex mb-5 md:mb-0">
                                 <Link className="block" href="/weekOverview">
                                     <Image src={'/logo.svg'} alt="Calendar Img" width={150} height={150} priority />
                                 </Link>
