@@ -8,7 +8,9 @@ import styles from '@styles/DetailRecipe.module.scss';
 import FavoriteButton from './FavoriteButton';
 
 export default async function DetailRecipe({ params: { id } }: { params: { id: string } }) {
-    const data = await fetch(`${process.env.API_URL}/recipes/${id}`, { method: 'GET' });
+    const data = await fetch(`${process.env.API_URL ? process.env.API_URL : 'http://api:3000'}/recipes/${id}`, {
+        method: 'GET',
+    });
     const recipe = (await data.json()) as Recipe;
 
     const icons = [

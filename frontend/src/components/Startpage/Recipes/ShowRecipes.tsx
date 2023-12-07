@@ -6,7 +6,9 @@ export async function ShowRecipes() {
     const numberOfRecipes = 5;
     const recipes = [] as Recipe[];
     for (let i = 1; i <= numberOfRecipes; i++) {
-        const data = await fetch(`${process.env.API_URL}/recipes/${i}`, { method: 'GET' });
+        const data = await fetch(`${process.env.API_URL ? process.env.API_URL : 'http://api:3000'}/recipes/${i}`, {
+            method: 'GET',
+        });
         const recipe = (await data.json()) as Recipe;
         recipes.push(recipe);
     }
