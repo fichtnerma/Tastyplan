@@ -12,7 +12,8 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
     const [amount, setAmount] = useState(1);
     const [unit, setUnit] = useState('');
 
-    const handleAddIngredient = () => {
+    const handleAddIngredient = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
         if (selectedOption === undefined) return;
         onAddIngredient({
             id: selectedOption.id,
@@ -20,6 +21,10 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
             quantity: amount,
             unit,
         });
+
+        setSelectedOption(undefined);
+        setAmount(1);
+        setUnit('');
     };
 
     return (

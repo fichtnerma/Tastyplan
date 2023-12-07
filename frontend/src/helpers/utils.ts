@@ -32,6 +32,17 @@ export function fetchWithAuth(url: string, options: RequestInit = { method: 'GET
     });
 }
 
+export function fetchWithAuthFormData(url: string, options: RequestInit = { method: 'GET' }, session: Session | null) {
+    return fetch(url, {
+        ...options,
+        headers: {
+            ...options?.headers,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${session?.user.token.Authorization}`,
+        },
+    });
+}
+
 export function mapShoppingListToSelection(ingredientList: ShoppingListItem[]): CustomCheckboxInput[] {
     const selectionList: CustomCheckboxInput[] = ingredientList.map((ingredient) => {
         return {

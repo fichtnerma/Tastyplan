@@ -60,11 +60,16 @@ const AddSteps = ({ onAddSteps }: AddStepsProps) => {
             return;
         }
 
+        let newSteps: CustomStep[] = [];
+
         setSteps((steps) => {
             const oldIndex = steps.findIndex((step) => step?.id === active?.id);
             const newIndex = steps.findIndex((step) => step?.id === over?.id);
-            return arrayMove(steps, oldIndex, newIndex);
+            const reorderedSteps = arrayMove(steps, oldIndex, newIndex);
+            newSteps = [...reorderedSteps];
+            return reorderedSteps;
         });
+        onAddSteps(newSteps);
     };
 
     const handleTitleChange = (newTitle: string) => {

@@ -1,79 +1,83 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Ingredient } from 'src/types/types';
 import Keyfacts from './Steps/Keyfacts';
 import AddSteps, { CustomStep } from './Steps/AddSteps';
 import AddNameAndImage from './Steps/AddNameAndImage';
 import AddIngredients from './Steps/AddIngredients';
 
-type CustomRecipe = {
+export type CustomRecipe = {
     name: string;
-    imageFile: File | undefined;
+    image: File | undefined;
     ingredients: Ingredient[];
     cookingTime: number;
     servings: number;
-    foodLifestyle: string;
+    formOfDiet: string;
     steps: CustomStep[];
 };
 
 type AddRecipeWizardProps = {
     stepNr: number;
+    onNewRecipe: (recipe: CustomRecipe) => void;
 };
 
-const AddRecipeWizard = ({ stepNr }: AddRecipeWizardProps) => {
+const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
     const [customRecipe, setCustomeRecipe] = useState<CustomRecipe>({
         name: '',
-        imageFile: undefined,
+        image: undefined,
         ingredients: [],
         cookingTime: 10,
         servings: 1,
-        foodLifestyle: 'vegetarian',
+        formOfDiet: 'vegetarian',
         steps: [],
-    });
-
-    useEffect(() => {
-        console.log(customRecipe);
     });
 
     const handleNameChange = (name: string) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.name = name;
         setCustomeRecipe(currentRecipe);
+        onNewRecipe(currentRecipe);
     };
 
     const onUploadedImgChange = (img: File) => {
         const currentRecipe = { ...customRecipe };
-        currentRecipe.imageFile = img;
+        currentRecipe.image = img;
         setCustomeRecipe(currentRecipe);
+        onNewRecipe(currentRecipe);
     };
 
     const handleCookingTimeChange = (time: number) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.cookingTime = time;
         setCustomeRecipe(currentRecipe);
+        onNewRecipe(currentRecipe);
     };
 
     const handleServingsChange = (servings: number) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.servings = servings;
         setCustomeRecipe(currentRecipe);
+        onNewRecipe(currentRecipe);
     };
 
     const handleFoodLifestyleChange = (foodLifestyle: string) => {
         const currentRecipe = { ...customRecipe };
-        currentRecipe.foodLifestyle = foodLifestyle;
+        currentRecipe.formOfDiet = foodLifestyle;
         setCustomeRecipe(currentRecipe);
+        onNewRecipe(currentRecipe);
     };
 
     const handleAddIngredient = (ingredient: Ingredient) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.ingredients.push(ingredient);
         setCustomeRecipe(currentRecipe);
+        onNewRecipe(currentRecipe);
     };
 
     const handleAddSteps = (steps: CustomStep[]) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.steps = steps;
         setCustomeRecipe(currentRecipe);
+        onNewRecipe(currentRecipe);
     };
 
     const renderStep = (stepNumber: number) => {
