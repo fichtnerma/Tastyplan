@@ -2,7 +2,7 @@ import Image from 'next/image';
 import RecipeSteps from '@components/RecipeSteps/RecipeSteps';
 import IngredientList from '@components/IngredientList/IngredientList';
 import IconList from '@components/IconList/IconList';
-import { getFormOfDietIcon } from '@helpers/utils';
+import { calculateMinutesToHours, getFormOfDietIcon } from '@helpers/utils';
 import { Recipe } from 'src/types/types';
 import styles from '@styles/DetailRecipe.module.scss';
 import FavoriteButton from './FavoriteButton';
@@ -13,11 +13,17 @@ export default async function DetailRecipe({ params: { id } }: { params: { id: s
     });
     const recipe = (await data.json()) as Recipe;
 
+    const prepareTime = recipe?.preparingTime
+        ? recipe?.preparingTime
+        : recipe?.totalTime - recipe?.cookingTime > 0
+        ? recipe?.totalTime - recipe?.cookingTime
+        : 0;
+
     const icons = [
-        { id: 1, src: getFormOfDietIcon(recipe.formOfDiet), withTime: false, text: recipe?.formOfDiet },
-        { id: 2, src: 'totaltime', withTime: true, text: recipe?.totalTime + '' },
-        { id: 3, src: 'cookingTime', withTime: true, text: recipe?.cookingTime + '' },
-        { id: 4, src: 'preparingTime', withTime: true, text: recipe?.preparingTime + '' },
+        { id: 1, src: getFormOfDietIcon(recipe.formOfDiet), text: recipe?.formOfDiet },
+        { id: 2, src: 'totaltime', text: calculateMinutesToHours(recipe?.totalTime) },
+        { id: 3, src: 'cookingTime', text: calculateMinutesToHours(recipe?.cookingTime) },
+        { id: 4, src: 'preparingTime', text: calculateMinutesToHours(prepareTime) },
     ];
 
     return (

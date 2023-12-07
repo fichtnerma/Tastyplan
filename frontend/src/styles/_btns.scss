@@ -16,7 +16,7 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px #3a97f9;
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-dark-rgb);
     }
 
     &:hover {
@@ -46,7 +46,6 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
     @extend .btn;
     color: var(--white);
     background-color: var(--green-dark);
-    
 }
 
 .btn-primary-unobtrusive {
@@ -106,7 +105,6 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
     @apply px-8;
 }
 
-
 .btn-create-weekplan {
     @extend .btn-big;
     color: var(--white);
@@ -165,4 +163,3 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
         }
     }
 }
-

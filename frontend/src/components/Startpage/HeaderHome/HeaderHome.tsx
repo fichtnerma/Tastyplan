@@ -47,13 +47,13 @@ function HeaderHome() {
             <div className="col-start-3 col-span-3 md:col-span-1 md:col-start-5 flex justify-end">
                 <Link
                     href="/authentication/registration"
-                    className="group mr-10 hover:underline underline-offset-8 hover:text-green-custom3 transition-all"
+                    className="group mr-10 hover:underline underline-offset-8 hover:text-green-custom3 transition-all h-fit"
                 >
                     <p className="h6 group-hover:text-green-custom3  transition-all">Registration</p>
                 </Link>
                 <Link
                     href="/authentication/login"
-                    className="group hover:underline underline-offset-8 hover:text-green-custom3 transition-all"
+                    className="group hover:underline underline-offset-8 hover:text-green-custom3 transition-all h-fit"
                 >
                     <p className="h6 group-hover:text-green-custom3  transition-all">Login</p>
                 </Link>
@@ -114,7 +114,7 @@ function HeaderHome() {
                         <p className={`h5 !font-zeyada text-green-custom2  text-center my-0 mx-auto pt-2`}>Thursday</p>
                     </div>
                     <div className="hidden md:block bg-green-custom1 h-full rounded-[12px] lg:rounded-[30px]">
-                        <p className={`h5 !font-zeyada text-green-custom2  text-center my-0 mx-auto pt-2`}>Frieday</p>
+                        <p className={`h5 !font-zeyada text-green-custom2  text-center my-0 mx-auto pt-2`}>Friday</p>
                     </div>
                 </div>
 

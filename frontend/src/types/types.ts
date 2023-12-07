@@ -38,7 +38,6 @@ export type Recipe = {
 export type IconMetaData = {
     id: number;
     src: string;
-    withTime: boolean;
     text: string;
 };
 
