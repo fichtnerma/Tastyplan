@@ -176,3 +176,8 @@ input[type='submit'] {
 .recipeCardWrapper {
     @apply w-[48%] lg:w-[15%] sm:w-[30%];
 }
+
+// Swiper custom elements
+.swiper-pagination {
+    --swiper-pagination-color: var(--green-dark);
+}

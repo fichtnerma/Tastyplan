@@ -65,8 +65,8 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                             <p className="capitalize">{preference.food}</p>
                             <p className="text-xs lg:max-w-[170px] xl:max-w-[unset]">{preference.description}</p>
                         </label>
-                        <div className="z-[2]">
-                            <Icon size={50} icon={preference.icon}></Icon>
+                        <div className="pointer-events-none z-[2]">
+                            <Icon size={50} icon={preference.icon} />
                         </div>
                     </div>
                 ))}
