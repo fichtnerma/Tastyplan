@@ -49,8 +49,8 @@ export class RecipesController {
     @ApiSecurity('access-key')
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('/tags')
-    getRecipeTags() {
-        return this.recipesService.getRecipeTags();
+    async getRecipeTags() {
+        return await this.recipesService.getRecipeTags();
     }
 
     @Post('/create')
