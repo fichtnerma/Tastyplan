@@ -69,6 +69,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
 
                 <TextInput
                     hasError={error != ''}
+                    id="registration-mail"
                     value={mail}
                     validate={isEmailValidator}
                     required
@@ -77,6 +78,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
                 />
                 <TextInput
                     value={password}
+                    id="registration-password"
                     type="password"
                     required
                     validate={isPasswordValidator}
@@ -86,6 +88,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
                 <TextInput
                     value={passwordConf}
                     type="password"
+                    id="registration-passwordConf"
                     required
                     validate={isPasswordValidator}
                     onChange={setPasswordConf}

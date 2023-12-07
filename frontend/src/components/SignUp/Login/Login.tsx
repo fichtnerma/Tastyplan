@@ -54,9 +54,17 @@ export default function Login({ visible }: LoginProps) {
         <div className={`${styles.loginContainer} ${visible && styles.active}`}>
             <form className="px-10 mb-10 flex items-stretch flex-col gap-4" action="#" onSubmit={handleSubmit}>
                 <h2 className="h1 w-full text-left">Sign in</h2>
-                <TextInput hasError={error != ''} value={email} required onChange={setEMail} label="E-Mail" />
                 <TextInput
                     hasError={error != ''}
+                    id="login-mail"
+                    value={email}
+                    required
+                    onChange={setEMail}
+                    label="E-Mail"
+                />
+                <TextInput
+                    hasError={error != ''}
+                    id="login-password"
                     value={password}
                     type="password"
                     required
