@@ -53,3 +53,11 @@ export function mapShoppingListToSelection(ingredientList: ShoppingListItem[]): 
     });
     return selectionList;
 }
+
+export function getImageRessourcePath(imgString: string) {
+    if (imgString.startsWith('http://') || imgString.startsWith('https://')) {
+        return imgString;
+    } else {
+        return `/service/images/${imgString}`;
+    }
+}
