@@ -21,8 +21,8 @@ const AddRecipePage = () => {
     };
 
     return (
-        <div className="bg-white-custom lg:bg-green-custom4 lg:h-[90vh] lg:flex justify-center lg:items-center">
-            <div className="flex flex-col h-[90vh] px-4 pt-7 pb-4 bg-white-custom lg:max-h-[700px] lg:w-[800px] lg:px-[8rem]  lg:rounded-[30px]">
+        <div className="bg-white-custom px-10 py-8 lg:bg-green-custom4 lg:flex lg:items-center lg:justify-center lg:h-[90vh]">
+            <div className="flex flex-col w-full pt-7 pb-4 bg-white-custom md:h-[900px] lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
                 <ProgressBar
                     stepNames={stepNames}
                     activeStep={currentStep}
@@ -31,7 +31,7 @@ const AddRecipePage = () => {
                 />
                 <span className="block mb-[4rem]"></span>
                 <AddRecipeWizard stepNr={currentStep} onNewRecipe={handleNewRecipe} />
-                <div className="flex justify-between mt-auto">
+                <div className="flex justify-between mt-5 md:mt-auto">
                     <button
                         className="btn-primary"
                         disabled={currentStep === 1}
