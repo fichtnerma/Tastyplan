@@ -1,17 +1,11 @@
 import { RecipesSearchService } from './recipesSearch.service';
 import { RecipesService } from './recipes.service';
-import { RawStringCreateRecipeDto } from './dto/raw-string-create-recipe.dto';
 import { PostRecipeDto } from './dto/post-recipe.dto';
 import { RequestWithUser } from 'src/users/users.controller';
 import { PreferencesService } from 'src/preferences/preferences.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Express } from 'express';
-import { validate } from 'class-validator';
-import { plainToClass } from 'class-transformer';
 import { User } from '@prisma/client';
 import { ApiSecurity } from '@nestjs/swagger';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { HttpException, HttpStatus } from '@nestjs/common';
 import {
     Body,
     ClassSerializerInterceptor,
@@ -23,7 +17,6 @@ import {
     Req,
     UseGuards,
     UseInterceptors,
-    UploadedFile,
 } from '@nestjs/common';
 
 @Controller('recipes')
@@ -53,6 +46,12 @@ export class RecipesController {
         return await this.recipesService.getRecipeTags();
     }
 
+    @Post('/create')
+    async postRecipe(@Body() postRecipeDto: PostRecipeDto) {
+        return await this.recipesService.postRecipe(postRecipeDto);
+    }
+
+    /* 
     @Post('/create')
     @UseInterceptors(FileInterceptor('image'))
     async postRecipe(
@@ -118,7 +117,7 @@ export class RecipesController {
             }
         }
     }
-
+ */
     @Get(':id')
     public findOne(@Param('id') id: string) {
         return this.recipesService.findById(+id);

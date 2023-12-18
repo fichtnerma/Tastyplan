@@ -2,7 +2,7 @@ import { RecipesUploadImageService } from './recipesUploadImage.service';
 import { RecipesSearchService } from './recipesSearch.service';
 import { Preferences, RecipesFilterService } from './recipesFilter.service';
 import { RecipeQueries } from './recipe.queries';
-import { CreateRecipeInput, ExtendetRecipe, RecipeInput } from './recipe.interface';
+import { ExtendetRecipe, RecipeInput, CreateRecipeInput } from './recipe.interface';
 import { PostRecipeDto } from './dto/post-recipe.dto';
 import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
 import { Cache } from 'cache-manager';
@@ -158,14 +158,23 @@ export class RecipesService {
             throw new InternalServerErrorException('Error: no k random recipes could be created');
         }
     }
-    async postRecipe(postRecipeDto: PostRecipeDto, file: Express.Multer.File) {
+    async postRecipe(postRecipeDto: PostRecipeDto) {
         let imgPath = '';
-        if (file) {
-            file.buffer = await this.recipesUploadImageService.resizeAndCropImage(file);
-            imgPath = await this.recipesUploadImageService.uploadImageToS3(file);
+        let imgName = '';
+
+        if (postRecipeDto.imageBase64) {
+            const imageBuffer = Buffer.from(postRecipeDto.imageBase64, 'base64');
+            const processedImageBuffer = await this.recipesUploadImageService.resizeAndCropImage(imageBuffer);
+            if (processedImageBuffer.length > 1048576) {
+                throw new Error('Image is too large. Please upload an image smaller than 1MB.');
+            }
+            const [url, fileName] = await this.recipesUploadImageService.uploadImageToS3(processedImageBuffer);
+            imgPath = url;
+            imgName = fileName;
         } else {
             imgPath = 'RecipeStockImage.jpg';
         }
+
         const createRecipeInput: CreateRecipeInput = { ...postRecipeDto, img: imgPath };
 
         try {
@@ -173,8 +182,8 @@ export class RecipesService {
             return result;
         } catch (error) {
             console.log('Error saving to DB: ', error);
-            if (file) {
-                await this.recipesUploadImageService.deleteImageFromS3(file.originalname);
+            if (imgName) {
+                await this.recipesUploadImageService.deleteImageFromS3(imgName);
                 console.log('Cleanup deletion successful');
             }
             throw new InternalServerErrorException('Error saving to DB');

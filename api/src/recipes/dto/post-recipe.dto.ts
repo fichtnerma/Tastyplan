@@ -58,4 +58,8 @@ export class PostRecipeDto {
     @IsNotEmpty()
     @IsString()
     userId: string;
+
+    @IsOptional()
+    @IsString()
+    imageBase64?: string;
 }
