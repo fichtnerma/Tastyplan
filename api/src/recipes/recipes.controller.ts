@@ -11,6 +11,8 @@ import {
     ClassSerializerInterceptor,
     Controller,
     Get,
+    HttpException,
+    HttpStatus,
     Param,
     Post,
     Query,
@@ -48,61 +50,8 @@ export class RecipesController {
 
     @Post('/create')
     async postRecipe(@Body() postRecipeDto: PostRecipeDto) {
-        return await this.recipesService.postRecipe(postRecipeDto);
-    }
-
-    /* 
-    @Post('/create')
-    @UseInterceptors(FileInterceptor('image'))
-    async postRecipe(
-        @UploadedFile() file: Express.Multer.File,
-        @Body() rawStringCreateRecipeDto: RawStringCreateRecipeDto,
-    ) {
         try {
-            // Check if file format is valid
-            if (file && !['image/png', 'image/jpeg', 'image/jpg', 'image/webp'].includes(file.mimetype)) {
-                throw new HttpException(
-                    {
-                        status: HttpStatus.BAD_REQUEST,
-                        error: 'ERROR: Invalid file type. Only png, jpeg, jpg and webp are allowed.',
-                    },
-                    HttpStatus.BAD_REQUEST,
-                );
-            }
-
-            // Check if file size is valid (less than or equal to 500KB)
-            if (file && file.size > 1000 * 1024) {
-                throw new HttpException(
-                    {
-                        status: HttpStatus.BAD_REQUEST,
-                        error: 'ERROR:Invalid file size. File size should be less than or equal to 500KB.',
-                    },
-                    HttpStatus.BAD_REQUEST,
-                );
-            }
-            const postRecipeDto: PostRecipeDto = {
-                ...rawStringCreateRecipeDto,
-                totalTime: parseInt(rawStringCreateRecipeDto.totalTime),
-                servings: parseInt(rawStringCreateRecipeDto.servings),
-                tags: JSON.parse(rawStringCreateRecipeDto.tags),
-                ingredients: JSON.parse(rawStringCreateRecipeDto.ingredients),
-                steps: JSON.parse(rawStringCreateRecipeDto.steps),
-            };
-            // Transform the plain object to an instance of the class
-            const recipe = plainToClass(PostRecipeDto, postRecipeDto);
-            // Validate the transformed object
-            const errors = await validate(recipe);
-            if (errors.length > 0) {
-                throw new HttpException(
-                    {
-                        status: HttpStatus.BAD_REQUEST,
-                        error: 'ERROR: Invalid Input values!',
-                    },
-                    HttpStatus.BAD_REQUEST,
-                );
-            }
-
-            return await this.recipesService.postRecipe(postRecipeDto, file);
+            return await this.recipesService.postRecipe(postRecipeDto);
         } catch (error) {
             if (error instanceof HttpException) {
                 throw error;
@@ -117,7 +66,6 @@ export class RecipesController {
             }
         }
     }
- */
     @Get(':id')
     public findOne(@Param('id') id: string) {
         return this.recipesService.findById(+id);

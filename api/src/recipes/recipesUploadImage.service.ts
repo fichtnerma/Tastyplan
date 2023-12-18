@@ -28,7 +28,7 @@ export class RecipesUploadImageService {
 
         try {
             const data = await s3.upload(uploadParams).promise();
-            return [data.Location, fileName];
+            return await [data.Location, fileName];
         } catch (error) {
             console.log('Error uploading file: ', error);
             throw new InternalServerErrorException('Error uploading file');

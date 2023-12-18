@@ -163,14 +163,8 @@ export class RecipesService {
         let imgName = '';
 
         if (postRecipeDto.imageBase64) {
-            const imageBuffer = Buffer.from(postRecipeDto.imageBase64, 'base64');
-            const processedImageBuffer = await this.recipesUploadImageService.resizeAndCropImage(imageBuffer);
-            if (processedImageBuffer.length > 1048576) {
-                throw new Error('Image is too large. Please upload an image smaller than 1MB.');
-            }
-            const [url, fileName] = await this.recipesUploadImageService.uploadImageToS3(processedImageBuffer);
-            imgPath = url;
-            imgName = fileName;
+            const processedImageBuffer = await this.processImage(postRecipeDto.imageBase64);
+            [imgPath, imgName] = await this.uploadImage(processedImageBuffer);
         } else {
             imgPath = 'RecipeStockImage.jpg';
         }
@@ -181,10 +175,8 @@ export class RecipesService {
             const result = await this.recipeQueries.createRecipe(createRecipeInput);
             return result;
         } catch (error) {
-            console.log('Error saving to DB: ', error);
             if (imgName) {
                 await this.recipesUploadImageService.deleteImageFromS3(imgName);
-                console.log('Cleanup deletion successful');
             }
             throw new InternalServerErrorException('Error saving to DB');
         }
@@ -192,5 +184,30 @@ export class RecipesService {
 
     async getRecipeTags() {
         return await this.recipeSearchService.getTags();
+    }
+
+    async processImage(imageBase64: string): Promise<Buffer> {
+        try {
+            const processedImageBuffer = await this.processImageBuffer(imageBase64);
+            if (processedImageBuffer.length > 1048576) {
+                throw new Error('Image is too large. Please upload an image smaller than 1MB.');
+            }
+            return processedImageBuffer;
+        } catch (error) {
+            console.error(error);
+            throw new InternalServerErrorException('Error: Processing base64 string failed!');
+        }
+    }
+    async processImageBuffer(base64String: string) {
+        const decodedImageBuffer = Buffer.from(base64String, 'base64');
+        return await this.recipesUploadImageService.resizeAndCropImage(decodedImageBuffer);
+    }
+    async uploadImage(processedImageBuffer: Buffer): Promise<string[]> {
+        try {
+            return await this.recipesUploadImageService.uploadImageToS3(processedImageBuffer);
+        } catch (error) {
+            console.error(error);
+            throw new InternalServerErrorException('Error: Uploading Image to Cloud failed!');
+        }
     }
 }
