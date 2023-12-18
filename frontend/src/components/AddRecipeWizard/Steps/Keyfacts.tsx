@@ -38,14 +38,24 @@ const selectStyleOptions = {
 };
 
 type KeyfactsProps = {
+    currentTotalTime: number;
+    currentServings: number;
+    currentSelectedOption: SelectOption;
     onTotalTime: (totalTime: number) => void;
     onServings: (servings: number) => void;
     onFoodLifestyle: (lifestyle: string) => void;
 };
-const Keyfacts = ({ onTotalTime: onCookingTime, onServings, onFoodLifestyle }: KeyfactsProps) => {
-    const [totalTime, setTotalTime] = useState(0);
-    const [servings, setServings] = useState(1);
-    const [selectedOption, setSelectedOption] = useState<SelectOption | null>(null);
+const Keyfacts = ({
+    currentTotalTime,
+    currentServings,
+    currentSelectedOption,
+    onTotalTime: onCookingTime,
+    onServings,
+    onFoodLifestyle,
+}: KeyfactsProps) => {
+    const [totalTime, setTotalTime] = useState(currentTotalTime);
+    const [servings, setServings] = useState(currentServings);
+    const [selectedOption, setSelectedOption] = useState<SelectOption>(currentSelectedOption);
     const { data: session } = useSession();
 
     const loadTags = async () => {
@@ -118,7 +128,7 @@ const Keyfacts = ({ onTotalTime: onCookingTime, onServings, onFoodLifestyle }: K
                     <label htmlFor="foodLifeStyle">Set the diet</label>
                     <Select
                         name="foodLifeStyle"
-                        defaultValue={selectOptions[0]}
+                        defaultValue={selectedOption}
                         onChange={handleSelectionChange}
                         options={selectOptions}
                         styles={selectStyleOptions}

@@ -22,17 +22,18 @@ const dropzoneStyles = {
     transition: 'border .24s ease-in-out',
 };
 
-type UploadedImg = {
-    file: File;
+export type UploadedImg = {
+    file: File | undefined;
     preview: string;
 };
 
 type ImgDragAndDropProps = {
-    onUploadedImgChange: (img: File) => void;
+    currentImage: UploadedImg | undefined;
+    onUploadedImgChange: (img: UploadedImg) => void;
 };
 
-const ImgDragAndDrop = ({ onUploadedImgChange }: ImgDragAndDropProps) => {
-    const [uploadedImg, setUploadedImg] = useState<UploadedImg | undefined>(undefined);
+const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropProps) => {
+    const [uploadedImg, setUploadedImg] = useState<UploadedImg | undefined>(currentImage);
 
     const focusedStyle = {
         borderColor: '#3a97f9',
@@ -51,8 +52,9 @@ const ImgDragAndDrop = ({ onUploadedImgChange }: ImgDragAndDropProps) => {
         maxFiles: 1,
         multiple: false,
         onDrop: (acceptedFiles: File[]) => {
-            setUploadedImg({ file: acceptedFiles[0], preview: URL.createObjectURL(acceptedFiles[0]) });
-            onUploadedImgChange(acceptedFiles[0]);
+            const newUploadedImg = { file: acceptedFiles[0], preview: URL.createObjectURL(acceptedFiles[0]) };
+            setUploadedImg(newUploadedImg);
+            onUploadedImgChange(newUploadedImg);
         },
     });
 

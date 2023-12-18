@@ -41,7 +41,6 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
 
     const onUploadedImgChange = (img: UploadedImg | undefined) => {
         if (!img) return;
-
         const currentRecipe = { ...customRecipe };
         currentRecipe.image = img;
         setCustomeRecipe(currentRecipe);

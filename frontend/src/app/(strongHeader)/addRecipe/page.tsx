@@ -13,47 +13,11 @@ const AddRecipePage = () => {
     const { data: session } = useSession();
 
     const handleNewRecipe = (recipe: CustomRecipe) => {
-        console.log(recipe);
         setNewRecipe(recipe);
     };
 
     const sendData = async () => {
-        const form_data = new FormData();
-
-        for (const key in newRecipe) {
-            if (key === 'steps') {
-                const steps = [...newRecipe[key]];
-                const modfiedSteps = steps.map((step) => {
-                    const { id, ...rest } = step;
-                    return rest;
-                });
-                form_data.append(key, JSON.stringify(modfiedSteps));
-            } else if (key === 'ingredients') {
-                const ingredients = [...newRecipe[key]];
-                const modifiedIngredients = ingredients.map(({ id, ingredient, ...rest }) => ({
-                    ingredientId: id,
-                    ...rest,
-                }));
-                form_data.append(key, JSON.stringify(modifiedIngredients));
-            } else {
-                form_data.append(key, newRecipe[key]);
-            }
-        }
-
-        form_data.append('userId', session?.user.userId);
-
-        for (const value of form_data.values()) {
-            console.log(value);
-        }
-
-        const res = await fetch('/service/recipes/create', {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${session?.user.token}`,
-            },
-            body: form_data,
-        });
-        console.log(newRecipe);
+        console.log('sendData');
     };
 
     return (

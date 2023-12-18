@@ -1,16 +1,21 @@
 import { useState } from 'react';
-import ImgDragAndDrop from '@components/ImgDragAndDrop/ImgDragAndDrop';
+import ImgDragAndDrop, { UploadedImg } from '@components/ImgDragAndDrop/ImgDragAndDrop';
 import TextInput from '@components/FormInputs/TextInput';
 
 type AddNameAndImageProps = {
+    currentName: string;
+    currentImage: UploadedImg | undefined;
     onNameChange: (name: string) => void;
-    onUploadedImgChange: (img: File) => void;
+    onUploadedImgChange: (img: UploadedImg | undefined) => void;
 };
 
-const AddNameAndImage = ({ onNameChange, onUploadedImgChange }: AddNameAndImageProps) => {
-    const [name, setName] = useState('');
+const AddNameAndImage = ({ currentName, currentImage, onNameChange, onUploadedImgChange }: AddNameAndImageProps) => {
+    const [name, setName] = useState(currentName);
+    const [image, setImage] = useState<UploadedImg | undefined>(currentImage);
 
-    const handleUploadedImgChange = (img: File) => {
+    const handleUploadedImgChange = (img: UploadedImg | undefined) => {
+        if (!img) return;
+        setImage(img);
         onUploadedImgChange(img);
     };
 
@@ -27,7 +32,7 @@ const AddNameAndImage = ({ onNameChange, onUploadedImgChange }: AddNameAndImageP
             <label className="block mt-5 mb-1" htmlFor="image">
                 Add an Image (optional)
             </label>
-            <ImgDragAndDrop onUploadedImgChange={handleUploadedImgChange} />
+            <ImgDragAndDrop currentImage={image} onUploadedImgChange={handleUploadedImgChange} />
         </fieldset>
     );
 };
