@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useDropzone } from 'react-dropzone';
 import Icon from '@components/Icon/Icon';
@@ -8,7 +8,6 @@ const isMobile = window.innerWidth <= 768;
 const dropzoneStyles = {
     flex: 1,
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '20px',
@@ -24,16 +23,16 @@ const dropzoneStyles = {
 
 export type UploadedImg = {
     file: File | undefined;
-    preview: string;
+    preview?: string;
 };
 
 type ImgDragAndDropProps = {
-    currentImage: UploadedImg | undefined;
-    onUploadedImgChange: (img: UploadedImg) => void;
+    currentImage: string | undefined;
+    onUploadedImgChange: (img64: string) => void;
 };
 
 const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropProps) => {
-    const [uploadedImg, setUploadedImg] = useState<UploadedImg | undefined>(currentImage);
+    const [uploadedImg, setUploadedImg] = useState<string | undefined>(currentImage);
 
     const focusedStyle = {
         borderColor: '#3a97f9',
@@ -47,14 +46,35 @@ const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropPro
         borderColor: '#d54444',
     };
 
+    const toBase64 = (file: File): Promise<string> =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                const result = reader.result;
+
+                if (!result) {
+                    reject;
+                    return;
+                }
+
+                if (typeof result === 'string') resolve(result);
+            };
+            reader.onerror = reject;
+        });
+
     const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject, isDragActive } = useDropzone({
         accept: { 'image/jpeg': [], 'image/jpg': [], 'image/png': [], 'image/webp': [] },
         maxFiles: 1,
         multiple: false,
-        onDrop: (acceptedFiles: File[]) => {
-            const newUploadedImg = { file: acceptedFiles[0], preview: URL.createObjectURL(acceptedFiles[0]) };
-            setUploadedImg(newUploadedImg);
-            onUploadedImgChange(newUploadedImg);
+        onDrop: async (acceptedFiles: File[]) => {
+            const reader = new FileReader();
+            const acceptedFile = acceptedFiles[0];
+            reader.readAsDataURL(acceptedFile);
+
+            const base64Data: string | ArrayBuffer | null = await toBase64(acceptedFile);
+            setUploadedImg(base64Data);
+            onUploadedImgChange(base64Data);
         },
     });
 
@@ -65,14 +85,8 @@ const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropPro
             ...(isDragAccept ? acceptStyle : {}),
             ...(isDragReject ? rejectStyle : {}),
         }),
-        [isFocused, isDragAccept, isDragReject, acceptStyle, focusedStyle, rejectStyle],
+        [isFocused, isDragAccept, isDragReject],
     );
-
-    useEffect(() => {
-        // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-        if (uploadedImg?.preview) return () => URL.revokeObjectURL(uploadedImg.preview);
-        return;
-    }, [uploadedImg?.preview]);
 
     return (
         <div>
@@ -90,15 +104,9 @@ const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropPro
                     </div>
                 )}
             </div>
-            {uploadedImg?.preview && (
+            {uploadedImg && (
                 <aside className="flex justify-center mt-4">
-                    <Image
-                        width={200}
-                        height={200}
-                        src={uploadedImg?.preview}
-                        alt="image preview"
-                        onLoad={() => URL.revokeObjectURL(uploadedImg?.preview)}
-                    />
+                    <Image width={200} height={200} src={uploadedImg} alt="image preview" />
                 </aside>
             )}
         </div>

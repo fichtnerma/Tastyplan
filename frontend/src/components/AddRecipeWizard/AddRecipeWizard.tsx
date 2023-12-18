@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { UploadedImg } from '@components/ImgDragAndDrop/ImgDragAndDrop';
 import { Ingredient } from 'src/types/types';
 import Keyfacts from './Steps/Keyfacts';
 import AddSteps, { CustomStep } from './Steps/AddSteps';
@@ -8,7 +7,7 @@ import AddIngredients from './Steps/AddIngredients';
 
 export type CustomRecipe = {
     name: string;
-    image: UploadedImg | undefined;
+    image: string | undefined;
     ingredients: Ingredient[];
     totalTime: number;
     servings: number;
@@ -39,7 +38,7 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
         onNewRecipe(currentRecipe);
     };
 
-    const onUploadedImgChange = (img: UploadedImg | undefined) => {
+    const onUploadedImgChange = (img: string | undefined) => {
         if (!img) return;
 
         const currentRecipe = { ...customRecipe };

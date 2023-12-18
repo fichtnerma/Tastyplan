@@ -1,22 +1,22 @@
 import { useState } from 'react';
-import ImgDragAndDrop, { UploadedImg } from '@components/ImgDragAndDrop/ImgDragAndDrop';
+import ImgDragAndDrop from '@components/ImgDragAndDrop/ImgDragAndDrop';
 import TextInput from '@components/FormInputs/TextInput';
 
 type AddNameAndImageProps = {
     currentName: string;
-    currentImage: UploadedImg | undefined;
+    currentImage: string | undefined;
     onNameChange: (name: string) => void;
-    onUploadedImgChange: (img: UploadedImg | undefined) => void;
+    onUploadedImgChange: (img: string | undefined) => void;
 };
 
 const AddNameAndImage = ({ currentName, currentImage, onNameChange, onUploadedImgChange }: AddNameAndImageProps) => {
     const [name, setName] = useState(currentName);
-    const [image, setImage] = useState<UploadedImg | undefined>(currentImage);
+    const [image, setImage] = useState<string | undefined>(currentImage);
 
-    const handleUploadedImgChange = (img: UploadedImg | undefined) => {
-        if (!img) return;
-        setImage(img);
-        onUploadedImgChange(img);
+    const handleUploadedImgChange = (img64: string) => {
+        if (!img64) return;
+        setImage(img64);
+        onUploadedImgChange(img64);
     };
 
     const handleNameChange = (name: string) => {
