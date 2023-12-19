@@ -2,7 +2,7 @@ import { RecipesUploadImageService } from './recipesUploadImage.service';
 import { RecipesSearchService } from './recipesSearch.service';
 import { Preferences, RecipesFilterService } from './recipesFilter.service';
 import { RecipeQueries } from './recipe.queries';
-import { CreateRecipeInput, ExtendetRecipe, RecipeInput } from './recipe.interface';
+import { ExtendetRecipe, RecipeInput, CreateRecipeInput } from './recipe.interface';
 import { PostRecipeDto } from './dto/post-recipe.dto';
 import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
 import { Cache } from 'cache-manager';
@@ -154,34 +154,60 @@ export class RecipesService {
             return recipes;
         } catch (error) {
             console.log(error);
-
             throw new InternalServerErrorException('Error: no k random recipes could be created');
         }
     }
-    async postRecipe(postRecipeDto: PostRecipeDto, file: Express.Multer.File) {
+    async postRecipe(postRecipeDto: PostRecipeDto) {
         let imgPath = '';
-        if (file) {
-            file.buffer = await this.recipesUploadImageService.resizeAndCropImage(file);
-            imgPath = await this.recipesUploadImageService.uploadImageToS3(file);
+        let imgName = '';
+
+        if (postRecipeDto.imageBase64) {
+            const processedImageBuffer = await this.processImage(postRecipeDto.imageBase64);
+            [imgPath, imgName] = await this.uploadImage(processedImageBuffer);
         } else {
             imgPath = 'RecipeStockImage.jpg';
         }
+
         const createRecipeInput: CreateRecipeInput = { ...postRecipeDto, img: imgPath };
 
         try {
             const result = await this.recipeQueries.createRecipe(createRecipeInput);
             return result;
         } catch (error) {
-            console.log('Error saving to DB: ', error);
-            if (file) {
-                await this.recipesUploadImageService.deleteImageFromS3(file.originalname);
-                console.log('Cleanup deletion successful');
+            if (imgName) {
+                await this.recipesUploadImageService.deleteImageFromS3(imgName);
             }
+            console.log(error);
             throw new InternalServerErrorException('Error saving to DB');
         }
     }
 
     async getRecipeTags() {
         return await this.recipeSearchService.getTags();
+    }
+
+    async processImage(imageBase64: string): Promise<Buffer> {
+        try {
+            const processedImageBuffer = await this.processImageBuffer(imageBase64);
+            if (processedImageBuffer.length > 1048576) {
+                throw new Error('Image is too large. Please upload an image smaller than 1MB.');
+            }
+            return processedImageBuffer;
+        } catch (error) {
+            console.error(error);
+            throw new InternalServerErrorException('Error: Processing base64 string failed!');
+        }
+    }
+    async processImageBuffer(base64String: string) {
+        const decodedImageBuffer = Buffer.from(base64String, 'base64');
+        return await this.recipesUploadImageService.resizeAndCropImage(decodedImageBuffer);
+    }
+    async uploadImage(processedImageBuffer: Buffer): Promise<string[]> {
+        try {
+            return await this.recipesUploadImageService.uploadImageToS3(processedImageBuffer);
+        } catch (error) {
+            console.error(error);
+            throw new InternalServerErrorException('Error: Uploading Image to Cloud failed!');
+        }
     }
 }
