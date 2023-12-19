@@ -1,4 +1,10 @@
 .SelectionWrapper {
+    margin-bottom: 3rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
     input {
         &:focus-visible {
             box-shadow: unset !important;

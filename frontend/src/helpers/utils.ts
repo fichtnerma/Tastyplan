@@ -9,6 +9,30 @@ export const debounce = (fn: (...params: unknown[]) => unknown, ms = 300) => {
     };
 };
 
+export const debounceWithPromise = <T extends (...params: unknown[]) => Promise<unknown>>(
+  fn: T,
+  ms = 300
+) => {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  let resolveFn: ((value?: unknown) => void) | null = null;
+
+  return function (this: unknown, ...args: Parameters<T>) {
+    clearTimeout(timeoutId);
+
+    return new Promise<unknown>((resolve) => {
+      resolveFn = resolve;
+      timeoutId = setTimeout(async () => {
+        if (resolveFn) {
+          const result = await fn.apply(this, args);
+          resolveFn(result);
+          resolveFn = null;
+        }
+      }, ms);
+    });
+  };
+};
+
+
 export function getFormOfDietIcon(formOfDiet: string | undefined) {
     if (formOfDiet == 'vegetarian') {
         return 'vegetarian';
