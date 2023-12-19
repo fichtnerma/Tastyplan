@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
 import AddRecipeWizard, { CustomRecipe } from '@components/AddRecipeWizard/AddRecipeWizard';
@@ -7,18 +7,79 @@ import { fetchWithAuth } from '@helpers/utils';
 
 const stepNames = ['Name and Image', 'Key Facts', 'Add Ingredients', 'Steps'];
 
+type Ingredient = {
+    ingredientId: number;
+    unit: string;
+    quantity: number;
+};
+
+type Step = {
+    description: string;
+    stepCount: number;
+};
+
+type RecipeTransformed = {
+    name: string;
+    servings: number;
+    formOfDiet: string;
+    ingredients: Ingredient[];
+    steps: Step[];
+    imageBase64: string | undefined;
+    userId: string;
+};
+
 const AddRecipePage = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [newRecipe, setNewRecipe] = useState<CustomRecipe | undefined>(undefined);
     const [inputIsNotValid, setInputIsNotValid] = useState(true);
     const { data: session } = useSession();
 
+    useEffect(() => {
+        console.log(newRecipe);
+    });
+
     const handleNewRecipe = (recipe: CustomRecipe) => {
         setNewRecipe(recipe);
     };
 
     const sendData = async () => {
-        console.log('sendData');
+        if (!newRecipe) return;
+        const transformedRecipe = transformRecipe({ ...newRecipe });
+        const res = await fetchWithAuth(
+            '/service/recipes/create',
+            {
+                method: 'POST',
+                body: JSON.stringify(transformedRecipe),
+            },
+            session,
+        );
+
+        console.log(res);
+    };
+
+    const transformRecipe = (recipe: CustomRecipe): RecipeTransformed | void => {
+        const tranformedIngredients: Ingredient[] = recipe.ingredients.map((ingredient) => {
+            let ingredientID = ingredient.id;
+            if (!ingredientID) ingredientID = 0;
+            return { ingredientId: ingredientID, unit: ingredient.unit, quantity: ingredient.quantity };
+        });
+
+        const transformedSteps: Step[] = recipe.steps.map((step) => {
+            return { description: step.description, stepCount: step.stepCount + 1 };
+        });
+
+        if (!session?.user.userId) return;
+
+        const transformedRecipe: RecipeTransformed = {
+            name: recipe.name,
+            servings: recipe.servings,
+            formOfDiet: recipe.formOfDiet,
+            ingredients: [...tranformedIngredients],
+            steps: [...transformedSteps],
+            imageBase64: recipe.image ? recipe.image.split(',')[1] : undefined,
+            userId: session?.user.userId,
+        };
+        return transformedRecipe;
     };
 
     return (
