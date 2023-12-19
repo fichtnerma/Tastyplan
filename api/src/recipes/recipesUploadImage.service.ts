@@ -14,14 +14,14 @@ export class RecipesUploadImageService {
         });
 
         // Create random file name
-        const fileName = crypto.randomBytes(10).toString('hex') + '.png';
+        const fileName = crypto.randomBytes(10).toString('hex') + '.jpg';
 
         // Set up the parameters for the S3 upload
         const uploadParams = {
             Bucket: process.env.AWS_BUCKET_NAME,
             Key: fileName,
             Body: buffer,
-            ContentType: 'image/png',
+            ContentType: 'image/jpg',
             ACL: 'public-read', // Make the file publicly accessible
         };
         console.log('Uploading file to S3: ', uploadParams);
@@ -70,7 +70,7 @@ export class RecipesUploadImageService {
             const resizedImage = await image
                 .extract({ left: Math.round(left), top: Math.round(top), width: size, height: size })
                 .resize(1024, 1024)
-                .png()
+                .jpeg()
                 .toBuffer();
             return resizedImage;
         } catch (error) {

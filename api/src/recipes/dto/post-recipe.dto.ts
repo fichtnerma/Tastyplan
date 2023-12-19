@@ -1,4 +1,13 @@
-import { IsArray, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+import {
+    IsArray,
+    IsInt,
+    IsNotEmpty,
+    IsNumber,
+    IsOptional,
+    IsString,
+    ValidateNested,
+    ArrayMinSize,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 class IngredientDto {
@@ -47,12 +56,14 @@ export class PostRecipeDto {
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => IngredientDto)
+    @ArrayMinSize(1, { message: 'There must be at least one ingredient.' })
     ingredients?: IngredientDto[];
 
     @IsOptional()
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => StepDto)
+    @ArrayMinSize(1, { message: 'There must be at least one step.' })
     steps?: StepDto[];
 
     @IsNotEmpty()

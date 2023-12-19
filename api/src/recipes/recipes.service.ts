@@ -154,7 +154,6 @@ export class RecipesService {
             return recipes;
         } catch (error) {
             console.log(error);
-
             throw new InternalServerErrorException('Error: no k random recipes could be created');
         }
     }
@@ -178,6 +177,7 @@ export class RecipesService {
             if (imgName) {
                 await this.recipesUploadImageService.deleteImageFromS3(imgName);
             }
+            console.log(error);
             throw new InternalServerErrorException('Error saving to DB');
         }
     }
