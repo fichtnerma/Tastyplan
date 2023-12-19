@@ -42,6 +42,7 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
             session,
         );
         let recipe: Recipe | undefined = undefined;
+        document.body.style.overflow = 'auto';
         try {
             recipe = await recipeRes.json();
         } catch (e) {}

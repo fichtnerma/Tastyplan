@@ -64,19 +64,19 @@ export default function TextInput({
                 <label htmlFor={id}>
                     {label}
                     {required ? ' *' : ''}
+                    <input
+                        className={`border-2 ${isAtStart ? 'pl-9' : 'pl-4'} ${
+                            isAtEnd ? 'pr-9' : 'pr-4'
+                        } h-10 w-full border-gray-700 rounded-xl`}
+                        type={type}
+                        id={id}
+                        placeholder={placeholder}
+                        value={value}
+                        onBlur={onBlur ? onBlur : handleBlur}
+                        onChange={handleTextChange}
+                        onFocus={onFocus}
+                    />
                 </label>
-                <input
-                    className={`border-2 ${isAtStart ? 'pl-9' : 'pl-4'} ${
-                        isAtEnd ? 'pr-9' : 'pr-4'
-                    } h-10 w-full border-gray-700 rounded-xl`}
-                    type={type}
-                    id={id}
-                    placeholder={placeholder}
-                    value={value}
-                    onBlur={onBlur ? onBlur : handleBlur}
-                    onChange={handleTextChange}
-                    onFocus={onFocus}
-                />
             </div>
             <span className={`${errorMessage ? '' : 'hidden'} errorMessage`}>{errorMessage}</span>
         </div>
