@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Ingredient } from 'src/types/types';
 import Keyfacts from './Steps/Keyfacts';
 import AddSteps, { CustomStep } from './Steps/AddSteps';
@@ -18,9 +18,10 @@ export type CustomRecipe = {
 type AddRecipeWizardProps = {
     stepNr: number;
     onNewRecipe: (recipe: CustomRecipe) => void;
+    onInputisInvalid: (inpuIsInvalid: boolean) => void;
 };
 
-const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
+const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWizardProps) => {
     const [customRecipe, setCustomeRecipe] = useState<CustomRecipe>({
         name: '',
         image: undefined,
@@ -30,10 +31,46 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
         formOfDiet: 'vegetarian',
         steps: [],
     });
+    const [nameIsValid, setNameIsValid] = useState(false);
+    const [totalTimeIsValid, setTotalTimeIsValid] = useState(true);
+    const [servingsAreValid, setServingsAreValid] = useState(true);
+    const [formOfDietIsValid, setFormOfDietIsValid] = useState(true);
+    const [ingredientsAreValid, setIngredientsAreValid] = useState(true);
+    const [stepsAreValid, setStepsAreValid] = useState(true);
+
+    useEffect(() => {
+        if (
+            nameIsValid &&
+            totalTimeIsValid &&
+            servingsAreValid &&
+            formOfDietIsValid &&
+            ingredientsAreValid &&
+            stepsAreValid
+        )
+            onInputisInvalid(false);
+        else onInputisInvalid(true);
+
+        if (stepNr === 3 && customRecipe.ingredients.length === 0) onInputisInvalid(true);
+
+        if (stepNr === 4 && customRecipe.steps.length === 0) onInputisInvalid(true);
+    }, [
+        customRecipe.ingredients.length,
+        customRecipe.steps.length,
+        formOfDietIsValid,
+        ingredientsAreValid,
+        nameIsValid,
+        onInputisInvalid,
+        servingsAreValid,
+        stepNr,
+        stepsAreValid,
+        totalTimeIsValid,
+    ]);
 
     const handleNameChange = (name: string) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.name = name;
+        if (name.length > 0) setNameIsValid(true);
+        else setNameIsValid(false);
         setCustomeRecipe(currentRecipe);
         onNewRecipe(currentRecipe);
     };
@@ -50,6 +87,8 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
     const handleTotalTimeChange = (time: number) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.totalTime = time;
+        if (time > 0) setTotalTimeIsValid(true);
+        else setTotalTimeIsValid(false);
         setCustomeRecipe(currentRecipe);
         onNewRecipe(currentRecipe);
     };
@@ -57,6 +96,8 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
     const handleServingsChange = (servings: number) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.servings = servings;
+        if (servings > 0) setServingsAreValid(true);
+        else setServingsAreValid(false);
         setCustomeRecipe(currentRecipe);
         onNewRecipe(currentRecipe);
     };
@@ -64,6 +105,8 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
     const handleFoodLifestyleChange = (foodLifestyle: string) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.formOfDiet = foodLifestyle;
+        if (foodLifestyle.length > 0) setFormOfDietIsValid(true);
+        else setFormOfDietIsValid(false);
         setCustomeRecipe(currentRecipe);
         onNewRecipe(currentRecipe);
     };
@@ -71,6 +114,8 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
     const handleAddIngredient = (ingredient: Ingredient) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.ingredients.push(ingredient);
+        if (currentRecipe.ingredients.length > 0) setIngredientsAreValid(true);
+        else setIngredientsAreValid(false);
         setCustomeRecipe(currentRecipe);
         onNewRecipe(currentRecipe);
     };
@@ -78,6 +123,8 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
     const handleAddSteps = (steps: CustomStep[]) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.steps = steps;
+        if (currentRecipe.steps.length > 0) setStepsAreValid(true);
+        else setStepsAreValid(false);
         setCustomeRecipe(currentRecipe);
         onNewRecipe(currentRecipe);
     };
@@ -101,7 +148,7 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe }: AddRecipeWizardProps) => {
             case 3:
                 return <AddIngredients onAddIngredient={handleAddIngredient} />;
             case 4:
-                return <AddSteps onAddSteps={handleAddSteps} />;
+                return <AddSteps currentSteps={customRecipe.steps} onAddSteps={handleAddSteps} />;
             default:
                 return (
                     <AddNameAndImage

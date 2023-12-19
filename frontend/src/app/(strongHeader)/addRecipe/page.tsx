@@ -10,6 +10,7 @@ const stepNames = ['Name and Image', 'Key Facts', 'Add Ingredients', 'Steps'];
 const AddRecipePage = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [newRecipe, setNewRecipe] = useState<CustomRecipe | undefined>(undefined);
+    const [inputIsNotValid, setInputIsNotValid] = useState(true);
     const { data: session } = useSession();
 
     const handleNewRecipe = (recipe: CustomRecipe) => {
@@ -30,7 +31,11 @@ const AddRecipePage = () => {
                     onClick={() => setCurrentStep(currentStep + 1)}
                 />
                 <span className="block mb-[4rem]"></span>
-                <AddRecipeWizard stepNr={currentStep} onNewRecipe={handleNewRecipe} />
+                <AddRecipeWizard
+                    stepNr={currentStep}
+                    onNewRecipe={handleNewRecipe}
+                    onInputisInvalid={(inputIsNotValid: boolean) => setInputIsNotValid(inputIsNotValid)}
+                />
                 <div className="flex justify-between mt-5 md:mt-auto">
                     <button
                         className="btn-primary"
@@ -40,11 +45,15 @@ const AddRecipePage = () => {
                         back
                     </button>
                     {currentStep !== stepNames.length ? (
-                        <button className="btn-primary" onClick={() => setCurrentStep(currentStep + 1)}>
+                        <button
+                            className="btn-primary"
+                            onClick={() => setCurrentStep(currentStep + 1)}
+                            disabled={inputIsNotValid}
+                        >
                             next
                         </button>
                     ) : (
-                        <button className="btn-primary" onClick={sendData}>
+                        <button className="btn-primary" onClick={sendData} disabled={inputIsNotValid}>
                             create recipe
                         </button>
                     )}

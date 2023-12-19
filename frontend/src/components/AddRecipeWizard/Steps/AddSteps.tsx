@@ -9,12 +9,6 @@ export type CustomStep = {
     stepCount: number;
 };
 
-const stepDummies: CustomStep[] = [
-    { id: self.crypto.randomUUID(), description: 'This is step 1', stepCount: 1 },
-    { id: self.crypto.randomUUID(), description: 'This is Step 2', stepCount: 2 },
-    { id: self.crypto.randomUUID(), description: 'This is Step 3', stepCount: 3 },
-];
-
 type SortableStepProps = {
     step: CustomStep;
     index: number;
@@ -48,10 +42,11 @@ const SortableStep = ({ step, index }: SortableStepProps) => {
 };
 
 type AddStepsProps = {
+    currentSteps: CustomStep[];
     onAddSteps: (steps: CustomStep[]) => void;
 };
-const AddSteps = ({ onAddSteps }: AddStepsProps) => {
-    const [steps, setSteps] = useState<CustomStep[]>(stepDummies);
+const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
+    const [steps, setSteps] = useState<CustomStep[]>(currentSteps);
     const [isNewStep, setIsNewStep] = useState(false);
     const [newStep, setNewStep] = useState<CustomStep>({ id: '', description: '', stepCount: 0 });
     const onDragEnd = (event: DragEndEvent) => {
