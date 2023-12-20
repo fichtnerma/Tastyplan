@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import AsyncSelect from 'react-select/async';
 import Select, { CSSObjectWithLabel, GroupBase, OptionProps } from 'react-select';
 import Icon from '@components/Icon/Icon';
 import { fetchWithAuth } from '@helpers/utils';
@@ -11,7 +10,7 @@ type SelectFormOfDietOption = {
     label: string;
 };
 
-type SelectTagOption = {
+export type SelectTagOption = {
     value: string;
     label: string;
 };
@@ -46,30 +45,29 @@ const selectStyleOptions = {
 type KeyfactsProps = {
     currentTotalTime: number;
     currentServings: number;
-    currentSelectedOption: SelectFormOfDietOption;
+    currentSelectedFormOfDiet: SelectFormOfDietOption;
     currentTags: SelectTagOption[];
     onTotalTime: (totalTime: number) => void;
     onServings: (servings: number) => void;
     onFoodLifestyle: (lifestyle: string) => void;
+    onTags: (tags: SelectTagOption[]) => void;
 };
 const Keyfacts = ({
     currentTotalTime,
     currentServings,
     currentTags,
-    currentSelectedOption,
+    currentSelectedFormOfDiet: currentSelectedOption,
     onTotalTime: onCookingTime,
     onServings,
     onFoodLifestyle,
+    onTags,
 }: KeyfactsProps) => {
     const [totalTime, setTotalTime] = useState(currentTotalTime);
     const [servings, setServings] = useState(currentServings);
     const [selectedOption, setSelectedOption] = useState<SelectFormOfDietOption>(currentSelectedOption);
     const [tagOptions, setTagOptions] = useState<SelectTagOption[]>([]);
+    const [selectedTags, setSelectedTags] = useState<SelectTagOption[]>(currentTags);
     const { data: session } = useSession();
-
-    useEffect(() => {
-        loadTags();
-    }, []);
 
     const loadTags = async () => {
         const res = await fetchWithAuth(
@@ -102,6 +100,17 @@ const Keyfacts = ({
         setSelectedOption(selectedOption);
         onFoodLifestyle(selectedOption.value);
     };
+
+    const handleTagChange = (selectedOption: SelectTagOption) => {
+        const currentSelection = [...selectedTags];
+        currentSelection.push(selectedOption);
+        setSelectedTags(currentSelection);
+        onTags(currentSelection);
+    };
+
+    useEffect(() => {
+        loadTags();
+    }, [loadTags]);
 
     return (
         <fieldset>
@@ -160,7 +169,7 @@ const Keyfacts = ({
                     <label className="h5 block" htmlFor="foodLifeStyle">
                         Add some tags
                     </label>
-                    <Select isMulti options={tagOptions} styles={selectStyleOptions} />
+                    <Select isMulti options={tagOptions} styles={selectStyleOptions} onChange={handleTagChange} />
                 </div>
             </div>
         </fieldset>

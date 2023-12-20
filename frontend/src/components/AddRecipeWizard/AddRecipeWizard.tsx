@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Ingredient } from 'src/types/types';
-import Keyfacts from './Steps/Keyfacts';
+import Keyfacts, { SelectTagOption } from './Steps/Keyfacts';
 import AddSteps, { CustomStep } from './Steps/AddSteps';
 import AddNameAndImage from './Steps/AddNameAndImage';
 import AddIngredients from './Steps/AddIngredients';
@@ -12,6 +12,7 @@ export type CustomRecipe = {
     totalTime: number;
     servings: number;
     formOfDiet: string;
+    tags: SelectTagOption[];
     steps: CustomStep[];
 };
 
@@ -29,6 +30,7 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
         totalTime: 10,
         servings: 1,
         formOfDiet: 'vegetarian',
+        tags: [],
         steps: [],
     });
     const [nameIsValid, setNameIsValid] = useState(false);
@@ -111,6 +113,13 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
         onNewRecipe(currentRecipe);
     };
 
+    const handleTagsChange = (tags: SelectTagOption[]) => {
+        const currentRecipe = { ...customRecipe };
+        currentRecipe.tags = tags;
+        setCustomeRecipe(currentRecipe);
+        onNewRecipe(currentRecipe);
+    };
+
     const handleAddIngredient = (ingredient: Ingredient) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.ingredients.push(ingredient);
@@ -136,13 +145,15 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
                     <Keyfacts
                         currentTotalTime={customRecipe.totalTime}
                         currentServings={customRecipe.servings}
-                        currentSelectedOption={{
+                        currentSelectedFormOfDiet={{
                             label: customRecipe.formOfDiet.charAt(0).toUpperCase() + customRecipe.formOfDiet.slice(1),
                             value: customRecipe.formOfDiet.toLowerCase(),
                         }}
+                        currentTags={customRecipe.tags}
                         onTotalTime={handleTotalTimeChange}
                         onServings={handleServingsChange}
                         onFoodLifestyle={handleFoodLifestyleChange}
+                        onTags={handleTagsChange}
                     />
                 );
             case 3:
