@@ -35,7 +35,7 @@ const AddRecipePage = () => {
     const { data: session } = useSession();
 
     useEffect(() => {
-        console.log(newRecipe);
+        //console.log(newRecipe);
     });
 
     const handleNewRecipe = (recipe: CustomRecipe) => {
@@ -53,8 +53,6 @@ const AddRecipePage = () => {
             },
             session,
         );
-
-        console.log(res);
     };
 
     const transformRecipe = (recipe: CustomRecipe): RecipeTransformed | void => {

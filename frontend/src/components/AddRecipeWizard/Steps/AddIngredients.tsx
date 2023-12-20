@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import IngredientSearch, { SelectOption } from '@components/IngredientSearch/IngredientSearch';
+import IngredientSearch, { IngredientOption } from '@components/IngredientSearch/IngredientSearch';
 import TextInput from '@components/FormInputs/TextInput';
 import { Ingredient } from 'src/types/types';
 
@@ -8,21 +8,21 @@ type AddIngredientsProps = {
 };
 
 const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
-    const [selectedOption, setSelectedOption] = useState<SelectOption | undefined>(undefined);
+    const [selectedIngredient, setSelectedIngredient] = useState<IngredientOption | undefined>(undefined);
     const [amount, setAmount] = useState(1);
     const [unit, setUnit] = useState('');
 
     const handleAddIngredient = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        if (selectedOption === undefined) return;
+        if (selectedIngredient === undefined) return;
         onAddIngredient({
-            id: selectedOption.id,
-            ingredient: { name: selectedOption.value },
+            id: selectedIngredient.id,
+            ingredient: { name: selectedIngredient.value },
             quantity: amount,
             unit,
         });
 
-        setSelectedOption(undefined);
+        setSelectedIngredient(undefined);
         setAmount(1);
         setUnit('');
     };
@@ -31,7 +31,7 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
         <fieldset>
             <legend className="h1">Add ingredients</legend>
             <div>list</div>
-            <IngredientSearch onSelectOption={setSelectedOption} />
+            <IngredientSearch onIngredient={setSelectedIngredient} />
             <div className="mb-5">
                 <div className="flex flex-col my-3">
                     <label htmlFor="amount">Amount</label>
@@ -50,7 +50,7 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
             <button
                 className="btn-primary"
                 onClick={handleAddIngredient}
-                disabled={unit.length === 0 || amount === 0 || selectedOption === undefined}
+                disabled={unit.length === 0 || amount === 0 || selectedIngredient === undefined}
             >
                 Add ingredient
             </button>

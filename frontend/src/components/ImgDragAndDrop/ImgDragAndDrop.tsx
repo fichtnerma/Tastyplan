@@ -91,7 +91,7 @@ const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropPro
     return (
         <div>
             <div {...getRootProps({ style })}>
-                <input {...getInputProps()} />
+                <input {...getInputProps()} id="uploadImg" />
                 {isDragActive ? (
                     <div className="flex flex-col items-center">
                         <Icon size={34} icon="addCircle" color="#007370"></Icon>

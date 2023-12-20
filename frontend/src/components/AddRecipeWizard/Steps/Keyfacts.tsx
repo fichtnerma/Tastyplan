@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Select, { CSSObjectWithLabel, GroupBase, OptionProps } from 'react-select';
 import Icon from '@components/Icon/Icon';
+import NumberInput from '@components/FormInputs/NumberInput';
 import { fetchWithAuth } from '@helpers/utils';
 import styles from './Keyfacts.module.scss';
 
@@ -17,7 +18,7 @@ const selectFormOfDietOptions = [
     { value: 'omnivore', label: 'Omnivore' },
 ];
 
-const selectStyleOptions = {
+export const selectStyleOptions = {
     control: (baseStyles: CSSObjectWithLabel) => ({
         ...baseStyles,
         borderWidth: 2,
@@ -61,7 +62,6 @@ const Keyfacts = ({
     const [servings, setServings] = useState(currentServings);
     const [selectedFormOfDiet, setSelectedFormOfDiet] = useState<SelectOption>(currentSelectedOption);
     const [tagOptions, setTagOptions] = useState<SelectOption[]>([]);
-    const [selectedTags, setSelectedTags] = useState<SelectOption[]>(currentTags);
     const { data: session } = useSession();
 
     const loadTags = async () => {
@@ -91,16 +91,17 @@ const Keyfacts = ({
         onServings(servings);
     };
 
-    const handleFormOfDietChange = (option: unknown | null) => {
-        const typedOption = option as SelectFormOfDietOption;
+    const handleFormOfDietChange = (selectedOption: unknown | null) => {
+        if (!selectedOption) return;
+        const typedOption = selectedOption as SelectOption;
         setSelectedFormOfDiet(typedOption);
         onFoodLifestyle(typedOption.value);
     };
 
-    const handleTagChange = (selectedOptions: unknown[]) => {
-        console.log(selectedOptions);
-        const typedOptions = selectedOptions as SelectTagOption[];
-        setSelectedTags(typedOptions);
+    const handleTagChange = (selectedOptions: readonly unknown[] | null) => {
+        if (!selectedOptions) return;
+        const typedOptions = selectedOptions as SelectOption[];
+
         onTags(typedOptions);
     };
 
@@ -117,18 +118,15 @@ const Keyfacts = ({
                 </label>
                 <input
                     className="h-[50px] p-4 border-solid border-[2px] rounded-[25px] border-green-custom2"
+                    id="cookingTime"
                     type="number"
-                    name="cookingTime"
-                    value={totalTime}
                     onChange={(e) => handleCookingTimeChange(parseInt(e.target.value))}
                     required
                     min={0}
                 />
             </div>
             <div>
-                <label className="h5 block" htmlFor="servings">
-                    Portions
-                </label>
+                <h5>Portions</h5>
                 <div className="flex mb-7">
                     <button
                         type="button"
@@ -155,6 +153,9 @@ const Keyfacts = ({
                     </label>
                     <Select
                         name="foodLifeStyle"
+                        id="foodLifeStyle"
+                        aria-label="foodLifeStyle"
+                        aria-labelledby="foodLifeStyle"
                         defaultValue={selectedFormOfDiet}
                         onChange={handleFormOfDietChange}
                         options={selectFormOfDietOptions}
@@ -162,10 +163,22 @@ const Keyfacts = ({
                     />
                 </div>
                 <div className={styles.SelectionWrapper}>
-                    <label className="h5 block" htmlFor="foodLifeStyle">
+                    <label className="h5 block" htmlFor="tags">
                         Add some tags
                     </label>
-                    <Select isMulti options={tagOptions} styles={selectStyleOptions} onChange={handleTagChange} />
+                    <Select
+                        //@ts-ignore
+                        isMulti
+                        name="recipeTags"
+                        id="recipeTags"
+                        aria-label="recipeTags"
+                        aria-labelledby="recipeTags"
+                        defaultValue={currentTags}
+                        options={tagOptions}
+                        styles={selectStyleOptions}
+                        //@ts-ignore
+                        onChange={handleTagChange}
+                    />
                 </div>
             </div>
         </fieldset>

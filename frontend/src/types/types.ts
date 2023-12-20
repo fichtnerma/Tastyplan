@@ -106,3 +106,8 @@ export type Favorite = {
     recipeId: number;
     userId: string;
 };
+
+export type Option = {
+    value: string;
+    label: string;
+};
