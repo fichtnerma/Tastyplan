@@ -5,12 +5,7 @@ import Icon from '@components/Icon/Icon';
 import { fetchWithAuth } from '@helpers/utils';
 import styles from './Keyfacts.module.scss';
 
-type SelectFormOfDietOption = {
-    value: string;
-    label: string;
-};
-
-export type SelectTagOption = {
+export type SelectOption = {
     value: string;
     label: string;
 };
@@ -45,12 +40,12 @@ const selectStyleOptions = {
 type KeyfactsProps = {
     currentTotalTime: number;
     currentServings: number;
-    currentSelectedFormOfDiet: SelectFormOfDietOption;
-    currentTags: SelectTagOption[];
+    currentSelectedFormOfDiet: SelectOption;
+    currentTags: SelectOption[];
     onTotalTime: (totalTime: number) => void;
     onServings: (servings: number) => void;
     onFoodLifestyle: (lifestyle: string) => void;
-    onTags: (tags: SelectTagOption[]) => void;
+    onTags: (tags: SelectOption[]) => void;
 };
 const Keyfacts = ({
     currentTotalTime,
@@ -64,9 +59,9 @@ const Keyfacts = ({
 }: KeyfactsProps) => {
     const [totalTime, setTotalTime] = useState(currentTotalTime);
     const [servings, setServings] = useState(currentServings);
-    const [selectedOption, setSelectedOption] = useState<SelectFormOfDietOption>(currentSelectedOption);
-    const [tagOptions, setTagOptions] = useState<SelectTagOption[]>([]);
-    const [selectedTags, setSelectedTags] = useState<SelectTagOption[]>(currentTags);
+    const [selectedFormOfDiet, setSelectedFormOfDiet] = useState<SelectOption>(currentSelectedOption);
+    const [tagOptions, setTagOptions] = useState<SelectOption[]>([]);
+    const [selectedTags, setSelectedTags] = useState<SelectOption[]>(currentTags);
     const { data: session } = useSession();
 
     const loadTags = async () => {
@@ -79,7 +74,7 @@ const Keyfacts = ({
         );
 
         const tags = await res.json();
-        const newTagOptions: SelectTagOption[] = tags.map((tag: string) => {
+        const newTagOptions: SelectOption[] = tags.map((tag: string) => {
             return { value: tag, label: tag.charAt(0).toUpperCase() + tag.slice(1) };
         });
         setTagOptions(newTagOptions);
@@ -96,16 +91,17 @@ const Keyfacts = ({
         onServings(servings);
     };
 
-    const handleSelectionChange = (selectedOption: SelectFormOfDietOption) => {
-        setSelectedOption(selectedOption);
-        onFoodLifestyle(selectedOption.value);
+    const handleFormOfDietChange = (option: unknown | null) => {
+        const typedOption = option as SelectFormOfDietOption;
+        setSelectedFormOfDiet(typedOption);
+        onFoodLifestyle(typedOption.value);
     };
 
-    const handleTagChange = (selectedOption: SelectTagOption) => {
-        const currentSelection = [...selectedTags];
-        currentSelection.push(selectedOption);
-        setSelectedTags(currentSelection);
-        onTags(currentSelection);
+    const handleTagChange = (selectedOptions: unknown[]) => {
+        console.log(selectedOptions);
+        const typedOptions = selectedOptions as SelectTagOption[];
+        setSelectedTags(typedOptions);
+        onTags(typedOptions);
     };
 
     useEffect(() => {
@@ -159,8 +155,8 @@ const Keyfacts = ({
                     </label>
                     <Select
                         name="foodLifeStyle"
-                        defaultValue={selectedOption}
-                        onChange={handleSelectionChange}
+                        defaultValue={selectedFormOfDiet}
+                        onChange={handleFormOfDietChange}
                         options={selectFormOfDietOptions}
                         styles={selectStyleOptions}
                     />
