@@ -49,7 +49,6 @@ type KeyfactsProps = {
     onTags: (tags: SelectOption[]) => void;
 };
 const Keyfacts = ({
-    currentTotalTime,
     currentServings,
     currentTags,
     currentSelectedFormOfDiet: currentSelectedOption,
@@ -58,7 +57,6 @@ const Keyfacts = ({
     onFoodLifestyle,
     onTags,
 }: KeyfactsProps) => {
-    const [totalTime, setTotalTime] = useState(currentTotalTime);
     const [servings, setServings] = useState(currentServings);
     const [selectedFormOfDiet, setSelectedFormOfDiet] = useState<SelectOption>(currentSelectedOption);
     const [tagOptions, setTagOptions] = useState<SelectOption[]>([]);
@@ -81,7 +79,6 @@ const Keyfacts = ({
     };
 
     const handleCookingTimeChange = (cookingTime: number) => {
-        setTotalTime(cookingTime);
         onCookingTime(cookingTime);
     };
 

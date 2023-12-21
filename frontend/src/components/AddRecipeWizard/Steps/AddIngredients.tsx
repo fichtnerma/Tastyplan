@@ -45,7 +45,7 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAmount(+e.target.value)}
                     />
                 </div>
-                <TextInput label="Unit" value={unit} onChange={setUnit} />
+                <TextInput label="Unit" value={unit} onChange={setUnit} required />
             </div>
             <button
                 className="btn-primary"

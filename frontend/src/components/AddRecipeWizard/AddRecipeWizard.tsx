@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Ingredient } from 'src/types/types';
-import Keyfacts, { SelectTagOption } from './Steps/Keyfacts';
+import { Ingredient, Option } from 'src/types/types';
+import Keyfacts from './Steps/Keyfacts';
 import AddSteps, { CustomStep } from './Steps/AddSteps';
 import AddNameAndImage from './Steps/AddNameAndImage';
 import AddIngredients from './Steps/AddIngredients';
@@ -12,7 +12,7 @@ export type CustomRecipe = {
     totalTime: number;
     servings: number;
     formOfDiet: string;
-    tags: SelectTagOption[];
+    tags: Option[];
     steps: CustomStep[];
 };
 
@@ -113,7 +113,7 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
         onNewRecipe(currentRecipe);
     };
 
-    const handleTagsChange = (tags: SelectTagOption[]) => {
+    const handleTagsChange = (tags: Option[]) => {
         const currentRecipe = { ...customRecipe };
         currentRecipe.tags = tags;
         setCustomeRecipe(currentRecipe);
