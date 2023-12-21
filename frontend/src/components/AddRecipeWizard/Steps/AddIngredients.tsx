@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import IngredientSearch, { IngredientOption } from '@components/IngredientSearch/IngredientSearch';
 import TextInput from '@components/FormInputs/TextInput';
+import NumberInput from '@components/FormInputs/NumberInput';
 import { Ingredient } from 'src/types/types';
 
 type AddIngredientsProps = {
@@ -35,15 +36,7 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
             <div className="mb-5">
                 <div className="flex flex-col my-3">
                     <label htmlFor="amount">Amount</label>
-                    <input
-                        className="border-2 border-green-custom2"
-                        type="number"
-                        name="amount"
-                        id="amount"
-                        min={0}
-                        value={amount}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAmount(+e.target.value)}
-                    />
+                    <NumberInput value={amount} required id="amount" min={0} onChange={(value) => setAmount(value)} />
                 </div>
                 <TextInput label="Unit" value={unit} onChange={setUnit} required />
             </div>

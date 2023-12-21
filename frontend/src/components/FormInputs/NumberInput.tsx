@@ -6,19 +6,21 @@ interface NumberInputProps {
     placeholder?: string;
     id?: string;
     hasError?: boolean;
-    value: string;
+    value: number;
+    min?: number;
+    max?: number;
     required?: boolean;
-    validate?: (value: string) => string | undefined;
-    onChange?: (value: string) => void;
+    validate?: (value: number) => string | undefined;
+    onChange?: (value: number) => void;
     onFocus?: () => void;
     onBlur?: () => void;
 }
-const NumberInput = ({ label, placeholder, id, value, required, validate, onChange }: NumberInputProps) => {
+const NumberInput = ({ label, placeholder, id, value, min, max, required, validate, onChange }: NumberInputProps) => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
     const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         if (onChange) {
-            onChange(value);
+            onChange(+value);
         }
     };
 
@@ -39,16 +41,20 @@ const NumberInput = ({ label, placeholder, id, value, required, validate, onChan
     return (
         <div>
             <div>
-                <label htmlFor={id}>
-                    {label}
-                    {required ? ' *' : ''}
-                </label>
+                {label && (
+                    <label htmlFor={id}>
+                        {label}
+                        {required ? ' *' : ''}
+                    </label>
+                )}
                 <input
                     className="h-[50px] p-4 border-solid border-[2px] rounded-[25px] border-green-custom2"
                     type="number"
                     id={id}
                     placeholder={placeholder}
                     value={value}
+                    min={min}
+                    max={max}
                     onChange={handleNumberChange}
                     onBlur={handleBlur}
                 />

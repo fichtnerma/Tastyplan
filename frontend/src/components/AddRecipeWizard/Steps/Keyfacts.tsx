@@ -57,6 +57,7 @@ const Keyfacts = ({
     onFoodLifestyle,
     onTags,
 }: KeyfactsProps) => {
+    const [cookingTime, setCookingTime] = useState(0);
     const [servings, setServings] = useState(currentServings);
     const [selectedFormOfDiet, setSelectedFormOfDiet] = useState<SelectOption>(currentSelectedOption);
     const [tagOptions, setTagOptions] = useState<SelectOption[]>([]);
@@ -79,6 +80,7 @@ const Keyfacts = ({
     };
 
     const handleCookingTimeChange = (cookingTime: number) => {
+        setCookingTime(cookingTime);
         onCookingTime(cookingTime);
     };
 
@@ -104,7 +106,7 @@ const Keyfacts = ({
 
     useEffect(() => {
         loadTags();
-    }, [loadTags]);
+    }, []);
 
     return (
         <fieldset>
@@ -113,13 +115,11 @@ const Keyfacts = ({
                 <label className="h5" htmlFor="cookingTime">
                     How long will it take you in minutes?
                 </label>
-                <input
-                    className="h-[50px] p-4 border-solid border-[2px] rounded-[25px] border-green-custom2"
-                    id="cookingTime"
-                    type="number"
-                    onChange={(e) => handleCookingTimeChange(parseInt(e.target.value))}
-                    required
+                <NumberInput
+                    value={cookingTime}
                     min={0}
+                    required
+                    onChange={(value) => handleCookingTimeChange(value)}
                 />
             </div>
             <div>
