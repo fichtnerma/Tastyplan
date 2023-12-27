@@ -19,8 +19,7 @@ type Props = {
 const DialogModal = ({ isOpened, onClose, children, classNames }: Props) => {
     const ref = useRef<HTMLDialogElement>(null);
 
-    const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (e) e.preventDefault();
+    const handleClose = () => {
         onClose();
         document.body.style.overflow = 'auto';
     };

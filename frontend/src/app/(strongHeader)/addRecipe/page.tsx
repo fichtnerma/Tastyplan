@@ -62,8 +62,8 @@ const AddRecipePage = () => {
             return { ingredientId: ingredientID, unit: ingredient.unit, quantity: ingredient.quantity };
         });
 
-        const transformedSteps: Step[] = recipe.steps.map((step) => {
-            return { description: step.description, stepCount: step.stepCount + 1 };
+        const transformedSteps: Step[] = recipe.steps.map((step, i) => {
+            return { description: step.description, stepCount: i + 1 };
         });
 
         if (!session?.user.userId) return;
@@ -80,14 +80,18 @@ const AddRecipePage = () => {
         return transformedRecipe;
     };
 
+    const handleProgBarClick = (elementName: string) => {
+        setCurrentStep(stepNames.findIndex((el) => el === elementName) + 1);
+    };
+
     return (
         <div className="bg-white-custom px-10 py-8 lg:bg-green-custom4 lg:flex lg:items-center lg:justify-center lg:h-[90vh]">
             <div className="flex flex-col w-full pt-7 pb-4 bg-white-custom md:h-[900px] lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
                 <ProgressBar
                     stepNames={stepNames}
                     activeStep={currentStep}
-                    foodLifeStyleSelected={false}
-                    onClick={() => setCurrentStep(currentStep + 1)}
+                    foodLifeStyleSelected={!inputIsNotValid}
+                    onClick={handleProgBarClick}
                 />
                 <span className="block mb-[4rem]"></span>
                 <AddRecipeWizard
@@ -95,7 +99,7 @@ const AddRecipePage = () => {
                     onNewRecipe={handleNewRecipe}
                     onInputisInvalid={(inputIsNotValid: boolean) => setInputIsNotValid(inputIsNotValid)}
                 />
-                <div className="flex justify-between mt-5 md:mt-auto">
+                <div className="flex justify-between mt-5">
                     <button
                         className="btn-primary"
                         disabled={currentStep === 1}

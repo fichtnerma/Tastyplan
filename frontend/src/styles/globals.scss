@@ -95,6 +95,15 @@ button {
     }
 }
 
+textarea {
+    &:focus {
+        outline: unset;
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-dark-rgb);
+    }
+}
 input[type='submit'] {
     cursor: pointer;
 }

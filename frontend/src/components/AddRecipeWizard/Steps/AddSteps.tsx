@@ -4,6 +4,7 @@ import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } 
 import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
 import Icon from '@components/Icon/Icon';
 import DialogModal from '@components/DialogModal/DialogModal';
+import { truncate } from '@helpers/utils';
 
 export type CustomStep = {
     id: string;
@@ -31,7 +32,7 @@ const SortableStep = ({ step, index }: SortableStepProps) => {
         >
             <div>
                 <h2 className="!mb-0">Step {index + 1}</h2>
-                <p>{step.description}</p>
+                <p className="max-w-[210px] sm:max-w-[500px]">{truncate(step.description, 50)}</p>
             </div>
             <div className="h-6 w-8">
                 <span className="block h-1 w-full bg-gray-custom3 mb-[4px] rounded-[2px]"></span>
@@ -120,13 +121,16 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
                                 Description
                             </label>
                             <textarea
-                                className="p-5 border-2 border-green-custom2 rounded-[30px]"
+                                className="p-5 mb-5 border-2 border-green-custom2 rounded-[30px]"
                                 name="stepDesc"
                                 id="stepDesc"
                                 value={newStep.description}
                                 onChange={handleDescriptionChange}
                             ></textarea>
-                            <button onClick={handleNewStep}>add new step</button>
+                            <button className="flex items-center mx-auto my-0" onClick={handleNewStep}>
+                                <Icon size={20} icon="addCircle" color="#007370" />
+                                <span className="block ml-2 text-green-custom2">Add new step</span>
+                            </button>
                         </div>
                     </DialogModal>
                 </div>
