@@ -177,7 +177,7 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
         }
     };
 
-    return <form>{renderStep(stepNr)}</form>;
+    return <form onSubmit={(e) => e.preventDefault()}>{renderStep(stepNr)}</form>;
 };
 
 export default AddRecipeWizard;

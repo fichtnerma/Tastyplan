@@ -32,15 +32,6 @@ const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsP
         setUnit('');
     };
 
-    const handleOpenDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        setDialogIsOpen(true);
-    };
-
-    const handleCloseDialog = () => {
-        setDialogIsOpen(false);
-    };
-
     return (
         <fieldset>
             <legend className="h1">Add ingredients</legend>
@@ -61,11 +52,15 @@ const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsP
                 >
                     Add ingredient
                 </button>
-                <button className="btn-primary" onClick={handleOpenDialog} disabled={currentIngredients.length <= 0}>
+                <button
+                    className="btn-primary"
+                    onClick={() => setDialogIsOpen(true)}
+                    disabled={currentIngredients.length <= 0}
+                >
                     Ingredients
                 </button>
             </div>
-            <DialogModal isOpened={dialogIsOpen} onClose={handleCloseDialog}>
+            <DialogModal isOpened={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
                 <IngredientList isInteractive={false} ingredients={currentIngredients} />
             </DialogModal>
         </fieldset>
