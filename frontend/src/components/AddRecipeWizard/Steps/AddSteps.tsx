@@ -77,6 +77,7 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
 
     const handleNewStep = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        document.body.style.overflow = 'auto'; //Necessary because dialog component currently does not take care of that
         const step = { ...newStep };
         step.id = self.crypto.randomUUID();
 
@@ -93,11 +94,15 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
         setDialogIsOpen(true);
     };
 
+    const handleCloseDialog = () => {
+        setDialogIsOpen(false);
+    };
+
     return (
         <fieldset className="mb-5 lg:mb-0">
             <legend className="h1">Add the Steps</legend>
             <div className="p-5 bg-green-custom4 rounded-[30px]">
-                <ol className="lg:block lg:max-h-[300px] lg:overflow-y-auto lg:overflow-x-hidden">
+                <ol className="lg:block lg:max-h-[450px] lg:overflow-y-auto lg:overflow-x-hidden">
                     <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
                         <SortableContext
                             items={steps.map((step: CustomStep) => step.id)}
@@ -114,7 +119,7 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
                         <Icon size={20} icon="addCircle" color="#007370" />
                         <span className="block ml-2 text-green-custom2">Add new step</span>
                     </button>
-                    <DialogModal isOpened={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
+                    <DialogModal isOpened={dialogIsOpen} onClose={handleCloseDialog}>
                         <div className="flex flex-col">
                             <h1 className="text-green-custom2">Add new step</h1>
                             <label className="h3" htmlFor="stepDesc">
