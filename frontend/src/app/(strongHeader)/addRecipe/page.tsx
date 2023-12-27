@@ -90,7 +90,7 @@ const AddRecipePage = () => {
                 <ProgressBar
                     stepNames={stepNames}
                     activeStep={currentStep}
-                    foodLifeStyleSelected={!inputIsNotValid}
+                    stepIsDone={!inputIsNotValid}
                     onClick={handleProgBarClick}
                 />
                 <span className="block mb-[4rem]"></span>
