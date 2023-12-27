@@ -157,7 +157,12 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
                     />
                 );
             case 3:
-                return <AddIngredients onAddIngredient={handleAddIngredient} />;
+                return (
+                    <AddIngredients
+                        currentIngredients={customRecipe.ingredients}
+                        onAddIngredient={handleAddIngredient}
+                    />
+                );
             case 4:
                 return <AddSteps currentSteps={customRecipe.steps} onAddSteps={handleAddSteps} />;
             default:

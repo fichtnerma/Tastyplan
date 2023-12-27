@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import IngredientSearch, { IngredientOption } from '@components/IngredientSearch/IngredientSearch';
+import IngredientList from '@components/IngredientList/IngredientList';
 import TextInput from '@components/FormInputs/TextInput';
 import NumberInput from '@components/FormInputs/NumberInput';
+import DialogModal from '@components/DialogModal/DialogModal';
 import { Ingredient } from 'src/types/types';
 
 type AddIngredientsProps = {
+    currentIngredients: Ingredient[];
     onAddIngredient: (ingredients: Ingredient) => void;
 };
 
-const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
+const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsProps) => {
     const [selectedIngredient, setSelectedIngredient] = useState<IngredientOption | undefined>(undefined);
     const [amount, setAmount] = useState(1);
     const [unit, setUnit] = useState('');
+    const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
     const handleAddIngredient = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
@@ -28,6 +32,15 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
         setUnit('');
     };
 
+    const handleOpenDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setDialogIsOpen(true);
+    };
+
+    const handleCloseDialog = () => {
+        setDialogIsOpen(false);
+    };
+
     return (
         <fieldset>
             <legend className="h1">Add ingredients</legend>
@@ -40,13 +53,21 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
                 </div>
                 <TextInput label="Unit" value={unit} onChange={setUnit} required />
             </div>
-            <button
-                className="btn-primary"
-                onClick={handleAddIngredient}
-                disabled={unit.length === 0 || amount === 0 || selectedIngredient === undefined}
-            >
-                Add ingredient
-            </button>
+            <div className="flex justify-between">
+                <button
+                    className="btn-primary"
+                    onClick={handleAddIngredient}
+                    disabled={unit.length === 0 || amount === 0 || selectedIngredient === undefined}
+                >
+                    Add ingredient
+                </button>
+                <button className="btn-primary" onClick={handleOpenDialog} disabled={currentIngredients.length <= 0}>
+                    Ingredients
+                </button>
+            </div>
+            <DialogModal isOpened={dialogIsOpen} onClose={handleCloseDialog}>
+                <IngredientList isInteractive={false} ingredients={currentIngredients} />
+            </DialogModal>
         </fieldset>
     );
 };

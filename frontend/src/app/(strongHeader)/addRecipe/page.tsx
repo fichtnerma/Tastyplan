@@ -35,7 +35,7 @@ const AddRecipePage = () => {
     const { data: session } = useSession();
 
     useEffect(() => {
-        //console.log(newRecipe);
+        console.log(newRecipe);
     });
 
     const handleNewRecipe = (recipe: CustomRecipe) => {
