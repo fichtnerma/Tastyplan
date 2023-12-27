@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
+import Icon from '@components/Icon/Icon';
+import DialogModal from '@components/DialogModal/DialogModal';
 
 export type CustomStep = {
     id: string;
     description: string;
-    stepCount: number;
 };
 
 type SortableStepProps = {
@@ -47,8 +48,8 @@ type AddStepsProps = {
 };
 const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
     const [steps, setSteps] = useState<CustomStep[]>(currentSteps);
-    const [isNewStep, setIsNewStep] = useState(false);
-    const [newStep, setNewStep] = useState<CustomStep>({ id: '', description: '', stepCount: 0 });
+    const [newStep, setNewStep] = useState<CustomStep>({ id: '', description: '' });
+    const [dialogIsOpen, setDialogIsOpen] = useState(false);
     const onDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
         if (active.id === over?.id) {
@@ -73,15 +74,22 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
         setNewStep(step);
     };
 
-    const handleNewStep = () => {
+    const handleNewStep = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         const step = { ...newStep };
         step.id = self.crypto.randomUUID();
 
         const currentSteps = [...steps];
         currentSteps.push(step);
         setSteps(currentSteps);
-        setIsNewStep(false);
         onAddSteps(currentSteps);
+        setNewStep({ id: '', description: '' });
+        setDialogIsOpen(false);
+    };
+
+    const handleOpenDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setDialogIsOpen(true);
     };
 
     return (
@@ -100,26 +108,28 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
                         </SortableContext>
                     </DndContext>
                 </ol>
-                {!isNewStep ? (
-                    <button onClick={() => setIsNewStep(true)}>Add new step</button>
-                ) : (
-                    <div className="flex justify-between">
-                        <div className="flex flex-col lg:flex-row lg:gap-2">
-                            <div className="flex flex-col">
-                                <label className="mb-5 lg:mb-1" htmlFor="stepDesc">
-                                    Description
-                                </label>
-                                <textarea
-                                    name="stepDesc"
-                                    id="stepDesc"
-                                    value={newStep.description}
-                                    onChange={handleDescriptionChange}
-                                ></textarea>
-                            </div>
+                <div>
+                    <button className="flex items-center mx-auto my-0" onClick={handleOpenDialog}>
+                        <Icon size={20} icon="addCircle" color="#007370" />
+                        <span className="block ml-2 text-green-custom2">Add new step</span>
+                    </button>
+                    <DialogModal isOpened={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
+                        <div className="flex flex-col">
+                            <h1 className="text-green-custom2">Add new step</h1>
+                            <label className="h3" htmlFor="stepDesc">
+                                Description
+                            </label>
+                            <textarea
+                                className="p-5 border-2 border-green-custom2 rounded-[30px]"
+                                name="stepDesc"
+                                id="stepDesc"
+                                value={newStep.description}
+                                onChange={handleDescriptionChange}
+                            ></textarea>
+                            <button onClick={handleNewStep}>add new step</button>
                         </div>
-                        <button onClick={handleNewStep}>+</button>
-                    </div>
-                )}
+                    </DialogModal>
+                </div>
             </div>
         </fieldset>
     );
