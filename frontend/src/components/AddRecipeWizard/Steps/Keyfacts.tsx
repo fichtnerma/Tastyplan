@@ -113,9 +113,7 @@ const Keyfacts = ({
         <fieldset>
             <legend className="h2">Add the key facts</legend>
             <div className="flex flex-col mb-7">
-                <label className="h5" htmlFor="cookingTime">
-                    How long will it take you in minutes?
-                </label>
+                <label htmlFor="cookingTime">How long will it take you in minutes?</label>
                 <NumberInput
                     value={cookingTime}
                     id="cookingTime"
@@ -125,7 +123,7 @@ const Keyfacts = ({
                 />
             </div>
             <div>
-                <h5>Portions</h5>
+                <label htmlFor="increasePortion">Portions</label>
                 <div className="flex mb-7">
                     <button
                         type="button"
@@ -139,6 +137,7 @@ const Keyfacts = ({
                         {servings}
                     </p>
                     <button
+                        id="increasePortion"
                         type="button"
                         className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0 mr-5"
                         onClick={() => handleServingsChange(servings + 1)}
@@ -147,9 +146,7 @@ const Keyfacts = ({
                     </button>
                 </div>
                 <div className={styles.SelectionWrapper}>
-                    <label className="h5 block" htmlFor="foodLifeStyle">
-                        Set the diet
-                    </label>
+                    <label htmlFor="foodLifeStyle">Set the diet</label>
                     <Select
                         name="foodLifeStyle"
                         id="foodLifeStyle"
@@ -162,9 +159,7 @@ const Keyfacts = ({
                     />
                 </div>
                 <div className={styles.SelectionWrapper}>
-                    <label className="h5 block" htmlFor="tags">
-                        Add some tags
-                    </label>
+                    <label htmlFor="tags">Add some tags</label>
                     <Select
                         //@ts-ignore
                         isMulti

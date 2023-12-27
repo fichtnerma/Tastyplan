@@ -9,10 +9,11 @@ export type IngredientOption = {
 };
 
 type IngredientSearchProps = {
+    id: string;
     onIngredient: (ingredient: IngredientOption) => void;
 };
 
-const IngredientSearch = ({ onIngredient }: IngredientSearchProps) => {
+const IngredientSearch = ({ onIngredient, id }: IngredientSearchProps) => {
     const ingredientOptions = async (inputValue: string, callback: (options: Option[]) => void) => {
         const res = await fetch(`/service/ingredients?search=${inputValue}`);
         if (!res.ok) callback([]);
@@ -29,6 +30,7 @@ const IngredientSearch = ({ onIngredient }: IngredientSearchProps) => {
     };
     return (
         <AsyncSelect
+            id={id}
             cacheOptions
             // @ts-ignore
             loadOptions={ingredientOptions}

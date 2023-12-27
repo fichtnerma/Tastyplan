@@ -31,8 +31,8 @@ const AddIngredients = ({ onAddIngredient }: AddIngredientsProps) => {
     return (
         <fieldset>
             <legend className="h1">Add ingredients</legend>
-            <div>list</div>
-            <IngredientSearch onIngredient={setSelectedIngredient} />
+            <label htmlFor="selectIngredient">Search ingredient</label>
+            <IngredientSearch id="selectedIngredient" onIngredient={setSelectedIngredient} />
             <div className="mb-5">
                 <div className="flex flex-col my-3">
                     <label htmlFor="amount">Amount</label>
