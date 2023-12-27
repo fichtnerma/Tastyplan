@@ -1,6 +1,9 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
 import AddRecipeWizard, { CustomRecipe } from '@components/AddRecipeWizard/AddRecipeWizard';
 import { fetchWithAuth } from '@helpers/utils';
@@ -26,6 +29,7 @@ type RecipeTransformed = {
     steps: Step[];
     imageBase64: string | undefined;
     userId: string;
+    tags: string[];
 };
 
 const AddRecipePage = () => {
@@ -33,10 +37,7 @@ const AddRecipePage = () => {
     const [newRecipe, setNewRecipe] = useState<CustomRecipe | undefined>(undefined);
     const [inputIsNotValid, setInputIsNotValid] = useState(true);
     const { data: session } = useSession();
-
-    useEffect(() => {
-        console.log(newRecipe);
-    });
+    const router = useRouter();
 
     const handleNewRecipe = (recipe: CustomRecipe) => {
         setNewRecipe(recipe);
@@ -53,6 +54,13 @@ const AddRecipePage = () => {
             },
             session,
         );
+
+        if (res.status === 413) {
+            toast.error('Image is too large!');
+            return;
+        }
+
+        if (res.ok) router.push('weekOverview');
     };
 
     const transformRecipe = (recipe: CustomRecipe): RecipeTransformed | void => {
@@ -66,6 +74,10 @@ const AddRecipePage = () => {
             return { description: step.description, stepCount: i + 1 };
         });
 
+        const transformedTags: string[] = recipe.tags.map((tag) => {
+            return tag.value.charAt(0).toUpperCase() + tag.value.slice(1);
+        });
+
         if (!session?.user.userId) return;
 
         const transformedRecipe: RecipeTransformed = {
@@ -76,7 +88,9 @@ const AddRecipePage = () => {
             steps: [...transformedSteps],
             imageBase64: recipe.image ? recipe.image.split(',')[1] : undefined,
             userId: session?.user.userId,
+            tags: transformedTags,
         };
+        console.log(transformedRecipe);
         return transformedRecipe;
     };
 
@@ -121,6 +135,19 @@ const AddRecipePage = () => {
                         </button>
                     )}
                 </div>
+                <ToastContainer
+                    position="bottom-center"
+                    autoClose={2000}
+                    limit={1}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                />
             </div>
         </div>
     );
