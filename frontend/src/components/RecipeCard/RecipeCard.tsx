@@ -121,7 +121,7 @@ function RecipeCard({
                     className="flex justify-center flex-col rounded-custom_s relative w-full h-[225px] sm:h-[160px] md:!h-[300px] md:!w-[200px] bg-green-custom4 items-center hover:bg-green-custom_super_light text-green-custom2 hover:text-green-custom3"
                     onClick={openModal}
                 >
-                    <div className="">
+                    <div>
                         <Icon size={50} icon="addCircle"></Icon>
                     </div>
                     <h5 className="text-inherit pt-5 m-0">add recipe</h5>

@@ -1,0 +1,40 @@
+import { useState } from 'react';
+import ImgDragAndDrop from '@components/ImgDragAndDrop/ImgDragAndDrop';
+import TextInput from '@components/FormInputs/TextInput';
+
+type AddNameAndImageProps = {
+    currentName: string;
+    currentImage: string | undefined;
+    onNameChange: (name: string) => void;
+    onUploadedImgChange: (img: string | undefined) => void;
+};
+
+const AddNameAndImage = ({ currentName, currentImage, onNameChange, onUploadedImgChange }: AddNameAndImageProps) => {
+    const [name, setName] = useState(currentName);
+    const [image, setImage] = useState<string | undefined>(currentImage);
+
+    const handleUploadedImgChange = (img64: string) => {
+        if (!img64) return;
+        setImage(img64);
+        onUploadedImgChange(img64);
+    };
+
+    const handleNameChange = (name: string) => {
+        setName(name);
+        onNameChange(name);
+    };
+
+    return (
+        <fieldset>
+            <legend className="h2">Add name and image</legend>
+            <TextInput value={name} required onChange={handleNameChange} label="Name" />
+
+            <label className="block mt-5 mb-1" htmlFor="uploadImg">
+                Add an Image (optional)
+            </label>
+            <ImgDragAndDrop currentImage={image} onUploadedImgChange={handleUploadedImgChange} />
+        </fieldset>
+    );
+};
+
+export default AddNameAndImage;

@@ -118,6 +118,7 @@ export class RecipeQueries {
         });
     }
     async createRecipe(recipe: CreateRecipeInput) {
+        console.log('createRecipe', recipe);
         if (recipe.userId) {
             const recipeData = {
                 name: recipe.name,

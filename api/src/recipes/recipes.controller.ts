@@ -56,6 +56,7 @@ export class RecipesController {
             if (error instanceof HttpException) {
                 throw error;
             } else {
+                console.log('error', error);
                 throw new HttpException(
                     {
                         status: HttpStatus.INTERNAL_SERVER_ERROR,

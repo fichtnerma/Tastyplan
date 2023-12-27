@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import RecipeCard from '@components/RecipeCard/RecipeCard';
 import { useFavoriteStore } from '@hooks/useFavorites';
@@ -16,6 +17,7 @@ function Cookbook() {
         <>
             <div className="mainContainer">
                 <h1>{user?.role === Role.user ? user?.userId + "'s" : 'Your'} Cookbook</h1>
+                <Link href="/addRecipe">+</Link>
                 {!error && data ? (
                     <div className="flex gap-12 flex-wrap">
                         {favorites.map((favorite: Recipe) => {

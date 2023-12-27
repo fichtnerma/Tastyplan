@@ -134,7 +134,7 @@ const SetupParentPage = () => {
                     <ProgressBar
                         stepNames={stepNames}
                         activeStep={currentStep}
-                        foodLifeStyleSelected={foodLifeStyleSelected}
+                        stepIsDone={foodLifeStyleSelected}
                         onClick={handleProgBarClick}
                     />
                     <fieldset className="flex flex-col mt-8 lg:mt-14">

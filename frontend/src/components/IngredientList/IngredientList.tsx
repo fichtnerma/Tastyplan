@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Ingredient } from 'src/types/types';
 
 type IngredientListProps = {
+    isInteractive?: boolean;
     ingredients: Array<Ingredient>;
 };
 
@@ -13,7 +14,7 @@ const unitShorteningMap = new Map([
     ['tablespoons', 'tbsp'],
 ]);
 
-function IngredientList({ ingredients }: IngredientListProps) {
+function IngredientList({ ingredients, isInteractive = true }: IngredientListProps) {
     const [portion, setPortion] = useState(1);
 
     const changePortion = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -31,7 +32,7 @@ function IngredientList({ ingredients }: IngredientListProps) {
         return unitShorteningMap.has(unit) ? unitShorteningMap.get(unit) : unit;
     };
 
-    return (
+    return isInteractive ? (
         <div className="mb-8 lg:w-[420px] lg:py-6 lg:mb-0 lg:bg-green-custom4/30 lg:rounded-tl-[30px] lg:rounded-bl-[30px]">
             <div className="flex justify-between px-6 mb-6 lg:flex-col lg:px-8 lg:mb-8">
                 <div className="flex items-center">
@@ -57,7 +58,6 @@ function IngredientList({ ingredients }: IngredientListProps) {
                     </button>
                     <p className="h5 !mb-0">Servings</p>
                 </div>
-                {/* <button className="btn-primary">Refresh ShoppingList</button> */}
             </div>
             <h2 className="pl-6 mb-0">Ingredients</h2>
             <div className="mb-6 lg:mb-0">
@@ -67,13 +67,25 @@ function IngredientList({ ingredients }: IngredientListProps) {
                             <span className="mr-2">{ingredient.quantity * portion}</span>
                             <span>{truncateUnit(ingredient.unit)}</span>
                         </p>
-                        <p className="w-1/2 text-left">{ingredient.ingredient.name}</p>
+                        <p className="w-1/2 text-left">{ingredient.ingredient?.name}</p>
                     </div>
                 ))}
             </div>
-            {/* <div className="pl-6 lg:pl-8">
-                <h3 className="mb-0">Seasoning</h3>
-            </div> */}
+        </div>
+    ) : (
+        <div>
+            <h2 className="pl-6 mb-0">Ingredients</h2>
+            <div className="mb-6 lg:mb-0">
+                {ingredients?.map((ingredient) => (
+                    <div key={ingredient.id} className="flex odd:bg-green-custom1 lg:py-1">
+                        <p className="w-1/2 pl-6 font-semibold">
+                            <span className="mr-2">{ingredient.quantity * portion}</span>
+                            <span>{truncateUnit(ingredient.unit)}</span>
+                        </p>
+                        <p className="w-1/2 text-left">{ingredient.ingredient?.name}</p>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
