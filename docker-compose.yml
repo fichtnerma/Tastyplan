@@ -97,6 +97,7 @@ services:
     build:
       context: ./recommender
       dockerfile: Dockerfile.dev
+    container_name: recommender
     ports:
       - 5001:5000
     restart: unless-stopped
