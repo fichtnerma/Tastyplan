@@ -28,6 +28,7 @@
     "dependencies": {
         "@elastic/elasticsearch": "~7.17.0",
         "@nestjs-modules/mailer": "^1.9.1",
+        "@nestjs/axios": "^3.0.1",
         "@nestjs/cache-manager": "^2.1.0",
         "@nestjs/common": "^9.0.0",
         "@nestjs/config": "^2.3.0",
@@ -40,6 +41,7 @@
         "@nestjs/schedule": "^4.0.0",
         "@nestjs/serve-static": "^3.0.1",
         "@nestjs/swagger": "^6.2.1",
+        "@nestjs/terminus": "^10.2.0",
         "@prisma/client": "^4.15.0",
         "@types/bcrypt": "^5.0.0",
         "@types/cookie-parser": "^1.4.3",
