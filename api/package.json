@@ -46,6 +46,7 @@
         "@types/bcrypt": "^5.0.0",
         "@types/cookie-parser": "^1.4.3",
         "aws-sdk": "^2.1512.0",
+        "axios": "^1.6.3",
         "bcrypt": "^5.1.0",
         "cache-manager": "^5.2.3",
         "cache-manager-redis-store": "^2.0.0",
