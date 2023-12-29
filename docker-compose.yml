@@ -1,3 +1,5 @@
+version: '3.9'
+
 services:
   api:
     build:
@@ -21,6 +23,7 @@ services:
       - redis
       - postgres
       - elasticsearch
+      - recommender
     networks:
       - private
       - public
@@ -28,10 +31,10 @@ services:
       # TODO: what about prod env?
       test: [ "CMD-SHELL", "curl --fail http://localhost:3000/health || exit 1" ]
       interval: 10s
-      timeout: 10s
-      start_period: 300s
-      start_interval: 20s
-      retries: 3
+      timeout: 30s
+      start_period: 30s
+      start_interval: 30s
+      retries: 100
   redis:
     image: redis
     container_name: redis
@@ -114,9 +117,6 @@ services:
     env_file: .env
     volumes:
       - ./recommender/:/app
-    depends_on:
-      api:
-        condition: service_started
     networks:
       - private
 networks:
