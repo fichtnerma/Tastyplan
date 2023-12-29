@@ -24,6 +24,14 @@ services:
     networks:
       - private
       - public
+    healthcheck:
+      # TODO: what about prod env?
+      test: [ "CMD-SHELL", "curl --fail http://localhost:3000/health || exit 1" ]
+      interval: 10s
+      timeout: 10s
+      start_period: 200s
+      start_interval: 20s
+      retries: 3
   redis:
     image: redis
     container_name: redis
@@ -66,8 +74,10 @@ services:
       - /client/node_modules
       - /client/.next
     depends_on:
-      - api
-      - recommender
+      api:
+        condition: service_healthy
+      recommender:
+        condition: service_started
     networks:
       - public
 
@@ -105,7 +115,8 @@ services:
     volumes:
       - ./recommender/:/app
     depends_on:
-      - api
+      api:
+        condition: service_started
     networks:
       - private
 networks:
