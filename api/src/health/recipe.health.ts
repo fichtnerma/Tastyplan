@@ -1,6 +1,10 @@
-import { HealthIndicator, HealthIndicatorResult, HealthCheckError } from '@nestjs/terminus';
-import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { HealthCheckError, HealthIndicator, HealthIndicatorResult } from '@nestjs/terminus';
+import { Injectable } from '@nestjs/common';
+
+type FindFirstArgs = {
+    orderBy?: { id?: 'asc' | 'desc' };
+};
 
 @Injectable()
 export class RecipeHealthIndicator extends HealthIndicator {
@@ -8,10 +12,9 @@ export class RecipeHealthIndicator extends HealthIndicator {
         super();
     }
     async isHealthy(): Promise<HealthIndicatorResult> {
-        return null;
-        /* const latestRecipe = await this.prismaService.recipe.findFirst({
-            orderBy: { updatedAt: 'desc' },
-        });
+        const latestRecipe = await this.prismaService.recipe.findFirst({
+            orderBy: { id: 'desc' },
+        } as FindFirstArgs);
 
         const isHealthy = latestRecipe !== null;
         const result = this.getStatus('latestRecipe', isHealthy, { latestRecipe });
@@ -19,6 +22,6 @@ export class RecipeHealthIndicator extends HealthIndicator {
         if (isHealthy) {
             return result;
         }
-        throw new HealthCheckError('Recipe is not present', result);*/
+        throw new HealthCheckError('Recipe is not present', result);
     }
 }
