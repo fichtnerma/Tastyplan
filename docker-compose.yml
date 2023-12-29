@@ -20,10 +20,14 @@ services:
       - /app/node_modules
       - ./api/src:/app/src
     depends_on:
-      - redis
-      - postgres
-      - elasticsearch
-      - recommender
+      elasticsearch:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      postgres:
+        condition: service_started
+      recommender:
+        condition: service_started
     networks:
       - private
       - public
