@@ -23,9 +23,9 @@ services:
       elasticsearch:
         condition: service_healthy
       redis:
-        condition: service_started
+        condition: service_healthy
       postgres:
-        condition: service_started
+        condition: service_healthy
       recommender:
         condition: service_started
     networks:
@@ -48,6 +48,8 @@ services:
       - redis:/data
     networks:
       - private
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
   postgres:
     image: postgres:15.0
     container_name: postgres
@@ -64,7 +66,11 @@ services:
     networks:
       - private
       - public
-
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
   frontend:
     build:
       context: ./frontend
