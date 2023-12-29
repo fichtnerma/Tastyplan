@@ -29,7 +29,7 @@ services:
       test: [ "CMD-SHELL", "curl --fail http://localhost:3000/health || exit 1" ]
       interval: 10s
       timeout: 10s
-      start_period: 200s
+      start_period: 300s
       start_interval: 20s
       retries: 3
   redis:
