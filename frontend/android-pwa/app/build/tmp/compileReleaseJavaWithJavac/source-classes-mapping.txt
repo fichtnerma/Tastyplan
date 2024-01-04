@@ -1,0 +1,8 @@
+de/tastyplan/twa/BuildConfig.java
+ de.tastyplan.twa.BuildConfig
+de/tastyplan/twa/LauncherActivity.java
+ de.tastyplan.twa.LauncherActivity
+de/tastyplan/twa/Application.java
+ de.tastyplan.twa.Application
+de/tastyplan/twa/DelegationService.java
+ de.tastyplan.twa.DelegationService

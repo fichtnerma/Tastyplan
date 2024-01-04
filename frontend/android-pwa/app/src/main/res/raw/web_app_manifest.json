@@ -1,0 +1,1 @@
+{"name":"TastyPlan","short_name":"TastyPlan","description":"This is the official PWA for TastyPlan","icons":[{"src":"./pwa_icon_set/icon_144x144.png","sizes":"144x144"}],"theme_color":"#3579f6","background_color":"#ffffff","scope":"/","start_url":"/","display":"standalone","orientation":"portrait"}
