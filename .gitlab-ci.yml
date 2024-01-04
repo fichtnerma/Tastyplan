@@ -14,6 +14,8 @@ services:
 .build-rules:
   image: docker:24.0-dind
   stage: build
+  only:
+    - dev
   rules:
     - if: $CI_COMMIT_REF_NAME == "master"
       when: always
@@ -141,19 +143,17 @@ trigger-deploy-prod:
   script:
     - 'curl --fail --request POST --form token=$TRIGGER_TOKEN --form ref=master "https://gitlab.mediacube.at/api/v4/projects/10184/trigger/pipeline"'
 
-trigger-deploy-test:
+trigger-deploy-staging:
   stage: deploy
-  image: ubuntu:latest
-  only:
-    - dev
   environment:
     name: Staging
     url: http://193.170.119.147
-  before_script:
-    - apt-get update -qq
-    - apt-get install -qq curl
-  script:
-    - 'curl --fail --request POST --form token=$TRIGGER_TOKEN --form ref=staging "https://gitlab.mediacube.at/api/v4/projects/10184/trigger/pipeline"'
+  variables:
+    TRIGGER_PIPELINE: deploy-staging
+  trigger:
+    project: mmt-2022-masterproject-cookplaner/tastyplan-prod
+    branch: master
+    strategy: depend
 
 sast:
   stage: test
