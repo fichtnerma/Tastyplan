@@ -143,9 +143,6 @@ trigger-deploy-prod:
 
 trigger-deploy-staging:
   stage: deploy
-  image: ubuntu:latest
-  only:
-    - dev
   environment:
     name: Staging
     url: http://193.170.119.147
@@ -155,33 +152,6 @@ trigger-deploy-staging:
     project: mmt-2022-masterproject-cookplaner/tastyplan-prod
     branch: master
     strategy: depend
-
-deploy-feature:
-  stage: deploy-dev
-  rules:
-    - if: $DEPLOY == 'feature'
-      when: always
-    - if: *on-feature
-      when: always
-      allow_failure: true
-    - if: *on-mr
-      when: manual
-      allow_failure: true
-  environment:
-    name: $ENV_NAME
-    url: $ENV_URL
-    on_stop: remove-feature
-    auto_stop_in: 1 week
-  variables:
-    TRIGGER_PIPELINE: deploy
-    MERGE_REQUEST_REF: ${CI_COMMIT_REF_NAME}
-    <<: *env-secrets
-  trigger:
-    project: solarassets/feature-environments
-    branch: main
-    strategy: depend
-
-
 
 sast:
   stage: test
