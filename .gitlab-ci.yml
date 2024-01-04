@@ -14,8 +14,6 @@ services:
 .build-rules:
   image: docker:24.0-dind
   stage: build
-  only:
-    - dev
   rules:
     - if: $CI_COMMIT_REF_NAME == "master"
       when: always
@@ -145,6 +143,8 @@ trigger-deploy-prod:
 
 trigger-deploy-staging:
   stage: deploy
+  only:
+    - dev
   environment:
     name: Staging
     url: http://193.170.119.147
