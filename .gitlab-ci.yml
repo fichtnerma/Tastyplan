@@ -144,7 +144,7 @@ trigger-deploy-prod:
 trigger-deploy-staging:
   stage: deploy
   only:
-    - master
+    - dev
   environment:
     name: Staging
     url: http://193.170.119.147
