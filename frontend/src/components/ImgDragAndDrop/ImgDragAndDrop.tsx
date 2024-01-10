@@ -3,8 +3,6 @@ import Image from 'next/image';
 import { useDropzone } from 'react-dropzone';
 import Icon from '@components/Icon/Icon';
 
-const isMobile = window.innerWidth <= 768;
-
 const dropzoneStyles = {
     flex: 1,
     display: 'flex',
@@ -33,6 +31,10 @@ type ImgDragAndDropProps = {
 
 const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropProps) => {
     const [uploadedImg, setUploadedImg] = useState<string | undefined>(currentImage);
+
+    let isMobile = false;
+
+    if (typeof window !== undefined) isMobile = window.innerWidth <= 768;
 
     const focusedStyle = {
         borderColor: '#3a97f9',
