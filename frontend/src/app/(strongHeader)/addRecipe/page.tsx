@@ -60,6 +60,8 @@ const AddRecipePage = () => {
             return;
         }
 
+        if (typeof window === 'undefined') return;
+
         if (res.ok) router.push('weekOverview', undefined);
     };
 
