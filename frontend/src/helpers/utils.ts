@@ -9,6 +9,26 @@ export const debounce = (fn: (...params: unknown[]) => unknown, ms = 300) => {
     };
 };
 
+export const debounceWithPromise = <T extends (...params: unknown[]) => Promise<unknown>>(fn: T, ms = 300) => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    let resolveFn: ((value?: unknown) => void) | null = null;
+
+    return function (this: unknown, ...args: Parameters<T>) {
+        clearTimeout(timeoutId);
+
+        return new Promise<unknown>((resolve) => {
+            resolveFn = resolve;
+            timeoutId = setTimeout(async () => {
+                if (resolveFn) {
+                    const result = await fn.apply(this, args);
+                    resolveFn(result);
+                    resolveFn = null;
+                }
+            }, ms);
+        });
+    };
+};
+
 export function getFormOfDietIcon(formOfDiet: string | undefined) {
     if (formOfDiet == 'vegetarian') {
         return 'vegetarian';
@@ -40,6 +60,17 @@ export function fetchWithAuth(url: string, options: RequestInit = { method: 'GET
     });
 }
 
+export function fetchWithAuthFormData(url: string, options: RequestInit = { method: 'GET' }, session: Session | null) {
+    return fetch(url, {
+        ...options,
+        headers: {
+            ...options?.headers,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${session?.user.token.Authorization}`,
+        },
+    });
+}
+
 export function mapShoppingListToSelection(ingredientList: ShoppingListItem[]): CustomCheckboxInput[] {
     const selectionList: CustomCheckboxInput[] = ingredientList.map((ingredient) => {
         return {
@@ -60,4 +91,8 @@ export function getImageRessourcePath(imgString: string) {
     } else {
         return `/service/images/${imgString}`;
     }
+}
+
+export function truncate(text: string, maxLetters: number): string {
+    return text.length > maxLetters ? text.substring(0, maxLetters) + '...' : text;
 }

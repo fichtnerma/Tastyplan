@@ -77,7 +77,7 @@ export default function DetailView() {
                             <ul className="flex-col gap-2 px-2">
                                 {recipe.ingredients.map((ingredient) => (
                                     <li key={ingredient.id} className="customItem flex gap-2">
-                                        <span className="capitalize">{ingredient.ingredient.name}</span>
+                                        <span className="capitalize">{ingredient?.ingredient?.name}</span>
                                         <span>
                                             {ingredient.quantity} {ingredient.unit}
                                         </span>

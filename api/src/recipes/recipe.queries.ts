@@ -118,6 +118,7 @@ export class RecipeQueries {
         });
     }
     async createRecipe(recipe: CreateRecipeInput) {
+        console.log('createRecipe', recipe);
         if (recipe.userId) {
             const recipeData = {
                 name: recipe.name,
@@ -138,7 +139,6 @@ export class RecipeQueries {
                 },
                 userId: recipe.userId || undefined,
             };
-            console.log('QUERIES recipeData: ', recipeData);
             return await this.prismaService.recipe.create({
                 data: recipeData,
             });

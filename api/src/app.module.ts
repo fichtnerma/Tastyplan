@@ -9,6 +9,7 @@ import { PreferencesController } from './preferences/preferences.controller';
 import { MailModule } from './mail/mail/mail.module';
 import { InitializerModule } from './initializer/initializer.module';
 import { IngredientsModule } from './ingredients/ingredients.module';
+import { HealthModule } from './health/health.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import { CronjobsModule } from './cronjobs/cronjobs/cronjobs.module';
 import { AuthModule } from './auth/auth.module';
@@ -70,6 +71,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
         InitializerModule,
         FavoritesModule,
         MailModule,
+        HealthModule,
     ],
     controllers: [AppController, PreferencesController],
     providers: [AppService],

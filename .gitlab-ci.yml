@@ -158,7 +158,6 @@ trigger-deploy-staging:
     branch: master
     strategy: depend
 
-
 sast:
   stage: test
 include:

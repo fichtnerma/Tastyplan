@@ -1,11 +1,11 @@
 import * as sharp from 'sharp';
-import * as path from 'path';
+import * as crypto from 'crypto';
 import { S3 } from 'aws-sdk';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class RecipesUploadImageService {
-    async uploadImageToS3(file: Express.Multer.File) {
+    async uploadImageToS3(buffer: Buffer) {
         // Create a new instance of S3
         const s3 = new S3({
             accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -13,21 +13,22 @@ export class RecipesUploadImageService {
             region: process.env.AWS_REGION,
         });
 
-        // Change the file extension to .png
-        const fileName = path.parse(file.originalname).name + '.png';
+        // Create random file name
+        const fileName = crypto.randomBytes(10).toString('hex') + '.jpg';
 
         // Set up the parameters for the S3 upload
         const uploadParams = {
             Bucket: process.env.AWS_BUCKET_NAME,
             Key: fileName,
-            Body: file.buffer,
-            ContentType: 'image/png',
+            Body: buffer,
+            ContentType: 'image/jpg',
             ACL: 'public-read', // Make the file publicly accessible
         };
+        console.log('Uploading file to S3: ', uploadParams);
 
         try {
             const data = await s3.upload(uploadParams).promise();
-            return data.Location;
+            return await [data.Location, fileName];
         } catch (error) {
             console.log('Error uploading file: ', error);
             throw new InternalServerErrorException('Error uploading file');
@@ -55,19 +56,22 @@ export class RecipesUploadImageService {
         }
     }
 
-    async resizeAndCropImage(file: Express.Multer.File): Promise<Buffer> {
+    async resizeAndCropImage(buffer: Buffer): Promise<Buffer> {
         try {
-            const image = sharp(file.buffer);
+            const image = sharp(buffer);
             const metadata = await image.metadata();
+
+            // Calculate the coordinates for the crop
             const size = Math.min(metadata.width!, metadata.height!);
             const left = (metadata.width! - size) / 2;
             const top = (metadata.height! - size) / 2;
 
+            // Crop and resize the image
             const resizedImage = await image
-                .extract({ left: Math.round(left), top: Math.round(top), width: size, height: size }) // crop image
-                .resize(1024, 1024) // resize image
-                .png() // convert to png
-                .toBuffer(); // convert to buffer
+                .extract({ left: Math.round(left), top: Math.round(top), width: size, height: size })
+                .resize(1024, 1024)
+                .jpeg()
+                .toBuffer();
             return resizedImage;
         } catch (error) {
             console.log('Error resizing image: ', error);
