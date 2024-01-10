@@ -60,7 +60,7 @@ const AddRecipePage = () => {
             return;
         }
 
-        if (res.ok) router.push('weekOverview');
+        if (res.ok) router.push('weekOverview', undefined);
     };
 
     const transformRecipe = (recipe: CustomRecipe): RecipeTransformed | void => {
