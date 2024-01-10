@@ -34,7 +34,7 @@ const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropPro
 
     let isMobile = false;
 
-    if (typeof window !== undefined) isMobile = window.innerWidth <= 768;
+    if (typeof window !== 'undefined') isMobile = window.innerWidth <= 768;
 
     const focusedStyle = {
         borderColor: '#3a97f9',
