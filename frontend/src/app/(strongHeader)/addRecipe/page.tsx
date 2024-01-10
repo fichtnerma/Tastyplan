@@ -90,7 +90,6 @@ const AddRecipePage = () => {
             userId: session?.user.userId,
             tags: transformedTags,
         };
-        console.log(transformedRecipe);
         return transformedRecipe;
     };
 
