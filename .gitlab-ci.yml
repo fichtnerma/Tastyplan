@@ -130,6 +130,9 @@ build-recommender:
 deploy:
   stage: deploy
   image: ubuntu:latest
+  environment:
+    name: production
+    url: https://tastyplan.de
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       when: always
@@ -145,6 +148,9 @@ deploy:
 deploy-staging:
   stage: deploy
   image: ubuntu:latest
+  environment:
+    name: staging
+    url: https://test.tastyplan.de
   rules:
     - if: $CI_COMMIT_BRANCH == "dev"
       when: always
