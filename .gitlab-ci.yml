@@ -17,7 +17,6 @@ services:
 .docker_init: &docker_init
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-
 .build-rules:
   image: docker:24.0-dind
   stage: build

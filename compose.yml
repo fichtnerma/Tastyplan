@@ -35,10 +35,10 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "curl --fail http://localhost:3000/health || exit 1" ]
       interval: 10s
-      timeout: 30s
-      start_period: 30s
+      timeout: 120s
+      start_period: 60s
       start_interval: 30s
-      retries: 100
+      retries: 100  
   redis:
     image: redis
     container_name: redis
