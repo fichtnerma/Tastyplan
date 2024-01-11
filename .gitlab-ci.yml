@@ -31,7 +31,7 @@ services:
       variables:
         IMAGE_TAG: pre-release
   before_script:
-    - *docker_login
+    - *docker_init
 
 .base-rules:
   image: node:18-alpine
@@ -144,7 +144,7 @@ deploy:
     - if: $CI_COMMIT_BRANCH == "master"
       when: always
   before_script:
-    - *docker_login
+    - *docker_init
   script:
     - docker compose -f compose.yml -f compose.prod.yml down --volumes
     - docker compose -f compose.yml -f compose.prod.yml up -d 
@@ -164,7 +164,7 @@ deploy-staging:
     - if: $CI_COMMIT_BRANCH == "dev"
       when: always
   before_script:
-    - *docker_login
+    - *docker_init
   script:
     - TAG=$TAG docker compose -f compose.yml -f compose.dev.yml up --wait --no-build --force-recreate -d 
     - TAG=$TAG docker compose -f compose.yml -f compose.dev.yml logs
