@@ -136,9 +136,9 @@ deploy:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker compose down --volumes
-    - docker compose up -d 
-    - docker compose logs
+    - docker compose down -f compose.yml -f compose.prod.yml --volumes
+    - docker compose -f compose.yml -f compose.prod.yml up -d 
+    - docker compose -f compose.yml -f compose.prod.yml logs
   tags:
     - prod
 
@@ -151,7 +151,7 @@ deploy-staging:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker compose down --volumes
+    - docker compose down -f compose.yml -f compose.dev.yml --volumes
     - docker compose -f compose.yml -f compose.dev.yml up -d 
     - docker compose -f compose.yml -f compose.dev.yml logs
   tags:
