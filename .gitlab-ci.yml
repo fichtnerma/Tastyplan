@@ -3,6 +3,9 @@ stages:
   - build
   - deploy
 
+default:
+  interruptible: true
+
 variables:
   RULES_CHANGES_PATH: "**/*"
   DOCKER_TLS_CERTDIR: ""
