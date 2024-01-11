@@ -162,9 +162,8 @@ deploy-staging:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker compose -f compose.yml -f compose.dev.yml down --volumes
-    - docker compose -f compose.yml -f compose.dev.yml up -d 
-    - docker compose -f compose.yml -f compose.dev.yml logs
+    - TAG=$TAG docker compose -f compose.yml -f compose.dev.yml up --wait --no-build --force-recreate -d 
+    - TAG=$TAG docker compose -f compose.yml -f compose.dev.yml logs
   tags:
     - staging
 
