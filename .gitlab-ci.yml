@@ -14,6 +14,10 @@ variables:
 services:
   - docker:24.0-dind
 
+.docker_init: &docker_init
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+
 .build-rules:
   image: docker:24.0-dind
   stage: build
@@ -27,7 +31,7 @@ services:
       variables:
         IMAGE_TAG: pre-release
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - *docker_login
 
 .base-rules:
   image: node:18-alpine
@@ -140,7 +144,7 @@ deploy:
     - if: $CI_COMMIT_BRANCH == "master"
       when: always
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - *docker_login
   script:
     - docker compose -f compose.yml -f compose.prod.yml down --volumes
     - docker compose -f compose.yml -f compose.prod.yml up -d 
@@ -160,7 +164,7 @@ deploy-staging:
     - if: $CI_COMMIT_BRANCH == "dev"
       when: always
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - *docker_login
   script:
     - TAG=$TAG docker compose -f compose.yml -f compose.dev.yml up --wait --no-build --force-recreate -d 
     - TAG=$TAG docker compose -f compose.yml -f compose.dev.yml logs
