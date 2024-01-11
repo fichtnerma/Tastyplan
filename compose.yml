@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   api:
-    image: gitlab.mediacube.at:5050/mmt-2022-masterproject-cookplaner/tastyplan/api:latest
+    image: gitlab.mediacube.at:5050/mmt-2022-masterproject-cookplaner/tastyplan/api:${TAG:latest}
     build:
       context: ./api
       dockerfile: Dockerfile.dev
@@ -72,7 +72,7 @@ services:
       timeout: 3s
       retries: 3
   frontend:
-    image: gitlab.mediacube.at:5050/mmt-2022-masterproject-cookplaner/tastyplan/client:latest
+    image: gitlab.mediacube.at:5050/mmt-2022-masterproject-cookplaner/tastyplan/client:${TAG:latest}
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
@@ -122,7 +122,7 @@ services:
       interval: 5s
       timeout: 3s
   recommender:
-    image: gitlab.mediacube.at:5050/mmt-2022-masterproject-cookplaner/tastyplan/recommender:latest
+    image: gitlab.mediacube.at:5050/mmt-2022-masterproject-cookplaner/tastyplan/recommender:${TAG:latest}
     build:
       context: ./recommender
       dockerfile: Dockerfile.dev

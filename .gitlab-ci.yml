@@ -151,6 +151,8 @@ deploy:
 deploy-staging:
   stage: deploy
   image: ubuntu:latest
+  variables:
+    TAG: pre-release
   environment:
     name: staging
     url: https://test.tastyplan.de
