@@ -13,7 +13,6 @@ services:
     depends_on:
         - api
         - frontend
-    fix(docker): remove gitlab-runner usernetworks:
         - public
   api:
     build:
