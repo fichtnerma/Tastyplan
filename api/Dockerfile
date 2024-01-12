@@ -6,16 +6,18 @@ FROM node:18-alpine as build
 
 WORKDIR /app
 
-COPY package*.json ./
-COPY prisma ./prisma/
+COPY --chown=node:node package*.json .
+COPY --chown=node:node prisma ./prisma/
 RUN npm ci
 
-COPY . .
+COPY --chown=node:node . .
 
 RUN npx prisma generate
 # Run the build command which creates the production bundle
 RUN npm run build
 RUN cp -rv ./images ./dist/
+
+USER node
 
 # Set NODE_ENV environment variable
 ENV NODE_ENV production
@@ -30,11 +32,10 @@ RUN npm ci --only=production && npm cache clean --force && npm prune
 
 FROM node:18-alpine as production
 # Copy the bundled code from the build stage to the production image
-COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/package*.json ./
-COPY --from=build /app/dist ./dist
-# copy prisma schema
-COPY --from=build /app/prisma ./prisma
+COPY --from=build --chown=node:node /app/node_modules ./node_modules
+COPY --from=build --chown=node:node /app/package*.json ./
+COPY --from=build --chown=node:node /app/dist dist
+COPY --from=build --chown=node:node /app/prisma ./prisma
 
 # Start the server using the production build
 CMD [ "npm", "run", "start:prod:migrate" ]
