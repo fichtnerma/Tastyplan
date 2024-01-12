@@ -116,21 +116,21 @@ build-api:
   extends: ".build-rules"
   script:
     - cd api
-    - docker build -t $CI_REGISTRY_IMAGE/api:$IMAGE_TAG .
+    - docker build -t $CI_REGISTRY_IMAGE/api:$IMAGE_TAG . -f Dockerfile
     - docker push $CI_REGISTRY_IMAGE/api:$IMAGE_TAG
 
 build-client:
   extends: ".build-rules"
   script:
     - cd frontend
-    - docker build -t $CI_REGISTRY_IMAGE/client:$IMAGE_TAG .
+    - docker build -t $CI_REGISTRY_IMAGE/client:$IMAGE_TAG . -f Dockerfile
     - docker push $CI_REGISTRY_IMAGE/client:$IMAGE_TAG
 
 build-recommender:
   extends: ".build-rules"
   script:
     - cd recommender
-    - docker build -t $CI_REGISTRY_IMAGE/recommender:$IMAGE_TAG .
+    - docker build -t $CI_REGISTRY_IMAGE/recommender:$IMAGE_TAG . -f Dockerfile
     - docker push $CI_REGISTRY_IMAGE/recommender:$IMAGE_TAG
 
 deploy:
