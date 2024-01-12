@@ -6,12 +6,16 @@ WORKDIR /app
 RUN pip install pipenv
 RUN apt-get update && apt-get install -y --no-install-recommends gcc
 
+# do not create __pycache__ directories
+ENV PYTHONDONTWRITEBYTECODE 1
+
 # Install python dependencies in /.venv
 COPY Pipfile .
 COPY Pipfile.lock .
 RUN pipenv install --system --deploy --ignore-pipfile
-RUN pip install pyclean
-RUN pyclean .
+
+# do not create __pycache__ directories
+ENV PYTHONDONTWRITEBYTECODE 1
 
 COPY . .
 
