@@ -14,9 +14,6 @@ COPY Pipfile .
 COPY Pipfile.lock .
 RUN pipenv install --system --deploy --ignore-pipfile
 
-# do not create __pycache__ directories
-ENV PYTHONDONTWRITEBYTECODE 1
-
 COPY . .
 
 EXPOSE 5000
