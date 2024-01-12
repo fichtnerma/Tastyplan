@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc
 COPY Pipfile .
 COPY Pipfile.lock .
 RUN pipenv install --system --deploy --ignore-pipfile
+RUN pip install pyclean
+RUN pyclean .
 
 COPY . .
 
