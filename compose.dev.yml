@@ -78,7 +78,7 @@ services:
     build:
       context: ./recommender
       dockerfile: Dockerfile.dev
-    user: gitlab-runner:gitlab-runner
+    user: gitlab-runner
     container_name: recommender
     ports:
       - 5001:5000
