@@ -165,6 +165,7 @@ deploy-staging:
   before_script:
     - *docker_init
   script:
+    - export
     - TAG=$TAG docker compose -f compose.yml -f compose.dev.yml up --wait --no-build --force-recreate -d 
     - TAG=$TAG docker compose -f compose.yml -f compose.dev.yml logs
   tags:
