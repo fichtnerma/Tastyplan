@@ -1,13 +1,11 @@
 version: '3.9'
 
-# TODO: add dev target to services
 services:
   reverseproxy:
     build:
         context: ./reverseproxy
         dockerfile: nginx.Dockerfile
     container_name: reverseproxy
-    # TODO: use .env
     ports:
         - "443:443"
         - "80:80"
@@ -15,7 +13,7 @@ services:
     depends_on:
         - api
         - frontend
-    networks:
+    fix(docker): remove gitlab-runner usernetworks:
         - public
   api:
     build:
