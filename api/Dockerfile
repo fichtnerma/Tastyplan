@@ -18,11 +18,10 @@ RUN npm run build
 RUN cp -rv ./images ./dist/
 
 # Set NODE_ENV environment variable
-# TODO: not for staging
 ENV NODE_ENV production
 
 # Running `npm ci` removes the existing node_modules directory and passing in --only=production ensures that only the production dependencies are installed. This ensures that the node_modules directory is as optimized as possible
-RUN npm ci && npm cache clean --force && npm prune
+RUN npm ci --only=production && npm cache clean --force && npm prune
 
 
 ###################
