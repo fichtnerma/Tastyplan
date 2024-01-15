@@ -21,7 +21,7 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile.dev
-    command: npm run start:dev
+    command: "npm run start:prod:migrate"
     ports:
       - 3000:3000
   redis:
