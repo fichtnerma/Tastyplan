@@ -1,13 +1,11 @@
 version: '3.9'
 
-# TODO: add prod target to services
 services:
   reverseproxy:
       build:
           context: ./reverseproxy
           dockerfile: nginx.Dockerfile
       container_name: reverseproxy
-      # TODO: use .env
       ports:
           - "443:443"
           - "80:80"
