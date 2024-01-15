@@ -37,7 +37,6 @@ services:
       interval: 10s
       timeout: 60s
       start_period: 120s
-      start_interval: 30s
       retries: 100  
   redis:
     image: redis
