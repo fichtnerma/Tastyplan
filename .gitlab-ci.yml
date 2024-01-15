@@ -136,6 +136,8 @@ build-recommender:
 deploy:
   stage: deploy
   image: ubuntu:latest
+  variables:
+    TAG: latest
   environment:
     name: production
     url: https://tastyplan.de
@@ -145,8 +147,7 @@ deploy:
   before_script:
     - *docker_init
   script:
-    - docker compose -f compose.yml -f compose.prod.yml down --volumes
-    - docker compose -f compose.yml -f compose.prod.yml up -d 
+    - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml up -d 
     - docker compose -f compose.yml -f compose.prod.yml logs
   tags:
     - prod
