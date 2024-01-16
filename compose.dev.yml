@@ -19,6 +19,8 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile.dev
+    environment:
+      - NODE_ENV=production
     ports:
       - 3000:3000
     command: "npm run start:prod:migrate"
