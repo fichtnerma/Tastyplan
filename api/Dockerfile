@@ -36,6 +36,7 @@ COPY --from=build --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/package*.json ./
 COPY --from=build --chown=node:node /app/dist dist
 COPY --from=build --chown=node:node /app/prisma ./prisma
+COPY --from=build --chown=node:node /app/dist/images /app/images
 
 # Start the server using the production build
 CMD [ "npm", "run", "start:prod:migrate" ]
