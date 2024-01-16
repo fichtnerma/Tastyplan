@@ -17,6 +17,9 @@ services:
       - EXPIRES_IN=${EXPIRES_IN}
     ports:
       - 3000:3000
+    volumes:
+      - /app/node_modules
+      - ./api/src:/app/src
     depends_on:
       elasticsearch:
         condition: service_healthy
@@ -79,6 +82,10 @@ services:
     env_file: .env
     environment:
       - SECRET_KEY=${SECRET_KEY}
+    volumes:
+      - ./frontend:/client
+      - /client/node_modules
+      - /client/.next
     depends_on:
       api:
         condition: service_healthy
