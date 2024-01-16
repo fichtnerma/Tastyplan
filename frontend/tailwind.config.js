@@ -48,6 +48,9 @@ module.exports = {
                 custom_s: '20px',
                 custom_m: '50px',
             },
+            screens: {
+                short: { raw: '(min-height: 900px)' },
+            },
         },
     },
     plugins: [],
