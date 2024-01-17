@@ -100,8 +100,9 @@ const AddRecipePage = () => {
     };
 
     return (
-        <div className="flex bg-white-custom px-10 py-8 overflow-y-auto lg:bg-green-custom4 lg:flex lg:items-center lg:justify-center lg:h-[90vh]">
-            <div className="flex flex-col w-full pt-7 pb-4 bg-white-custom md:min-h-[650px] lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
+        <div className="flex bg-white-custom px-10 py-8 lg:bg-green-custom4 lg:flex lg:items-center lg:justify-center lg:h-[90vh]">
+            <div className="flex flex-col w-full pb-4 bg-white-custom lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
+                <br />
                 <ProgressBar
                     stepNames={stepNames}
                     activeStep={currentStep}
