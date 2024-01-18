@@ -107,7 +107,7 @@ const AddRecipePage = () => {
 
     return (
         <div className="flex bg-white-custom px-10 py-8 lg:bg-green-custom4 lg:flex lg:items-center lg:justify-center lg:h-[90vh]">
-            <div className="flex flex-col w-full pb-4 bg-white-custom lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
+            <div className="flex flex-col w-full bg-white-custom md:min-h-[675px] md:pb-4 lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
                 <br />
                 <ProgressBar
                     stepNames={stepNames}
@@ -121,7 +121,7 @@ const AddRecipePage = () => {
                     onNewRecipe={handleNewRecipe}
                     onInputisInvalid={(inputIsNotValid: boolean) => setInputIsNotValid(inputIsNotValid)}
                 />
-                <div className="flex justify-between mt-5">
+                <div className="flex justify-between mt-4 md:mt-auto">
                     <button
                         className="btn-primary"
                         disabled={currentStep === 1}
