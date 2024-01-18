@@ -1,4 +1,5 @@
 import AsyncSelect from 'react-select/async';
+import { selectStyleOptions } from '@components/AddRecipeWizard/Steps/Keyfacts';
 import { APISearchResponse } from 'src/types/types';
 import { Option } from 'src/types/types';
 
@@ -32,6 +33,7 @@ const IngredientSearch = ({ onIngredient, id }: IngredientSearchProps) => {
         <AsyncSelect
             id={id}
             cacheOptions
+            styles={selectStyleOptions}
             // @ts-ignore
             loadOptions={ingredientOptions}
             //@ts-ignore
