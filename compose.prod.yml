@@ -1,26 +1,28 @@
-version: '3.9'
+version: "3.9"
 
 services:
   reverseproxy:
     build:
-        context: ./reverseproxy
-        dockerfile: nginx.Dockerfile
+      context: ./reverseproxy
+      dockerfile: nginx.Dockerfile
     container_name: reverseproxy
     ports:
-        - "443:443"
-        - "80:80"
+      - "443:443"
+      - "80:80"
     restart: always
     depends_on:
-        - api
-        - frontend
+      - api
+      - frontend
     networks:
-        - public
+      - public
   api:
     build:
       context: ./api
       dockerfile: Dockerfile.dev
     environment:
       - NODE_ENV=production
+    labels:
+      - "autoheal=true"
     ports:
       - 3000:3000
     command: "npm run start:prod:migrate"
@@ -46,6 +48,8 @@ services:
       - 8080:8080
     environment:
       - SECRET_KEY=${SECRET_KEY}
+    labels:
+      - "autoheal=true"
     volumes:
       - ./frontend:/client
       - /client/node_modules
@@ -66,6 +70,8 @@ services:
     restart: unless-stopped
     networks:
       - private
+    labels:
+      - "autoheal=true"
     ulimits:
       memlock:
         soft: -1
@@ -81,3 +87,13 @@ services:
     container_name: recommender
     ports:
       - 5001:5000
+  autoheal:
+    image: willfarrell/autoheal:latest
+    tty: true
+    restart: always
+    environment:
+      - AUTOHEAL_INTERVAL=60
+      - AUTOHEAL_START_PERIOD=300
+      - AUTOHEAL_DEFAULT_STOP_TIMEOUT=10
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
