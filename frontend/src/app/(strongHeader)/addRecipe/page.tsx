@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useLogoLinkData } from '@contexts/LogoLinkContext';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
 import AddRecipeWizard, { CustomRecipe } from '@components/AddRecipeWizard/AddRecipeWizard';
 import { fetchWithAuth } from '@helpers/utils';
@@ -33,11 +34,16 @@ type RecipeTransformed = {
 };
 
 const AddRecipePage = () => {
+    const { setLogoLinkTarget } = useLogoLinkData();
     const [currentStep, setCurrentStep] = useState(1);
     const [newRecipe, setNewRecipe] = useState<CustomRecipe | undefined>(undefined);
     const [inputIsNotValid, setInputIsNotValid] = useState(true);
     const { data: session } = useSession();
     const router = useRouter();
+
+    useEffect(() => {
+        setLogoLinkTarget('/weekOverview');
+    }, []);
 
     const handleNewRecipe = (recipe: CustomRecipe) => {
         setNewRecipe(recipe);
@@ -100,8 +106,9 @@ const AddRecipePage = () => {
     };
 
     return (
-        <div className="bg-white-custom px-10 py-8 lg:bg-green-custom4 lg:flex lg:items-center lg:justify-center lg:h-[90vh]">
-            <div className="flex flex-col w-full pt-7 pb-4 bg-white-custom md:h-[900px] lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
+        <div className="flex bg-white-custom px-10 py-8 lg:bg-green-custom4 lg:flex lg:items-center lg:justify-center lg:h-[90vh]">
+            <div className="flex flex-col w-full pb-4 bg-white-custom lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
+                <br />
                 <ProgressBar
                     stepNames={stepNames}
                     activeStep={currentStep}
