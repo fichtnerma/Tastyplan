@@ -46,7 +46,6 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
         try {
             recipe = await recipeRes.json();
         } catch (e) {}
-
         if (refresh) {
             refresh(recipe);
         }
