@@ -237,6 +237,7 @@ export class WeekplanService {
 
     async changeRecipe(changeRecipeReq: ChangeRecipeDto, user: User) {
         try {
+            const changedRecipeReqId = changeRecipeReq.id ? +changeRecipeReq.id : 1;
             const weekplanEntry = await this.weekplanQueries.findFirstWeekplanEntry(
                 +changeRecipeReq.weekplanEntry,
                 user.userId,
@@ -248,7 +249,7 @@ export class WeekplanService {
                 if (changeRecipeReq.id) {
                     await this.weekplanQueries.updateWeekplanEntryLunchWithId(
                         +changeRecipeReq.weekplanEntry,
-                        +changeRecipeReq.id,
+                        changedRecipeReqId,
                     );
                 } else {
                     await this.weekplanQueries.updateWeekplanEntryLunchWithoutId(+changeRecipeReq.weekplanEntry);
@@ -257,13 +258,18 @@ export class WeekplanService {
                 if (changeRecipeReq.id) {
                     await this.weekplanQueries.updateWeekplanEntryDinnerWithId(
                         +changeRecipeReq.weekplanEntry,
-                        +changeRecipeReq.id,
+                        changedRecipeReqId,
                     );
                 } else {
                     await this.weekplanQueries.updateWeekplanEntryDinnerWithoutId(+changeRecipeReq.weekplanEntry);
                 }
             }
-            return await this.weekplanQueries.findFirstRecipe(+changeRecipeReq.id);
+            // If no recipe is send, than default recipe 1 is stored and undefined send back to frontend
+            if (!changeRecipeReq.id) {
+                await this.weekplanQueries.findFirstRecipe(changedRecipeReqId);
+                return undefined;
+            }
+            return await this.weekplanQueries.findFirstRecipe(changedRecipeReqId);
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to change Recipe for given user');
         }
