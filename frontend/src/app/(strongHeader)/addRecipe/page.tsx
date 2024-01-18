@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useLogoLinkData } from '@contexts/LogoLinkContext';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
 import AddRecipeWizard, { CustomRecipe } from '@components/AddRecipeWizard/AddRecipeWizard';
 import { fetchWithAuth } from '@helpers/utils';
@@ -33,11 +34,16 @@ type RecipeTransformed = {
 };
 
 const AddRecipePage = () => {
+    const { setLogoLinkTarget } = useLogoLinkData();
     const [currentStep, setCurrentStep] = useState(1);
     const [newRecipe, setNewRecipe] = useState<CustomRecipe | undefined>(undefined);
     const [inputIsNotValid, setInputIsNotValid] = useState(true);
     const { data: session } = useSession();
     const router = useRouter();
+
+    useEffect(() => {
+        setLogoLinkTarget('/weekOverview');
+    }, []);
 
     const handleNewRecipe = (recipe: CustomRecipe) => {
         setNewRecipe(recipe);

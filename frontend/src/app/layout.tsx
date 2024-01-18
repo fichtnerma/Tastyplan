@@ -1,9 +1,9 @@
-'use client';
 import { PropsWithChildren } from 'react';
 import '@styles/globals.scss';
+import { Metadata } from 'next';
 import { Inter, Bebas_Neue, Zeyada } from '@next/font/google';
-import { LogoLinkProvider } from '@contexts/LogoLinkContext';
 import CookieWrapper from '@components/CookieBanner/CookieWrapper';
+import Content from './content';
 
 const inter = Inter({ subsets: ['latin'], style: ['normal'], weight: ['200', '400', '700'], variable: '--font-inter' });
 const bebasNeue = Bebas_Neue({ subsets: ['latin'], style: 'normal', weight: '400', variable: '--font-bebas' });
@@ -15,17 +15,18 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <body className={`${inter.variable} ${bebasNeue.variable} ${zeyada.variable}`}>
                 {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? <CookieWrapper /> : null}
-                <LogoLinkProvider>
-                    <main
-                        className="overflow-x-hidden"
-                        style={{
-                            backgroundColor: 'var(--white)',
-                        }}
-                    >
-                        {children}
-                    </main>
-                </LogoLinkProvider>
+                <Content>{children}</Content>
             </body>
         </html>
     );
 }
+
+export const metadata: Metadata = {
+    title: 'TastyPlan',
+    themeColor: '#D6E5E3',
+    manifest: '/manifest.json',
+    icons: {
+        icon: [{ url: '/favicon.png' }, { url: '/favicon.svg' }],
+        apple: { url: '/icon.png' },
+    },
+};

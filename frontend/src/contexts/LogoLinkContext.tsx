@@ -12,10 +12,10 @@ interface LogoLinkContextValue {
 const LogoLinkContext = createContext<LogoLinkContextValue | undefined>(undefined);
 
 export const LogoLinkProvider: React.FC<LogoLinkContextProps> = ({ children }) => {
-    const [linkTarget, setLinkTarget] = React.useState<string>('/');
+    const [logoLinkTarget, setLogoLinkTarget] = React.useState<string>('/');
 
     return (
-        <LogoLinkContext.Provider value={{ logoLinkTarget: linkTarget, setLogoLinkTarget: setLinkTarget }}>
+        <LogoLinkContext.Provider value={{ logoLinkTarget: logoLinkTarget, setLogoLinkTarget: setLogoLinkTarget }}>
             {children}
         </LogoLinkContext.Provider>
     );
