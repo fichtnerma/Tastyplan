@@ -127,7 +127,7 @@ const AddRecipePage = () => {
                         disabled={currentStep === 1}
                         onClick={() => setCurrentStep(currentStep - 1)}
                     >
-                        back
+                        Back
                     </button>
                     {currentStep !== stepNames.length ? (
                         <button
@@ -135,7 +135,7 @@ const AddRecipePage = () => {
                             onClick={() => setCurrentStep(currentStep + 1)}
                             disabled={inputIsNotValid}
                         >
-                            next
+                            Next
                         </button>
                     ) : (
                         <button className="btn-primary" onClick={sendData} disabled={inputIsNotValid}>
