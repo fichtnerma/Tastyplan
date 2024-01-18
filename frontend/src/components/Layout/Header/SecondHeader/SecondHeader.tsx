@@ -1,17 +1,18 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLogoLinkData } from '@contexts/LogoLinkContext';
 
 type SecondHeaderProps = {
     waveForm: 'strong' | 'lite';
-    logoLink: string;
 };
 
-function SecondHeader({ waveForm, logoLink = '/' }: SecondHeaderProps) {
+function SecondHeader({ waveForm }: SecondHeaderProps) {
+    const { logoLinkTarget } = useLogoLinkData();
     return (
         <>
             {waveForm === 'strong' ? (
                 <div className="block relative lg:h-[10vh] lg:bg-green-custom1">
-                    <Link href={logoLink}>
+                    <Link href={logoLinkTarget}>
                         <Image
                             src="/logo.svg"
                             height={200}
@@ -35,14 +36,16 @@ function SecondHeader({ waveForm, logoLink = '/' }: SecondHeaderProps) {
                 </div>
             ) : (
                 <div className="h-[10vh] md:hidden">
-                    <Image
-                        src="/logo.svg"
-                        height={200}
-                        className="block absolute w-full h-auto pt-4 max-w-[60px] sm:max-w-[120px] md:max-w-[150px] lg:hidden"
-                        alt="logo"
-                        width={200}
-                        priority
-                    />
+                    <Link href={logoLinkTarget}>
+                        <Image
+                            src="/logo.svg"
+                            height={200}
+                            className="block absolute w-full h-auto pt-4 max-w-[60px] sm:max-w-[120px] md:max-w-[150px] lg:hidden"
+                            alt="logo"
+                            width={200}
+                            priority
+                        />
+                    </Link>
                     <svg
                         viewBox="0 0 390 76"
                         fill="none"

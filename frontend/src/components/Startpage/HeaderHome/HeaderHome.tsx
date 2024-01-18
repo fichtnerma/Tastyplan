@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
 import Icon from '@components/Icon/Icon';
@@ -39,10 +40,13 @@ function HeaderHome() {
             },
         },
     ];
+
     return (
         <div className="grid grid-cols-[repeat(5,1fr)] grid-rows-[0.1fr_repeat(7,1fr)] gap-y-0 gap-x-0 h-[100dvh] md:h-[95vh]">
             <div className="items-center h-[100px] lg:h-[150px]">
-                <Image src={'/logo.svg'} alt="logo" width={100} height={39} priority />
+                <Link href={'/'}>
+                    <Image src={'/logo.svg'} alt="logo" width={100} height={39} priority />
+                </Link>
             </div>
             <div className="col-start-3 col-span-3 md:col-span-1 md:col-start-5 flex justify-end">
                 <Link
