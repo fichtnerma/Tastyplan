@@ -18,9 +18,14 @@ interface NumberInputProps {
 const NumberInput = ({ label, placeholder, id, value, min, max, required, validate, onChange }: NumberInputProps) => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
     const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target;
+        let { value } = e.target;
+        value = value.replace(/^0+/, '');
+        const parsedValue = parseFloat(value);
+
+        if (isNaN(parsedValue)) return;
+
         if (onChange) {
-            onChange(+value);
+            onChange(parsedValue);
         }
     };
 
@@ -48,7 +53,7 @@ const NumberInput = ({ label, placeholder, id, value, min, max, required, valida
                     </label>
                 )}
                 <input
-                    className="h-[50px] p-4 border-solid border-[2px] rounded-[25px] border-green-custom2"
+                    className="h-[45px] pl-4 pr-4 border-solid border-[3px] rounded-[15px] bg-white-custom border-green-custom2"
                     type="number"
                     id={id}
                     placeholder={placeholder}
