@@ -35,13 +35,19 @@ const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsP
     return (
         <fieldset>
             <legend className="h1">Add ingredients</legend>
-            <label htmlFor="selectIngredient">Search ingredient</label>
-            <IngredientSearch id="selectedIngredient" onIngredient={setSelectedIngredient} />
-            <div className="mb-5">
-                <div className="flex flex-col my-3">
-                    <label htmlFor="amount">Amount</label>
-                    <NumberInput value={amount} required id="amount" min={0} onChange={(value) => setAmount(value)} />
-                </div>
+            <div className="flex flex-col mb-5">
+                <label htmlFor="selectIngredient">Search ingredient *</label>
+                <IngredientSearch id="selectedIngredient" onIngredient={setSelectedIngredient} />
+            </div>
+            <div className="flex flex-col gap-5 mb-5">
+                <NumberInput
+                    value={amount}
+                    label="Amount"
+                    required={true}
+                    id="amount"
+                    min={1}
+                    onChange={(value) => setAmount(value)}
+                />
                 <TextInput label="Unit" value={unit} onChange={setUnit} required />
             </div>
             <div className="flex justify-between">
