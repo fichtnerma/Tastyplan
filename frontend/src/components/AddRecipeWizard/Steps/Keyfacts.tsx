@@ -119,7 +119,7 @@ const Keyfacts = ({
                 <NumberInput
                     value={cookingTime}
                     id="cookingTime"
-                    min={0}
+                    min={1}
                     required
                     onChange={(value) => handleCookingTimeChange(value)}
                 />
@@ -131,7 +131,7 @@ const Keyfacts = ({
                         type="button"
                         className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0"
                         onClick={() => handleServingsChange(servings - 1)}
-                        disabled={servings <= 0}
+                        disabled={servings <= 1}
                     >
                         <Icon icon="minus" size={19} />
                     </button>
