@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Select from 'react-select';
 import IngredientSearch, { IngredientOption } from '@components/IngredientSearch/IngredientSearch';
 import IngredientList from '@components/IngredientList/IngredientList';
-import TextInput from '@components/FormInputs/TextInput';
 import NumberInput from '@components/FormInputs/NumberInput';
 import DialogModal from '@components/DialogModal/DialogModal';
 import { Ingredient } from 'src/types/types';
@@ -13,7 +12,12 @@ type AddIngredientsProps = {
     onAddIngredient: (ingredients: Ingredient) => void;
 };
 
-const selectUnitOptions = [
+type UnitOption = {
+    value: string;
+    label: string;
+};
+
+const selectUnitOptions: UnitOption[] = [
     { value: 'kg', label: 'kg' },
     { value: 'g', label: 'g' },
     { value: 'l', label: 'l' },
@@ -22,13 +26,13 @@ const selectUnitOptions = [
     { value: 'can', label: 'can' },
     { value: 'cup', label: 'cup' },
     { value: 'cloves', label: 'cloves' },
-    { value: '--NO UNIT--', label: '--NO UNIT--' },
+    { value: '', label: '--NO UNIT--' },
 ];
 
 const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsProps) => {
     const [selectedIngredient, setSelectedIngredient] = useState<IngredientOption | undefined>(undefined);
     const [amount, setAmount] = useState(1);
-    const [unit, setUnit] = useState('');
+    const [selectedUnit, setSelectedUnit] = useState<UnitOption | undefined>(undefined);
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
     const handleAddIngredient = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -38,16 +42,19 @@ const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsP
             id: selectedIngredient.id,
             ingredient: { name: selectedIngredient.value },
             quantity: amount,
-            unit,
+            unit: selectedUnit ? selectedUnit.value : '',
         });
 
         setSelectedIngredient(undefined);
         setAmount(1);
-        setUnit('');
+        setSelectedUnit(undefined);
     };
 
-    const handleUnitChange = () => {
-        console.log('handle unit change');
+    const handleUnitChange = (selectedOption: unknown | undefined) => {
+        if (!selectedOption) return;
+
+        const typedOption = selectedOption as UnitOption;
+        setSelectedUnit(typedOption);
     };
 
     return (
@@ -55,7 +62,11 @@ const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsP
             <legend className="h2">Add ingredients</legend>
             <div className="flex flex-col mb-5">
                 <label htmlFor="selectIngredient">Search ingredient *</label>
-                <IngredientSearch id="selectedIngredient" onIngredient={setSelectedIngredient} />
+                <IngredientSearch
+                    id="selectedIngredient"
+                    selectedOption={selectedIngredient}
+                    onIngredient={setSelectedIngredient}
+                />
             </div>
             <div className="flex flex-col gap-5 mb-5">
                 <NumberInput
@@ -70,6 +81,10 @@ const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsP
                     <label htmlFor="unit">Unit *</label>
                     <Select
                         name="unit"
+                        value={{
+                            label: selectedUnit ? selectedUnit.label : '',
+                            value: selectedUnit ? selectedUnit.value : '',
+                        }}
                         id="unit"
                         aria-label="unit"
                         aria-labelledby="unit"
@@ -83,7 +98,7 @@ const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsP
                 <button
                     className="btn-primary"
                     onClick={handleAddIngredient}
-                    disabled={unit.length === 0 || amount === 0 || selectedIngredient === undefined}
+                    disabled={!selectedUnit || amount === 0 || selectedIngredient === undefined}
                 >
                     Add ingredient
                 </button>
