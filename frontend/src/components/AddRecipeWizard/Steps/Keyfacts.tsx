@@ -21,6 +21,7 @@ const selectFormOfDietOptions = [
 export const selectStyleOptions = {
     control: (baseStyles: CSSObjectWithLabel) => ({
         ...baseStyles,
+        height: '45px',
         borderWidth: 3,
         backgroundColor: '#fffffa',
         borderColor: '#007370',
