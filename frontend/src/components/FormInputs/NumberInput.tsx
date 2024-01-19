@@ -1,51 +1,47 @@
 import { useState } from 'react';
-import { isRequiredValidator } from '@helpers/validations';
 
 interface NumberInputProps {
     label?: string;
     placeholder?: string;
     id?: string;
-    hasError?: boolean;
     value: number;
     min?: number;
     max?: number;
     required?: boolean;
-    validate?: (value: number) => string | undefined;
     onChange?: (value: number) => void;
-    onFocus?: () => void;
-    onBlur?: () => void;
 }
-const NumberInput = ({ label, placeholder, id, value, min, max, required, validate, onChange }: NumberInputProps) => {
+const NumberInput = ({ label, placeholder, id, value, min = 1, max, required, onChange }: NumberInputProps) => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
     const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let { value } = e.target;
-        value = value.replace(/^0+/, '');
-        const parsedValue = parseFloat(value);
+        const { value } = e.target;
 
-        if (isNaN(parsedValue)) return;
+        if (value.toString().startsWith('0')) {
+            setErrorMessage('Choose a valid number');
+            return;
+        }
+
+        const parsedValue = +value;
+
+        if (isNaN(parsedValue)) {
+            setErrorMessage('Choose a valid number');
+            return;
+        }
 
         if (onChange) {
             onChange(parsedValue);
+            setErrorMessage(undefined);
         }
     };
 
     const handleBlur = () => {
-        if (required) {
-            const error = isRequiredValidator(value);
-            setErrorMessage(error);
-            if (error) {
-                return;
-            }
-        }
-
-        if (validate) {
-            setErrorMessage(validate(value));
+        if (!value) {
+            setErrorMessage('Enter a value');
         }
     };
 
     return (
         <div>
-            <div>
+            <div className="flex flex-col">
                 {label && (
                     <label htmlFor={id}>
                         {label}
@@ -53,7 +49,8 @@ const NumberInput = ({ label, placeholder, id, value, min, max, required, valida
                     </label>
                 )}
                 <input
-                    className="h-[45px] pl-4 pr-4 border-solid border-[3px] rounded-[15px] bg-white-custom border-green-custom2"
+                    className={`h-[45px] pl-4 pr-4 border-solid border-[3px] rounded-[15px] bg-white-custom border-green-custom2`}
+                    style={{ borderColor: errorMessage && '#d54444' }}
                     type="number"
                     id={id}
                     placeholder={placeholder}
@@ -64,7 +61,9 @@ const NumberInput = ({ label, placeholder, id, value, min, max, required, valida
                     onBlur={handleBlur}
                 />
             </div>
-            <span className={`${errorMessage} ? '' : 'hidden'} errorMessage`}>{errorMessage}</span>
+            <span className={`${errorMessage} ? '' : 'hidden'} text-red-custom text-[0.75rem] mt-[0.25rem]`}>
+                {errorMessage}
+            </span>
         </div>
     );
 };
