@@ -1,15 +1,29 @@
 import { useState } from 'react';
+import Select from 'react-select';
 import IngredientSearch, { IngredientOption } from '@components/IngredientSearch/IngredientSearch';
 import IngredientList from '@components/IngredientList/IngredientList';
 import TextInput from '@components/FormInputs/TextInput';
 import NumberInput from '@components/FormInputs/NumberInput';
 import DialogModal from '@components/DialogModal/DialogModal';
 import { Ingredient } from 'src/types/types';
+import { selectStyleOptions } from './Keyfacts';
 
 type AddIngredientsProps = {
     currentIngredients: Ingredient[];
     onAddIngredient: (ingredients: Ingredient) => void;
 };
+
+const selectUnitOptions = [
+    { value: 'kg', label: 'kg' },
+    { value: 'g', label: 'g' },
+    { value: 'l', label: 'l' },
+    { value: 'ml', label: 'ml' },
+    { value: 'tbsp', label: 'tbsp' },
+    { value: 'can', label: 'can' },
+    { value: 'cup', label: 'cup' },
+    { value: 'cloves', label: 'cloves' },
+    { value: '--NO UNIT--', label: '--NO UNIT--' },
+];
 
 const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsProps) => {
     const [selectedIngredient, setSelectedIngredient] = useState<IngredientOption | undefined>(undefined);
@@ -32,9 +46,13 @@ const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsP
         setUnit('');
     };
 
+    const handleUnitChange = () => {
+        console.log('handle unit change');
+    };
+
     return (
         <fieldset>
-            <legend className="h1">Add ingredients</legend>
+            <legend className="h2">Add ingredients</legend>
             <div className="flex flex-col mb-5">
                 <label htmlFor="selectIngredient">Search ingredient *</label>
                 <IngredientSearch id="selectedIngredient" onIngredient={setSelectedIngredient} />
@@ -48,7 +66,18 @@ const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsP
                     min={1}
                     onChange={(value) => setAmount(value)}
                 />
-                <TextInput label="Unit" value={unit} onChange={setUnit} required />
+                <div>
+                    <label htmlFor="unit">Unit *</label>
+                    <Select
+                        name="unit"
+                        id="unit"
+                        aria-label="unit"
+                        aria-labelledby="unit"
+                        onChange={handleUnitChange}
+                        options={selectUnitOptions}
+                        styles={selectStyleOptions}
+                    />
+                </div>
             </div>
             <div className="flex justify-between">
                 <button
