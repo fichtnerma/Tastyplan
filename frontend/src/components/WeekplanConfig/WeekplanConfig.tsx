@@ -74,6 +74,7 @@ export default function WeekplanConfig({
                             className={`btn-primary !flex justify-center items-center  ${styles.btnPortion}`}
                             onClick={decreasePortion}
                             data-cy="decrease-serving-btn"
+                            disabled={servings === 1}
                         >
                             <Icon icon="minus" size={19} />
                         </button>
