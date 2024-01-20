@@ -102,11 +102,11 @@ export default function DetailView() {
             )}
             <div className="w-full absolute bottom-5 right-5 bg-transparent flex justify-center">
                 <button
-                    className="text-green-custom2 py-1 text-sm rounded-md px-2 bg-white-custom border-black w-fit border shadow-md"
+                    className="text-white-custom py-1 text-sm rounded-md px-2 hover:bg-green-custom3 hover:border-green-custom3 bg-green-custom2 border-green-custom2 w-fit border shadow-md"
                     onClick={() => switchRecipe(currentRecipeId)}
                 >
                     <Icon classNames="inline-flex mr-2" size={16} icon="check" />
-                    <span className="text-black">Choose for Swap</span>
+                    <span className="text-white-custom">Choose for Swap</span>
                 </button>
             </div>
         </>

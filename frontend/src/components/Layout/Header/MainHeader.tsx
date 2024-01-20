@@ -143,7 +143,11 @@ export default function MainHeader() {
                                         </Link>
                                     )}
                                     {!userIsGuest && (
-                                        <Link onClick={async () => await signOut()} href="/" className="">
+                                        <Link
+                                            onClick={async () => await signOut({ callbackUrl: '/' })}
+                                            href="#"
+                                            className=""
+                                        >
                                             <div
                                                 className={`flex gap-2 items-center pb-5 pl-5 pt-3 user dropdown ${styles.userDropdown}`}
                                             >
