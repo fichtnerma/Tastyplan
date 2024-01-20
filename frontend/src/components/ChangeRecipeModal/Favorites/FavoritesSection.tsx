@@ -12,7 +12,7 @@ export default function FavoritesSection() {
             </div>
 
             <div className="recipeCardGrid">
-                {favorites &&
+                {favorites ? (
                     favorites.map((recipeInfo: Recipe) => {
                         return (
                             <div className="recipeCardWrapper" key={recipeInfo.id}>
@@ -24,7 +24,14 @@ export default function FavoritesSection() {
                                 />
                             </div>
                         );
-                    })}
+                    })
+                ) : (
+                    <div>
+                        <h3 className="text-center">No favorites yet.</h3>
+                        <p className="text-center">Add some recipes to your favorites to see them here.</p>
+                        <p>You can do this by clicking on the little hearth icon in the corner of the recipe</p>
+                    </div>
+                )}
             </div>
         </>
     );
