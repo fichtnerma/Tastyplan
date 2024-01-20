@@ -318,6 +318,8 @@ export default function PreferencesSettings({
                         searchChanged={searchChanged}
                         handleAddChoice={handleAddChoice}
                         allDislikes={selectedDislikes}
+                        onFocus={() => setInputFocus(true)}
+                        onBlur={() => setInputFocus(false)}
                     />
                 </div>
             )}
