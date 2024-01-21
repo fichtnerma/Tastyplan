@@ -14,32 +14,41 @@ export type CustomStep = {
 type SortableStepProps = {
     step: CustomStep;
     index: number;
+    onDelete: (id: string) => void;
 };
 
-const SortableStep = ({ step, index }: SortableStepProps) => {
+const SortableStep = ({ step, index, onDelete }: SortableStepProps) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: step.id });
     const style = {
         transition,
         transform: CSS.Transform.toString(transform),
     };
+
     return (
-        <li
-            className="flex justify-between items-center pb-2 mb-5 border-gray-custom3 border-b-2 border-solid"
-            ref={setNodeRef}
-            style={style}
-            {...attributes}
-            {...listeners}
-        >
-            <div>
-                <h2 className="!mb-0">Step {index + 1}</h2>
-                <p className="max-w-[210px] sm:max-w-[500px]">{truncate(step.description, 50)}</p>
+        <div className="flex mb-5">
+            <li
+                className="basis-[95%] flex justify-between items-center pb-2 border-gray-custom3 border-b-2 border-solid"
+                ref={setNodeRef}
+                style={style}
+                {...attributes}
+                {...listeners}
+            >
+                <div>
+                    <h2 className="!mb-0">Step {index + 1}</h2>
+                    <p className="max-w-[210px] sm:max-w-[500px]">{truncate(step.description, 50)}</p>
+                </div>
+                <div className="h-6 w-8">
+                    <span className="block h-1 w-full bg-gray-custom3 mb-[4px] rounded-[2px]"></span>
+                    <span className="block h-1 w-full bg-gray-custom3 rounded-[2px]"></span>
+                    <span className="block h-1 w-full bg-gray-custom3 mt-[4px] rounded-[2px]"></span>
+                </div>
+            </li>
+            <div className="basis-[5%] flex items-center justify-end">
+                <button className="mb-[12px]" onClick={() => onDelete(step.id)}>
+                    <Icon icon="close"></Icon>
+                </button>
             </div>
-            <div className="h-6 w-8">
-                <span className="block h-1 w-full bg-gray-custom3 mb-[4px] rounded-[2px]"></span>
-                <span className="block h-1 w-full bg-gray-custom3 rounded-[2px]"></span>
-                <span className="block h-1 w-full bg-gray-custom3 mt-[4px] rounded-[2px]"></span>
-            </div>
-        </li>
+        </div>
     );
 };
 
@@ -89,6 +98,12 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
         setDialogIsOpen(false);
     };
 
+    const handleDelete = (id: string) => {
+        const currentSteps = [...steps];
+        const filteredSteps = currentSteps.filter((step) => step.id !== id);
+        setSteps(filteredSteps);
+    };
+
     const handleOpenDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setDialogIsOpen(true);
@@ -109,7 +124,7 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
                             strategy={verticalListSortingStrategy}
                         >
                             {steps.map((step, index) => (
-                                <SortableStep key={step.id} step={step} index={index} />
+                                <SortableStep key={step.id} step={step} index={index} onDelete={handleDelete} />
                             ))}
                         </SortableContext>
                     </DndContext>
