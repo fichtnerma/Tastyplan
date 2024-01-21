@@ -114,7 +114,7 @@ const Keyfacts = ({
 
     return (
         <fieldset>
-            <legend className="h2">Add the key facts</legend>
+            <legend className="h3">Add the key facts</legend>
             <div className="flex flex-col mb-7">
                 <label htmlFor="cookingTime">How long will it take you in minutes?</label>
                 <NumberInput

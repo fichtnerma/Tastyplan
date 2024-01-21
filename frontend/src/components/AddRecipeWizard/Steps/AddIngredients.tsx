@@ -87,7 +87,7 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
 
     return (
         <fieldset>
-            <legend className="h2">Add ingredients</legend>
+            <legend className="h3">Add ingredients</legend>
             <div className="flex flex-col mb-5">
                 <label htmlFor="selectIngredient">Search ingredient *</label>
                 <IngredientSearch
