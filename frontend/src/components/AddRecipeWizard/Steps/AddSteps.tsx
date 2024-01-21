@@ -116,8 +116,8 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
     return (
         <fieldset className="mb-5 lg:mb-0">
             <legend className="h3">Add the Steps</legend>
-            <div className="p-5 bg-green-custom4 rounded-[30px]">
-                <ol className="lg:block lg:max-h-[450px] lg:overflow-y-auto lg:overflow-x-hidden">
+            <div className="p-5 mb-4 bg-green-custom4 rounded-[30px]">
+                <ol className="lg:block lg:max-h-[330px] lg:overflow-y-auto lg:overflow-x-hidden">
                     <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
                         <SortableContext
                             items={steps.map((step: CustomStep) => step.id)}
