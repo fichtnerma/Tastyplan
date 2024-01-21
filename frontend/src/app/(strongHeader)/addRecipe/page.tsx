@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useLogoLinkData } from '@contexts/LogoLinkContext';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
+import Icon from '@components/Icon/Icon';
 import AddRecipeWizard, { CustomRecipe } from '@components/AddRecipeWizard/AddRecipeWizard';
 import { fetchWithAuth } from '@helpers/utils';
 
@@ -107,8 +108,11 @@ const AddRecipePage = () => {
 
     return (
         <div className="flex bg-white-custom px-10 py-8 lg:bg-green-custom4 lg:flex lg:items-center lg:justify-center lg:h-[90vh]">
-            <div className="flex flex-col w-full bg-white-custom md:min-h-[675px] md:pb-4 lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
+            <div className="relative flex flex-col w-full bg-white-custom md:min-h-[675px] md:pb-4 lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
                 <br />
+                <button className="absolute top-5 right-5" onClick={() => router.push('weekOverview', undefined)}>
+                    <Icon icon="close" color="#007370"></Icon>
+                </button>
                 <ProgressBar
                     stepNames={stepNames}
                     activeStep={currentStep}
