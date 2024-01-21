@@ -16,10 +16,8 @@ function AuthenticationPage({ params: { slug } }: { params: { slug: string } }) 
 
     const handleModal = (pageState: string) => {
         if (pageState === 'login') {
-            // setPageState('login');
             router.push(`/authentication/login`, undefined);
         } else if (pageState === 'registration') {
-            // setPageState('registration');
             router.push(`/authentication/registration`, undefined);
         }
     };
