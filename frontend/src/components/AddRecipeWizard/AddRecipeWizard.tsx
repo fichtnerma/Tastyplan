@@ -120,9 +120,9 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
         onNewRecipe(currentRecipe);
     };
 
-    const handleAddIngredient = (ingredient: Ingredient) => {
+    const handleAddIngredients = (ingredients: Ingredient[]) => {
         const currentRecipe = { ...customRecipe };
-        currentRecipe.ingredients.push(ingredient);
+        currentRecipe.ingredients = [...ingredients];
         if (currentRecipe.ingredients.length > 0) setIngredientsAreValid(true);
         else setIngredientsAreValid(false);
         setCustomeRecipe(currentRecipe);
@@ -160,7 +160,7 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
                 return (
                     <AddIngredients
                         currentIngredients={customRecipe.ingredients}
-                        onAddIngredient={handleAddIngredient}
+                        onChangeIngredients={handleAddIngredients}
                     />
                 );
             case 4:

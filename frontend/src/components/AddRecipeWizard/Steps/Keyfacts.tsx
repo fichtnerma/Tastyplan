@@ -21,8 +21,11 @@ const selectFormOfDietOptions = [
 export const selectStyleOptions = {
     control: (baseStyles: CSSObjectWithLabel) => ({
         ...baseStyles,
-        borderWidth: 2,
+        height: '45px',
+        borderWidth: 3,
+        backgroundColor: '#fffffa',
         borderColor: '#007370',
+        borderRadius: '15px',
     }),
     option: (
         baseStyles: CSSObjectWithLabel,
@@ -111,13 +114,13 @@ const Keyfacts = ({
 
     return (
         <fieldset>
-            <legend className="h2">Add the key facts</legend>
+            <legend className="h3">Add the key facts</legend>
             <div className="flex flex-col mb-7">
                 <label htmlFor="cookingTime">How long will it take you in minutes?</label>
                 <NumberInput
                     value={cookingTime}
                     id="cookingTime"
-                    min={0}
+                    min={1}
                     required
                     onChange={(value) => handleCookingTimeChange(value)}
                 />
@@ -129,7 +132,7 @@ const Keyfacts = ({
                         type="button"
                         className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0"
                         onClick={() => handleServingsChange(servings - 1)}
-                        disabled={servings <= 0}
+                        disabled={servings <= 1}
                     >
                         <Icon icon="minus" size={19} />
                     </button>

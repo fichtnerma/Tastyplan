@@ -26,7 +26,7 @@ export type UploadedImg = {
 
 type ImgDragAndDropProps = {
     currentImage: string | undefined;
-    onUploadedImgChange: (img64: string) => void;
+    onUploadedImgChange: (img64: string | undefined) => void;
 };
 
 const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropProps) => {
@@ -90,25 +90,35 @@ const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropPro
         [isFocused, isDragAccept, isDragReject],
     );
 
+    const removeImg = () => {
+        setUploadedImg(undefined);
+        onUploadedImgChange(undefined);
+    };
+
     return (
         <div>
-            <div {...getRootProps({ style })}>
-                <input {...getInputProps()} id="uploadImg" />
-                {isDragActive ? (
-                    <div className="flex flex-col items-center">
-                        <Icon size={34} icon="addCircle" color="#007370"></Icon>
-                        <p className="mt-2">Drop files here ...</p>
-                    </div>
-                ) : (
-                    <div className="flex flex-col items-center">
-                        <Icon size={34} icon="addCircle" color="#007370"></Icon>
-                        {!isMobile && <p className="mt-2">Drag&Drop or Browse</p>}
-                    </div>
-                )}
-            </div>
+            {!uploadedImg && (
+                <div {...getRootProps({ style })}>
+                    <input {...getInputProps()} id="uploadImg" />
+                    {isDragActive ? (
+                        <div className="flex flex-col items-center">
+                            <Icon size={34} icon="addCircle" color="#007370"></Icon>
+                            <p className="mt-2">Drop files here ...</p>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center">
+                            <Icon size={34} icon="addCircle" color="#007370"></Icon>
+                            {!isMobile && <p className="mt-2">Drag&Drop or Browse</p>}
+                        </div>
+                    )}
+                </div>
+            )}
             {uploadedImg && (
-                <aside className="flex justify-center mt-4">
+                <aside className="flex flex-col gap-4 items-center mt-4">
                     <Image width={200} height={200} src={uploadedImg} alt="image preview" />
+                    <button className="btn-danger" onClick={removeImg}>
+                        Remove img
+                    </button>
                 </aside>
             )}
         </div>

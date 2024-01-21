@@ -71,7 +71,7 @@ dialog::backdrop {
     }
 }
 
-input {
+input:not([role='combobox']) {
     &:focus {
         outline: unset;
     }

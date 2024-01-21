@@ -93,6 +93,16 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
     }
 }
 
+.btn-danger {
+    @extend .btn;
+    color: var(--white);
+    background-color: var(--red);
+
+    &:hover {
+        background-color: darken(#d54444, 20%);
+    }
+}
+
 .btn-small {
     @extend .btn;
     font-size: $btn-font-size-small;
