@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import Select from 'react-select';
 import IngredientSearch, { IngredientOption } from '@components/IngredientSearch/IngredientSearch';
 import IngredientList from '@components/IngredientList/IngredientList';
+import 'react-toastify/dist/ReactToastify.css';
 import NumberInput from '@components/FormInputs/NumberInput';
 import DialogModal from '@components/DialogModal/DialogModal';
 import { Ingredient } from 'src/types/types';
@@ -9,7 +11,7 @@ import { selectStyleOptions } from './Keyfacts';
 
 type AddIngredientsProps = {
     currentIngredients: Ingredient[];
-    onAddIngredient: (ingredients: Ingredient) => void;
+    onChangeIngredients: (ingredients: Ingredient[]) => void;
 };
 
 type UnitOption = {
@@ -29,21 +31,37 @@ const selectUnitOptions: UnitOption[] = [
     { value: '', label: '--NO UNIT--' },
 ];
 
-const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsProps) => {
+const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredientsProps) => {
     const [selectedIngredient, setSelectedIngredient] = useState<IngredientOption | undefined>(undefined);
     const [amount, setAmount] = useState(1);
     const [selectedUnit, setSelectedUnit] = useState<UnitOption | undefined>(undefined);
+    const [ingredients, setIngredients] = useState<Ingredient[]>(currentIngredients);
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
     const handleAddIngredient = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         if (selectedIngredient === undefined) return;
-        onAddIngredient({
+
+        const currentIngredients = [...ingredients];
+
+        const itemAlreadyExists = currentIngredients.some((ingredient) => ingredient.id === selectedIngredient.id);
+
+        if (itemAlreadyExists) {
+            setSelectedIngredient(undefined);
+            setAmount(1);
+            setSelectedUnit(undefined);
+            toast.error('Ingredient is already added. Pls remove to change unit and quantity');
+            return;
+        }
+
+        currentIngredients.push({
             id: selectedIngredient.id,
             ingredient: { name: selectedIngredient.value },
             quantity: amount,
             unit: selectedUnit ? selectedUnit.value : '',
         });
+        setIngredients(currentIngredients);
+        onChangeIngredients(currentIngredients);
 
         setSelectedIngredient(undefined);
         setAmount(1);
@@ -56,6 +74,16 @@ const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsP
         const typedOption = selectedOption as UnitOption;
         setSelectedUnit(typedOption);
     };
+
+    const handleItemRemove = useCallback(
+        (id: number) => {
+            const currentIngredients = [...ingredients];
+            const filteredIngredients = currentIngredients.filter((ingredient) => ingredient.id !== id);
+            setIngredients(filteredIngredients);
+            onChangeIngredients(filteredIngredients);
+        },
+        [ingredients, onChangeIngredients],
+    );
 
     return (
         <fieldset>
@@ -105,14 +133,27 @@ const AddIngredients = ({ currentIngredients, onAddIngredient }: AddIngredientsP
                 <button
                     className="btn-primary"
                     onClick={() => setDialogIsOpen(true)}
-                    disabled={currentIngredients.length <= 0}
+                    disabled={ingredients.length <= 0}
                 >
                     Ingredients
                 </button>
             </div>
             <DialogModal isOpened={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
-                <IngredientList isInteractive={false} ingredients={currentIngredients} />
+                <IngredientList isItemRemovable={true} ingredients={ingredients} onItemRemove={handleItemRemove} />
             </DialogModal>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={2000}
+                limit={1}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
         </fieldset>
     );
 };
