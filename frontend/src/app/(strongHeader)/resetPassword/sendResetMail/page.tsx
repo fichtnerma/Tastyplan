@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Icon from '@components/Icon/Icon';
 import TextInput from '@components/FormInputs/TextInput';
 
 type SendMailData = {
@@ -15,6 +17,7 @@ type FeedbackMessage = {
 const SendResetMailPage = () => {
     const [email, setEMail] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState<undefined | FeedbackMessage>(undefined);
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -43,12 +46,11 @@ const SendResetMailPage = () => {
 
     return (
         <div className="lg:w-screen lg:h-[90vh] lg:flex lg:justify-center lg:items-center lg:bg-green-custom1">
-            <div className="w-full h-full bg-white-custom lg:relative lg:w-2/3 lg:max-w-[1700px] lg:h-3/4 lg:max-h-[600px] lg:rounded-[20px] lg:overflow-hidden">
-                <form
-                    className="px-10 pt-5 flex items-stretch flex-col lg:h-[90vh] lg:pt-10"
-                    action="#"
-                    onSubmit={handleSubmit}
-                >
+            <div className="relative w-full h-full bg-white-custom lg:relative lg:w-2/3 lg:max-w-[1700px] lg:h-3/4 lg:max-h-[600px] lg:rounded-[20px] lg:overflow-hidden">
+                <button className="absolute top-3 right-3" onClick={() => router.push('/')}>
+                    <Icon icon="close"></Icon>
+                </button>
+                <form className="px-10 pt-5 flex items-stretch flex-col lg:pt-10" action="#" onSubmit={handleSubmit}>
                     <h2 className="h1 w-full text-left">Reset your password</h2>
                     <TextInput value={email} required onChange={setEMail} label="E-Mail" />
                     {feedbackMessage && (
