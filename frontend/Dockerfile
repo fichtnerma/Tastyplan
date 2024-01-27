@@ -13,7 +13,7 @@ FROM base as build
 ENV NODE_ENV development
 
 COPY --chown=node:node package*.json ./
-RUN npm ci && npm cache clean --force && npm prune
+RUN npm ci --only=production && npm cache clean --force && npm prune
 
 COPY --chown=node:node . .
 RUN npm run build
