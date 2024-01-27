@@ -22,7 +22,7 @@ RUN npm run build
 # BUILD FOR DEV
 ###################
 
-FROM builder as dev
+FROM build as dev
 
 USER node
 

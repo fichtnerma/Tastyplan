@@ -26,7 +26,7 @@ RUN cp -rv ./images ./dist/
 # BUILD FOR DEV
 ###################
 
-FROM builder as dev
+FROM build as dev
 ENV NODE_ENV development
 USER node
 
