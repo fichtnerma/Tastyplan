@@ -91,7 +91,7 @@ function HeaderHome() {
                                 <section className={`${styles.linkSvgline}`}>
                                     <a href="#downloadSection">
                                         <span className="h5 !font-zeyada text-green-custom2 hover:text-green-custom3">
-                                            download it now!
+                                            download the app now!
                                         </span>
                                         <svg className={styles.linkSvgline}>
                                             <use xlinkHref="#svg_line"></use>
