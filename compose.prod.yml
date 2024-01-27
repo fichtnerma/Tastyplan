@@ -17,76 +17,24 @@ services:
       - public
   api:
     build:
-      context: ./api
-      dockerfile: Dockerfile.dev
+      target: production
     environment:
       - NODE_ENV=production
     labels:
       - "autoheal=true"
-    ports:
-      - 3000:3000
     command: "npm run start:prod:migrate"
-  redis:
-    ports:
-      - 6379:6379
-  postgres:
-    container_name: postgres
-    restart: unless-stopped
-    ports:
-      - "6543:5432"
-    volumes:
-      - postgresdata:/var/lib/postgresql/data
-    networks:
-      - private
-      - public
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    container_name: frontend
-    ports:
-      - 8080:8080
-    environment:
-      - SECRET_KEY=${SECRET_KEY}
+      target: production
     labels:
       - "autoheal=true"
-    volumes:
-      - ./frontend:/client
-      - /client/node_modules
-      - /client/.next
-    networks:
-      - public
-
   elasticsearch:
-    container_name: elasticsearch
-    env_file: .env
-    environment:
-      - bootstrap.memory_lock=true
-      - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-      - ELASTIC_USERNAME=${ELASTIC_USERNAME}
-      - ELASTIC_NODE=${ELASTIC_NODE}
-    restart: unless-stopped
-    networks:
-      - private
     labels:
       - "autoheal=true"
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - esdata:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-  recommender:
-    build:
-      context: ./recommender
-      dockerfile: Dockerfile.dev
-    container_name: recommender
-    ports:
-      - 5001:5000
   autoheal:
     image: willfarrell/autoheal:latest
     tty: true
