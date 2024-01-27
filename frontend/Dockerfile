@@ -4,6 +4,8 @@ EXPOSE 8080
 WORKDIR /client
 CMD ["npm", "run", "start"]
 
+RUN chmod -R 777 /app
+
 FROM base as build
 
 ###################

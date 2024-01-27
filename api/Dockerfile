@@ -3,6 +3,8 @@ WORKDIR /app
 USER node
 CMD [ "npm", "run", "start:prod:migrate" ]
 
+RUN chmod -R 777 /app
+
 ###################
 # BUILD FOR BUILDER
 ###################
