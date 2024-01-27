@@ -14,7 +14,7 @@ function RecipesHome() {
                             </p>
                         </div>
                     </div>
-                    <div className=" flex lg:justify-center mt-10 overflow-x-scroll lg:overflow-visible w-screen pl-20">
+                    <div className=" flex lg:justify-center mt-10 overflow-x-scroll lg:overflow-visible w-[calc(100vw-5rem)] ml-16">
                         <ShowRecipes />
                     </div>
                 </div>

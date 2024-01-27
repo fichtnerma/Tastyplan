@@ -28,7 +28,7 @@ function DownloadCard({ cardId }: DownloadCardProps) {
             heading: 'Tastyplan Android',
             desc: 'Download our Android app on Google Play.',
             button: (
-                <a href="https://play.google.com/store/apps/details?id=dev.daily&pli=1&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+                <a href="/">
                     <Image
                         alt="Get it on Google Play"
                         src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
@@ -46,7 +46,7 @@ function DownloadCard({ cardId }: DownloadCardProps) {
             image2: '/Landingpage/Download/pwa_download2.png',
             button: (
                 <Link
-                    href="/https://docs.daily.dev/docs/getting-started/pwa#how-can-i-add-dailydev-to-my-mobile-home-screen-on-ios"
+                    href="https://docs.daily.dev/docs/getting-started/pwa#how-can-i-add-dailydev-to-my-mobile-home-screen-on-ios"
                     className="btn-quaternary"
                 >
                     Progressive Web App
