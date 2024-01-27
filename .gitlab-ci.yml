@@ -25,10 +25,12 @@ services:
       when: always
       variables:
         IMAGE_TAG: latest
+        TARGET: production
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
       variables:
         IMAGE_TAG: pre-release
+        TARGET: dev
   before_script:
     - *docker_init
 
@@ -116,14 +118,14 @@ build-api:
   extends: ".build-rules"
   script:
     - cd api
-    - docker build -t $CI_REGISTRY_IMAGE/api:$IMAGE_TAG . -f Dockerfile
+    - docker build --target $TARGET -t $CI_REGISTRY_IMAGE/api:$IMAGE_TAG . -f Dockerfile
     - docker push $CI_REGISTRY_IMAGE/api:$IMAGE_TAG
 
 build-client:
   extends: ".build-rules"
   script:
     - cd frontend
-    - docker build -t $CI_REGISTRY_IMAGE/client:$IMAGE_TAG . -f Dockerfile
+    - docker build --target $TARGET -t $CI_REGISTRY_IMAGE/client:$IMAGE_TAG . -f Dockerfile
     - docker push $CI_REGISTRY_IMAGE/client:$IMAGE_TAG
 
 build-recommender:
