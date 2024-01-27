@@ -18,9 +18,8 @@ services:
   api:
     build:
       target: dev
-  redis:
-    ports:
-      - 6379:6379
+    command: "npm run start:prod:migrate" 
   frontend:
     build:
       target: dev
+    command: "npm run start:prod:migrate"
