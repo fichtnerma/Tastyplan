@@ -1,6 +1,5 @@
 FROM node:18-alpine as base
 WORKDIR /app
-USER node
 CMD [ "npm", "run", "start:prod:migrate" ]
 
 RUN chmod -R 777 /app
@@ -23,6 +22,8 @@ RUN npx prisma generate
 
 RUN npm run build
 RUN cp -rv ./images ./dist/
+
+USER node
 
 ###################
 # BUILD FOR DEV
