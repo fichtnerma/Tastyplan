@@ -16,8 +16,7 @@ WORKDIR /client
 # copy from build image
 COPY --from=build /client/package.json ./package.json
 COPY --from=build /client/node_modules ./node_modules
-COPY --from=build /client/.next/standalone ./
-COPY --from=build /client/.next/static ./next/static
+COPY --from=build /client/.next/ ./next/
 COPY --from=build /client/public ./public
 
 EXPOSE 8080
