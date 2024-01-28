@@ -2,7 +2,6 @@ import { WeekplanEntry } from 'src/types/types';
 import { WeekplanQueries } from './weekplan.queries';
 import { CreateWeekplan, IFormattedWeekplan, IWeekplan, IWeekplanEntry } from './weekplan.interface';
 import { ChangeRecipeDto } from './dto/change-recipe.dto';
-import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
 import { MailService } from 'src/mail/mail/mail.service';
@@ -15,7 +14,6 @@ export class WeekplanService {
     constructor(
         private recipeFilterService: RecipesFilterService,
         private preferencesService: PreferencesService,
-        private shoppingListService: ShoppingListService,
         private weekplanQueries: WeekplanQueries,
         private mailService: MailService,
     ) {}
@@ -218,13 +216,6 @@ export class WeekplanService {
                 ),
             };
             const createdWeekplan = await this.weekplanQueries.createWeekplan(weekplan);
-            //TODO: Rewrite the shoppingList creation => One ShoppingList for one Weekplan
-            // This is the part where the shoppingList is created
-            // For now this is outcommented because the shoppingList is not used in the frontend
-            /* const weekplanRecipeIds = createdWeekplan.weekplanEntry
-                .flatMap((entry) => [entry.lunchId, entry.dinnerId])
-                .filter((id) => id !== null);
-            this.shoppingListService.create(weekplanRecipeIds, userId); */
             return this.formatWeekPlan(createdWeekplan);
         } catch (error) {
             throw new HttpException('Error: Creating weekplan failed', HttpStatus.INTERNAL_SERVER_ERROR);
