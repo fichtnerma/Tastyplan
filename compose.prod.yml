@@ -16,16 +16,12 @@ services:
     networks:
       - public
   api:
-    build:
-      target: production
     environment:
       - NODE_ENV=production
     labels:
       - "autoheal=true"
     command: "npm run start:prod:migrate"
   frontend:
-    build:
-      target: production
     labels:
       - "autoheal=true"
     command: "npm run start"
