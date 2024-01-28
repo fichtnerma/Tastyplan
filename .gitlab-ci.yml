@@ -147,8 +147,9 @@ deploy:
   before_script:
     - *docker_init
   script:
+    - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml pull
     - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml up --wait --no-build --force-recreate -d 
-    - docker compose -f compose.yml -f compose.prod.yml logs
+    - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml logs
   tags:
     - prod
 
@@ -166,6 +167,7 @@ deploy-staging:
   before_script:
     - *docker_init
   script:
+    - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml pull
     - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml up --wait --no-build --force-recreate -d 
     - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml logs
   tags:
