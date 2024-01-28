@@ -28,6 +28,7 @@ services:
       target: production
     labels:
       - "autoheal=true"
+    command: "npm run start"
   elasticsearch:
     labels:
       - "autoheal=true"

@@ -22,4 +22,4 @@ services:
   frontend:
     build:
       target: dev
-    command: "npm run start:prod:migrate"
+    command: "npm run start"
