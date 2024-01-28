@@ -5,7 +5,7 @@ FROM node:18-alpine as build
 WORKDIR /client
 
 COPY package*.json ./
-RUN npm ci && npm cache clean --force
+RUN npm ci
 COPY . .
 RUN npm run build
 # remove dev dependencies
