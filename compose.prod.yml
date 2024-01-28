@@ -22,6 +22,8 @@ services:
       - "autoheal=true"
     command: "npm run start:prod:migrate"
   frontend:
+    environment:
+      - NODE_ENV=production
     labels:
       - "autoheal=true"
     command: "npm run start"
