@@ -4,7 +4,6 @@ import { CreateWeekplan, IFormattedWeekplan, IWeekplan, IWeekplanEntry } from '.
 import { ChangeRecipeDto } from './dto/change-recipe.dto';
 import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
-import { MailService } from 'src/mail/mail/mail.service';
 import { shuffleArray } from 'src/helpers/converter.utils';
 import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -15,7 +14,6 @@ export class WeekplanService {
         private recipeFilterService: RecipesFilterService,
         private preferencesService: PreferencesService,
         private weekplanQueries: WeekplanQueries,
-        private mailService: MailService,
     ) {}
 
     async getCurrentWeekplan(userId: string) {
