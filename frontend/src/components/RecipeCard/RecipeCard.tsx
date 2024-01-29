@@ -127,7 +127,7 @@ function RecipeCard({
                     <div>
                         <Icon size={50} icon="addCircle"></Icon>
                     </div>
-                    <h5 className="text-inherit pt-5 m-0" data-cy={`add-recipe-text-${isLunch ? 'lunch' : 'dinner'}`}>
+                    <h5 className="text-inherit pt-5 m-0" data-cy={`choose-recipe-btn`}>
                         add recipe
                     </h5>
                 </button>
