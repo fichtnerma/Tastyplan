@@ -189,8 +189,8 @@ export class RecipesService {
     async processImage(imageBase64: string): Promise<Buffer> {
         try {
             const processedImageBuffer = await this.processImageBuffer(imageBase64);
-            if (processedImageBuffer.length > 1048576) {
-                throw new Error('Image is too large. Please upload an image smaller than 1MB.');
+            if (processedImageBuffer.length > 5242880) {
+                throw new Error('Image is too large. Please upload an image smaller than 5MB.');
             }
             return processedImageBuffer;
         } catch (error) {

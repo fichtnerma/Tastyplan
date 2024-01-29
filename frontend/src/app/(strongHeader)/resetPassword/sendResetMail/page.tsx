@@ -52,7 +52,13 @@ const SendResetMailPage = () => {
                 </button>
                 <form className="px-10 pt-5 flex items-stretch flex-col lg:pt-10" action="#" onSubmit={handleSubmit}>
                     <h2 className="h1 w-full text-left">Reset your password</h2>
-                    <TextInput value={email} required onChange={setEMail} label="E-Mail" />
+                    <TextInput
+                        value={email}
+                        required
+                        onChange={setEMail}
+                        label="E-Mail"
+                        cypressID="reset-mail-password"
+                    />
                     {feedbackMessage && (
                         <p className="text-sm mt-1" style={{ color: feedbackMessage.color }}>
                             {feedbackMessage.text}

@@ -29,6 +29,7 @@ export default function Weekplan({ day, hasDinner, hasLunch, updateWeekplan }: W
                             entryId={day.id}
                             refreshWeekplan={updateWeekplan}
                             isLunch={true}
+                            day={new Date(day.date).getDay()}
                         />
                     </div>
                 )}
@@ -40,6 +41,7 @@ export default function Weekplan({ day, hasDinner, hasLunch, updateWeekplan }: W
                         smallCard={false}
                         entryId={day.id}
                         refreshWeekplan={updateWeekplan}
+                        day={new Date(day.date).getDay()}
                     />
                 )}
             </div>

@@ -20,7 +20,10 @@ export default function DislikeList({ dislikes, onDeleteChoice }: DislikeListPro
                 >
                     <span>
                         <label className="flex items-center" htmlFor={dislike.name}>
-                            <p className="inline-block pr-2 max-w-[300px] truncate text-sm">
+                            <p
+                                className="inline-block pr-2 max-w-[300px] truncate text-sm"
+                                data-cy={`selected-dislike-text-${dislike.name}`}
+                            >
                                 {dislike.name.charAt(0).toUpperCase() + dislike.name.slice(1)}
                             </p>
 
@@ -28,6 +31,7 @@ export default function DislikeList({ dislikes, onDeleteChoice }: DislikeListPro
                                 className="cursor-pointer"
                                 onClick={() => onDeleteChoice(dislike.name)}
                                 data-anchor={dislike.name}
+                                data-cy={`remove-${dislike.name}`}
                             >
                                 <Icon icon="close"></Icon>
                             </a>

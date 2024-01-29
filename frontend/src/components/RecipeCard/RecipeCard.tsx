@@ -18,6 +18,7 @@ type RecipeCardProps = {
     entryId?: string;
     refreshWeekplan?: () => void;
     isLunch?: boolean;
+    day?: number;
 };
 
 function RecipeCard({
@@ -94,12 +95,13 @@ function RecipeCard({
 
                     <div
                         className={`justify-end ${highlighted ? styles.icon__highlighted : styles.icon__notHighlighted}
-                    ${withSwitch ? 'block' : 'hidden'}
-            
-                    flex p-1 top-[10px] text-white-custom right-10 rounded-full cursor-pointer absolute z-10 bg-green-custom2  transition-all duration-600 ease-in-out ${
-                        styles.icon
-                    }`}
+                    ${
+                        withSwitch ? 'block' : 'hidden'
+                    } flex p-1 top-[10px] text-white-custom right-10 rounded-full cursor-pointer absolute z-10 bg-green-custom2  transition-all duration-600 ease-in-out ${
+                            styles.icon
+                        }`}
                         onClick={openModal}
+                        data-cy="get-new-recommendations-btn"
                     >
                         <Icon size={18} icon="switch"></Icon>
                     </div>
@@ -120,11 +122,14 @@ function RecipeCard({
                 <button
                     className="flex justify-center flex-col rounded-custom_s relative w-full h-[225px] sm:h-[160px] md:!h-[300px] md:!w-[200px] bg-green-custom4 items-center hover:bg-green-custom_super_light text-green-custom2 hover:text-green-custom3"
                     onClick={openModal}
+                    data-cy={`add-recipe-btn-${isLunch ? 'lunch' : 'dinner'}`}
                 >
                     <div>
                         <Icon size={50} icon="addCircle"></Icon>
                     </div>
-                    <h5 className="text-inherit pt-5 m-0">add recipe</h5>
+                    <h5 className="text-inherit pt-5 m-0" data-cy={`choose-recipe-btn`}>
+                        add recipe
+                    </h5>
                 </button>
             )}
 
