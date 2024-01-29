@@ -26,6 +26,7 @@ async function bootstrap() {
     SwaggerModule.setup('api', app, document);
 
     app.use(cookieParser());
+    app.use(json({ limit: '10mb' }));
     await app.listen(3000);
 
     if (module.hot) {
