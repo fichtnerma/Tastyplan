@@ -13,7 +13,6 @@ type DislikeSearchProps = {
     handleAddChoice: (e: React.MouseEvent) => void;
     allDislikes: APISearchResponse[];
     onFocus: () => void;
-    onBlur: () => void;
 };
 
 function DislikeSearch({
@@ -25,7 +24,6 @@ function DislikeSearch({
     handleAddChoice,
     allDislikes,
     onFocus,
-    onBlur,
 }: DislikeSearchProps) {
     return (
         <div>
@@ -41,7 +39,6 @@ function DislikeSearch({
                     decorationPosition="end"
                     onChange={searchChanged}
                     onFocus={onFocus}
-                    onBlur={onBlur}
                 />
                 <div className="relative">
                     <div className="absolute z-1 w-full">

@@ -161,7 +161,6 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                                 handleAddChoice={handleAddChoice}
                                 allDislikes={allDislikes}
                                 onFocus={() => setInputFocus(true)}
-                                onBlur={() => setInputFocus(false)}
                             />
                             <p className="inline-block text-base pt-3">Add this to your dislikes.</p>
                             <div className="flex flex-wrap">
