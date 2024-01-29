@@ -102,8 +102,7 @@ export class WeekplanService {
 
     //Orchistration function
     async createFutureWeekplan(userId: string, startDate: Date, shouldReplace = false) {
-        const prevStartDate = new Date(startDate);
-        prevStartDate.setDate(prevStartDate.getDate() - 7);
+        const prevStartDate = this.getPreviousWeekStartDate(startDate);
         const previousWeekplan = await this.weekplanQueries.findWeekplanByDate(prevStartDate, userId);
         const existingWeekplan = await this.weekplanQueries.findWeekplanByDate(startDate, userId);
         if (existingWeekplan) {
@@ -114,12 +113,13 @@ export class WeekplanService {
                 await this.weekplanQueries.deleteWeekplan(existingWeekplan.id);
             }
         }
-        const endDate = new Date(startDate);
-        endDate.setDate(endDate.getDate() + 6);
-        endDate.setHours(0, 0, 0, 0);
+
+        const { startDate: _, endDate } = this.createDateRangeForWeekplanCreation(new Date(startDate));
         let recommendedMeals = [];
+        //Outsource this logic
         if (previousWeekplan) {
-            const recipesFromHistory: Array<number> = previousWeekplan.weekplanEntry.reduce((currentEntries, entry) => {
+            const recipesFromHistory: Array<number> = this.extractRecipeIdsFromPreviousWeekplan(previousWeekplan);
+            /* const recipesFromHistory: Array<number> = previousWeekplan.weekplanEntry.reduce((currentEntries, entry) => {
                 if (entry.dinnerId) {
                     currentEntries.push(entry.dinnerId);
                 }
@@ -127,13 +127,16 @@ export class WeekplanService {
                     currentEntries.push(entry.lunchId);
                 }
                 return currentEntries;
-            }, []);
+            }, []); */
+
+            //Post to recommender
             const recommendedMealsRes = await fetch(`${process.env.RECOMMENDER_URL}/recommend`, {
                 method: 'POST',
                 body: JSON.stringify({ userId, recipesFromHistory }),
             });
             recommendedMeals = await recommendedMealsRes.json();
         }
+
         const weekplan = await this.createWeakplan(userId, startDate, endDate, recommendedMeals);
 
         return weekplan;
@@ -311,5 +314,26 @@ export class WeekplanService {
             startDate.setUTCHours(0, 0, 0, 0);
             return { startDate };
         }
+    }
+
+    getPreviousWeekStartDate(startDate: Date) {
+        const prevStartDate = new Date(startDate);
+        prevStartDate.setDate(prevStartDate.getDate() - 7);
+        return prevStartDate;
+    }
+
+    extractRecipeIdsFromPreviousWeekplan(previousWeekplan: IWeekplan | null) {
+        if (!previousWeekplan) {
+            return [];
+        }
+        return previousWeekplan.weekplanEntry.reduce((currentEntries: Array<number>, entry: IWeekplanEntry) => {
+            if (entry.dinner?.id) {
+                currentEntries.push(entry.dinner.id);
+            }
+            if (entry.lunch?.id) {
+                currentEntries.push(entry.lunch.id);
+            }
+            return currentEntries;
+        }, []);
     }
 }

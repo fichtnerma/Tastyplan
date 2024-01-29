@@ -133,4 +133,57 @@ describe('WeekplanService', () => {
         };
         expect(service.createDateRangeForWeekplanCreation(exampleDate)).toStrictEqual(formattedDatesCurrnt);
     });
+
+    it('getPreviousWeekStartDate => Should return the start date of previous weekplan', () => {
+        const exampleDate = new Date('2024-01-29');
+        const previousWeekStartDate = new Date('2024-01-22');
+        expect(service.getPreviousWeekStartDate(exampleDate)).toStrictEqual(previousWeekStartDate);
+    });
+
+    it('extractRecipeIdsFromPreviousWeekplan => Should return recipes from past weekplan', () => {
+        const exampleWeekplan: IWeekplan = {
+            id: 1,
+            userId: 'user123',
+            startDate: new Date('2024-01-29'),
+            endDate: new Date('2024-02-04'),
+            hasLunch: true,
+            hasDinner: true,
+            weekplanEntry: [
+                {
+                    id: 1,
+                    date: new Date('2024-01-29'),
+                    lunch: {
+                        id: 101,
+                        name: 'Vegetarian Pasta',
+                        img: 'pasta.jpg',
+                        description: 'Delicious vegetarian pasta dish.',
+                        cookingTime: 20,
+                        preparingTime: 10,
+                        totalTime: 30,
+                        servings: 2,
+                        tags: ['vegetarian', 'pasta'],
+                        formOfDiet: 'vegetarian',
+                        userId: 'user123',
+                    },
+                    dinner: {
+                        id: 201,
+                        name: 'Grilled Chicken Salad',
+                        img: 'salad.jpg',
+                        description: 'Healthy grilled chicken salad.',
+                        cookingTime: 15,
+                        preparingTime: 10,
+                        totalTime: 25,
+                        servings: 1,
+                        tags: ['chicken', 'salad'],
+                        formOfDiet: 'regular',
+                        userId: 'user123',
+                    },
+                },
+            ],
+        };
+        const recipesFromHistory = [101, 201];
+        expect([...service.extractRecipeIdsFromPreviousWeekplan(exampleWeekplan)].sort()).toStrictEqual(
+            [...recipesFromHistory].sort(),
+        );
+    });
 });
