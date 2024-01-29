@@ -33,7 +33,7 @@ export default function PreferencesSettings({
     ];
     const allIntolerances = [
         { name: 'celery' },
-        { name: 'eggs' },
+        { name: 'egg' },
         { name: 'fish' },
         { name: 'gluten' },
         { name: 'hazelnut' },

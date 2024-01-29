@@ -16,7 +16,7 @@ interface IntolerancesProps {
 export default function Intolerances({ onNext, onBack, onChoice, allergens }: IntolerancesProps) {
     const intolerances = [
         { id: 11, ui: 'Celery', code: 'celery', icon: 'Sellerie' },
-        { id: 7, ui: 'Eggs', code: 'egg', icon: 'Ei' },
+        { id: 7, ui: 'Egg', code: 'egg', icon: 'Ei' },
         { id: 9, ui: 'Fish', code: 'fish', icon: 'fisch' },
         { id: 6, ui: 'Gluten', code: 'gluten', icon: 'Weizen' },
         { id: 2, ui: 'Hazelnuts', code: 'hazelnut', icon: 'Haselnuss' },
