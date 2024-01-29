@@ -113,69 +113,75 @@ const Keyfacts = ({
     }, []);
 
     return (
-        <fieldset>
+        <fieldset className="overflow-x-auto h-full">
             <legend className="h3">Add the key facts</legend>
-            <div className="flex flex-col mb-7">
-                <label htmlFor="cookingTime">How long will it take you in minutes?</label>
-                <NumberInput
-                    value={cookingTime}
-                    id="cookingTime"
-                    min={1}
-                    required
-                    onChange={(value) => handleCookingTimeChange(value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="increasePortion">Portions</label>
-                <div className="flex mb-7">
-                    <button
-                        type="button"
-                        className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0"
-                        onClick={() => handleServingsChange(servings - 1)}
-                        disabled={servings <= 1}
-                    >
-                        <Icon icon="minus" size={19} />
-                    </button>
-                    <p className="text-base w-10 text-center text-green-custom2" id="portion" data-cy="portion-amount">
-                        {servings}
-                    </p>
-                    <button
-                        id="increasePortion"
-                        type="button"
-                        className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0 mr-5"
-                        onClick={() => handleServingsChange(servings + 1)}
-                    >
-                        <Icon icon="plus" size={19} />
-                    </button>
-                </div>
-                <div className={styles.SelectionWrapper}>
-                    <label htmlFor="foodLifeStyle">Set the diet</label>
-                    <Select
-                        name="foodLifeStyle"
-                        id="foodLifeStyle"
-                        aria-label="foodLifeStyle"
-                        aria-labelledby="foodLifeStyle"
-                        defaultValue={selectedFormOfDiet}
-                        onChange={handleFormOfDietChange}
-                        options={selectFormOfDietOptions}
-                        styles={selectStyleOptions}
+            <div className="p-2 pt-0 pb-8">
+                <div className="flex flex-col mb-7">
+                    <label htmlFor="cookingTime">How long will it take you in minutes?</label>
+                    <NumberInput
+                        value={cookingTime}
+                        id="cookingTime"
+                        min={1}
+                        required
+                        onChange={(value) => handleCookingTimeChange(value)}
                     />
                 </div>
-                <div className={styles.SelectionWrapper}>
-                    <label htmlFor="tags">Add some tags</label>
-                    <Select
-                        //@ts-ignore
-                        isMulti
-                        name="recipeTags"
-                        id="recipeTags"
-                        aria-label="recipeTags"
-                        aria-labelledby="recipeTags"
-                        defaultValue={currentTags}
-                        options={tagOptions}
-                        styles={selectStyleOptions}
-                        //@ts-ignore
-                        onChange={handleTagChange}
-                    />
+                <div>
+                    <label htmlFor="increasePortion">Portions</label>
+                    <div className="flex mb-7">
+                        <button
+                            type="button"
+                            className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0"
+                            onClick={() => handleServingsChange(servings - 1)}
+                            disabled={servings <= 1}
+                        >
+                            <Icon icon="minus" size={19} />
+                        </button>
+                        <p
+                            className="text-base w-10 text-center text-green-custom2"
+                            id="portion"
+                            data-cy="portion-amount"
+                        >
+                            {servings}
+                        </p>
+                        <button
+                            id="increasePortion"
+                            type="button"
+                            className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0 mr-5"
+                            onClick={() => handleServingsChange(servings + 1)}
+                        >
+                            <Icon icon="plus" size={19} />
+                        </button>
+                    </div>
+                    <div className={styles.SelectionWrapper}>
+                        <label htmlFor="foodLifeStyle">Set the diet</label>
+                        <Select
+                            name="foodLifeStyle"
+                            id="foodLifeStyle"
+                            aria-label="foodLifeStyle"
+                            aria-labelledby="foodLifeStyle"
+                            defaultValue={selectedFormOfDiet}
+                            onChange={handleFormOfDietChange}
+                            options={selectFormOfDietOptions}
+                            styles={selectStyleOptions}
+                        />
+                    </div>
+                    <div className={styles.SelectionWrapper}>
+                        <label htmlFor="tags">Add some tags</label>
+                        <Select
+                            //@ts-ignore
+                            isMulti
+                            name="recipeTags"
+                            id="recipeTags"
+                            aria-label="recipeTags"
+                            aria-labelledby="recipeTags"
+                            defaultValue={currentTags}
+                            options={tagOptions}
+                            styles={selectStyleOptions}
+                            //@ts-ignore
+                            onChange={handleTagChange}
+                        />
+                    </div>
                 </div>
             </div>
         </fieldset>

@@ -43,7 +43,7 @@ const AddRecipePage = () => {
     const router = useRouter();
 
     useEffect(() => {
-        setLogoLinkTarget('/weekOverview');
+        setLogoLinkTarget('/cookbook');
     }, []);
 
     const handleNewRecipe = (recipe: CustomRecipe) => {
@@ -69,7 +69,7 @@ const AddRecipePage = () => {
 
         if (typeof window === 'undefined') return;
 
-        if (res.ok) router.push('weekOverview', undefined);
+        if (res.ok) router.push('cookbook', undefined);
     };
 
     const transformRecipe = (recipe: CustomRecipe): RecipeTransformed | void => {
@@ -108,7 +108,7 @@ const AddRecipePage = () => {
 
     return (
         <div className="flex bg-white-custom px-10 py-8 lg:bg-green-custom4 lg:flex lg:items-center lg:justify-center lg:h-[90vh]">
-            <div className="relative flex flex-col w-full bg-white-custom md:min-h-[675px] md:pb-4 lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
+            <div className="relative flex flex-col w-full bg-white-custom h-full md:pb-4 lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
                 <br />
                 <button
                     className="absolute top-5 right-[-5px] md:right-5"
@@ -128,7 +128,7 @@ const AddRecipePage = () => {
                     onNewRecipe={handleNewRecipe}
                     onInputisInvalid={(inputIsNotValid: boolean) => setInputIsNotValid(inputIsNotValid)}
                 />
-                <div className="flex justify-between mt-4 md:mt-auto">
+                <div className="flex justify-between mt-4">
                     <button
                         className="btn-primary"
                         disabled={currentStep === 1}

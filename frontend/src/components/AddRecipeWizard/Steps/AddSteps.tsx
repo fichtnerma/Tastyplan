@@ -34,18 +34,19 @@ const SortableStep = ({ step, index, onDelete }: SortableStepProps) => {
                 {...listeners}
             >
                 <div>
-                    <h2 className="!mb-0">Step {index + 1}</h2>
-                    <p className="max-w-[210px] sm:max-w-[500px]">{truncate(step.description, 50)}</p>
+                    <h2 className="!mb-0 h5">Step {index + 1}</h2>
+                    <p className="block lg:hidden max-w-[210px] sm:max-w-[500px]">{truncate(step.description, 50)}</p>
+                    <p className="hidden lg:block max-w-[210px] sm:max-w-[500px]">{truncate(step.description, 15)}</p>
                 </div>
-                <div className="h-6 w-8">
-                    <span className="block h-1 w-full bg-gray-custom3 mb-[4px] rounded-[2px]"></span>
-                    <span className="block h-1 w-full bg-gray-custom3 rounded-[2px]"></span>
-                    <span className="block h-1 w-full bg-gray-custom3 mt-[4px] rounded-[2px]"></span>
+                <div className="h-fit w-5">
+                    <span className="block h-[2px] w-full bg-gray-custom3 mb-[4px] rounded-[2px]"></span>
+                    <span className="block h-[2px] w-full bg-gray-custom3 rounded-[2px]"></span>
+                    <span className="block h-[2px] w-full bg-gray-custom3 mt-[4px] rounded-[2px]"></span>
                 </div>
             </li>
             <div className="basis-[5%] flex items-center justify-end">
                 <button className="mb-[12px]" onClick={() => onDelete(step.id)}>
-                    <Icon icon="close"></Icon>
+                    <Icon icon="close" classNames="text-gray-custom3"></Icon>
                 </button>
             </div>
         </div>
@@ -114,45 +115,65 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
     };
 
     return (
-        <fieldset className="mb-5 lg:mb-0">
+        <fieldset className="mb-5 lg:mb-0 overflow-x-auto h-full">
             <legend className="h3">Add the Steps</legend>
-            <div className="p-5 mb-4 bg-green-custom4 rounded-[30px]">
-                <ol className="lg:block lg:max-h-[330px] lg:overflow-y-auto lg:overflow-x-hidden">
-                    <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-                        <SortableContext
-                            items={steps.map((step: CustomStep) => step.id)}
-                            strategy={verticalListSortingStrategy}
-                        >
-                            {steps.map((step, index) => (
-                                <SortableStep key={step.id} step={step} index={index} onDelete={handleDelete} />
-                            ))}
-                        </SortableContext>
-                    </DndContext>
-                </ol>
-                <div>
-                    <button className="flex items-center mx-auto my-0" onClick={handleOpenDialog}>
-                        <Icon size={20} icon="addCircle" color="#007370" />
-                        <span className="block ml-2 text-green-custom2">Add new step</span>
-                    </button>
-                    <DialogModal isOpened={dialogIsOpen} onClose={handleCloseDialog}>
-                        <div className="flex flex-col">
-                            <h1 className="text-green-custom2">Add new step</h1>
-                            <label className="h3" htmlFor="stepDesc">
-                                Description
-                            </label>
-                            <textarea
-                                className="p-5 mb-5 border-2 border-green-custom2 rounded-[30px]"
-                                name="stepDesc"
-                                id="stepDesc"
-                                value={newStep.description}
-                                onChange={handleDescriptionChange}
-                            ></textarea>
-                            <button className="flex items-center mx-auto my-0" onClick={handleNewStep}>
-                                <Icon size={20} icon="addCircle" color="#007370" />
-                                <span className="block ml-2 text-green-custom2">Add new step</span>
-                            </button>
-                        </div>
-                    </DialogModal>
+            <div className="flex w-full">
+                <div className="mb-4 bg-green-custom4 rounded-[30px] overflow-x-auto pb-8 p-2 lg:p-4 lg:w-1/3 w-full">
+                    <ol className="lg:block lg:max-h-[330px]">
+                        <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+                            <SortableContext
+                                items={steps.map((step: CustomStep) => step.id)}
+                                strategy={verticalListSortingStrategy}
+                            >
+                                {steps.map((step, index) => (
+                                    <SortableStep key={step.id} step={step} index={index} onDelete={handleDelete} />
+                                ))}
+                            </SortableContext>
+                        </DndContext>
+                    </ol>
+                    <div className="block lg:hidden">
+                        <button className="flex items-center mx-auto my-0" onClick={handleOpenDialog}>
+                            <Icon size={20} icon="addCircle" color="#007370" />
+                            <span className="block ml-2 text-green-custom2">Add new step</span>
+                        </button>
+                        <DialogModal isOpened={dialogIsOpen} onClose={handleCloseDialog}>
+                            <div className="flex flex-col">
+                                <h1 className="text-green-custom2">Add new step</h1>
+                                <label className="h3" htmlFor="stepDesc">
+                                    Description
+                                </label>
+                                <textarea
+                                    className="p-5 mb-5 border-2 border-green-custom2 rounded-[30px] h-[50vh]"
+                                    name="stepDesc"
+                                    id="stepDesc"
+                                    value={newStep.description}
+                                    onChange={handleDescriptionChange}
+                                ></textarea>
+                                <button className="flex items-center mx-auto my-0" onClick={handleNewStep}>
+                                    <Icon size={20} icon="addCircle" color="#007370" />
+                                    <span className="block ml-2 text-green-custom2">Add new step</span>
+                                </button>
+                            </div>
+                        </DialogModal>
+                    </div>
+                </div>
+                <div className="hidden lg:block w-2/3 pl-5">
+                    <div className="flex flex-col">
+                        <label className="h4" htmlFor="stepDesc">
+                            Description
+                        </label>
+                        <textarea
+                            className="p-5 mb-5 border-2 border-green-custom2 rounded-[30px] bg-white-custom"
+                            name="stepDesc"
+                            id="stepDesc"
+                            value={newStep.description}
+                            onChange={handleDescriptionChange}
+                        ></textarea>
+                        <button className="flex items-center mx-auto my-0" onClick={handleNewStep}>
+                            <Icon size={20} icon="addCircle" color="#007370" />
+                            <span className="block ml-2 text-green-custom2">Add new step</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </fieldset>
