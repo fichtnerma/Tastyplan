@@ -50,7 +50,7 @@ export default async function DetailRecipe({ params: { id } }: { params: { id: s
                     </div>
                 </div>
                 <div className="lg:col-span-1 lg:ml-[auto] lg:mr-[0]">
-                    <IngredientList ingredients={recipe?.ingredients} />
+                    <IngredientList ingredients={recipe?.ingredients} isItemRemovable={false} />
                 </div>
             </div>
             <div className="mb-8 lg:grid lg:grid-cols-3 lg:mb-28">
