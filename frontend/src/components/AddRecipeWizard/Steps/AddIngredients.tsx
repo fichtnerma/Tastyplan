@@ -124,7 +124,7 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
                             onIngredient={setSelectedIngredient}
                         />
                     </div>
-                    <div className="w-full lg:w-1/4">
+                    <div className="w-full lg:w-1/12">
                         <NumberInput
                             value={amount}
                             label="Amount"
