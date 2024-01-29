@@ -230,4 +230,46 @@ describe('WeekplanService', () => {
         );
     });
     // TODO: Add additional test for not having 14 recipes
+
+    it('createWeekplanPartial => Check if stringing data together works', () => {
+        const userId = 'user123';
+        const weekplanStartDate = new Date('2024-01-29T00:00:00.000Z');
+        const weekplanEndDate = new Date('2024-02-04T00:00:00.000Z');
+        const fetchedMealsAndWeekplanPreferences = {
+            recipes: [
+                { id: 1 },
+                { id: 2 },
+                { id: 4 },
+                { id: 5 },
+                { id: 8 },
+                { id: 7 },
+                { id: 432 },
+                { id: 9 },
+                { id: 10 },
+                { id: 11 },
+                { id: 87 },
+                { id: 13 },
+                { id: 12 },
+                { id: 17 },
+            ],
+            days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
+            wantsDinner: true,
+            wantsLunch: true,
+        };
+        const resultWeekplanPartial = {
+            userId: 'user123',
+            startDate: new Date('2024-01-29T00:00:00.000Z'),
+            endDate: new Date('2024-02-04T00:00:00.000Z'),
+            hasDinner: true,
+            hasLunch: true,
+        };
+        expect(
+            service.createWeekplanPartial(
+                userId,
+                weekplanStartDate,
+                weekplanEndDate,
+                fetchedMealsAndWeekplanPreferences,
+            ),
+        ).toStrictEqual(resultWeekplanPartial);
+    });
 });

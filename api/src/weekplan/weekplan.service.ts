@@ -185,7 +185,6 @@ export class WeekplanService {
             //Using own Type "CreateWeekplan" because we only use ids of recipes for lunch and dinner in creation
             //Create Weekplan
             //Create Weekplan Entry
-            aerg;
             const weekplan: Partial<CreateWeekplan> = this.createWeekplanPartial(
                 userId,
                 weekplanStartDate,
