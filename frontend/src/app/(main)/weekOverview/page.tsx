@@ -67,7 +67,6 @@ export default function WeekOverview() {
                         <div className="sm:mt-4">
                             <button
                                 className="btn-primary rounded-full btn-small"
-                                data-cy="start-planning-btn"
                                 onClick={() => generateNewWeek(true)}
                                 disabled={weekplan.weekplanEntry == null}
                             >
@@ -98,7 +97,6 @@ export default function WeekOverview() {
                                 There was no weekplan found for this week. Please generate a new one.
                                 <button
                                     className="btn-primary rounded-full btn-small"
-                                    data-cy="start-planning-btn"
                                     onClick={() => generateNewWeek()}
                                 >
                                     <span className="text-white-custom justify-center flex leading-none">

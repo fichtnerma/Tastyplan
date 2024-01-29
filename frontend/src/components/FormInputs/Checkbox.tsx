@@ -22,6 +22,7 @@ function Checkbox({ groupName, customCheckbox, handleChange, disabled }: Checkbo
                 }}
                 checked={disabled ? true : customCheckbox.checked}
                 disabled={disabled}
+                data-cy={`${groupName}-${customCheckbox.label}-checkbox`}
             />
             <span className="checkbox-label">{customCheckbox.label}</span>
         </label>

@@ -16,7 +16,7 @@ const unitShorteningMap = new Map([
     ['tablespoons', 'tbsp'],
 ]);
 
-function IngredientList({ ingredients, isItemRemovable = true, onItemRemove }: IngredientListProps) {
+function IngredientList({ ingredients, isItemRemovable = false, onItemRemove }: IngredientListProps) {
     const [portion, setPortion] = useState(1);
 
     const changePortion = (e: React.MouseEvent<HTMLButtonElement>) => {

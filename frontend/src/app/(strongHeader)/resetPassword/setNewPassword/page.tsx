@@ -70,6 +70,7 @@ const SetNewPassword = () => {
                         validate={isPasswordValidator}
                         onChange={setPassword}
                         label="New password"
+                        cypressID="new-password"
                     />
                     <TextInput
                         value={passwordConf}
@@ -78,6 +79,7 @@ const SetNewPassword = () => {
                         validate={isPasswordValidator}
                         onChange={setPasswordConf}
                         label="Repeat new password"
+                        cypressID="repeat-new-password"
                     />
                     {feedbackMessage && (
                         <p className="text-sm mt-1" style={{ color: feedbackMessage.color }}>

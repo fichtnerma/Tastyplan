@@ -34,7 +34,7 @@ function DislikeSearch({
                     placeholder="Search ingredients"
                     value={searchTerm}
                     decoration={
-                        <button type="button" onClick={deleteInput}>
+                        <button type="button" onClick={deleteInput} data-cy="clear-search-input">
                             {searchTerm == '' ? <Icon size={20} icon="search" /> : <Icon size={20} icon="close" />}
                         </button>
                     }
@@ -42,6 +42,7 @@ function DislikeSearch({
                     onChange={searchChanged}
                     onFocus={onFocus}
                     onBlur={onBlur}
+                    cypressID="search-ingredients"
                 />
                 <div className="relative">
                     <div className="absolute z-1 w-full">
