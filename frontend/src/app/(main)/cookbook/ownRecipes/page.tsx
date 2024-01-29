@@ -5,15 +5,16 @@ import { useSession } from 'next-auth/react';
 import RecipeCard from '@components/RecipeCard/RecipeCard';
 import Icon from '@components/Icon/Icon';
 import ReturnButton from '@components/common/ReturnButton';
-import { useFavoriteStore } from '@hooks/useFavorites';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { Recipe, Role } from 'src/types/types';
 
 function OwnRecipes() {
-    const { data, error } = useFetchWithAuth('/service/favorites');
+    const { data: ownRecipes, error } = useFetchWithAuth('/service/recipes/own') as unknown as {
+        data: Array<Recipe>;
+        error: unknown;
+    };
     const { data: session } = useSession();
     const user = session?.user;
-    const { favorites } = useFavoriteStore();
 
     return (
         <>
@@ -34,13 +35,13 @@ function OwnRecipes() {
                     <h5 className="text-inherit pt-5 m-0">add your</h5>
                     <h5 className="text-inherit m-0 leading-none">own recipe</h5>
                 </Link>
-                {!error && data ? (
+                {!error && ownRecipes ? (
                     <div className="flex gap-12 flex-wrap">
-                        {favorites.map((favorite: Recipe) => {
+                        {ownRecipes.map((recipe: Recipe) => {
                             return (
                                 <RecipeCard
-                                    key={favorite.id}
-                                    recipe={favorite}
+                                    key={recipe.id}
+                                    recipe={recipe}
                                     highlighted={false}
                                     withSwitch={false}
                                     smallCard={false}

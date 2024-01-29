@@ -12,7 +12,7 @@ export default function FavoritesSection() {
             </div>
 
             <div className="recipeCardGrid">
-                {favorites ? (
+                {favorites?.length > 0 ? (
                     favorites.map((recipeInfo: Recipe) => {
                         return (
                             <div className="recipeCardWrapper" key={recipeInfo.id}>

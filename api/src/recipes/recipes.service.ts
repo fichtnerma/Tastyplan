@@ -27,6 +27,11 @@ export class RecipesService {
         }
     }
 
+    async findOwn(userId: string) {
+        const recipes = await this.recipeQueries.findOwnRecipes(userId);
+        return recipes ? recipes : [];
+    }
+
     async storeInRedis() {
         const recipes = await this.recipeQueries.findManyRecipes();
 

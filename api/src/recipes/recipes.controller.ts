@@ -56,16 +56,25 @@ export class RecipesController {
             if (error instanceof HttpException) {
                 throw error;
             } else {
-                console.log('error', error);
                 throw new HttpException(
                     {
                         status: HttpStatus.INTERNAL_SERVER_ERROR,
                         error: 'ERROR: Creating recipe failed!',
+                        cause: error,
                     },
                     HttpStatus.INTERNAL_SERVER_ERROR,
                 );
             }
         }
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @ApiSecurity('access-key')
+    @UseInterceptors(ClassSerializerInterceptor)
+    @Get('/own')
+    public async findOwn(@Req() request: RequestWithUser) {
+        console.log(request.user);
+        return this.recipesService.findOwn(request.user.userId);
     }
     @Get(':id')
     public findOne(@Param('id') id: string) {

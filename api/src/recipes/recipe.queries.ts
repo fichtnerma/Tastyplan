@@ -42,6 +42,26 @@ export class RecipeQueries {
             },
         });
     }
+
+    async findOwnRecipes(userId: string) {
+        return this.prismaService.recipe.findMany({
+            where: {
+                userId: userId,
+            },
+            include: {
+                steps: true,
+                ingredients: {
+                    include: {
+                        ingredient: {
+                            select: {
+                                name: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+    }
     async findManyRecipes() {
         return await this.prismaService.recipe.findMany({
             include: {

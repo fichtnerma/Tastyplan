@@ -39,19 +39,20 @@ export default function RecommendSection({ isActive, recipeId }: RecommendSectio
             </div>
 
             <div className="recipeCardGrid">
-                {recipes &&
-                    recipes.map((recipeInfo: Recipe) => {
-                        return (
-                            <div className="recipeCardWrapper" key={recipeInfo.id}>
-                                <RecipeCard
-                                    recipe={recipeInfo}
-                                    highlighted={false}
-                                    withSwitch={false}
-                                    smallCard={true}
-                                />
-                            </div>
-                        );
-                    })}
+                {recipes?.length > 0
+                    ? recipes.map((recipeInfo: Recipe) => {
+                          return (
+                              <div className="recipeCardWrapper" key={recipeInfo.id}>
+                                  <RecipeCard
+                                      recipe={recipeInfo}
+                                      highlighted={false}
+                                      withSwitch={false}
+                                      smallCard={true}
+                                  />
+                              </div>
+                          );
+                      })
+                    : null}
             </div>
         </>
     );
