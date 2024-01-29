@@ -37,6 +37,7 @@ export class WeekplanService {
             );
         }
     }
+    //Orchistration function
     async current(userId: string) {
         return this.formatWeekPlan(await this.getCurrentWeekplan(userId));
     }
@@ -89,20 +90,17 @@ export class WeekplanService {
         formattedWeekPlan.weekplanEntry = formattedWeekPlan.weekplanEntry.sort((a, b) => a.id - b.id);
         return formattedWeekPlan;
     }
-
+    //Orchistration function
     async findByDate(userId: string, date: Date) {
         const weekplan = await this.weekplanQueries.findWeekplanByDate(date, userId);
+
         if (!weekplan) {
-            const endDate = new Date(date);
-            endDate.setDate(endDate.getDate() + 6);
-            return {
-                startDate: date,
-                endDate: endDate,
-            };
+            return this.crateWeekDateTimeRange(date);
         }
         return this.formatWeekPlan(weekplan);
     }
 
+    //Orchistration function
     async createFutureWeekplan(userId: string, startDate: Date, shouldReplace = false) {
         const prevStartDate = new Date(startDate);
         prevStartDate.setDate(prevStartDate.getDate() - 7);
@@ -141,6 +139,7 @@ export class WeekplanService {
         return weekplan;
     }
 
+    //Orchistaion function
     async create(userId: string) {
         let weekplanStartDate = new Date();
         let weekplanEndDate = new Date();
@@ -166,7 +165,7 @@ export class WeekplanService {
         }
         await this.createWeakplan(userId, weekplanStartDate, weekplanEndDate);
     }
-
+    //Orchestration function
     async regenerate(userId: string) {
         console.log('WEEKPLAN: Before sending mail');
         const currentWeekplan = await this.getCurrentWeekplan(userId);
@@ -224,6 +223,7 @@ export class WeekplanService {
         return await this.weekplanQueries.findFirstWeekplan(userId);
     }
 
+    //Orchestration function
     async changeRecipe(changeRecipeReq: ChangeRecipeDto, user: User) {
         try {
             const changedRecipeReqId = changeRecipeReq.id ? +changeRecipeReq.id : 1;
@@ -292,5 +292,14 @@ export class WeekplanService {
             return weekplanEntry;
         });
         return weekplan;
+    }
+
+    crateWeekDateTimeRange(date: Date) {
+        const endDate = new Date(date);
+        endDate.setDate(endDate.getDate() + 6);
+        return {
+            startDate: date,
+            endDate: endDate,
+        };
     }
 }
