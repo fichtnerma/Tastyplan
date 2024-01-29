@@ -319,7 +319,6 @@ export default function PreferencesSettings({
                         handleAddChoice={handleAddChoice}
                         allDislikes={selectedDislikes}
                         onFocus={() => setInputFocus(true)}
-                        onBlur={() => setInputFocus(false)}
                     />
                 </div>
             )}
