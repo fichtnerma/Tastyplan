@@ -186,4 +186,48 @@ describe('WeekplanService', () => {
             [...recipesFromHistory].sort(),
         );
     });
+
+    it('createCompleteRecipeList => Should return list of min 14 Recipes in case recommended recipe provided', () => {
+        const exampleRecipeList = [
+            { id: 23 },
+            { id: 45 },
+            { id: 12 },
+            { id: 78 },
+            { id: 56 },
+            { id: 34 },
+            { id: 89 },
+            { id: 67 },
+            { id: 21 },
+            { id: 43 },
+            { id: 90 },
+            { id: 32 },
+            { id: 65 },
+            { id: 87 },
+            { id: 10 },
+            { id: 54 },
+        ];
+        const resultRecipeList = [
+            { id: 2 },
+            { id: 3 },
+            { id: 2 },
+            { id: 4 },
+            { id: 5 },
+            { id: 2 },
+            { id: 7 },
+            { id: 5 },
+            { id: 3 },
+            { id: 2 },
+            { id: 4 },
+            { id: 5 },
+            { id: 8 },
+            { id: 23 },
+            { id: 23 },
+            { id: 87 },
+        ];
+        const exmapleRecommendedRecipes = [2, 3, 2, 4, 5, 2, 7, 5, 3, 2, 4, 5, 8, 23, 23, 87];
+        expect(service.createCompleteRecipeList(exampleRecipeList, exmapleRecommendedRecipes)).toStrictEqual(
+            resultRecipeList,
+        );
+    });
+    // TODO: Add additional test for not having 14 recipes
 });

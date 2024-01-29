@@ -4,6 +4,7 @@ import { CreateWeekplan, IFormattedWeekplan, IWeekplan, IWeekplanEntry } from '.
 import { ChangeRecipeDto } from './dto/change-recipe.dto';
 import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
+import { IPreferences } from 'src/preferences/preferences.interface';
 import { shuffleArray } from 'src/helpers/converter.utils';
 import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -116,20 +117,9 @@ export class WeekplanService {
 
         const { startDate: _, endDate } = this.createDateRangeForWeekplanCreation(new Date(startDate));
         let recommendedMeals = [];
-        //Outsource this logic
         if (previousWeekplan) {
             const recipesFromHistory: Array<number> = this.extractRecipeIdsFromPreviousWeekplan(previousWeekplan);
-            /* const recipesFromHistory: Array<number> = previousWeekplan.weekplanEntry.reduce((currentEntries, entry) => {
-                if (entry.dinnerId) {
-                    currentEntries.push(entry.dinnerId);
-                }
-                if (entry.lunchId) {
-                    currentEntries.push(entry.lunchId);
-                }
-                return currentEntries;
-            }, []); */
 
-            //Post to recommender
             const recommendedMealsRes = await fetch(`${process.env.RECOMMENDER_URL}/recommend`, {
                 method: 'POST',
                 body: JSON.stringify({ userId, recipesFromHistory }),
@@ -185,17 +175,31 @@ export class WeekplanService {
         try {
             const preferences = await this.preferencesService.getPreferences(userId);
             const fetchedMealsAndWeekplanPreferences = await this.recipeFilterService.filterByQuery(preferences);
-            let fetchedMeals = fetchedMealsAndWeekplanPreferences.recipes;
-            if (recommendedMeals.length > 0) {
-                fetchedMeals = recommendedMeals.map((id: number) => ({ id }));
-            }
-            if (fetchedMeals.length < 14) {
-                fetchedMeals = [...fetchedMeals, ...fetchedMeals];
-            }
-            const shuffeledMeals = shuffleArray(fetchedMeals);
+
+            const recipeList = this.createCompleteRecipeList(
+                fetchedMealsAndWeekplanPreferences.recipes,
+                recommendedMeals,
+            );
+            const shuffeledMeals = shuffleArray(recipeList);
 
             //Using own Type "CreateWeekplan" because we only use ids of recipes for lunch and dinner in creation
-            const weekplan: CreateWeekplan = {
+            //Create Weekplan
+            //Create Weekplan Entry
+            aerg;
+            const weekplan: Partial<CreateWeekplan> = this.createWeekplanPartial(
+                userId,
+                weekplanStartDate,
+                weekplanEndDate,
+                fetchedMealsAndWeekplanPreferences,
+            );
+            weekplan.weekplanEntry = this.createWeekplanData(
+                fetchedMealsAndWeekplanPreferences.days,
+                shuffeledMeals,
+                fetchedMealsAndWeekplanPreferences.wantsLunch,
+                fetchedMealsAndWeekplanPreferences.wantsDinner,
+            );
+
+            /* const weekplan: CreateWeekplan = {
                 userId: userId,
                 startDate: weekplanStartDate,
                 endDate: weekplanEndDate,
@@ -207,8 +211,9 @@ export class WeekplanService {
                     fetchedMealsAndWeekplanPreferences.wantsLunch,
                     fetchedMealsAndWeekplanPreferences.wantsDinner,
                 ),
-            };
-            const createdWeekplan = await this.weekplanQueries.createWeekplan(weekplan);
+            }; */
+
+            const createdWeekplan = await this.weekplanQueries.createWeekplan(weekplan as CreateWeekplan);
             return this.formatWeekPlan(createdWeekplan);
         } catch (error) {
             throw new HttpException('Error: Creating weekplan failed', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -335,5 +340,29 @@ export class WeekplanService {
             }
             return currentEntries;
         }, []);
+    }
+
+    createCompleteRecipeList(fetchedRecipeIds: { id: number }[], recommendedRecipes: number[]) {
+        if (recommendedRecipes.length > 0) {
+            fetchedRecipeIds = recommendedRecipes.map((id: number) => ({ id }));
+        }
+        if (fetchedRecipeIds.length < 14) {
+            fetchedRecipeIds = [...fetchedRecipeIds, ...fetchedRecipeIds];
+        }
+        return fetchedRecipeIds;
+    }
+    createWeekplanPartial(
+        userId: string,
+        startDate: Date,
+        endDate: Date,
+        fetchedPreferences: Omit<IPreferences, 'formOfDiet' | 'servings'>,
+    ) {
+        return {
+            userId: userId,
+            startDate: startDate,
+            endDate: endDate,
+            hasDinner: fetchedPreferences.wantsDinner,
+            hasLunch: fetchedPreferences.wantsLunch,
+        };
     }
 }
