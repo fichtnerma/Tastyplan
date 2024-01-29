@@ -7,6 +7,7 @@ type IngredientListProps = {
     isItemRemovable?: boolean;
     onItemRemove?: (id: number) => void;
     ingredients: Array<Ingredient>;
+    decoration?: boolean;
 };
 
 const unitShorteningMap = new Map([
@@ -16,7 +17,12 @@ const unitShorteningMap = new Map([
     ['tablespoons', 'tbsp'],
 ]);
 
-function IngredientList({ ingredients, isItemRemovable = false, onItemRemove }: IngredientListProps) {
+function IngredientList({
+    ingredients,
+    isItemRemovable = true,
+    onItemRemove,
+    decoration = false,
+}: IngredientListProps) {
     const [portion, setPortion] = useState(1);
 
     const changePortion = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -90,9 +96,11 @@ function IngredientList({ ingredients, isItemRemovable = false, onItemRemove }: 
                             <span>{truncateUnit(ingredient.unit)}</span>
                         </p>
                         <p className="w-1/2 text-left">{ingredient.ingredient?.name}</p>
-                        <button onClick={() => handleDelete(ingredient.id)}>
-                            <Icon icon="close"></Icon>
-                        </button>
+                        {decoration && (
+                            <button onClick={() => handleDelete(ingredient.id)}>
+                                <Icon icon="close"></Icon>
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>

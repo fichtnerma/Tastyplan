@@ -33,7 +33,7 @@ export default function PreferencesSettings({
     ];
     const allIntolerances = [
         { name: 'celery' },
-        { name: 'eggs' },
+        { name: 'egg' },
         { name: 'fish' },
         { name: 'gluten' },
         { name: 'hazelnut' },
@@ -319,7 +319,6 @@ export default function PreferencesSettings({
                         handleAddChoice={handleAddChoice}
                         allDislikes={selectedDislikes}
                         onFocus={() => setInputFocus(true)}
-                        onBlur={() => setInputFocus(false)}
                     />
                 </div>
             )}

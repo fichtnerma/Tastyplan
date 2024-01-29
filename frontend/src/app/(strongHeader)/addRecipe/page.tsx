@@ -112,7 +112,7 @@ const AddRecipePage = () => {
                 <br />
                 <button
                     className="absolute top-5 right-[-5px] md:right-5"
-                    onClick={() => router.push('weekOverview', undefined)}
+                    onClick={() => router.push('cookbook', undefined)}
                 >
                     <Icon icon="close" color="#007370"></Icon>
                 </button>
