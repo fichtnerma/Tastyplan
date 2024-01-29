@@ -61,6 +61,7 @@ export default function Login({ visible }: LoginProps) {
                     required
                     onChange={setEMail}
                     label="E-Mail"
+                    cypressID="e-mail-login"
                 />
                 <TextInput
                     hasError={error != ''}
