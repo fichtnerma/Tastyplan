@@ -95,7 +95,7 @@ export class WeekplanService {
         const weekplan = await this.weekplanQueries.findWeekplanByDate(date, userId);
 
         if (!weekplan) {
-            return this.crateWeekDateTimeRange(date);
+            return this.createWeekDateTimeRange(date);
         }
         return this.formatWeekPlan(weekplan);
     }
@@ -146,18 +146,11 @@ export class WeekplanService {
         try {
             const existingWeekplan = await this.queryExistingWeekplan(userId);
             if (existingWeekplan) {
-                const startDate = new Date();
-                startDate.setDate(startDate.getDate() + 2);
-                startDate.setHours(0, 0, 0, 0);
+                const { startDate } = this.createDateRangeForWeekplanCreation(new Date(), false);
                 this.createFutureWeekplan(userId, startDate);
             } else {
-                const startDate = new Date();
-                startDate.setHours(0, 0, 0, 0);
+                const { startDate, endDate } = this.createDateRangeForWeekplanCreation(new Date());
                 weekplanStartDate = startDate;
-
-                const endDate = new Date();
-                endDate.setDate(endDate.getDate() + 6);
-                endDate.setHours(0, 0, 0, 0);
                 weekplanEndDate = endDate;
             }
         } catch (error) {
@@ -294,12 +287,29 @@ export class WeekplanService {
         return weekplan;
     }
 
-    crateWeekDateTimeRange(date: Date) {
+    createWeekDateTimeRange(date: Date) {
         const endDate = new Date(date);
         endDate.setDate(endDate.getDate() + 6);
         return {
             startDate: date,
             endDate: endDate,
         };
+    }
+
+    createDateRangeForWeekplanCreation(dateInput: Date, returnWithEndDate = true) {
+        const utcDateInput = new Date(Date.UTC(dateInput.getFullYear(), dateInput.getMonth(), dateInput.getDate()));
+        if (returnWithEndDate) {
+            const startDate = new Date(utcDateInput);
+            startDate.setUTCHours(0, 0, 0, 0);
+            const endDate = new Date(utcDateInput);
+            endDate.setUTCDate(endDate.getUTCDate() + 6);
+            endDate.setUTCHours(0, 0, 0, 0);
+            return { startDate, endDate };
+        } else {
+            const startDate = new Date(utcDateInput);
+            startDate.setUTCDate(startDate.getUTCDate() + 2);
+            startDate.setUTCHours(0, 0, 0, 0);
+            return { startDate };
+        }
     }
 }

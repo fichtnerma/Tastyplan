@@ -107,12 +107,30 @@ describe('WeekplanService', () => {
         expect(service.formatWeekPlan(exampleWeekplan)).toStrictEqual(formattedExampleWeekplan);
     });
 
-    it('crateWeekDateTimeRange => Should return date range for one week', () => {
+    it('createWeekDateTimeRange => Should return date range for one week', () => {
         const exampleDate = new Date('2024-01-29');
         const exampleDateRange = {
             startDate: new Date('2024-01-29'),
             endDate: new Date('2024-02-04'),
         };
-        expect(service.crateWeekDateTimeRange(exampleDate)).toStrictEqual(exampleDateRange);
+        expect(service.createWeekDateTimeRange(exampleDate)).toStrictEqual(exampleDateRange);
+    });
+    it('createDateRangeForWeekplanCreation => Should return start date in correct format in future', () => {
+        const exampleDate = new Date('2024-01-29');
+        const formattedStartDateInFuture = {
+            startDate: new Date('2024-01-31T00:00:00.000Z'),
+        };
+
+        expect(service.createDateRangeForWeekplanCreation(exampleDate, false)).toStrictEqual(
+            formattedStartDateInFuture,
+        );
+    });
+    it('createDateRangeForWeekplanCreation => Should return start date and end date for current Date', () => {
+        const exampleDate = new Date('2024-01-29');
+        const formattedDatesCurrnt = {
+            startDate: new Date('2024-01-29T00:00:00.000Z'),
+            endDate: new Date('2024-02-04T00:00:00.000Z'),
+        };
+        expect(service.createDateRangeForWeekplanCreation(exampleDate)).toStrictEqual(formattedDatesCurrnt);
     });
 });
