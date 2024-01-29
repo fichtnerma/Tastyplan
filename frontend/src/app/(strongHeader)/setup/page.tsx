@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useLogoLinkData } from '@contexts/LogoLinkContext';
 import WeekplanConfig from '@components/WeekplanConfig/WeekplanConfig';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
 import Intolerances from '@components/Intolerances/Intolerances';
@@ -23,6 +24,7 @@ interface Preferences {
 const stepNames = ['Food Lifestyle', 'Intolerances', 'Dislikes', 'Weekplan'];
 
 const SetupParentPage = () => {
+    const { setLogoLinkTarget } = useLogoLinkData();
     const { data: session } = useSession();
     const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
@@ -36,6 +38,10 @@ const SetupParentPage = () => {
         wantsDinner: true,
         servings: 1,
     });
+
+    useEffect(() => {
+        setLogoLinkTarget('/');
+    }, []);
 
     const [daysCheckboxes, setDays] = useState<CustomCheckboxInput[]>([
         {
@@ -134,7 +140,7 @@ const SetupParentPage = () => {
                     <ProgressBar
                         stepNames={stepNames}
                         activeStep={currentStep}
-                        foodLifeStyleSelected={foodLifeStyleSelected}
+                        stepIsDone={foodLifeStyleSelected}
                         onClick={handleProgBarClick}
                     />
                     <fieldset className="flex flex-col mt-8 lg:mt-14">

@@ -6,7 +6,7 @@ import { debounce } from '@helpers/utils';
 import { APISearchResponse } from 'src/types/types';
 import styles from './PreferencesSettings.module.scss';
 
-type OnSaveFunction = (preferences: {
+type OnChoiceFunction = (preferences: {
     formOfDiet: string;
     allergens: string[];
     foodDislikes: APISearchResponse[];
@@ -15,36 +15,41 @@ type PreferencesSettingsProps = {
     formOfDiet: string;
     allergens: string[];
     foodDislikes: APISearchResponse[];
-    onSave: OnSaveFunction;
+    onChoice: OnChoiceFunction;
 };
 
-export default function PreferencesSettings({ formOfDiet, allergens, foodDislikes, onSave }: PreferencesSettingsProps) {
+export default function PreferencesSettings({
+    formOfDiet,
+    allergens,
+    foodDislikes,
+    onChoice,
+}: PreferencesSettingsProps) {
     const foodDietPreferences = [
-        { food: 'vegan', description: 'You dont eat any kind of animal products' },
-        { food: 'vegetarian', description: 'You dont eat any meat and fish' },
-        { food: 'omnivore', description: 'You eat all animal products' },
-        { food: 'flexitarian', description: 'You rarely eat all animal products' },
-        { food: 'pescetarian', description: 'You only eat fish from all animal products' },
+        { food: 'vegan', description: 'You dont eat any kind of animal products', icon: 'Vegan-color' },
+        { food: 'vegetarian', description: 'You dont eat any meat and fish', icon: 'Vegetarisch-color' },
+        { food: 'omnivore', description: 'You eat all animal products', icon: 'Omnivor-color' },
+        { food: 'flexitarian', description: 'You rarely eat all animal products', icon: 'Flexitarisch-color' },
+        { food: 'pescetarian', description: 'You only eat fish from all animal products', icon: 'Pescetarisch-color' },
     ];
     const allIntolerances = [
-        { name: 'peanuts' },
-        { name: 'hazelnut' },
-        { name: 'walnuts' },
-        { name: 'other nuts' },
-        { name: 'lactose' },
-        { name: 'gluten' },
-        { name: 'eggs' },
-        { name: 'shellfish' },
-        { name: 'fish' },
-        { name: 'soy' },
         { name: 'celery' },
-        { name: 'mustard' },
-        { name: 'sesame' },
-        { name: 'sulfur dioxide' },
+        { name: 'eggs' },
+        { name: 'fish' },
+        { name: 'gluten' },
+        { name: 'hazelnut' },
+        { name: 'lactose' },
         { name: 'lupine' },
         { name: 'mollusk' },
+        { name: 'mustard' },
+        { name: 'other nuts' },
+        { name: 'peanuts' },
+        { name: 'sesame' },
+        { name: 'shellfish' },
+        { name: 'soy' },
+        { name: 'sulfur dioxide' },
+        { name: 'walnuts' },
     ];
-    const allergensObj = allergens.map((allergen) => {
+    const allergensObj = allergens.sort().map((allergen) => {
         return { name: allergen };
     });
     const filteredIntolerances = allIntolerances.filter((intolerance) =>
@@ -53,7 +58,9 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [selectedDiet, setSelectedDiet] = useState(formOfDiet);
     const [selectedAllergens, setSelectedAllergens] = useState(allergensObj);
-    const [selectedDislikes, setSelectedDislikes] = useState(foodDislikes);
+    const [selectedDislikes, setSelectedDislikes] = useState(
+        foodDislikes.slice().sort((a, b) => a.name.localeCompare(b.name)),
+    );
     const [dropDownState, setDropDownState] = useState(false);
     const [addAllergens, setAddAllergens] = useState(false);
     const [addDislikes, setAddDislikes] = useState(false);
@@ -108,15 +115,25 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
         const clickedDislike = dislikeName;
         if (!clickedDislike) return;
         const allDislikes = selectedDislikes;
-        setSelectedDislikes(allDislikes.filter((dislike) => dislike.name !== clickedDislike));
+        const newDislikes = allDislikes.filter((dislike) => dislike.name !== clickedDislike);
+        setSelectedDislikes(newDislikes);
+
+        const allergensType = selectedAllergens.map((allergen) => allergen.name);
+        onChoice({ formOfDiet: selectedDiet, allergens: allergensType, foodDislikes: newDislikes });
     };
 
     const onDeleteAllergen = (allergenName: string) => {
         const clickedAllergen = allergenName;
         if (!clickedAllergen) return;
         const allAllergens = selectedAllergens;
-        setSelectedAllergens(allAllergens.filter((allergen) => allergen.name !== clickedAllergen));
-        setCanBeSelectedIntolerances([...canBeSelectedIntolerances, { name: clickedAllergen }]);
+        const allergensNew = allAllergens.filter((allergen) => allergen.name !== clickedAllergen);
+        setSelectedAllergens(allergensNew);
+        const sortedCanBeSelectedIntolerances = [...canBeSelectedIntolerances, { name: clickedAllergen }]
+            .slice()
+            .sort((a, b) => a.name.localeCompare(b.name));
+        setCanBeSelectedIntolerances(sortedCanBeSelectedIntolerances);
+        const allergensType = allergensNew.map((allergen) => allergen.name);
+        onChoice({ formOfDiet: selectedDiet, allergens: allergensType, foodDislikes: selectedDislikes });
     };
 
     const handleClickOnListAndInput = (e: React.MouseEvent) => {
@@ -138,9 +155,15 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
         if (!id || !name) return;
         const clickedDislike = { id: +id, name } as APISearchResponse;
         if (selectedDislikes.find((dislike) => dislike.id === clickedDislike.id)) {
-            setSelectedDislikes(selectedDislikes.filter((dislike) => dislike.id !== clickedDislike.id));
+            const newDislikes = selectedDislikes.filter((dislike) => dislike.id !== clickedDislike.id);
+            setSelectedDislikes(newDislikes);
+            onChoice({ formOfDiet: selectedDiet, allergens: allergens, foodDislikes: newDislikes });
         } else {
-            setSelectedDislikes([...selectedDislikes, clickedDislike]);
+            const newDislikes = [...selectedDislikes, clickedDislike]
+                .slice()
+                .sort((a, b) => a.name.localeCompare(b.name));
+            setSelectedDislikes(newDislikes);
+            onChoice({ formOfDiet: selectedDiet, allergens: allergens, foodDislikes: newDislikes });
         }
     };
 
@@ -148,25 +171,37 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
         const target = e.target as HTMLButtonElement;
         const clickedIntolName = target.getAttribute('data-id');
         if (!clickedIntolName) return;
-
         const clickedAllergen = canBeSelectedIntolerances.find((intol) => intol.name === clickedIntolName);
-
         if (clickedAllergen) {
-            setSelectedAllergens([...selectedAllergens, { name: clickedAllergen.name }]);
+            const allergensNew = [...selectedAllergens, { name: clickedAllergen.name }]
+                .slice()
+                .sort((a, b) => a.name.localeCompare(b.name));
+            setSelectedAllergens(allergensNew);
             const updatedIntolerances = canBeSelectedIntolerances.filter(
                 (intol) => intol.name !== clickedAllergen.name,
             );
             setCanBeSelectedIntolerances(updatedIntolerances);
+
+            const allergensType = allergensNew.map((allergen) => allergen.name);
+            onChoice({ formOfDiet: selectedDiet, allergens: allergensType, foodDislikes: selectedDislikes });
         }
     };
 
     return (
-        <div className="pt-6" onClick={handleClickOnListAndInput}>
-            <h5>Your Food Lifestyle</h5>
-            <div className="w-1/3 pb-12 pl-8">
+        <div className="lg:pt-6" onClick={handleClickOnListAndInput}>
+            <h5 className="mb-3">Your Food Lifestyle</h5>
+            <div className="lg:w-1/2 lg:pb-6 pb-4 lg:pl-8">
                 <div
-                    className={`flex justify-end items-center relative pr-5 h-[60px] lg:h-[60px] xl:h-[60px] ${styles.choiceWrapper}`}
+                    className={`flex justify-between items-center relative pr-5 h-[60px] lg:h-[60px] xl:h-[60px] ${styles.choiceWrapper}`}
                 >
+                    <div className="pl-2 z-[2]">
+                        <Icon
+                            size={50}
+                            icon={
+                                foodDietPreferences.find((preference) => preference.food === selectedDiet)?.icon || ''
+                            }
+                        ></Icon>
+                    </div>
                     <input
                         className={`absolute top-0 right-0 bottom-0 left-0 cursor:pointer opacity=[.01] z-[-1] w-full h-full rounded-2xl hover:cursor-pointer custom-focus ${styles.customInput}`}
                         type="radio"
@@ -178,8 +213,8 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                         className={`absolute top-0 right-0 bottom-0 left-0 hover:cursor-pointer flex flex-col items-left justify-center border-2 border-solid border-green-custom1 rounded-2xl z-[1] font-medium text-[1.13rem] leading-7 pl-6 col-start-1 ${styles.customLabel}`}
                         onClick={handleDropDownState}
                     >
-                        <p className="capitalize">{selectedDiet}</p>
-                        <p className="text-xs lg:max-w-[170px] xl:max-w-[unset]">
+                        <p className="capitalize ml-12">{selectedDiet}</p>
+                        <p className="ml-12 text-xs lg:max-w-[170px] xl:max-w-[unset]">
                             {foodDietPreferences.find((preference) => preference.food === selectedDiet)?.description}
                         </p>
                     </label>
@@ -200,6 +235,12 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                                 onClick={() => {
                                     setSelectedDiet(preference.food);
                                     setDropDownState(false);
+                                    const allergensType = selectedAllergens.map((allergen) => allergen.name);
+                                    onChoice({
+                                        formOfDiet: preference.food,
+                                        allergens: allergensType,
+                                        foodDislikes: selectedDislikes,
+                                    });
                                 }}
                             >
                                 {preference.food}
@@ -208,8 +249,8 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                     </div>
                 )}
             </div>
-            <h5>Your Intolerances</h5>
-            <div className="pb-4 pl-8">
+            <h5 className="mb-3">Your Intolerances</h5>
+            <div className="lg:pb-6 pb-4 lg:pl-8">
                 {selectedAllergens.length == 0 ? (
                     <p className="">You don't have any intolerances.</p>
                 ) : (
@@ -217,12 +258,12 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                 )}
             </div>
             <div
-                className="w-5/6 pb-4"
+                className="lg:w-5/6 lg:pb-4"
                 style={{
                     color: 'var(--green-dark)',
                 }}
             >
-                <button className="pl-8" onClick={handleAllergensState}>
+                <button className="lg:pl-8 pb-2" onClick={handleAllergensState}>
                     {addAllergens == true ? (
                         <Icon size={34} icon="minusCircle"></Icon>
                     ) : (
@@ -231,8 +272,8 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                 </button>
             </div>
             {addAllergens == true && (
-                <div className="pb-8 pl-8">
-                    {canBeSelectedIntolerances.map((intol) => (
+                <div className="lg:pb-8 lg:pl-8 pb-4">
+                    {canBeSelectedIntolerances.sort().map((intol) => (
                         <button
                             key={intol.name}
                             className="min-w-[70px] capitalize mb-[6px] ml-[6px] border-solid rounded-[50px] border-2 border-green-custom2 bg-white-custom whitespace-nowrap text-[.8rem] hover:bg-green-custom1 py-[5px] px-[6px]"
@@ -245,8 +286,8 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                     ))}
                 </div>
             )}
-            <h5>Your Food Dislikes</h5>
-            <div className="pb-4 pl-8">
+            <h5 className="mb-3">Your Food Dislikes</h5>
+            <div className="lg:pb-6 pb-4 lg:pl-8">
                 {selectedDislikes.length == 0 ? (
                     <p className="">You don't have any dislikes.</p>
                 ) : (
@@ -254,12 +295,12 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                 )}
             </div>
             <div
-                className="w-5/6"
+                className="lg:w-5/6"
                 style={{
                     color: 'var(--green-dark)',
                 }}
             >
-                <button className="pl-8 pb-4" onClick={handleDislikesState}>
+                <button className="lg:pl-8 lg:pb-4" onClick={handleDislikesState}>
                     {addDislikes == true ? (
                         <Icon size={34} icon="minusCircle"></Icon>
                     ) : (
@@ -268,7 +309,7 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                 </button>
             </div>
             {addDislikes == true && (
-                <div className="pl-8 w-1/3">
+                <div className="lg:pl-8 lg:w-1/3 lg:pb-40 pb-8">
                     <DislikeSearch
                         searchTerm={searchTerm}
                         searchResult={searchResult}
@@ -277,27 +318,11 @@ export default function PreferencesSettings({ formOfDiet, allergens, foodDislike
                         searchChanged={searchChanged}
                         handleAddChoice={handleAddChoice}
                         allDislikes={selectedDislikes}
+                        onFocus={() => setInputFocus(true)}
+                        onBlur={() => setInputFocus(false)}
                     />
                 </div>
             )}
-            <div>
-                <button
-                    type="submit"
-                    className="btn-primary float-right mt-20"
-                    data-btn="next"
-                    onClick={() => {
-                        const allergensType = selectedAllergens.map((allergen) => allergen.name);
-                        onSave({
-                            formOfDiet: selectedDiet,
-                            allergens: allergensType,
-                            foodDislikes: selectedDislikes,
-                        });
-                    }}
-                    data-cy="next-btn"
-                >
-                    Save
-                </button>
-            </div>
         </div>
     );
 }

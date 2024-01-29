@@ -69,6 +69,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
 
                 <TextInput
                     hasError={error != ''}
+                    id="registration-mail"
                     value={mail}
                     validate={isEmailValidator}
                     required
@@ -78,6 +79,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
                 />
                 <TextInput
                     value={password}
+                    id="registration-password"
                     type="password"
                     required
                     validate={isPasswordValidator}
@@ -88,6 +90,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
                 <TextInput
                     value={passwordConf}
                     type="password"
+                    id="registration-passwordConf"
                     required
                     validate={isPasswordValidator}
                     onChange={setPasswordConf}
@@ -104,7 +107,7 @@ export default function Register({ visible, onSkipRegistration }: RegisterProps)
                         data-cy="submit-register"
                     />
                     <button onClick={onSkipRegistration} className="btn-tertiary" data-cy="continue-as-guest-btn">
-                        Continue as guest
+                        Later
                     </button>
                 </div>
                 <div className="flex flex-col items-center lg:hidden">

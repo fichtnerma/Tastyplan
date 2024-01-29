@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import Icon from '@components/Icon/Icon';
 import ChangeRecipeModal from '@components/ChangeRecipeModal/ChangeRecipeModal';
+import { useSwitchRecipeContext } from '@hooks/useSwitchRecipeContext';
 import { useFavoriteStore } from '@hooks/useFavorites';
 import { Recipe } from 'src/types/types';
 import styles from './RecipeCard.module.scss';
@@ -14,7 +15,6 @@ type RecipeCardProps = {
     highlighted?: boolean;
     withSwitch?: boolean;
     smallCard?: boolean;
-    switchRecipe?: () => void;
     entryId?: string;
     refreshWeekplan?: () => void;
     isLunch?: boolean;
@@ -26,7 +26,6 @@ function RecipeCard({
     highlighted = false,
     withSwitch = false,
     smallCard = false,
-    switchRecipe,
     entryId,
     isLunch = false,
 }: RecipeCardProps) {
@@ -35,9 +34,10 @@ function RecipeCard({
     const [isOpened, setIsOpened] = useState(false);
     const { data: session } = useSession();
     const { favorites, add, remove } = useFavoriteStore();
+    const __swRecipeContext = useSwitchRecipeContext();
 
     const smallCardSize = 'md:!h-[225px] md:!w-[150px] bg-green-custom_super_light';
-    const mediumCardSize = 'md:!h-[300px] md:!w-[200px] bg-white-custom';
+    const mediumCardSize = 'md:!h-[300px] md:!w-[200px] bg-white-custom min-w-[150px]';
 
     useEffect(() => {
         const fav = favorites.find((favorit) => favorit.id === recipeInfo?.id);
@@ -71,19 +71,29 @@ function RecipeCard({
                         smallCard ? smallCardSize : mediumCardSize
                     } rounded-custom_s relative w-full h-[225px] sm:h-[160px]`}
                 >
-                    <div
-                        className={`justify-end ${
-                            highlighted ? styles.icon__highlighted : styles.icon__notHighlighted
-                        } ${
-                            isFavorite ? styles.icon__favorite : 'none'
-                        } flex p-1 top-[10px] text-white-custom right-2 rounded-full cursor-pointer absolute fill-none z-10 bg-green-custom2 
-                        transition-all duration-600 ease-in-out hover:bg-green-custom3 ${styles.icon}`}
-                        onClick={() => handleFavorite()}
-                    >
-                        <Icon size={18} icon="heart"></Icon>
-                    </div>
+                    {__swRecipeContext ? (
+                        <div
+                            className={`justify-end flex p-1 top-[10px] text-green-custom3 right-2 rounded-full cursor-pointer absolute fill-none z-10 bg-white-custom 
+                    transition-all duration-600 ease-in-out hover:bg-green-custom3 hover:text-white-custom ${styles.icon__inverted}`}
+                            onClick={() => __swRecipeContext.switchRecipe(recipeInfo.id)}
+                        >
+                            <Icon size={18} icon="check"></Icon>
+                        </div>
+                    ) : (
+                        <div
+                            className={`justify-end ${
+                                highlighted ? styles.icon__highlighted : styles.icon__notHighlighted
+                            } ${
+                                isFavorite ? styles.icon__favorite : 'none'
+                            } flex p-1 top-[10px] text-white-custom right-2 rounded-full cursor-pointer absolute fill-none z-10 bg-green-custom2 
+                transition-all duration-600 ease-in-out hover:bg-green-custom3 ${styles.icon}`}
+                            onClick={() => handleFavorite()}
+                        >
+                            <Icon size={18} icon="heart"></Icon>
+                        </div>
+                    )}
 
-                    <button
+                    <div
                         className={`justify-end ${highlighted ? styles.icon__highlighted : styles.icon__notHighlighted}
                     ${
                         withSwitch ? 'block' : 'hidden'
@@ -94,12 +104,11 @@ function RecipeCard({
                         data-cy="get-new-recommendations-btn"
                     >
                         <Icon size={18} icon="switch"></Icon>
-                    </button>
-                    {switchRecipe ? (
+                    </div>
+                    {__swRecipeContext ? (
                         <button
                             className="block h-full w-full text-left"
-                            onClick={switchRecipe}
-                            data-cy={'choose-recipe-btn'}
+                            onClick={() => __swRecipeContext.showDetailView(recipeInfo.id)}
                         >
                             <CardContent recipe={recipeInfo} highlighted={highlighted} smallCard={smallCard} />
                         </button>
@@ -115,7 +124,7 @@ function RecipeCard({
                     onClick={openModal}
                     data-cy={`add-recipe-btn-${isLunch ? 'lunch' : 'dinner'}`}
                 >
-                    <div className="">
+                    <div>
                         <Icon size={50} icon="addCircle"></Icon>
                     </div>
                     <h5 className="text-inherit pt-5 m-0" data-cy={`add-recipe-text-${isLunch ? 'lunch' : 'dinner'}`}>

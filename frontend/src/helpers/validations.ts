@@ -1,4 +1,4 @@
-export const isRequiredValidator = (value: string) => {
+export const isRequiredValidator = (value: string | number) => {
     return value ? undefined : 'Required';
 };
 
@@ -10,3 +10,4 @@ export const isEmailValidator = (email: string) => {
 export const isPasswordValidator = (value: string) => {
     return value.length < 6 ? 'Password must be at least 6 characters' : undefined;
 };
+

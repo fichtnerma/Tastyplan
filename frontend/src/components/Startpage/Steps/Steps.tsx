@@ -25,10 +25,10 @@ function Steps() {
                 height: 800,
             },
             svg: {
-                class: 'absolute top-[20rem] right-[-31rem] z-10',
+                class: 'absolute top-[15%] left-full z-10 w-screen',
                 src: '/Curves/curve1.svg#animated-svg1',
-                width: 501,
-                height: 506,
+                width: 1366,
+                height: 768,
             },
             foodimg: {
                 class: 'absolute top-[-15rem] right-[-35rem] 2xl:right-[-55rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]  hover:scale-110 transition-all',
@@ -48,10 +48,10 @@ function Steps() {
                 height: 800,
             },
             svg: {
-                class: 'absolute top-[37rem] right-[26rem] z-10',
+                class: 'absolute top-[15%] right-[-28%] z-10 w-screen',
                 src: '/Curves/curve2.svg#animated-svg2',
-                width: 814,
-                height: 291,
+                width: 1366,
+                height: 768,
             },
             foodimg: {
                 class: 'absolute top-[-10rem] left-[-30rem] 2xl:left-[-50rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]  hover:scale-110 transition-all',
@@ -71,10 +71,10 @@ function Steps() {
                 height: 800,
             },
             svg: {
-                class: 'absolute top-[32rem] right-[-28rem]',
+                class: 'absolute top-[47%] left-[31%] w-screen',
                 src: '/Curves/curve3.svg#animated-svg3',
-                width: 1014,
-                height: 491,
+                width: 1366,
+                height: 768,
             },
             foodimg: {
                 class: 'absolute top-[-10rem] right-[-31rem] 2xl:right-[-51rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]  hover:scale-110 transition-all',
@@ -94,10 +94,10 @@ function Steps() {
                 height: 800,
             },
             svg: {
-                class: '',
+                class: 'absolute top-[30rem] right-[-78rem] w-screen',
                 src: '',
-                width: 0,
-                height: 0,
+                width: 1366,
+                height: 768,
             },
             foodimg: {
                 class: 'absolute top-[-15rem] left-[-31rem] 2xl:left-[-51rem] h-[500px] w-[500px] 2xl:h-[700px] 2xl:w-[700px]  hover:scale-110 transition-all',
@@ -109,10 +109,10 @@ function Steps() {
     ];
 
     // useEffect(() => {
-    //     // Get a reference to the <path>
-    //     const svgContainers = document.querySelectorAll('#svg-container') as NodeListOf<SVGSVGElement>;
+    //     const finishedPaths = [] as number[];
+    //     const svgContainers = document.querySelectorAll('#line-svg') as NodeListOf<SVGSVGElement>;
 
-    //     svgContainers.forEach((svgContainer) => {
+    //     svgContainers.forEach((svgContainer, index) => {
     //         const paths = svgContainer.querySelectorAll('#animated-path') as NodeListOf<SVGPathElement>;
 
     //         paths.forEach((path) => {
@@ -125,20 +125,27 @@ function Steps() {
     //             path.getBoundingClientRect();
 
     //             window.addEventListener('scroll', function () {
-    //                 const containerRect = svgContainer.getBoundingClientRect();
-    //                 const containerScrollTop = window.scrollY - containerRect.top;
-    //                 const containerHeight = window.scrollY + containerRect.height;
+    //                 if (finishedPaths.includes(index - 1) || index === 0) {
+    //                     const containerRect = svgContainer.getBoundingClientRect();
+    //                     const containerScrollTop = window.scrollY - containerRect.top;
+    //                     const containerHeight = window.scrollY + containerRect.height - 600;
 
-    //                 const scrollPercentage = containerScrollTop / containerHeight;
+    //                     const scrollPercentage = containerScrollTop / containerHeight;
 
-    //                 const drawLength = pathLength * scrollPercentage;
+    //                     const drawLength = pathLength * scrollPercentage;
+    //                     console.log(index, containerHeight, containerRect.height, scrollPercentage, drawLength);
 
-    //                 path.style.strokeDashoffset = (pathLength - drawLength).toString();
+    //                     path.style.strokeDashoffset = (pathLength - drawLength).toString();
 
-    //                 if (scrollPercentage >= 0.99) {
-    //                     path.style.strokeDasharray = 'none';
-    //                 } else {
-    //                     path.style.strokeDasharray = (pathLength + ' ' + pathLength).toString();
+    //                     if (scrollPercentage >= 0.99) {
+    //                         path.style.strokeDasharray = 'none';
+
+    //                         if (!finishedPaths.includes(index)) {
+    //                             finishedPaths.push(index);
+    //                         }
+    //                     } else {
+    //                         path.style.strokeDasharray = pathLength + ' ' + pathLength;
+    //                     }
     //                 }
     //             });
     //         });
@@ -149,13 +156,44 @@ function Steps() {
         <div className={styles.steps}>
             <div className="flex flex-col w-full mx-auto my-0">
                 {steps.map((step) => (
-                    <div key={step.id} className={step.class}>
+                    <div key={step.id} className={`${step.class}`}>
                         <div className="grid grid-cols-9 grid-rows-9">
-                            <div className="flex flex-col row-span-9">
-                                <span className="h1 text-green-custom2 !leading-none">0{step.id}</span>
-                                <p className="h4 text-green-custom2 mt-[-1rem] lg:mt-[-3rem]">step</p>
+                            <div className="row-span-2">
+                                <div className="flex flex-col">
+                                    <span className="h1 text-green-custom2 !leading-none">0{step.id}</span>
+                                    <p className="h4 text-green-custom2 mt-[-1rem] lg:mt-[-3rem]">step</p>
+                                </div>
+
+                                {/* <div className="draw-line-height h-[300px]">
+                                    <svg
+                                        id="line-svg"
+                                        version="1.1"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        x="0px"
+                                        y="0px"
+                                        width="173px"
+                                        height="167.5px"
+                                        className="w-full h-full"
+                                    >
+                                        <line
+                                            id="animated-path"
+                                            fill="none"
+                                            stroke="#00a39e"
+                                            stroke-width="5"
+                                            stroke-linecap="square"
+                                            stroke-linejoin="round"
+                                            stroke-miterlimit="10"
+                                            x1="5"
+                                            y1="5"
+                                            x2="5"
+                                            y2="350"
+                                            className="w-full h-full"
+                                        />
+                                    </svg>
+                                </div> */}
                             </div>
-                            <p className="col-span-8">{step.desc}</p>
+
+                            <p className="col-span-8 pl-2 md:pl-0">{step.desc}</p>
                             {step.image.src !== '' && (
                                 <Image
                                     src={step.image.src}
@@ -170,24 +208,12 @@ function Steps() {
                         <div className="hidden lg:block">
                             <div id="svg-container" className={step.svg.class}>
                                 {step.svg.src !== '' && (
-                                    <svg width={step.svg.width} height={step.svg.height}>
+                                    <svg width={step.svg.width} height={step.svg.height} className="md:w-1/2">
                                         <use href={step.svg.src} />
                                     </svg>
                                 )}
                             </div>
                         </div>
-                        {/* <div className="hidden lg:block">
-                            {step.foodimg.src !== '' && (
-                                <Image
-                                    src={step.foodimg.src.toString()}
-                                    alt="curve"
-                                    width={step.foodimg.width}
-                                    height={step.foodimg.height}
-                                    loading="lazy"
-                                    className={step.foodimg.class}
-                                />
-                            )}
-                        </div> */}
                     </div>
                 ))}
             </div>

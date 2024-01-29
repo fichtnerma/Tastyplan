@@ -2,10 +2,8 @@ import { WeekplanEntry } from 'src/types/types';
 import { WeekplanQueries } from './weekplan.queries';
 import { CreateWeekplan, IFormattedWeekplan, IWeekplan, IWeekplanEntry } from './weekplan.interface';
 import { ChangeRecipeDto } from './dto/change-recipe.dto';
-import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
-import { MailService } from 'src/mail/mail/mail.service';
 import { shuffleArray } from 'src/helpers/converter.utils';
 import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -15,9 +13,7 @@ export class WeekplanService {
     constructor(
         private recipeFilterService: RecipesFilterService,
         private preferencesService: PreferencesService,
-        private shoppingListService: ShoppingListService,
         private weekplanQueries: WeekplanQueries,
-        private mailService: MailService,
     ) {}
 
     async getCurrentWeekplan(userId: string) {
@@ -76,6 +72,7 @@ export class WeekplanService {
                     img: entry.lunch.img,
                     preparingTime: entry.lunch.preparingTime,
                     cookingTime: entry.lunch.cookingTime,
+                    totalTime: entry.lunch.totalTime,
                     formOfDiet: entry.lunch.formOfDiet,
                 },
                 dinner: entry.dinner && {
@@ -84,6 +81,7 @@ export class WeekplanService {
                     img: entry.dinner.img,
                     preparingTime: entry.dinner.preparingTime,
                     cookingTime: entry.dinner.cookingTime,
+                    totalTime: entry.dinner.totalTime,
                     formOfDiet: entry.dinner.formOfDiet,
                 },
             })),
@@ -216,13 +214,6 @@ export class WeekplanService {
                 ),
             };
             const createdWeekplan = await this.weekplanQueries.createWeekplan(weekplan);
-            //TODO: Rewrite the shoppingList creation => One ShoppingList for one Weekplan
-            // This is the part where the shoppingList is created
-            // For now this is outcommented because the shoppingList is not used in the frontend
-            /* const weekplanRecipeIds = createdWeekplan.weekplanEntry
-                .flatMap((entry) => [entry.lunchId, entry.dinnerId])
-                .filter((id) => id !== null);
-            this.shoppingListService.create(weekplanRecipeIds, userId); */
             return this.formatWeekPlan(createdWeekplan);
         } catch (error) {
             throw new HttpException('Error: Creating weekplan failed', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -235,6 +226,7 @@ export class WeekplanService {
 
     async changeRecipe(changeRecipeReq: ChangeRecipeDto, user: User) {
         try {
+            const changedRecipeReqId = changeRecipeReq.id ? +changeRecipeReq.id : 1;
             const weekplanEntry = await this.weekplanQueries.findFirstWeekplanEntry(
                 +changeRecipeReq.weekplanEntry,
                 user.userId,
@@ -246,7 +238,7 @@ export class WeekplanService {
                 if (changeRecipeReq.id) {
                     await this.weekplanQueries.updateWeekplanEntryLunchWithId(
                         +changeRecipeReq.weekplanEntry,
-                        +changeRecipeReq.id,
+                        changedRecipeReqId,
                     );
                 } else {
                     await this.weekplanQueries.updateWeekplanEntryLunchWithoutId(+changeRecipeReq.weekplanEntry);
@@ -255,13 +247,18 @@ export class WeekplanService {
                 if (changeRecipeReq.id) {
                     await this.weekplanQueries.updateWeekplanEntryDinnerWithId(
                         +changeRecipeReq.weekplanEntry,
-                        +changeRecipeReq.id,
+                        changedRecipeReqId,
                     );
                 } else {
                     await this.weekplanQueries.updateWeekplanEntryDinnerWithoutId(+changeRecipeReq.weekplanEntry);
                 }
             }
-            return await this.weekplanQueries.findFirstRecipe(+changeRecipeReq.id);
+            // If no recipe is send, than default recipe 1 is stored and undefined send back to frontend
+            if (!changeRecipeReq.id) {
+                await this.weekplanQueries.findFirstRecipe(changedRecipeReqId);
+                return undefined;
+            }
+            return await this.weekplanQueries.findFirstRecipe(changedRecipeReqId);
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to change Recipe for given user');
         }

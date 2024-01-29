@@ -56,14 +56,15 @@ export default function Login({ visible }: LoginProps) {
                 <h2 className="h1 w-full text-left">Sign in</h2>
                 <TextInput
                     hasError={error != ''}
+                    id="login-mail"
                     value={email}
                     required
                     onChange={setEMail}
                     label="E-Mail"
-                    cypressID="e-mail-login"
                 />
                 <TextInput
                     hasError={error != ''}
+                    id="login-password"
                     value={password}
                     type="password"
                     required

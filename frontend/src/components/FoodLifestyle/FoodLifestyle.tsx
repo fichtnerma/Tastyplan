@@ -42,14 +42,13 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                 className="grid grid-col-1 items-center lg:grid-cols-2 gap-y-4 lg:gap-y-0 lg:gap-x-4 w-full h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden"
                 tabIndex={-1}
             >
-                {preferences.map((preference, i) => (
+                {preferences.map((preference) => (
                     <div
                         key={preference.food}
                         className={`flex justify-end items-center w-full relative pr-5 h-[60px] lg:h-[80px] xl:h-[70px] ${styles.choiceWrapper}`}
-                        tabIndex={i + 1}
                     >
                         <input
-                            className={`absolute top-0 right-0 bottom-0 left-0 cursor:pointer opacity=[.01] z-[-1] w-full h-full rounded-[50px] hover:cursor-pointer custom-focus ${styles.customInput}`}
+                            className={`absolute top-0 right-0 bottom-0 left-0 cursor:pointer w-full h-full rounded-[50px] hover:cursor-pointer custom-focus ${styles.customInput}`}
                             id={preference.food}
                             type="radio"
                             name="preferences"
@@ -60,13 +59,13 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                         />
                         <label
                             htmlFor={preference.food}
-                            className={`absolute top-0 right-0 bottom-0 left-0 hover:cursor-pointer flex flex-col items-start justify-center border-2 border-solid border-green-custom1 rounded-[50px] z-[1] font-medium text-[1.13rem] leading-7 pl-8 col-start-1 ${styles.customLabel}`}
+                            className={`absolute top-0 right-0 bottom-0 left-0 hover:cursor-pointer flex flex-col items-start justify-center border-2 border-solid bg-white-custom border-green-custom1 rounded-[50px] z-[1] font-medium text-[1.13rem] leading-7 pl-8 col-start-1 ${styles.customLabel}`}
                         >
                             <p className="capitalize">{preference.food}</p>
                             <p className="text-xs lg:max-w-[170px] xl:max-w-[unset]">{preference.description}</p>
                         </label>
-                        <div className="z-[2]">
-                            <Icon size={50} icon={preference.icon}></Icon>
+                        <div className="pointer-events-none z-[2]">
+                            <Icon size={50} icon={preference.icon} />
                         </div>
                     </div>
                 ))}
@@ -79,7 +78,6 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                     data-anchor="next"
                     disabled={disabled}
                     data-cy="next-btn"
-                    tabIndex={preferences.length}
                 >
                     Next
                 </button>

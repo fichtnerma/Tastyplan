@@ -1,6 +1,14 @@
 @import '@styles/variables.scss';
 
-.modalOpen {
+.modal {
     overflow: hidden;
-    background-color: aqua;
+        width: 100vw;
+        height: 95vh;
+        margin-bottom: 0;
+
+    @screen sm {
+        width: min(80vw, 1180px);
+        height: 80vh;
+        margin-bottom: auto;
+    }
 }

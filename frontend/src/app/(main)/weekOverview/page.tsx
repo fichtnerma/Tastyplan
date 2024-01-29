@@ -5,12 +5,16 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import 'swiper/swiper-bundle.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper';
 import Icon from '@components/Icon/Icon';
 import { fetchWithAuth } from '@helpers/utils';
 import { useWeekplan } from '@hooks/useWeekplan';
 import { Role, WeekplanEntry } from 'src/types/types';
 import styles from '@styles/WeekOverview.module.scss';
 import Weekplan from './Weekplan';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export default function WeekOverview() {
     const { data: session } = useSession();
@@ -31,15 +35,8 @@ export default function WeekOverview() {
             },
             session,
         );
-        console.log({
-            date: weekplan?.startDate || new Date(),
-            shouldReplace: shouldReplace,
-        });
 
         if (weekplanRes.ok) {
-            const newWeekplan = await weekplanRes.json();
-            console.log(newWeekplan);
-
             updateWeekplan(new Date(weekplan?.startDate));
         }
     };
@@ -127,24 +124,50 @@ export default function WeekOverview() {
 
                         {/* Desktop */}
 
-                        <div className="w-full">
+                        <div className="w-full mb-8">
                             {/* Lunch */}
                             <div className="flex mb-10">
                                 <div className="grid grid-cols-1 grid-rows-2">
                                     {weekplan.hasLunch && <h2 className="h1 hidden sm:block">Lunch</h2>}
                                     {weekplan.hasDinner && <h2 className="h1 hidden sm:block">Dinner</h2>}
                                 </div>
-                                <div className="hidden sm:flex overflow-y-hidden scrollable-element">
-                                    {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
-                                        <div className="mr-6 mb-2 " key={day.id}>
-                                            <Weekplan
-                                                updateWeekplan={updateWeekplan}
-                                                day={day}
-                                                hasLunch={weekplan.hasLunch}
-                                                hasDinner={weekplan.hasDinner}
-                                            />
-                                        </div>
-                                    ))}
+                                <div className="hidden items-center sm:flex overflow-y-hidden pb-8 scrollable-element">
+                                    <Swiper
+                                        slidesPerView={2}
+                                        spaceBetween={20}
+                                        breakpoints={{
+                                            640: {
+                                                slidesPerView: 3,
+                                                spaceBetween: 20,
+                                            },
+                                            968: {
+                                                slidesPerView: 4,
+                                                spaceBetween: 30,
+                                            },
+                                            1280: {
+                                                slidesPerView: 5,
+                                                spaceBetween: 30,
+                                            },
+                                            1536: {
+                                                slidesPerView: 6,
+                                                spaceBetween: 30,
+                                            },
+                                        }}
+                                        modules={[Pagination]}
+                                        pagination={{ clickable: true }}
+                                        className="mySwiper !pb-9"
+                                    >
+                                        {weekplan?.weekplanEntry?.map((day: WeekplanEntry) => (
+                                            <SwiperSlide className="mr-6 mb-2 " key={day.id}>
+                                                <Weekplan
+                                                    updateWeekplan={updateWeekplan}
+                                                    day={day}
+                                                    hasLunch={weekplan.hasLunch}
+                                                    hasDinner={weekplan.hasDinner}
+                                                />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
                                 </div>
                             </div>
                         </div>

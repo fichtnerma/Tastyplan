@@ -15,22 +15,22 @@ interface IntolerancesProps {
 
 export default function Intolerances({ onNext, onBack, onChoice, allergens }: IntolerancesProps) {
     const intolerances = [
-        { id: 1, ui: 'Peanuts', code: 'peanut', icon: 'Erdnuss' },
-        { id: 2, ui: 'Hazelnuts', code: 'hazelnut', icon: 'Haselnuss' },
-        { id: 3, ui: 'Walnuts', code: 'walnut', icon: 'Wallnuss' },
-        { id: 4, ui: 'Other Nuts', code: 'shellFruit', icon: 'Nüsse' },
-        { id: 5, ui: 'Lactose', code: 'milk', icon: 'laktose' },
-        { id: 6, ui: 'Gluten', code: 'gluten', icon: 'Weizen' },
-        { id: 7, ui: 'Eggs', code: 'egg', icon: 'Ei' },
-        { id: 8, ui: 'Shellfish', code: 'crustacaen', icon: 'Shrimp' },
-        { id: 9, ui: 'Fish', code: 'fish', icon: 'fisch' },
-        { id: 10, ui: 'Soy', code: 'soy', icon: 'Soja' },
         { id: 11, ui: 'Celery', code: 'celery', icon: 'Sellerie' },
-        { id: 12, ui: 'Mustard', code: 'mustard', icon: 'Senfglas' },
-        { id: 13, ui: 'Sesame', code: 'sesame', icon: 'Sesam' },
-        { id: 14, ui: 'Sulfur Dioxide', code: 'sulfur', icon: 'Wein' },
+        { id: 7, ui: 'Eggs', code: 'egg', icon: 'Ei' },
+        { id: 9, ui: 'Fish', code: 'fish', icon: 'fisch' },
+        { id: 6, ui: 'Gluten', code: 'gluten', icon: 'Weizen' },
+        { id: 2, ui: 'Hazelnuts', code: 'hazelnut', icon: 'Haselnuss' },
+        { id: 5, ui: 'Lactose', code: 'milk', icon: 'laktose' },
         { id: 15, ui: 'Lupine', code: 'lupine', icon: 'Lupinen' },
         { id: 16, ui: 'Mollusk', code: 'mollusk', icon: 'Weichtiere' },
+        { id: 12, ui: 'Mustard', code: 'mustard', icon: 'Senfglas' },
+        { id: 4, ui: 'Other Nuts', code: 'shellFruit', icon: 'Nüsse' },
+        { id: 1, ui: 'Peanuts', code: 'peanut', icon: 'Erdnuss' },
+        { id: 13, ui: 'Sesame', code: 'sesame', icon: 'Sesam' },
+        { id: 8, ui: 'Shellfish', code: 'crustacaen', icon: 'Shrimp' },
+        { id: 10, ui: 'Soy', code: 'soy', icon: 'Soja' },
+        { id: 14, ui: 'Sulfur Dioxide', code: 'sulfur', icon: 'Wein' },
+        { id: 3, ui: 'Walnuts', code: 'walnut', icon: 'Wallnuss' },
     ];
 
     const [allergeneChoices, setAllergeneChoices] = useState(allergens);

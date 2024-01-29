@@ -4,6 +4,7 @@ import { isRequiredValidator } from '@helpers/validations';
 interface TextInputProps {
     label?: string;
     placeholder?: string;
+    id?: string;
     hasError?: boolean;
     type?: string;
     value: string;
@@ -14,7 +15,7 @@ interface TextInputProps {
     onChange?: (value: string) => void;
     onFocus?: () => void;
     onBlur?: () => void;
-    cypressID: string;
+    cypressID?: string;
 }
 
 export default function TextInput({
@@ -22,6 +23,7 @@ export default function TextInput({
     placeholder,
     type = 'text',
     validate,
+    id,
     decoration,
     decorationPosition = 'start',
     onChange,
@@ -61,22 +63,22 @@ export default function TextInput({
                 {decoration ? (
                     <div className={`absolute bottom-2 ${isAtStart ? 'left-2' : 'right-2'}`}>{decoration}</div>
                 ) : null}
-                <label htmlFor="text-input">
+                <label htmlFor={id}>
                     {label}
                     {required ? ' *' : ''}
+                    <input
+                        className={`border-2 ${isAtStart ? 'pl-9' : 'pl-4'} ${
+                            isAtEnd ? 'pr-9' : 'pr-4'
+                        } h-10 w-full border-gray-700 rounded-xl`}
+                        type={type}
+                        id={id}
+                        placeholder={placeholder}
+                        value={value}
+                        onBlur={onBlur ? onBlur : handleBlur}
+                        onChange={handleTextChange}
+                        onFocus={onFocus}
+                    />
                 </label>
-                <input
-                    className={`border-2 ${isAtStart ? 'pl-9' : 'pl-4'} ${
-                        isAtEnd ? 'pr-9' : 'pr-4'
-                    } h-10 w-full border-gray-700 rounded-xl`}
-                    type={type}
-                    placeholder={placeholder}
-                    value={value}
-                    onBlur={onBlur ? onBlur : handleBlur}
-                    onChange={handleTextChange}
-                    onFocus={onFocus}
-                    data-cy={cypressID}
-                />
             </div>
             <span className={`${errorMessage ? '' : 'hidden'} errorMessage`} data-cy={`error-message-${label}`}>
                 {errorMessage}

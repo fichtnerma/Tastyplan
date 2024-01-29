@@ -18,6 +18,7 @@
         "paths": {
             "@assets/*": ["./src/assets/*"],
             "@components/*": ["./src/components/*"],
+            "@contexts/*": ["./src/contexts/*"],
             "@helpers/*": ["./src/helpers/*"],
             "@hooks/*": ["./src/hooks/*"],
             "@pages/*": ["src/pages/*"],
@@ -29,6 +30,6 @@
             }
         ]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/setupTests.js"],
     "exclude": ["node_modules"]
 }

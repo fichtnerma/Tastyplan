@@ -38,13 +38,12 @@ export type Recipe = {
 export type IconMetaData = {
     id: number;
     src: string;
-    withTime: boolean;
     text: string;
 };
 
 export type Ingredient = {
-    id: number;
-    ingredient: { name: string };
+    id?: number;
+    ingredient?: { name: string };
     quantity: number;
     unit: string;
 };
@@ -106,4 +105,9 @@ export type Favorite = {
     recipe: Recipe;
     recipeId: number;
     userId: string;
+};
+
+export type Option = {
+    value: string;
+    label: string;
 };

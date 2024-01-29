@@ -4,11 +4,11 @@ import styles from '../ProgressBar/ProgressBar.module.scss';
 type Props = {
     stepNames: string[];
     activeStep: number;
-    foodLifeStyleSelected: boolean;
+    stepIsDone: boolean;
     onClick: (elementName: string) => void;
 };
 
-function ProgressBar({ stepNames, activeStep, foodLifeStyleSelected, onClick }: Props) {
+function ProgressBar({ stepNames, activeStep, stepIsDone: stepIsDone, onClick }: Props) {
     const [numbersArr, setNumbersArr] = useState<number[]>([]);
 
     useEffect(() => {
@@ -24,12 +24,12 @@ function ProgressBar({ stepNames, activeStep, foodLifeStyleSelected, onClick }: 
     const getStepClass = (elNr: number) => {
         if (elNr <= activeStep) return styles.stepDone;
 
-        if (!foodLifeStyleSelected) return `${styles.stepNotDone} + ${styles.stepDisabled}`;
+        if (!stepIsDone) return `${styles.stepNotDone} + ${styles.stepDisabled}`;
         else return styles.stepNotDone;
     };
 
     const handleStepClick = (e: React.MouseEvent) => {
-        if (!foodLifeStyleSelected) return;
+        if (!stepIsDone) return;
 
         const element = e.target as HTMLElement;
         const elementName = element.getAttribute('data-step-name');

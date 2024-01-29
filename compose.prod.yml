@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  reverseproxy:
+    build:
+      context: ./reverseproxy
+      dockerfile: nginx.Dockerfile
+    container_name: reverseproxy
+    ports:
+      - "443:443"
+      - "80:80"
+    restart: always
+    depends_on:
+      - api
+      - frontend
+    networks:
+      - public
+  api:
+    environment:
+      - NODE_ENV=production
+    labels:
+      - "autoheal=true"
+    command: "npm run start:prod:migrate"
+  frontend:
+    environment:
+      - NODE_ENV=production
+    labels:
+      - "autoheal=true"
+    command: "npm run start"
+  elasticsearch:
+    labels:
+      - "autoheal=true"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+  autoheal:
+    image: willfarrell/autoheal:latest
+    tty: true
+    restart: always
+    environment:
+      - AUTOHEAL_INTERVAL=60
+      - AUTOHEAL_START_PERIOD=300
+      - AUTOHEAL_DEFAULT_STOP_TIMEOUT=10
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

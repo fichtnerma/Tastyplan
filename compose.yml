@@ -1,0 +1,146 @@
+version: '3.9'
+
+services:
+  api:
+    image: gitlab.mediacube.at:5050/mmt-2022-masterproject-cookplaner/tastyplan/api:${TAG:-latest}
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    command: npm run start:dev
+    container_name: api
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=${DATABASE_URL}
+      - SECRET_KEY=${SECRET_KEY}
+      - EXPIRES_IN=${EXPIRES_IN}
+    ports:
+      - 3000:3000
+    volumes:
+      - /app/node_modules
+      - ./api/src:/app/src
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      recommender:
+        condition: service_started
+    networks:
+      - private
+      - public
+    healthcheck:
+      test: "wget --tries=100 http://localhost:3000/health || exit 1" 
+      interval: 10s
+      timeout: 60s
+      start_period: 120s
+      retries: 100  
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+    networks:
+      - private
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+  postgres:
+    image: postgres:15.0
+    container_name: postgres
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "6543:5432"
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+    networks:
+      - private
+      - public
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+  frontend:
+    image: gitlab.mediacube.at:5050/mmt-2022-masterproject-cookplaner/tastyplan/client:${TAG:-latest}
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: frontend
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+    volumes:
+      - ./frontend:/client
+      - /client/node_modules
+      - /client/.next
+    depends_on:
+      api:
+        condition: service_healthy
+      recommender:
+        condition: service_started
+    networks:
+      - public
+
+  elasticsearch:
+    image: elasticsearch:7.17.13
+    container_name: elasticsearch
+    env_file: .env
+    environment:
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - ELASTIC_USERNAME=${ELASTIC_USERNAME}
+      - ELASTIC_NODE=${ELASTIC_NODE}
+    restart: unless-stopped
+    networks:
+      - private
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:9200/_cluster/health?wait_for_status=green&timeout=1s || exit 1"]
+      interval: 5s
+      timeout: 3s
+  recommender:
+    image: gitlab.mediacube.at:5050/mmt-2022-masterproject-cookplaner/tastyplan/recommender:${TAG:-latest}
+    build:
+      context: ./recommender
+      dockerfile: Dockerfile.dev
+    container_name: recommender
+    ports:
+      - 5001:5000
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./recommender/:/app
+    networks:
+      - private
+networks:
+  private:
+  public:
+volumes:
+  postgresdata:
+  pgadmin-data:
+  esdata:
+    driver: local
+  redis:
+    driver: local

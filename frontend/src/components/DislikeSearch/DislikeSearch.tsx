@@ -1,9 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
 import SearchResultlist from '@components/SearchResultList/SearchResultList';
+import Icon from '@components/Icon/Icon';
 import TextInput from '@components/FormInputs/TextInput';
 import { APISearchResponse } from 'src/types/types';
-import cross from '../../../public/Icons/kreuz.png';
 
 type DislikeSearchProps = {
     searchTerm: string;
@@ -13,6 +12,8 @@ type DislikeSearchProps = {
     searchChanged: (value: string) => void;
     handleAddChoice: (e: React.MouseEvent) => void;
     allDislikes: APISearchResponse[];
+    onFocus: () => void;
+    onBlur: () => void;
 };
 
 function DislikeSearch({
@@ -23,6 +24,8 @@ function DislikeSearch({
     searchChanged,
     handleAddChoice,
     allDislikes,
+    onFocus,
+    onBlur,
 }: DislikeSearchProps) {
     return (
         <div>
@@ -31,13 +34,14 @@ function DislikeSearch({
                     placeholder="Search ingredients"
                     value={searchTerm}
                     decoration={
-                        <button type="button" onClick={deleteInput} data-cy="clear-search-input">
-                            <Image src={cross} className="pr-1" alt="cross" width={20} priority />
+                        <button type="button" onClick={deleteInput}>
+                            {searchTerm == '' ? <Icon size={20} icon="search" /> : <Icon size={20} icon="close" />}
                         </button>
                     }
                     decorationPosition="end"
                     onChange={searchChanged}
-                    cypressID="search-ingredients"
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                 />
                 <div className="relative">
                     <div className="absolute z-1 w-full">

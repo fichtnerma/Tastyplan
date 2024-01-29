@@ -25,7 +25,6 @@ model Ingredient {
     magnesium            Float?
     foodDislikes         Preferences[]
     IngredientWithAmount IngredientWithAmount[]
-    ShoppingListEntry    ShoppingListEntry[]
 }
 
 model Recipe {
@@ -34,8 +33,8 @@ model Recipe {
     img           String?
     description   String?
     cookingTime   Int?
-    preparingTime Int
-    totalTime     Int
+    preparingTime Int?
+    totalTime     Int?
     servings      Int
     tags          String[]
     formOfDiet    String
@@ -44,6 +43,8 @@ model Recipe {
     lunchEntries  WeekplanEntry[]        @relation(name: "WeekplanEntry_lunch")
     dinnerEntries WeekplanEntry[]        @relation(name: "WeekplanEntry_dinner")
     Favorites     Favorites[]
+    userId        String?
+    user          User?                  @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model IngredientWithAmount {
@@ -72,12 +73,12 @@ model User {
     role     String  @default("USER")
     state    String  @default("registered")
 
-    createdAt    DateTime       @default(now())
-    updatedAt    DateTime       @default(now()) @updatedAt
-    Weekplan     Weekplan[]
-    Preferences  Preferences[]
-    ShoppingList ShoppingList[]
-    Favorites    Favorites[]
+    createdAt   DateTime      @default(now())
+    updatedAt   DateTime      @default(now()) @updatedAt
+    Weekplan    Weekplan[]
+    Preferences Preferences[]
+    Favorites   Favorites[]
+    Recipe      Recipe[]
 }
 
 model Preferences {
@@ -129,24 +130,4 @@ model WeekplanEntry {
     lunchId    Int?
     dinner     Recipe?  @relation(name: "WeekplanEntry_dinner", fields: [dinnerId], references: [id], onDelete: SetNull, onUpdate: Cascade)
     dinnerId   Int?
-}
-
-model ShoppingList {
-    id                  Int                 @id @default(autoincrement())
-    userId              String
-    user                User                @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
-    shoppingListEntries ShoppingListEntry[]
-}
-
-model ShoppingListEntry {
-    id             Int           @id @default(autoincrement())
-    ingredientId   Int?
-    ingredient     Ingredient?   @relation(fields: [ingredientId], references: [id])
-    ingredientName String?
-    unit           String?
-    quantity       Float?
-    isChecked      Boolean
-    ShoppingList   ShoppingList? @relation(fields: [shoppingListId], references: [id])
-    shoppingListId Int?
-    category       String?
 }

@@ -1,3 +1,4 @@
+import { RecipesUploadImageService } from './recipesUploadImage.service';
 import { RecipesSearchService } from './recipesSearch.service';
 import { RecipesFilterService } from './recipesFilter.service';
 import { RecipesService } from './recipes.service';
@@ -10,8 +11,8 @@ import { Module } from '@nestjs/common';
 
 @Module({
     imports: [IngredientsModule, PreferencesModule, SearchModule],
-    exports: [RecipesService, RecipesFilterService, RecipeQueries],
+    exports: [RecipesService, RecipesFilterService, RecipesSearchService, RecipeQueries],
     controllers: [RecipesController],
-    providers: [RecipesService, RecipesFilterService, RecipeQueries, RecipesSearchService],
+    providers: [RecipesService, RecipesFilterService, RecipeQueries, RecipesSearchService, RecipesUploadImageService],
 })
 export class RecipesModule {}
