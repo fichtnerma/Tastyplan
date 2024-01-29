@@ -10,15 +10,15 @@ interface NumberInputProps {
     required?: boolean;
     onChange?: (value: number) => void;
 }
-const NumberInput = ({ label, placeholder, id, value, min = 1, max, required, onChange }: NumberInputProps) => {
+const NumberInput = ({ label, placeholder, id, value, min = 0, max, required, onChange }: NumberInputProps) => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
     const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
 
-        if (value.toString().startsWith('0')) {
-            setErrorMessage('Choose a valid number');
-            return;
-        }
+        // if (value.toString().startsWith('0')) {
+        //     setErrorMessage('Choose a valid number');
+        //     return;
+        // }
 
         const parsedValue = +value;
 
@@ -56,6 +56,7 @@ const NumberInput = ({ label, placeholder, id, value, min = 1, max, required, on
                     placeholder={placeholder}
                     value={value}
                     min={min}
+                    step={0.5}
                     max={max}
                     onChange={handleNumberChange}
                     onBlur={handleBlur}

@@ -26,13 +26,15 @@ const AddNameAndImage = ({ currentName, currentImage, onNameChange, onUploadedIm
     return (
         <fieldset>
             <legend className="h3">Add name and image</legend>
-            <TextInput value={name} required onChange={handleNameChange} label="Name" />
-            {!image && (
-                <label className="block mt-5 mb-1" htmlFor="uploadImg">
-                    Add an Image (optional)
-                </label>
-            )}
-            <ImgDragAndDrop currentImage={image} onUploadedImgChange={handleUploadedImgChange} />
+            <div className="p-2 pt-0 pb-8">
+                <TextInput value={name} required onChange={handleNameChange} label="Name" />
+                {!image && (
+                    <label className="block mt-5 mb-1" htmlFor="uploadImg">
+                        Add an Image (optional)
+                    </label>
+                )}
+                <ImgDragAndDrop currentImage={image} onUploadedImgChange={handleUploadedImgChange} />
+            </div>
         </fieldset>
     );
 };

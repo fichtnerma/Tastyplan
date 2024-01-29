@@ -16,7 +16,7 @@ function SecondHeader({ waveForm }: SecondHeaderProps) {
                         <Image
                             src="/logo.svg"
                             height={200}
-                            className="block absolute w-full h-auto pt-4 max-w-[120px] sm:max-w-[200px] md:max-w-[220px]"
+                            className="block absolute w-full h-full pt-4 max-w-[120px] sm:max-w-[200px] md:max-w-[220px]"
                             alt="logo"
                             width={200}
                             priority
