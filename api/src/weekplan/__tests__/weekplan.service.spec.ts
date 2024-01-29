@@ -1,3 +1,4 @@
+import { WeekplanEntry } from 'src/types/types';
 import { WeekplanService } from '../weekplan.service';
 import { WeekplanQueries } from '../weekplan.queries';
 import { IWeekplan, IFormattedWeekplan } from '../weekplan.interface';
@@ -271,5 +272,168 @@ describe('WeekplanService', () => {
                 fetchedMealsAndWeekplanPreferences,
             ),
         ).toStrictEqual(resultWeekplanPartial);
+    });
+
+    it('createWeekplanData => Should return a correctly maped weekplan', () => {
+        const daysPrefernces = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        const shuffeledMeals = [
+            { id: 1 },
+            { id: 2 },
+            { id: 4 },
+            { id: 5 },
+            { id: 8 },
+            { id: 7 },
+            { id: 432 },
+            { id: 9 },
+            { id: 10 },
+            { id: 11 },
+            { id: 87 },
+            { id: 13 },
+            { id: 12 },
+            { id: 17 },
+        ];
+        const wantsLunch = true;
+        const wantsDinner = true;
+        const startDate = new Date('2024-01-29T00:00:00.000Z');
+        service.createWeekplanData(daysPrefernces, shuffeledMeals, wantsLunch, wantsDinner, startDate);
+        const expectedOutput: WeekplanEntry[] = [
+            { date: new Date('2024-01-29T00:00:00.000Z'), lunchId: 1, dinnerId: 2 },
+            { date: new Date('2024-01-30T00:00:00.000Z'), lunchId: 4, dinnerId: 5 },
+            { date: new Date('2024-01-31T00:00:00.000Z'), lunchId: 8, dinnerId: 7 },
+            { date: new Date('2024-02-01T00:00:00.000Z'), lunchId: 432, dinnerId: 9 },
+            { date: new Date('2024-02-02T00:00:00.000Z'), lunchId: 10, dinnerId: 11 },
+            { date: new Date('2024-02-03T00:00:00.000Z'), lunchId: 87, dinnerId: 13 },
+            { date: new Date('2024-02-04T00:00:00.000Z'), lunchId: 12, dinnerId: 17 },
+        ];
+        expect(
+            service.createWeekplanData(daysPrefernces, shuffeledMeals, wantsLunch, wantsDinner, startDate),
+        ).toStrictEqual(expectedOutput);
+    });
+    it('getCurrentWeekplan => Should return the actual weekplan', () => {
+        const now = new Date('2024-01-31T00:00:00.000Z');
+        const exampleWeekplans: IWeekplan[] = [
+            {
+                id: 1,
+                userId: 'user123',
+                startDate: new Date('2024-01-29'),
+                endDate: new Date('2024-02-04'),
+                hasLunch: true,
+                hasDinner: true,
+                weekplanEntry: [
+                    {
+                        id: 1,
+                        date: new Date('2024-01-29'),
+                        lunch: {
+                            id: 101,
+                            name: 'Vegetarian Pasta',
+                            img: 'pasta.jpg',
+                            description: 'Delicious vegetarian pasta dish.',
+                            cookingTime: 20,
+                            preparingTime: 10,
+                            totalTime: 30,
+                            servings: 2,
+                            tags: ['vegetarian', 'pasta'],
+                            formOfDiet: 'vegetarian',
+                            userId: 'user123',
+                        },
+                        dinner: {
+                            id: 201,
+                            name: 'Grilled Chicken Salad',
+                            img: 'salad.jpg',
+                            description: 'Healthy grilled chicken salad.',
+                            cookingTime: 15,
+                            preparingTime: 10,
+                            totalTime: 25,
+                            servings: 1,
+                            tags: ['chicken', 'salad'],
+                            formOfDiet: 'regular',
+                            userId: 'user123',
+                        },
+                    },
+                ],
+            },
+            {
+                id: 2,
+                userId: 'user123',
+                startDate: new Date('2024-02-05'),
+                endDate: new Date('2024-02-11'),
+                hasLunch: true,
+                hasDinner: true,
+                weekplanEntry: [
+                    {
+                        id: 2,
+                        date: new Date('2024-02-05'),
+                        lunch: {
+                            id: 102,
+                            name: 'Vegan Burger',
+                            img: 'burger.jpg',
+                            description: 'Delicious vegan burger.',
+                            cookingTime: 30,
+                            preparingTime: 15,
+                            totalTime: 45,
+                            servings: 2,
+                            tags: ['vegan', 'burger'],
+                            formOfDiet: 'vegan',
+                            userId: 'user123',
+                        },
+                        dinner: {
+                            id: 202,
+                            name: 'Steak with Potatoes',
+                            img: 'steak.jpg',
+                            description: 'Juicy steak with crispy potatoes.',
+                            cookingTime: 40,
+                            preparingTime: 20,
+                            totalTime: 60,
+                            servings: 1,
+                            tags: ['steak', 'potatoes'],
+                            formOfDiet: 'regular',
+                            userId: 'user123',
+                        },
+                    },
+                ],
+            },
+        ];
+
+        const expectedResult: IWeekplan = {
+            id: 1,
+            userId: 'user123',
+            startDate: new Date('2024-01-29'),
+            endDate: new Date('2024-02-04'),
+            hasLunch: true,
+            hasDinner: true,
+            weekplanEntry: [
+                {
+                    id: 1,
+                    date: new Date('2024-01-29'),
+                    lunch: {
+                        id: 101,
+                        name: 'Vegetarian Pasta',
+                        img: 'pasta.jpg',
+                        description: 'Delicious vegetarian pasta dish.',
+                        cookingTime: 20,
+                        preparingTime: 10,
+                        totalTime: 30,
+                        servings: 2,
+                        tags: ['vegetarian', 'pasta'],
+                        formOfDiet: 'vegetarian',
+                        userId: 'user123',
+                    },
+                    dinner: {
+                        id: 201,
+                        name: 'Grilled Chicken Salad',
+                        img: 'salad.jpg',
+                        description: 'Healthy grilled chicken salad.',
+                        cookingTime: 15,
+                        preparingTime: 10,
+                        totalTime: 25,
+                        servings: 1,
+                        tags: ['chicken', 'salad'],
+                        formOfDiet: 'regular',
+                        userId: 'user123',
+                    },
+                },
+            ],
+        };
+        expect(service.getCurrentWeekplan(exampleWeekplans, now)).toStrictEqual(expectedResult);
     });
 });

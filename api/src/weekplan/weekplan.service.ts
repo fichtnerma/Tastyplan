@@ -17,11 +17,9 @@ export class WeekplanService {
         private weekplanQueries: WeekplanQueries,
     ) {}
 
-    async getCurrentWeekplan(userId: string) {
+    getCurrentWeekplan(weekplans?: IWeekplan[], now: Date = new Date()) {
         try {
-            const now = new Date();
             now.setHours(0, 0, 0, 0);
-            const weekplans = await this.weekplanQueries.findManyWeekplans(userId);
             const filteredWeekplans = weekplans.filter((plan) => {
                 if (plan !== undefined && plan !== null) {
                     const start = plan.startDate;
@@ -40,7 +38,8 @@ export class WeekplanService {
     }
     //Orchistration function
     async current(userId: string) {
-        return this.formatWeekPlan(await this.getCurrentWeekplan(userId));
+        const weekplans = await this.weekplanQueries.findManyWeekplans(userId);
+        return this.formatWeekPlan(await this.getCurrentWeekplan(weekplans));
     }
 
     async get(userId: string) {
@@ -153,8 +152,8 @@ export class WeekplanService {
     }
     //Orchestration function
     async regenerate(userId: string) {
-        console.log('WEEKPLAN: Before sending mail');
-        const currentWeekplan = await this.getCurrentWeekplan(userId);
+        const weekplans = await this.weekplanQueries.findManyWeekplans(userId);
+        const currentWeekplan = await this.getCurrentWeekplan(weekplans);
         try {
             if (currentWeekplan) {
                 await this.weekplanQueries.deleteManyWeekplanEntries(currentWeekplan.id);
@@ -182,9 +181,6 @@ export class WeekplanService {
             );
             const shuffeledMeals = shuffleArray(recipeList);
 
-            //Using own Type "CreateWeekplan" because we only use ids of recipes for lunch and dinner in creation
-            //Create Weekplan
-            //Create Weekplan Entry
             const weekplan: Partial<CreateWeekplan> = this.createWeekplanPartial(
                 userId,
                 weekplanStartDate,
@@ -197,22 +193,8 @@ export class WeekplanService {
                 fetchedMealsAndWeekplanPreferences.wantsLunch,
                 fetchedMealsAndWeekplanPreferences.wantsDinner,
             );
-
-            /* const weekplan: CreateWeekplan = {
-                userId: userId,
-                startDate: weekplanStartDate,
-                endDate: weekplanEndDate,
-                hasDinner: fetchedMealsAndWeekplanPreferences.wantsDinner,
-                hasLunch: fetchedMealsAndWeekplanPreferences.wantsLunch,
-                weekplanEntry: this.createWeekplanData(
-                    fetchedMealsAndWeekplanPreferences.days,
-                    shuffeledMeals,
-                    fetchedMealsAndWeekplanPreferences.wantsLunch,
-                    fetchedMealsAndWeekplanPreferences.wantsDinner,
-                ),
-            }; */
-
             const createdWeekplan = await this.weekplanQueries.createWeekplan(weekplan as CreateWeekplan);
+
             return this.formatWeekPlan(createdWeekplan);
         } catch (error) {
             throw new HttpException('Error: Creating weekplan failed', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -277,7 +259,7 @@ export class WeekplanService {
         let recipeCounter = 0;
         const weekplan = sortedWeek.map((dayEntry, index) => {
             const entryDay = new Date(new Date().setDate(startDate.getDate() + index));
-
+            entryDay.setUTCHours(0, 0, 0, 0);
             const weekplanEntry: WeekplanEntry = {
                 date: entryDay,
             };
