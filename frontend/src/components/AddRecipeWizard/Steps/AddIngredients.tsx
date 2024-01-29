@@ -139,7 +139,12 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
                 </button>
             </div>
             <DialogModal isOpened={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
-                <IngredientList isItemRemovable={true} ingredients={ingredients} onItemRemove={handleItemRemove} />
+                <IngredientList
+                    isItemRemovable={true}
+                    ingredients={ingredients}
+                    onItemRemove={handleItemRemove}
+                    decoration={true}
+                />
             </DialogModal>
             <ToastContainer
                 position="bottom-center"
