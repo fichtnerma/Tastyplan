@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Icon from '@components/Icon/Icon';
-import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
+import CheckboxGroup from '@components/FormInputs/CheckboxGroup';
 import { CustomCheckboxInput } from 'src/types/types';
 import styles from '../WeekplanConfig//WeekplanConfig.module.scss';
 

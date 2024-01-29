@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CustomCheckboxInput } from 'src/types/types';
-import Checkbox from '../Checkbox';
+import Checkbox from './Checkbox';
 
 type CheckboxProps = {
     groupName: string;
