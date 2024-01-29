@@ -47,7 +47,7 @@ type Cache<T> = { [url: string]: T };
 // discriminated union type
 type Action<T> = { type: 'loading' } | { type: 'fetched'; payload: T | null } | { type: 'error'; payload: Error };
 
-function useFetchWithAuth<T = unknown>(url?: string, options?: RequestInit): ReturnType<T> {
+export function useFetchWithAuth<T = unknown>(url?: string, options?: RequestInit): ReturnType<T> {
     const cache = useRef<Cache<T | null>>({});
     const [shouldRefresh, setShouldRefresh] = useState(false);
     // Used to prevent state update if the component is unmounted

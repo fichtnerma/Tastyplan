@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import Select, { CSSObjectWithLabel, GroupBase, OptionProps } from 'react-select';
 import Icon from '@components/Icon/Icon';
 import NumberInput from '@components/FormInputs/NumberInput';
-import { fetchWithAuth } from '@helpers/utils';
+import useFetchWithAuth from '@hooks/fetchWithAuth';
 import styles from './Keyfacts.module.scss';
 
 export type SelectOption = {
@@ -50,6 +49,7 @@ type KeyfactsProps = {
     onServings: (servings: number) => void;
     onFoodLifestyle: (lifestyle: string) => void;
     onTags: (tags: SelectOption[]) => void;
+    useFetchAuth: typeof useFetchWithAuth;
 };
 const Keyfacts = ({
     currentTotalTime,
@@ -60,27 +60,17 @@ const Keyfacts = ({
     onServings,
     onFoodLifestyle,
     onTags,
+    useFetchAuth = useFetchWithAuth,
 }: KeyfactsProps) => {
     const [cookingTime, setCookingTime] = useState(currentTotalTime);
     const [servings, setServings] = useState(currentServings);
     const [selectedFormOfDiet, setSelectedFormOfDiet] = useState<SelectOption>(currentSelectedOption);
     const [tagOptions, setTagOptions] = useState<SelectOption[]>([]);
-    const { data: session } = useSession();
-
-    const loadTags = async () => {
-        const res = await fetchWithAuth(
-            '/service/recipes/tags',
-            {
-                method: 'GET',
-            },
-            session,
-        );
-
-        const tags = await res.json();
-        const newTagOptions: SelectOption[] = tags.map((tag: string) => {
-            return { value: tag, label: tag.charAt(0).toUpperCase() + tag.slice(1) };
-        });
-        setTagOptions(newTagOptions);
+    const { data } = useFetchAuth('/service/recipes/tags', {
+        method: 'GET',
+    }) as unknown as {
+        data: string[];
+        error: unknown;
     };
 
     const handleCookingTimeChange = (cookingTime: number) => {
@@ -109,8 +99,12 @@ const Keyfacts = ({
     };
 
     useEffect(() => {
-        loadTags();
-    }, []);
+        if (!data) return;
+        const newTagOptions: SelectOption[] = data.map((tag: string) => {
+            return { value: tag, label: tag.charAt(0).toUpperCase() + tag.slice(1) };
+        });
+        setTagOptions(newTagOptions);
+    }, [data]);
 
     return (
         <fieldset>

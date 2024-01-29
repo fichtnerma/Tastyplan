@@ -30,6 +30,6 @@
             }
         ]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/setupTests.js"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/setupTests.js", "jest.config.js"],
     "exclude": ["node_modules"]
 }
