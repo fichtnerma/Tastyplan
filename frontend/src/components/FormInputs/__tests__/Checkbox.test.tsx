@@ -1,5 +1,5 @@
 import { axe } from 'jest-axe';
-import { fireEvent, prettyDOM, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Checkbox from '../Checkbox';
 
