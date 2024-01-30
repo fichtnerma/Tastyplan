@@ -24,9 +24,9 @@ const AddNameAndImage = ({ currentName, currentImage, onNameChange, onUploadedIm
     };
 
     return (
-        <fieldset>
+        <fieldset data-testid="imgDragDrop-fieldset">
             <legend className="h3">Add name and image</legend>
-            <div className="p-2 pt-0 pb-8">
+            <div className="p-2 pt-0 pb-8" data-testid="input-wrapper">
                 <TextInput value={name} required onChange={handleNameChange} label="Name" />
                 {!image && (
                     <label className="block mt-5 mb-1" htmlFor="uploadImg">

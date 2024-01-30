@@ -42,7 +42,6 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
     const [amount, setAmount] = useState(1);
     const [selectedUnit, setSelectedUnit] = useState<UnitOption | undefined>(defaultUnit);
     const [ingredients, setIngredients] = useState<Ingredient[]>(currentIngredients);
-    // const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
     const handleAddIngredient = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
@@ -97,29 +96,34 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
     };
 
     return (
-        <fieldset className="overflow-x-auto h-full">
+        <fieldset className="overflow-x-auto h-full" data-testid="fieldset">
             <legend className="h3">Add ingredients</legend>
-            <div className=" pb-8 p-2 pt-0">
+            <div className="pb-8 p-2 pt-0">
                 <div className="flex gap-5 flex-wrap mb-5">
                     {ingredients.map((ingredient) => (
-                        <>
-                            <div className="btn-primary-unobtrusive btn-small !items-center !flex gap-1">
-                                <strong>
-                                    {ingredient.quantity} {ingredient.unit}
-                                </strong>{' '}
-                                {ingredient.ingredient?.name}
-                                <button onClick={() => handleDelete(ingredient.id)} className="my-auto">
-                                    <Icon icon="close"></Icon>
-                                </button>
-                            </div>
-                        </>
+                        <div
+                            key={ingredient.id}
+                            className="btn-primary-unobtrusive btn-small !items-center !flex gap-1"
+                            data-testid={'ingredient-wrapper'}
+                        >
+                            <strong>
+                                {ingredient.quantity} {ingredient.unit}
+                            </strong>{' '}
+                            {ingredient.ingredient?.name}
+                            <button
+                                onClick={() => handleDelete(ingredient.id)}
+                                className="my-auto"
+                                data-testid="remove-ingredient-btn"
+                            >
+                                <Icon icon="close"></Icon>
+                            </button>
+                        </div>
                     ))}
                 </div>
                 <div className="flex flex-wrap w-full gap-5">
                     <div className="flex flex-col w-full lg:w-1/2">
-                        <label htmlFor="selectIngredient">Search ingredient *</label>
                         <IngredientSearch
-                            id="selectedIngredient"
+                            id="selectIngredient"
                             selectedOption={selectedIngredient}
                             onIngredient={setSelectedIngredient}
                         />
@@ -143,6 +147,7 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
                                 value: selectedUnit ? selectedUnit.value : '',
                             }}
                             id="unit"
+                            inputId="selectUnit"
                             aria-label="unit"
                             aria-labelledby="unit"
                             onChange={handleUnitChange}
@@ -152,8 +157,10 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
                     </div>
                     <button
                         className="btn-primary !p-4 h-fit my-auto"
+                        role="button"
                         onClick={handleAddIngredient}
                         disabled={!selectedUnit || amount === 0 || selectedIngredient === undefined}
+                        data-testid="add-ingredient-btn"
                     >
                         <Icon icon="check" size={20}></Icon>
                     </button>
