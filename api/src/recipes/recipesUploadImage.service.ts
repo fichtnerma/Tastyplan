@@ -7,24 +7,13 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 export class RecipesUploadImageService {
     async uploadImageToS3(buffer: Buffer) {
         // Create a new instance of S3
-        const s3 = new S3({
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-            region: process.env.AWS_REGION,
-        });
+        const s3 = this.createS3Object();
 
         // Create random file name
         const fileName = crypto.randomBytes(10).toString('hex') + '.jpg';
 
         // Set up the parameters for the S3 upload
-        const uploadParams = {
-            Bucket: process.env.AWS_BUCKET_NAME,
-            Key: fileName,
-            Body: buffer,
-            ContentType: 'image/jpg',
-            ACL: 'public-read', // Make the file publicly accessible
-        };
-        console.log('Uploading file to S3: ', uploadParams);
+        const uploadParams = this.createS3UploadParams(fileName, buffer);
 
         try {
             const data = await s3.upload(uploadParams).promise();
@@ -76,5 +65,23 @@ export class RecipesUploadImageService {
         } catch (error) {
             console.log('Error resizing image: ', error);
         }
+    }
+
+    createS3Object() {
+        return new S3({
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            region: process.env.AWS_REGION,
+        });
+    }
+
+    createS3UploadParams(fileName: string, buffer: Buffer) {
+        return {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: fileName,
+            Body: buffer,
+            ContentType: 'image/jpg',
+            ACL: 'public-read', // Make the file publicly accessible
+        };
     }
 }
