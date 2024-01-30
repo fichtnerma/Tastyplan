@@ -28,6 +28,7 @@ export default function DislikeList({ dislikes, onDeleteChoice }: DislikeListPro
                             </p>
 
                             <a
+                                data-testid={`remove-${dislike.name}`}
                                 className="cursor-pointer"
                                 onClick={() => onDeleteChoice(dislike.name)}
                                 data-anchor={dislike.name}
