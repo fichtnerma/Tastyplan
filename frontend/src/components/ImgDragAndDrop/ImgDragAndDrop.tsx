@@ -96,7 +96,7 @@ const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropPro
     };
 
     return (
-        <div>
+        <div data-testid="imgDragAndDrop-wrapper">
             {!uploadedImg && (
                 <div {...getRootProps({ style })}>
                     <input {...getInputProps()} id="uploadImg" />

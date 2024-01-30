@@ -72,6 +72,7 @@ export default function TextInput({
                         } h-10 w-full border-gray-700 rounded-xl`}
                         type={type}
                         id={id}
+                        role="textbox"
                         placeholder={placeholder}
                         value={value}
                         onBlur={onBlur ? onBlur : handleBlur}
