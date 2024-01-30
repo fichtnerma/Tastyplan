@@ -26,11 +26,12 @@ const SortableStep = ({ step, index, onDelete }: SortableStepProps) => {
 
     return (
         <div className="flex mb-5">
-            <li
+            <div
                 className="basis-[95%] flex justify-between items-center pb-2 border-gray-custom3 border-b-2 border-solid"
                 ref={setNodeRef}
-                style={style}
                 {...attributes}
+                role=''
+                style={style}
                 {...listeners}
             >
                 <div>
@@ -43,9 +44,9 @@ const SortableStep = ({ step, index, onDelete }: SortableStepProps) => {
                     <span className="block h-[2px] w-full bg-gray-custom3 rounded-[2px]"></span>
                     <span className="block h-[2px] w-full bg-gray-custom3 mt-[4px] rounded-[2px]"></span>
                 </div>
-            </li>
+            </div>
             <div className="basis-[5%] flex items-center justify-end">
-                <button className="mb-[12px]" onClick={() => onDelete(step.id)}>
+                <button className="mb-[12px]" aria-label='button' data-testid="delete-btn" onClick={() => onDelete(step.id)}>
                     <Icon icon="close" classNames="text-gray-custom3"></Icon>
                 </button>
             </div>
@@ -119,7 +120,7 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
             <legend className="h3">Add the Steps</legend>
             <div className="flex w-full">
                 <div className="mb-4 bg-green-custom4 rounded-[30px] overflow-x-auto pb-8 p-2 lg:p-4 lg:w-1/3 w-full">
-                    <ol className="lg:block lg:max-h-[330px]">
+                    <div className="lg:block lg:max-h-[330px]">
                         <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
                             <SortableContext
                                 items={steps.map((step: CustomStep) => step.id)}
@@ -130,7 +131,7 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
                                 ))}
                             </SortableContext>
                         </DndContext>
-                    </ol>
+                    </div>
                     <div className="block lg:hidden">
                         <button className="flex items-center mx-auto my-0" onClick={handleOpenDialog}>
                             <Icon size={20} icon="addCircle" color="#007370" />
