@@ -57,7 +57,7 @@ export class RecipesService {
         }[],
     ) {
         const omnivoreCategories = ['Meat and sausage products', 'Meat and offal'];
-        const pescetaraianCategories = ['Fish'];
+        const pescetarianCategories = ['Fish'];
         const vegetarianCategories = ['Milk and dairy products', 'Eggs'];
 
         const omnivoreSubCategories = [
@@ -74,7 +74,7 @@ export class RecipesService {
             'Beef',
             'Pig',
         ];
-        const pescetaraianSubCategories = [
+        const pescetarianSubCategories = [
             'Sea fish',
             'Freshwater fish',
             'Freshwater fish,Fish',
@@ -106,29 +106,30 @@ export class RecipesService {
                     omnivoreCategories.includes(curr.categories) ||
                     omnivoreSubCategories.includes(curr.subcategories)
                 ) {
-                    acc.splice(acc.indexOf('pescetarian'), 1);
-                    acc.splice(acc.indexOf('vegetarian'), 1);
-                    acc.splice(acc.indexOf('vegan'), 1);
+                    acc = acc.filter((diet) => diet !== 'pescetarian' && diet !== 'vegetarian' && diet !== 'vegan');
+                    acc.push('omnivore');
                 }
                 if (
-                    pescetaraianCategories.includes(curr.categories) ||
-                    pescetaraianSubCategories.includes(curr.subcategories)
+                    pescetarianCategories.includes(curr.categories) ||
+                    pescetarianSubCategories.includes(curr.subcategories)
                 ) {
-                    acc.splice(acc.indexOf('vegetarian'), 1);
-                    acc.splice(acc.indexOf('vegan'), 1);
+                    acc = acc.filter((diet) => diet !== 'vegetarian' && diet !== 'vegan');
+                    acc.push('pescetarian');
                 }
                 if (
                     vegetarianCategories.includes(curr.categories) ||
                     vegetarianSubCategories.includes(curr.subcategories)
                 ) {
-                    acc.splice(acc.indexOf('vegan'), 1);
+                    acc = acc.filter((diet) => diet !== 'vegan');
+                    acc.push('vegetarian');
                 }
+
                 return acc;
             },
             ['omnivore', 'pescetarian', 'vegetarian', 'vegan'],
         );
 
-        return formOfDiet.at(-1) || 'omnivore';
+        return formOfDiet[formOfDiet.length - 1] || 'omnivore';
     }
 
     async getRecommendations(k: number, preferances: Preferences, id: string) {

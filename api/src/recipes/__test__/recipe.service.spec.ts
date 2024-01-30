@@ -290,6 +290,38 @@ describe('RecipeService', () => {
         expect(service.formatRecipes(inputRecipes)).toEqual(expectedRecipes);
     });
     it('categorizeRecipe => Should return a list of categorized Resipes', () => {
-        expect(true).toEqual(true);
+        const exampleIngredientsVegan = [
+            { categories: 'Fruits', subcategories: 'Apples' },
+            { categories: 'Vegetables', subcategories: 'Carrots' },
+        ];
+        const expectedFormOfDietVegan = 'vegan';
+        expect(service.categorizeRecipe(exampleIngredientsVegan)).toEqual(expectedFormOfDietVegan);
+
+        const exampleIngredientsVegeterian = [
+            { categories: 'Milk and dairy products', subcategories: 'Milk' },
+            { categories: 'Eggs', subcategories: 'Chicken eggs' },
+            { categories: 'Fruits', subcategories: 'Apples' },
+            { categories: 'Vegetables', subcategories: 'Carrots' },
+        ];
+        const expectedFormOfDietVegeterien = 'vegetarian';
+        expect(service.categorizeRecipe(exampleIngredientsVegeterian)).toEqual(expectedFormOfDietVegeterien);
+
+        const exampleIngredientsPesceterian = [
+            { categories: 'Milk and dairy products', subcategories: 'Milk' },
+            { categories: 'Eggs', subcategories: 'Chicken eggs' },
+            { categories: 'Fruits', subcategories: 'Apples' },
+            { categories: 'Vegetables', subcategories: 'Carrots' },
+            { categories: 'Fish', subcategories: 'Salmon' },
+        ];
+        const expectedFormOfDietPescetarian = 'pescetarian';
+        expect(service.categorizeRecipe(exampleIngredientsPesceterian)).toEqual(expectedFormOfDietPescetarian);
+
+        const exampleIngredientsOmnivore = [
+            { categories: 'Meat', subcategories: 'Beef' },
+            { categories: 'Fruits', subcategories: 'Apples' },
+            { categories: 'Vegetables', subcategories: 'Carrots' },
+        ];
+        const expectedFormOfDietOmnivore = 'omnivore';
+        expect(service.categorizeRecipe(exampleIngredientsOmnivore)).toEqual(expectedFormOfDietOmnivore);
     });
 });
