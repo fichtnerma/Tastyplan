@@ -15,17 +15,7 @@ const NumberInput = ({ label, placeholder, id, value, min = 0, max, required, on
     const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
 
-        // if (value.toString().startsWith('0')) {
-        //     setErrorMessage('Choose a valid number');
-        //     return;
-        // }
-
         const parsedValue = +value;
-
-        if (isNaN(parsedValue)) {
-            setErrorMessage('Choose a valid number');
-            return;
-        }
 
         if (onChange) {
             onChange(parsedValue);
@@ -40,33 +30,38 @@ const NumberInput = ({ label, placeholder, id, value, min = 0, max, required, on
     };
 
     return (
-        <div>
+        <>
             <div className="flex flex-col">
-                {label && (
-                    <label htmlFor={id}>
-                        {label}
-                        {required ? ' *' : ''}
-                    </label>
-                )}
-                <input
-                    className={`h-[45px] pl-4 pr-4 border-solid border-[3px] rounded-[15px] bg-white-custom border-green-custom2`}
-                    style={{ borderColor: errorMessage && '#d54444' }}
-                    type="number"
-                    role="spinbutton"
-                    id={id}
-                    placeholder={placeholder}
-                    value={value}
-                    min={min}
-                    step={0.5}
-                    max={max}
-                    onChange={handleNumberChange}
-                    onBlur={handleBlur}
-                />
+                <label
+                    className="flex flex-col"
+                    htmlFor={id}
+                    data-testid="number-input-label"
+                    aria-label="number-input"
+                >
+                    {label}
+                    {required ? ' *' : ''}
+                    <input
+                        className={`h-[45px] pl-4 pr-4 border-solid border-[3px] rounded-[15px] bg-white-custom border-green-custom2`}
+                        style={{ borderColor: errorMessage && '#d54444' }}
+                        type="number"
+                        id={id}
+                        placeholder={placeholder}
+                        value={value}
+                        min={min}
+                        step={0.5}
+                        max={max}
+                        onChange={handleNumberChange}
+                        onBlur={handleBlur}
+                    />
+                </label>
             </div>
-            <span className={`${errorMessage} ? '' : 'hidden'} text-red-custom text-[0.75rem] mt-[0.25rem]`}>
+            <span
+                className={`${errorMessage} ? '' : 'hidden'} text-red-custom text-[0.75rem] mt-[0.25rem]`}
+                data-testid="number-input-error-msg"
+            >
                 {errorMessage}
             </span>
-        </div>
+        </>
     );
 };
 
