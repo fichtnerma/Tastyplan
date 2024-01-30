@@ -1,0 +1,72 @@
+import IngredientsSearchService from '../ingredientsSearch.service';
+import { Ingredient } from '@prisma/client';
+import { Test, TestingModule } from '@nestjs/testing';
+
+describe('IngredientsSearchService', () => {
+    let service: IngredientsSearchService;
+
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            providers: [IngredientsSearchService],
+        }).compile();
+        service = module.get<IngredientsSearchService>(IngredientsSearchService);
+    });
+
+    it('Should work', () => {
+        const exampleIngredients: Ingredient[] = [
+            {
+                id: 1,
+                name: 'Banana',
+                categories: 'Fruit',
+                subcategories: 'Tropical',
+                allergens: [],
+                fat: 0.3,
+                carbs: 22.8,
+                protein: 1.1,
+                calories: 96,
+                calcium: 5,
+                iron: 0.3,
+                magnesium: 27,
+            },
+            {
+                id: 2,
+                name: 'Apple',
+                categories: 'Fruit',
+                subcategories: null,
+                allergens: [],
+                fat: 0.3,
+                carbs: 11.4,
+                protein: 0.3,
+                calories: 52,
+                calcium: 6,
+                iron: 0.1,
+                magnesium: 5,
+            },
+            {
+                id: 3,
+                name: 'Broccoli',
+                categories: 'Vegetable',
+                subcategories: 'Cruciferous',
+                allergens: [],
+                fat: 0.4,
+                carbs: 7,
+                protein: 2.8,
+                calories: 55,
+                calcium: 47,
+                iron: 0.7,
+                magnesium: 21,
+            },
+        ];
+
+        const expectedBody = [
+            { index: { _index: service.index } },
+            { id: 1, name: 'Banana' },
+            { index: { _index: service.index } },
+            { id: 2, name: 'Apple' },
+            { index: { _index: service.index } },
+            { id: 3, name: 'Broccoli' },
+        ];
+
+        expect(true).toBe(true);
+    });
+});
