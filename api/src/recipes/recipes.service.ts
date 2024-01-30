@@ -165,9 +165,21 @@ export class RecipesService {
     async postRecipe(postRecipeDto: PostRecipeDto) {
         let imgPath = '';
         let imgName = '';
+        let processedImageBuffer: Buffer;
 
         if (postRecipeDto.imageBase64) {
-            const processedImageBuffer = await this.processImage(postRecipeDto.imageBase64);
+            try {
+                //Testable
+                processedImageBuffer = this.processImageBuffer(postRecipeDto.imageBase64);
+                if (processedImageBuffer.length > 1048576) {
+                    throw new Error('Image is too large. Please upload an image smaller than 1MB.');
+                }
+                //Testable
+                await this.recipesUploadImageService.resizeAndCropImage(processedImageBuffer);
+            } catch (error) {
+                console.error(error);
+                throw new InternalServerErrorException('Error: Processing base64 string failed!');
+            }
             [imgPath, imgName] = await this.uploadImage(processedImageBuffer);
         } else {
             imgPath = 'RecipeStockImage.jpg';
@@ -203,9 +215,8 @@ export class RecipesService {
             throw new InternalServerErrorException('Error: Processing base64 string failed!');
         }
     }
-    async processImageBuffer(base64String: string) {
-        const decodedImageBuffer = Buffer.from(base64String, 'base64');
-        return await this.recipesUploadImageService.resizeAndCropImage(decodedImageBuffer);
+    processImageBuffer(base64String: string) {
+        return Buffer.from(base64String, 'base64');
     }
     async uploadImage(processedImageBuffer: Buffer): Promise<string[]> {
         try {

@@ -56,7 +56,6 @@ export class WeekplanController {
     createForDate(@Req() request: RequestWithUser, @Body() createByDateDto: CreateByDateDto) {
         const user = request.user as User;
         const dateObj = new Date(createByDateDto.date);
-        console.log({ createByDateDto });
 
         return this.weekplanService.createFutureWeekplan(user.userId, dateObj, createByDateDto.shouldReplace);
     }

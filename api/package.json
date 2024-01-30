@@ -125,7 +125,10 @@
         "reporters": [
             "default",
             "jest-junit"
-        ]
+        ],
+        "moduleNameMapper": {
+            "^src/(.*)$": "<rootDir>/$1"
+        }
     },
     "jest-junit": {
         "suiteName": "jest tests",
