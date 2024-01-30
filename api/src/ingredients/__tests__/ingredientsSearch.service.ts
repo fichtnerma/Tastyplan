@@ -67,6 +67,6 @@ describe('IngredientsSearchService', () => {
             { id: 3, name: 'Broccoli' },
         ];
 
-        expect(true).toBe(true);
+        expect(service.createElasticSearchBody(exampleIngredients)).toEqual(expectedBody);
     });
 });
