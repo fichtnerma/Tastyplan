@@ -31,20 +31,24 @@ const IngredientSearch = ({ onIngredient, selectedOption, id }: IngredientSearch
         callback(options);
     };
     return (
-        <AsyncSelect
-            id={id}
-            value={{
-                label: selectedOption ? selectedOption.label : '',
-                value: selectedOption ? selectedOption.value : '',
-            }}
-            cacheOptions
-            // @ts-ignore
-            styles={selectStyleOptions}
-            // @ts-ignore
-            loadOptions={ingredientOptions}
-            //@ts-ignore
-            onChange={onIngredient}
-        />
+        <div>
+            <label htmlFor={id}>Search ingredient *</label>
+            <AsyncSelect
+                inputId={id}
+                name={id}
+                value={{
+                    label: selectedOption ? selectedOption.label : '',
+                    value: selectedOption ? selectedOption.value : '',
+                }}
+                cacheOptions
+                // @ts-ignore
+                styles={selectStyleOptions}
+                // @ts-ignore
+                loadOptions={ingredientOptions}
+                //@ts-ignore
+                onChange={onIngredient}
+            />
+        </div>
     );
 };
 
