@@ -1,5 +1,3 @@
-import selectEvent from 'react-select-event';
-import userEvent from '@testing-library/user-event';
 import { fireEvent, render, screen } from '@testing-library/react';
 import AddIngredients from '../AddIngredients';
 
