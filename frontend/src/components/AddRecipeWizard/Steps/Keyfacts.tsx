@@ -49,6 +49,7 @@ type KeyfactsProps = {
     onServings: (servings: number) => void;
     onFoodLifestyle: (lifestyle: string) => void;
     onTags: (tags: SelectOption[]) => void;
+    useFetchAuth: typeof useFetchWithAuth;
 };
 const Keyfacts = ({
     currentTotalTime,
@@ -59,12 +60,13 @@ const Keyfacts = ({
     onServings,
     onFoodLifestyle,
     onTags,
+    useFetchAuth = useFetchWithAuth,
 }: KeyfactsProps) => {
     const [cookingTime, setCookingTime] = useState(currentTotalTime);
     const [servings, setServings] = useState(currentServings);
     const [selectedFormOfDiet, setSelectedFormOfDiet] = useState<SelectOption>(currentSelectedOption);
     const [tagOptions, setTagOptions] = useState<SelectOption[]>([]);
-    const { data } = useFetchWithAuth('/service/recipes/tags') as unknown as {
+    const { data } = useFetchAuth('/service/recipes/tags') as unknown as {
         data: string[];
         error: unknown;
     };
@@ -137,6 +139,7 @@ const Keyfacts = ({
                         <button
                             id="increasePortion"
                             type="button"
+                            data-testid="increasePortion"
                             className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0 mr-5"
                             onClick={() => handleServingsChange(servings + 1)}
                         >
