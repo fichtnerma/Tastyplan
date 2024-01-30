@@ -52,6 +52,7 @@ const NumberInput = ({ label, placeholder, id, value, min = 0, max, required, on
                     className={`h-[45px] pl-4 pr-4 border-solid border-[3px] rounded-[15px] bg-white-custom border-green-custom2`}
                     style={{ borderColor: errorMessage && '#d54444' }}
                     type="number"
+                    role="spinbutton"
                     id={id}
                     placeholder={placeholder}
                     value={value}
