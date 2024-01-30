@@ -5,6 +5,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class RecipesUploadImageService {
+    //TODO: Write unit test
     async uploadImageToS3(buffer: Buffer) {
         // Create a new instance of S3
         const s3 = new S3({
@@ -56,6 +57,7 @@ export class RecipesUploadImageService {
         }
     }
 
+    //TODO: Write test
     async resizeAndCropImage(buffer: Buffer): Promise<Buffer> {
         try {
             const image = sharp(buffer);

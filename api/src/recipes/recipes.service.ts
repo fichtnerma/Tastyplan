@@ -2,7 +2,7 @@ import { RecipesUploadImageService } from './recipesUploadImage.service';
 import { RecipesSearchService } from './recipesSearch.service';
 import { Preferences, RecipesFilterService } from './recipesFilter.service';
 import { RecipeQueries } from './recipe.queries';
-import { ExtendetRecipe, RecipeInput, CreateRecipeInput } from './recipe.interface';
+import { ExtendetRecipe, RecipeWithIngredientName, RecipeInput, CreateRecipeInput } from './recipe.interface';
 import { PostRecipeDto } from './dto/post-recipe.dto';
 import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
 import { Cache } from 'cache-manager';
@@ -34,11 +34,7 @@ export class RecipesService {
 
     async storeInRedis() {
         const recipes = await this.recipeQueries.findManyRecipes();
-
-        const recipesFormatted = recipes.map((recipe) => ({
-            ...recipe,
-            ingredients: recipe.ingredients.map((ingredient) => ({ ...ingredient, name: ingredient.ingredient.name })),
-        }));
+        const recipesFormatted = this.formatRecipes(recipes);
         await this.cache.set('recipes', recipesFormatted, 0);
     }
 
@@ -54,7 +50,7 @@ export class RecipesService {
         await this.recipeQueries.upsertRecipe(extendedRecipe, recipeId);
     }
 
-    async categorizeRecipe(
+    categorizeRecipe(
         ingredients: {
             categories: string;
             subcategories: string;
@@ -169,12 +165,10 @@ export class RecipesService {
 
         if (postRecipeDto.imageBase64) {
             try {
-                //Testable
-                processedImageBuffer = this.processImageBuffer(postRecipeDto.imageBase64);
+                processedImageBuffer = this.processToImageBuffer(postRecipeDto.imageBase64);
                 if (processedImageBuffer.length > 1048576) {
                     throw new Error('Image is too large. Please upload an image smaller than 1MB.');
                 }
-                //Testable
                 await this.recipesUploadImageService.resizeAndCropImage(processedImageBuffer);
             } catch (error) {
                 console.error(error);
@@ -203,19 +197,7 @@ export class RecipesService {
         return await this.recipeSearchService.getTags();
     }
 
-    async processImage(imageBase64: string): Promise<Buffer> {
-        try {
-            const processedImageBuffer = await this.processImageBuffer(imageBase64);
-            if (processedImageBuffer.length > 5242880) {
-                throw new Error('Image is too large. Please upload an image smaller than 5MB.');
-            }
-            return processedImageBuffer;
-        } catch (error) {
-            console.error(error);
-            throw new InternalServerErrorException('Error: Processing base64 string failed!');
-        }
-    }
-    processImageBuffer(base64String: string) {
+    processToImageBuffer(base64String: string) {
         return Buffer.from(base64String, 'base64');
     }
     async uploadImage(processedImageBuffer: Buffer): Promise<string[]> {
@@ -225,5 +207,12 @@ export class RecipesService {
             console.error(error);
             throw new InternalServerErrorException('Error: Uploading Image to Cloud failed!');
         }
+    }
+
+    formatRecipes(recipes: RecipeWithIngredientName[]) {
+        return recipes.map((recipe) => ({
+            ...recipe,
+            ingredients: recipe.ingredients.map((ingredient) => ({ ...ingredient, name: ingredient.ingredient.name })),
+        }));
     }
 }

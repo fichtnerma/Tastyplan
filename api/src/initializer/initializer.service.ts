@@ -179,7 +179,7 @@ export class InitializerService implements OnApplicationBootstrap {
                     subcategories: true,
                 },
             });
-            const formOfDiet = await this.recipeService.categorizeRecipe(ing);
+            const formOfDiet = this.recipeService.categorizeRecipe(ing);
             return {
                 ...recipe,
                 id: index + 1,

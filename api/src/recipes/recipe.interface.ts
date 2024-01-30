@@ -1,3 +1,4 @@
+import { IngredientWithAmount } from '@prisma/client';
 import { Recipe, Step } from '@prisma/client';
 
 export type ExtendetRecipe = Omit<Recipe, 'id'> & {
@@ -36,4 +37,13 @@ export type CreateRecipeInput = {
         stepCount: number;
     }[];
     userId?: string | null;
+};
+
+export type RecipeWithIngredientName = Recipe & {
+    steps: Step[];
+    ingredients: (IngredientWithAmount & {
+        ingredient: {
+            name: string;
+        };
+    })[];
 };
