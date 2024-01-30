@@ -42,6 +42,7 @@ export class RecipesSearchService {
             const indexExists = await this.elasticsearchService.indices.exists({ index: this.index });
             if (indexExists.body.valueOf()) await this.elasticsearchService.indices.delete({ index: this.index });
             await this.elasticsearchService.indices.create({ index: this.index });
+            //TODO: Could be tested in Unit test
             const body = recipes.flatMap((recipe) => [
                 { index: { _index: this.index } },
                 {

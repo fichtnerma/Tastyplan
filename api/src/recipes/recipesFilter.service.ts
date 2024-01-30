@@ -29,6 +29,7 @@ export class RecipesFilterService {
 
     async filterByQuery(filterQuery: Preferences, recipeIds?: number[]) {
         // const preferences = await this.preferencesService.getPreferences(userId);
+        //TODO: Could be tested in Unit test
         const { formOfDiet, allergens, days, wantsDinner, wantsLunch } = filterQuery;
         const dislikedIngredients = filterQuery.foodDislikes.map((item: Ingredient) => item.id);
         try {
