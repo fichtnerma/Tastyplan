@@ -12,7 +12,7 @@ const props = {
     onUploadedImgChange: fnMock,
 };
 
-describe('Text Input', () => {
+describe('AddNameAndImage component', () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
