@@ -9,24 +9,46 @@ type CheckboxProps = {
 };
 
 function Checkbox({ groupName, customCheckbox, handleChange, disabled }: CheckboxProps) {
-    return (
-        <label htmlFor={customCheckbox.id} className={styles.formControl}>
-            <input
-                type="checkbox"
-                name={groupName}
-                id={customCheckbox.id}
-                value={customCheckbox.value}
-                onChange={() => {
-                    if (!disabled)
-                        return handleChange(customCheckbox.id, customCheckbox.value, !customCheckbox.checked);
-                }}
-                checked={disabled ? true : customCheckbox.checked}
-                disabled={disabled}
-                data-cy={`${groupName}-${customCheckbox.label}-checkbox`}
-            />
-            <span className="checkbox-label">{customCheckbox.label}</span>
-        </label>
-    );
+    if (disabled)
+        return (
+            <label htmlFor={customCheckbox.id} className={styles.formControl}>
+                <input
+                    type="checkbox"
+                    role="checkbox"
+                    name={groupName}
+                    id={customCheckbox.id}
+                    value={customCheckbox.value}
+                    onChange={() => {
+                        if (!disabled)
+                            return handleChange(customCheckbox.id, customCheckbox.value, !customCheckbox.checked);
+                    }}
+                    checked={customCheckbox.checked}
+                    disabled
+                    data-cy={`${groupName}-${customCheckbox.label}-checkbox`}
+                />
+                <span className="checkbox-label">{customCheckbox.label}</span>
+            </label>
+        );
+    else {
+        return (
+            <label htmlFor={customCheckbox.id} className={styles.formControl}>
+                <input
+                    type="checkbox"
+                    role="checkbox"
+                    name={groupName}
+                    id={customCheckbox.id}
+                    value={customCheckbox.value}
+                    onChange={() => {
+                        if (!disabled)
+                            return handleChange(customCheckbox.id, customCheckbox.value, !customCheckbox.checked);
+                    }}
+                    checked={customCheckbox.checked}
+                    data-cy={`${groupName}-${customCheckbox.label}-checkbox`}
+                />
+                <span className="checkbox-label">{customCheckbox.label}</span>
+            </label>
+        );
+    }
 }
 
 export default Checkbox;

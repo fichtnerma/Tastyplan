@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CustomCheckboxInput } from 'src/types/types';
-import RadioButton from '../Radiobutton';
+import RadioButton from './Radiobutton';
 
 type RadioBtnProps = {
     groupName: string;

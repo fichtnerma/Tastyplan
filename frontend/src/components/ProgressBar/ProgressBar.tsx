@@ -8,7 +8,7 @@ type Props = {
     onClick: (elementName: string) => void;
 };
 
-function ProgressBar({ stepNames, activeStep, stepIsDone: stepIsDone, onClick }: Props) {
+function ProgressBar({ stepNames, activeStep, stepIsDone, onClick }: Props) {
     const [numbersArr, setNumbersArr] = useState<number[]>([]);
 
     useEffect(() => {

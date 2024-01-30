@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
+import CheckboxGroup from '@components/FormInputs/CheckboxGroup';
 import { fetchWithAuth, mapShoppingListToSelection } from '@helpers/utils';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { CategorizedIngredients, CustomCheckboxInput, CustomSelectionInputGroups } from 'src/types/types';

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Icon from '@components/Icon/Icon';
-import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
+import CheckboxGroup from '@components/FormInputs/CheckboxGroup';
 import { CustomCheckboxInput } from 'src/types/types';
 import styles from './WeekplanConfig.module.scss';
 
