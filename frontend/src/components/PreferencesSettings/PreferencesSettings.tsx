@@ -267,7 +267,7 @@ export default function PreferencesSettings({
             >
                 <button
                     data-testid="button"
-                    className="lg:pl-8 pb-2"
+                    className="lg:pl-8 pb-4"
                     onClick={handleAllergensState}
                     aria-label="add or remove"
                 >
