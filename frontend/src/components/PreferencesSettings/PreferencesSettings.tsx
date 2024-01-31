@@ -188,7 +188,7 @@ export default function PreferencesSettings({
     };
 
     return (
-        <div className="lg:pt-6" onClick={handleClickOnListAndInput}>
+        <div data-testid="click" className="lg:pt-6" onClick={handleClickOnListAndInput}>
             <h5 className="mb-3">Your Food Lifestyle</h5>
             <div className="lg:w-1/2 lg:pb-6 pb-4 lg:pl-8">
                 <div
@@ -210,6 +210,7 @@ export default function PreferencesSettings({
                         value={selectedDiet}
                     />
                     <label
+                        data-testid={selectedDiet}
                         htmlFor={selectedDiet}
                         className={`absolute top-0 right-0 bottom-0 left-0 hover:cursor-pointer flex flex-col items-left justify-center border-2 border-solid border-green-custom1 rounded-2xl z-[1] font-medium text-[1.13rem] leading-7 pl-6 col-start-1 ${styles.customLabel}`}
                         onClick={handleDropDownState}
@@ -224,7 +225,7 @@ export default function PreferencesSettings({
                     </button>
                 </div>
                 {dropDownState == true && (
-                    <div ref={dropdownRef} className="rounded-2xl">
+                    <div data-testid="dropdown" ref={dropdownRef} className="rounded-2xl">
                         {foodDietPreferences.map((preference) => (
                             <p
                                 key={preference.food}
@@ -264,7 +265,12 @@ export default function PreferencesSettings({
                     color: 'var(--green-dark)',
                 }}
             >
-                <button className="lg:pl-8 pb-2" onClick={handleAllergensState} aria-label="add or remove">
+                <button
+                    data-testid="button"
+                    className="lg:pl-8 pb-4"
+                    onClick={handleAllergensState}
+                    aria-label="add or remove"
+                >
                     {addAllergens == true ? (
                         <Icon size={34} icon="minusCircle"></Icon>
                     ) : (

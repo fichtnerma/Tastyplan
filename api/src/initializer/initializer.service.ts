@@ -2,6 +2,7 @@ import { RecipesSearchService } from 'src/recipes/recipesSearch.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
+import { InnitializerIngredient } from 'src/ingredients/ingredient.interface';
 import { convertIngredientAmount } from 'src/helpers/converter.utils';
 import { log } from 'console';
 import { Ingredient, Recipe, Step } from '@prisma/client';
@@ -135,7 +136,6 @@ export class InitializerService implements OnApplicationBootstrap {
     }
 
     async prepareRecipeData(recipe: RecipeWithIngredients, index: number) {
-        const recipeIngMapping: unknown[] = [];
         try {
             const recipeJson = await fetch(`${process.env.RECOMMENDER_URL}/mapping`, {
                 method: 'POST',
@@ -145,29 +145,7 @@ export class InitializerService implements OnApplicationBootstrap {
 
             const recipeMapped = await recipeJson.json();
 
-            for (let index = 0; index < recipe.ingredients.length; index++) {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const ing = recipe.ingredients[index] as any;
-                const mapped = recipeMapped[index];
-                const mappedIng = {
-                    ingredient: ing.name,
-                    mapped: mapped.name,
-                };
-
-                recipeIngMapping.push(mappedIng);
-            }
-
-            const ingredientsMapped = recipeMapped.map(
-                (ing: { ingredientId: number; quantity: string; unit: string; condition: string }) => {
-                    const convertedIngrAmount = convertIngredientAmount(ing, recipe.servings);
-                    return {
-                        ingredientId: ing.ingredientId,
-                        quantity: convertedIngrAmount.quantity || null,
-                        unit: convertedIngrAmount.unit,
-                        condition: ing.condition,
-                    };
-                },
-            );
+            const ingredientsMapped = this.mapIngredients(recipeMapped);
             const ing = await this.prismaService.ingredient.findMany({
                 where: {
                     id: {
@@ -190,5 +168,17 @@ export class InitializerService implements OnApplicationBootstrap {
             console.log('Recipe: ', recipe.name, 'with index: ', index + 1, 'failed');
             console.log(error);
         }
+    }
+
+    mapIngredients(recipeMapped: InnitializerIngredient[]) {
+        return recipeMapped.map((ing: { ingredientId: number; quantity: string; unit: string; condition: string }) => {
+            const convertedIngrAmount = convertIngredientAmount(ing);
+            return {
+                ingredientId: ing.ingredientId,
+                quantity: convertedIngrAmount.quantity || null,
+                unit: convertedIngrAmount.unit,
+                condition: ing.condition,
+            };
+        });
     }
 }

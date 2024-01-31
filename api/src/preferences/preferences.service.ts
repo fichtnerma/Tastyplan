@@ -1,5 +1,4 @@
 import { PreferencesQueries } from './preferences.queries';
-import { IPreferences } from './preferences.interface';
 import { PreferencesDto } from './dto/createPreferences.dto';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 
@@ -15,15 +14,9 @@ export class PreferencesService {
                 return { id: ingredient.id };
             });
             const ingredientIds = await Promise.all(CheckIngredientsPromise);
-            const preferences: IPreferences = {
-                formOfDiet: createPreferencesDto.formOfDiet,
-                allergens: [...createPreferencesDto.allergens],
-                foodDislikes: { connect: [...ingredientIds] },
-                days: [...createPreferencesDto.days],
-                wantsLunch: createPreferencesDto.wantsLunch,
-                wantsDinner: createPreferencesDto.wantsDinner,
-                servings: createPreferencesDto.servings,
-            };
+
+            const preferences = this.formatPreferences(createPreferencesDto, ingredientIds);
+
             await Promise.all([this.preferencesQueries.upsertPreferences(userId, preferences)]);
             return 'Preferences has been send successfully';
         } catch (error) {
@@ -37,5 +30,17 @@ export class PreferencesService {
         } catch (error) {
             throw new InternalServerErrorException('Error: Getting the preferences failed');
         }
+    }
+
+    formatPreferences(preferences: PreferencesDto, ingredientIds: { id: number }[]) {
+        return {
+            formOfDiet: preferences.formOfDiet,
+            allergens: [...preferences.allergens],
+            foodDislikes: { connect: [...ingredientIds] },
+            days: [...preferences.days],
+            wantsLunch: preferences.wantsLunch,
+            wantsDinner: preferences.wantsDinner,
+            servings: preferences.servings,
+        };
     }
 }
