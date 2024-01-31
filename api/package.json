@@ -137,7 +137,8 @@
             ".*\\.controller\\.ts$",
             ".*\\.queries\\.ts$",
             ".*\\.module\\.ts$",
-            ".*\\.dto\\.ts$"
+            ".*\\.dto\\.ts$",
+            "main.ts"
         ]
     },
     "jest-junit": {
