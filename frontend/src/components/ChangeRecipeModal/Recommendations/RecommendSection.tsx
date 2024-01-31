@@ -34,6 +34,10 @@ export default function RecommendSection({ isActive, recipeId }: RecommendSectio
                         getRecipes();
                     }}
                     aria-label="switch recipes"
+                    onKeyDown={(e) => {
+                        if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift')) return;
+                        getRecipes();
+                    }}
                 >
                     <Icon classNames="w-4 h-4 sm:w-6 sm:h-6" icon="switch"></Icon>
                 </button>

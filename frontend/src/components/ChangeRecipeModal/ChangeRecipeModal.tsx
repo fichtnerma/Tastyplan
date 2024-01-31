@@ -134,6 +134,11 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
                                     className={`btn badge ${
                                         mode.at(-1) === 'recommend' && 'active'
                                     } background badge-lg`}
+                                    onKeyDown={(e) => {
+                                        if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift'))
+                                            return;
+                                        switchMode('recommend');
+                                    }}
                                 >
                                     Recommendations
                                 </button>
@@ -142,12 +147,22 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
                                     className={`btn badge ${
                                         mode.at(-1) === 'favorite' && 'active'
                                     } background badge-lg`}
+                                    onKeyDown={(e) => {
+                                        if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift'))
+                                            return;
+                                        switchMode('favorite');
+                                    }}
                                 >
                                     Favorites
                                 </button>
                                 <button
                                     onClick={() => switchMode('own')}
                                     className={`btn badge ${mode.at(-1) === 'own' && 'active'} background badge-lg`}
+                                    onKeyDown={(e) => {
+                                        if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift'))
+                                            return;
+                                        switchMode('favorite');
+                                    }}
                                 >
                                     Own Recipes
                                 </button>
@@ -161,6 +176,11 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
                                     onClick={() => switchMode('search')}
                                     className="w-full bg-transparent border-none focus:ring-0 focus:border-transparent"
                                     onChange={handleSearchInput}
+                                    onKeyDown={(e) => {
+                                        if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift'))
+                                            return;
+                                        switchMode('search');
+                                    }}
                                     placeholder="Search by recipe name"
                                     value={searchQuery}
                                 />{' '}

@@ -18,7 +18,6 @@ export default function MainHeader() {
     const [headerClass, setHeaderClass] = useState('');
     const [userIsGuest, setUserIsGuest] = useState(true);
     const [activeTab, setActiveTab] = useState<ActiveTab>(pathname);
-
     useEffect(() => {
         function handleScroll() {
             setScrollPos(document.body.getBoundingClientRect().top);
@@ -71,25 +70,6 @@ export default function MainHeader() {
                                 } ${activeTab === '/weekOverview' && styles.lineShow}`}
                             ></div>
                         </Link>
-                        {/* <Link
-                            href="/shoppingList"
-                            onClick={() => setActiveTab('/shoppingList')}
-                            className="link shoppingList"
-                        >
-                            <div
-                                className={`flex gap-2 items-center ${styles.shoppingList} ${
-                                    activeTab === '/shoppingList' ? styles.active : ''
-                                }`}
-                            >
-                                <Icon size={25} icon="shoppinglist"></Icon>
-                                <p className="hidden md:block">Shopping List</p>
-                            </div>
-                            <div
-                                className={`bg-green-custom2 rounded-full h-1 w-full mt-2 line hidden md:block ${
-                                    styles.lineHide
-                                } ${activeTab === '/shoppingList' && styles.lineShow}`}
-                            ></div>
-                        </Link> */}
                         <Link
                             href="/cookbook"
                             onClick={() => setActiveTab('/cookbook')}

@@ -10,7 +10,8 @@ export default function FavoriteButton({ recipe }: { recipe: Recipe }) {
     const { data: session } = useSession();
     const { favorites, add, remove } = useFavoriteStore();
 
-    const handleFavorite = async () => {
+    const handleFavorite = async (e: React.KeyboardEvent<HTMLElement> | React.MouseEvent<Element, MouseEvent>) => {
+        if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift')) return;
         if (isFavorite) {
             remove(recipe.id, session);
         } else {
@@ -30,8 +31,9 @@ export default function FavoriteButton({ recipe }: { recipe: Recipe }) {
             style={{
                 fill: isFavorite ? 'var(--green-dark)' : 'none',
             }}
-            onClick={() => handleFavorite()}
+            onClick={(e) => handleFavorite(e)}
             tabIndex={0}
+            onKeyDown={(e) => handleFavorite(e)}
         >
             <Icon size={50} icon="heart" classNames="w-10 lg:w-12"></Icon>
         </div>
