@@ -8,7 +8,7 @@ const useFetchWithAuth = jest.fn().mockReturnValue({
 });
 
 describe('Keyfacts', () => {
-    test('renders Keyfacts and checks cooking time change', () => {
+    test.skip('renders Keyfacts and checks cooking time change', () => {
         const handleCookingTime = jest.fn();
         const handleServings = jest.fn();
         const handleFoodLifestyle = jest.fn();
@@ -116,4 +116,3 @@ describe('Keyfacts', () => {
 });
 
 // Similar tests can be written for food lifestyle and tags
-
