@@ -2,7 +2,10 @@
 import { useEffect, useState } from 'react';
 import '@styles/globals.scss';
 import Script from 'next/script';
+import fetchMock from 'jest-fetch-mock';
 import Banner from './CookieBanner';
+
+fetchMock.enableMocks();
 
 export default function CookieWrapper() {
     const [tastyplanCookiesAccepted, setTastyplanCookiesAccepted] = useState(false);
