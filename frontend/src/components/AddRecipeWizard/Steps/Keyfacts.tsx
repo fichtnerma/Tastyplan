@@ -144,7 +144,7 @@ const Keyfacts = ({
                             data-testid="increasePortion"
                             className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0 mr-5"
                             onClick={() => handleServingsChange(servings + 1)}
-                            data-cy="incrase-serv-btn"
+                            data-cy="increase-serv-btn"
                         >
                             <Icon icon="plus" size={19} />
                         </button>
