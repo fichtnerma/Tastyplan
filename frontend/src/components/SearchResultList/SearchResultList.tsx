@@ -2,7 +2,7 @@ import { APISearchResponse } from 'src/types/types';
 
 interface SearchResultlistProps {
     searchResults: APISearchResponse[];
-    clickHandler: (e: React.MouseEvent) => void;
+    clickHandler: (e: React.MouseEvent | React.KeyboardEvent) => void;
     dislikes: Dislikes[];
 }
 interface Dislikes {
@@ -29,6 +29,7 @@ function SearchResultlist({ searchResults, clickHandler, dislikes }: SearchResul
                     key={el.id}
                     tabIndex={0}
                     aria-label="dislike search result item"
+                    onKeyDown={clickHandler}
                 >
                     {el.name}
                 </li>

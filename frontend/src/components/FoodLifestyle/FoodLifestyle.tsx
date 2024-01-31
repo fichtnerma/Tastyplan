@@ -21,8 +21,17 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
     const [selection, setSelection] = useState(formOfDiet);
     const [disabled, setDisabled] = useState(selection ? false : true);
 
-    const onChoiceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const targetValue = e.target.value;
+    const onChoiceChange = (e: React.ChangeEvent<HTMLInputElement> | React.KeyboardEvent<HTMLElement>) => {
+        if ('key' in e && e.key === 'Tab') return;
+        const target = e.target as HTMLInputElement;
+        let targetValue = target.value;
+
+        if (!targetValue) {
+            const targetElement = e.target as HTMLElement;
+            targetValue = targetElement.getAttribute('data-value') as string;
+        }
+
+        console.log(targetValue);
 
         setSelection(targetValue);
         onChoice(targetValue);
@@ -44,6 +53,8 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                         key={preference.food}
                         className={`flex justify-end items-center w-full relative pr-5 h-[60px] lg:h-[80px] xl:h-[70px] ${styles.choiceWrapper}`}
                         tabIndex={0}
+                        onKeyDown={onChoiceChange}
+                        data-value={preference.food}
                     >
                         <input
                             className={`absolute top-0 right-0 bottom-0 left-0 cursor:pointer w-full h-full rounded-[50px] hover:cursor-pointer custom-focus ${styles.customInput}`}
@@ -54,6 +65,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
                             checked={selection === preference.food}
                             onChange={onChoiceChange}
                             data-cy={`${preference.food}-radio-btn`}
+                            tabIndex={-1}
                         />
                         <label
                             htmlFor={preference.food}

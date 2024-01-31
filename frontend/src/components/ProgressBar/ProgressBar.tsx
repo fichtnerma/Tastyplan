@@ -36,6 +36,16 @@ function ProgressBar({ stepNames, activeStep, stepIsDone, onClick }: Props) {
         if (elementName) onClick(elementName);
     };
 
+    const handleStepKeyDown = (e: React.KeyboardEvent) => {
+        if (!stepIsDone) return;
+
+        if (e.key === 'Enter' || e.key === ' ') {
+            const element = e.target as HTMLElement;
+            const elementName = element.getAttribute('data-step-name');
+            if (elementName) onClick(elementName);
+        }
+    };
+
     return (
         <div className="flex justify-center">
             <div className="flex justify-between items-center relative w-5/6 lg:w-full" onClick={handleStepClick}>
@@ -54,6 +64,12 @@ function ProgressBar({ stepNames, activeStep, stepIsDone, onClick }: Props) {
                             data-step-name={stepNames[i]}
                             className={getStepClass(el)}
                             style={{ transform: el === activeStep ? 'scale(2)' : '' }}
+                            tabIndex={0}
+                            role="button"
+                            aria-label={stepNames[i]}
+                            onKeyDown={(event) => {
+                                handleStepKeyDown(event);
+                            }}
                         ></span>
                         <p className={`hidden lg:block ${el <= activeStep ? styles.activeLabel : styles.label}`}>
                             {stepNames[i]}
