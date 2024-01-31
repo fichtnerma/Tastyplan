@@ -24,10 +24,7 @@ export default class IngredientsSearchService {
     async createIndex(ingredients: Ingredient[]) {
         try {
             await this.elasticsearchService.indices.create({ index: this.index });
-            const body = ingredients.flatMap((ingredient) => [
-                { index: { _index: this.index } },
-                { id: ingredient.id, name: ingredient.name },
-            ]);
+            const body = this.createElasticSearchBody(ingredients);
             return await this.elasticsearchService.bulk({ refresh: true, body });
         } catch (error) {}
     }
@@ -47,5 +44,12 @@ export default class IngredientsSearchService {
         });
         const hits = body.hits.hits;
         return hits.map((item) => item._source);
+    }
+
+    createElasticSearchBody(ingredients: Ingredient[]) {
+        return ingredients.flatMap((ingredient) => [
+            { index: { _index: this.index } },
+            { id: ingredient.id, name: ingredient.name },
+        ]);
     }
 }

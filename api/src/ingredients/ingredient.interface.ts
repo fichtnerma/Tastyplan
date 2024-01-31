@@ -23,3 +23,10 @@ export interface IngredientSearchBody {
     id: number;
     name: string;
 }
+
+export interface InnitializerIngredient {
+    ingredientId: number;
+    quantity: string;
+    unit: string;
+    condition: string;
+}
