@@ -1,14 +1,4 @@
-import { Session } from 'next-auth';
-import {
-    debounce,
-    getFormOfDietIcon,
-    calculateMinutesToHours,
-    fetchWithAuth,
-    fetchWithAuthFormData,
-    mapShoppingListToSelection,
-    getImageRessourcePath,
-    truncate,
-} from '../utils';
+import { debounce, getFormOfDietIcon, calculateMinutesToHours, getImageRessourcePath, truncate } from '../utils';
 
 jest.useFakeTimers();
 
@@ -39,82 +29,6 @@ describe('calculateMinutesToHours', () => {
         expect(calculateMinutesToHours(90)).toBe('1 h 30 min');
         expect(calculateMinutesToHours(45)).toBe('45 min');
         expect(calculateMinutesToHours(0)).toBe('');
-    });
-});
-
-// Mock fetch for testing
-const mockFetch = jest.fn();
-(global as any).fetch = mockFetch;
-
-describe('fetchWithAuth', () => {
-    it.skip('should fetch with authentication headers', () => {
-        const session: Session | null = {
-            user: {
-                role: Role.guest,
-                email: 'admin@admin.de',
-                id: 'tst',
-                state: 'state',
-                token: { Authorization: 'yourToken', expires: '' },
-                userId: 'asdf',
-            },
-            expires: '2022-12-31T23:59:59Z',
-        };
-
-        fetchWithAuth('https://example.com/api/data', { method: 'GET' }, session);
-
-        expect(mockFetch).toHaveBeenCalledWith('https://example.com/api/data', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer yourToken',
-            },
-        });
-    });
-});
-
-describe.skip('fetchWithAuthFormData', () => {
-    it('should fetch with authentication headers and form data content type', () => {
-        const session: Session | null = { user: { token: { Authorization: 'yourToken' } } };
-
-        fetchWithAuthFormData('https://example.com/api/data', { method: 'POST' }, session);
-
-        expect(mockFetch).toHaveBeenCalledWith('https://example.com/api/data', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                Authorization: 'Bearer yourToken',
-            },
-        });
-    });
-});
-
-describe('mapShoppingListToSelection', () => {
-    it.skip('should map shopping list to selection list', () => {
-        const ingredientList = [
-            {
-                ingredientId: 1,
-                ingredientName: 'Ingredient 1',
-                category: 'Spices',
-                quantity: 2,
-                unit: 'tsp',
-                isChecked: true,
-            },
-            {
-                ingredientId: 2,
-                ingredientName: 'Ingredient 2',
-                category: 'Vegetables',
-                quantity: 1,
-                unit: 'kg',
-                isChecked: false,
-            },
-        ];
-
-        const result = mapShoppingListToSelection(ingredientList);
-
-        expect(result).toEqual([
-            { id: '1', label: '2 tsp Ingredient 1', value: 'Ingredient 1', checked: true },
-            { id: '2', label: '1 kg Ingredient 2', value: 'Ingredient 2', checked: false },
-        ]);
     });
 });
 
