@@ -54,7 +54,7 @@ const SetNewPassword = () => {
     return (
         <div className="lg:w-screen lg:h-[90vh] lg:flex lg:justify-center lg:items-center lg:bg-green-custom1">
             <div className="w-full h-full bg-white-custom lg:relative lg:w-2/3 lg:max-w-[1700px] lg:h-3/4 lg:max-h-[600px] lg:rounded-[20px] lg:overflow-hidden">
-                <button className="absolute top-3 right-3" onClick={() => router.push('/')}>
+                <button className="absolute top-3 right-3" onClick={() => router.push('/')} aria-label="close">
                     <Icon icon="close"></Icon>
                 </button>
                 <form

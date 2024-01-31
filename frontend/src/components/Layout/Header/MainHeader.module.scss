@@ -75,7 +75,7 @@
                 }
             }
         }
-        
+
         .guestUserDropdown {
             &:hover {
                 background-color: var(--green-semi);
@@ -86,7 +86,6 @@
                 }
             }
         }
-
 
         .userDropdown {
             &:hover {
@@ -102,6 +101,7 @@
 
     .active {
         color: var(--green-dark);
+        font-weight: bolder;
         p {
             color: var(--green-dark);
         }

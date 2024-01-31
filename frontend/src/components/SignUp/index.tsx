@@ -44,7 +44,7 @@ export default function SignUp({ currentForm, setRoute }: SignUpProps) {
                     isLogin ? 'text-white-custom' : 'text-black'
                 } lg:block`}
             >
-                <Link href="/">
+                <Link href="/" aria-label="close">
                     <Icon size={20} icon="close" />
                 </Link>
             </div>

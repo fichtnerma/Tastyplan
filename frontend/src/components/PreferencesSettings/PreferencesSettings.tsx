@@ -206,6 +206,7 @@ export default function PreferencesSettings({
                         className={`absolute top-0 right-0 bottom-0 left-0 cursor:pointer opacity=[.01] z-[-1] w-full h-full rounded-2xl hover:cursor-pointer custom-focus ${styles.customInput}`}
                         type="radio"
                         name="preferences"
+                        aria-label="change your Food Lifestyle"
                         value={selectedDiet}
                     />
                     <label
@@ -218,7 +219,7 @@ export default function PreferencesSettings({
                             {foodDietPreferences.find((preference) => preference.food === selectedDiet)?.description}
                         </p>
                     </label>
-                    <button className="z-[2] cursor-pointer pb-1" onClick={handleDropDownState}>
+                    <button className="z-[2] cursor-pointer pb-1" onClick={handleDropDownState} aria-label="arrowDown">
                         <Icon size={50} icon="arrowDownCircle"></Icon>
                     </button>
                 </div>
@@ -263,7 +264,7 @@ export default function PreferencesSettings({
                     color: 'var(--green-dark)',
                 }}
             >
-                <button className="lg:pl-8 pb-2" onClick={handleAllergensState}>
+                <button className="lg:pl-8 pb-2" onClick={handleAllergensState} aria-label="add or remove">
                     {addAllergens == true ? (
                         <Icon size={34} icon="minusCircle"></Icon>
                     ) : (
@@ -300,7 +301,7 @@ export default function PreferencesSettings({
                     color: 'var(--green-dark)',
                 }}
             >
-                <button className="lg:pl-8 lg:pb-4" onClick={handleDislikesState}>
+                <button className="lg:pl-8 lg:pb-4" onClick={handleDislikesState} aria-label="add or remove">
                     {addDislikes == true ? (
                         <Icon size={34} icon="minusCircle"></Icon>
                     ) : (

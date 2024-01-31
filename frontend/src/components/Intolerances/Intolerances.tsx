@@ -79,6 +79,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                                     checked={allergeneChoices.includes(intolerance.code)}
                                     onChange={onAddChoice}
                                     data-cy={`${intolerance.code}-checkbox`}
+                                    aria-label={`${intolerance.code}-checkbox`}
                                 />
                                 <label
                                     className="absolute top-0 right-0 bottom-0 left-0 bg-white-custom cursor:pointer flex justify-left items-center border-[2px] border-solid font-medium text-[.875rem] leading-[1.25rem] text-gray-custom4 rounded-[50px] pl-[67px]"

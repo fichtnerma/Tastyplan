@@ -47,6 +47,7 @@ const IngredientSearch = ({ onIngredient, selectedOption, id }: IngredientSearch
                 loadOptions={ingredientOptions}
                 //@ts-ignore
                 onChange={onIngredient}
+                aria-label="Ingredient search"
             />
         </div>
     );

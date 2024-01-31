@@ -32,7 +32,7 @@ function DislikeSearch({
                     placeholder="Search ingredients"
                     value={searchTerm}
                     decoration={
-                        <button className="mb-2" type="button" onClick={deleteInput}>
+                        <button className="mb-2" type="button" onClick={deleteInput} aria-label="search">
                             {searchTerm == '' ? <Icon size={20} icon="search" /> : <Icon size={20} icon="close" />}
                         </button>
                     }

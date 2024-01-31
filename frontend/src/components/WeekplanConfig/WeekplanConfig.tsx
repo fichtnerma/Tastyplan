@@ -74,6 +74,7 @@ export default function WeekplanConfig({
                             className={`btn-primary !flex justify-center items-center  ${styles.btnPortion}`}
                             onClick={decreasePortion}
                             data-cy="decrease-serving-btn"
+                            aria-label="decrease servings-btn"
                             disabled={servings === 1}
                         >
                             <Icon icon="minus" size={19} />
@@ -86,6 +87,7 @@ export default function WeekplanConfig({
                             className={`btn-primary !flex justify-center items-center  ${styles.btnPortion} mr-5`}
                             onClick={increasePortion}
                             data-cy="increase-serving-btn"
+                            aria-label="increase servings-btn"
                         >
                             <Icon icon="plus" size={19} />
                         </button>

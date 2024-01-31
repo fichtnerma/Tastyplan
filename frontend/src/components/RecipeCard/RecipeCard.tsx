@@ -120,7 +120,7 @@ function RecipeCard({
                 </div>
             ) : (
                 <button
-                    className="flex justify-center flex-col rounded-custom_s relative w-full h-[225px] sm:h-[160px] md:!h-[300px] md:!w-[200px] bg-green-custom4 items-center hover:bg-green-custom_super_light text-green-custom2 hover:text-green-custom3"
+                    className="flex justify-center flex-col rounded-custom_s relative w-full h-[225px] sm:h-[160px] md:!h-[300px] md:!w-[200px] bg-green-custom4 items-center hover:bg-green-custom_super_light text-green-custom2"
                     onClick={openModal}
                     data-cy={`add-recipe-btn-${isLunch ? 'lunch' : 'dinner'}`}
                 >
