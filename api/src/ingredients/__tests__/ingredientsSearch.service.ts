@@ -12,7 +12,7 @@ describe('IngredientsSearchService', () => {
         service = module.get<IngredientsSearchService>(IngredientsSearchService);
     });
 
-    it('Should work', () => {
+    it('createElasticSearchBody => Should return an appropriate elasticsearch object', () => {
         const exampleIngredients: Ingredient[] = [
             {
                 id: 1,
