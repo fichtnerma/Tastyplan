@@ -94,8 +94,13 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         onChoice(allDislikes);
     };
 
-    const handleAddChoice = (e: React.MouseEvent) => {
+    type ClickOrKeyboardEvent = React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>;
+
+    const handleAddChoice = (e: ClickOrKeyboardEvent) => {
+        if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift')) return;
+
         const target = e.target as HTMLButtonElement;
+
         const id = target.getAttribute('data-dislike-id');
         const name = target.getAttribute('data-dislike-name');
         if (!id || !name) return;

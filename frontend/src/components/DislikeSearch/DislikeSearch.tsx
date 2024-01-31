@@ -10,7 +10,7 @@ type DislikeSearchProps = {
     isInputFocus: boolean;
     deleteInput: () => void;
     searchChanged: (value: string) => void;
-    handleAddChoice: (e: React.MouseEvent) => void;
+    handleAddChoice: (e: React.MouseEvent | React.KeyboardEvent) => void;
     allDislikes: APISearchResponse[];
     onFocus: () => void;
 };
