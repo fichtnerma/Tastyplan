@@ -33,6 +33,7 @@ export default function RecommendSection({ isActive, recipeId }: RecommendSectio
                     onClick={() => {
                         getRecipes();
                     }}
+                    aria-label="switch recipes"
                 >
                     <Icon classNames="w-4 h-4 sm:w-6 sm:h-6" icon="switch"></Icon>
                 </button>

@@ -26,7 +26,7 @@ export default function DetailView() {
     }, [currentRecipeId, session]);
     return (
         <>
-            <button className="h-fit w-fit absolute" onClick={hideDetailView}>
+            <button className="h-fit w-fit absolute" onClick={hideDetailView} aria-label="go back">
                 <Icon classNames="inline-flex mr-2" size={16} icon="arrowBack" />
                 Back
             </button>

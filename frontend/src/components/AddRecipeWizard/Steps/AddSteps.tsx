@@ -126,21 +126,23 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
             <legend className="h3">Add the Steps</legend>
             <div className="flex w-full">
                 <div className="mb-4 bg-green-custom4 rounded-[30px] overflow-x-auto pb-8 p-2 lg:p-4 lg:w-1/3 w-full">
-                    <div className="lg:block lg:max-h-[330px]" data-cy="steps-wrapper">
-                        <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-                            <SortableContext
-                                items={steps.map((step: CustomStep) => step.id)}
-                                strategy={verticalListSortingStrategy}
-                            >
-                                {steps.map((step, index) => (
-                                    <SortableStep key={step.id} step={step} index={index} onDelete={handleDelete} />
-                                ))}
-                            </SortableContext>
-                        </DndContext>
-                    </div>
+                    <ol className="lg:block lg:max-h-[330px]" data-cy="steps-wrapper">
+                        <li>
+                            <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+                                <SortableContext
+                                    items={steps.map((step: CustomStep) => step.id)}
+                                    strategy={verticalListSortingStrategy}
+                                >
+                                    {steps.map((step, index) => (
+                                        <SortableStep key={step.id} step={step} index={index} onDelete={handleDelete} />
+                                    ))}
+                                </SortableContext>
+                            </DndContext>
+                        </li>
+                    </ol>
                     <div className="block lg:hidden">
                         <button className="flex items-center mx-auto my-0" onClick={handleOpenDialog}>
-                            <Icon size={20} icon="addCircle" color="#007370" />
+                            <Icon size={20} icon="addCircle" color="#006663" />
                             <span className="block ml-2 text-green-custom2">Add new step</span>
                         </button>
                         <DialogModal isOpened={dialogIsOpen} onClose={handleCloseDialog}>
@@ -157,7 +159,7 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
                                     onChange={handleDescriptionChange}
                                 ></textarea>
                                 <button className="flex items-center mx-auto my-0" onClick={handleNewStep}>
-                                    <Icon size={20} icon="addCircle" color="#007370" />
+                                    <Icon size={20} icon="addCircle" color="#006663" />
                                     <span className="block ml-2 text-green-custom2">Add new step</span>
                                 </button>
                             </div>
@@ -182,7 +184,7 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
                             onClick={handleNewStep}
                             data-cy="add-new-step-btn"
                         >
-                            <Icon size={20} icon="addCircle" color="#007370" />
+                            <Icon size={20} icon="addCircle" color="#006663" />
                             <span className="block ml-2 text-green-custom2">Add new step</span>
                         </button>
                     </div>

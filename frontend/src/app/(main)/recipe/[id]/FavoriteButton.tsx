@@ -31,6 +31,7 @@ export default function FavoriteButton({ recipe }: { recipe: Recipe }) {
                 fill: isFavorite ? 'var(--green-dark)' : 'none',
             }}
             onClick={() => handleFavorite()}
+            tabIndex={0}
         >
             <Icon size={50} icon="heart" classNames="w-10 lg:w-12"></Icon>
         </div>

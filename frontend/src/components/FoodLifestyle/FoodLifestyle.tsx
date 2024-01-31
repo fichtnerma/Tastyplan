@@ -38,14 +38,12 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
     return (
         <>
             <h4 className="mb-2 h2">What is your food lifestyle?</h4>
-            <div
-                className="grid grid-col-1 items-center lg:grid-cols-2 gap-y-4 lg:gap-y-0 lg:gap-x-4 w-full h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden"
-                tabIndex={-1}
-            >
+            <div className="grid grid-col-1 items-center lg:grid-cols-2 gap-y-4 lg:gap-y-0 lg:gap-x-4 w-full h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
                 {preferences.map((preference) => (
                     <div
                         key={preference.food}
                         className={`flex justify-end items-center w-full relative pr-5 h-[60px] lg:h-[80px] xl:h-[70px] ${styles.choiceWrapper}`}
+                        tabIndex={0}
                     >
                         <input
                             className={`absolute top-0 right-0 bottom-0 left-0 cursor:pointer w-full h-full rounded-[50px] hover:cursor-pointer custom-focus ${styles.customInput}`}

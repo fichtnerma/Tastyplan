@@ -115,6 +115,7 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
                                 className="my-auto"
                                 data-testid="remove-ingredient-btn"
                                 data-cy={`remove-ingredient-${ingredient.ingredient?.name}-btn`}
+                                aria-label="close"
                             >
                                 <Icon icon="close"></Icon>
                             </button>
@@ -164,6 +165,7 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
                         disabled={!selectedUnit || amount === 0 || selectedIngredient === undefined}
                         data-testid="add-ingredient-btn"
                         data-cy="add-ingredient-btn"
+                        aria-label="add ingredient"
                     >
                         <Icon icon="check" size={20}></Icon>
                     </button>

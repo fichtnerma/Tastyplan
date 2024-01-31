@@ -12,7 +12,7 @@ function SecondHeader({ waveForm }: SecondHeaderProps) {
         <>
             {waveForm === 'strong' ? (
                 <div className="block relative lg:h-[10vh] lg:bg-green-custom1">
-                    <Link href={logoLinkTarget}>
+                    <Link href={logoLinkTarget} tabIndex={0}>
                         <Image
                             src="/logo.svg"
                             height={200}

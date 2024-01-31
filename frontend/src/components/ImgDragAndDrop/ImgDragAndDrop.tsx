@@ -41,7 +41,7 @@ const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropPro
     };
 
     const acceptStyle = {
-        borderColor: '#007370',
+        borderColor: '#006663',
     };
 
     const rejectStyle = {
@@ -102,12 +102,12 @@ const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropPro
                     <input {...getInputProps()} id="uploadImg" />
                     {isDragActive ? (
                         <div className="flex flex-col items-center">
-                            <Icon size={34} icon="addCircle" color="#007370"></Icon>
+                            <Icon size={34} icon="addCircle" color="#006663"></Icon>
                             <p className="mt-2">Drop files here ...</p>
                         </div>
                     ) : (
                         <div className="flex flex-col items-center">
-                            <Icon size={34} icon="addCircle" color="#007370"></Icon>
+                            <Icon size={34} icon="addCircle" color="#006663"></Icon>
                             {!isMobile && <p className="mt-2">Drag&Drop or Browse</p>}
                         </div>
                     )}

@@ -23,7 +23,7 @@ export const selectStyleOptions = {
         height: '45px',
         borderWidth: 3,
         backgroundColor: '#fffffa',
-        borderColor: '#007370',
+        borderColor: '#006663',
         borderRadius: '15px',
     }),
     option: (
@@ -31,7 +31,7 @@ export const selectStyleOptions = {
         state: OptionProps<{ value: string; label: string }, false, GroupBase<{ value: string; label: string }>>,
     ) => ({
         ...baseStyles,
-        backgroundColor: state.isSelected ? '#007370' : '#fffffa',
+        backgroundColor: state.isSelected ? '#006663' : '#fffffa',
         color: state.isSelected ? '#fffffa' : '#3a3a3a',
         ':active': {
             backgroundColor: '#00A39E',
@@ -128,6 +128,7 @@ const Keyfacts = ({
                             onClick={() => handleServingsChange(servings - 1)}
                             disabled={servings <= 1}
                             data-cy="decrease-serv-btn"
+                            aria-label="decrease portion amount"
                         >
                             <Icon icon="minus" size={19} />
                         </button>
@@ -145,6 +146,7 @@ const Keyfacts = ({
                             className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0 mr-5"
                             onClick={() => handleServingsChange(servings + 1)}
                             data-cy="increase-serv-btn"
+                            aria-label="increase portion amount"
                         >
                             <Icon icon="plus" size={19} />
                         </button>
