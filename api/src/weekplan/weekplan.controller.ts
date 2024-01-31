@@ -5,6 +5,7 @@ import { RequestWithUser } from 'src/users/users.controller';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from '@prisma/client';
 import { ApiSecurity } from '@nestjs/swagger';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import {
     Body,
     ClassSerializerInterceptor,
@@ -26,8 +27,12 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('/current')
     findOne(@Req() request: RequestWithUser) {
-        const user = request.user as User;
-        return this.weekplanService.current(user.userId);
+        try {
+            const user = request.user as User;
+            return this.weekplanService.current(user.userId);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
@@ -35,9 +40,12 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get(':date')
     findByStartDate(@Param() date: { date: Date }, @Req() request: RequestWithUser) {
-        const user = request.user as User;
-
-        return this.weekplanService.findByDate(user.userId, date.date);
+        try {
+            const user = request.user as User;
+            return this.weekplanService.findByDate(user.userId, date.date);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
