@@ -118,7 +118,10 @@
             "^.+\\.(t|j)s$": "ts-jest"
         },
         "collectCoverageFrom": [
-            "**/*.(t|j)s"
+            "**/*.(t|j)s",
+            "!**/__tests__/**",
+            "!**/*.test.(t|j)s",
+            "!**/*.spec.(t|j)s"
         ],
         "coverageDirectory": "../coverage",
         "testEnvironment": "node",
@@ -138,7 +141,9 @@
             ".*\\.queries\\.ts$",
             ".*\\.module\\.ts$",
             ".*\\.dto\\.ts$",
-            "main.ts"
+            "main.ts",
+            "src/app.service.ts",
+            "src/types/types.ts"
         ]
     },
     "jest-junit": {
