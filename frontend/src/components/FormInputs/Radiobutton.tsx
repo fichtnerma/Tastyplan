@@ -15,7 +15,7 @@ function RadioButton({ groupName, radioBtn, handleChange }: RadiobuttonProps) {
                 role="radio"
                 name={groupName}
                 id={radioBtn.id}
-                onChange={() => handleChange(radioBtn.id, radioBtn.checked)}
+                onChange={() => handleChange(radioBtn.id, !radioBtn.checked)}
                 defaultChecked={radioBtn.checked}
             />
             <label htmlFor={radioBtn.id}>{radioBtn.label}</label>

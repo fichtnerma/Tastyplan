@@ -99,7 +99,7 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
         <fieldset className="overflow-x-auto h-full" data-testid="fieldset">
             <legend className="h3">Add ingredients</legend>
             <div className="pb-8 p-2 pt-0">
-                <div className="flex gap-5 flex-wrap mb-5">
+                <div className="flex gap-5 flex-wrap mb-5" data-cy="ingredients-wrapper">
                     {ingredients.map((ingredient) => (
                         <div
                             key={ingredient.id}
@@ -114,6 +114,7 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
                                 onClick={() => handleDelete(ingredient.id)}
                                 className="my-auto"
                                 data-testid="remove-ingredient-btn"
+                                data-cy={`remove-ingredient-${ingredient.ingredient?.name}-btn`}
                                 aria-label="close"
                             >
                                 <Icon icon="close"></Icon>
@@ -137,6 +138,7 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
                             id="amount"
                             min={0}
                             onChange={(value) => setAmount(value)}
+                            cypressId="ingredient-amount-input"
                         />
                     </div>
                     <div className="flex flex-col w-full lg:w-1/4">
@@ -162,6 +164,7 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
                         onClick={handleAddIngredient}
                         disabled={!selectedUnit || amount === 0 || selectedIngredient === undefined}
                         data-testid="add-ingredient-btn"
+                        data-cy="add-ingredient-btn"
                         aria-label="add ingredient"
                     >
                         <Icon icon="check" size={20}></Icon>

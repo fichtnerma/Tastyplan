@@ -55,10 +55,11 @@ function IngredientList({
                         onClick={changePortion}
                         data-anchor={'-'}
                         disabled={portion <= 1}
+                        data-testid="decrement-portion"
                     >
                         <span className="block font-bold mb-[3px]">-</span>
                     </button>
-                    <p id="portion" className="mr-2">
+                    <p id="portion" className="mr-2" data-testid="portion-size">
                         {portion}
                     </p>
                     <button
@@ -66,6 +67,7 @@ function IngredientList({
                         className="text-white-custom w-[30px] h-[30px] rounded-[15px] bg-green-custom2 mr-2"
                         onClick={changePortion}
                         data-anchor={'+'}
+                        data-testid="increment-portion"
                     >
                         <span className="block font-bold mb-[3px]">+</span>
                     </button>
@@ -97,7 +99,11 @@ function IngredientList({
                         </p>
                         <p className="w-1/2 text-left">{ingredient.ingredient?.name}</p>
                         {decoration && (
-                            <button onClick={() => handleDelete(ingredient.id)} aria-label="close">
+                            <button
+                                onClick={() => handleDelete(ingredient.id)}
+                                aria-label="close"
+                                data-testid={`delete-${ingredient.ingredient?.name}-btn`}
+                            >
                                 <Icon icon="close"></Icon>
                             </button>
                         )}

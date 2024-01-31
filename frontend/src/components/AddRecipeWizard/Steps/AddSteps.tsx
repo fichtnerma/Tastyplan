@@ -29,8 +29,9 @@ const SortableStep = ({ step, index, onDelete }: SortableStepProps) => {
             <div
                 className="basis-[95%] flex justify-between items-center pb-2 border-gray-custom3 border-b-2 border-solid"
                 ref={setNodeRef}
-                style={style}
                 {...attributes}
+                role=""
+                style={style}
                 {...listeners}
             >
                 <div>
@@ -45,7 +46,13 @@ const SortableStep = ({ step, index, onDelete }: SortableStepProps) => {
                 </div>
             </div>
             <div className="basis-[5%] flex items-center justify-end">
-                <button className="mb-[12px]" onClick={() => onDelete(step.id)} aria-label="close">
+                <button
+                    className="mb-[12px]"
+                    aria-label="button"
+                    data-testid="delete-btn"
+                    onClick={() => onDelete(step.id)}
+                    data-cy={`delete-step-${index + 1}-btn`}
+                >
                     <Icon icon="close" classNames="text-gray-custom3"></Icon>
                 </button>
             </div>
@@ -119,7 +126,7 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
             <legend className="h3">Add the Steps</legend>
             <div className="flex w-full">
                 <div className="mb-4 bg-green-custom4 rounded-[30px] overflow-x-auto pb-8 p-2 lg:p-4 lg:w-1/3 w-full">
-                    <ol className="lg:block lg:max-h-[330px]">
+                    <ol className="lg:block lg:max-h-[330px]" data-cy="steps-wrapper">
                         <li>
                             <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
                                 <SortableContext
@@ -170,8 +177,13 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
                             id="stepDesc"
                             value={newStep.description}
                             onChange={handleDescriptionChange}
+                            data-cy="step-desc-input"
                         ></textarea>
-                        <button className="flex items-center mx-auto my-0" onClick={handleNewStep}>
+                        <button
+                            className="flex items-center mx-auto my-0"
+                            onClick={handleNewStep}
+                            data-cy="add-new-step-btn"
+                        >
                             <Icon size={20} icon="addCircle" color="#006663" />
                             <span className="block ml-2 text-green-custom2">Add new step</span>
                         </button>

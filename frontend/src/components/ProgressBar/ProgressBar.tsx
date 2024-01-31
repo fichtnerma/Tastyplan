@@ -41,6 +41,7 @@ function ProgressBar({ stepNames, activeStep, stepIsDone, onClick }: Props) {
             <div className="flex justify-between items-center relative w-5/6 lg:w-full" onClick={handleStepClick}>
                 <div
                     className="absolute top-1/2 translate-y-[-50%] w-full h-[3px]"
+                    data-testid="progress-bar"
                     style={{
                         background: `linear-gradient(to right, var(--green-dark) ${getGradient(
                             stepNames.length,
@@ -52,6 +53,7 @@ function ProgressBar({ stepNames, activeStep, stepIsDone, onClick }: Props) {
                     <div key={el} className="relative flex items-center">
                         <span
                             data-step-name={stepNames[i]}
+                            data-testid={stepNames[i]}
                             className={getStepClass(el)}
                             style={{ transform: el === activeStep ? 'scale(2)' : '' }}
                         ></span>

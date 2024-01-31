@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { Ingredient, Option } from 'src/types/types';
 import Keyfacts from './Steps/Keyfacts';
 import AddSteps, { CustomStep } from './Steps/AddSteps';
@@ -154,6 +155,7 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
                         onServings={handleServingsChange}
                         onFoodLifestyle={handleFoodLifestyleChange}
                         onTags={handleTagsChange}
+                        useFetchAuth={useFetchWithAuth}
                     />
                 );
             case 3:

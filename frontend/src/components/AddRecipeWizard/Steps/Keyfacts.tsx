@@ -109,13 +109,14 @@ const Keyfacts = ({
             <legend className="h3">Add the key facts</legend>
             <div className="p-2 pt-0 pb-8">
                 <div className="flex flex-col mb-7">
-                    <label htmlFor="cookingTime">How long will it take you in minutes?</label>
                     <NumberInput
                         value={cookingTime}
+                        label="How long will it take you in minutes?"
                         id="cookingTime"
                         min={1}
                         required
                         onChange={(value) => handleCookingTimeChange(value)}
+                        cypressId="cooking-time-input"
                     />
                 </div>
                 <div>
@@ -126,6 +127,7 @@ const Keyfacts = ({
                             className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0"
                             onClick={() => handleServingsChange(servings - 1)}
                             disabled={servings <= 1}
+                            data-cy="decrease-serv-btn"
                             aria-label="decrease portion amount"
                         >
                             <Icon icon="minus" size={19} />
@@ -143,6 +145,7 @@ const Keyfacts = ({
                             data-testid="increasePortion"
                             className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0 mr-5"
                             onClick={() => handleServingsChange(servings + 1)}
+                            data-cy="increase-serv-btn"
                             aria-label="increase portion amount"
                         >
                             <Icon icon="plus" size={19} />

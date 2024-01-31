@@ -18,10 +18,6 @@ function Checkbox({ groupName, customCheckbox, handleChange, disabled }: Checkbo
                     name={groupName}
                     id={customCheckbox.id}
                     value={customCheckbox.value}
-                    onChange={() => {
-                        if (!disabled)
-                            return handleChange(customCheckbox.id, customCheckbox.value, !customCheckbox.checked);
-                    }}
                     checked={customCheckbox.checked}
                     disabled
                     data-cy={`${groupName}-${customCheckbox.label}-checkbox`}
@@ -39,8 +35,7 @@ function Checkbox({ groupName, customCheckbox, handleChange, disabled }: Checkbo
                     id={customCheckbox.id}
                     value={customCheckbox.value}
                     onChange={() => {
-                        if (!disabled)
-                            return handleChange(customCheckbox.id, customCheckbox.value, !customCheckbox.checked);
+                        return handleChange(customCheckbox.id, customCheckbox.value, !customCheckbox.checked);
                     }}
                     checked={customCheckbox.checked}
                     data-cy={`${groupName}-${customCheckbox.label}-checkbox`}

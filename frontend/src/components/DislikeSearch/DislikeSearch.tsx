@@ -32,13 +32,20 @@ function DislikeSearch({
                     placeholder="Search ingredients"
                     value={searchTerm}
                     decoration={
-                        <button className="mb-2" type="button" onClick={deleteInput} aria-label="search">
+                        <button
+                            className="mb-2"
+                            type="button"
+                            onClick={deleteInput}
+                            aria-label="search"
+                            data-cy="clear-search-input"
+                        >
                             {searchTerm == '' ? <Icon size={20} icon="search" /> : <Icon size={20} icon="close" />}
                         </button>
                     }
                     decorationPosition="end"
                     onChange={searchChanged}
                     onFocus={onFocus}
+                    cypressID="search-ingredients"
                 />
                 <div className="relative">
                     <div className="absolute z-1 w-full">

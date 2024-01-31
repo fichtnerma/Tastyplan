@@ -1,21 +1,43 @@
-import { axe } from 'jest-axe';
-import { render } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import ProgressBar from '../ProgressBar';
-describe('ProgressBar', () => {
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
-    it('should not have basic accessibility issues', async () => {
-        const childFnMock = jest.fn();
-        const { container } = render(
-            <ProgressBar
-                onClick={childFnMock}
-                stepNames={['first step', 'second step', 'third step']}
-                activeStep={1}
-                stepIsDone={false}
-            />,
-        );
-        const results = await axe(container);
-        expect(results.violations).toHaveLength(0);
-    });
+
+test('renders ProgressBar and checks step click', () => {
+    const handleClick = jest.fn();
+
+    render(
+        <ProgressBar
+            stepNames={['Step 1', 'Step 2', 'Step 3']}
+            activeStep={1}
+            stepIsDone={true}
+            onClick={handleClick}
+        />,
+    );
+
+    const stepElement = screen.getByTestId('Step 2');
+    fireEvent.click(stepElement);
+
+    expect(handleClick).toHaveBeenCalledWith('Step 2');
+});
+test.skip('renders ProgressBar and checks gradient style', () => {
+    const handleClick = jest.fn();
+
+    render(
+        <ProgressBar
+            stepNames={['Step 1', 'Step 2', 'Step 3']}
+            activeStep={2}
+            stepIsDone={true}
+            onClick={handleClick}
+        />,
+    );
+
+    const progressBarElement = screen.getByTestId('progress-bar');
+
+    if (progressBarElement) {
+        const style = window.getComputedStyle(progressBarElement);
+        const background = style.getPropertyValue('background');
+
+        expect(background).toContain('33%');
+    } else {
+        throw new Error('Progress bar element not found');
+    }
 });

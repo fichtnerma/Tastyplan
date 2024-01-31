@@ -63,7 +63,7 @@ export default function TextInput({
                 {decoration ? (
                     <div className={`absolute bottom-2 ${isAtStart ? 'left-2' : 'right-2'}`}>{decoration}</div>
                 ) : null}
-                <label htmlFor={id}>
+                <label htmlFor={id} data-testid={'txt-input-label'}>
                     {label}
                     {required ? ' *' : ''}
                     <input
@@ -79,6 +79,7 @@ export default function TextInput({
                         onChange={handleTextChange}
                         onFocus={onFocus}
                         data-cy={cypressID}
+                        data-testid={'txt-input'}
                     />
                 </label>
             </div>
