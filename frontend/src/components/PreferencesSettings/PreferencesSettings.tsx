@@ -188,7 +188,7 @@ export default function PreferencesSettings({
     };
 
     return (
-        <div className="lg:pt-6" onClick={handleClickOnListAndInput}>
+        <div data-testid="click" className="lg:pt-6" onClick={handleClickOnListAndInput}>
             <h5 className="mb-3">Your Food Lifestyle</h5>
             <div className="lg:w-1/2 lg:pb-6 pb-4 lg:pl-8">
                 <div
@@ -225,7 +225,7 @@ export default function PreferencesSettings({
                     </button>
                 </div>
                 {dropDownState == true && (
-                    <div ref={dropdownRef} className="rounded-2xl">
+                    <div data-testid="dropdown" ref={dropdownRef} className="rounded-2xl">
                         {foodDietPreferences.map((preference) => (
                             <p
                                 key={preference.food}

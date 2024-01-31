@@ -28,7 +28,7 @@ describe('WeekplanSettings', () => {
         onChoice: jest.fn(),
     };
 
-    it.skip('should not have basic accessibility issues', async () => {
+    it('should not have basic accessibility issues', async () => {
         const { container } = render(<PreferencesSettings {...mockProps} />);
 
         const results = await axe(container);
@@ -43,13 +43,40 @@ describe('WeekplanSettings', () => {
         expect(getByText('Your Food Dislikes')).toBeInTheDocument();
     });
 
-    it('clicks on diet preferences', () => {
+    it('selects new diet preferences', () => {
         const { container, getByText } = render(<PreferencesSettings {...mockProps} />);
-        const click = container.querySelector('[data-testid="vegetarian"]');
-        if (click) {
-            fireEvent.click(click);
+        const clickOnPreference = container.querySelector('[data-testid="vegetarian"]');
+        if (clickOnPreference) {
+            fireEvent.click(clickOnPreference);
             expect(getByText('You dont eat any kind of animal products')).toBeInTheDocument();
             expect(mockProps.onChoice).toHaveBeenCalledWith(expect.objectContaining({ formOfDiet: 'vegetarian' }));
+        } else null;
+    });
+
+    it('should render dropdown when user clicks on option', () => {
+        const { container } = render(<PreferencesSettings {...mockProps} />);
+        const clickOnDropdown = container.querySelector('[data-testid="vegan"]');
+        if (clickOnDropdown) {
+            fireEvent.click(clickOnDropdown);
+            const dropdown = container.querySelector('[data-testid="dropdown"]');
+            expect(dropdown).toBeInTheDocument();
+        } else null;
+    });
+
+    it('should render dropdown when user clicks on option and select new preference', () => {
+        const { container } = render(<PreferencesSettings {...mockProps} />);
+        const clickOnDropdown = container.querySelector('[data-testid="vegan"]');
+        if (clickOnDropdown) {
+            fireEvent.click(clickOnDropdown);
+            const dropdown = container.querySelector('[data-testid="dropdown"]');
+            expect(dropdown).toBeInTheDocument();
+
+            const clickOnPreference = container.querySelector('[data-testid="vegetarian"]');
+            if (clickOnPreference) {
+                fireEvent.click(clickOnPreference);
+                expect(dropdown).not.toBeInTheDocument();
+                expect(mockProps.onChoice).toHaveBeenCalledWith(expect.objectContaining({ formOfDiet: 'vegetarian' }));
+            } else null;
         } else null;
     });
 
@@ -113,5 +140,32 @@ describe('WeekplanSettings', () => {
             expect(getByText("You don't have any intolerances.")).toBeInTheDocument();
             expect(mock_Props.onChoice).toHaveBeenCalledWith(expect.objectContaining({ allergens: [] }));
         } else null;
+    });
+
+    it('clicks on allergens and removes it 2', () => {
+        const { container, getByText } = render(<PreferencesSettings {...mockProps} />);
+        const click = container.querySelector('[data-testid="milk"]');
+        if (click) {
+            fireEvent.click(click);
+            expect(getByText("You don't have any intolerances.")).not.toBeInTheDocument();
+            expect(mockProps.onChoice).toHaveBeenCalledWith(
+                expect.objectContaining({ allergens: ['egg', 'fish', 'milk'] }),
+            );
+        } else null;
+        const remove = container.querySelector('[data-testid="remove-milk"]');
+        if (remove) {
+            fireEvent.click(remove);
+            expect(mockProps.onChoice).toHaveBeenCalledWith(expect.objectContaining({ allergens: ['egg', 'fish'] }));
+        } else null;
+    });
+
+    it('calls handleClickOnListAndInput when the button is clicked', () => {
+        const { container } = render(<PreferencesSettings {...mockProps} />);
+        const click = container.querySelector('[data-testid="click"]');
+
+        if (click) {
+            fireEvent.click(click);
+            expect(mockProps.onChoice).not.toHaveBeenCalled();
+        }
     });
 });
