@@ -1,25 +1,46 @@
-import { render } from '@testing-library/react';
+import React from 'react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import ImgDragAndDrop from '../ImgDragAndDrop';
-import { useDropzone } from 'react-dropzone';
 
-// Mock the 'react-dropzone' module
-jest.mock('react-dropzone');
+jest.mock('next/image', () => {
+    const ImgMock: React.FC<{ src: string; alt: string }> = ({ src, alt }) => <img src={src} alt={alt} />;
+    ImgMock.displayName = 'Image';
+    return ImgMock;
+});
 
-const mockUseDropzone = useDropzone as jest.MockedFunction<typeof useDropzone>;
+test('renders ImgDragAndDrop component', () => {
+    const { getByTestId } = render(<ImgDragAndDrop currentImage={undefined} onUploadedImgChange={jest.fn()} />);
+    const component = getByTestId('imgDragAndDrop-wrapper');
+    expect(component).toBeInTheDocument();
+});
 
-test.skip('renders ImgDragAndDrop and checks if all elements are rendered correctly', () => {
-  const handleUpload = jest.fn();
+test.skip('allows file drop', async () => {
+    const onUploadedImgChangeMock = jest.fn();
+    const { getByTestId } = render(
+        <ImgDragAndDrop currentImage={undefined} onUploadedImgChange={onUploadedImgChangeMock} />,
+    );
+    const dropzone = getByTestId('imgDragAndDrop-wrapper');
 
-  const { getByTestId, getByRole, getByText } = render(<ImgDragAndDrop currentImage="test.jpg" onUploadedImgChange={handleUpload} />);
+    fireEvent.drop(dropzone, {
+        dataTransfer: {
+            files: [new File(['(⌐□_□)'], 'test.png', { type: 'image/png' })],
+        },
+    });
 
-  expect(getByTestId('imgDragAndDrop-wrapper')).toBeInTheDocument();
+    await waitFor(() => {
+        expect(onUploadedImgChangeMock).toHaveBeenCalledWith(expect.any(String));
+    });
+});
 
-  expect(getByRole('button')).toBeInTheDocument();
+test.skip('removes uploaded image', () => {
+    const onUploadedImgChangeMock = jest.fn();
+    const { getByText } = render(
+        <ImgDragAndDrop currentImage="fakeBase64Image" onUploadedImgChange={onUploadedImgChangeMock} />,
+    );
+    const removeButton = getByText('Remove img');
 
-  expect(getByText('Drop files here ...')).toBeInTheDocument();
+    fireEvent.click(removeButton);
 
-  expect(getByText('Drag&Drop or Browse')).toBeInTheDocument();
-
-  // Check if the "Remove img" button is rendered
-  expect(getByText('Remove img')).toBeInTheDocument();
+    expect(onUploadedImgChangeMock).toHaveBeenCalledWith(null);
 });
