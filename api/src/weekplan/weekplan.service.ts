@@ -148,7 +148,7 @@ export class WeekplanService {
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to create new Weekplan dates');
         }
-        await this.createWeakplan(userId, weekplanStartDate, weekplanEndDate);
+        return await this.createWeakplan(userId, weekplanStartDate, weekplanEndDate);
     }
     //Orchestration function
     async regenerate(userId: string) {
@@ -197,6 +197,7 @@ export class WeekplanService {
 
             return this.formatWeekPlan(createdWeekplan);
         } catch (error) {
+            console.log(error);
             throw new HttpException('Error: Creating weekplan failed', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -271,6 +272,7 @@ export class WeekplanService {
                 weekplanEntry.dinnerId = shuffeledMeals[recipeCounter]?.id || 1;
                 recipeCounter++;
             }
+
             return weekplanEntry;
         });
         return weekplan;
@@ -328,7 +330,9 @@ export class WeekplanService {
             fetchedRecipeIds = recommendedRecipes.map((id: number) => ({ id }));
         }
         if (fetchedRecipeIds.length < 14) {
-            fetchedRecipeIds = [...fetchedRecipeIds, ...fetchedRecipeIds];
+            fetchedRecipeIds = Array(14 / +fetchedRecipeIds.length)
+                .fill([...fetchedRecipeIds])
+                .reduce((a, b) => a.concat(b));
         }
         return fetchedRecipeIds;
     }
