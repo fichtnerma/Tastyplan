@@ -114,6 +114,7 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
                                 onClick={() => handleDelete(ingredient.id)}
                                 className="my-auto"
                                 data-testid="remove-ingredient-btn"
+                                aria-label="close"
                             >
                                 <Icon icon="close"></Icon>
                             </button>
@@ -161,6 +162,7 @@ const AddIngredients = ({ currentIngredients, onChangeIngredients }: AddIngredie
                         onClick={handleAddIngredient}
                         disabled={!selectedUnit || amount === 0 || selectedIngredient === undefined}
                         data-testid="add-ingredient-btn"
+                        aria-label="add ingredient"
                     >
                         <Icon icon="check" size={20}></Icon>
                     </button>

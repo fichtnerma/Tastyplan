@@ -33,6 +33,8 @@ export default function DislikeList({ dislikes, onDeleteChoice }: DislikeListPro
                                 onClick={() => onDeleteChoice(dislike.name)}
                                 data-anchor={dislike.name}
                                 data-cy={`remove-${dislike.name}`}
+                                role="link"
+                                aria-label={`remove-${dislike.name}`}
                             >
                                 <Icon icon="close"></Icon>
                             </a>

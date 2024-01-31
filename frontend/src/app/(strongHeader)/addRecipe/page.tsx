@@ -113,8 +113,9 @@ const AddRecipePage = () => {
                 <button
                     className="absolute top-5 right-[-5px] md:right-5"
                     onClick={() => router.push('cookbook', undefined)}
+                    aria-label="close"
                 >
-                    <Icon icon="close" color="#007370"></Icon>
+                    <Icon icon="close" color="#006663"></Icon>
                 </button>
                 <ProgressBar
                     stepNames={stepNames}

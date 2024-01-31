@@ -117,7 +117,7 @@ $btn-tertiary-font-size: clamp(1rem, 1.75vw, 1.125rem);
 
 .btn-create-weekplan {
     @extend .btn-big;
-    color: var(--white);
+    color: var(--black);
     background-color: var(--orange);
     line-height: 1;
     z-index: 20;

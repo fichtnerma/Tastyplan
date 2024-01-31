@@ -97,7 +97,7 @@ function IngredientList({
                         </p>
                         <p className="w-1/2 text-left">{ingredient.ingredient?.name}</p>
                         {decoration && (
-                            <button onClick={() => handleDelete(ingredient.id)}>
+                            <button onClick={() => handleDelete(ingredient.id)} aria-label="close">
                                 <Icon icon="close"></Icon>
                             </button>
                         )}

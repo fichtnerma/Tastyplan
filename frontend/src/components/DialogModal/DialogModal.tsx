@@ -62,7 +62,7 @@ const DialogModal = ({ isOpened, onClose, children, classNames }: Props) => {
             </div>
             <div className={`${classNames}`}>
                 <div className="relative h-6 w-full flex justify-end">
-                    <button onClick={handleClose} className=" text-green-custom2">
+                    <button onClick={handleClose} className=" text-green-custom2" aria-label="close">
                         <Icon size={20} icon="close" />
                     </button>
                 </div>

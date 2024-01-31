@@ -109,7 +109,7 @@ export default function MainHeader() {
                                 } ${activeTab === '/cookbook' && styles.lineShow}`}
                             ></div>
                         </Link>
-                        <div className={styles.userIcon}>
+                        <div className={styles.userIcon} tabIndex={0}>
                             <div className="block md:hidden">
                                 <Link href="/settings" className="">
                                     <div className="flex gap-2 items-center hover:cursor-pointer">
