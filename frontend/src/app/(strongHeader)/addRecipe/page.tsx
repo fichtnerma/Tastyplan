@@ -133,6 +133,7 @@ const AddRecipePage = () => {
                         className="btn-primary"
                         disabled={currentStep === 1}
                         onClick={() => setCurrentStep(currentStep - 1)}
+                        data-cy="recipe-back-btn"
                     >
                         Back
                     </button>
@@ -141,11 +142,17 @@ const AddRecipePage = () => {
                             className="btn-primary"
                             onClick={() => setCurrentStep(currentStep + 1)}
                             disabled={inputIsNotValid}
+                            data-cy="recipe-next-btn"
                         >
                             Next
                         </button>
                     ) : (
-                        <button className="btn-primary" onClick={sendData} disabled={inputIsNotValid}>
+                        <button
+                            className="btn-primary"
+                            onClick={sendData}
+                            disabled={inputIsNotValid}
+                            data-cy="recipe-create-btn"
+                        >
                             create recipe
                         </button>
                     )}

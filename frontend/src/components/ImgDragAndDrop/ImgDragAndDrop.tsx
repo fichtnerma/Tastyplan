@@ -115,8 +115,8 @@ const ImgDragAndDrop = ({ currentImage, onUploadedImgChange }: ImgDragAndDropPro
             )}
             {uploadedImg && (
                 <aside className="flex flex-col gap-4 items-center mt-4">
-                    <Image width={200} height={200} src={uploadedImg} alt="image preview" />
-                    <button className="btn-danger" onClick={removeImg}>
+                    <Image width={200} height={200} src={uploadedImg} alt="image preview" data-cy="uploaded-img" />
+                    <button className="btn-danger" onClick={removeImg} data-cy="remove-img-btn">
                         Remove img
                     </button>
                 </aside>

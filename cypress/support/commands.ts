@@ -10,6 +10,7 @@ declare namespace Cypress {
       pw: string,
       timeout?: number,
     ): Chainable<Element>;
+    createEmptyWeekplan(email: string, pw: string): Chainable<Element>;
   }
 }
 
@@ -47,4 +48,27 @@ Cypress.Commands.add("loginDynamicUser", (email: string, pw: string) => {
       Cypress.env("token", bearerValue);
     });
   });
+});
+
+Cypress.Commands.add("createEmptyWeekplan", (email: string, pw: string) => {
+  cy.loginDynamicUser(email, pw);
+  cy.intercept("/service/*", (req) => {
+    req.headers["authorization"] = `Bearer ${Cypress.env("token")}`;
+  }).as("createWeekplan");
+  cy.dataCy("decline-cookies-btn").click();
+
+  //Set everything to have a empty weekplan
+  cy.dataCy("vegan-radio-btn").click({ force: true });
+  cy.dataCy("next-btn").click();
+  cy.dataCy("next-btn").click();
+  cy.dataCy("days-Monday-checkbox").click();
+  cy.dataCy("days-Tuesday-checkbox").click();
+  cy.dataCy("days-Wednesday-checkbox").click();
+  cy.dataCy("days-Thursday-checkbox").click();
+  cy.dataCy("days-Friday-checkbox").click();
+  cy.dataCy("days-Saturday-checkbox").click();
+  cy.dataCy("days-Sunday-checkbox").click();
+  cy.intercept("POST", "/service/weekplan/create").as("createWeekplan");
+  cy.dataCy("create-weekplan-btn").click();
+  cy.wait("@createWeekplan");
 });

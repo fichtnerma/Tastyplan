@@ -7,10 +7,21 @@ interface NumberInputProps {
     value: number;
     min?: number;
     max?: number;
+    cypressId?: string;
     required?: boolean;
     onChange?: (value: number) => void;
 }
-const NumberInput = ({ label, placeholder, id, value, min = 0, max, required, onChange }: NumberInputProps) => {
+const NumberInput = ({
+    label,
+    placeholder,
+    id,
+    value,
+    min = 0,
+    max,
+    required,
+    onChange,
+    cypressId,
+}: NumberInputProps) => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
     const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
@@ -37,6 +48,7 @@ const NumberInput = ({ label, placeholder, id, value, min = 0, max, required, on
                     htmlFor={id}
                     data-testid="number-input-label"
                     aria-label="number-input"
+                    data-cy={`${cypressId}-label`}
                 >
                     {label}
                     {required ? ' *' : ''}
@@ -52,6 +64,7 @@ const NumberInput = ({ label, placeholder, id, value, min = 0, max, required, on
                         max={max}
                         onChange={handleNumberChange}
                         onBlur={handleBlur}
+                        data-cy={cypressId}
                     />
                 </label>
             </div>

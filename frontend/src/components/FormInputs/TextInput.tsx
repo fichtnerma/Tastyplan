@@ -79,6 +79,7 @@ export default function TextInput({
                         onChange={handleTextChange}
                         onFocus={onFocus}
                         data-cy={cypressID}
+                        data-testid={'txt-input'}
                     />
                 </label>
             </div>

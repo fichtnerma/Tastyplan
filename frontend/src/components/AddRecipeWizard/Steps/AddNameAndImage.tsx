@@ -27,9 +27,15 @@ const AddNameAndImage = ({ currentName, currentImage, onNameChange, onUploadedIm
         <fieldset data-testid="imgDragDrop-fieldset">
             <legend className="h3">Add name and image</legend>
             <div className="p-2 pt-0 pb-8" data-testid="input-wrapper">
-                <TextInput value={name} required onChange={handleNameChange} label="Name" />
+                <TextInput
+                    value={name}
+                    required
+                    onChange={handleNameChange}
+                    label="Name"
+                    cypressID="input-recipe-name"
+                />
                 {!image && (
-                    <label className="block mt-5 mb-1" htmlFor="uploadImg">
+                    <label className="block mt-5 mb-1" htmlFor="uploadImg" data-cy="add-img-label">
                         Add an Image (optional)
                     </label>
                 )}

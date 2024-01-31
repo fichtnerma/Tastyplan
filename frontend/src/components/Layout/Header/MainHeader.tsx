@@ -94,6 +94,7 @@ export default function MainHeader() {
                             href="/cookbook"
                             onClick={() => setActiveTab('/cookbook')}
                             className={`link cookbook ${activeTab === '/cookbook' ? styles.active : ''}`}
+                            data-cy="navigate-cookbock-link"
                         >
                             <div
                                 className={`flex gap-2 items-center ${
