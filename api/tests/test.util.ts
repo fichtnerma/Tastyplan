@@ -4,8 +4,11 @@ import { Role } from 'src/users/dto/create-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { exec } from 'child_process';
 import { PostgreSqlContainer } from '@testcontainers/postgresql';
+import { ElasticsearchContainer } from '@testcontainers/elasticsearch';
 import { Ingredient, Preferences, User } from '@prisma/client';
+import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { ConfigService } from '@nestjs/config';
+import { ClientOptions } from '@elastic/elasticsearch';
 const fs = require('fs');
 
 const execAsync = promisify(exec);
@@ -18,7 +21,7 @@ const dbConfig = {
     POSTGRES_HOST: 'localhost',
 };
 
-async function setupTestContainer() {
+async function setupPGTestContainer() {
     const container = await new PostgreSqlContainer()
         .withDatabase(dbConfig.POSTGRES_DB)
         .withUsername(dbConfig.POSTGRES_USER)
@@ -31,13 +34,12 @@ async function setupTestContainer() {
             },
         ])
         .start();
-    // .withCommand(['RUN psql –U postgres postgres < /dump/dump.sql'])
 
     return container;
 }
 
 export async function setupPrismaService(withDump = false) {
-    const container = await setupTestContainer();
+    const container = await setupPGTestContainer();
     const databaseUrl = container.getConnectionUri();
     const result = await execAsync(
         `set DATABASE_URL=${databaseUrl} && set POSTGRES_DB=${dbConfig.POSTGRES_HOST} && npx prisma migrate deploy`,
@@ -46,6 +48,26 @@ export async function setupPrismaService(withDump = false) {
     configService.get = jest.fn().mockReturnValue(databaseUrl);
     const prisma = new PrismaService(configService);
     return prisma;
+}
+
+export async function setupElasticSearchService() {
+    const ELASTIC_PASSWORD = 'admin';
+    const ELASTIC_USERNAME = 'elastic';
+    const container = await new ElasticsearchContainer('elasticsearch:7.17.13')
+        .withEnvironment({ ELASTIC_PASSWORD, ELASTIC_USERNAME })
+        .withExposedPorts(9200)
+        .start();
+
+    container.getHttpUrl();
+    const configOptions: ClientOptions = {
+        node: `${container.getHttpUrl()}`,
+        auth: {
+            username: ELASTIC_USERNAME,
+            password: ELASTIC_PASSWORD,
+        },
+    };
+    const elastic = new ElasticsearchService(configOptions);
+    return elastic;
 }
 
 type SeedingOptions = {
@@ -71,8 +93,8 @@ export async function seedDatabase(prismaService: PrismaService, options: Seedin
     } else if (options.withIngredients) {
         await seedWithIngredients(prismaService);
     } else if (options.withRecipes) {
-        await seedWithIngredients(prismaService);
-        await seedWithRecipes(prismaService);
+        const ingredients = await seedWithIngredients(prismaService);
+        await seedWithRecipes(prismaService, ingredients);
     }
 }
 
@@ -127,7 +149,6 @@ async function seedWithPreferences(prismaService: PrismaService, user: User) {
     return await prismaService.preferences.create({
         data: {
             userId: user.userId,
-            id: 1,
             formOfDiet: 'omnivore',
             allergens: ['sesame'],
             days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],

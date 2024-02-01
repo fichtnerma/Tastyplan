@@ -2,7 +2,7 @@ import { IngredientWithAmount } from '@prisma/client';
 import { Recipe, Step } from '@prisma/client';
 
 export type ExtendetRecipe = Omit<Recipe, 'id'> & {
-    steps: Step[];
+    steps: Omit<Step, 'id' | 'recipeId'>[];
     ingredients: {
         ingredientId: number;
         condition?: string | null;

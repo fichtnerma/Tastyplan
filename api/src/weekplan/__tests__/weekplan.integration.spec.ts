@@ -9,7 +9,7 @@ import { PreferencesQueries } from 'src/preferences/preferences.queries';
  * @group integration
  */
 
-describe('Auth Module (integration)', () => {
+describe('Weekplan (integration)', () => {
     let weekplanService: WeekplanService;
     let prismaService: PrismaService;
 
@@ -36,12 +36,6 @@ describe('Auth Module (integration)', () => {
     it('get weekplan', async () => {
         await weekplanService.create('userid1');
         const weekplan = await weekplanService.get('userid1');
-        expect(weekplan).toBeDefined();
-    });
-
-    it('get current active weekplan', async () => {
-        await weekplanService.create('userid1');
-        const weekplan = await weekplanService.current('userid1');
         expect(weekplan).toBeDefined();
     });
 

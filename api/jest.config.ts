@@ -1,11 +1,11 @@
 import type { Config } from 'jest';
 const config: Config = {
-    rootDir: '.',
+    rootDir: './',
     roots: ['<rootDir>/src'],
     moduleFileExtensions: ['js', 'json', 'ts'],
     testRegex: '.*\\.spec\\.ts$',
     transform: {
-        '^.+\\.(t|j)s$': 'ts-jest',
+        '^.+\\.(t)s$': 'ts-jest',
     },
     collectCoverageFrom: ['**/*.(t|j)s', '!**/__tests__/**', '!**/*.test.(t|j)s', '!**/*.spec.(t|j)s'],
     coveragePathIgnorePatterns: [
@@ -24,8 +24,8 @@ const config: Config = {
     moduleDirectories: ['node_modules', '<rootDir>'],
     runner: 'groups',
     moduleNameMapper: {
-        '^src/(.*)$': '<rootDir>/$1',
+        '^src/(.*)$': '<rootDir>/src/$1',
     },
-    setupFiles: ['../jest.setup.js'],
+    setupFiles: ['./jest.setup.js'],
 };
 export default config;

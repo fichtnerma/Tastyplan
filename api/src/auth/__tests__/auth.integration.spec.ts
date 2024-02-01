@@ -9,7 +9,7 @@ import { JwtService } from '@nestjs/jwt';
  * @group integration
  */
 
-describe('Auth Module (integration)', () => {
+describe('Auth (integration)', () => {
     let authService: AuthService;
     let prismaService: PrismaService;
 

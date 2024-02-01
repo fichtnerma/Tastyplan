@@ -20,6 +20,8 @@ export class PreferencesService {
             await Promise.all([this.preferencesQueries.upsertPreferences(userId, preferences)]);
             return 'Preferences has been send successfully';
         } catch (error) {
+            console.log(error);
+
             throw new HttpException('setting prefernces failed', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

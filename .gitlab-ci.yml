@@ -172,6 +172,8 @@ deploy-staging:
     - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml down
     - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml up --wait --no-build --force-recreate -d 
     - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml logs
+    - docker images prune --all --force
+    - docker volume prune --all --force
   tags:
     - staging
 
