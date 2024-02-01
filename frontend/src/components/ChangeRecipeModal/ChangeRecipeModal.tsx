@@ -20,18 +20,27 @@ type ChangRecipeModalProps = {
     refresh?: (recipe: Recipe | undefined) => void;
     isLunch: boolean;
     recipeId?: number;
+    useAuthSession?: typeof useSession;
 };
 
 type ChangeMode = 'recommend' | 'favorite' | 'own' | 'search' | 'isDetail';
 
 const ModeOrder: ChangeMode[] = ['recommend', 'favorite', 'own'];
 
-export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch, recipeId }: ChangRecipeModalProps) {
+export function ChangeRecipeModal({
+    open,
+    setIsOpened,
+    entryId,
+    refresh,
+    isLunch,
+    recipeId,
+    useAuthSession = useSession,
+}: ChangRecipeModalProps) {
     const ref = useRef<HTMLDivElement>(null);
     const [mode, setMode] = useState<ChangeMode[]>(['recommend']);
     const [currentRecipeId, setCurrentRecipeId] = useState<number | undefined>(recipeId);
     const [searchQuery, setSearchQuery] = useState('');
-    const { data: session } = useSession();
+    const { data: session } = useAuthSession();
 
     const switchRecipe = async (recipeId: number | undefined) => {
         setIsOpened(false);
