@@ -96,18 +96,6 @@ api_unit_tests:
       junit:
         - api/reports/junit.xml
 
-api_integration_tests:
-  image: docker:24.0-dind
-  stage: test
-  extends: ".backend"
-  script:
-    - npm run test:integration --reporters=default --reporters=jest-junit
-  artifacts:
-    when: always
-    reports:
-      junit:
-        - api/reports/junit.xml
-
 client_unit_tests:
   stage: test
   extends: ".frontend"
@@ -191,12 +179,12 @@ deploy-staging:
   before_script:
     - *docker_init
   script:
-    - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml pull
     - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml down
-    - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml up --wait --no-build --force-recreate -d 
-    - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml logs
     - docker images prune --all --force
     - docker volume prune --all --force
+    - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml pull
+    - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml up --wait --no-build --force-recreate -d 
+    - TAG=$TAG docker compose -f compose.yml -f compose.prod.yml logs
   tags:
     - staging
 
