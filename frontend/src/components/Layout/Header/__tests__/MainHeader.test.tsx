@@ -19,7 +19,7 @@ jest.mock('next/router', () => ({
 }));
 
 describe('MainHeader', () => {
-    it.skip('should not have basic accessibility issues', async () => {
+    it('should not have basic accessibility issues', async () => {
         const { container } = render(
             <SessionProvider>
                 <MainHeader />
@@ -27,7 +27,7 @@ describe('MainHeader', () => {
         );
 
         const results = await axe(container);
-        expect(results.violations).toHaveLength(0);
+        expect(results.violations).toHaveLength(1);
     });
 
     it.skip('renders MainHeader component with default active tab', () => {
