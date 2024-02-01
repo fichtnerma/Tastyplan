@@ -20,7 +20,7 @@ describe('WeekplanConfig', () => {
         handleMealSelection: jest.fn(),
     };
 
-    it.skip('should not have basic accessibility issues', async () => {
+    it('should not have basic accessibility issues', async () => {
         const { container } = render(<WeekplanConfig {...mockProps} />);
 
         const results = await axe(container);

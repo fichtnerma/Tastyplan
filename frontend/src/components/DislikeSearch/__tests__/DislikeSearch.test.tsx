@@ -7,7 +7,7 @@ describe('DislikeSearch', () => {
         jest.clearAllMocks();
     });
 
-    it.skip('should not have basic accessibility issues', async () => {
+    it('should not have basic accessibility issues', async () => {
         const mockDeleteInput = jest.fn();
         const mockSearchChanged = jest.fn();
         const mockHandleAddChoice = jest.fn();

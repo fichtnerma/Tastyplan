@@ -25,11 +25,15 @@ const DialogModal = ({ isOpened, onClose, children, classNames }: Props) => {
     };
 
     useEffect(() => {
-        if (isOpened) {
-            document.body.style.overflow = 'hidden';
-            ref.current?.showModal();
-        } else {
-            ref.current?.close();
+        const dialogElement = ref.current;
+
+        if (dialogElement) {
+            if (isOpened) {
+                document.body.style.overflow = 'hidden';
+                dialogElement.showModal();
+            } else if (dialogElement.close) {
+                dialogElement.close();
+            }
         }
     }, [isOpened]);
 
