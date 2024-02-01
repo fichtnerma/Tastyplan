@@ -17,14 +17,14 @@
         "start:prod:migrate": "npx prisma migrate deploy && npm run start:prod",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
         "fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-        "test": "jest --",
-        "test:unit": "jest --group=-integration",
-        "test:integration": "jest --detectOpenHandles --group=integration",
-        "test:watch": "jest --watch",
-        "test:cov": "jest --coverage",
+        "test": "jest --maxWorkers=2 --",
+        "test:unit": "jest --maxWorkers=2 --group=-integration",
+        "test:integration": "jest --maxWorkers=2 --detectOpenHandles --group=integration",
+        "test:watch": "jest --maxWorkers=2 --watch",
+        "test:cov": "jest --maxWorkers=2 --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-        "test:ci": "jest --ci --reporters=default --reporters=jest-junit && gitlab-ci-reporter",
-        "test:ci-gitlab": "jest --ci --reporters=default --reporters=jest-junit"
+        "test:ci": "jest --maxWorkers=2 --ci --reporters=default --reporters=jest-junit && gitlab-ci-reporter",
+        "test:ci-gitlab": "jest --maxWorkers=2 --ci --reporters=default --reporters=jest-junit"
     },
     "dependencies": {
         "@elastic/elasticsearch": "~7.17.0",

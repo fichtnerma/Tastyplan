@@ -6,6 +6,8 @@ import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { RecipeQueries } from 'src/recipes/recipe.queries';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { PreferencesService } from 'src/preferences/preferences.service';
+import { PreferencesQueries } from 'src/preferences/preferences.queries';
 import IngredientsSearchService from 'src/ingredients/ingredientsSearch.service';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
 import { IngredientsQueries } from 'src/ingredients/ingredients.queries';
@@ -46,12 +48,15 @@ describe('Initalizer (integration)', () => {
         const recipeFilterService = new RecipesFilterService(prismaService);
         const recipeQueries = new RecipeQueries(prismaService);
         const recipeUploadImageService: RecipesUploadImageService = new RecipesUploadImageService();
+        const preferencesQuery = new PreferencesQueries(prismaService);
+        const preferencesService = new PreferencesService(preferencesQuery);
         const recipeService = new RecipesService(
             cache,
             recipeFilterService,
             recipeSearchService,
             recipeQueries,
             recipeUploadImageService,
+            preferencesService,
         );
         const ingredientService = new IngredientsService(cache, ingredientSearchService, ingredientQueries);
         initializerService = new InitializerService(

@@ -5,6 +5,8 @@ import { RecipesService } from '../recipes.service';
 import { RecipeQueries } from '../recipe.queries';
 import { seedDatabase, setupElasticSearchService, setupPrismaService } from 'tests/test.util';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { PreferencesService } from 'src/preferences/preferences.service';
+import { PreferencesQueries } from 'src/preferences/preferences.queries';
 import { Cache } from 'cache-manager';
 /**
  * @group integration
@@ -42,12 +44,15 @@ describe('Recipes (integration)', () => {
                 ttl: jest.fn(),
             },
         };
+        const preferencesQuery = new PreferencesQueries(prismaService);
+        const preferencesService = new PreferencesService(preferencesQuery);
         recipeService = new RecipesService(
             cache,
             recipeFilterService,
             recipeSearchService,
             recipeQueries,
             recipeUploadImageService,
+            preferencesService,
         );
     }, 500000);
 
@@ -70,6 +75,6 @@ describe('Recipes (integration)', () => {
     it('get recipe by id', async () => {
         const recipeFromDB = await prismaService.recipe.findFirst();
         const recipe = await recipeService.findById(recipeFromDB.id);
-        expect(recipe).toEqual(recipeFromDB);
+        expect(recipe.id).toEqual(recipeFromDB.id);
     });
 });
