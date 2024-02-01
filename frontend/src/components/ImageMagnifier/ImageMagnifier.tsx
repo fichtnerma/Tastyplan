@@ -86,6 +86,7 @@ export default function ImageMagnifier({
                     backgroundPositionY: `${-y * zoomLevel + magnifierHeight / 2}px`,
                     borderRadius: '200px',
                 }}
+                data-testid="magnifier"
             ></div>
         </div>
     );
