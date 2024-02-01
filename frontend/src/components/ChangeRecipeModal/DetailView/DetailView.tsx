@@ -6,11 +6,17 @@ import { fetchWithAuth } from '@helpers/utils';
 import { useSwitchRecipeContext } from '@hooks/useSwitchRecipeContext';
 import { Recipe } from 'src/types/types';
 
-export default function DetailView() {
+export default function DetailView({
+    useAuthSession = useSession,
+    useSwitchRecipe = useSwitchRecipeContext,
+}: {
+    useAuthSession: typeof useSession;
+    useSwitchRecipe: typeof useSwitchRecipeContext;
+}) {
     const [recipe, setRecipe] = useState<Recipe | undefined>(undefined);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const { currentRecipeId, switchRecipe, hideDetailView } = useSwitchRecipeContext()!;
-    const { data: session } = useSession();
+    const { currentRecipeId, switchRecipe, hideDetailView } = useSwitchRecipe()!;
+    const { data: session } = useAuthSession();
     useEffect(() => {
         async function fetchRecipe() {
             const recipeRes = await fetchWithAuth(`/service/recipes/${currentRecipeId}`, { method: 'GET' }, session);
