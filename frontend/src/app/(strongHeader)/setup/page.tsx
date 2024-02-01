@@ -102,7 +102,8 @@ const SetupParentPage = () => {
         setMealsCheckboxes(mealsCheckboxesTemp);
     };
 
-    const handlePreferences = async (evt: React.MouseEvent<HTMLAnchorElement>) => {
+    const handlePreferences = async (evt: React.MouseEvent | React.KeyboardEvent) => {
+        if (('key' in evt && evt.key === 'Tab') || ('key' in evt && evt.key === 'Shift')) return;
         evt.preventDefault();
         await fetchWithAuth(
             '/service/preferences',
