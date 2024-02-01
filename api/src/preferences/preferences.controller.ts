@@ -13,6 +13,8 @@ import {
     Req,
     UseGuards,
     UseInterceptors,
+    HttpException,
+    HttpStatus,
 } from '@nestjs/common';
 
 @Controller('preferences')
@@ -23,8 +25,12 @@ export class PreferencesController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/')
     async setPreferences(@Req() request: RequestWithUser, @Body() preferencesDto: PreferencesDto) {
-        const user = request.user as User;
-        return await this.preferencesService.setPreferences(preferencesDto, user.userId);
+        try {
+            const user = request.user as User;
+            return await this.preferencesService.setPreferences(preferencesDto, user.userId);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
@@ -32,7 +38,11 @@ export class PreferencesController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('/')
     async getPreferences(@Req() request: RequestWithUser) {
-        const user = request.user as User;
-        return await this.preferencesService.getPreferences(user.userId);
+        try {
+            const user = request.user as User;
+            return await this.preferencesService.getPreferences(user.userId);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
