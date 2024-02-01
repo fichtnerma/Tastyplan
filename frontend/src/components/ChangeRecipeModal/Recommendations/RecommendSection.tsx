@@ -9,7 +9,7 @@ type RecommendSectionProps = {
     isActive: boolean;
     recipeId: number | undefined;
 };
-type ClickOrKeyboardEvent = React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element> | null;
+type ClickOrKeyboardEvent = React.KeyboardEvent | React.MouseEvent | null;
 
 export default function RecommendSection({ isActive, recipeId }: RecommendSectionProps) {
     const [recipes, setRecipes] = useState<Array<Recipe>>([]);

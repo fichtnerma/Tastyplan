@@ -148,7 +148,7 @@ export default function PreferencesSettings({
         }
     };
 
-    const handleAddChoice = (e: React.MouseEvent) => {
+    const handleAddChoice = (e: React.MouseEvent | React.KeyboardEvent) => {
         const target = e.target as HTMLButtonElement;
         const id = target.getAttribute('data-dislike-id');
         const name = target.getAttribute('data-dislike-name');

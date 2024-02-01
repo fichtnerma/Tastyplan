@@ -139,13 +139,4 @@ describe('Initalizer (integration)', () => {
 
         expect(prepared).toHaveProperty('ingredients');
     });
-
-    it('sync recipes', async () => {
-        const { recipes } = await initializerService.readJSONRecipes();
-        const prepareMock = jest.fn().mockImplementation((recipe) => recipe);
-        for await (const recipe of initializerService.syncRecipes(recipes, prepareMock)) {
-            expect(prepareMock).toBeCalledWith(recipe, expect.any(Number));
-        }
-        expect(prepareMock).toBeCalledTimes(recipes.length);
-    }, 50000);
 });

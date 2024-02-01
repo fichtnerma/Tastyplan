@@ -94,7 +94,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         onChoice(allDislikes);
     };
 
-    type ClickOrKeyboardEvent = React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>;
+    type ClickOrKeyboardEvent = React.KeyboardEvent | React.MouseEvent;
 
     const handleAddChoice = (e: ClickOrKeyboardEvent) => {
         if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift')) return;

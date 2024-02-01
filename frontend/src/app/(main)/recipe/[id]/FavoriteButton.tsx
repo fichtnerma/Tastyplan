@@ -16,7 +16,7 @@ export default function FavoriteButton({
     const { data: session } = useAuthSession();
     const { favorites, add, remove } = useFavoriteStore();
 
-    const handleFavorite = async (e: React.KeyboardEvent<HTMLElement> | React.MouseEvent<Element, MouseEvent>) => {
+    const handleFavorite = async (e: React.KeyboardEvent | React.MouseEvent) => {
         if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift')) return;
         if (isFavorite) {
             remove(recipe.id, session);

@@ -21,7 +21,7 @@ export default function FoodLifestyle({ onNext, onChoice, formOfDiet }: FoodLife
     const [selection, setSelection] = useState(formOfDiet);
     const [disabled, setDisabled] = useState(selection ? false : true);
 
-    const onChoiceChange = (e: React.ChangeEvent<HTMLInputElement> | React.KeyboardEvent<HTMLElement>) => {
+    const onChoiceChange = (e: React.ChangeEvent | React.KeyboardEvent) => {
         if ('key' in e && e.key === 'Tab') return;
         const target = e.target as HTMLInputElement;
         let targetValue = target.value;

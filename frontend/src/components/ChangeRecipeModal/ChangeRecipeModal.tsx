@@ -64,10 +64,7 @@ export function ChangeRecipeModal({
         setSearchQuery(e.target.value);
     };
 
-    const switchMode = (
-        changedMode: ChangeMode,
-        e: React.KeyboardEvent<HTMLElement> | React.MouseEvent<Element, MouseEvent> | null = null,
-    ) => {
+    const switchMode = (changedMode: ChangeMode, e: React.KeyboardEvent | React.MouseEvent | null = null) => {
         if (e) {
             if (
                 ('key' in e && e.key === 'Tab') ||

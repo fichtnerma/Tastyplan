@@ -25,6 +25,14 @@ type RecipeWithIngredients = Recipe & {
     }[];
 };
 
+const fetchMapped = (data: unknown) => {
+    return fetch(`${process.env.RECOMMENDER_URL}/mapping`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+};
+
 @Injectable()
 export class InitializerService implements OnApplicationBootstrap {
     constructor(
@@ -127,26 +135,28 @@ export class InitializerService implements OnApplicationBootstrap {
         return { recipes: recipes, shouldUpdate: shouldUpdate };
     }
 
-    async *syncRecipes(recipes: RecipeMapped['recipes'], prepareRecipeData = this.prepareRecipeData) {
+    async *syncRecipes(recipes: RecipeMapped['recipes']) {
         for (let index = 0; index < recipes.length; index++) {
             const recipe = recipes[index];
-            yield await prepareRecipeData(recipe, index);
+            yield await this.prepareRecipeData(recipe, index);
         }
     }
 
-    async prepareRecipeData(
-        recipe: RecipeWithIngredients,
-        index: number,
-        fetchMapping = (data: unknown) =>
-            fetch(`${process.env.RECOMMENDER_URL}/mapping`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            }),
-    ) {
+    mapIngredients(recipeMapped: InnitializerIngredient[]) {
+        return recipeMapped.map((ing: { ingredientId: number; quantity: string; unit: string; condition: string }) => {
+            const convertedIngrAmount = convertIngredientAmount(ing);
+            return {
+                ingredientId: ing.ingredientId,
+                quantity: convertedIngrAmount.quantity || null,
+                unit: convertedIngrAmount.unit,
+                condition: ing.condition,
+            };
+        });
+    }
+
+    async prepareRecipeData(recipe: RecipeWithIngredients, index: number, fetchMapping = fetchMapped) {
         try {
             const recipeJson = await fetchMapping(recipe);
-
             const recipeMapped = await recipeJson.json();
 
             const ingredientsMapped = this.mapIngredients(recipeMapped);
@@ -172,17 +182,5 @@ export class InitializerService implements OnApplicationBootstrap {
             console.log('Recipe: ', recipe.name, 'with index: ', index + 1, 'failed');
             console.log(error);
         }
-    }
-
-    mapIngredients(recipeMapped: InnitializerIngredient[]) {
-        return recipeMapped.map((ing: { ingredientId: number; quantity: string; unit: string; condition: string }) => {
-            const convertedIngrAmount = convertIngredientAmount(ing);
-            return {
-                ingredientId: ing.ingredientId,
-                quantity: convertedIngrAmount.quantity || null,
-                unit: convertedIngrAmount.unit,
-                condition: ing.condition,
-            };
-        });
     }
 }
