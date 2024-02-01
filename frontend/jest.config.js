@@ -27,7 +27,7 @@ const customJestConfig = {
         '!**/AddRecipeWizard/AddRecipeWizard.tsx',
         '!**/Header/MainHeader.tsx',
         '!**/Recipes/ShowRecipes.tsx',
-        '!**/Recipes/RecipeHome.tsx',
+        '!**/Recipes/RecipesHome.tsx',
         '!**/pages/**',
     ],
 };
