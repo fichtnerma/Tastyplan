@@ -14,7 +14,7 @@ interface WeekplanConfigProps {
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
     servings: number;
-    handlePreferences: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
+    handlePreferences: (evt: React.MouseEvent | React.KeyboardEvent) => void;
     daysCheckboxes: CustomCheckboxInput[];
     handleDaySelection: OnDaySelectionFunction;
     mealsCheckboxes: CustomCheckboxInput[];
@@ -100,7 +100,8 @@ export default function WeekplanConfig({
                 </button>
                 <Link
                     className="btn-primary mt-6"
-                    onClick={handlePreferences}
+                    onClick={(e) => handlePreferences(e)}
+                    onKeyDown={(e) => handlePreferences(e)}
                     href={'/weekOverview'}
                     data-cy="create-weekplan-btn"
                 >
