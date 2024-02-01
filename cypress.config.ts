@@ -4,7 +4,7 @@ const isCI = require("is-ci");
 export default defineConfig({
   e2e: {
     //        baseUrl: 'http://193.170.119.139/',
-    baseUrl: isCI ? "https:test.tastyplan.de" : "http://localhost:8080",
+    baseUrl: isCI ? "https://test.tastyplan.de" : "http://localhost:8080",
     chromeWebSecurity: false,
     setupNodeEvents(on, config) {
       // implement node event listeners here
