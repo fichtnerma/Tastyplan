@@ -43,7 +43,7 @@ export default function MainHeader() {
     return (
         <>
             <div className={`${styles.headerContainer} mainContainer !min-h-fit left-1/2 translate-x-[-50%]`}>
-                <div className={`${styles.container} ${headerClass}`}>
+                <div className={`${styles.container} ${headerClass}`} data-cy="main-header-wrapper">
                     <Link href="/weekOverview" className="hidden md:block my-auto">
                         <div className="ml-6">
                             <Image src={'/logo.svg'} alt="Calendar Img" width={70} height={70} priority />
@@ -55,6 +55,7 @@ export default function MainHeader() {
                             href="/weekOverview"
                             onClick={() => setActiveTab('/weekOverview')}
                             className={`link weekOverview ${activeTab === '/weekOverview' ? styles.active : ''}`}
+                            data-cy="main-header-week-overview-link"
                         >
                             <div
                                 className={`flex gap-2 items-center ${
@@ -74,7 +75,7 @@ export default function MainHeader() {
                             href="/cookbook"
                             onClick={() => setActiveTab('/cookbook')}
                             className={`link cookbook ${activeTab === '/cookbook' ? styles.active : ''}`}
-                            data-cy="navigate-cookbock-link"
+                            data-cy="main-header-cookbook-link"
                         >
                             <div
                                 className={`flex gap-2 items-center ${
@@ -90,9 +91,9 @@ export default function MainHeader() {
                                 } ${activeTab === '/cookbook' && styles.lineShow}`}
                             ></div>
                         </Link>
-                        <div className={styles.userIcon} tabIndex={0}>
+                        <div className={styles.userIcon} tabIndex={0} data-cy="main-header-user-dropdown">
                             <div className="block md:hidden">
-                                <Link href="/settings" className="">
+                                <Link href="/settings">
                                     <div className="flex gap-2 items-center hover:cursor-pointer">
                                         <Icon size={25} icon="user"></Icon>
                                     </div>
@@ -104,7 +105,10 @@ export default function MainHeader() {
                             <div className={`w-40 pt-8 right-14 absolute hidden md:block ${styles.dropdown} `}>
                                 <div className={`rounded-2xl bg-green-custom1 ${headerClass}`}>
                                     {userIsGuest ? (
-                                        <Link href="authentication/registration">
+                                        <Link
+                                            href="authentication/registration"
+                                            data-cy="main-header-registration-link"
+                                        >
                                             <div
                                                 className={`flex justify-center gap-2 text-right py-5 settings dropdown ${styles.guestUserDropdown}`}
                                             >
@@ -115,6 +119,7 @@ export default function MainHeader() {
                                         <Link href="/settings">
                                             <div
                                                 className={`flex gap-2 text-right pt-5 pb-3 pl-5 settings dropdown ${styles.settingsDropdown}`}
+                                                data-cy="main-header-settings-link"
                                             >
                                                 <p>Settings</p>
                                                 <div className="right-0 absolute pr-8">
@@ -127,7 +132,7 @@ export default function MainHeader() {
                                         <Link
                                             onClick={async () => await signOut({ callbackUrl: '/' })}
                                             href="#"
-                                            className=""
+                                            data-cy="main-header-logout-link"
                                         >
                                             <div
                                                 className={`flex gap-2 items-center pb-5 pl-5 pt-3 user dropdown ${styles.userDropdown}`}

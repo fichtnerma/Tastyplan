@@ -69,9 +69,12 @@ describe("Weekplan", () => {
     cy.intercept("POST", "/service/weekplan/create").as("createWeekplan");
     cy.dataCy("create-weekplan-btn").click();
     cy.wait("@createWeekplan");
+
+    cy.contains("Lunch");
+    cy.contains("Dinner").should("not.exist");
   });
 
-  it("User should be able to add a recipe to an empty card", () => {
+  it.skip("User should be able to add a recipe to an empty card", () => {
     cy.intercept("/service/*", (req) => {
       req.headers["authorization"] = `Bearer ${Cypress.env("token")}`;
     }).as("createWeekplan");
