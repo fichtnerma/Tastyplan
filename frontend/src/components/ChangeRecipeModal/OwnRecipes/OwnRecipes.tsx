@@ -4,9 +4,9 @@ import RecipeCard from '@components/RecipeCard/RecipeCard';
 import { fetchWithAuth } from '@helpers/utils';
 import { Recipe } from 'src/types/types';
 
-export default function OwnRecipeSection() {
+export default function OwnRecipeSection({ useAuthSession = useSession }: { useAuthSession?: typeof useSession }) {
     const [recipes, setRecipes] = useState<Array<Recipe>>([]);
-    const { data: session } = useSession();
+    const { data: session } = useAuthSession();
 
     useEffect(() => {
         async function getOwnRecipes() {
