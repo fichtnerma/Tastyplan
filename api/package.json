@@ -13,7 +13,7 @@
         "start:watch": "npx prisma migrate dev && NODE_ENV=development nest build --webpack --webpackPath webpack-hmr.config.js --watch",
         "migrate": "npx prisma migrate dev",
         "start:debug": "nest start --debug --watch",
-        "start:prod": "node dist/main",
+        "start:prod": "node dist/src/main",
         "start:prod:migrate": "npx prisma migrate deploy && npm run start:prod",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
         "fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
