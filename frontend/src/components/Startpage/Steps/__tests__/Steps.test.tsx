@@ -11,7 +11,7 @@ describe('Steps', () => {
     });
 
     it('renders the Steps component with correct content', () => {
-        const { getByText, getAllByText } = render(<Steps />);
+        const { getByText } = render(<Steps />);
 
         // You can add more specific assertions based on your component content
         expect(
