@@ -9,6 +9,7 @@ type RecommendSectionProps = {
     isActive: boolean;
     recipeId: number | undefined;
 };
+type ClickOrKeyboardEvent = React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element> | null;
 
 export default function RecommendSection({ isActive, recipeId }: RecommendSectionProps) {
     const [recipes, setRecipes] = useState<Array<Recipe>>([]);
@@ -17,7 +18,10 @@ export default function RecommendSection({ isActive, recipeId }: RecommendSectio
         if (isActive) getRecipes();
     }, [isActive]);
 
-    async function getRecipes() {
+    async function getRecipes(e: ClickOrKeyboardEvent = null) {
+        if (e) {
+            e.preventDefault();
+        }
         setRecipes([]);
         const data = await fetchWithAuth(`/service/recipes/recommend/${recipeId}`, { method: 'GET' }, session);
         const recipesData = (await data.json()) as Array<Recipe>;
@@ -30,13 +34,13 @@ export default function RecommendSection({ isActive, recipeId }: RecommendSectio
                 <h4 className="h4 text-center !mb-0 !sm:mb-1">Recipes for you</h4>
                 <button
                     className="px-3 h:4 sm:h-10 hover:text-green-custom2  z-10"
-                    onClick={() => {
-                        getRecipes();
+                    onClick={(e) => {
+                        getRecipes(e);
                     }}
                     aria-label="switch recipes"
                     onKeyDown={(e) => {
                         if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift')) return;
-                        getRecipes();
+                        getRecipes(e);
                     }}
                 >
                     <Icon classNames="w-4 h-4 sm:w-6 sm:h-6" icon="switch"></Icon>

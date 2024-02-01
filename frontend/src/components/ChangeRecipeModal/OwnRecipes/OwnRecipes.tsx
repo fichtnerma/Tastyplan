@@ -19,7 +19,7 @@ export default function OwnRecipeSection() {
 
     return (
         <div className="pt-6">
-            <h4 className="h3 text-start w-full !mb-0 !sm:mb-1">Found Recipes</h4>
+            <h4 className="h3 text-start w-full !mb-0 !sm:mb-1">Own Recipes</h4>
             <div className="recipeCardGrid">
                 {recipes?.length > 0
                     ? recipes.map((recipeInfo: Recipe) => {

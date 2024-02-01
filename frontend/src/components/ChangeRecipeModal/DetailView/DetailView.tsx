@@ -26,7 +26,15 @@ export default function DetailView() {
     }, [currentRecipeId, session]);
     return (
         <>
-            <button className="h-fit w-fit absolute" onClick={hideDetailView} aria-label="go back">
+            <button
+                className="h-fit w-fit absolute"
+                onClick={hideDetailView}
+                aria-label="go back"
+                onKeyDown={(e) => {
+                    if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift')) return;
+                    hideDetailView;
+                }}
+            >
                 <Icon classNames="inline-flex mr-2" size={16} icon="arrowBack" />
                 Back
             </button>
