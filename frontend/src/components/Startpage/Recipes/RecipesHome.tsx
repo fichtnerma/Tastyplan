@@ -7,8 +7,10 @@ function RecipesHome() {
                 <div className="w-full max-w-[1600px] ml-auto mr-auto">
                     <div className="mx-14 lg:flex ">
                         <div className="lg:w-1/3">
-                            <h2 className="leading-none mb-2">Simple and Tasty Recipes</h2>
-                            <p>
+                            <h2 className="leading-none mb-2" data-cy="recipes-home-heading">
+                                Simple and Tasty Recipes
+                            </h2>
+                            <p data-cy="recipes-home-desc">
                                 - Indulge in a world of culinary delight, where visually captivating recipes take center
                                 stage while remaining simple.
                             </p>

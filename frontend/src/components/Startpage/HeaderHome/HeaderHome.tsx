@@ -139,6 +139,7 @@ function HeaderHome() {
                 href="#scrollRef"
                 aria-label="scroll down"
                 className="col-start-3 row-start-8 text-green-custom2 hover:text-green-custom3 flex justify-center pt-8 z-10 animate-bounce"
+                data-cy="homepage-down-arrow-btn"
             >
                 <Icon size={100} icon="arrowDownCircle"></Icon>
             </Link>
