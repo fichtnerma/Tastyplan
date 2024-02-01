@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { Role } from 'src/types/types';
+import { Role } from './../types/types';
 
 export const useAppUser = () => {
     const { data: session, status } = useSession();
