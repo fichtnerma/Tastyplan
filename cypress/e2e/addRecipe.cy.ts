@@ -37,7 +37,7 @@ describe("Add Recipe", () => {
   });
   it("User should be able to add a custom Recipe", () => {
     //Navigate to addRecipe-route
-    cy.dataCy("navigate-cookbock-link").click();
+    cy.dataCy("main-header-cookbook-link").click();
     cy.dataCy("add-own-recipe-link").click();
 
     //Test error state of name

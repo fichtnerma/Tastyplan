@@ -10,6 +10,7 @@ declare namespace Cypress {
       pw: string,
       timeout?: number,
     ): Chainable<Element>;
+    loginGuest();
     createEmptyWeekplan(email: string, pw: string): Chainable<Element>;
   }
 }
@@ -48,6 +49,20 @@ Cypress.Commands.add("loginDynamicUser", (email: string, pw: string) => {
       Cypress.env("token", bearerValue);
     });
   });
+});
+
+Cypress.Commands.add("loginGuest", () => {
+  cy.intercept("GET", "*/auth/session").as("guestUser");
+  cy.visit("/authentication/registration");
+  cy.dataCy("decline-cookies-btn").click();
+  cy.dataCy("continue-as-guest-btn").click();
+  cy.wait("@guestUser");
+  cy.dataCy("vegan-radio-btn").click({ force: true });
+  cy.dataCy("next-btn").click();
+  cy.dataCy("next-btn").click();
+  cy.intercept("POST", "/service/weekplan/create").as("createWeekplan");
+  cy.dataCy("create-weekplan-btn").click();
+  cy.wait("@createWeekplan");
 });
 
 Cypress.Commands.add("createEmptyWeekplan", (email: string, pw: string) => {
