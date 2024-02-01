@@ -4,6 +4,7 @@ import { RecipesUploadImageService } from 'src/recipes/recipesUploadImage.servic
 import { RecipesSearchService } from 'src/recipes/recipesSearch.service';
 import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { RecipeQueries } from 'src/recipes/recipe.queries';
+import { PreferencesService } from 'src/preferences/preferences.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CACHE_MANAGER } from '@nestjs/common';
 
@@ -31,6 +32,9 @@ describe('RecipeService', () => {
     const mockRecipesUploadImageService = jest.fn(() => ({
         // mock methods here if needed
     }));
+    const mockPreferencesService = jest.fn(() => ({
+        // mock methods here if needed
+    }));
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -40,6 +44,8 @@ describe('RecipeService', () => {
                 { provide: RecipesSearchService, useValue: mockRecipeSearchService() },
                 { provide: RecipeQueries, useValue: mockRecipeQueries() },
                 { provide: RecipesUploadImageService, useValue: mockRecipesUploadImageService() },
+                { provide: PreferencesService, useValue: mockPreferencesService() },
+
                 { provide: CACHE_MANAGER, useValue: {} },
             ],
         }).compile();

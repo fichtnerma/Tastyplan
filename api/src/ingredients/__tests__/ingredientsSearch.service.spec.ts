@@ -1,13 +1,21 @@
 import IngredientsSearchService from '../ingredientsSearch.service';
 import { Ingredient } from '@prisma/client';
 import { Test, TestingModule } from '@nestjs/testing';
+import { ElasticsearchService } from '@nestjs/elasticsearch';
 
 describe('IngredientsSearchService', () => {
     let service: IngredientsSearchService;
 
+    const mockElasticsearchService = {
+        // mock methods here
+    };
+
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            providers: [IngredientsSearchService],
+            providers: [
+                IngredientsSearchService,
+                { provide: ElasticsearchService, useValue: mockElasticsearchService },
+            ],
         }).compile();
         service = module.get<IngredientsSearchService>(IngredientsSearchService);
     });

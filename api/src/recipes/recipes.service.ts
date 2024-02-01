@@ -1,9 +1,10 @@
 import { RecipesUploadImageService } from './recipesUploadImage.service';
 import { RecipesSearchService } from './recipesSearch.service';
-import { Preferences, RecipesFilterService } from './recipesFilter.service';
+import { RecipesFilterService } from './recipesFilter.service';
 import { RecipeQueries } from './recipe.queries';
 import { ExtendetRecipe, RecipeWithIngredientName, RecipeInput, CreateRecipeInput } from './recipe.interface';
 import { PostRecipeDto } from './dto/post-recipe.dto';
+import { PreferencesService } from 'src/preferences/preferences.service';
 import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
 import { Cache } from 'cache-manager';
 import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -17,6 +18,7 @@ export class RecipesService {
         private recipeSearchService: RecipesSearchService,
         private recipeQueries: RecipeQueries,
         private recipesUploadImageService: RecipesUploadImageService,
+        private preferencesService: PreferencesService,
     ) {}
 
     async findById(id: number) {
@@ -132,8 +134,11 @@ export class RecipesService {
         return formOfDiet[formOfDiet.length - 1] || 'omnivore';
     }
 
-    async getRecommendations(k: number, preferances: Preferences, id: string) {
+    async getRecommendations(id: string, userId: string) {
         try {
+            const k = 5;
+            const preferences = await this.preferencesService.getPreferences(userId);
+
             let recommendedRecipeIds;
             if (id) {
                 const recommendedRecipeRes = await fetch(`${process.env.RECOMMENDER_URL}/recommend/${id}?k=${k * 4}`);
@@ -141,7 +146,7 @@ export class RecipesService {
             }
 
             let { recipes: fetchedMeals } = await this.recipeFilterService.filterByQuery(
-                preferances,
+                preferences,
                 recommendedRecipeIds || undefined,
             );
 

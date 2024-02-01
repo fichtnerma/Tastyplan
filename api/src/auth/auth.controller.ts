@@ -14,38 +14,54 @@ export class AuthController {
     @UseGuards(OptionalAuthGuard)
     @Post('register')
     public async register(@Req() request: Request, @Res() response: Response) {
-        let result: RegistrationStatus;
-        const user = request.user as User;
-        const userDto: CreateUserDto = request.body;
+        try {
+            let result: RegistrationStatus;
+            const user = request.user as User;
+            const userDto: CreateUserDto = request.body;
 
-        if (user && user.role === 'guest') {
-            result = await this.authService.convertGuestToUser(user, userDto);
-        } else {
-            result = await this.authService.register(userDto);
-        }
+            if (user && user.role === 'guest') {
+                result = await this.authService.convertGuestToUser(user, userDto);
+            } else {
+                result = await this.authService.register(userDto);
+            }
 
-        if (!result.success) {
-            throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
+            if (!result.success) {
+                throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
+            }
+            return response.sendStatus(HttpStatus.CREATED);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return response.sendStatus(HttpStatus.CREATED);
     }
 
     @Post('login')
     public async login(@Body() loginUserDto: LoginUserDto, @Res() response: Response): Promise<Response> {
-        const { token, data } = await this.authService.login(loginUserDto);
-        const loginToken = { token, ...data };
-        return response.send(loginToken);
+        try {
+            const { token, data } = await this.authService.login(loginUserDto);
+            const loginToken = { token, ...data };
+            return response.send(loginToken);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Post('guest')
     public async continueAsGuest(@Body() createGuestDto: CreateGuestDto, @Res() response: Response): Promise<Response> {
-        const { token, data } = await this.authService.continueAsGuest(createGuestDto);
-        const guestToken = { token, ...data };
-        return response.send(guestToken);
+        try {
+            const { token, data } = await this.authService.continueAsGuest(createGuestDto);
+            const guestToken = { token, ...data };
+            return response.send(guestToken);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Post('logout')
     public async logout(@Res() response: Response) {
-        return response.sendStatus(HttpStatus.OK);
+        try {
+            return response.sendStatus(HttpStatus.OK);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

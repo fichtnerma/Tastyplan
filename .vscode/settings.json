@@ -34,5 +34,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "python.analysis.extraPaths": ["./recommender/app"],
-  "r.lsp.promptToInstall": false
+  "r.lsp.promptToInstall": false,
+  "files.watcherExclude": {
+    "**/target": true
+  }
 }

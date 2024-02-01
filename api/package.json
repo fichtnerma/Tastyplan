@@ -137,7 +137,6 @@
         ],
         "coveragePathIgnorePatterns": [
             "/node_modules/",
-            ".*\\.controller\\.ts$",
             ".*\\.queries\\.ts$",
             ".*\\.module\\.ts$",
             ".*\\.dto\\.ts$",

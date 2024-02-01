@@ -6,7 +6,7 @@ import { User } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
-type LoginReturnType = {
+export type LoginReturnType = {
     token: JwtToken;
     data: FormatLogin;
 };

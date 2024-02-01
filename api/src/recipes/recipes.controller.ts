@@ -1,8 +1,7 @@
 import { RecipesSearchService } from './recipesSearch.service';
 import { RecipesService } from './recipes.service';
 import { PostRecipeDto } from './dto/post-recipe.dto';
-import { RequestWithUser } from 'src/users/users.controller';
-import { PreferencesService } from 'src/preferences/preferences.service';
+import { RequestWithUser } from 'src/users/users.interface';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from '@prisma/client';
 import { ApiSecurity } from '@nestjs/swagger';
@@ -26,7 +25,6 @@ export class RecipesController {
     constructor(
         private readonly recipesService: RecipesService,
         private readonly recipesSearchService: RecipesSearchService,
-        private readonly preferencesService: PreferencesService,
     ) {}
 
     @UseGuards(JwtAuthGuard)
@@ -34,10 +32,12 @@ export class RecipesController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('/recommend/:id')
     public async findAll(@Param('id') id: string, @Req() request: RequestWithUser) {
-        const user = request.user as User;
-        const k = 5;
-        const preferences = await this.preferencesService.getPreferences(user.userId);
-        return this.recipesService.getRecommendations(k, preferences, id);
+        try {
+            const user = request.user as User;
+            return this.recipesService.getRecommendations(id, user.userId);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
@@ -45,7 +45,11 @@ export class RecipesController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('/tags')
     async getRecipeTags() {
-        return await this.recipesService.getRecipeTags();
+        try {
+            return await this.recipesService.getRecipeTags();
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Post('/create')
@@ -53,18 +57,14 @@ export class RecipesController {
         try {
             return await this.recipesService.postRecipe(postRecipeDto);
         } catch (error) {
-            if (error instanceof HttpException) {
-                throw error;
-            } else {
-                throw new HttpException(
-                    {
-                        status: HttpStatus.INTERNAL_SERVER_ERROR,
-                        error: 'ERROR: Creating recipe failed!',
-                        cause: error,
-                    },
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                );
-            }
+            throw new HttpException(
+                {
+                    status: HttpStatus.INTERNAL_SERVER_ERROR,
+                    error: 'ERROR: Creating recipe failed!',
+                    cause: error,
+                },
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
         }
     }
 
@@ -73,19 +73,31 @@ export class RecipesController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('/own')
     public async findOwn(@Req() request: RequestWithUser) {
-        console.log(request.user);
-        return this.recipesService.findOwn(request.user.userId);
+        try {
+            return await this.recipesService.findOwn(request.user.userId);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
     @Get(':id')
     public findOne(@Param('id') id: string) {
-        return this.recipesService.findById(+id);
+        try {
+            return this.recipesService.findById(+id);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Get('')
     async getRecipes(@Query('search') search: string) {
-        if (search) {
-            return this.recipesSearchService.search(search);
+        try {
+            if (search) {
+                return this.recipesSearchService.search(search);
+            }
+            return [];
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return [];
     }
 }
