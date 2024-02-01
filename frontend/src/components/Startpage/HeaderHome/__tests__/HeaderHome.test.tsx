@@ -43,4 +43,11 @@ describe('HeaderHome', () => {
         const createWeekplanBtn = getByText('Create Weekplan');
         expect(createWeekplanBtn).toBeInTheDocument();
     });
+
+    it('renders the food images', () => {
+        const { getAllByAltText } = render(<HeaderHome />);
+
+        // Check if each food image is rendered
+        expect(getAllByAltText('')).toHaveLength;
+    });
 });
