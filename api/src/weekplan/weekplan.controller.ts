@@ -1,7 +1,7 @@
 import { WeekplanService } from './weekplan.service';
 import { CreateByDateDto } from './dto/create-by-date.dto';
 import { ChangeRecipeDto } from './dto/change-recipe.dto';
-import { RequestWithUser } from 'src/users/users.controller';
+import { RequestWithUser } from 'src/users/users.interface';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from '@prisma/client';
 import { ApiSecurity } from '@nestjs/swagger';

@@ -1,6 +1,6 @@
 import { PreferencesService } from './preferences.service';
 import { PreferencesDto } from './dto/createPreferences.dto';
-import { RequestWithUser } from 'src/users/users.controller';
+import { RequestWithUser } from 'src/users/users.interface';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from '@prisma/client';
 import { ApiSecurity } from '@nestjs/swagger';

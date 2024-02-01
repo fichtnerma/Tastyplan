@@ -3,7 +3,7 @@ import { WeekplanQueries } from '../weekplan.queries';
 import { IFormattedWeekplan } from '../weekplan.interface';
 import { WeekplanController } from '../weekplan.controller';
 import { ChangeRecipeDto } from '../dto/change-recipe.dto';
-import { RequestWithUser } from 'src/users/users.controller';
+import { RequestWithUser } from 'src/users/users.interface';
 import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
 import { Recipe } from '@prisma/client';

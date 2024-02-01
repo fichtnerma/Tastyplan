@@ -1,7 +1,7 @@
 import { RecipesSearchService } from './recipesSearch.service';
 import { RecipesService } from './recipes.service';
 import { PostRecipeDto } from './dto/post-recipe.dto';
-import { RequestWithUser } from 'src/users/users.controller';
+import { RequestWithUser } from 'src/users/users.interface';
 import { PreferencesService } from 'src/preferences/preferences.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from '@prisma/client';
@@ -34,10 +34,14 @@ export class RecipesController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('/recommend/:id')
     public async findAll(@Param('id') id: string, @Req() request: RequestWithUser) {
-        const user = request.user as User;
-        const k = 5;
-        const preferences = await this.preferencesService.getPreferences(user.userId);
-        return this.recipesService.getRecommendations(k, preferences, id);
+        try {
+            const user = request.user as User;
+            const k = 5;
+            const preferences = await this.preferencesService.getPreferences(user.userId);
+            return this.recipesService.getRecommendations(k, preferences, id);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
