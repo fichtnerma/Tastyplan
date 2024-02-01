@@ -6,9 +6,15 @@ import { useFavoriteStore } from '@hooks/useFavorites';
 import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { Recipe } from 'src/types/types';
 
-function SomeFavorites() {
-    const { data, error } = useFetchWithAuth('/service/favorites');
-    const { favorites } = useFavoriteStore();
+function SomeFavorites({
+    useFetchAuth = useFetchWithAuth,
+    useFavorites = useFavoriteStore,
+}: {
+    useFetchAuth?: typeof useFetchWithAuth;
+    useFavorites?: typeof useFavoriteStore;
+}) {
+    const { data, error } = useFetchAuth('/service/favorites');
+    const { favorites } = useFavorites();
 
     return (
         <>

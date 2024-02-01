@@ -5,9 +5,15 @@ import Icon from '@components/Icon/Icon';
 import { useFavoriteStore } from '@hooks/useFavorites';
 import { Recipe } from 'src/types/types';
 
-export default function FavoriteButton({ recipe }: { recipe: Recipe }) {
+export default function FavoriteButton({
+    recipe,
+    useAuthSession = useSession,
+}: {
+    recipe: Recipe;
+    useAuthSession?: typeof useSession;
+}) {
     const [isFavorite, setIsFavorite] = useState(false);
-    const { data: session } = useSession();
+    const { data: session } = useAuthSession();
     const { favorites, add, remove } = useFavoriteStore();
 
     const handleFavorite = async (e: React.KeyboardEvent<HTMLElement> | React.MouseEvent<Element, MouseEvent>) => {
@@ -34,8 +40,9 @@ export default function FavoriteButton({ recipe }: { recipe: Recipe }) {
             onClick={(e) => handleFavorite(e)}
             tabIndex={0}
             onKeyDown={(e) => handleFavorite(e)}
+            data-testid="favorite-button"
         >
-            <Icon size={50} icon="heart" classNames="w-10 lg:w-12"></Icon>
+            <Icon size={50} icon="heart" classNames="w-10 lg:w-12" data-testid="heart"></Icon>
         </div>
     );
 }
