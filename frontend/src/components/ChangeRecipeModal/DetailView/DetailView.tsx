@@ -10,8 +10,8 @@ export default function DetailView({
     useAuthSession = useSession,
     useSwitchRecipe = useSwitchRecipeContext,
 }: {
-    useAuthSession: typeof useSession;
-    useSwitchRecipe: typeof useSwitchRecipeContext;
+    useAuthSession?: typeof useSession;
+    useSwitchRecipe?: typeof useSwitchRecipeContext;
 }) {
     const [recipe, setRecipe] = useState<Recipe | undefined>(undefined);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
