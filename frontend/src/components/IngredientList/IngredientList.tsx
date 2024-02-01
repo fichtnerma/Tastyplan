@@ -75,7 +75,7 @@ function IngredientList({
                 </div>
             </div>
             <h2 className="pl-6 mb-0">Ingredients</h2>
-            <div className="mb-6 lg:mb-0">
+            <div className="mb-6 lg:mb-0" data-cy="ingredients-wrapper">
                 {ingredients?.map((ingredient) => (
                     <div key={ingredient.id} className="flex odd:bg-green-custom1 lg:py-1">
                         <p className="w-1/2 pl-6 font-semibold">
