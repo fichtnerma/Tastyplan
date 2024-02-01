@@ -258,7 +258,7 @@ export class WeekplanService {
         const sortedWeek = [...week.slice(today), ...week.slice(0, today)];
         let recipeCounter = 0;
         const weekplan = sortedWeek.map((dayEntry, index) => {
-            const entryDay = new Date(new Date().setDate(startDate.getDate() + index));
+            const entryDay = new Date(new Date(startDate).setDate(startDate.getDate() + index));
             entryDay.setUTCHours(0, 0, 0, 0);
             const weekplanEntry: WeekplanEntry = {
                 date: entryDay,

@@ -53,8 +53,12 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/create')
     create(@Req() request: RequestWithUser) {
-        const user = request.user as User;
-        return this.weekplanService.create(user.userId);
+        try {
+            const user = request.user as User;
+            return this.weekplanService.create(user.userId);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
@@ -62,10 +66,14 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/createForDate')
     createForDate(@Req() request: RequestWithUser, @Body() createByDateDto: CreateByDateDto) {
-        const user = request.user as User;
-        const dateObj = new Date(createByDateDto.date);
+        try {
+            const user = request.user as User;
+            const dateObj = new Date(createByDateDto.date);
 
-        return this.weekplanService.createFutureWeekplan(user.userId, dateObj, createByDateDto.shouldReplace);
+            return this.weekplanService.createFutureWeekplan(user.userId, dateObj, createByDateDto.shouldReplace);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
@@ -73,8 +81,12 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/regenerate')
     regenerate(@Req() request: RequestWithUser) {
-        const user = request.user as User;
-        return this.weekplanService.regenerate(user.userId);
+        try {
+            const user = request.user as User;
+            return this.weekplanService.regenerate(user.userId);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
@@ -82,7 +94,11 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/changeRecipe')
     changeRecipe(@Body() changeRecipeReq: ChangeRecipeDto, @Req() request: RequestWithUser) {
-        const user = request.user as User;
-        return this.weekplanService.changeRecipe(changeRecipeReq, user);
+        try {
+            const user = request.user as User;
+            return this.weekplanService.changeRecipe(changeRecipeReq, user);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

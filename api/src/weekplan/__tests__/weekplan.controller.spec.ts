@@ -2,9 +2,11 @@ import { WeekplanService } from '../weekplan.service';
 import { WeekplanQueries } from '../weekplan.queries';
 import { IFormattedWeekplan } from '../weekplan.interface';
 import { WeekplanController } from '../weekplan.controller';
+import { ChangeRecipeDto } from '../dto/change-recipe.dto';
 import { RequestWithUser } from 'src/users/users.controller';
 import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
+import { Recipe } from '@prisma/client';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
@@ -128,7 +130,7 @@ describe('WeekplanController', () => {
         }
     });
 
-    it('GET: :date => Should return weekplan for given date', async () => {
+    it('GET: :date => Should call method and return weekplan', async () => {
         jest.spyOn(service, 'findByDate').mockResolvedValue(mockFormattedWeekplan);
         const result = await controller.findByStartDate({ date: new Date(2024, 1, 1) }, mockRequestWithUser);
 
@@ -141,6 +143,108 @@ describe('WeekplanController', () => {
         });
         try {
             await controller.findByStartDate({ date: new Date(2024, 1, 1) }, mockRequestWithUser);
+        } catch (error) {
+            expect(error).toBeInstanceOf(HttpException);
+            expect(error.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    });
+    it('POST: create => Should call method', async () => {
+        jest.spyOn(service, 'create').mockResolvedValue(null);
+        await controller.create(mockRequestWithUser);
+
+        expect(service.create).toHaveBeenCalledTimes(1);
+    });
+    it('POST: create => Should return HTTP exception in service error case', async () => {
+        jest.spyOn(service, 'create').mockImplementation(() => {
+            throw new Error();
+        });
+        try {
+            await controller.create(mockRequestWithUser);
+        } catch (error) {
+            expect(error).toBeInstanceOf(HttpException);
+            expect(error.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    });
+    it('POST: createForDate => Should call method and return weekplan', async () => {
+        jest.spyOn(service, 'createFutureWeekplan').mockResolvedValue(mockFormattedWeekplan);
+        const result = await controller.createForDate(mockRequestWithUser, {
+            date: new Date('2024-02-01'),
+            shouldReplace: true,
+        });
+        expect(result).toBe(mockFormattedWeekplan);
+    });
+    it('POST: createForDate => Should return HTTP exception in service error case', async () => {
+        jest.spyOn(service, 'createFutureWeekplan').mockImplementation(() => {
+            throw new Error();
+        });
+        try {
+            await controller.createForDate(mockRequestWithUser, {
+                date: new Date('2024-02-01'),
+                shouldReplace: true,
+            });
+        } catch (error) {
+            expect(error).toBeInstanceOf(HttpException);
+            expect(error.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    });
+
+    it('POST: regenerate => Should call method and return weekplan', async () => {
+        jest.spyOn(service, 'regenerate').mockResolvedValue(mockFormattedWeekplan);
+        const result = await controller.regenerate(mockRequestWithUser);
+        expect(result).toBe(mockFormattedWeekplan);
+    });
+    it('POST: regenerate => Should return HTTP exception in service error case', async () => {
+        jest.spyOn(service, 'regenerate').mockImplementation(() => {
+            throw new Error();
+        });
+        try {
+            await controller.regenerate(mockRequestWithUser);
+        } catch (error) {
+            expect(error).toBeInstanceOf(HttpException);
+            expect(error.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    });
+
+    it('POST: changeRecipe => Should call method and return weekplan', async () => {
+        const mockChangedRecipe: Recipe = {
+            id: 1,
+            name: 'Test Recipe',
+            img: null,
+            description: null,
+            cookingTime: null,
+            preparingTime: null,
+            totalTime: null,
+            servings: 4,
+            tags: ['test'],
+            formOfDiet: 'Test Diet',
+            userId: null,
+        };
+        const mockChangedRecipeDto: ChangeRecipeDto = {
+            id: 'test-id',
+            weekplanEntry: 'test-entry',
+            isLunch: true,
+            isDinner: false,
+        };
+        jest.spyOn(service, 'changeRecipe').mockResolvedValue(mockChangedRecipe);
+        const result = await controller.changeRecipe(mockChangedRecipeDto, mockRequestWithUser);
+
+        expect(result).toEqual(mockChangedRecipe);
+    });
+
+    it('POST: changeRecipe => Should return HTTP exception in service error case', async () => {
+        jest.spyOn(service, 'changeRecipe').mockImplementation(() => {
+            throw new Error();
+        });
+        try {
+            await controller.changeRecipe(
+                {
+                    id: 'test-id',
+                    weekplanEntry: 'test-entry',
+                    isLunch: true,
+                    isDinner: false,
+                },
+                mockRequestWithUser,
+            );
         } catch (error) {
             expect(error).toBeInstanceOf(HttpException);
             expect(error.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
