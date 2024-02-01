@@ -10,21 +10,21 @@ export class CronjobsService {
     @Cron('0 23 * * *')
     async handleCron() {
         console.log('##########Cronjob Create Weekplan START##########');
-        const allUsers = await this.cronjobsQueries.findManyUserIds();
-        for (const user of allUsers) {
-            const currentWeekplan = await this.weekplanService.current(user.userId);
-            const expiringDate = this.createExpiringDate();
-            expiringDate.setDate(expiringDate.getDate() + 2);
-            expiringDate.setHours(0, 0, 0, 0);
-            if (currentWeekplan.endDate <= expiringDate) {
-                try {
-                    await this.weekplanService.create(user.userId);
-                    console.log('New Weekplan for user: ' + user.userId + ' created');
-                } catch (error) {
-                    console.log('Error creating new Weekplan for user: ' + user.userId + ' ' + error);
-                }
-            }
-        }
+        // const allUsers = await this.cronjobsQueries.findManyUserIds();
+        // for (const user of allUsers) {
+        //     const currentWeekplan = await this.weekplanService.current(user.userId);
+        //     const expiringDate = this.createExpiringDate();
+        //     expiringDate.setDate(expiringDate.getDate() + 2);
+        //     expiringDate.setHours(0, 0, 0, 0);
+        //     if (currentWeekplan.endDate <= expiringDate) {
+        //         try {
+        //             await this.weekplanService.create(user.userId);
+        //             console.log('New Weekplan for user: ' + user.userId + ' created');
+        //         } catch (error) {
+        //             console.log('Error creating new Weekplan for user: ' + user.userId + ' ' + error);
+        //         }
+        //     }
+        // }
         console.log('##########Cronjob Create Weekplan END##########');
     }
 
