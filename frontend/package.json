@@ -2,6 +2,7 @@
     "name": "frontend",
     "version": "0.1.0",
     "private": true,
+    "description": "Frontend of Tastyplan App",
     "scripts": {
         "dev": "next dev -p 8080",
         "build": "next build",
