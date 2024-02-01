@@ -1,6 +1,6 @@
 import { IngredientsService } from './ingredients.service';
 import { Cache } from 'cache-manager';
-import { Controller, Get, Inject, Query, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Inject, Query, UseInterceptors, HttpException, HttpStatus } from '@nestjs/common';
 import { CACHE_MANAGER, CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('ingredients')
@@ -13,13 +13,21 @@ export class IngredientsController {
 
     @Get('')
     async getIngredients(@Query('search') search: string) {
-        if (search) {
-            return this.ingredientsService.searchForIngredients(search);
+        try {
+            if (search) {
+                return this.ingredientsService.searchForIngredients(search);
+            }
+            return [];
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return [];
     }
     @Get('/all')
     async getAllIngredients() {
-        return this.ingredientsService.getAll();
+        try {
+            return this.ingredientsService.getAll();
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

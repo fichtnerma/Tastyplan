@@ -421,8 +421,8 @@ describe('UsersController', () => {
 
         const result = await controller.getRecipes(mockSearchQuery);
 
-        expect(result).toEqual(mockSearchResult);
         expect(searchService.search).toHaveBeenCalledWith(mockSearchQuery);
+        expect(result).toEqual(mockSearchResult);
     });
 
     it('GET: => Should return HTTP exception in service error case', async () => {
