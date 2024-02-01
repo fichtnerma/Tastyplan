@@ -75,7 +75,7 @@ export class InitializerService implements OnApplicationBootstrap {
             });
             for (let index = 1; index < ingredients.length + 1; index++) {
                 const ingredient = ingredients[index - 1];
-                log(`Creating ingredient ${index} of ${ingredients.length}`);
+                // log(`Creating ingredient ${index} of ${ingredients.length}`);
                 await this.ingredientService.createIngredient({ ...ingredient, id: index });
             }
         }
@@ -127,21 +127,25 @@ export class InitializerService implements OnApplicationBootstrap {
         return { recipes: recipes, shouldUpdate: shouldUpdate };
     }
 
-    async *syncRecipes(recipes: RecipeMapped['recipes']) {
-        log('Creating', recipes.length, 'recipes...');
+    async *syncRecipes(recipes: RecipeMapped['recipes'], prepareRecipeData = this.prepareRecipeData) {
         for (let index = 0; index < recipes.length; index++) {
             const recipe = recipes[index];
-            yield await this.prepareRecipeData(recipe, index);
+            yield await prepareRecipeData(recipe, index);
         }
     }
 
-    async prepareRecipeData(recipe: RecipeWithIngredients, index: number) {
-        try {
-            const recipeJson = await fetch(`${process.env.RECOMMENDER_URL}/mapping`, {
+    async prepareRecipeData(
+        recipe: RecipeWithIngredients,
+        index: number,
+        fetchMapping = (data: unknown) =>
+            fetch(`${process.env.RECOMMENDER_URL}/mapping`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(recipe),
-            });
+                body: JSON.stringify(data),
+            }),
+    ) {
+        try {
+            const recipeJson = await fetchMapping(recipe);
 
             const recipeMapped = await recipeJson.json();
 
