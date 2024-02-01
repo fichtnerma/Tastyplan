@@ -89,12 +89,34 @@ api_unit_tests:
   stage: test
   extends: ".backend"
   script:
-    - npm run test:ci-gitlab
+    - npm run test:unit --reporters=default --reporters=jest-junit
   artifacts:
     when: always
     reports:
       junit:
         - api/reports/junit.xml
+
+api_integration_tests:
+  stage: test
+  extends: ".backend"
+  script:
+    - npm run test:integration --reporters=default --reporters=jest-junit
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - api/reports/junit.xml
+
+client_unit_tests:
+  stage: test
+  extends: ".frontend"
+  script:
+    - npm run test --reporters=default --reporters=jest-junit
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - frontend/reports/junit.xml
 
 e2e:
   stage: test
