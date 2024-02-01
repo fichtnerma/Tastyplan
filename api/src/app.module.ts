@@ -1,12 +1,10 @@
 import { WeekplanModule } from './weekplan/weekplan.module';
 import { UsersModule } from './users/users.module';
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SearchModule } from './search/search.module';
 import { RecipesModule } from './recipes/recipes.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PreferencesModule } from './preferences/preferences.module';
 import { PreferencesController } from './preferences/preferences.controller';
-import { MailModule } from './mail/mail/mail.module';
 import { InitializerModule } from './initializer/initializer.module';
 import { IngredientsModule } from './ingredients/ingredients.module';
 import { HealthModule } from './health/health.module';
@@ -67,10 +65,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
         UsersModule,
         AuthModule,
         SearchModule,
-        ShoppingListModule,
         InitializerModule,
         FavoritesModule,
-        MailModule,
         HealthModule,
     ],
     controllers: [AppController, PreferencesController],

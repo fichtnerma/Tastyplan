@@ -4,7 +4,6 @@ import { AuthController } from './auth.controller';
 import { UsersService } from 'src/users/users.service';
 import { UsersModule } from 'src/users/users.module';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { MailModule } from 'src/mail/mail/mail.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
@@ -23,7 +22,6 @@ import { Module } from '@nestjs/common';
                 expiresIn: process.env.EXPIRES_IN,
             },
         }),
-        MailModule,
     ],
     controllers: [AuthController],
     providers: [AuthService, UsersService, JwtStrategy, PrismaService],

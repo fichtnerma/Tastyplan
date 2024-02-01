@@ -15,6 +15,7 @@ interface TextInputProps {
     onChange?: (value: string) => void;
     onFocus?: () => void;
     onBlur?: () => void;
+    cypressID?: string;
 }
 
 export default function TextInput({
@@ -31,6 +32,7 @@ export default function TextInput({
     required,
     onFocus,
     onBlur,
+    cypressID,
 }: TextInputProps) {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
     const isAtStart = decoration && decorationPosition == 'start';
@@ -61,7 +63,7 @@ export default function TextInput({
                 {decoration ? (
                     <div className={`absolute bottom-2 ${isAtStart ? 'left-2' : 'right-2'}`}>{decoration}</div>
                 ) : null}
-                <label htmlFor={id}>
+                <label htmlFor={id} data-testid={'txt-input-label'}>
                     {label}
                     {required ? ' *' : ''}
                     <input
@@ -70,15 +72,20 @@ export default function TextInput({
                         } h-10 w-full border-gray-700 rounded-xl`}
                         type={type}
                         id={id}
+                        role="textbox"
                         placeholder={placeholder}
                         value={value}
                         onBlur={onBlur ? onBlur : handleBlur}
                         onChange={handleTextChange}
                         onFocus={onFocus}
+                        data-cy={cypressID}
+                        data-testid={'txt-input'}
                     />
                 </label>
             </div>
-            <span className={`${errorMessage ? '' : 'hidden'} errorMessage`}>{errorMessage}</span>
+            <span className={`${errorMessage ? '' : 'hidden'} errorMessage`} data-cy={`error-message-${label}`}>
+                {errorMessage}
+            </span>
         </div>
     );
 }

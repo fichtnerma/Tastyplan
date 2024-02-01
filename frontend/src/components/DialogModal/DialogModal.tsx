@@ -25,11 +25,15 @@ const DialogModal = ({ isOpened, onClose, children, classNames }: Props) => {
     };
 
     useEffect(() => {
-        if (isOpened) {
-            document.body.style.overflow = 'hidden';
-            ref.current?.showModal();
-        } else {
-            ref.current?.close();
+        const dialogElement = ref.current;
+
+        if (dialogElement) {
+            if (isOpened) {
+                document.body.style.overflow = 'hidden';
+                dialogElement.showModal();
+            } else if (dialogElement.close) {
+                dialogElement.close();
+            }
         }
     }, [isOpened]);
 
@@ -62,7 +66,7 @@ const DialogModal = ({ isOpened, onClose, children, classNames }: Props) => {
             </div>
             <div className={`${classNames}`}>
                 <div className="relative h-6 w-full flex justify-end">
-                    <button onClick={handleClose} className=" text-green-custom2">
+                    <button onClick={handleClose} className=" text-green-custom2" aria-label="close">
                         <Icon size={20} icon="close" />
                     </button>
                 </div>

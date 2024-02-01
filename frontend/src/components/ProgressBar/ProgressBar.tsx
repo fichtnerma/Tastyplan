@@ -8,7 +8,7 @@ type Props = {
     onClick: (elementName: string) => void;
 };
 
-function ProgressBar({ stepNames, activeStep, stepIsDone: stepIsDone, onClick }: Props) {
+function ProgressBar({ stepNames, activeStep, stepIsDone, onClick }: Props) {
     const [numbersArr, setNumbersArr] = useState<number[]>([]);
 
     useEffect(() => {
@@ -36,11 +36,22 @@ function ProgressBar({ stepNames, activeStep, stepIsDone: stepIsDone, onClick }:
         if (elementName) onClick(elementName);
     };
 
+    const handleStepKeyDown = (e: React.KeyboardEvent) => {
+        if (!stepIsDone) return;
+
+        if (e.key === 'Enter' || e.key === ' ') {
+            const element = e.target as HTMLElement;
+            const elementName = element.getAttribute('data-step-name');
+            if (elementName) onClick(elementName);
+        }
+    };
+
     return (
         <div className="flex justify-center">
             <div className="flex justify-between items-center relative w-5/6 lg:w-full" onClick={handleStepClick}>
                 <div
                     className="absolute top-1/2 translate-y-[-50%] w-full h-[3px]"
+                    data-testid="progress-bar"
                     style={{
                         background: `linear-gradient(to right, var(--green-dark) ${getGradient(
                             stepNames.length,
@@ -52,8 +63,15 @@ function ProgressBar({ stepNames, activeStep, stepIsDone: stepIsDone, onClick }:
                     <div key={el} className="relative flex items-center">
                         <span
                             data-step-name={stepNames[i]}
+                            data-testid={stepNames[i]}
                             className={getStepClass(el)}
                             style={{ transform: el === activeStep ? 'scale(2)' : '' }}
+                            tabIndex={0}
+                            role="button"
+                            aria-label={stepNames[i]}
+                            onKeyDown={(event) => {
+                                handleStepKeyDown(event);
+                            }}
                         ></span>
                         <p className={`hidden lg:block ${el <= activeStep ? styles.activeLabel : styles.label}`}>
                             {stepNames[i]}

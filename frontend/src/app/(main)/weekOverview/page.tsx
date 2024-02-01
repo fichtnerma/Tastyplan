@@ -67,7 +67,6 @@ export default function WeekOverview() {
                         <div className="sm:mt-4">
                             <button
                                 className="btn-primary rounded-full btn-small"
-                                data-cy="start-planning-btn"
                                 onClick={() => generateNewWeek(true)}
                                 disabled={weekplan.weekplanEntry == null}
                             >
@@ -76,7 +75,11 @@ export default function WeekOverview() {
                         </div>
                     </div>
                     <div className="text-2xl md:text-2xl font-extrabold mb-4 text-gray-custom6">
-                        <button onClick={showPreviousWeek} disabled={!weekplan.weekplanEntry && !isInFuture}>
+                        <button
+                            onClick={showPreviousWeek}
+                            disabled={!weekplan.weekplanEntry && !isInFuture}
+                            aria-label="previous week arrow"
+                        >
                             <Icon icon="chevronLeft" size={15} />
                         </button>
                         {new Date(weekplan?.startDate).toLocaleDateString('de-DE', {
@@ -88,7 +91,11 @@ export default function WeekOverview() {
                             day: '2-digit',
                             month: '2-digit',
                         })}
-                        <button onClick={showNextWeek} disabled={!weekplan.weekplanEntry && isInFuture}>
+                        <button
+                            onClick={showNextWeek}
+                            disabled={!weekplan.weekplanEntry && isInFuture}
+                            aria-label="next week arrow"
+                        >
                             <Icon icon="chevronRight" size={15} />
                         </button>
                     </div>
@@ -98,7 +105,6 @@ export default function WeekOverview() {
                                 There was no weekplan found for this week. Please generate a new one.
                                 <button
                                     className="btn-primary rounded-full btn-small"
-                                    data-cy="start-planning-btn"
                                     onClick={() => generateNewWeek()}
                                 >
                                     <span className="text-white-custom justify-center flex leading-none">
@@ -130,8 +136,16 @@ export default function WeekOverview() {
                             {/* Lunch */}
                             <div className="flex mb-10">
                                 <div className="grid grid-cols-1 grid-rows-2">
-                                    {weekplan.hasLunch && <h2 className="h1 hidden sm:block">Lunch</h2>}
-                                    {weekplan.hasDinner && <h2 className="h1 hidden sm:block">Dinner</h2>}
+                                    {weekplan.hasLunch && (
+                                        <h2 className="h1 !text-green-custom2 !font-extrabold hidden sm:block">
+                                            Lunch
+                                        </h2>
+                                    )}
+                                    {weekplan.hasDinner && (
+                                        <h2 className="h1 !text-green-custom2 !font-extrabold hidden sm:block">
+                                            Dinner
+                                        </h2>
+                                    )}
                                 </div>
                                 <div className="hidden items-center sm:flex overflow-y-hidden pb-8 scrollable-element">
                                     <Swiper

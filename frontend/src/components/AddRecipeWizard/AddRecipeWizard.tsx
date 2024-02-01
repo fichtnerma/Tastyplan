@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import useFetchWithAuth from '@hooks/fetchWithAuth';
 import { Ingredient, Option } from 'src/types/types';
 import Keyfacts from './Steps/Keyfacts';
 import AddSteps, { CustomStep } from './Steps/AddSteps';
@@ -120,9 +121,9 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
         onNewRecipe(currentRecipe);
     };
 
-    const handleAddIngredient = (ingredient: Ingredient) => {
+    const handleAddIngredients = (ingredients: Ingredient[]) => {
         const currentRecipe = { ...customRecipe };
-        currentRecipe.ingredients.push(ingredient);
+        currentRecipe.ingredients = [...ingredients];
         if (currentRecipe.ingredients.length > 0) setIngredientsAreValid(true);
         else setIngredientsAreValid(false);
         setCustomeRecipe(currentRecipe);
@@ -154,17 +155,24 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
                         onServings={handleServingsChange}
                         onFoodLifestyle={handleFoodLifestyleChange}
                         onTags={handleTagsChange}
+                        useFetchAuth={useFetchWithAuth}
                     />
                 );
             case 3:
                 return (
                     <AddIngredients
                         currentIngredients={customRecipe.ingredients}
-                        onAddIngredient={handleAddIngredient}
+                        onChangeIngredients={handleAddIngredients}
                     />
                 );
             case 4:
-                return <AddSteps currentSteps={customRecipe.steps} onAddSteps={handleAddSteps} />;
+                return (
+                    <AddSteps
+                        currentSteps={customRecipe.steps}
+                        onAddSteps={handleAddSteps}
+                        onDeleteStep={handleAddSteps}
+                    />
+                );
             default:
                 return (
                     <AddNameAndImage
@@ -177,7 +185,11 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
         }
     };
 
-    return <form onSubmit={(e) => e.preventDefault()}>{renderStep(stepNr)}</form>;
+    return (
+        <form onSubmit={(e) => e.preventDefault()} className="overflow-x-auto h-full">
+            {renderStep(stepNr)}
+        </form>
+    );
 };
 
 export default AddRecipeWizard;

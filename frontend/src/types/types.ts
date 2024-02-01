@@ -111,3 +111,7 @@ export type Option = {
     value: string;
     label: string;
 };
+
+export type Allergen = {
+    name: string;
+};

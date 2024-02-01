@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import Select, { CSSObjectWithLabel, GroupBase, OptionProps } from 'react-select';
 import Icon from '@components/Icon/Icon';
 import NumberInput from '@components/FormInputs/NumberInput';
-import { fetchWithAuth } from '@helpers/utils';
+import useFetchWithAuth from '@hooks/fetchWithAuth';
 import styles from './Keyfacts.module.scss';
 
 export type SelectOption = {
@@ -21,15 +20,18 @@ const selectFormOfDietOptions = [
 export const selectStyleOptions = {
     control: (baseStyles: CSSObjectWithLabel) => ({
         ...baseStyles,
-        borderWidth: 2,
-        borderColor: '#007370',
+        height: '45px',
+        borderWidth: 3,
+        backgroundColor: '#fffffa',
+        borderColor: '#006663',
+        borderRadius: '15px',
     }),
     option: (
         baseStyles: CSSObjectWithLabel,
         state: OptionProps<{ value: string; label: string }, false, GroupBase<{ value: string; label: string }>>,
     ) => ({
         ...baseStyles,
-        backgroundColor: state.isSelected ? '#007370' : '#fffffa',
+        backgroundColor: state.isSelected ? '#006663' : '#fffffa',
         color: state.isSelected ? '#fffffa' : '#3a3a3a',
         ':active': {
             backgroundColor: '#00A39E',
@@ -47,6 +49,7 @@ type KeyfactsProps = {
     onServings: (servings: number) => void;
     onFoodLifestyle: (lifestyle: string) => void;
     onTags: (tags: SelectOption[]) => void;
+    useFetchAuth: typeof useFetchWithAuth;
 };
 const Keyfacts = ({
     currentTotalTime,
@@ -57,27 +60,15 @@ const Keyfacts = ({
     onServings,
     onFoodLifestyle,
     onTags,
+    useFetchAuth = useFetchWithAuth,
 }: KeyfactsProps) => {
     const [cookingTime, setCookingTime] = useState(currentTotalTime);
     const [servings, setServings] = useState(currentServings);
     const [selectedFormOfDiet, setSelectedFormOfDiet] = useState<SelectOption>(currentSelectedOption);
     const [tagOptions, setTagOptions] = useState<SelectOption[]>([]);
-    const { data: session } = useSession();
-
-    const loadTags = async () => {
-        const res = await fetchWithAuth(
-            '/service/recipes/tags',
-            {
-                method: 'GET',
-            },
-            session,
-        );
-
-        const tags = await res.json();
-        const newTagOptions: SelectOption[] = tags.map((tag: string) => {
-            return { value: tag, label: tag.charAt(0).toUpperCase() + tag.slice(1) };
-        });
-        setTagOptions(newTagOptions);
+    const { data } = useFetchAuth('/service/recipes/tags') as unknown as {
+        data: string[];
+        error: unknown;
     };
 
     const handleCookingTimeChange = (cookingTime: number) => {
@@ -106,73 +97,89 @@ const Keyfacts = ({
     };
 
     useEffect(() => {
-        loadTags();
-    }, []);
+        if (!data) return;
+        const newTagOptions: SelectOption[] = data.map((tag: string) => {
+            return { value: tag, label: tag.charAt(0).toUpperCase() + tag.slice(1) };
+        });
+        setTagOptions(newTagOptions);
+    }, [data]);
 
     return (
-        <fieldset>
-            <legend className="h2">Add the key facts</legend>
-            <div className="flex flex-col mb-7">
-                <label htmlFor="cookingTime">How long will it take you in minutes?</label>
-                <NumberInput
-                    value={cookingTime}
-                    id="cookingTime"
-                    min={0}
-                    required
-                    onChange={(value) => handleCookingTimeChange(value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="increasePortion">Portions</label>
-                <div className="flex mb-7">
-                    <button
-                        type="button"
-                        className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0"
-                        onClick={() => handleServingsChange(servings - 1)}
-                        disabled={servings <= 0}
-                    >
-                        <Icon icon="minus" size={19} />
-                    </button>
-                    <p className="text-base w-10 text-center text-green-custom2" id="portion" data-cy="portion-amount">
-                        {servings}
-                    </p>
-                    <button
-                        id="increasePortion"
-                        type="button"
-                        className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0 mr-5"
-                        onClick={() => handleServingsChange(servings + 1)}
-                    >
-                        <Icon icon="plus" size={19} />
-                    </button>
-                </div>
-                <div className={styles.SelectionWrapper}>
-                    <label htmlFor="foodLifeStyle">Set the diet</label>
-                    <Select
-                        name="foodLifeStyle"
-                        id="foodLifeStyle"
-                        aria-label="foodLifeStyle"
-                        aria-labelledby="foodLifeStyle"
-                        defaultValue={selectedFormOfDiet}
-                        onChange={handleFormOfDietChange}
-                        options={selectFormOfDietOptions}
-                        styles={selectStyleOptions}
+        <fieldset className="overflow-x-auto h-full">
+            <legend className="h3">Add the key facts</legend>
+            <div className="p-2 pt-0 pb-8">
+                <div className="flex flex-col mb-7">
+                    <NumberInput
+                        value={cookingTime}
+                        label="How long will it take you in minutes?"
+                        id="cookingTime"
+                        min={1}
+                        required
+                        onChange={(value) => handleCookingTimeChange(value)}
+                        cypressId="cooking-time-input"
                     />
                 </div>
-                <div className={styles.SelectionWrapper}>
-                    <label htmlFor="tags">Add some tags</label>
-                    <Select
-                        //@ts-ignore
-                        isMulti
-                        name="recipeTags"
-                        id="recipeTags"
-                        aria-label="recipeTags"
-                        aria-labelledby="recipeTags"
-                        defaultValue={currentTags}
-                        options={tagOptions}
-                        styles={selectStyleOptions}
-                        //@ts-ignore
-                        onChange={handleTagChange}
-                    />
+                <div>
+                    <label htmlFor="increasePortion">Portions</label>
+                    <div className="flex mb-7">
+                        <button
+                            type="button"
+                            className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0"
+                            onClick={() => handleServingsChange(servings - 1)}
+                            disabled={servings <= 1}
+                            data-cy="decrease-serv-btn"
+                            aria-label="decrease portion amount"
+                        >
+                            <Icon icon="minus" size={19} />
+                        </button>
+                        <p
+                            className="text-base w-10 text-center text-green-custom2"
+                            id="portion"
+                            data-cy="portion-amount"
+                        >
+                            {servings}
+                        </p>
+                        <button
+                            id="increasePortion"
+                            type="button"
+                            data-testid="increasePortion"
+                            className="btn-primary !flex justify-center items-center !w-[25px] !h-[25px] !p-0 mr-5"
+                            onClick={() => handleServingsChange(servings + 1)}
+                            data-cy="increase-serv-btn"
+                            aria-label="increase portion amount"
+                        >
+                            <Icon icon="plus" size={19} />
+                        </button>
+                    </div>
+                    <div className={styles.SelectionWrapper}>
+                        <label htmlFor="foodLifeStyle">Set the diet</label>
+                        <Select
+                            name="foodLifeStyle"
+                            id="foodLifeStyle"
+                            aria-label="foodLifeStyle"
+                            aria-labelledby="foodLifeStyle"
+                            defaultValue={selectedFormOfDiet}
+                            onChange={handleFormOfDietChange}
+                            options={selectFormOfDietOptions}
+                            styles={selectStyleOptions}
+                        />
+                    </div>
+                    <div className={styles.SelectionWrapper}>
+                        <label htmlFor="tags">Add some tags</label>
+                        <Select
+                            //@ts-ignore
+                            isMulti
+                            name="recipeTags"
+                            id="recipeTags"
+                            aria-label="recipeTags"
+                            aria-labelledby="recipeTags"
+                            defaultValue={currentTags}
+                            options={tagOptions}
+                            styles={selectStyleOptions}
+                            //@ts-ignore
+                            onChange={handleTagChange}
+                        />
+                    </div>
                 </div>
             </div>
         </fieldset>

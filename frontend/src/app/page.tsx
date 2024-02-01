@@ -89,7 +89,7 @@ export default function HomePage() {
                     </Link>
                 </div>
             </div>
-            <div className="w-full ml-auto mr-auto px-6 lg:px-14">
+            <div className="w-full ml-auto mr-auto px-6 lg:px-14" data-cy="recipes-home-wrapper">
                 <RecipesHome />
             </div>
             <div className="w-full max-w-[1600px] ml-auto mr-auto pt-20 p-6 lg:p-14">

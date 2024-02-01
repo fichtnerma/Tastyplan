@@ -1,10 +1,12 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useLogoLinkData } from '@contexts/LogoLinkContext';
 import ProgressBar from '@components/ProgressBar/ProgressBar';
+import Icon from '@components/Icon/Icon';
 import AddRecipeWizard, { CustomRecipe } from '@components/AddRecipeWizard/AddRecipeWizard';
 import { fetchWithAuth } from '@helpers/utils';
 
@@ -33,11 +35,16 @@ type RecipeTransformed = {
 };
 
 const AddRecipePage = () => {
+    const { setLogoLinkTarget } = useLogoLinkData();
     const [currentStep, setCurrentStep] = useState(1);
     const [newRecipe, setNewRecipe] = useState<CustomRecipe | undefined>(undefined);
     const [inputIsNotValid, setInputIsNotValid] = useState(true);
     const { data: session } = useSession();
     const router = useRouter();
+
+    useEffect(() => {
+        setLogoLinkTarget('/cookbook');
+    }, []);
 
     const handleNewRecipe = (recipe: CustomRecipe) => {
         setNewRecipe(recipe);
@@ -62,7 +69,7 @@ const AddRecipePage = () => {
 
         if (typeof window === 'undefined') return;
 
-        if (res.ok) router.push('weekOverview', undefined);
+        if (res.ok) router.push('cookbook', undefined);
     };
 
     const transformRecipe = (recipe: CustomRecipe): RecipeTransformed | void => {
@@ -100,8 +107,16 @@ const AddRecipePage = () => {
     };
 
     return (
-        <div className="bg-white-custom px-10 py-8 lg:bg-green-custom4 lg:flex lg:items-center lg:justify-center lg:h-[90vh]">
-            <div className="flex flex-col w-full pt-7 pb-4 bg-white-custom md:h-[900px] lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
+        <div className="flex bg-white-custom px-10 py-8 lg:bg-green-custom4 lg:flex lg:items-center lg:justify-center lg:h-[90vh]">
+            <div className="relative flex flex-col w-full bg-white-custom h-full md:pb-4 lg:max-w-[1000px] lg:px-[5rem] lg:rounded-[30px] xl:max-w-[1200px]">
+                <br />
+                <button
+                    className="absolute top-5 right-[-5px] md:right-5"
+                    onClick={() => router.push('cookbook', undefined)}
+                    aria-label="close"
+                >
+                    <Icon icon="close" color="#006663"></Icon>
+                </button>
                 <ProgressBar
                     stepNames={stepNames}
                     activeStep={currentStep}
@@ -114,24 +129,31 @@ const AddRecipePage = () => {
                     onNewRecipe={handleNewRecipe}
                     onInputisInvalid={(inputIsNotValid: boolean) => setInputIsNotValid(inputIsNotValid)}
                 />
-                <div className="flex justify-between mt-5">
+                <div className="flex justify-between mt-4">
                     <button
                         className="btn-primary"
                         disabled={currentStep === 1}
                         onClick={() => setCurrentStep(currentStep - 1)}
+                        data-cy="recipe-back-btn"
                     >
-                        back
+                        Back
                     </button>
                     {currentStep !== stepNames.length ? (
                         <button
                             className="btn-primary"
                             onClick={() => setCurrentStep(currentStep + 1)}
                             disabled={inputIsNotValid}
+                            data-cy="recipe-next-btn"
                         >
-                            next
+                            Next
                         </button>
                     ) : (
-                        <button className="btn-primary" onClick={sendData} disabled={inputIsNotValid}>
+                        <button
+                            className="btn-primary"
+                            onClick={sendData}
+                            disabled={inputIsNotValid}
+                            data-cy="recipe-create-btn"
+                        >
                             create recipe
                         </button>
                     )}

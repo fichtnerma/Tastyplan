@@ -1,10 +1,13 @@
 'use client';
 import React, { useState } from 'react';
+import Icon from '@components/Icon/Icon';
 import { Ingredient } from 'src/types/types';
 
 type IngredientListProps = {
-    isInteractive?: boolean;
+    isItemRemovable?: boolean;
+    onItemRemove?: (id: number) => void;
     ingredients: Array<Ingredient>;
+    decoration?: boolean;
 };
 
 const unitShorteningMap = new Map([
@@ -14,7 +17,12 @@ const unitShorteningMap = new Map([
     ['tablespoons', 'tbsp'],
 ]);
 
-function IngredientList({ ingredients, isInteractive = true }: IngredientListProps) {
+function IngredientList({
+    ingredients,
+    isItemRemovable = true,
+    onItemRemove,
+    decoration = false,
+}: IngredientListProps) {
     const [portion, setPortion] = useState(1);
 
     const changePortion = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,7 +40,12 @@ function IngredientList({ ingredients, isInteractive = true }: IngredientListPro
         return unitShorteningMap.has(unit) ? unitShorteningMap.get(unit) : unit;
     };
 
-    return isInteractive ? (
+    const handleDelete = (id: number | undefined) => {
+        if (!id || !onItemRemove) return;
+        onItemRemove(id);
+    };
+
+    return !isItemRemovable ? (
         <div className="mb-8 lg:w-[420px] lg:py-6 lg:mb-0 lg:bg-green-custom4/30 lg:rounded-tl-[30px] lg:rounded-bl-[30px]">
             <div className="flex justify-between px-6 mb-6 lg:flex-col lg:px-8 lg:mb-8">
                 <div className="flex items-center">
@@ -42,10 +55,11 @@ function IngredientList({ ingredients, isInteractive = true }: IngredientListPro
                         onClick={changePortion}
                         data-anchor={'-'}
                         disabled={portion <= 1}
+                        data-testid="decrement-portion"
                     >
                         <span className="block font-bold mb-[3px]">-</span>
                     </button>
-                    <p id="portion" className="mr-2">
+                    <p id="portion" className="mr-2" data-testid="portion-size">
                         {portion}
                     </p>
                     <button
@@ -53,6 +67,7 @@ function IngredientList({ ingredients, isInteractive = true }: IngredientListPro
                         className="text-white-custom w-[30px] h-[30px] rounded-[15px] bg-green-custom2 mr-2"
                         onClick={changePortion}
                         data-anchor={'+'}
+                        data-testid="increment-portion"
                     >
                         <span className="block font-bold mb-[3px]">+</span>
                     </button>
@@ -60,7 +75,7 @@ function IngredientList({ ingredients, isInteractive = true }: IngredientListPro
                 </div>
             </div>
             <h2 className="pl-6 mb-0">Ingredients</h2>
-            <div className="mb-6 lg:mb-0">
+            <div className="mb-6 lg:mb-0" data-cy="ingredients-wrapper">
                 {ingredients?.map((ingredient) => (
                     <div key={ingredient.id} className="flex odd:bg-green-custom1 lg:py-1">
                         <p className="w-1/2 pl-6 font-semibold">
@@ -77,12 +92,21 @@ function IngredientList({ ingredients, isInteractive = true }: IngredientListPro
             <h2 className="pl-6 mb-0">Ingredients</h2>
             <div className="mb-6 lg:mb-0">
                 {ingredients?.map((ingredient) => (
-                    <div key={ingredient.id} className="flex odd:bg-green-custom1 lg:py-1">
-                        <p className="w-1/2 pl-6 font-semibold">
+                    <div key={ingredient.id} className="flex items-center px-4 odd:bg-green-custom1 lg:py-1">
+                        <p className="w-1/2 font-semibold">
                             <span className="mr-2">{ingredient.quantity * portion}</span>
                             <span>{truncateUnit(ingredient.unit)}</span>
                         </p>
                         <p className="w-1/2 text-left">{ingredient.ingredient?.name}</p>
+                        {decoration && (
+                            <button
+                                onClick={() => handleDelete(ingredient.id)}
+                                aria-label="close"
+                                data-testid={`delete-${ingredient.ingredient?.name}-btn`}
+                            >
+                                <Icon icon="close"></Icon>
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Icon from '@components/Icon/Icon';
-import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
+import CheckboxGroup from '@components/FormInputs/CheckboxGroup';
 import { CustomCheckboxInput } from 'src/types/types';
 import styles from './WeekplanConfig.module.scss';
 
@@ -14,7 +14,7 @@ interface WeekplanConfigProps {
     onBack: OnBackFunction;
     onChoice: OnChoiceFunction;
     servings: number;
-    handlePreferences: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
+    handlePreferences: (evt: React.MouseEvent | React.KeyboardEvent) => void;
     daysCheckboxes: CustomCheckboxInput[];
     handleDaySelection: OnDaySelectionFunction;
     mealsCheckboxes: CustomCheckboxInput[];
@@ -74,6 +74,8 @@ export default function WeekplanConfig({
                             className={`btn-primary !flex justify-center items-center  ${styles.btnPortion}`}
                             onClick={decreasePortion}
                             data-cy="decrease-serving-btn"
+                            aria-label="decrease servings-btn"
+                            disabled={servings === 1}
                         >
                             <Icon icon="minus" size={19} />
                         </button>
@@ -85,6 +87,7 @@ export default function WeekplanConfig({
                             className={`btn-primary !flex justify-center items-center  ${styles.btnPortion} mr-5`}
                             onClick={increasePortion}
                             data-cy="increase-serving-btn"
+                            aria-label="increase servings-btn"
                         >
                             <Icon icon="plus" size={19} />
                         </button>
@@ -97,7 +100,8 @@ export default function WeekplanConfig({
                 </button>
                 <Link
                     className="btn-primary mt-6"
-                    onClick={handlePreferences}
+                    onClick={(e) => handlePreferences(e)}
+                    onKeyDown={(e) => handlePreferences(e)}
                     href={'/weekOverview'}
                     data-cy="create-weekplan-btn"
                 >

@@ -1,10 +1,11 @@
 import { WeekplanService } from './weekplan.service';
 import { CreateByDateDto } from './dto/create-by-date.dto';
 import { ChangeRecipeDto } from './dto/change-recipe.dto';
-import { RequestWithUser } from 'src/users/users.controller';
+import { RequestWithUser } from 'src/users/users.interface';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from '@prisma/client';
 import { ApiSecurity } from '@nestjs/swagger';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import {
     Body,
     ClassSerializerInterceptor,
@@ -26,8 +27,12 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('/current')
     findOne(@Req() request: RequestWithUser) {
-        const user = request.user as User;
-        return this.weekplanService.current(user.userId);
+        try {
+            const user = request.user as User;
+            return this.weekplanService.current(user.userId);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
@@ -35,9 +40,12 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get(':date')
     findByStartDate(@Param() date: { date: Date }, @Req() request: RequestWithUser) {
-        const user = request.user as User;
-
-        return this.weekplanService.findByDate(user.userId, date.date);
+        try {
+            const user = request.user as User;
+            return this.weekplanService.findByDate(user.userId, date.date);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
@@ -45,8 +53,12 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/create')
     create(@Req() request: RequestWithUser) {
-        const user = request.user as User;
-        return this.weekplanService.create(user.userId);
+        try {
+            const user = request.user as User;
+            return this.weekplanService.create(user.userId);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
@@ -54,11 +66,14 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/createForDate')
     createForDate(@Req() request: RequestWithUser, @Body() createByDateDto: CreateByDateDto) {
-        const user = request.user as User;
-        const dateObj = new Date(createByDateDto.date);
-        console.log({ createByDateDto });
+        try {
+            const user = request.user as User;
+            const dateObj = new Date(createByDateDto.date);
 
-        return this.weekplanService.createFutureWeekplan(user.userId, dateObj, createByDateDto.shouldReplace);
+            return this.weekplanService.createFutureWeekplan(user.userId, dateObj, createByDateDto.shouldReplace);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
@@ -66,8 +81,12 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/regenerate')
     regenerate(@Req() request: RequestWithUser) {
-        const user = request.user as User;
-        return this.weekplanService.regenerate(user.userId);
+        try {
+            const user = request.user as User;
+            return this.weekplanService.regenerate(user.userId);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
@@ -75,7 +94,11 @@ export class WeekplanController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('/changeRecipe')
     changeRecipe(@Body() changeRecipeReq: ChangeRecipeDto, @Req() request: RequestWithUser) {
-        const user = request.user as User;
-        return this.weekplanService.changeRecipe(changeRecipeReq, user);
+        try {
+            const user = request.user as User;
+            return this.weekplanService.changeRecipe(changeRecipeReq, user);
+        } catch (error) {
+            throw new HttpException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

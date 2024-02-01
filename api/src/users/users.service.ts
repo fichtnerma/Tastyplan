@@ -81,8 +81,4 @@ export class UsersService {
             throw new HttpException('finding user by payload failed', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    async resetPassword(email: string) {
-        return await this.usersQueries.findUniqueUserByEmail(email);
-    }
 }

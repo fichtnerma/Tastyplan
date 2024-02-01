@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
 import Icon from '@components/Icon/Icon';
@@ -39,10 +40,13 @@ function HeaderHome() {
             },
         },
     ];
+
     return (
         <div className="grid grid-cols-[repeat(5,1fr)] grid-rows-[0.1fr_repeat(7,1fr)] gap-y-0 gap-x-0 h-[100dvh] md:h-[95vh]">
             <div className="items-center h-[100px] lg:h-[150px]">
-                <Image src={'/logo.svg'} alt="logo" width={100} height={39} priority />
+                <Link href={'/'}>
+                    <Image src={'/logo.svg'} alt="logo" width={100} height={39} priority />
+                </Link>
             </div>
             <div className="col-start-3 col-span-3 md:col-span-1 md:col-start-5 flex justify-end">
                 <Link
@@ -87,7 +91,7 @@ function HeaderHome() {
                                 <section className={`${styles.linkSvgline}`}>
                                     <a href="#downloadSection">
                                         <span className="h5 !font-zeyada text-green-custom2 hover:text-green-custom3">
-                                            download it now!
+                                            download the app now!
                                         </span>
                                         <svg className={styles.linkSvgline}>
                                             <use xlinkHref="#svg_line"></use>
@@ -133,7 +137,9 @@ function HeaderHome() {
 
             <Link
                 href="#scrollRef"
+                aria-label="scroll down"
                 className="col-start-3 row-start-8 text-green-custom2 hover:text-green-custom3 flex justify-center pt-8 z-10 animate-bounce"
+                data-cy="homepage-down-arrow-btn"
             >
                 <Icon size={100} icon="arrowDownCircle"></Icon>
             </Link>

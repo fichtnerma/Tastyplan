@@ -9,26 +9,6 @@ export const debounce = (fn: (...params: unknown[]) => unknown, ms = 300) => {
     };
 };
 
-export const debounceWithPromise = <T extends (...params: unknown[]) => Promise<unknown>>(fn: T, ms = 300) => {
-    let timeoutId: ReturnType<typeof setTimeout>;
-    let resolveFn: ((value?: unknown) => void) | null = null;
-
-    return function (this: unknown, ...args: Parameters<T>) {
-        clearTimeout(timeoutId);
-
-        return new Promise<unknown>((resolve) => {
-            resolveFn = resolve;
-            timeoutId = setTimeout(async () => {
-                if (resolveFn) {
-                    const result = await fn.apply(this, args);
-                    resolveFn(result);
-                    resolveFn = null;
-                }
-            }, ms);
-        });
-    };
-};
-
 export function getFormOfDietIcon(formOfDiet: string | undefined) {
     if (formOfDiet == 'vegetarian') {
         return 'vegetarian';
@@ -42,6 +22,8 @@ export function getFormOfDietIcon(formOfDiet: string | undefined) {
 }
 
 export function calculateMinutesToHours(minutes: number) {
+    if (minutes === 0) return '';
+    if (minutes < 60) return minutes + ' min';
     const hours = Math.floor(minutes / 60);
     const min = minutes % 60;
     const hoursString = hours > 0 ? hours + ' h' : '';

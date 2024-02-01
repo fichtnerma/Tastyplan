@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Icon from '@components/Icon/Icon';
-import CheckboxGroup from '@components/FormInputs/CheckboxGroup/CheckboxGroup';
+import CheckboxGroup from '@components/FormInputs/CheckboxGroup';
 import { CustomCheckboxInput } from 'src/types/types';
 import styles from '../WeekplanConfig//WeekplanConfig.module.scss';
 
@@ -169,6 +169,7 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onChoice }:
                     className={`btn-primary !flex justify-center items-center  ${styles.btnPortion}`}
                     onClick={decreasePortion}
                     data-cy="decrease-serving-btn"
+                    aria-label="decrease-serving-btn"
                 >
                     <Icon icon="minus" size={19} />
                 </button>
@@ -180,6 +181,7 @@ function WeekplanSettings({ days, wantsLunch, wantsDinner, servings, onChoice }:
                     className={`btn-primary !flex justify-center items-center  ${styles.btnPortion} mr-5`}
                     onClick={increasePortion}
                     data-cy="increase-serving-btn"
+                    aria-label="increase-serving-btn"
                 >
                     <Icon icon="plus" size={19} />
                 </button>

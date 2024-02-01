@@ -9,6 +9,27 @@ const createJestConfig = nextJest({
 const customJestConfig = {
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     testEnvironment: 'jsdom',
+    collectCoverageFrom: [
+        '**/*.{js,jsx,ts,tsx}',
+        '!**/node_modules/**',
+        '!**/vendor/**',
+        '!**/types/**',
+        '!**/coverage/**',
+        '!**/SignUp/**',
+        '!./jest.config.js',
+        '!./next.config.js',
+        '!./postcss.config.js',
+        '!./tailwind.config.js',
+        '!**/page.tsx',
+        '!**/layout.tsx',
+        '!**/content.tsx',
+        '!**/AddRecipeWizard/Steps/AddSteps.tsx',
+        '!**/AddRecipeWizard/AddRecipeWizard.tsx',
+        '!**/Header/MainHeader.tsx',
+        '!**/Recipes/ShowRecipes.tsx',
+        '!**/Recipes/RecipesHome.tsx',
+        '!**/pages/**',
+    ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

@@ -30,7 +30,7 @@ function Benefits() {
         {
             id: 4,
             icon: '/Icons/reduceChart.svg',
-            heading: 'Reduces stress and decision fatigue',
+            heading: 'Reduces stress and decisions',
             desc: 'by eliminating the need to constantly think about what to eat and simplifying mealtime preparation.',
         },
     ];
@@ -39,7 +39,7 @@ function Benefits() {
             {benefits.map((benefit) => (
                 <div
                     key={benefit.id}
-                    className="group basis-[200px] p-5 md:w-full grow-0 shrink-0 rounded-2xl md:h-[160px] lg:h-[240px] md:hover:h-[260px] lg:hover:h-[400px] bg-white-custom mr-5 md:mr-0 drop-shadow mt-[80px] transition-all ease-in-out duration-700"
+                    className="group basis-[200px] p-5 md:w-full grow-0 shrink-0 rounded-2xl md:h-[160px] lg:h-[240px] md:hover:h-[260px] lg:hover:h-[400px] bg-white-custom mr-5 md:mr-0 drop-shadow mt-[80px] transition-all ease-in-out duration-700 md:cursor-pointer mb-5 md:mb-0"
                 >
                     <div className="relative top-[-60px] drop-shadow w-[200px] md:w-full bg-green-custom_super_light p-5 rounded-2xl flex mx-auto z-10 h-fit">
                         <h3 className="h4 text-black !mb-0">{benefit.heading}</h3>

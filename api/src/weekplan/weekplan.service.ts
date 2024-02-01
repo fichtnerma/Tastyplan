@@ -2,10 +2,9 @@ import { WeekplanEntry } from 'src/types/types';
 import { WeekplanQueries } from './weekplan.queries';
 import { CreateWeekplan, IFormattedWeekplan, IWeekplan, IWeekplanEntry } from './weekplan.interface';
 import { ChangeRecipeDto } from './dto/change-recipe.dto';
-import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
 import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { PreferencesService } from 'src/preferences/preferences.service';
-import { MailService } from 'src/mail/mail/mail.service';
+import { IPreferences } from 'src/preferences/preferences.interface';
 import { shuffleArray } from 'src/helpers/converter.utils';
 import { User } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -15,16 +14,12 @@ export class WeekplanService {
     constructor(
         private recipeFilterService: RecipesFilterService,
         private preferencesService: PreferencesService,
-        private shoppingListService: ShoppingListService,
         private weekplanQueries: WeekplanQueries,
-        private mailService: MailService,
     ) {}
 
-    async getCurrentWeekplan(userId: string) {
+    getCurrentWeekplan(weekplans?: IWeekplan[], now: Date = new Date()) {
         try {
-            const now = new Date();
             now.setHours(0, 0, 0, 0);
-            const weekplans = await this.weekplanQueries.findManyWeekplans(userId);
             const filteredWeekplans = weekplans.filter((plan) => {
                 if (plan !== undefined && plan !== null) {
                     const start = plan.startDate;
@@ -41,8 +36,10 @@ export class WeekplanService {
             );
         }
     }
+    //Orchistration function
     async current(userId: string) {
-        return this.formatWeekPlan(await this.getCurrentWeekplan(userId));
+        const weekplans = await this.weekplanQueries.findManyWeekplans(userId);
+        return this.formatWeekPlan(await this.getCurrentWeekplan(weekplans));
     }
 
     async get(userId: string) {
@@ -93,23 +90,19 @@ export class WeekplanService {
         formattedWeekPlan.weekplanEntry = formattedWeekPlan.weekplanEntry.sort((a, b) => a.id - b.id);
         return formattedWeekPlan;
     }
-
+    //Orchistration function
     async findByDate(userId: string, date: Date) {
         const weekplan = await this.weekplanQueries.findWeekplanByDate(date, userId);
+
         if (!weekplan) {
-            const endDate = new Date(date);
-            endDate.setDate(endDate.getDate() + 6);
-            return {
-                startDate: date,
-                endDate: endDate,
-            };
+            return this.createWeekDateTimeRange(date);
         }
         return this.formatWeekPlan(weekplan);
     }
 
+    //Orchistration function
     async createFutureWeekplan(userId: string, startDate: Date, shouldReplace = false) {
-        const prevStartDate = new Date(startDate);
-        prevStartDate.setDate(prevStartDate.getDate() - 7);
+        const prevStartDate = this.getPreviousWeekStartDate(startDate);
         const previousWeekplan = await this.weekplanQueries.findWeekplanByDate(prevStartDate, userId);
         const existingWeekplan = await this.weekplanQueries.findWeekplanByDate(startDate, userId);
         if (existingWeekplan) {
@@ -120,60 +113,47 @@ export class WeekplanService {
                 await this.weekplanQueries.deleteWeekplan(existingWeekplan.id);
             }
         }
-        const endDate = new Date(startDate);
-        endDate.setDate(endDate.getDate() + 6);
-        endDate.setHours(0, 0, 0, 0);
+
+        const { startDate: _, endDate } = this.createDateRangeForWeekplanCreation(new Date(startDate));
         let recommendedMeals = [];
         if (previousWeekplan) {
-            const recipesFromHistory: Array<number> = previousWeekplan.weekplanEntry.reduce((currentEntries, entry) => {
-                if (entry.dinnerId) {
-                    currentEntries.push(entry.dinnerId);
-                }
-                if (entry.lunchId) {
-                    currentEntries.push(entry.lunchId);
-                }
-                return currentEntries;
-            }, []);
+            const recipesFromHistory: Array<number> = this.extractRecipeIdsFromPreviousWeekplan(previousWeekplan);
+
             const recommendedMealsRes = await fetch(`${process.env.RECOMMENDER_URL}/recommend`, {
                 method: 'POST',
                 body: JSON.stringify({ userId, recipesFromHistory }),
             });
             recommendedMeals = await recommendedMealsRes.json();
         }
+
         const weekplan = await this.createWeakplan(userId, startDate, endDate, recommendedMeals);
 
         return weekplan;
     }
 
+    //Orchistaion function
     async create(userId: string) {
         let weekplanStartDate = new Date();
         let weekplanEndDate = new Date();
         try {
             const existingWeekplan = await this.queryExistingWeekplan(userId);
             if (existingWeekplan) {
-                const startDate = new Date();
-                startDate.setDate(startDate.getDate() + 2);
-                startDate.setHours(0, 0, 0, 0);
+                const { startDate } = this.createDateRangeForWeekplanCreation(new Date(), false);
                 this.createFutureWeekplan(userId, startDate);
             } else {
-                const startDate = new Date();
-                startDate.setHours(0, 0, 0, 0);
+                const { startDate, endDate } = this.createDateRangeForWeekplanCreation(new Date());
                 weekplanStartDate = startDate;
-
-                const endDate = new Date();
-                endDate.setDate(endDate.getDate() + 6);
-                endDate.setHours(0, 0, 0, 0);
                 weekplanEndDate = endDate;
             }
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to create new Weekplan dates');
         }
-        await this.createWeakplan(userId, weekplanStartDate, weekplanEndDate);
+        return await this.createWeakplan(userId, weekplanStartDate, weekplanEndDate);
     }
-
+    //Orchestration function
     async regenerate(userId: string) {
-        console.log('WEEKPLAN: Before sending mail');
-        const currentWeekplan = await this.getCurrentWeekplan(userId);
+        const weekplans = await this.weekplanQueries.findManyWeekplans(userId);
+        const currentWeekplan = await this.getCurrentWeekplan(weekplans);
         try {
             if (currentWeekplan) {
                 await this.weekplanQueries.deleteManyWeekplanEntries(currentWeekplan.id);
@@ -194,39 +174,30 @@ export class WeekplanService {
         try {
             const preferences = await this.preferencesService.getPreferences(userId);
             const fetchedMealsAndWeekplanPreferences = await this.recipeFilterService.filterByQuery(preferences);
-            let fetchedMeals = fetchedMealsAndWeekplanPreferences.recipes;
-            if (recommendedMeals.length > 0) {
-                fetchedMeals = recommendedMeals.map((id: number) => ({ id }));
-            }
-            if (fetchedMeals.length < 14) {
-                fetchedMeals = [...fetchedMeals, ...fetchedMeals];
-            }
-            const shuffeledMeals = shuffleArray(fetchedMeals);
 
-            //Using own Type "CreateWeekplan" because we only use ids of recipes for lunch and dinner in creation
-            const weekplan: CreateWeekplan = {
-                userId: userId,
-                startDate: weekplanStartDate,
-                endDate: weekplanEndDate,
-                hasDinner: fetchedMealsAndWeekplanPreferences.wantsDinner,
-                hasLunch: fetchedMealsAndWeekplanPreferences.wantsLunch,
-                weekplanEntry: this.createWeekplanData(
-                    fetchedMealsAndWeekplanPreferences.days,
-                    shuffeledMeals,
-                    fetchedMealsAndWeekplanPreferences.wantsLunch,
-                    fetchedMealsAndWeekplanPreferences.wantsDinner,
-                ),
-            };
-            const createdWeekplan = await this.weekplanQueries.createWeekplan(weekplan);
-            //TODO: Rewrite the shoppingList creation => One ShoppingList for one Weekplan
-            // This is the part where the shoppingList is created
-            // For now this is outcommented because the shoppingList is not used in the frontend
-            /* const weekplanRecipeIds = createdWeekplan.weekplanEntry
-                .flatMap((entry) => [entry.lunchId, entry.dinnerId])
-                .filter((id) => id !== null);
-            this.shoppingListService.create(weekplanRecipeIds, userId); */
+            const recipeList = this.createCompleteRecipeList(
+                fetchedMealsAndWeekplanPreferences.recipes,
+                recommendedMeals,
+            );
+            const shuffeledMeals = shuffleArray(recipeList);
+
+            const weekplan: Partial<CreateWeekplan> = this.createWeekplanPartial(
+                userId,
+                weekplanStartDate,
+                weekplanEndDate,
+                fetchedMealsAndWeekplanPreferences,
+            );
+            weekplan.weekplanEntry = this.createWeekplanData(
+                fetchedMealsAndWeekplanPreferences.days,
+                shuffeledMeals,
+                fetchedMealsAndWeekplanPreferences.wantsLunch,
+                fetchedMealsAndWeekplanPreferences.wantsDinner,
+            );
+            const createdWeekplan = await this.weekplanQueries.createWeekplan(weekplan as CreateWeekplan);
+
             return this.formatWeekPlan(createdWeekplan);
         } catch (error) {
+            console.log(error);
             throw new HttpException('Error: Creating weekplan failed', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -235,8 +206,10 @@ export class WeekplanService {
         return await this.weekplanQueries.findFirstWeekplan(userId);
     }
 
+    //Orchestration function
     async changeRecipe(changeRecipeReq: ChangeRecipeDto, user: User) {
         try {
+            const changedRecipeReqId = changeRecipeReq.id ? +changeRecipeReq.id : 1;
             const weekplanEntry = await this.weekplanQueries.findFirstWeekplanEntry(
                 +changeRecipeReq.weekplanEntry,
                 user.userId,
@@ -248,7 +221,7 @@ export class WeekplanService {
                 if (changeRecipeReq.id) {
                     await this.weekplanQueries.updateWeekplanEntryLunchWithId(
                         +changeRecipeReq.weekplanEntry,
-                        +changeRecipeReq.id,
+                        changedRecipeReqId,
                     );
                 } else {
                     await this.weekplanQueries.updateWeekplanEntryLunchWithoutId(+changeRecipeReq.weekplanEntry);
@@ -257,13 +230,18 @@ export class WeekplanService {
                 if (changeRecipeReq.id) {
                     await this.weekplanQueries.updateWeekplanEntryDinnerWithId(
                         +changeRecipeReq.weekplanEntry,
-                        +changeRecipeReq.id,
+                        changedRecipeReqId,
                     );
                 } else {
                     await this.weekplanQueries.updateWeekplanEntryDinnerWithoutId(+changeRecipeReq.weekplanEntry);
                 }
             }
-            return await this.weekplanQueries.findFirstRecipe(+changeRecipeReq.id);
+            // If no recipe is send, than default recipe 1 is stored and undefined send back to frontend
+            if (!changeRecipeReq.id) {
+                await this.weekplanQueries.findFirstRecipe(changedRecipeReqId);
+                return undefined;
+            }
+            return await this.weekplanQueries.findFirstRecipe(changedRecipeReqId);
         } catch (error) {
             throw new InternalServerErrorException('Error: Failed to change Recipe for given user');
         }
@@ -281,8 +259,8 @@ export class WeekplanService {
         const sortedWeek = [...week.slice(today), ...week.slice(0, today)];
         let recipeCounter = 0;
         const weekplan = sortedWeek.map((dayEntry, index) => {
-            const entryDay = new Date(new Date().setDate(startDate.getDate() + index));
-
+            const entryDay = new Date(new Date(startDate).setDate(startDate.getDate() + index));
+            entryDay.setUTCHours(0, 0, 0, 0);
             const weekplanEntry: WeekplanEntry = {
                 date: entryDay,
             };
@@ -294,8 +272,82 @@ export class WeekplanService {
                 weekplanEntry.dinnerId = shuffeledMeals[recipeCounter]?.id || 1;
                 recipeCounter++;
             }
+
             return weekplanEntry;
         });
         return weekplan;
+    }
+
+    createWeekDateTimeRange(date: Date) {
+        const endDate = new Date(date);
+        endDate.setDate(endDate.getDate() + 6);
+        return {
+            startDate: date,
+            endDate: endDate,
+        };
+    }
+
+    createDateRangeForWeekplanCreation(dateInput: Date, returnWithEndDate = true) {
+        const utcDateInput = new Date(Date.UTC(dateInput.getFullYear(), dateInput.getMonth(), dateInput.getDate()));
+        if (returnWithEndDate) {
+            const startDate = new Date(utcDateInput);
+            startDate.setUTCHours(0, 0, 0, 0);
+            const endDate = new Date(utcDateInput);
+            endDate.setUTCDate(endDate.getUTCDate() + 6);
+            endDate.setUTCHours(0, 0, 0, 0);
+            return { startDate, endDate };
+        } else {
+            const startDate = new Date(utcDateInput);
+            startDate.setUTCDate(startDate.getUTCDate() + 2);
+            startDate.setUTCHours(0, 0, 0, 0);
+            return { startDate };
+        }
+    }
+
+    getPreviousWeekStartDate(startDate: Date) {
+        const prevStartDate = new Date(startDate);
+        prevStartDate.setDate(prevStartDate.getDate() - 7);
+        return prevStartDate;
+    }
+
+    extractRecipeIdsFromPreviousWeekplan(previousWeekplan: IWeekplan | null) {
+        if (!previousWeekplan) {
+            return [];
+        }
+        return previousWeekplan.weekplanEntry.reduce((currentEntries: Array<number>, entry: IWeekplanEntry) => {
+            if (entry.dinner?.id) {
+                currentEntries.push(entry.dinner.id);
+            }
+            if (entry.lunch?.id) {
+                currentEntries.push(entry.lunch.id);
+            }
+            return currentEntries;
+        }, []);
+    }
+
+    createCompleteRecipeList(fetchedRecipeIds: { id: number }[], recommendedRecipes: number[]) {
+        if (recommendedRecipes.length > 0) {
+            fetchedRecipeIds = recommendedRecipes.map((id: number) => ({ id }));
+        }
+        if (fetchedRecipeIds.length < 14) {
+            fetchedRecipeIds = Array(14 / +fetchedRecipeIds.length)
+                .fill([...fetchedRecipeIds])
+                .reduce((a, b) => a.concat(b));
+        }
+        return fetchedRecipeIds;
+    }
+    createWeekplanPartial(
+        userId: string,
+        startDate: Date,
+        endDate: Date,
+        fetchedPreferences: Omit<IPreferences, 'formOfDiet' | 'servings'>,
+    ) {
+        return {
+            userId: userId,
+            startDate: startDate,
+            endDate: endDate,
+            hasDinner: fetchedPreferences.wantsDinner,
+            hasLunch: fetchedPreferences.wantsLunch,
+        };
     }
 }

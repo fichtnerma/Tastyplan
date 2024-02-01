@@ -11,8 +11,8 @@
 :root {
     --green-light-rgb: rgb(214, 229, 227);
     --green-light: #d6e5e3;
-    --green-dark-rgb: rgb(0, 115, 112);
-    --green-dark: #007370;
+    --green-dark-rgb: rgb(0, 102, 99);
+    --green-dark: #006663;
 
     --green-semi: #00a39e;
 
@@ -47,13 +47,15 @@ body {
     position: relative;
 }
 
-a {
+a,
+span,
+div {
     &:focus {
         outline: unset;
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-dark-rgb);
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-semi);
     }
 }
 dialog::backdrop {
@@ -67,17 +69,18 @@ dialog::backdrop {
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-dark-rgb);
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-semi);
     }
 }
 
-input {
+input:not([role='combobox']) {
     &:focus {
         outline: unset;
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-dark-rgb);
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-semi);
+        opacity: 1 !important;
     }
 }
 
@@ -87,7 +90,7 @@ button {
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-dark-rgb);
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-semi);
     }
     &:disabled {
         cursor: not-allowed;
@@ -101,7 +104,7 @@ textarea {
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-dark-rgb);
+        box-shadow: 0 0 0 2px #ffffff, 0 0 3px 5px var(--green-semi);
     }
 }
 input[type='submit'] {

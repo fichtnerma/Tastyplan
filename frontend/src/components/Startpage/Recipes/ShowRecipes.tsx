@@ -61,7 +61,7 @@ export async function ShowRecipes() {
 
     return (
         <>
-            <div className="flex ">
+            <div className="flex" data-cy="homepage-recipe-wrapper">
                 {recipes &&
                     recipes.map((recipe) => (
                         <>

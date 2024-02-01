@@ -14,8 +14,9 @@ export type IWeekplanEntry = {
 export type IFormattedWeekplan = Pick<Weekplan, 'startDate' | 'endDate' | 'hasLunch' | 'hasDinner'> & {
     weekplanEntry: {
         date: Date;
-        lunch: Pick<Recipe, 'id' | 'name' | 'img' | 'preparingTime' | 'cookingTime' | 'formOfDiet'>;
-        dinner: Pick<Recipe, 'id' | 'name' | 'img' | 'preparingTime' | 'cookingTime' | 'formOfDiet'>;
+        id: number;
+        lunch: Pick<Recipe, 'id' | 'name' | 'img' | 'preparingTime' | 'cookingTime' | 'totalTime' | 'formOfDiet'>;
+        dinner: Pick<Recipe, 'id' | 'name' | 'img' | 'preparingTime' | 'cookingTime' | 'totalTime' | 'formOfDiet'>;
     }[];
 };
 

@@ -71,13 +71,16 @@ function CardContent({ recipe, highlighted = false, smallCard = false }: CardCon
                                                 style={{
                                                     color: highlighted ? 'var(--white)' : 'var(--black)',
                                                 }}
+                                                data-cy="card-content-total-time"
                                             >
                                                 {calculateMinutesToHours(recipe.totalTime)}
                                             </p>
                                         </div>
                                     )}
                                 </div>
-                                <span className={styles.recipeTitle}>{recipe.name}</span>
+                                <span className={styles.recipeTitle} data-cy="card-content-name">
+                                    {recipe.name}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -95,6 +98,7 @@ function CardContent({ recipe, highlighted = false, smallCard = false }: CardCon
                                     style={{
                                         color: highlighted ? 'var(--white)' : 'var(--black)',
                                     }}
+                                    data-cy="card-content-dietForm"
                                 >
                                     {recipe.formOfDiet}
                                 </p>

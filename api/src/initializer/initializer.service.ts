@@ -2,6 +2,7 @@ import { RecipesSearchService } from 'src/recipes/recipesSearch.service';
 import { RecipesService } from 'src/recipes/recipes.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
+import { InnitializerIngredient } from 'src/ingredients/ingredient.interface';
 import { convertIngredientAmount } from 'src/helpers/converter.utils';
 import { log } from 'console';
 import { Ingredient, Recipe, Step } from '@prisma/client';
@@ -22,6 +23,14 @@ type RecipeWithIngredients = Recipe & {
     ingredients: {
         ingredientId: number;
     }[];
+};
+
+const fetchMapped = (data: unknown) => {
+    return fetch(`${process.env.RECOMMENDER_URL}/mapping`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
 };
 
 @Injectable()
@@ -74,7 +83,7 @@ export class InitializerService implements OnApplicationBootstrap {
             });
             for (let index = 1; index < ingredients.length + 1; index++) {
                 const ingredient = ingredients[index - 1];
-                log(`Creating ingredient ${index} of ${ingredients.length}`);
+                // log(`Creating ingredient ${index} of ${ingredients.length}`);
                 await this.ingredientService.createIngredient({ ...ingredient, id: index });
             }
         }
@@ -127,47 +136,30 @@ export class InitializerService implements OnApplicationBootstrap {
     }
 
     async *syncRecipes(recipes: RecipeMapped['recipes']) {
-        log('Creating', recipes.length, 'recipes...');
         for (let index = 0; index < recipes.length; index++) {
             const recipe = recipes[index];
             yield await this.prepareRecipeData(recipe, index);
         }
     }
 
-    async prepareRecipeData(recipe: RecipeWithIngredients, index: number) {
-        const recipeIngMapping: unknown[] = [];
-        try {
-            const recipeJson = await fetch(`${process.env.RECOMMENDER_URL}/mapping`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(recipe),
-            });
+    mapIngredients(recipeMapped: InnitializerIngredient[]) {
+        return recipeMapped.map((ing: { ingredientId: number; quantity: string; unit: string; condition: string }) => {
+            const convertedIngrAmount = convertIngredientAmount(ing);
+            return {
+                ingredientId: ing.ingredientId,
+                quantity: convertedIngrAmount.quantity || null,
+                unit: convertedIngrAmount.unit,
+                condition: ing.condition,
+            };
+        });
+    }
 
+    async prepareRecipeData(recipe: RecipeWithIngredients, index: number, fetchMapping = fetchMapped) {
+        try {
+            const recipeJson = await fetchMapping(recipe);
             const recipeMapped = await recipeJson.json();
 
-            for (let index = 0; index < recipe.ingredients.length; index++) {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const ing = recipe.ingredients[index] as any;
-                const mapped = recipeMapped[index];
-                const mappedIng = {
-                    ingredient: ing.name,
-                    mapped: mapped.name,
-                };
-
-                recipeIngMapping.push(mappedIng);
-            }
-
-            const ingredientsMapped = recipeMapped.map(
-                (ing: { ingredientId: number; quantity: string; unit: string; condition: string }) => {
-                    const convertedIngrAmount = convertIngredientAmount(ing, recipe.servings);
-                    return {
-                        ingredientId: ing.ingredientId,
-                        quantity: convertedIngrAmount.quantity || null,
-                        unit: convertedIngrAmount.unit,
-                        condition: ing.condition,
-                    };
-                },
-            );
+            const ingredientsMapped = this.mapIngredients(recipeMapped);
             const ing = await this.prismaService.ingredient.findMany({
                 where: {
                     id: {
@@ -179,7 +171,7 @@ export class InitializerService implements OnApplicationBootstrap {
                     subcategories: true,
                 },
             });
-            const formOfDiet = await this.recipeService.categorizeRecipe(ing);
+            const formOfDiet = this.recipeService.categorizeRecipe(ing);
             return {
                 ...recipe,
                 id: index + 1,

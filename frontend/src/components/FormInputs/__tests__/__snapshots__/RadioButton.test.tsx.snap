@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioButton Component renders without crashing 1`] = `
+<div>
+  <div
+    class="checkboxContainer"
+  >
+    <input
+      id="radioBtn1"
+      name="options"
+      role="radio"
+      type="radio"
+    />
+    <label
+      for="radioBtn1"
+    >
+      Option 1
+    </label>
+  </div>
+</div>
+`;

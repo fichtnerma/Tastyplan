@@ -1,22 +1,27 @@
+import Link from 'next/link';
 import Image from 'next/image';
+import { useLogoLinkData } from '@contexts/LogoLinkContext';
 
 type SecondHeaderProps = {
     waveForm: 'strong' | 'lite';
 };
 
 function SecondHeader({ waveForm }: SecondHeaderProps) {
+    const { logoLinkTarget } = useLogoLinkData();
     return (
         <>
             {waveForm === 'strong' ? (
                 <div className="block relative lg:h-[10vh] lg:bg-green-custom1">
-                    <Image
-                        src="/logo.svg"
-                        height={200}
-                        className="block absolute w-full h-auto pt-4 max-w-[120px] sm:max-w-[200px] md:max-w-[220px]"
-                        alt="logo"
-                        width={200}
-                        priority
-                    />
+                    <Link href={logoLinkTarget} tabIndex={0}>
+                        <Image
+                            src="/logo.svg"
+                            height={200}
+                            className="block absolute w-full h-full pt-4 max-w-[120px] sm:max-w-[200px] md:max-w-[220px]"
+                            alt="logo"
+                            width={200}
+                            priority
+                        />
+                    </Link>
                     <svg
                         viewBox="0 0 390 182"
                         fill="none"
@@ -31,14 +36,16 @@ function SecondHeader({ waveForm }: SecondHeaderProps) {
                 </div>
             ) : (
                 <div className="h-[10vh] md:hidden">
-                    <Image
-                        src="/logo.svg"
-                        height={200}
-                        className="block absolute w-full h-auto pt-4 max-w-[60px] sm:max-w-[120px] md:max-w-[150px] lg:hidden"
-                        alt="logo"
-                        width={200}
-                        priority
-                    />
+                    <Link href={logoLinkTarget}>
+                        <Image
+                            src="/logo.svg"
+                            height={200}
+                            className="block absolute w-full h-auto pt-4 max-w-[60px] sm:max-w-[120px] md:max-w-[150px] lg:hidden"
+                            alt="logo"
+                            width={200}
+                            priority
+                        />
+                    </Link>
                     <svg
                         viewBox="0 0 390 76"
                         fill="none"

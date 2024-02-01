@@ -13,8 +13,7 @@ const AddNameAndImage = ({ currentName, currentImage, onNameChange, onUploadedIm
     const [name, setName] = useState(currentName);
     const [image, setImage] = useState<string | undefined>(currentImage);
 
-    const handleUploadedImgChange = (img64: string) => {
-        if (!img64) return;
+    const handleUploadedImgChange = (img64: string | undefined) => {
         setImage(img64);
         onUploadedImgChange(img64);
     };
@@ -25,14 +24,23 @@ const AddNameAndImage = ({ currentName, currentImage, onNameChange, onUploadedIm
     };
 
     return (
-        <fieldset>
-            <legend className="h2">Add name and image</legend>
-            <TextInput value={name} required onChange={handleNameChange} label="Name" />
-
-            <label className="block mt-5 mb-1" htmlFor="uploadImg">
-                Add an Image (optional)
-            </label>
-            <ImgDragAndDrop currentImage={image} onUploadedImgChange={handleUploadedImgChange} />
+        <fieldset data-testid="imgDragDrop-fieldset">
+            <legend className="h3">Add name and image</legend>
+            <div className="p-2 pt-0 pb-8" data-testid="input-wrapper">
+                <TextInput
+                    value={name}
+                    required
+                    onChange={handleNameChange}
+                    label="Name"
+                    cypressID="input-recipe-name"
+                />
+                {!image && (
+                    <label className="block mt-5 mb-1" htmlFor="uploadImg" data-cy="add-img-label">
+                        Add an Image (optional)
+                    </label>
+                )}
+                <ImgDragAndDrop currentImage={image} onUploadedImgChange={handleUploadedImgChange} />
+            </div>
         </fieldset>
     );
 };

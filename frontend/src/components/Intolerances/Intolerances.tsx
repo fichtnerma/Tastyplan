@@ -16,7 +16,7 @@ interface IntolerancesProps {
 export default function Intolerances({ onNext, onBack, onChoice, allergens }: IntolerancesProps) {
     const intolerances = [
         { id: 11, ui: 'Celery', code: 'celery', icon: 'Sellerie' },
-        { id: 7, ui: 'Eggs', code: 'egg', icon: 'Ei' },
+        { id: 7, ui: 'Egg', code: 'egg', icon: 'Ei' },
         { id: 9, ui: 'Fish', code: 'fish', icon: 'fisch' },
         { id: 6, ui: 'Gluten', code: 'gluten', icon: 'Weizen' },
         { id: 2, ui: 'Hazelnuts', code: 'hazelnut', icon: 'Haselnuss' },
@@ -64,21 +64,22 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
             <h4 className="h2 !mb-2">What are your intolerances?</h4>
             <div className="h-[400px] lg:h-[300px] overflow-y-auto overflow-x-hidden">
                 <div className="grid grid-cols-2 gap-4 lg:gap-y-4 lg:grid-cols-3 xl:gap-y-8 xl:grid-cols-3 2xl:gap-y-8 2xl:grid-cols-4">
-                    {intolerances.map((intolerance, i) => (
+                    {intolerances.map((intolerance) => (
                         <div
                             key={intolerance.id}
-                            className={`${styles.intoleranceWrapper} block w-[200px] h-[70px] relative rounded-[50px] lg:w-[180px] xl:w-[190px] 2xl:w-[200px]`}
+                            className={`${styles.intoleranceWrapper}  block w-[200px] h-[70px] relative rounded-[50px] lg:w-[180px] xl:w-[190px] 2xl:w-[200px]`}
                             tabIndex={-1}
                         >
-                            <div className={`flex ${styles.intoleranceCustomFocus}`} tabIndex={i + 1}>
+                            <div className={`flex`}>
                                 <input
-                                    className="absolute top-0 right-0 bottom-0 left-0 bg-white-custom cursor:pointer opacity=[.01] z-[100] w-full h-full rounded-[50px]"
+                                    className="absolute top-0 right-0 bottom-0 left-0 bg-white-custom cursor:pointer opacity=[.01] w-full h-full rounded-[50px]"
                                     type="checkbox"
                                     name="intolerances"
                                     value={intolerance.code}
                                     checked={allergeneChoices.includes(intolerance.code)}
                                     onChange={onAddChoice}
                                     data-cy={`${intolerance.code}-checkbox`}
+                                    aria-label={`${intolerance.code}-checkbox`}
                                 />
                                 <label
                                     className="absolute top-0 right-0 bottom-0 left-0 bg-white-custom cursor:pointer flex justify-left items-center border-[2px] border-solid font-medium text-[.875rem] leading-[1.25rem] text-gray-custom4 rounded-[50px] pl-[67px]"
@@ -102,13 +103,7 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                 </div>
             </div>
             <div className="flex justify-between relative">
-                <button
-                    type="submit"
-                    className="btn-primary-unobtrusive mt-6"
-                    data-btn="back"
-                    onClick={handleClick}
-                    tabIndex={intolerances.length + 1}
-                >
+                <button type="submit" className="btn-primary-unobtrusive mt-6" data-btn="back" onClick={handleClick}>
                     Back
                 </button>
                 <button
@@ -117,7 +112,6 @@ export default function Intolerances({ onNext, onBack, onChoice, allergens }: In
                     data-btn="next"
                     onClick={handleClick}
                     data-cy="next-btn"
-                    tabIndex={intolerances.length + 2}
                 >
                     Next
                 </button>

@@ -1,30 +1,19 @@
 import { JwtToken } from 'src/types/types';
 import { JwtPayload } from './jwt.strategy';
 import { FormatLogin, UsersService } from 'src/users/users.service';
-import {
-    CreateGuestDto,
-    CreateUserDto,
-    LoginUserDto,
-    RequestResetPasswortDto,
-    ResetPasswordDto,
-} from 'src/users/dto/create-user.dto';
-import { MailService } from 'src/mail/mail/mail.service';
+import { CreateGuestDto, CreateUserDto, LoginUserDto } from 'src/users/dto/create-user.dto';
 import { User } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
-type LoginReturnType = {
+export type LoginReturnType = {
     token: JwtToken;
     data: FormatLogin;
 };
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private readonly jwtService: JwtService,
-        private readonly usersService: UsersService,
-        private mailService: MailService,
-    ) {}
+    constructor(private readonly jwtService: JwtService, private readonly usersService: UsersService) {}
 
     async continueAsGuest(createGuestDto: CreateGuestDto) {
         try {
@@ -90,31 +79,6 @@ export class AuthService {
             throw new HttpException('INVALID_TOKEN', HttpStatus.UNAUTHORIZED);
         }
         return user;
-    }
-
-    async requestResetPassword(requestResetPasswortDto: RequestResetPasswortDto) {
-        const user = await this.usersService.resetPassword(requestResetPasswortDto.email);
-        if (!user) {
-            throw new HttpException('INVALID_EMAIL', HttpStatus.UNAUTHORIZED);
-        }
-        try {
-            const payload = { userId: requestResetPasswortDto.email };
-            const token = this.jwtService.sign(payload, { expiresIn: '1h' });
-            const resetLink = `${process.env.BASE_URL}/resetPassword/setNewPassword?token=${token}`;
-            this.mailService.sendResetPasswordMail(requestResetPasswortDto.email, resetLink);
-        } catch (error) {
-            console.error('Failed to send email:', error);
-            throw new HttpException('SEND_EMAIL_FAILED', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    async setNewPassword(resetPasswortDto: ResetPasswordDto) {
-        const payload = this.jwtService.verify(resetPasswortDto.token);
-        const user = await this.usersService.findByPayload(payload);
-        if (!user) {
-            throw new HttpException('INVALID_TOKEN', HttpStatus.UNAUTHORIZED);
-        }
-        await this.usersService.updatePassword(user.userId, resetPasswortDto.password);
     }
 }
 export interface RegistrationStatus {

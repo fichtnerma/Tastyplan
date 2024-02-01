@@ -4,6 +4,7 @@ import Module from 'module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { json } from 'express';
 
 declare const module: Module & { hot?: { accept: () => void; dispose: (callback: () => void) => void } };
 
@@ -13,6 +14,7 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.enableCors();
     app.useGlobalPipes(new ValidationPipe());
+    app.use(json({ limit: '10mb' }));
 
     const config = new DocumentBuilder()
         .setTitle('TastyPlan')
@@ -24,6 +26,7 @@ async function bootstrap() {
     SwaggerModule.setup('api', app, document);
 
     app.use(cookieParser());
+    app.use(json({ limit: '10mb' }));
     await app.listen(3000);
 
     if (module.hot) {

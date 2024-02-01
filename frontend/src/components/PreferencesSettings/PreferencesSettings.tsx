@@ -33,7 +33,7 @@ export default function PreferencesSettings({
     ];
     const allIntolerances = [
         { name: 'celery' },
-        { name: 'eggs' },
+        { name: 'egg' },
         { name: 'fish' },
         { name: 'gluten' },
         { name: 'hazelnut' },
@@ -148,7 +148,7 @@ export default function PreferencesSettings({
         }
     };
 
-    const handleAddChoice = (e: React.MouseEvent) => {
+    const handleAddChoice = (e: React.MouseEvent | React.KeyboardEvent) => {
         const target = e.target as HTMLButtonElement;
         const id = target.getAttribute('data-dislike-id');
         const name = target.getAttribute('data-dislike-name');
@@ -188,7 +188,7 @@ export default function PreferencesSettings({
     };
 
     return (
-        <div className="lg:pt-6" onClick={handleClickOnListAndInput}>
+        <div data-testid="click" className="lg:pt-6" onClick={handleClickOnListAndInput}>
             <h5 className="mb-3">Your Food Lifestyle</h5>
             <div className="lg:w-1/2 lg:pb-6 pb-4 lg:pl-8">
                 <div
@@ -206,9 +206,11 @@ export default function PreferencesSettings({
                         className={`absolute top-0 right-0 bottom-0 left-0 cursor:pointer opacity=[.01] z-[-1] w-full h-full rounded-2xl hover:cursor-pointer custom-focus ${styles.customInput}`}
                         type="radio"
                         name="preferences"
+                        aria-label="change your Food Lifestyle"
                         value={selectedDiet}
                     />
                     <label
+                        data-testid={selectedDiet}
                         htmlFor={selectedDiet}
                         className={`absolute top-0 right-0 bottom-0 left-0 hover:cursor-pointer flex flex-col items-left justify-center border-2 border-solid border-green-custom1 rounded-2xl z-[1] font-medium text-[1.13rem] leading-7 pl-6 col-start-1 ${styles.customLabel}`}
                         onClick={handleDropDownState}
@@ -218,12 +220,12 @@ export default function PreferencesSettings({
                             {foodDietPreferences.find((preference) => preference.food === selectedDiet)?.description}
                         </p>
                     </label>
-                    <button className="z-[2] cursor-pointer pb-1" onClick={handleDropDownState}>
+                    <button className="z-[2] cursor-pointer pb-1" onClick={handleDropDownState} aria-label="arrowDown">
                         <Icon size={50} icon="arrowDownCircle"></Icon>
                     </button>
                 </div>
                 {dropDownState == true && (
-                    <div ref={dropdownRef} className="rounded-2xl">
+                    <div data-testid="dropdown" ref={dropdownRef} className="rounded-2xl">
                         {foodDietPreferences.map((preference) => (
                             <p
                                 key={preference.food}
@@ -263,7 +265,12 @@ export default function PreferencesSettings({
                     color: 'var(--green-dark)',
                 }}
             >
-                <button className="lg:pl-8 pb-2" onClick={handleAllergensState}>
+                <button
+                    data-testid="button"
+                    className="lg:pl-8 pb-4"
+                    onClick={handleAllergensState}
+                    aria-label="add or remove"
+                >
                     {addAllergens == true ? (
                         <Icon size={34} icon="minusCircle"></Icon>
                     ) : (
@@ -300,7 +307,7 @@ export default function PreferencesSettings({
                     color: 'var(--green-dark)',
                 }}
             >
-                <button className="lg:pl-8 lg:pb-4" onClick={handleDislikesState}>
+                <button className="lg:pl-8 lg:pb-4" onClick={handleDislikesState} aria-label="add or remove">
                     {addDislikes == true ? (
                         <Icon size={34} icon="minusCircle"></Icon>
                     ) : (
@@ -318,6 +325,7 @@ export default function PreferencesSettings({
                         searchChanged={searchChanged}
                         handleAddChoice={handleAddChoice}
                         allDislikes={selectedDislikes}
+                        onFocus={() => setInputFocus(true)}
                     />
                 </div>
             )}

@@ -13,7 +13,7 @@ module.exports = {
             colors: {
                 green: {
                     custom1: '#d6e5e3',
-                    custom2: '#007370',
+                    custom2: '#006663',
                     custom3: '#00A39E',
                     custom4: '#D6E5E3',
                     custom_super_light: '#F3F7F6',

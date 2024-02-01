@@ -10,8 +10,9 @@ type DislikeSearchProps = {
     isInputFocus: boolean;
     deleteInput: () => void;
     searchChanged: (value: string) => void;
-    handleAddChoice: (e: React.MouseEvent) => void;
+    handleAddChoice: (e: React.MouseEvent | React.KeyboardEvent) => void;
     allDislikes: APISearchResponse[];
+    onFocus: () => void;
 };
 
 function DislikeSearch({
@@ -22,6 +23,7 @@ function DislikeSearch({
     searchChanged,
     handleAddChoice,
     allDislikes,
+    onFocus,
 }: DislikeSearchProps) {
     return (
         <div>
@@ -30,12 +32,20 @@ function DislikeSearch({
                     placeholder="Search ingredients"
                     value={searchTerm}
                     decoration={
-                        <button type="button" onClick={deleteInput}>
+                        <button
+                            className="mb-2"
+                            type="button"
+                            onClick={deleteInput}
+                            aria-label="search"
+                            data-cy="clear-search-input"
+                        >
                             {searchTerm == '' ? <Icon size={20} icon="search" /> : <Icon size={20} icon="close" />}
                         </button>
                     }
                     decorationPosition="end"
                     onChange={searchChanged}
+                    onFocus={onFocus}
+                    cypressID="search-ingredients"
                 />
                 <div className="relative">
                     <div className="absolute z-1 w-full">

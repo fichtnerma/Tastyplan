@@ -51,7 +51,12 @@ export default function Banner({ setCookiesAccepted }: { setCookiesAccepted: (va
                     <button className="btn-primary btn-small" type="button" onClick={acceptCookies}>
                         Accept cookies
                     </button>
-                    <button className="btn-primary btn-small" type="button" onClick={declineCookies}>
+                    <button
+                        className="btn-primary btn-small"
+                        type="button"
+                        onClick={declineCookies}
+                        data-cy="decline-cookies-btn"
+                    >
                         Decline cookies
                     </button>
                 </div>

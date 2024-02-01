@@ -48,11 +48,13 @@
         }
     }
     .userIcon {
-        &:hover {
+        &:hover,
+        &:focus-visible {
             cursor: pointer;
             color: var(--green-semi);
         }
-        &:hover .dropdown {
+        &:hover .dropdown,
+        &:focus-visible .dropdown {
             display: block;
             color: var(--black);
         }
@@ -61,12 +63,14 @@
     .dropdown {
         display: none;
 
-        &:hover {
+        &:hover,
+        &:focus-visible {
             display: block;
         }
 
         .settingsDropdown {
-            &:hover {
+            &:hover,
+            &:focus-visible {
                 background-color: var(--green-semi);
                 border-radius: 1rem 1rem 0 0;
                 color: var(--white);
@@ -75,9 +79,10 @@
                 }
             }
         }
-        
+
         .guestUserDropdown {
-            &:hover {
+            &:hover,
+            &:focus-visible {
                 background-color: var(--green-semi);
                 border-radius: 1rem;
                 color: var(--white);
@@ -87,9 +92,9 @@
             }
         }
 
-
         .userDropdown {
-            &:hover {
+            &:hover,
+            &:focus-visible {
                 background-color: var(--green-semi);
                 border-radius: 0 0 1rem 1rem;
                 color: var(--white);
@@ -102,6 +107,7 @@
 
     .active {
         color: var(--green-dark);
+        font-weight: bolder;
         p {
             color: var(--green-dark);
         }

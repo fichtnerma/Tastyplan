@@ -94,8 +94,13 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
         onChoice(allDislikes);
     };
 
-    const handleAddChoice = (e: React.MouseEvent) => {
+    type ClickOrKeyboardEvent = React.KeyboardEvent | React.MouseEvent;
+
+    const handleAddChoice = (e: ClickOrKeyboardEvent) => {
+        if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift')) return;
+
         const target = e.target as HTMLButtonElement;
+
         const id = target.getAttribute('data-dislike-id');
         const name = target.getAttribute('data-dislike-name');
         if (!id || !name) return;
@@ -160,6 +165,7 @@ export default function Dislikes({ onNext, onBack, onChoice, foodDislikes }: Dis
                                 searchChanged={searchChanged}
                                 handleAddChoice={handleAddChoice}
                                 allDislikes={allDislikes}
+                                onFocus={() => setInputFocus(true)}
                             />
                             <p className="inline-block text-base pt-3">Add this to your dislikes.</p>
                             <div className="flex flex-wrap">

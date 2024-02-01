@@ -1,3 +1,4 @@
+
 ###################
 # BUILD FOR PRODUCTION
 ###################
@@ -39,4 +40,6 @@ COPY --from=build --chown=node:node /app/prisma ./prisma
 
 # Start the server using the production build
 CMD [ "npm", "run", "start:prod:migrate" ]
+
+
 

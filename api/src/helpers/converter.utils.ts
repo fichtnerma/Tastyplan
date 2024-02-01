@@ -31,7 +31,7 @@ type IngredientAmount = {
     quantity: string;
     unit: string;
 };
-export function convertIngredientAmount(ingredientAmount: IngredientAmount, servings: number) {
+export function convertIngredientAmount(ingredientAmount: IngredientAmount) {
     const { quantity, unit } = ingredientAmount;
 
     let updated_quantity = parseFloat(quantity);
@@ -63,15 +63,6 @@ export function convertIngredientAmount(ingredientAmount: IngredientAmount, serv
 
     return { quantity: roundToNearest(updated_quantity), unit: updated_unit };
 }
-
-const convertTableSpoonsToGrams = (tablespoons: number, density: number) => {
-    return tablespoons * 14.7868 * density;
-};
-
-const convertCupsToGrams = (cups: number, density: number) => {
-    return cups * 236.588 * density;
-};
-
 const convertOuncesToGrams = (ounces: number) => {
     return ounces * 28.3495;
 };

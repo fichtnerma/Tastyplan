@@ -1,9 +1,10 @@
 import { RecipesUploadImageService } from './recipesUploadImage.service';
 import { RecipesSearchService } from './recipesSearch.service';
-import { Preferences, RecipesFilterService } from './recipesFilter.service';
+import { RecipesFilterService } from './recipesFilter.service';
 import { RecipeQueries } from './recipe.queries';
-import { ExtendetRecipe, RecipeInput, CreateRecipeInput } from './recipe.interface';
+import { ExtendetRecipe, RecipeWithIngredientName, RecipeInput, CreateRecipeInput } from './recipe.interface';
 import { PostRecipeDto } from './dto/post-recipe.dto';
+import { PreferencesService } from 'src/preferences/preferences.service';
 import { convertToTime, shuffleArray } from 'src/helpers/converter.utils';
 import { Cache } from 'cache-manager';
 import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -17,6 +18,7 @@ export class RecipesService {
         private recipeSearchService: RecipesSearchService,
         private recipeQueries: RecipeQueries,
         private recipesUploadImageService: RecipesUploadImageService,
+        private preferencesService: PreferencesService,
     ) {}
 
     async findById(id: number) {
@@ -27,13 +29,14 @@ export class RecipesService {
         }
     }
 
+    async findOwn(userId: string) {
+        const recipes = await this.recipeQueries.findOwnRecipes(userId);
+        return recipes ? recipes : [];
+    }
+
     async storeInRedis() {
         const recipes = await this.recipeQueries.findManyRecipes();
-
-        const recipesFormatted = recipes.map((recipe) => ({
-            ...recipe,
-            ingredients: recipe.ingredients.map((ingredient) => ({ ...ingredient, name: ingredient.ingredient.name })),
-        }));
+        const recipesFormatted = this.formatRecipes(recipes);
         await this.cache.set('recipes', recipesFormatted, 0);
     }
 
@@ -49,14 +52,14 @@ export class RecipesService {
         await this.recipeQueries.upsertRecipe(extendedRecipe, recipeId);
     }
 
-    async categorizeRecipe(
+    categorizeRecipe(
         ingredients: {
             categories: string;
             subcategories: string;
         }[],
     ) {
         const omnivoreCategories = ['Meat and sausage products', 'Meat and offal'];
-        const pescetaraianCategories = ['Fish'];
+        const pescetarianCategories = ['Fish'];
         const vegetarianCategories = ['Milk and dairy products', 'Eggs'];
 
         const omnivoreSubCategories = [
@@ -73,7 +76,7 @@ export class RecipesService {
             'Beef',
             'Pig',
         ];
-        const pescetaraianSubCategories = [
+        const pescetarianSubCategories = [
             'Sea fish',
             'Freshwater fish',
             'Freshwater fish,Fish',
@@ -105,33 +108,37 @@ export class RecipesService {
                     omnivoreCategories.includes(curr.categories) ||
                     omnivoreSubCategories.includes(curr.subcategories)
                 ) {
-                    acc.splice(acc.indexOf('pescetarian'), 1);
-                    acc.splice(acc.indexOf('vegetarian'), 1);
-                    acc.splice(acc.indexOf('vegan'), 1);
+                    acc = acc.filter((diet) => diet !== 'pescetarian' && diet !== 'vegetarian' && diet !== 'vegan');
+                    acc.push('omnivore');
                 }
                 if (
-                    pescetaraianCategories.includes(curr.categories) ||
-                    pescetaraianSubCategories.includes(curr.subcategories)
+                    pescetarianCategories.includes(curr.categories) ||
+                    pescetarianSubCategories.includes(curr.subcategories)
                 ) {
-                    acc.splice(acc.indexOf('vegetarian'), 1);
-                    acc.splice(acc.indexOf('vegan'), 1);
+                    acc = acc.filter((diet) => diet !== 'vegetarian' && diet !== 'vegan');
+                    acc.push('pescetarian');
                 }
                 if (
                     vegetarianCategories.includes(curr.categories) ||
                     vegetarianSubCategories.includes(curr.subcategories)
                 ) {
-                    acc.splice(acc.indexOf('vegan'), 1);
+                    acc = acc.filter((diet) => diet !== 'vegan');
+                    acc.push('vegetarian');
                 }
+
                 return acc;
             },
             ['omnivore', 'pescetarian', 'vegetarian', 'vegan'],
         );
 
-        return formOfDiet.at(-1) || 'omnivore';
+        return formOfDiet[formOfDiet.length - 1] || 'omnivore';
     }
 
-    async getRecommendations(k: number, preferances: Preferences, id: string) {
+    async getRecommendations(id: string, userId: string) {
         try {
+            const k = 5;
+            const preferences = await this.preferencesService.getPreferences(userId);
+
             let recommendedRecipeIds;
             if (id) {
                 const recommendedRecipeRes = await fetch(`${process.env.RECOMMENDER_URL}/recommend/${id}?k=${k * 4}`);
@@ -139,7 +146,7 @@ export class RecipesService {
             }
 
             let { recipes: fetchedMeals } = await this.recipeFilterService.filterByQuery(
-                preferances,
+                preferences,
                 recommendedRecipeIds || undefined,
             );
 
@@ -160,9 +167,19 @@ export class RecipesService {
     async postRecipe(postRecipeDto: PostRecipeDto) {
         let imgPath = '';
         let imgName = '';
+        let processedImageBuffer: Buffer;
 
         if (postRecipeDto.imageBase64) {
-            const processedImageBuffer = await this.processImage(postRecipeDto.imageBase64);
+            try {
+                processedImageBuffer = this.processToImageBuffer(postRecipeDto.imageBase64);
+                if (processedImageBuffer.length > 1048576) {
+                    throw new Error('Image is too large. Please upload an image smaller than 1MB.');
+                }
+                await this.recipesUploadImageService.resizeAndCropImage(processedImageBuffer);
+            } catch (error) {
+                console.error(error);
+                throw new InternalServerErrorException('Error: Processing base64 string failed!');
+            }
             [imgPath, imgName] = await this.uploadImage(processedImageBuffer);
         } else {
             imgPath = 'RecipeStockImage.jpg';
@@ -186,21 +203,8 @@ export class RecipesService {
         return await this.recipeSearchService.getTags();
     }
 
-    async processImage(imageBase64: string): Promise<Buffer> {
-        try {
-            const processedImageBuffer = await this.processImageBuffer(imageBase64);
-            if (processedImageBuffer.length > 1048576) {
-                throw new Error('Image is too large. Please upload an image smaller than 1MB.');
-            }
-            return processedImageBuffer;
-        } catch (error) {
-            console.error(error);
-            throw new InternalServerErrorException('Error: Processing base64 string failed!');
-        }
-    }
-    async processImageBuffer(base64String: string) {
-        const decodedImageBuffer = Buffer.from(base64String, 'base64');
-        return await this.recipesUploadImageService.resizeAndCropImage(decodedImageBuffer);
+    processToImageBuffer(base64String: string) {
+        return Buffer.from(base64String, 'base64');
     }
     async uploadImage(processedImageBuffer: Buffer): Promise<string[]> {
         try {
@@ -209,5 +213,12 @@ export class RecipesService {
             console.error(error);
             throw new InternalServerErrorException('Error: Uploading Image to Cloud failed!');
         }
+    }
+
+    formatRecipes(recipes: RecipeWithIngredientName[]) {
+        return recipes.map((recipe) => ({
+            ...recipe,
+            ingredients: recipe.ingredients.map((ingredient) => ({ ...ingredient, name: ingredient.ingredient.name })),
+        }));
     }
 }

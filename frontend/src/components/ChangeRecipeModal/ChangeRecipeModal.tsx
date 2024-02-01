@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useSwipeable } from 'react-swipeable';
 import Icon from '@components/Icon/Icon';
@@ -20,18 +20,27 @@ type ChangRecipeModalProps = {
     refresh?: (recipe: Recipe | undefined) => void;
     isLunch: boolean;
     recipeId?: number;
+    useAuthSession?: typeof useSession;
 };
 
 type ChangeMode = 'recommend' | 'favorite' | 'own' | 'search' | 'isDetail';
 
 const ModeOrder: ChangeMode[] = ['recommend', 'favorite', 'own'];
 
-export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch, recipeId }: ChangRecipeModalProps) {
+export function ChangeRecipeModal({
+    open,
+    setIsOpened,
+    entryId,
+    refresh,
+    isLunch,
+    recipeId,
+    useAuthSession = useSession,
+}: ChangRecipeModalProps) {
     const ref = useRef<HTMLDivElement>(null);
     const [mode, setMode] = useState<ChangeMode[]>(['recommend']);
     const [currentRecipeId, setCurrentRecipeId] = useState<number | undefined>(recipeId);
     const [searchQuery, setSearchQuery] = useState('');
-    const { data: session } = useSession();
+    const { data: session } = useAuthSession();
 
     const switchRecipe = async (recipeId: number | undefined) => {
         setIsOpened(false);
@@ -46,7 +55,6 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
         try {
             recipe = await recipeRes.json();
         } catch (e) {}
-
         if (refresh) {
             refresh(recipe);
         }
@@ -56,7 +64,16 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
         setSearchQuery(e.target.value);
     };
 
-    const switchMode = (changedMode: ChangeMode) => {
+    const switchMode = (changedMode: ChangeMode, e: React.KeyboardEvent | React.MouseEvent | null = null) => {
+        if (e) {
+            if (
+                ('key' in e && e.key === 'Tab') ||
+                ('key' in e && e.key === 'Shift') ||
+                ('key' in e && e.key === 'Escape')
+            )
+                return;
+            e.preventDefault();
+        }
         if (mode.at(-1) !== changedMode) {
             pushMode(changedMode);
         }
@@ -131,24 +148,33 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
                         <div {...handlers} className="flex gap-3 justify-between flex-col sm:flex-row">
                             <div className="flex sm:gap-4 gap-2">
                                 <button
-                                    onClick={() => switchMode('recommend')}
+                                    onClick={(e) => switchMode('recommend', e)}
                                     className={`btn badge ${
                                         mode.at(-1) === 'recommend' && 'active'
                                     } background badge-lg`}
+                                    onKeyDown={(e) => {
+                                        switchMode('recommend', e);
+                                    }}
                                 >
                                     Recommendations
                                 </button>
                                 <button
-                                    onClick={() => switchMode('favorite')}
+                                    onClick={(e) => switchMode('favorite', e)}
                                     className={`btn badge ${
                                         mode.at(-1) === 'favorite' && 'active'
                                     } background badge-lg`}
+                                    onKeyDown={(e) => {
+                                        switchMode('favorite', e);
+                                    }}
                                 >
                                     Favorites
                                 </button>
                                 <button
-                                    onClick={() => switchMode('own')}
+                                    onClick={(e) => switchMode('own', e)}
                                     className={`btn badge ${mode.at(-1) === 'own' && 'active'} background badge-lg`}
+                                    onKeyDown={(e) => {
+                                        switchMode('own', e);
+                                    }}
                                 >
                                     Own Recipes
                                 </button>
@@ -159,9 +185,14 @@ export function ChangeRecipeModal({ open, setIsOpened, entryId, refresh, isLunch
                                 } background justify-self-end badge-lg order-first sm:order-none w-full sm:w-fit`}
                             >
                                 <input
-                                    onClick={() => switchMode('search')}
+                                    onClick={(e) => switchMode('search', e)}
                                     className="w-full bg-transparent border-none focus:ring-0 focus:border-transparent"
                                     onChange={handleSearchInput}
+                                    onKeyDown={(e) => {
+                                        if (('key' in e && e.key === 'Tab') || ('key' in e && e.key === 'Shift'))
+                                            return;
+                                        switchMode('search');
+                                    }}
                                     placeholder="Search by recipe name"
                                     value={searchQuery}
                                 />{' '}

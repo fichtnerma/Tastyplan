@@ -26,19 +26,20 @@ export default function SearchSection({ searchQuery }: SearchSectionProps) {
         <div className="pt-6">
             <h4 className="h3 text-start w-full !mb-0 !sm:mb-1">Found Recipes</h4>
             <div className="recipeCardGrid">
-                {recipes &&
-                    recipes.map((recipeInfo: Recipe) => {
-                        return (
-                            <div className="recipeCardWrapper" key={recipeInfo.id}>
-                                <RecipeCard
-                                    recipe={recipeInfo}
-                                    highlighted={false}
-                                    withSwitch={false}
-                                    smallCard={true}
-                                />
-                            </div>
-                        );
-                    })}
+                {recipes?.length > 0
+                    ? recipes.map((recipeInfo: Recipe) => {
+                          return (
+                              <div className="recipeCardWrapper" key={recipeInfo.id}>
+                                  <RecipeCard
+                                      recipe={recipeInfo}
+                                      highlighted={false}
+                                      withSwitch={false}
+                                      smallCard={true}
+                                  />
+                              </div>
+                          );
+                      })
+                    : null}
             </div>
         </div>
     );
