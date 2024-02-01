@@ -14,6 +14,7 @@ export default function RatingButton() {
                     if (i < rating)
                         return (
                             <button
+                                data-testid="star-icon"
                                 key={e}
                                 className="fill-green-custom2 text-green-custom2"
                                 onClick={() => rate(i + 1)}
@@ -24,6 +25,7 @@ export default function RatingButton() {
                     else
                         return (
                             <button
+                                data-testid="star-icon"
                                 key={e}
                                 className="fill-none hover:fill-green-custom1 text-green-custom2"
                                 onClick={() => rate(i + 1)}
