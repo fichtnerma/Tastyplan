@@ -2,7 +2,7 @@ import { axe } from 'jest-axe';
 import { render } from '@testing-library/react';
 import Menu from '../Menu';
 
-describe('Collections', () => {
+describe('Menu', () => {
     const toggleMenu = jest.fn();
     it('should not have basic accessibility issues', async () => {
         const { container } = render(<Menu toggleMenu={toggleMenu} />);
