@@ -63,8 +63,9 @@ const SortableStep = ({ step, index, onDelete }: SortableStepProps) => {
 type AddStepsProps = {
     currentSteps: CustomStep[];
     onAddSteps: (steps: CustomStep[]) => void;
+    onDeleteStep: (steps: CustomStep[]) => void;
 };
-const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
+const AddSteps = ({ currentSteps, onAddSteps, onDeleteStep }: AddStepsProps) => {
     const [steps, setSteps] = useState<CustomStep[]>(currentSteps);
     const [newStep, setNewStep] = useState<CustomStep>({ id: '', description: '' });
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
@@ -110,6 +111,7 @@ const AddSteps = ({ currentSteps, onAddSteps }: AddStepsProps) => {
         const currentSteps = [...steps];
         const filteredSteps = currentSteps.filter((step) => step.id !== id);
         setSteps(filteredSteps);
+        onDeleteStep(filteredSteps);
     };
 
     const handleOpenDialog = (e: React.MouseEvent<HTMLButtonElement>) => {

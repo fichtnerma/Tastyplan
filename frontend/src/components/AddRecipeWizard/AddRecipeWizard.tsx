@@ -166,7 +166,13 @@ const AddRecipeWizard = ({ stepNr, onNewRecipe, onInputisInvalid }: AddRecipeWiz
                     />
                 );
             case 4:
-                return <AddSteps currentSteps={customRecipe.steps} onAddSteps={handleAddSteps} />;
+                return (
+                    <AddSteps
+                        currentSteps={customRecipe.steps}
+                        onAddSteps={handleAddSteps}
+                        onDeleteStep={handleAddSteps}
+                    />
+                );
             default:
                 return (
                     <AddNameAndImage
