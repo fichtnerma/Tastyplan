@@ -1,7 +1,9 @@
+import fetchMock from 'jest-fetch-mock';
 import { axe } from 'jest-axe';
 import { render, waitFor } from '@testing-library/react';
 import CookieWrapper from '../CookieWrapper';
 
+fetchMock.enableMocks();
 describe('CookieWrapper', () => {
     afterEach(() => {
         jest.clearAllMocks();
