@@ -113,7 +113,7 @@ function RecipeCard({
                             <CardContent recipe={recipeInfo} highlighted={highlighted} smallCard={smallCard} />
                         </button>
                     ) : (
-                        <Link className="block h-full" href={`/recipe/${recipeInfo.id}`}>
+                        <Link className="block h-full" href={`/recipe/${recipeInfo.id}`} data-cy="own-recipe-link">
                             <CardContent recipe={recipeInfo} highlighted={highlighted} smallCard={smallCard} />
                         </Link>
                     )}

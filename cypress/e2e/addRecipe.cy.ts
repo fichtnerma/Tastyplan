@@ -27,6 +27,7 @@ const steps = [
   "This is the first step",
   "This is the second step",
   "This is the third step",
+  "This is the fourth step",
 ];
 
 describe("Add Recipe", () => {
@@ -112,5 +113,14 @@ describe("Add Recipe", () => {
     cy.intercept("POST", "/service/recipes/create").as("createNewRecipe");
     cy.dataCy("recipe-create-btn").click();
     cy.wait("@createNewRecipe");
+
+    cy.intercept("GET", "/service/recipes/own").as("ownRecipes");
+    cy.dataCy("own-recipes-link").click();
+    cy.wait("@ownRecipes");
+
+    cy.dataCy("own-recipe-link").first().click();
+    cy.get("h1").should("have.text", "New Recipe");
+    cy.dataCy("ingredients-wrapper").children().should("have.length", 2);
+    cy.dataCy("recipe-steps-wrapper").children().should("have.length", 2);
   });
 });
