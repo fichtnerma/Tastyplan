@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import Intolerances from '../Intolerances';
 
 describe('Intolerances', () => {
-    it.skip('should not have basic accessibility issues', async () => {
+    it('should not have basic accessibility issues', async () => {
         const mockOnNext = jest.fn();
         const mockOnBack = jest.fn();
         const mockOnChoice = jest.fn();

@@ -1,6 +1,8 @@
-import { axe } from 'jest-axe';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import { fireEvent, render } from '@testing-library/react';
 import SearchResultList from '../SearchResultList';
+
+expect.extend(toHaveNoViolations);
 
 describe('SearchResultList', () => {
     const mockSearchResults = [
@@ -8,7 +10,7 @@ describe('SearchResultList', () => {
         { id: 2, name: 'Result 2' },
     ];
 
-    it.skip('should not have basic accessibility issues', async () => {
+    it('should not have basic accessibility issues', async () => {
         const mockClickHandler = jest.fn();
         const mockDislikes = [
             { id: 1, name: 'Test Dislike 1' },

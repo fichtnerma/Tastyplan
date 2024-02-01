@@ -12,7 +12,7 @@ describe('DialogModel Component', () => {
         const useRefSpy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: mockChildMethod });
         expect(useRefSpy).toHaveBeenCalledWith(mockChildMethod);
     });
-    it.skip('should not have basic accessibility issues', async () => {
+    it('should not have basic accessibility issues', async () => {
         const fnMock = jest.fn();
         const { container } = render(
             <DialogModel isOpened={false} onClose={fnMock}>
