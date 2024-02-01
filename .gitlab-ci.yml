@@ -97,6 +97,7 @@ api_unit_tests:
         - api/reports/junit.xml
 
 api_integration_tests:
+  image: docker:24.0-dind
   stage: test
   extends: ".backend"
   script:
