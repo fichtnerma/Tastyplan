@@ -95,7 +95,7 @@ services:
       - public
 
   elasticsearch:
-    image: elasticsearch:7.17.13
+    image: elasticsearch:8.14.3
     container_name: elasticsearch
     env_file: .env
     environment:
