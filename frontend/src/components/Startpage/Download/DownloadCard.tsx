@@ -14,7 +14,7 @@ function DownloadCard({ cardId }: DownloadCardProps) {
             desc: string;
             image1?: string;
             image2?: string;
-            button: JSX.Element;
+            button: React.ReactElement;
             bg: string;
         };
     } = {
@@ -28,14 +28,14 @@ function DownloadCard({ cardId }: DownloadCardProps) {
             heading: 'Tastyplan Android',
             desc: 'Download our Android app on Google Play.',
             button: (
-                <a href="/">
+                <Link href="/">
                     <Image
                         alt="Get it on Google Play"
                         src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                         width={200}
                         height={77}
                     />
-                </a>
+                </Link>
             ),
             bg: '/Background/blurry-gradient-haikei-2.png',
         },

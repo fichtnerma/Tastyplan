@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
-import '@styles/globals.scss';
+import { Inter, Bebas_Neue, Zeyada } from 'next/font/google';
 import { Metadata } from 'next';
-import { Inter, Bebas_Neue, Zeyada } from '@next/font/google';
+import '@styles/globals.scss';
 import CookieWrapper from '@components/CookieBanner/CookieWrapper';
 import Content from './content';
 

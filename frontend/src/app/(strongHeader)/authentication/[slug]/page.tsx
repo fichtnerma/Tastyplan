@@ -4,10 +4,14 @@ import { useRouter } from 'next/navigation';
 import SignUp from '@components/SignUp';
 import Modal from '@components/Layout/Modal';
 
-function AuthenticationPage({ params: { slug } }: { params: { slug: string } }) {
+function AuthenticationPage({ params }: { params: Promise<{ slug: string }> }) {
     const router = useRouter();
-
+    const [slug, setSlug] = useState('login');
     const [pageState, setPageState] = useState('login');
+
+    useEffect(() => {
+        params.then(({ slug }) => setSlug(slug));
+    }, [params]);
 
     useEffect(() => {
         if (slug === 'login') setPageState('login');

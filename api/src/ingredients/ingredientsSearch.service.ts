@@ -15,7 +15,7 @@ export default class IngredientsSearchService {
     async indexIngredient(ingredient: Ingredient) {
         return this.elasticsearchService.index({
             index: this.index,
-            body: {
+            document: {
                 id: ingredient.id,
                 name: ingredient.name,
             },
@@ -24,26 +24,24 @@ export default class IngredientsSearchService {
     async createIndex(ingredients: Ingredient[]) {
         try {
             await this.elasticsearchService.indices.create({ index: this.index });
-            const body = this.createElasticSearchBody(ingredients);
-            return await this.elasticsearchService.bulk({ refresh: true, body });
+            const operations = this.createElasticSearchBody(ingredients);
+            return await this.elasticsearchService.bulk({ refresh: true, operations });
         } catch (error) {}
     }
 
     async search(text: string) {
-        const { body } = await this.elasticsearchService.search<IngredientSearchResult>({
+        const result = await this.elasticsearchService.search<IngredientSearchResult>({
             index: this.index,
-            body: {
-                query: {
-                    wildcard: {
-                        name: {
-                            value: `*${text.toLowerCase()}*`,
-                        },
+            query: {
+                wildcard: {
+                    name: {
+                        value: `*${text.toLowerCase()}*`,
                     },
                 },
             },
         });
-        const hits = body.hits.hits;
-        return hits.map((item) => item._source);
+        const hits = result.hits.hits;
+        return hits.map((item: any) => item._source);
     }
 
     createElasticSearchBody(ingredients: Ingredient[]) {

@@ -13,7 +13,8 @@ import { CronjobsModule } from './cronjobs/cronjobs/cronjobs.module';
 import { AuthModule } from './auth/auth.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
-import * as redisStore from 'cache-manager-redis-store';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const redisStore = require('cache-manager-redis-store');
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ConfigModule } from '@nestjs/config';
@@ -52,7 +53,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
         }),
         CacheModule.register({
             isGlobal: true,
-            store: redisStore,
+            store: redisStore as any,
             host: process.env.REDIS_HOST,
             port: process.env.REDIS_PORT,
         }),

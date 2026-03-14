@@ -11,7 +11,7 @@ import { PreferencesService } from 'src/preferences/preferences.service';
 import { Recipe, IngredientWithAmount, Step } from '@prisma/client';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
-import { CACHE_MANAGER } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 jest.mock('sharp', () =>

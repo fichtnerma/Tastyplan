@@ -1,9 +1,8 @@
+import Head from 'next/head';
+import { Inter, Bebas_Neue, Zeyada } from 'next/font/google';
+import type { AppProps } from 'next/app';
 import '@styles/globals.scss';
 import 'react-toastify/dist/ReactToastify.css';
-
-import Head from 'next/head';
-import type { AppProps } from 'next/app';
-import { Inter, Bebas_Neue, Zeyada } from '@next/font/google';
 import { LogoLinkProvider } from '../contexts/LogoLinkContext';
 
 const inter = Inter({ subsets: ['latin'], style: ['normal'], weight: ['200', '400', '700'], variable: '--font-inter' });
