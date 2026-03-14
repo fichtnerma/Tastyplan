@@ -63,7 +63,7 @@ function CardContent({ recipe, highlighted = false, smallCard = false }: CardCon
                                             </p>
                                         </div>
                                     )}
-                                    {recipe.totalTime !== (null || 0) && (
+                                    {recipe.totalTime != null && recipe.totalTime !== 0 && (
                                         <div className="flex flex-row gap-x-1">
                                             <Icon size={15} icon="totaltime"></Icon>
                                             <p
@@ -104,7 +104,7 @@ function CardContent({ recipe, highlighted = false, smallCard = false }: CardCon
                                 </p>
                             </div>
                         )}
-                        {recipe.totalTime !== (null || 0) && (
+                        {recipe.totalTime != null && recipe.totalTime !== 0 && (
                             <div className="flex flex-row gap-x-2 mt-4">
                                 <Icon size={20} icon="totaltime"></Icon>
                                 <p

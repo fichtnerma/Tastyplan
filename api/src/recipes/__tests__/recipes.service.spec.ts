@@ -6,7 +6,7 @@ import { RecipesFilterService } from 'src/recipes/recipesFilter.service';
 import { RecipeQueries } from 'src/recipes/recipe.queries';
 import { PreferencesService } from 'src/preferences/preferences.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CACHE_MANAGER } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 jest.mock('sharp', () =>
     jest.fn(() => ({

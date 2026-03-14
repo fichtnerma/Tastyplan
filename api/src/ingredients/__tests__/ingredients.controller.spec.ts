@@ -5,7 +5,7 @@ import { IngredientsController } from '../ingredients.controller';
 import { IngredientSearchBody } from '../ingredient.interface';
 import { Ingredient } from '@prisma/client';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CACHE_MANAGER } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 describe('IngredientsController', () => {

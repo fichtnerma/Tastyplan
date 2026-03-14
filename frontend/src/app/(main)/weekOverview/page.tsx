@@ -4,17 +4,15 @@ import { useSession } from 'next-auth/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
-import 'swiper/swiper-bundle.css';
+import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
+import { Pagination } from 'swiper/modules';
 import Icon from '@components/Icon/Icon';
 import { fetchWithAuth } from '@helpers/utils';
 import { useWeekplan } from '@hooks/useWeekplan';
 import { Role, WeekplanEntry } from 'src/types/types';
 import styles from '@styles/WeekOverview.module.scss';
 import Weekplan from './Weekplan';
-import 'swiper/css';
-import 'swiper/css/pagination';
 
 export default function WeekOverview() {
     const { data: session } = useSession();
